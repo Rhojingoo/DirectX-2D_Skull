@@ -1,7 +1,7 @@
 #pragma once
 #include "JKEngine.h"
 
-namespace ya
+namespace jk
 {
 	using namespace jk::math;
 	enum class eKeyCode

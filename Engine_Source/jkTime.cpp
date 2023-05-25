@@ -3,7 +3,7 @@
 
 extern jk::Application application;
 
-namespace ya
+namespace jk
 {
 	double Time::mDeltaTime = 0.0l;
 	double Time::mSecond = 0.0f;
@@ -31,7 +31,7 @@ namespace ya
 		mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 	}
 
-	void Time::Render(HDC hdc)
+	void Time::Render()
 	{
 		mSecond += mDeltaTime;
 

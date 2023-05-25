@@ -1,14 +1,14 @@
 #pragma once
 #include "JKEngine.h"
 
-namespace ya
+namespace jk
 {
 	class Time
 	{
 	public:
 		static void Initiailize();
 		static void Update();
-		static void Render(HDC hdc);
+		static void Render();
 
 		__forceinline static double DeltaTime() { return mDeltaTime; }
 

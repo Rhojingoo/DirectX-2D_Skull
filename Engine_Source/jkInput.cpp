@@ -3,7 +3,7 @@
 
 extern jk::Application application;
 
-namespace ya
+namespace jk
 {
 	int ASCII[(UINT)eKeyCode::END] =
 	{

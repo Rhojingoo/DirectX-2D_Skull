@@ -1,5 +1,6 @@
 #include "jkGraphicDevice_Dx11.h"
 #include "jkApplication.h"
+#include "jkRenderer.h"
 
 extern jk::Application application;
 
@@ -105,6 +106,43 @@ namespace jk::graphics
 
 		return true;
 	}
+
+	bool GraphicDevice_Dx11::CreateBuffer(ID3D11Buffer** buffer, D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data)
+	{
+		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
+			return false;
+
+		return true;
+	}
+
+	bool GraphicDevice_Dx11::CreateShader()
+	{
+		ID3DBlob* vsBlob = nullptr;
+		std::filesystem::path shaderPath
+			= std::filesystem::current_path().parent_path();
+		shaderPath += L"\\Shader_SOURCE\\";
+
+		std::filesystem::path vsPath(shaderPath.c_str());
+		vsPath += L"TriangleVS.hlsl";
+
+		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+			, "main", "vs_5_0", 0, 0, &jk::renderer::triangleVSBlob, &jk::renderer::errorBlob);
+
+		if (jk::renderer::errorBlob)
+		{
+			OutputDebugStringA((char*)jk::renderer::errorBlob->GetBufferPointer());
+			jk::renderer::errorBlob->Release();
+		}
+
+		mDevice->CreateVertexShader(jk::renderer::triangleVSBlob->GetBufferPointer()
+			, jk::renderer::triangleVSBlob->GetBufferSize()
+			, nullptr, &jk::renderer::triangleVSShader);
+
+		return true;
+	}
+
+
+
 
 	bool GraphicDevice_Dx11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
 	{

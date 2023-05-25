@@ -1,5 +1,7 @@
 #include "jkApplication.h"
-
+#include "jkInput.h"
+#include "jkTime.h"
+#include "jkRenderer.h"
 
 namespace jk
 {
@@ -24,6 +26,10 @@ namespace jk
 
 	void Application::Intialize()
 	{
+		Time::Initiailize();
+		Input::Initialize();
+
+		renderer::Initialize();
 	}
 
 	void Application::Update()
@@ -36,6 +42,8 @@ namespace jk
 
 	void Application::Render()
 	{
+		Time::Render();
+
 		graphicDevice->Draw();
 	}
 

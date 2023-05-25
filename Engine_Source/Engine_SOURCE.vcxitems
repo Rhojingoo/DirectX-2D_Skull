@@ -23,6 +23,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkGraphics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTime.h" />
@@ -33,6 +34,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkGraphicDevice_Dx11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTime.cpp" />
