@@ -20,13 +20,14 @@ namespace jk::graphics
 		bool CreateShader();
 
 		bool CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data);
+		
+		void BindViewPort(D3D11_VIEWPORT* viewPort);
 		void Draw();
 
 
 	private:
 		// 실제 그래픽카드 하드웨어 객체
 		Microsoft::WRL::ComPtr<ID3D11Device> mDevice;
-
 
 		//  dx11에서 직접적으로 디바이스객체 접근하지않고
 		// 이객체를 이용하여 명령을 내린다.
@@ -46,6 +47,8 @@ namespace jk::graphics
 
 		// 더블버퍼링 작업을 진행해주는 swapChain
 		Microsoft::WRL::ComPtr<IDXGISwapChain> mSwapChain;
+
+		D3D11_VIEWPORT mViewPort;
 	};
 
 	inline GraphicDevice_Dx11*& GetDevice()

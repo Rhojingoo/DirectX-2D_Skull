@@ -13,7 +13,7 @@ namespace jk
 
 		void Run();
 
-		void Intialize();
+		void Initialize();
 		void Update();
 		void LateUpdate();
 		void Render();

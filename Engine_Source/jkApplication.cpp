@@ -24,7 +24,7 @@ namespace jk
 		Render();
 	}
 
-	void Application::Intialize()
+	void Application::Initialize()
 	{
 		Time::Initiailize();
 		Input::Initialize();
@@ -34,6 +34,8 @@ namespace jk
 
 	void Application::Update()
 	{
+		Time::Update();
+		Input::Update();
 	}
 
 	void Application::LateUpdate()
@@ -54,8 +56,9 @@ namespace jk
 			mHwnd = hwnd;
 			mWidth = width;
 			mHeight = height;
-
+			
 			graphicDevice = std::make_unique<jk::graphics::GraphicDevice_Dx11>();
+			jk::graphics::GetDevice() = graphicDevice.get();
 		}
 
 		RECT rt = { 0, 0, (LONG)width , (LONG)height };
