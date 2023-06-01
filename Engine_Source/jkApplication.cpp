@@ -11,6 +11,7 @@ namespace jk
 		, mWidth(-1)
 		, mHeight(-1)
 	{
+
 	}
 
 	Application::~Application()
@@ -46,7 +47,31 @@ namespace jk
 	{
 		Time::Render();
 
+		static Vector4 pos{};
+		if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			pos.x += 0.001;
+		}
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+			pos.x -= 0.001;
+		}
+		if (Input::GetKey(eKeyCode::UP))
+		{
+			pos.y += 0.001;
+		}
+		if (Input::GetKey(eKeyCode::DOWN))
+		{
+			pos.y -= 0.001;
+		}
+		jk::graphics::GetDevice()->SetConstantBuffer(jk::renderer::triangleConstantBuffer, &pos, sizeof(Vector4));
+		jk::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, jk::renderer::triangleConstantBuffer);
+
+
 		graphicDevice->Draw();
+		{
+
+		}
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)
@@ -56,7 +81,7 @@ namespace jk
 			mHwnd = hwnd;
 			mWidth = width;
 			mHeight = height;
-			
+
 			graphicDevice = std::make_unique<jk::graphics::GraphicDevice_Dx11>();
 			jk::graphics::GetDevice() = graphicDevice.get();
 		}

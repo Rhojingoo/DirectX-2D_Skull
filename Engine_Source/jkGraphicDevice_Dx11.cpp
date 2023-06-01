@@ -8,11 +8,25 @@ namespace jk::graphics
 {
 	GraphicDevice_Dx11::GraphicDevice_Dx11()
 	{
+		// 1. graphic device, context 생성
+
+		// 2. 화면에 렌더링 할수 있게 도와주는
+		// swapchain 생성
+
+		// 3. rendertarget,view 생성하고 
+		// 4. 깊이버퍼와 깊이버퍼 뷰 생성해주고
+
+		// 5. 레더타겟 클리어 ( 화면 지우기 )
+		// 6. present 함수로 렌더타겟에 있는 텍스쳐를
+		//    모니터에 그려준다.
+
+		//mRenderTarget->
+		//mRenderTargetView->GetResource();
+
 		// Device, Context 생성
 		HWND hWnd = application.GetHwnd();
-		UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;// 디버그모드로 사용한다
+		UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 		D3D_FEATURE_LEVEL featureLevel = (D3D_FEATURE_LEVEL)0;
-
 
 		//ID3D11Device* pDevice = nullptr;
 		//ID3D11DeviceContext* pContext = nullptr;
@@ -23,8 +37,7 @@ namespace jk::graphics
 			, mDevice.GetAddressOf(), &featureLevel
 			, mContext.GetAddressOf());
 
-
-		//SwapChain
+		// SwapChain
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 		swapChainDesc.BufferCount = 2;
 		swapChainDesc.BufferDesc.Width = application.GetWidth();
@@ -33,14 +46,13 @@ namespace jk::graphics
 		if (!CreateSwapChain(&swapChainDesc, hWnd))
 			return;
 
-
 		// get rendertarget by swapchain
 		if (FAILED(mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D)
 			, (void**)mRenderTarget.GetAddressOf())))
 			return;
 
-
 		// create rendertarget view
+
 		mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget.Get()
 			, nullptr, mRenderTargetView.GetAddressOf());
 
@@ -67,6 +79,17 @@ namespace jk::graphics
 		RECT winRect = {};
 		GetClientRect(hWnd, &winRect);
 
+
+		//typedef struct D3D11_VIEWPORT
+		//{
+		//	FLOAT TopLeftX;
+		//	FLOAT TopLeftY;
+		//	FLOAT Width;
+		//	FLOAT Height;
+		//	FLOAT MinDepth;
+		//	FLOAT MaxDepth;
+		//} 	D3D11_VIEWPORT;
+
 		mViewPort =
 		{
 			0.0f, 0.0f
@@ -81,12 +104,11 @@ namespace jk::graphics
 
 	GraphicDevice_Dx11::~GraphicDevice_Dx11()
 	{
-	}
 
+	}
 	bool GraphicDevice_Dx11::CreateSwapChain(const DXGI_SWAP_CHAIN_DESC* desc, HWND hWnd)
 	{
 		DXGI_SWAP_CHAIN_DESC dxgiDesc = {};
-
 
 		dxgiDesc.OutputWindow = hWnd;
 		dxgiDesc.Windowed = true;
@@ -109,7 +131,6 @@ namespace jk::graphics
 		Microsoft::WRL::ComPtr<IDXGIAdapter> pAdapter = nullptr;
 		Microsoft::WRL::ComPtr<IDXGIFactory> pFactory = nullptr;
 
-
 		if (FAILED(mDevice->QueryInterface(__uuidof(IDXGIDevice), (void**)pDXGIDevice.GetAddressOf())))
 			return false;
 
@@ -124,7 +145,6 @@ namespace jk::graphics
 
 		return true;
 	}
-
 	bool GraphicDevice_Dx11::CreateBuffer(ID3D11Buffer** buffer, D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data)
 	{
 		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
@@ -197,7 +217,6 @@ namespace jk::graphics
 
 		return true;
 	}
-
 	bool GraphicDevice_Dx11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
 	{
 		D3D11_TEXTURE2D_DESC dxgiDesc = {};
@@ -223,12 +242,58 @@ namespace jk::graphics
 			return false;
 
 		return true;
-
 	}
 
 	void GraphicDevice_Dx11::BindViewPort(D3D11_VIEWPORT* viewPort)
 	{
 		mContext->RSSetViewports(1, viewPort);
+	}
+
+	void GraphicDevice_Dx11::SetConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size)
+	{
+		D3D11_MAPPED_SUBRESOURCE subRes = {};
+		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &subRes);
+		memcpy(subRes.pData, data, size);
+		mContext->Unmap(buffer, 0);
+	}
+
+	void GraphicDevice_Dx11::BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
+	{
+		switch (stage)
+		{
+		case eShaderStage::VS:
+			mContext->VSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::HS:
+			mContext->HSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::DS:
+			mContext->DSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::GS:
+			mContext->GSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::PS:
+			mContext->PSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::CS:
+			mContext->CSSetConstantBuffers((UINT)type, 1, &buffer);
+			break;
+		case eShaderStage::End:
+			break;
+		default:
+			break;
+		}
+	}
+
+	void GraphicDevice_Dx11::BindsConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
+	{
+		mContext->VSSetConstantBuffers((UINT)type, 1, &buffer);
+		mContext->HSSetConstantBuffers((UINT)type, 1, &buffer);
+		mContext->DSSetConstantBuffers((UINT)type, 1, &buffer);
+		mContext->GSSetConstantBuffers((UINT)type, 1, &buffer);
+		mContext->PSSetConstantBuffers((UINT)type, 1, &buffer);
+		mContext->CSSetConstantBuffers((UINT)type, 1, &buffer);
 	}
 
 	void GraphicDevice_Dx11::Draw()
@@ -258,19 +323,35 @@ namespace jk::graphics
 		UINT offset = 0;
 
 		mContext->IASetVertexBuffers(0, 1, &renderer::triangleBuffer, &vertexsize, &offset);
+		mContext->IASetIndexBuffer(renderer::triangleIdxBuffer, DXGI_FORMAT_R32_UINT, 0);
+
 		mContext->IASetInputLayout(renderer::triangleLayout);
-		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		//Bind VS, PS 
-
 		mContext->VSSetShader(renderer::triangleVSShader, 0, 0);
 		mContext->PSSetShader(renderer::trianglePSShader, 0, 0);
 
 		// Draw Render Target
-		mContext->Draw(372, 0);
+		//mContext->Draw(3, 0);
+		mContext->DrawIndexed(3, 0, 0);
+		//if (Input::GetKey(eKeyCode::RIGHT))
+		//{
+		//	Vector4 pos(0.3f, 0.0f, 0.0f, 1.0f);
+		//	ya::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &pos, sizeof(Vector4));
+		//	ya::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, triangleConstantBuffer);
+		//}
+		//if (Input::GetKey(eKeyCode::LEFT))
+		//{
+		//	Vector4 pos(-0.3f, 0.0f, 0.0f, 1.0f);
+		//	ya::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &pos, sizeof(Vector4));
+		//	ya::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, triangleConstantBuffer);
+		//}
+
+
+
 
 		// 레더타겟에 있는 이미지를 화면에 그려준다
 		mSwapChain->Present(0, 0);
 	}
-
 }
