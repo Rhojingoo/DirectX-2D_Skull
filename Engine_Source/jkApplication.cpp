@@ -47,25 +47,25 @@ namespace jk
 	{
 		Time::Render();
 
-		static Vector4 pos{};
-		if (Input::GetKey(eKeyCode::RIGHT))
-		{
-			pos.x += 0.001;
-		}
-		if (Input::GetKey(eKeyCode::LEFT))
-		{
-			pos.x -= 0.001;
-		}
-		if (Input::GetKey(eKeyCode::UP))
-		{
-			pos.y += 0.001;
-		}
-		if (Input::GetKey(eKeyCode::DOWN))
-		{
-			pos.y -= 0.001;
-		}
-		jk::graphics::GetDevice()->SetConstantBuffer(jk::renderer::triangleConstantBuffer, &pos, sizeof(Vector4));
-		jk::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, jk::renderer::triangleConstantBuffer);
+		//static Vector4 pos{};
+		//if (Input::GetKey(eKeyCode::RIGHT))
+		//{
+		//	pos.x += 0.001;
+		//}
+		//if (Input::GetKey(eKeyCode::LEFT))
+		//{
+		//	pos.x -= 0.001;
+		//}
+		//if (Input::GetKey(eKeyCode::UP))
+		//{
+		//	pos.y += 0.001;
+		//}
+		//if (Input::GetKey(eKeyCode::DOWN))
+		//{
+		//	pos.y -= 0.001;
+		//}
+		//jk::graphics::GetDevice()->SetConstantBuffer(jk::renderer::triangleConstantBuffer, &pos, sizeof(Vector4));
+		//jk::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, jk::renderer::triangleConstantBuffer);
 
 
 		graphicDevice->Draw();

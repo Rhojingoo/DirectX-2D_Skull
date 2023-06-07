@@ -27,6 +27,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTime.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkMesh.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkApplication.cpp" />
@@ -38,6 +40,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTime.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkMesh.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl" />

@@ -69,6 +69,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkRenderer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkMesh.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -98,6 +100,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkRenderer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkMesh.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl">
