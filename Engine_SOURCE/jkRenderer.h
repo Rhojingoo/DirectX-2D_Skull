@@ -3,6 +3,7 @@
 #include "jkGraphicDevice_Dx11.h"
 #include "jkMesh.h"
 #include "jkShader.h"
+#include "jkConstantBuffer.h"
 
 using namespace jk::math;
 namespace jk::renderer
@@ -15,8 +16,9 @@ namespace jk::renderer
 
 	extern Vertex vertexes[];
 	extern jk::Mesh* mesh;
-	extern ID3D11Buffer* triangleConstantBuffer;
 	extern jk::Shader* shader;
+	extern jk::graphics::ConstantBuffer* constantBuffer;
+	//extern ID3D11Buffer* triangleConstantBuffer;   →   ContantBuffer Class 생기기전버전
 
 
 	void Initialize();

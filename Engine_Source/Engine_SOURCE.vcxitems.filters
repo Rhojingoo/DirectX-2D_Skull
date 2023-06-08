@@ -69,8 +69,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkRenderer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkMesh.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkMesh.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkShader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkConstantBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -100,8 +107,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkRenderer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkMesh.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkMesh.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkShader.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkConstantBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl">
