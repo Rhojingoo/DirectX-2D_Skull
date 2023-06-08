@@ -28,9 +28,7 @@ namespace jk::graphics
 		UINT deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 		D3D_FEATURE_LEVEL featureLevel = (D3D_FEATURE_LEVEL)0;
 
-		//ID3D11Device* pDevice = nullptr;
-		//ID3D11DeviceContext* pContext = nullptr;
-		//ID3D11DeviceContext** ppContext = &pContext;
+
 		D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr
 			, deviceFlag, nullptr, 0
 			, D3D11_SDK_VERSION
@@ -52,7 +50,6 @@ namespace jk::graphics
 			return;
 
 		// create rendertarget view
-
 		mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget.Get()
 			, nullptr, mRenderTargetView.GetAddressOf());
 
@@ -78,18 +75,6 @@ namespace jk::graphics
 
 		RECT winRect = {};
 		GetClientRect(hWnd, &winRect);
-
-
-		//typedef struct D3D11_VIEWPORT
-		//{
-		//	FLOAT TopLeftX;
-		//	FLOAT TopLeftY;
-		//	FLOAT Width;
-		//	FLOAT Height;
-		//	FLOAT MinDepth;
-		//	FLOAT MaxDepth;
-		//} 	D3D11_VIEWPORT;
-
 		mViewPort =
 		{
 			0.0f, 0.0f
@@ -145,6 +130,48 @@ namespace jk::graphics
 
 		return true;
 	}
+
+	bool GraphicDevice_Dx11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
+	{
+		D3D11_TEXTURE2D_DESC dxgiDesc = {};
+		dxgiDesc.BindFlags = desc->BindFlags;
+		dxgiDesc.Usage = desc->Usage;
+		dxgiDesc.CPUAccessFlags = 0;
+
+		dxgiDesc.Format = desc->Format;
+		dxgiDesc.Width = desc->Width;
+		dxgiDesc.Height = desc->Height;
+		dxgiDesc.ArraySize = desc->ArraySize;
+
+		dxgiDesc.SampleDesc.Count = desc->SampleDesc.Count;
+		dxgiDesc.SampleDesc.Quality = 0;
+
+		dxgiDesc.MipLevels = desc->MipLevels;
+		dxgiDesc.MiscFlags = desc->MiscFlags;
+
+		if (FAILED(mDevice->CreateTexture2D(&dxgiDesc, nullptr, mDepthStencilBuffer.ReleaseAndGetAddressOf())))
+			return false;
+
+		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBuffer.Get(), nullptr, mDepthStencilView.GetAddressOf())))
+			return false;
+
+		return true;
+	}
+	
+	bool GraphicDevice_Dx11::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs
+		, UINT NumElements
+		, ID3DBlob* byteCode
+		, ID3D11InputLayout** ppInputLayout)
+	{
+		if (FAILED(mDevice->CreateInputLayout(pInputElementDescs, NumElements
+			, byteCode->GetBufferPointer()
+			, byteCode->GetBufferSize()
+			, ppInputLayout)))
+			return false;
+
+		return true;
+	}
+
 	bool GraphicDevice_Dx11::CreateBuffer(ID3D11Buffer** buffer, D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data)
 	{
 		if (FAILED(mDevice->CreateBuffer(desc, data, buffer)))
@@ -153,70 +180,6 @@ namespace jk::graphics
 		return true;
 	}
 
-	bool GraphicDevice_Dx11::CreateShader()
-	{
-		//std::filesystem::path shaderPath
-		//	= std::filesystem::current_path().parent_path();
-		//shaderPath += L"\\Shader_SOURCE\\";
-
-		//std::filesystem::path vsPath(shaderPath.c_str());
-		//vsPath += L"TriangleVS.hlsl";
-
-		//D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-		//	, "main", "vs_5_0", 0, 0, &jk::renderer::triangleVSBlob, &jk::renderer::errorBlob);
-
-		//if (jk::renderer::errorBlob)
-		//{
-		//	OutputDebugStringA((char*)jk::renderer::errorBlob->GetBufferPointer());
-		//	jk::renderer::errorBlob->Release();
-		//}
-
-		//mDevice->CreateVertexShader(jk::renderer::triangleVSBlob->GetBufferPointer()
-		//	, jk::renderer::triangleVSBlob->GetBufferSize()
-		//	, nullptr, &jk::renderer::triangleVSShader);
-
-		//std::filesystem::path psPath(shaderPath.c_str());
-		//psPath += L"TrianglePS.hlsl";
-
-		//D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-		//	, "main", "ps_5_0", 0, 0, &jk::renderer::trianglePSBlob, &jk::renderer::errorBlob);
-
-		//if (jk::renderer::errorBlob)
-		//{
-		//	OutputDebugStringA((char*)jk::renderer::errorBlob->GetBufferPointer());
-		//	jk::renderer::errorBlob->Release();
-		//}
-
-		//mDevice->CreatePixelShader(jk::renderer::trianglePSBlob->GetBufferPointer()
-		//	, jk::renderer::trianglePSBlob->GetBufferSize()
-		//	, nullptr, &jk::renderer::trianglePSShader);
-
-
-		//// Input layout 정점 구조 정보를 넘겨줘야한다.
-		//D3D11_INPUT_ELEMENT_DESC arrLayout[2] = {};
-
-		//arrLayout[0].AlignedByteOffset = 0;
-		//arrLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
-		//arrLayout[0].InputSlot = 0;
-		//arrLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		//arrLayout[0].SemanticName = "POSITION";
-		//arrLayout[0].SemanticIndex = 0;
-
-		//arrLayout[1].AlignedByteOffset = 12;
-		//arrLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-		//arrLayout[1].InputSlot = 0;
-		//arrLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		//arrLayout[1].SemanticName = "COLOR";
-		//arrLayout[1].SemanticIndex = 0;
-
-		//mDevice->CreateInputLayout(arrLayout, 2
-		//	, renderer::triangleVSBlob->GetBufferPointer()
-		//	, renderer::triangleVSBlob->GetBufferSize()
-		//	, &renderer::triangleLayout);
-
-
-		return true;
-	}
 	bool GraphicDevice_Dx11::CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode)
 	{
 		ID3DBlob* errorBlob = nullptr;
@@ -246,37 +209,23 @@ namespace jk::graphics
 
 		return true;
 	}
-	bool GraphicDevice_Dx11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
-	{
-		D3D11_TEXTURE2D_DESC dxgiDesc = {};
-		dxgiDesc.BindFlags = desc->BindFlags;
-		dxgiDesc.Usage = desc->Usage;
-		dxgiDesc.CPUAccessFlags = 0;
-
-		dxgiDesc.Format = desc->Format;
-		dxgiDesc.Width = desc->Width;
-		dxgiDesc.Height = desc->Height;
-		dxgiDesc.ArraySize = desc->ArraySize;
-
-		dxgiDesc.SampleDesc.Count = desc->SampleDesc.Count;
-		dxgiDesc.SampleDesc.Quality = 0;
-
-		dxgiDesc.MipLevels = desc->MipLevels;
-		dxgiDesc.MiscFlags = desc->MiscFlags;
-
-		if (FAILED(mDevice->CreateTexture2D(&dxgiDesc, nullptr, mDepthStencilBuffer.ReleaseAndGetAddressOf())))
-			return false;
-
-		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBuffer.Get(), nullptr, mDepthStencilView.GetAddressOf())))
-			return false;
-
-		return true;
-	}
+	
 
 	void GraphicDevice_Dx11::BindViewPort(D3D11_VIEWPORT* viewPort)
 	{
 		mContext->RSSetViewports(1, viewPort);
 	}
+
+	void GraphicDevice_Dx11::BindInputLayout(ID3D11InputLayout* pInputLayout)
+	{
+		mContext->IASetInputLayout(pInputLayout);
+	}
+
+	void GraphicDevice_Dx11::BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY Topology)
+	{
+		mContext->IASetPrimitiveTopology(Topology);
+	}
+
 
 	void GraphicDevice_Dx11::BindVertexBuffer(UINT StartSlot, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets)
 	{
@@ -369,8 +318,7 @@ namespace jk::graphics
 
 		renderer::mesh->BindBuffer();
 
-		mContext->IASetInputLayout(renderer::triangleLayout);
-		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		mContext->IASetInputLayout(renderer::shader->GetInputLayout());
 
 		//Bind VS, PS 
 		renderer::shader->Binds();

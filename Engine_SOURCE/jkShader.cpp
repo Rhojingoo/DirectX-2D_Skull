@@ -4,6 +4,8 @@
 namespace jk
 {
 	Shader::Shader()
+		: mInputLayout(nullptr)
+		, mTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 	{
 	}
 	Shader::~Shader()
@@ -13,7 +15,9 @@ namespace jk
 	{
 		return E_NOTIMPL;
 	}
-	bool Shader::Create(const eShaderStage stage, const std::wstring& fileName, const std::string& funcName)
+	bool Shader::Create(const eShaderStage stage
+		, const std::wstring& fileName
+		, const std::string& funcName)
 	{
 		std::filesystem::path shaderPath
 			= std::filesystem::current_path().parent_path();

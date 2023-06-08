@@ -68,10 +68,7 @@ namespace jk
 		//jk::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, jk::renderer::triangleConstantBuffer);
 
 
-		graphicDevice->Draw();
-		{
-
-		}
+		graphicDevice->Draw();		
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)
