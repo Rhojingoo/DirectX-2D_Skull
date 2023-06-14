@@ -1,8 +1,10 @@
 #include "jkRenderer.h"
 
 
-namespace jk::renderer
+namespace renderer
 {	
+	using namespace jk;
+	using namespace jk::graphics;
 	Vertex vertexes[4] = {};
 	// Vertex Buffer
 	jk::Mesh* mesh = nullptr;
@@ -165,9 +167,6 @@ namespace jk::renderer
 		//vertexes[370].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		//vertexes[371].pos = Vector3(0.3f, 0.3f, 0.0f);
 		//vertexes[371].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-
-
-
 	}
 	void Release()
 	{

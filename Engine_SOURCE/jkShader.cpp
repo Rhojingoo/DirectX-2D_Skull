@@ -10,11 +10,13 @@ namespace jk
 	}
 	Shader::~Shader()
 	{
+		mInputLayout->Release();
 	}
 	HRESULT Shader::Load(const std::wstring& path)
 	{
 		return E_NOTIMPL;
 	}
+
 	bool Shader::Create(const eShaderStage stage
 		, const std::wstring& fileName
 		, const std::string& funcName)
@@ -43,6 +45,9 @@ namespace jk
 	}
 	void Shader::Binds()
 	{
+		GetDevice()->BindPrimitiveTopology(mTopology);
+		GetDevice()->BindInputLayout(mInputLayout);
+
 		GetDevice()->BindVertexShader(mVS.Get());
 		GetDevice()->BindPixelShader(mPS.Get());
 	}

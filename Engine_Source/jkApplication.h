@@ -1,6 +1,7 @@
 #pragma once
 #include "JKEngine.h"
 #include "jkGraphicDevice_Dx11.h"
+#include "jkScene.h"
 
 
 namespace jk
@@ -33,6 +34,8 @@ namespace jk
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;
+
+		Scene* mScene;
 	};
 
 }

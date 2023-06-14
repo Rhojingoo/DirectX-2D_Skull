@@ -6,7 +6,7 @@
 #include "jkConstantBuffer.h"
 
 using namespace jk::math;
-namespace jk::renderer
+namespace renderer
 {
 	struct Vertex
 	{

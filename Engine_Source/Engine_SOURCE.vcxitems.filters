@@ -28,6 +28,18 @@
     <Filter Include="Resource\Resources">
       <UniqueIdentifier>{cae6e04a-0132-4051-9aca-2dea756ee157}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{eae68b62-68cb-4c6a-b459-865fcfd0427b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component">
+      <UniqueIdentifier>{ea18ccb7-60ac-4923-8212-3d9bcbf0071f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Script">
+      <UniqueIdentifier>{669f4b9f-e7b5-423c-80f8-55ee9df56c21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{793e97b4-afe4-4d2e-a378-538335be5070}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -78,6 +90,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkConstantBuffer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkScript.h">
+      <Filter>GameObject\Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkComponent.h">
+      <Filter>GameObject\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkSceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -115,6 +142,21 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkConstantBuffer.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkScript.cpp">
+      <Filter>GameObject\Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkComponent.cpp">
+      <Filter>GameObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkSceneManager.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

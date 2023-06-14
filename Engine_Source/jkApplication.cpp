@@ -10,6 +10,7 @@ namespace jk
 		, mHwnd(NULL)
 		, mWidth(-1)
 		, mHeight(-1)
+		, mScene(nullptr)
 	{
 
 	}
@@ -31,12 +32,17 @@ namespace jk
 		Input::Initialize();
 
 		renderer::Initialize();
+
+		mScene = new Scene();
+		mScene->Initialize();
 	}
 
 	void Application::Update()
 	{
 		Time::Update();
 		Input::Update();
+
+		mScene->Update();
 	}
 
 	void Application::LateUpdate()
@@ -46,6 +52,11 @@ namespace jk
 	void Application::Render()
 	{
 		Time::Render();
+
+		graphicDevice->Draw();
+		mScene->Render();
+		graphicDevice->Present();
+
 
 		//static Vector4 pos{};
 		//if (Input::GetKey(eKeyCode::RIGHT))
@@ -66,9 +77,7 @@ namespace jk
 		//}
 		//jk::graphics::GetDevice()->SetConstantBuffer(jk::renderer::triangleConstantBuffer, &pos, sizeof(Vector4));
 		//jk::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, jk::renderer::triangleConstantBuffer);
-
-
-		graphicDevice->Draw();		
+		//graphicDevice->Draw();		
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)
