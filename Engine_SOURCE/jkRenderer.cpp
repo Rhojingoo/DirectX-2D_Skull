@@ -10,7 +10,6 @@ namespace renderer
 	jk::Mesh* mesh = nullptr;
 	jk::Shader* shader = nullptr;
 	jk::graphics::ConstantBuffer* constantBuffer = nullptr;
-	//ID3D11Buffer* triangleConstantBuffer = nullptr;  → ContantBuffer Class 생기기전버전
 
 
 	void SetupState()
@@ -58,23 +57,6 @@ namespace renderer
 		// Constant Buffer
 		constantBuffer = new jk::graphics::ConstantBuffer(eCBType::Transform);
 		constantBuffer->Create(sizeof(Vector4));
-
-		Vector4 pos(0.0f, 0.0f, 0.0f, 1.0f); // 사각형 위치 변경 지점
-		constantBuffer->SetData(&pos);
-		constantBuffer->Bind(eShaderStage::VS);
-
-		// Constant Buffer Class 생기기전 버전
-		//D3D11_BUFFER_DESC triangleCSDesc = {};
-		//triangleCSDesc.ByteWidth = sizeof(Vector4);
-		//triangleCSDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
-		//triangleCSDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		//triangleCSDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-		//jk::graphics::GetDevice()->CreateBuffer(&triangleConstantBuffer, &triangleCSDesc, nullptr);
-
-		//Vector4 pos(0.0f, 0.0f, 0.0f, 1.0f);
-		//jk::graphics::GetDevice()->SetConstantBuffer(triangleConstantBuffer, &pos, sizeof(Vector4));
-		//jk::graphics::GetDevice()->BindConstantBuffer(eShaderStage::VS, eCBType::Transform, triangleConstantBuffer);
 	}
 
 	void LoadShader()

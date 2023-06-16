@@ -1,6 +1,6 @@
 #pragma once
 #include "jkEntity.h"
-#include "jkGameObject.h"
+#include "jkLayer.h"
 
 namespace jk
 {
@@ -15,7 +15,9 @@ namespace jk
 		virtual void LateUpdate();
 		virtual void Render();
 
+		void AddGameObject(eLayerType type, GameObject* gameObj);
+
 	private:
-		std::vector<GameObject*> mGameObjects;
+		std::vector<Layer> mLayers;
 	};
 }

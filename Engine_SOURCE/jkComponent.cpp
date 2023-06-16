@@ -2,8 +2,8 @@
 
 namespace jk
 {
-	Component::Component()
-		: mType(eComponentType::End)
+	Component::Component(eComponentType type)
+		: mType(type)
 	{
 
 	}

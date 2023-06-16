@@ -25,7 +25,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkGraphicDevice_Dx11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkGraphics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkPlayScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResources.h" />
@@ -35,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkApplication.cpp" />
@@ -44,7 +48,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkGraphicDevice_Dx11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkLayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkMeshRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkPlayScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResources.cpp" />
@@ -54,6 +61,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl" />
