@@ -6,6 +6,7 @@
 #include "jkConstantBuffer.h"
 
 using namespace jk::math;
+using namespace jk::graphics;
 namespace renderer
 {
 	struct Vertex
@@ -16,9 +17,7 @@ namespace renderer
 	};
 
 	extern Vertex vertexes[];
-	extern jk::Mesh* mesh;
-	extern jk::Shader* shader;
-	extern jk::graphics::ConstantBuffer* constantBuffer;
+	extern jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 
 	void Initialize();
 	void Release();

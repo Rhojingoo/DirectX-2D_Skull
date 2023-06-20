@@ -125,6 +125,7 @@
       <Filter>GameObject\Component</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -189,6 +190,7 @@
       <Filter>GameObject\Component</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl">

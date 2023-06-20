@@ -1,7 +1,7 @@
 #pragma once
 #include "jkComponent.h"
 #include "jkMesh.h"
-#include "jkShader.h"
+#include "jkMaterial.h"
 
 namespace jk
 {
@@ -16,8 +16,11 @@ namespace jk
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+		void SetMesh(Mesh* mesh) { mMesh = mesh; }
+		void SetMaterial(Material* material) { mMaterial = material; }
+
 	private:
 		Mesh* mMesh;
-		Shader* mShader;
+		Material* mMaterial;
 	};
 }

@@ -6,8 +6,6 @@ struct VSIn
     float2 UV : TEXCOORD;
 };
 
-
-
 struct VSOut
 {
     float4 Pos : SV_Position;
@@ -15,18 +13,17 @@ struct VSOut
     float2 UV : TEXCOORD;
 };
 
-
-
 Texture2D smileTexture : register(t0);
-SamplerState samplerState : register(s0);
 
+SamplerState pointSampler : register(s0);
+SamplerState anisotropicSampler : register(s1);
 
 
 float4 main(VSOut In) : SV_TARGET
 {
     //return In.Color;
     float4 color = (float)0.0f;
-    color = smileTexture.Sample(samplerState, In.UV);
+    color = smileTexture.Sample(anisotropicSampler, In.UV);
 
     return color;
 }

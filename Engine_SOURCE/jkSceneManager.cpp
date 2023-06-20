@@ -9,9 +9,9 @@ namespace jk
 	
 	void SceneManager::Initialize()
 	{
-		//PlayScene* test = new PlayScene();
-
 		mActiveScene = new PlayScene();
+		mScenes.insert(std::make_pair(L"PlayScene", mActiveScene));
+
 		mActiveScene->Initialize();
 	}
 	void SceneManager::Update()
@@ -26,6 +26,16 @@ namespace jk
 	{
 		mActiveScene->Render();
 	}
+
+	void SceneManager::Release()
+	{
+		for (auto iter : mScenes)
+		{
+			delete iter.second;
+			iter.second = nullptr;
+		}
+	}
+
 	Scene* SceneManager::LoadScene(std::wstring name)
 	{
 		std::map<std::wstring, Scene*>::iterator iter

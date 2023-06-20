@@ -1,6 +1,8 @@
 #include "jkPlayScene.h"
 #include "jkTransform.h"
 #include "jkMeshRenderer.h"
+#include "jkResources.h"
+#include "jkMesh.h"
 
 
 namespace jk
@@ -15,7 +17,9 @@ namespace jk
 	{
 		GameObject* player = new GameObject();
 		AddGameObject(eLayerType::Player, player);
-		player->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
 
 		//GameObject* player2 = new GameObject();
 		//AddGameObject(eLayerType::Player, player2);
