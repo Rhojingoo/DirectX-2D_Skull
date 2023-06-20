@@ -13,7 +13,6 @@ namespace jk
 
 	void Scene::Initialize()
 	{
-		// 여기서 초기 게임 맵데이터를 세팅해줘야 한다.
 	}
 
 	void Scene::Update()
@@ -37,6 +36,12 @@ namespace jk
 		{
 			layer.Render();
 		}
+	}
+	void Scene::OnEnter()
+	{
+	}
+	void Scene::OnExit()
+	{
 	}
 	void Scene::AddGameObject(eLayerType type, GameObject* gameObj)
 	{

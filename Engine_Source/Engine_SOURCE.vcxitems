@@ -35,6 +35,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkScript.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkShader.h" />
@@ -58,6 +59,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkScript.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkShader.cpp" />

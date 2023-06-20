@@ -124,6 +124,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTransform.h">
       <Filter>GameObject\Component</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -187,6 +188,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTransform.cpp">
       <Filter>GameObject\Component</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl">
