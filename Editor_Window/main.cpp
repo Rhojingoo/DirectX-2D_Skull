@@ -4,6 +4,9 @@
 #include "framework.h"
 #include "Editor_Window.h"
 #include "jkApplication.h"
+#include "jkRenderer.h"
+#include "jkResources.h"
+#include "jkSceneManager.h"
 
 jk::Application application;
 
@@ -65,7 +68,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             application.Run();
         }
     }
-
+    renderer::Release();
+    jk::SceneManager::Release();
 
     return (int) msg.wParam;
 }
