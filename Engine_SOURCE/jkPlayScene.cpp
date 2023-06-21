@@ -3,7 +3,7 @@
 #include "jkMeshRenderer.h"
 #include "jkResources.h"
 #include "jkMesh.h"
-
+#include "jkCameraScript.h"
 
 namespace jk
 {
@@ -20,6 +20,8 @@ namespace jk
 		MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
+
+		player->AddComponent<CameraScript>();
 
 		//GameObject* player2 = new GameObject();
 		//AddGameObject(eLayerType::Player, player2);

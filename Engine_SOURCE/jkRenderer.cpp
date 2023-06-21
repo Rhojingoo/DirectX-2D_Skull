@@ -39,7 +39,7 @@ namespace renderer
 		arrLayout[2].SemanticIndex = 0;
 
 
-		Shader* shader = jk::Resources::Find<Shader>(L"TriangleShader");
+		std::shared_ptr<Shader> shader = jk::Resources::Find<Shader>(L"TriangleShader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
@@ -67,7 +67,7 @@ namespace renderer
 	void LoadBuffer()
 	{
 		// Vertex Buffer
-		Mesh* mesh = new jk::Mesh();
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 		Resources::Insert(L"RectMesh", mesh);
 
 		mesh->CreateVertexBuffer(vertexes, 4);
@@ -90,21 +90,21 @@ namespace renderer
 
 	void LoadShader()
 	{
-		Shader* shader = new jk::Shader();
+		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
 		jk::Resources::Insert(L"TriangleShader", shader);
 
 
-		Shader* spriteShader = new jk::Shader();
+		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		jk::Resources::Insert(L"SpriteShader", spriteShader);
 
-		Texture* texture
+		std::shared_ptr<Texture> texture
 			= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
 
-		Material* spriteMateiral = new jk::graphics::Material();
+		std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 		spriteMateiral->SetShader(spriteShader);
 		spriteMateiral->SetTexture(texture);
 		Resources::Insert(L"SpriteMaterial", spriteMateiral);
@@ -133,7 +133,7 @@ namespace renderer
 		LoadShader();
 		SetupState();
 
-		Texture* texture
+		std::shared_ptr<Texture> texture
 			= Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
 		texture
 			= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");

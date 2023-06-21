@@ -126,6 +126,7 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkCameraScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -191,6 +192,7 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMaterial.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkCameraScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl">
