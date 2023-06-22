@@ -25,5 +25,9 @@ float4 main(VSOut In) : SV_TARGET
     float4 color = (float)0.0f;
     color = smileTexture.Sample(anisotropicSampler, In.UV);
 
+    //cos(100.0f);
+
+    //dot()
+
     return color;
 }
