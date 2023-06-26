@@ -18,6 +18,8 @@ namespace jk
 
 	private:
 		static Scene* mActiveScene;
+		static Scene* mActiveScene2;
+		static Scene* mActiveScene3;
 		static std::map<std::wstring, Scene*> mScenes;
 
 	};

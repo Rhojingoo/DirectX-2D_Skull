@@ -1,6 +1,7 @@
 #include "jkTransform.h"
 #include "jkRenderer.h"
 #include "jkConstantBuffer.h"
+#include "jkCamera.h"
 
 namespace jk
 {
@@ -56,9 +57,9 @@ namespace jk
 	{
 		renderer::TransformCB trCB = {};
 		trCB.mWorld = mWorld;
+		trCB.mView = Camera::GetViewMatrix();
+		trCB.mProjection = Camera::GetProjectionMatrix();
 
-		//trCB.mView = mWorld;
-		//trCB.mProjection = mWorld;
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Transform];
 		cb->SetData(&trCB);
 		cb->Bind(eShaderStage::VS);

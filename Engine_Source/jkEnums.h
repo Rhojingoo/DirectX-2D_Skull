@@ -11,6 +11,7 @@ namespace jk::enums
 		Particle,
 		MeshRenderer,
 		Script,
+		Camera,
 		End,
 	};
 
