@@ -219,12 +219,50 @@ namespace renderer
 
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Stage1\\DevilCastle.png");
+				= Resources::Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png");
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"SpriteMaterial02", spriteMateiral);
+			Resources::Insert(L"Catle_wall_Back", spriteMateiral);
 		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Catle_wall_Front1", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_01.png");
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"Catle_wall_Front_01", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Catle_wall_Front2", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_02.png");
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"Catle_wall_Front_02", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Catle_wall_Front3", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_03.png");
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"Catle_wall_Front_03", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Catle_wall_Front4", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_04.png");
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"Catle_wall_Front_04", spriteMateiral);
+		}
+
+
 
 		{
 			std::shared_ptr<Texture> texture
@@ -232,7 +270,7 @@ namespace renderer
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"SpriteMaterial03", spriteMateiral);
+			Resources::Insert(L"SpriteMaterial02", spriteMateiral);
 		}
 
 	}
