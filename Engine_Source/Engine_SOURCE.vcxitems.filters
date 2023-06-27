@@ -49,9 +49,6 @@
     <Filter Include="Scene\Base">
       <UniqueIdentifier>{5129b1ac-a463-4179-b525-3fa759278bd0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Scene_type">
-      <UniqueIdentifier>{15fd18a1-1e3b-4ec7-8d74-4968f8221242}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -127,19 +124,9 @@
       <Filter>GameObject\Component</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTexture.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkCameraScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h">
       <Filter>GameObject\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkPlayScene.h">
-      <Filter>Scene\Scene_type</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkTitleScene.h">
-      <Filter>Scene\Scene_type</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkStage1.h">
-      <Filter>Scene\Scene_type</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -204,19 +191,9 @@
       <Filter>GameObject\Component</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTexture.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkCameraScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMaterial.cpp">
       <Filter>GameObject\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkPlayScene.cpp">
-      <Filter>Scene\Scene_type</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkTitleScene.cpp">
-      <Filter>Scene\Scene_type</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkStage1.cpp">
-      <Filter>Scene\Scene_type</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

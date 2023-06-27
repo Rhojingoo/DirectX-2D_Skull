@@ -1,7 +1,4 @@
 #include "jkSceneManager.h"
-#include "jkTitleScene.h"
-#include "jkPlayScene.h"
-#include "jkStage1.h"
 
 
 namespace jk
@@ -13,23 +10,23 @@ namespace jk
 	
 	void SceneManager::Initialize()
 	{
-		mActiveScene = new jkTitleScene();
-		mScenes.insert(std::make_pair(L"TitleScene", mActiveScene));
+		//mActiveScene = new jkTitleScene();
+		//mScenes.insert(std::make_pair(L"TitleScene", mActiveScene));
 
-		mActiveScene2 = new PlayScene();
-		mScenes.insert(std::make_pair(L"PlayScene", mActiveScene2));
+		//mActiveScene2 = new PlayScene();
+		//mScenes.insert(std::make_pair(L"PlayScene", mActiveScene2));
 
-		mActiveScene3 = new jkStage1();
-		mScenes.insert(std::make_pair(L"Stage1", mActiveScene3));
+		//mActiveScene3 = new jkStage1();
+		//mScenes.insert(std::make_pair(L"Stage1", mActiveScene3));
 
 
-		for (auto& scenePair : mScenes)
-		{
-			Scene* scene = scenePair.second;
-			scene->Initialize();
-		}
+		//for (auto& scenePair : mScenes)
+		//{
+		//	Scene* scene = scenePair.second;
+		//	scene->Initialize();
+		//}
 
-		//mActiveScene->Initialize();
+		////mActiveScene->Initialize();
 	}
 	void SceneManager::Update()
 	{
@@ -46,12 +43,25 @@ namespace jk
 
 	void SceneManager::Release()
 	{
-		for (auto iter : mScenes)
+		for (auto& iter : mScenes)
 		{
 			delete iter.second;
 			iter.second = nullptr;
 		}
 	}
+
+	//bool SceneManager::CreateScene(std::wstring name, Scene* scene)
+	//{
+	//	std::map<std::wstring, Scene*>::iterator iter
+	//		= mScenes.find(name);
+
+	//	if (iter != mScenes.end())
+	//		return false;
+
+	//	mScenes.insert(std::make_pair(name, scene));
+	//	scene->Initialize();
+	//	return true;
+	//}
 
 	Scene* SceneManager::LoadScene(std::wstring name)
 	{

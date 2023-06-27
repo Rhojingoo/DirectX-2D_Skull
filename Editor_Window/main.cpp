@@ -6,7 +6,7 @@
 #include "jkApplication.h"
 #include "jkRenderer.h"
 #include "jkResources.h"
-#include "jkSceneManager.h"
+#include "LoadScenes.h"
 
 jk::Application application;
 
@@ -83,7 +83,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
-    WNDCLASSEXW wcex;
+    WNDCLASSEXW wcex = {};
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
@@ -129,6 +129,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    UpdateWindow(hWnd);
 
    application.Initialize();
+   jk::InitializeScenes();
 
    return TRUE;
 }

@@ -2,8 +2,46 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="LoadScenes.h">
+      <Filter>Load</Filter>
+    </ClInclude>
+    <ClInclude Include="jkTitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jkPlayScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jkStage1.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jkCameraScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JKEngine.cpp" />
+    <ClCompile Include="jkStage1.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jkTitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jkPlayScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jkCameraScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Load">
+      <UniqueIdentifier>{81a081ec-d7e4-4db0-9b3e-8daeaf0849c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{bd4a17a5-055d-4632-9130-980f61688ef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script">
+      <UniqueIdentifier>{2cfe3ec8-f284-499b-92eb-1916842908e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

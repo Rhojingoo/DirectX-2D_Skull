@@ -4,6 +4,7 @@
 #include "jkMesh.h"
 #include "jkShader.h"
 #include "jkConstantBuffer.h"
+#include "jkCamera.h"
 
 using namespace jk::math;
 using namespace jk::graphics;
@@ -32,7 +33,10 @@ namespace renderer
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
+	extern std::vector<jk::Camera*> cameras;
+
 	void Initialize();
+	void Render();
 	void Release();
 }
 

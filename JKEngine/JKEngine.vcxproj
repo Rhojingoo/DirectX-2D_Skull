@@ -153,9 +153,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="jkCameraScript.h" />
+    <ClInclude Include="jkPlayScene.h" />
+    <ClInclude Include="jkStage1.h" />
+    <ClInclude Include="jkTitleScene.h" />
+    <ClInclude Include="LoadScenes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="jkCameraScript.cpp" />
     <ClCompile Include="JKEngine.cpp" />
+    <ClCompile Include="jkPlayScene.cpp" />
+    <ClCompile Include="jkStage1.cpp" />
+    <ClCompile Include="jkTitleScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

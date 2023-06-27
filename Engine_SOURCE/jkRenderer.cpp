@@ -15,6 +15,8 @@ namespace renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
+	std::vector<jk::Camera*> cameras = {};
+
 	void SetupState()
 	{
 		// Input layout 정점 구조 정보를 넘겨줘야한다.
@@ -305,6 +307,17 @@ namespace renderer
 			= Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
 
 		texture->BindShader(eShaderStage::PS, 0);
+	}
+
+	void Render()
+	{
+		for (Camera* cam : cameras)
+		{
+			if (cam == nullptr)
+				continue;
+
+			cam->Render();
+		}
 	}
 
 	void Release()
