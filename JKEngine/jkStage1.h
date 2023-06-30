@@ -1,5 +1,5 @@
 #pragma once
-#include <jkScene.h>
+//#include <jkScene.h>
 #include "jkPlayScene.h"
 
 namespace jk

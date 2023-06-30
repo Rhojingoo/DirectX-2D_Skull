@@ -20,36 +20,78 @@ namespace jk
 	{
 		{
 			GameObject* player = new GameObject();
+			player->SetName(L"Catle_Back");
 			AddGameObject(eLayerType::Player, player);
 			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Back"));
 			player->GetComponent<Transform>()->SetScale(Vector3(9.f, 3.f, 0.f));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 100.0f));
-			//player->AddComponent<CameraScript>();
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 100.01f));
 		}
 
 		{
 			GameObject* player = new GameObject();
+			player->SetName(L"Catle");
 			AddGameObject(eLayerType::Player, player);
 			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_01"));
-			player->GetComponent<Transform>()->SetScale(Vector3(1.f, 2.5f, 0.f));
-			player->GetComponent<Transform>()->SetPosition(Vector3(-4.0f, 0.35f, 0.0f));
-			//player->AddComponent<CameraScript>();
+			player->GetComponent<Transform>()->SetScale(Vector3(16.5f, 6.f, 0.f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.35f, 10.0f)); 
+		} 
+
+		{
+			GameObject* player = new GameObject();
+			player->SetName(L"Devil_chair");
+			AddGameObject(eLayerType::Player, player);
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Devil_Chair"));
+			player->GetComponent<Transform>()->SetScale(Vector3(3.f, 3.f, 0.f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(-7.f, 0.1f, 1.0f));
 		}
 
 		{
 			GameObject* player = new GameObject();
-			AddGameObject(eLayerType::Player, player);
+			player->SetName(L"Skul_UI");
+			AddGameObject(eLayerType::UI, player);
 			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_04"));
-			player->GetComponent<Transform>()->SetScale(Vector3(0.7f, 2.5f, 0.f));
-			player->GetComponent<Transform>()->SetPosition(Vector3(-4.77f, 0.35f, 0.0f));
-			//player->AddComponent<CameraScript>();
+			mr->SetMaterial(Resources::Find<Material>(L"Skul_UI"));
+			player->GetComponent<Transform>()->SetScale(Vector3(0.5f, 0.5f, 0.f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(-3.5f, -1.4f, 1.0f));
 		}
+		
+
+		//Main Camera
+		{
+			GameObject* camera = new GameObject();
+			AddGameObject(eLayerType::Player, camera);
+			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
+			Camera* cameraComp = camera->AddComponent<Camera>();
+			cameraComp->TurnLayerMask(eLayerType::UI, false);
+			camera->AddComponent<CameraScript>();
+		}
+
+		//UI Camera
+		{
+			GameObject* camera = new GameObject();
+			AddGameObject(eLayerType::Player, camera);
+			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -9.f));
+			Camera* cameraComp = camera->AddComponent<Camera>();
+			cameraComp->TurnLayerMask(eLayerType::Player, false);
+		}
+
+		//{
+		//	GameObject* player = new GameObject();
+		//	AddGameObject(eLayerType::Player, player);
+		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_04"));
+		//	player->GetComponent<Transform>()->SetScale(Vector3(0.7f, 2.5f, 0.f));
+		//	player->GetComponent<Transform>()->SetPosition(Vector3(-4.77f, 0.35f, 0.0f));
+		//	//player->AddComponent<CameraScript>();
+		//}
 
 
 		//{
@@ -75,17 +117,6 @@ namespace jk
 		//	//player->AddComponent<CameraScript>();
 		//}
 
-
-
-		//Main Camera
-		GameObject* camera = new GameObject();
-		AddGameObject(eLayerType::Player, camera);
-		camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
-		Camera* cameraComp = camera->AddComponent<Camera>();
-		camera->AddComponent<CameraScript>();
-		//GameObject* player2 = new GameObject();
-		//AddGameObject(eLayerType::Player, player2);
-		//player2->AddComponent<MeshRenderer>();
 	}
 
 	void PlayScene::Update()

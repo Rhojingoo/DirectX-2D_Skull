@@ -3,13 +3,19 @@
 
 #include "framework.h"
 #include "Editor_Window.h"
-#include "jkApplication.h"
-#include "jkRenderer.h"
-#include "jkResources.h"
+
+#include "..\Engine_SOURCE\jkApplication.h"
+#include "..\Engine_SOURCE\jkRenderer.h"
+#include "..\Engine_SOURCE\jkResources.h"
 #include "LoadScenes.h"
 
-jk::Application application;
+#ifdef _DEBUG
+#pragma comment(lib, "..\\x64\\Debug\\JKEngine.lib")
+#else
+#pragma comment(lib, "..\\x64\\Release\\JKEngine.lib")
+#endif
 
+jk::Application application;
 
 #define MAX_LOADSTRING 100
 

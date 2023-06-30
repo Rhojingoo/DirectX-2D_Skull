@@ -7,6 +7,7 @@ namespace jk::graphics
 		: Resource(jk::enums::eResourceType::Material)
 		, mShader(nullptr)
 		, mTexture(nullptr)
+		, mMode(eRenderingMode::Opaque)
 	{
 
 	}

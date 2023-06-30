@@ -65,6 +65,13 @@ namespace jk::graphics
 		End,
 	};
 
+	enum class eRenderingMode
+	{
+		Opaque,
+		CutOut,
+		Transparent,
+		End,
+	};
 
 	struct GpuBuffer
 	{

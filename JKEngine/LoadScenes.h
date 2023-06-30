@@ -1,6 +1,8 @@
 #pragma once
-#include "jkSceneManager.h"
+#include "..\Engine_SOURCE\jkSceneManager.h"
 #include "jkPlayScene.h"
+#include "jkTitleScene.h"
+#include "jkStage1.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\JKEngine.lib")
@@ -14,8 +16,9 @@
 namespace jk
 {
 	void InitializeScenes()
-	{
-		//PlayScene* playScene = new PlayScene();
-		SceneManager::CreateScene<PlayScene>(L"PlayScene");
+	{		
+		SceneManager::CreateScene<jkStage1>(L"Stage1");
+		SceneManager::CreateScene<PlayScene>(L"PlayScene"); 
+		SceneManager::CreateScene<jkTitleScene>(L"TitleScene");
 	}
 }

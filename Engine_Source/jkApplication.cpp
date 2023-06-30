@@ -56,11 +56,13 @@ namespace jk
 
 		graphicDevice->ClearTarget();
 		graphicDevice->UpdateViewPort();
-		SceneManager::Render();
+
+		//SceneManager::Render();
+		renderer::Render();
 		//graphicDevice->Draw();
 
 		graphicDevice->Present();
-		
+				
 	}
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)

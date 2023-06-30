@@ -224,47 +224,72 @@ namespace renderer
 				= Resources::Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png");
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetTexture(texture);			
 			Resources::Insert(L"Catle_wall_Back", spriteMateiral);
 		}
+
 
 		{
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"Catle_wall_Front1", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_01.png");
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
+			spriteMateiral->SetTexture(texture);	
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
 			Resources::Insert(L"Catle_wall_Front_01", spriteMateiral);
 		}
 
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Catle_wall_Front2", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_02.png");
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"Catle_wall_Front_02", spriteMateiral);
-		}
 
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Catle_wall_Front3", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_03.png");
+				= Resources::Load<Texture>(L"Devil_chair", L"..\\Resources\\Texture\\Devil_Catle\\Devil_chair.png");
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"Catle_wall_Front_03", spriteMateiral);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"Devil_Chair", spriteMateiral);
 		}
+
 
 		{
 			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Catle_wall_Front4", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_04.png");
+				= Resources::Load<Texture>(L"Skul_ui", L"..\\Resources\\Texture\\UI\\Skul_UI.png");
 			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 			spriteMateiral->SetShader(spriteShader);
 			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"Catle_wall_Front_04", spriteMateiral);
+			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"Skul_UI", spriteMateiral);
 		}
 
 
+
+
+		//{
+		//	std::shared_ptr<Texture> texture
+		//		= Resources::Load<Texture>(L"Catle_wall_Front2", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_02.png");
+		//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+		//	spriteMateiral->SetShader(spriteShader);
+		//	spriteMateiral->SetTexture(texture);
+		//	Resources::Insert(L"Catle_wall_Front_02", spriteMateiral);
+		//}
+
+		//{
+		//	std::shared_ptr<Texture> texture
+		//		= Resources::Load<Texture>(L"Catle_wall_Front3", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_03.png");
+		//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+		//	spriteMateiral->SetShader(spriteShader);
+		//	spriteMateiral->SetTexture(texture);
+		//	Resources::Insert(L"Catle_wall_Front_03", spriteMateiral);
+		//}
+
+		//{
+		//	std::shared_ptr<Texture> texture
+		//		= Resources::Load<Texture>(L"Catle_wall_Front4", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_04.png");
+		//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+		//	spriteMateiral->SetShader(spriteShader);
+		//	spriteMateiral->SetTexture(texture);
+		//	Resources::Insert(L"Catle_wall_Front_04", spriteMateiral);
+		//}
 
 		{
 			std::shared_ptr<Texture> texture
@@ -304,8 +329,13 @@ namespace renderer
 		texture
 			= Resources::Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Stage1\\DevilCastle.png");
 		texture
+		= Resources::Load<Texture>(L"Catle_wall_Front1", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_01.png");	
+		texture
+			= Resources::Load<Texture>(L"Devil_chair", L"..\\Resources\\Texture\\Devil_Catle\\Devil_chair.png");
+		texture
+			= Resources::Load<Texture>(L"Skul_UI", L"..\\Resources\\Texture\\UI\\Skul_UI.png");
+		texture
 			= Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
-
 		texture->BindShader(eShaderStage::PS, 0);
 	}
 
@@ -318,6 +348,8 @@ namespace renderer
 
 			cam->Render();
 		}
+
+		cameras.clear();
 	}
 
 	void Release()
