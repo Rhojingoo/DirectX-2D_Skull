@@ -157,6 +157,7 @@
     <ClInclude Include="jkPlayScene.h" />
     <ClInclude Include="jkStage1.h" />
     <ClInclude Include="jkTitleScene.h" />
+    <ClInclude Include="jkToolScene.h" />
     <ClInclude Include="LoadScenes.h" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,7 @@
     <ClCompile Include="jkPlayScene.cpp" />
     <ClCompile Include="jkStage1.cpp" />
     <ClCompile Include="jkTitleScene.cpp" />
+    <ClCompile Include="jkToolScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

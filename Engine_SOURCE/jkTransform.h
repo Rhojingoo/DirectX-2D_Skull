@@ -17,7 +17,12 @@ namespace jk
 		void BindConstantBuffer();
 
 		void SetPosition(Vector3 position) { mPosition = position; }
-		void SetRotation(Vector3 rotation) { mRotation = rotation; }
+		void SetRotation(Vector3 rotation) 
+		{
+			const float pi = 3.141592f;
+			float degree = pi / 180.f;
+			mRotation = rotation * degree;
+		}
 		void SetScale(Vector3 scale) { mScale = scale; }
 
 		void SetPosition(float x, float y, float z) { mPosition = Vector3(x, y, z); }
@@ -32,6 +37,9 @@ namespace jk
 		Vector3 Right() { return mRight; }
 		Vector3 Up() { return mUp; }
 
+		void SetParent(Transform* transform) { mParent = transform; }
+		Transform* GetParent() { return mParent; }
+
 	private:
 		Vector3 mPosition;
 		Vector3 mRotation;
@@ -43,5 +51,7 @@ namespace jk
 		Vector3 mRight;
 
 		Matrix mWorld;
+
+		Transform* mParent;
 	};
 }

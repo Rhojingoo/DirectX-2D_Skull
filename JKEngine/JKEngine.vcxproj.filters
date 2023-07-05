@@ -17,6 +17,9 @@
     <ClInclude Include="jkCameraScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="jkToolScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JKEngine.cpp" />
@@ -31,6 +34,9 @@
     </ClCompile>
     <ClCompile Include="jkCameraScript.cpp">
       <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="jkToolScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
