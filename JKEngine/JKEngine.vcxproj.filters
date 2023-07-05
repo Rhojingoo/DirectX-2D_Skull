@@ -20,6 +20,9 @@
     <ClInclude Include="jkToolScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="jkGridScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JKEngine.cpp" />
@@ -37,6 +40,9 @@
     </ClCompile>
     <ClCompile Include="jkToolScene.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jkGridScript.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

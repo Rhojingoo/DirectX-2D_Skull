@@ -134,7 +134,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
    //Tool
    HWND hWnd2 = CreateWindowW(L"ToolWindow", szTitle, WS_OVERLAPPEDWINDOW,
-       CW_USEDEFAULT, 0, 500, 500, nullptr, nullptr, hInstance, nullptr);
+       1600, 0, 500, 500, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -149,7 +149,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    UpdateWindow(hWnd2);
 
    application.Initialize();
-   jk::InitializeScenes();
+   jk::InitializeScenes(hWnd);
 
    return TRUE;
 }

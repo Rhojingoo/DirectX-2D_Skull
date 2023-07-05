@@ -10,7 +10,7 @@ namespace jk
 		jkStage1();
 		virtual ~jkStage1();
 
-		virtual void Initialize() override;
+		virtual void Initialize(HWND hWnd) override;
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;

@@ -11,7 +11,7 @@ namespace jk
 
 	}
 
-	void Scene::Initialize()
+	void Scene::Initialize(HWND hWnd)
 	{
 	}
 

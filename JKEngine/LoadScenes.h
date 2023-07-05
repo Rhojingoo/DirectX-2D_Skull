@@ -17,14 +17,14 @@
 
 namespace jk
 {
-	void InitializeScenes()
+	void InitializeScenes(HWND hWnd)
 	{		
 		//Tool 
-		SceneManager::CreateScene<ToolScene>(L"ToolScene");
+		SceneManager::CreateScene<ToolScene>(L"ToolScene", hWnd);
 		//Scene
-		SceneManager::CreateScene<jkStage1>(L"Stage1");
-		SceneManager::CreateScene<PlayScene>(L"PlayScene"); 
-		SceneManager::CreateScene<jkTitleScene>(L"TitleScene");
+		SceneManager::CreateScene<jkStage1>(L"Stage1", hWnd);
+		SceneManager::CreateScene<PlayScene>(L"PlayScene", hWnd);
+		SceneManager::CreateScene<jkTitleScene>(L"TitleScene", hWnd);
 
 	}
 }

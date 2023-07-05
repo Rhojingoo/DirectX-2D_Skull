@@ -24,6 +24,16 @@ namespace renderer
 		Matrix mProjection;
 	};
 
+	CBUFFER(GridCB, CBSLOT_GRID)
+	{
+		Vector4 cameraPosition;
+		Vector2 cameraScale;
+		Vector2 resolution;
+		float	meshScale;
+
+		Vector3 padding;
+	};
+
 	extern Vertex vertexes[];
 	extern jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 

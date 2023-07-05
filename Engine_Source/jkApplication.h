@@ -30,10 +30,11 @@ namespace jk
 		// 오로지 한개의 객체만 만들수 있는 스마트 포인터
 		std::unique_ptr<jk::graphics::GraphicDevice_Dx11> graphicDevice;
 
-		// HDC mHdc; -> GPU API
+	 //HDC mHdc -> GPU API
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;
+		HDC mHdc;
 
 		Scene* mScene;
 	};

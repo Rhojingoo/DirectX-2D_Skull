@@ -7,6 +7,10 @@
 #include "jkCameraScript.h"
 #include "jkCamera.h"
 #include "jkInput.h"
+#include "jkApplication.h"
+
+
+extern jk::Application application;
 
 namespace jk
 {
@@ -16,8 +20,11 @@ namespace jk
 	PlayScene::~PlayScene()
 	{
 	}
-	void PlayScene::Initialize()
+	void PlayScene::Initialize(HWND hWnd)
 	{
+		mHwnd = hWnd;
+		mHdc = GetDC(hWnd);
+
 		{
 			GameObject* player = new GameObject();
 			player->SetName(L"Catle_Back");
@@ -62,6 +69,7 @@ namespace jk
 			player->GetComponent<Transform>()->SetPosition(Vector3(-3.5f, -1.4f, 1.0f));
 		}
 		
+
 
 		//Main Camera
 		{
@@ -130,11 +138,32 @@ namespace jk
 
 	void PlayScene::LateUpdate()
 	{
+
+
 		Scene::LateUpdate();
 	}
 
 	void PlayScene::Render()
 	{
+		//HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 255, 255));
+		//HPEN oldPen = (HPEN)SelectObject(mHdc, redPen);
+
+		//int maxRow = application.GetHeight() / TILE_SIZE_Y + 1;
+		//for (size_t y = 0; y < maxRow; y++)
+		//{
+		//	MoveToEx(mHdc, 0, TILE_SIZE_Y * y, NULL);
+		//	LineTo(mHdc, application.GetWidth(), TILE_SIZE_Y * y);
+		//}
+		//int maxColumn = application.GetWidth() / TILE_SIZE_X + 1;
+		//for (size_t x = 0; x < maxColumn; x++)
+		//{
+		//	MoveToEx(mHdc, TILE_SIZE_X * x, 0, NULL);
+		//	LineTo(mHdc, TILE_SIZE_X * x, application.GetHeight());
+		//}
+		//(HPEN)SelectObject(mHdc, oldPen);
+		//DeleteObject(redPen);
+
+
 		Scene::Render();
 	}
 }
