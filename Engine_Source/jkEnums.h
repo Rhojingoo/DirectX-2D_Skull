@@ -30,6 +30,7 @@ namespace jk::enums
 		Shader,
 		Material,
 		Mesh,
+		Image,
 		End,
 	};
 }

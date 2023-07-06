@@ -6,6 +6,7 @@ namespace jk
 	class Resource
 	{
 	public:
+		//Resource();
 		Resource(const enums::eResourceType type);
 		virtual ~Resource();
 
@@ -24,3 +25,4 @@ namespace jk
 		std::wstring mPath;
 	};
 }
+

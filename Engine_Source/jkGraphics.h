@@ -52,6 +52,7 @@ namespace jk::graphics
 	enum class eDSType
 	{
 		Less,
+		//LessEqual,
 		Greater,
 		NoWrite,
 		None,

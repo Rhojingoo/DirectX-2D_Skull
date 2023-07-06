@@ -49,6 +49,9 @@
     <Filter Include="Scene\Base">
       <UniqueIdentifier>{5129b1ac-a463-4179-b525-3fa759278bd0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\TileImage">
+      <UniqueIdentifier>{8fcff397-ad51-4d0f-8e70-a1899a7a6b8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -128,6 +131,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h">
       <Filter>GameObject\Component</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkImage.h">
+      <Filter>Common\TileImage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -194,6 +200,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMaterial.cpp">
       <Filter>GameObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkImage.cpp">
+      <Filter>Common\TileImage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

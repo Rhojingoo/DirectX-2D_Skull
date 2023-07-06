@@ -59,6 +59,11 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		// TileMap Shader
+		shader = jk::Resources::Find<Shader>(L"Tile_Shader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
 #pragma endregion
 
 		//Sampler State
@@ -246,6 +251,18 @@ namespace renderer
 		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
 		jk::Resources::Insert(L"GridShader", girdShader);
+
+
+		//타일 미완성
+#pragma region Tile_map
+		std::shared_ptr<Shader> TileShader = std::make_shared<Shader>();
+		TileShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		TileShader->Create(eShaderStage::PS, L"TileMapPS.hlsl", "main");
+		TileShader->SetRSState(eRSType::SolidNone);
+		TileShader->SetDSState(eDSType::Less);
+		TileShader->SetBSState(eBSType::AlphaBlend);
+		jk::Resources::Insert(L"Tile_Shader", TileShader);
+#pragma endregion
 	}
 
 	void LoadMaterial()
@@ -339,13 +356,25 @@ namespace renderer
 				Resources::Insert(L"SpriteMaterial02", material);
 #pragma endregion
 
-
+#pragma region Grid
 		std::shared_ptr<Shader> gridShader
 			= Resources::Find<Shader>(L"GridShader");
 
 		material = std::make_shared<Material>();
 		material->SetShader(gridShader);
 		Resources::Insert(L"GridMaterial", material);
+#pragma endregion
+
+		//타일 미완성
+#pragma region Tile_map
+		texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
+		material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"MTRL_Map_Tile", material);
+#pragma endregion
+
 	}
 
 
