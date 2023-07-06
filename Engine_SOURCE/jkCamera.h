@@ -37,28 +37,20 @@ namespace jk
 		void ZSortTransparencyGameObjects();
 		void DivideAlphaBlendGameObjects(const std::vector<GameObject*> gameObjs);
 
-
-		float GetScale() { return mSize; }
-		void SetScale(float scale) { mSize = scale; }
-		//Matrix& GetViewMatrix() { return mView; }
-		//Matrix& GetProjectionMatrix() { return mProjection; }
-
-
-
 		void RenderOpaque();
 		void RenderCutOut();
 		void RenderTransparent();
 
-
 		void EnableDepthStencilState();
 		void DisableDepthStencilState();
+
+		float GetSize() { return mSize; }
+
 
 	private:
 		static Matrix View;
 		static Matrix Projection;
 
-
-		// 다중 카메라 지원을 위해 멤버 변수로 뷰, 투영행렬을 추가로 관리
 		Matrix mView;
 		Matrix mProjection;
 

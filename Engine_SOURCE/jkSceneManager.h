@@ -13,7 +13,7 @@ namespace jk
 		static void Release();
 
 		template <typename T>
-		static bool CreateScene(std::wstring name, HWND hWnd)
+		static bool CreateScene(std::wstring name)
 		{
 			T* scene = new T();
 
@@ -25,7 +25,7 @@ namespace jk
 
 			mScenes.insert(std::make_pair(name, scene));
 			mActiveScene = scene;
-			scene->Initialize(hWnd);
+			scene->Initialize();
 			return true;
 		}
 

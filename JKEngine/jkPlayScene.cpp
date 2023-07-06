@@ -7,10 +7,7 @@
 #include "jkCameraScript.h"
 #include "jkCamera.h"
 #include "jkInput.h"
-#include "jkApplication.h"
-
-
-extern jk::Application application;
+#include "jkGridScript.h"
 
 namespace jk
 {
@@ -20,11 +17,8 @@ namespace jk
 	PlayScene::~PlayScene()
 	{
 	}
-	void PlayScene::Initialize(HWND hWnd)
+	void PlayScene::Initialize()
 	{
-		mHwnd = hWnd;
-		mHdc = GetDC(hWnd);
-
 		{
 			GameObject* player = new GameObject();
 			player->SetName(L"Catle_Back");
@@ -70,13 +64,13 @@ namespace jk
 		}
 		
 
-
 		//Main Camera
+		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Player, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
-			Camera* cameraComp = camera->AddComponent<Camera>();
+			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
 		}
@@ -89,6 +83,19 @@ namespace jk
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
 		}
+
+
+		{
+			GameObject* grid = new GameObject();
+			grid->SetName(L"Grid");
+			AddGameObject(eLayerType::Grid, grid);
+			MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+			GridScript* gridSc = grid->AddComponent<GridScript>();
+			gridSc->SetCamera(cameraComp);
+		}
+
 
 		//{
 		//	GameObject* player = new GameObject();
@@ -139,31 +146,25 @@ namespace jk
 	void PlayScene::LateUpdate()
 	{
 
+		//마우스좌표계 변경하는법
+		//Vector3 pos(600, 450, 0.0f);
+		//Vector3 pos2(600, 450, 1000.0f);
+		//Viewport viewport;
+		//viewport.width = 1600.0f;
+		//viewport.height = 900.0f;
+		//viewport.x = 0;
+		//viewport.y = 0;
+		//viewport.minDepth = 0.0f;
+		//viewport.maxDepth = 1.0f;
+
+		//pos = viewport.Unproject(pos, Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
+		//pos2 = viewport.Unproject(pos2, Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
 
 		Scene::LateUpdate();
 	}
 
 	void PlayScene::Render()
 	{
-		//HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 255, 255));
-		//HPEN oldPen = (HPEN)SelectObject(mHdc, redPen);
-
-		//int maxRow = application.GetHeight() / TILE_SIZE_Y + 1;
-		//for (size_t y = 0; y < maxRow; y++)
-		//{
-		//	MoveToEx(mHdc, 0, TILE_SIZE_Y * y, NULL);
-		//	LineTo(mHdc, application.GetWidth(), TILE_SIZE_Y * y);
-		//}
-		//int maxColumn = application.GetWidth() / TILE_SIZE_X + 1;
-		//for (size_t x = 0; x < maxColumn; x++)
-		//{
-		//	MoveToEx(mHdc, TILE_SIZE_X * x, 0, NULL);
-		//	LineTo(mHdc, TILE_SIZE_X * x, application.GetHeight());
-		//}
-		//(HPEN)SelectObject(mHdc, oldPen);
-		//DeleteObject(redPen);
-
-
 		Scene::Render();
 	}
 }

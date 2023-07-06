@@ -72,7 +72,6 @@ namespace jk
 			mHwnd = hwnd;
 			mWidth = width;
 			mHeight = height;
-			mHdc = GetDC(hwnd);
 
 			graphicDevice = std::make_unique<jk::graphics::GraphicDevice_Dx11>();
 			jk::graphics::GetDevice() = graphicDevice.get();

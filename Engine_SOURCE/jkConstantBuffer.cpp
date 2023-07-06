@@ -16,12 +16,10 @@ namespace jk::graphics
 
 	bool ConstantBuffer::Create(size_t size)
 	{
-		desc.ByteWidth = static_cast<UINT>(size);
+		desc.ByteWidth = size;
 		desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
 		desc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		desc.MiscFlags = 0;
-		desc.StructureByteStride = 0;
 
 		jk::graphics::GetDevice()->CreateBuffer(buffer.GetAddressOf(), &desc, nullptr);
 

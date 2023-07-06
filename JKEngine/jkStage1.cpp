@@ -16,7 +16,7 @@ namespace jk
 	jkStage1::~jkStage1()
 	{
 	}
-	void jkStage1::Initialize(HWND hWnd)
+	void jkStage1::Initialize()
 	{
 		{
 			GameObject* player = new GameObject();

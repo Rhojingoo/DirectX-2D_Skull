@@ -10,7 +10,7 @@ namespace jk
 		jkTitleScene();
 		virtual ~jkTitleScene();
 
-		virtual void Initialize(HWND hWnd) override;
+		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;

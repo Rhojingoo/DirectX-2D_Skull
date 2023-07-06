@@ -1,24 +1,23 @@
 #pragma once
-#include "jkScript.h"
+#include <jkScript.h>
 #include "jkCamera.h"
 
 namespace jk
 {
-    class GridScript : public Script
-    {
+	class GridScript : public Script
+	{
 	public:
 		GridScript();
-		virtual ~GridScript();
+		~GridScript();
 
-		virtual void Initialize();
-		virtual void Update();
-		virtual void FixedUpdate();
-		virtual void Render();
+		virtual void Initialize() override;
+		virtual void Update() override;
+		virtual void LateUpdate() override;
+		virtual void Render() override;
 
 		void SetCamera(Camera* camera) { mCamera = camera; }
 
 	private:
 		Camera* mCamera;
-		float	mMeshScale;
 	};
 }

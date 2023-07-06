@@ -10,14 +10,12 @@ namespace jk
 		PlayScene();
 		virtual ~PlayScene();
 
-		virtual void Initialize(HWND hWnd) override;
+		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
 	private:
-		HWND mHwnd;
-		HDC mHdc;
 
 	};
 }

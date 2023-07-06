@@ -18,10 +18,20 @@ namespace jk
 		bool Create(const eShaderStage stage, const std::wstring& fileName, const std::string& funcName);
 		void Binds();
 
-		ID3DBlob* GetVSCode()							{return mVSBlob.Get();}		
-		ID3D11InputLayout* GetInputLayout()				{return mInputLayout;}
-		ID3D11InputLayout** GetInputLayoutAddressOf()	{return &mInputLayout;}
-	
+		ID3DBlob* GetVSCode()
+		{
+			return mVSBlob.Get();
+		}
+
+		ID3D11InputLayout* GetInputLayout()
+		{
+			return mInputLayout;
+		}
+
+		ID3D11InputLayout** GetInputLayoutAddressOf()
+		{
+			return &mInputLayout;
+		}
 
 
 		void SetRSState(eRSType type) { mRSType = type; }

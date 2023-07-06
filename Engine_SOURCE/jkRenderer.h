@@ -26,12 +26,9 @@ namespace renderer
 
 	CBUFFER(GridCB, CBSLOT_GRID)
 	{
-		Vector4 cameraPosition;
-		Vector2 cameraScale;
-		Vector2 resolution;
-		float	meshScale;
-
-		Vector3 padding;
+		Vector4 CameraPosition;
+		Vector2 CameraScale;
+		Vector2 Resolution;
 	};
 
 	extern Vertex vertexes[];

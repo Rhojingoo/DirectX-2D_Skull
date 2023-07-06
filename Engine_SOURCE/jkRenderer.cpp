@@ -10,6 +10,7 @@ namespace renderer
 	Vertex vertexes[4] = {};
 	jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[(UINT)eSamplerType::End] = {};
+
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[(UINT)eRSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
@@ -53,66 +54,12 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
-			
-		//D3D11_INPUT_ELEMENT_DESC arrLayoutDesc[2] = {};		
-
-		//arrLayoutDesc[0].AlignedByteOffset = 0;
-		//arrLayoutDesc[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-		//arrLayoutDesc[0].InputSlot = 0;
-		//arrLayoutDesc[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		//arrLayoutDesc[0].SemanticName = "POSITION";
-		//arrLayoutDesc[0].SemanticIndex = 0;
-
-		//arrLayoutDesc[1].AlignedByteOffset = 16;
-		//arrLayoutDesc[1].Format = DXGI_FORMAT_R32G32_FLOAT;
-		//arrLayoutDesc[1].InputSlot = 0;
-		//arrLayoutDesc[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		//arrLayoutDesc[1].SemanticName = "TEXCOORD";
-		//arrLayoutDesc[1].SemanticIndex = 0;
-
-		//// Grid Shader
-		//shader = jk::Resources::Find<Shader>(L"Shader_Grid");
-		//GetDevice()->CreateInputLayout(arrLayoutDesc, 2
-		//	, shader->GetVSCode()			
-		//	, shader->GetInputLayoutAddressOf());
-
-		//// Fade Shader
-		//shader = SHADER_FIND("Shader_Fade");
-		//GetDevice()->CreateInputLayout(arrLayoutDesc, 2
-		//	, shader->GetVSBlobBufferPointer()
-		//	, shader->GetVSBlobBufferSize()
-		//	, shader->GetInputLayoutAddressOf());
-
+		shader = jk::Resources::Find<Shader>(L"GridShader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
 
 #pragma endregion
-
-#pragma region arrLayoutDesc	
-		//D3D11_INPUT_ELEMENT_DESC arrLayoutDesc[2] = {};		
-		//memset(arrLayoutDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC) * 2);
-
-		//arrLayoutDesc[0].AlignedByteOffset = 0;
-		//arrLayoutDesc[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-		//arrLayoutDesc[0].InputSlot = 0;
-		//arrLayoutDesc[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		//arrLayoutDesc[0].SemanticName = "POSITION";
-		//arrLayoutDesc[0].SemanticIndex = 0;
-
-		//arrLayoutDesc[1].AlignedByteOffset = 16;
-		//arrLayoutDesc[1].Format = DXGI_FORMAT_R32G32_FLOAT;
-		//arrLayoutDesc[1].InputSlot = 0;
-		//arrLayoutDesc[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-		//arrLayoutDesc[1].SemanticName = "TEXCOORD";
-		//arrLayoutDesc[1].SemanticIndex = 0;
-
-		//// Grid Shader
-		//shader = SHADER_FIND("Shader_Grid");
-		//GetDevice()->CreateInputLayout(arrLayoutDesc, 2
-		//	, shader->GetVSBlobBufferPointer()
-		//	, shader->GetVSBlobBufferSize()
-		//	, shader->GetInputLayoutAddressOf());
-#pragma endregion
-
-
 
 		//Sampler State
 #pragma region Sampler State		
@@ -231,6 +178,29 @@ namespace renderer
 #pragma endregion
 	}
 
+	void LoadMesh()
+	{
+#pragma region RECT
+		//RECT
+		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
+		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertexes[0].uv = Vector2(0.0f, 0.0f);
+
+		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
+		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertexes[1].uv = Vector2(1.0f, 0.0f);
+
+		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
+		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertexes[2].uv = Vector2(1.0f, 1.0f);
+
+		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		vertexes[3].uv = Vector2(0.0f, 1.0f);
+#pragma endregion
+	}
+
+
 	void LoadBuffer()
 	{
 		// Vertex Buffer
@@ -249,166 +219,143 @@ namespace renderer
 		indexes.push_back(3);
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
-
 		// Constant Buffer
 		constantBuffer[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffer[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
-		//constantBuffer[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
-		//constantBuffer[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
+		// Grid Buffer
+		constantBuffer[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
+		constantBuffer[(UINT)eCBType::Grid]->Create(sizeof(TransformCB));
+
 	}
+
 
 	void LoadShader()
 	{
-#pragma region Triangle
 		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
 		jk::Resources::Insert(L"TriangleShader", shader);
-#pragma endregion
 
-#pragma region Texture	
 		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		jk::Resources::Insert(L"SpriteShader", spriteShader);
 
-		{
+		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
+		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
+		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
+		jk::Resources::Insert(L"GridShader", girdShader);
+	}
+
+	void LoadMaterial()
+	{
+		std::shared_ptr<Shader> spriteShader
+			= Resources::Find<Shader>(L"SpriteShader");
+		
+#pragma region Title
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"Title", L"..\\Resources\\Texture\\Title\\Title.png");
 
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"SpriteMaterial", spriteMateiral);
-		}
+			std::shared_ptr<Material> material = std::make_shared<Material>();
+			material->SetShader(spriteShader);
+			material->SetTexture(texture);
+			Resources::Insert(L"SpriteMaterial", material);
+#pragma endregion
+		
 
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png");
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);			
-			Resources::Insert(L"Catle_wall_Back", spriteMateiral);
-		}
-
-
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Catle_wall_Front1", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_01.png");
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);	
-			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
-			Resources::Insert(L"Catle_wall_Front_01", spriteMateiral);
-		}
-
-
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Devil_chair", L"..\\Resources\\Texture\\Devil_Catle\\Devil_chair.png");
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
-			Resources::Insert(L"Devil_Chair", spriteMateiral);
-		}
-
-
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"Skul_ui", L"..\\Resources\\Texture\\UI\\Skul_UI.png");
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			spriteMateiral->SetRenderingMode(eRenderingMode::Transparent);
-			Resources::Insert(L"Skul_UI", spriteMateiral);
-		}
-
-		{
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"SpriteMaterial02", spriteMateiral);
-		}
-
-
-		//{
-		//	std::shared_ptr<Texture> texture
-		//		= Resources::Load<Texture>(L"Catle_wall_Front2", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_02.png");
-		//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-		//	spriteMateiral->SetShader(spriteShader);
-		//	spriteMateiral->SetTexture(texture);
-		//	Resources::Insert(L"Catle_wall_Front_02", spriteMateiral);
-		//}
-
-		//{
-		//	std::shared_ptr<Texture> texture
-		//		= Resources::Load<Texture>(L"Catle_wall_Front3", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_03.png");
-		//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-		//	spriteMateiral->SetShader(spriteShader);
-		//	spriteMateiral->SetTexture(texture);
-		//	Resources::Insert(L"Catle_wall_Front_03", spriteMateiral);
-		//}
-
-		//{
-		//	std::shared_ptr<Texture> texture
-		//		= Resources::Load<Texture>(L"Catle_wall_Front4", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_04.png");
-		//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-		//	spriteMateiral->SetShader(spriteShader);
-		//	spriteMateiral->SetTexture(texture);
-		//	Resources::Insert(L"Catle_wall_Front_04", spriteMateiral);
-		//}
+#pragma region PlayScene_Devil(back)
+			texture	= Resources::Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png");
+			material = std::make_shared<Material>();
+			material->SetShader(spriteShader);
+			material->SetTexture(texture);
+			Resources::Insert(L"Catle_wall_Back", material);
 #pragma endregion
 
 
-#pragma region Grid		
-		//std::shared_ptr<Shader> Gridshader = std::make_shared<Shader>();
-		//Gridshader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
-		//Gridshader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
-		//jk::Resources::Insert(L"Shader_Grid", Gridshader);
+#pragma region PlayScene_Devil(front)
+			texture	= Resources::Load<Texture>(L"Catle_wall_Front1", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_01.png");
+			material = std::make_shared<Material>();
+			material->SetShader(spriteShader);
+			material->SetTexture(texture);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"Catle_wall_Front_01", material);
 #pragma endregion
+
+#pragma region PlayScene_Devil(background_materials)
+			//{
+			//	std::shared_ptr<Texture> texture
+			//		= Resources::Load<Texture>(L"Catle_wall_Front2", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_02.png");
+			//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			//	spriteMateiral->SetShader(spriteShader);
+			//	spriteMateiral->SetTexture(texture);
+			//	Resources::Insert(L"Catle_wall_Front_02", spriteMateiral);
+			//}
+
+			//{
+			//	std::shared_ptr<Texture> texture
+			//		= Resources::Load<Texture>(L"Catle_wall_Front3", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_03.png");
+			//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			//	spriteMateiral->SetShader(spriteShader);
+			//	spriteMateiral->SetTexture(texture);
+			//	Resources::Insert(L"Catle_wall_Front_03", spriteMateiral);
+			//}
+
+			//{
+			//	std::shared_ptr<Texture> texture
+			//		= Resources::Load<Texture>(L"Catle_wall_Front4", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_04.png");
+			//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			//	spriteMateiral->SetShader(spriteShader);
+			//	spriteMateiral->SetTexture(texture);
+			//	Resources::Insert(L"Catle_wall_Front_04", spriteMateiral);
+			//}
+#pragma endregion
+
+#pragma region PlayScene_Devil(Devil_Chair)
+			texture	= Resources::Load<Texture>(L"Devil_chair", L"..\\Resources\\Texture\\Devil_Catle\\Devil_chair.png");
+			material = std::make_shared<Material>();
+			material->SetShader(spriteShader);
+			material->SetTexture(texture);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"Devil_Chair", material);
+#pragma endregion
+
+
+#pragma region PlayScene_Devil(UI)
+			texture = Resources::Load<Texture>(L"Skul_ui", L"..\\Resources\\Texture\\UI\\Skul_UI.png");
+			material = std::make_shared<Material>();
+			material->SetShader(spriteShader);
+			material->SetTexture(texture);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"Skul_UI", material);
+#pragma endregion
+
+
+#pragma region Stage2(Back)
+				texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				Resources::Insert(L"SpriteMaterial02", material);
+#pragma endregion
+
+
+		std::shared_ptr<Shader> gridShader
+			= Resources::Find<Shader>(L"GridShader");
+
+		material = std::make_shared<Material>();
+		material->SetShader(gridShader);
+		Resources::Insert(L"GridMaterial", material);
 	}
+
 
 	void Initialize()
 	{
-#pragma region RECT Mesh
-		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
-		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		vertexes[0].uv = Vector2(0.0f, 0.0f);
-
-		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
-		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		vertexes[1].uv = Vector2(1.0f, 0.0f);
-
-		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
-		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		vertexes[2].uv = Vector2(1.0f, 1.0f);
-
-		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-		vertexes[3].uv = Vector2(0.0f, 1.0f);
-#pragma endregion
-
+		LoadMesh();
 		LoadBuffer();
 		LoadShader();
 		SetupState();
-
-		std::shared_ptr<Texture> texture
-			= Resources::Load<Texture>(L"Title", L"..\\Resources\\Texture\\Title\\Title.png");
-		texture
-			= Resources::Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Stage1\\DevilCastle.png");
-		texture
-		= Resources::Load<Texture>(L"Catle_wall_Front1", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_01.png");	
-		texture
-			= Resources::Load<Texture>(L"Devil_chair", L"..\\Resources\\Texture\\Devil_Catle\\Devil_chair.png");
-		texture
-			= Resources::Load<Texture>(L"Skul_UI", L"..\\Resources\\Texture\\UI\\Skul_UI.png");
-		texture
-			= Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
-		texture->BindShader(eShaderStage::PS, 0);
+		LoadMaterial();	
 	}
 
 	void Render()

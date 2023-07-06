@@ -16,7 +16,7 @@ namespace jk
 	jkTitleScene::~jkTitleScene()
 	{
 	}
-	void jkTitleScene::Initialize(HWND hWnd)
+	void jkTitleScene::Initialize()
 	{
 		{
 			GameObject* player = new GameObject();

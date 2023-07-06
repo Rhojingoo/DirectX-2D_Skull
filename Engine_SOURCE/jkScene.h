@@ -10,7 +10,7 @@ namespace jk
 		Scene();
 		virtual ~Scene();
 
-		virtual void Initialize(HWND hWnd);
+		virtual void Initialize();
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();

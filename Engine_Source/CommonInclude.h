@@ -77,6 +77,3 @@ constexpr bool has_flag(E lhs, E rhs)
 {
 	return (lhs & rhs) == rhs;
 }
-
-#define TILE_SIZE_X 64
-#define TILE_SIZE_Y 64
