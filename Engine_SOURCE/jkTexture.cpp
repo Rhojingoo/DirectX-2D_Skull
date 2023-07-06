@@ -9,6 +9,10 @@ namespace jk::graphics
 		, mTexture(nullptr)
 		, mSRV(nullptr)
 		, mDesc{}
+		, mBitmap(NULL)
+		, mHdc(NULL)
+		, mWidth(0)
+		, mHeight(0)
 	{
 	}
 

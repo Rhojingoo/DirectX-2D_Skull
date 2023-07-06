@@ -41,6 +41,7 @@ LRESULT CALLBACK ToolWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 
     case WM_CREATE:
     {    
+       
         //HMENU mMenubar = LoadMenu(nullptr, MAKEINTRESOURCE(IDC_CLIENT));
         //SetMenu(hWnd, mMenubar);
        // ya::Image* tile = ya::Resources::Load<ya::Image>(L"TileAtlas", L"..\\Resources\\Tile.bmp");
@@ -78,8 +79,8 @@ LRESULT CALLBACK ToolWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
         HDC hdc = BeginPaint(hWnd, &ps);           
 
     
-        //std::shared_ptr<jk::Image> tile = jk::Resources::Load<jk::Image>(L"TileAtlas", L"..\\Resource\\Tile.bmp");
-        //BitBlt(hdc, 0, 0, tile->GetWidth(), tile->GetHeight(), tile->GetHdc(), 0, 0, SRCCOPY);     
+        std::shared_ptr<jk::Image> tile = jk::Resources::Load<jk::Image>( L"TileAtlas", L"..\\Resources\\Tile\\Tile.bmp");
+        BitBlt(hdc, 0, 0, tile->GetWidth(), tile->GetHeight(), tile->GetHdc(), 0, 0, SRCCOPY);
 
 
         //HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));

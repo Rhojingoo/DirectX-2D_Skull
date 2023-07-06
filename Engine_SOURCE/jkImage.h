@@ -13,7 +13,7 @@ namespace jk
 		Image();
 		~Image() override;
 
-		virtual HRESULT Load(const std::wstring& path) override;
+		virtual HRESULT Load( const std::wstring& path) override;
 
 		HDC GetHdc() { return mHdc; }
 		HBITMAP GetBitmap() { return mBitmap; }

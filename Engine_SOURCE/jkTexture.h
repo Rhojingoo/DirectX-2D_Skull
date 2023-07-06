@@ -5,6 +5,9 @@
 #include "../External/DirectXTex/Include/DirectXTex.h"
 #include "../External/DirectXTex/Include/DirectXTex.inl"
 
+
+
+
 #ifdef _DEBUG
 #pragma comment(lib, "..\\External\\DirectXTex\\Lib\\Debug\\DirectXTex.lib")
 #else
@@ -23,10 +26,18 @@ namespace jk::graphics
 		void BindShader(eShaderStage stage, UINT startSlot);
 		void Clear();
 
+
 	private:
 		ScratchImage mImage;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mSRV;
 		D3D11_TEXTURE2D_DESC mDesc;
+
+
+	private:
+		HBITMAP mBitmap;
+		HDC mHdc;
+		UINT mWidth;
+		UINT mHeight;
 	};
 }

@@ -17,7 +17,7 @@ namespace jk
 	{
 	}
 
-	HRESULT Image::Load(const std::wstring& path)
+	HRESULT Image::Load( const std::wstring& path)
 	{
 		mBitmap = (HBITMAP)LoadImageW(nullptr
 			, path.c_str(), IMAGE_BITMAP

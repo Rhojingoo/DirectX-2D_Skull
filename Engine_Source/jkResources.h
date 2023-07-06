@@ -76,7 +76,7 @@ namespace jk
 //		}
 //
 //		template <typename T>
-//		static T* Load_Tile(const std::wstring& key, const std::wstring& path)
+//		static T* Load_Tile(HDC hdc, const std::wstring& key, const std::wstring& path)
 //		{
 //			// 키값으로 탐색
 //			T* resource = Resources::Find<T>(key);
@@ -100,7 +100,7 @@ namespace jk
 //			return dynamic_cast<T*>(resource);
 //		}
 //#pragma endregion
-//
+
 
 
 	private:

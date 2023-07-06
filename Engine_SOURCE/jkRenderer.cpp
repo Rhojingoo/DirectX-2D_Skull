@@ -365,6 +365,12 @@ namespace renderer
 		Resources::Insert(L"GridMaterial", material);
 #pragma endregion
 
+#pragma region Tile
+		texture = Resources::Load<Texture>(L"TileAtlas", L"..\\Resource\\Tile\\Tile.bmp");
+		material->SetTexture(texture);
+			//Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png")
+#pragma endregion
+
 		//타일 미완성
 #pragma region Tile_map
 		texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
