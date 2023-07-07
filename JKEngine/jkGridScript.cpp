@@ -5,6 +5,8 @@
 #include "jkApplication.h"
 #include "jkGameObject.h"
 #include "jkRenderer.h"
+#include "jkTime.h"
+#include "jkObject.h"
 
 extern jk::Application application;
 
@@ -23,6 +25,17 @@ namespace jk
 	}
 	void GridScript::Update()
 	{
+
+		//그리드가 없어지게 하능 방법
+		//static float chTime = 0.0f;
+		//chTime += Time::DeltaTime();
+	
+		//if (chTime > 3.0f)
+		//{
+		//	object::Destroy(GetOwner());
+		//}
+
+
 		if (mCamera == nullptr)
 			return;
 

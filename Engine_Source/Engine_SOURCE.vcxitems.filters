@@ -52,6 +52,9 @@
     <Filter Include="Common\TileImage">
       <UniqueIdentifier>{8fcff397-ad51-4d0f-8e70-a1899a7a6b8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Object">
+      <UniqueIdentifier>{21d122ca-337c-44fe-a20f-bbd9c422df3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkImage.h">
       <Filter>Common\TileImage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkObject.h">
+      <Filter>Common\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

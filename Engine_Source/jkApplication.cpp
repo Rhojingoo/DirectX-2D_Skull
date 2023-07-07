@@ -27,6 +27,7 @@ namespace jk
 		Update();
 		LateUpdate();
 		Render();
+		Destroy();
 	}
 
 	void Application::Initialize()
@@ -64,6 +65,12 @@ namespace jk
 		graphicDevice->Present();
 				
 	}
+
+	void Application::Destroy()
+	{
+		SceneManager::Destroy();
+	}
+
 
 	void Application::SetWindow(HWND hwnd, UINT width, UINT height)
 	{

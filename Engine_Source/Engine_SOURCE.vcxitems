@@ -31,6 +31,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResources.h" />

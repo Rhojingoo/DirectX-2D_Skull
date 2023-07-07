@@ -10,6 +10,7 @@ namespace jk
 		static void Update();
 		static void LateUpdate();
 		static void Render();
+		static void Destroy();
 		static void Release();
 
 		template <typename T>
