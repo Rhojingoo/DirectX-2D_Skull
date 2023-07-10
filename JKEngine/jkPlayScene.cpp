@@ -10,6 +10,8 @@
 #include "jkGridScript.h"
 #include "jkTileMap.h"
 #include "jkXmlParser.h"
+#include "jkCloud.h"
+
 
 
 namespace jk
@@ -21,7 +23,8 @@ namespace jk
 	{
 	}
 	void PlayScene::Initialize()
-	{
+	{	
+
 		{
 			GameObject* player = new GameObject();
 			player->SetName(L"Catle_Back");
@@ -88,6 +91,18 @@ namespace jk
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
 		}
 
+		//Cloud
+		{			
+			GameObject* player = new GameObject();
+			AddGameObject(eLayerType::Player, player);
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Cloud_Devil"));
+			player->GetComponent<Transform>()->SetScale(Vector3(5.f, 5.f, 0.f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(1.f, 1.0f, 190.0f));
+		}
+
+
 		//Grid
 		{
 			GameObject* grid = new GameObject();
@@ -144,11 +159,7 @@ namespace jk
 				}
 			}
 		}
-
-
-
-
-
+		
 		//{
 		//	GameObject* player = new GameObject();
 		//	AddGameObject(eLayerType::Player, player);

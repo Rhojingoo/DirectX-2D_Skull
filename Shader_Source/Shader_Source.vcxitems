@@ -19,6 +19,8 @@
   <ItemGroup>
     <FxCompile Include="$(MSBuildThisFileDirectory)GridPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)GridVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)MovePS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)MoveVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)SpritePS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TileMapPS.hlsl" />

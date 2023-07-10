@@ -9,8 +9,8 @@ namespace jk::renderer
 	using namespace jk::graphics;
 	Vertex vertexes[4] = {};
 	jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End] = {};
-	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[(UINT)eSamplerType::End] = {};
 
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[(UINT)eSamplerType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[(UINT)eRSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
@@ -49,21 +49,30 @@ namespace jk::renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+
 		shader = jk::Resources::Find<Shader>(L"SpriteShader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
-		shader = jk::Resources::Find<Shader>(L"GridShader");
+
+		shader = jk::Resources::Find<Shader>(L"Grid_Shader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
-		// TileMap Shader
+		
 		shader = jk::Resources::Find<Shader>(L"Tile_Shader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
+
+
+		shader = jk::Resources::Find<Shader>(L"Move_Shader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 #pragma endregion
 
 		//Sampler State
@@ -237,7 +246,6 @@ namespace jk::renderer
 		// Grid Buffer
 		constantBuffer[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
 		constantBuffer[(UINT)eCBType::Grid]->Create(sizeof(TransformCB));
-
 	}
 
 
@@ -256,8 +264,13 @@ namespace jk::renderer
 		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
 		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
-		jk::Resources::Insert(L"GridShader", girdShader);
+		jk::Resources::Insert(L"Grid_Shader", girdShader);
 
+		//구름
+		std::shared_ptr<Shader> moveShader = std::make_shared<Shader>();
+		moveShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		moveShader->Create(eShaderStage::PS, L"MovePS.hlsl", "main");
+		jk::Resources::Insert(L"Move_Shader", moveShader);
 
 		//타일 미완성
 #pragma region Tile_map
@@ -269,12 +282,18 @@ namespace jk::renderer
 		TileShader->SetBSState(eBSType::AlphaBlend);
 		jk::Resources::Insert(L"Tile_Shader", TileShader);
 #pragma endregion
+
+	
 	}
 
 	void LoadMaterial()
 	{
 		std::shared_ptr<Shader> spriteShader
 			= Resources::Find<Shader>(L"SpriteShader");
+		//std::shared_ptr<Shader> TileShader
+		//	= Resources::Find<Shader>(L"Tile_Shader");
+		std::shared_ptr<Shader> moveShader
+			= Resources::Find<Shader>(L"Move_Shader");
 		
 #pragma region Title
 			std::shared_ptr<Texture> texture
@@ -286,83 +305,96 @@ namespace jk::renderer
 			Resources::Insert(L"SpriteMaterial", material);
 #pragma endregion
 		
+#pragma region PlayScene
+	#pragma region PlayScene_Devil(back)
+				texture	= Resources::Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				Resources::Insert(L"Catle_wall_Back", material);
+	#pragma endregion
 
-#pragma region PlayScene_Devil(back)
-			texture	= Resources::Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png");
-			material = std::make_shared<Material>();
-			material->SetShader(spriteShader);
-			material->SetTexture(texture);
-			Resources::Insert(L"Catle_wall_Back", material);
+
+	#pragma region PlayScene_Devil(front)
+				texture	= Resources::Load<Texture>(L"Catle_wall_Front", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_01.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Catle_wall_Front_01", material);
+	#pragma endregion
+
+
+	#pragma region PlayScene_Devil(Devil_Chair)
+				texture	= Resources::Load<Texture>(L"Devil_chair", L"..\\Resources\\Texture\\Devil_Catle\\Devil_chair.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Devil_Chair", material);
+	#pragma endregion
+
+
+	#pragma region PlayScene_Devil(UI)
+				texture = Resources::Load<Texture>(L"Skul_ui", L"..\\Resources\\Texture\\UI\\Skul_UI.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Skul_UI", material);
+	#pragma endregion
+
+
+	#pragma region PlayScene_Tile_map(Dungreed)
+				texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resource\\Tile\\DG_Tile.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				Resources::Insert(L"DG_Tile", material);
+	#pragma endregion
+
+
+	#pragma region Cloud				
+			
+				texture = Resources::Load<Texture>(L"Cloud_devil", L"..\\Resources\\Texture\\Effect\\Cloud_devil.png");
+				material = std::make_shared<Material>();
+				material->SetShader(moveShader);
+				material->SetTexture(texture);
+				Resources::Insert(L"Cloud_Devil", material);
+	#pragma endregion
+
+
+	#pragma region PlayScene_Devil(background_materials)
+					//{
+					//	std::shared_ptr<Texture> texture
+					//		= Resources::Load<Texture>(L"Catle_wall_Front2", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_02.png");
+					//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+					//	spriteMateiral->SetShader(spriteShader);
+					//	spriteMateiral->SetTexture(texture);
+					//	Resources::Insert(L"Catle_wall_Front_02", spriteMateiral);
+					//}
+
+					//{
+					//	std::shared_ptr<Texture> texture
+					//		= Resources::Load<Texture>(L"Catle_wall_Front3", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_03.png");
+					//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+					//	spriteMateiral->SetShader(spriteShader);
+					//	spriteMateiral->SetTexture(texture);
+					//	Resources::Insert(L"Catle_wall_Front_03", spriteMateiral);
+					//}
+
+					//{
+					//	std::shared_ptr<Texture> texture
+					//		= Resources::Load<Texture>(L"Catle_wall_Front4", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_04.png");
+					//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+					//	spriteMateiral->SetShader(spriteShader);
+					//	spriteMateiral->SetTexture(texture);
+					//	Resources::Insert(L"Catle_wall_Front_04", spriteMateiral);
+					//}
 #pragma endregion
 
-
-#pragma region PlayScene_Devil(front)
-			texture	= Resources::Load<Texture>(L"Catle_wall_Front1", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_01.png");
-			material = std::make_shared<Material>();
-			material->SetShader(spriteShader);
-			material->SetTexture(texture);
-			material->SetRenderingMode(eRenderingMode::Transparent);
-			Resources::Insert(L"Catle_wall_Front_01", material);
 #pragma endregion
 
-
-
-#pragma region PlayScene_Devil(background_materials)
-			//{
-			//	std::shared_ptr<Texture> texture
-			//		= Resources::Load<Texture>(L"Catle_wall_Front2", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_02.png");
-			//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			//	spriteMateiral->SetShader(spriteShader);
-			//	spriteMateiral->SetTexture(texture);
-			//	Resources::Insert(L"Catle_wall_Front_02", spriteMateiral);
-			//}
-
-			//{
-			//	std::shared_ptr<Texture> texture
-			//		= Resources::Load<Texture>(L"Catle_wall_Front3", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_03.png");
-			//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			//	spriteMateiral->SetShader(spriteShader);
-			//	spriteMateiral->SetTexture(texture);
-			//	Resources::Insert(L"Catle_wall_Front_03", spriteMateiral);
-			//}
-
-			//{
-			//	std::shared_ptr<Texture> texture
-			//		= Resources::Load<Texture>(L"Catle_wall_Front4", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_04.png");
-			//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			//	spriteMateiral->SetShader(spriteShader);
-			//	spriteMateiral->SetTexture(texture);
-			//	Resources::Insert(L"Catle_wall_Front_04", spriteMateiral);
-			//}
-#pragma endregion
-
-#pragma region PlayScene_Devil(Devil_Chair)
-			texture	= Resources::Load<Texture>(L"Devil_chair", L"..\\Resources\\Texture\\Devil_Catle\\Devil_chair.png");
-			material = std::make_shared<Material>();
-			material->SetShader(spriteShader);
-			material->SetTexture(texture);
-			material->SetRenderingMode(eRenderingMode::Transparent);
-			Resources::Insert(L"Devil_Chair", material);
-#pragma endregion
-
-
-#pragma region PlayScene_Devil(UI)
-			texture = Resources::Load<Texture>(L"Skul_ui", L"..\\Resources\\Texture\\UI\\Skul_UI.png");
-			material = std::make_shared<Material>();
-			material->SetShader(spriteShader);
-			material->SetTexture(texture);
-			material->SetRenderingMode(eRenderingMode::Transparent);
-			Resources::Insert(L"Skul_UI", material);
-#pragma endregion
-
-
-#pragma region PlayScene_Tile_map(Dungreed)
-			texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resource\\Tile\\DG_Tile.png");
-			material = std::make_shared<Material>();
-			material->SetShader(spriteShader);
-			material->SetTexture(texture);
-			Resources::Insert(L"DG_Tile", material);
-#pragma endregion
 
 
 #pragma region Stage2(Back)
@@ -374,17 +406,14 @@ namespace jk::renderer
 #pragma endregion
 
 
-
-
-
 #pragma region Grid
 		std::shared_ptr<Shader> gridShader
-			= Resources::Find<Shader>(L"GridShader");
-
+			= Resources::Find<Shader>(L"Grid_Shader");
 		material = std::make_shared<Material>();
 		material->SetShader(gridShader);
 		Resources::Insert(L"GridMaterial", material);
 #pragma endregion
+
 
 #pragma region Tile_window2_Create
 		texture = Resources::Load<Texture>(L"TileAtlas", L"..\\Resource\\Tile\\Tile.bmp");

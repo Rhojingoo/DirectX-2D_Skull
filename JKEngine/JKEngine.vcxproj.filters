@@ -23,6 +23,9 @@
     <ClInclude Include="jkGridScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="jkCloud.h">
+      <Filter>Gameob</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JKEngine.cpp" />
@@ -44,6 +47,9 @@
     <ClCompile Include="jkGridScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
+    <ClCompile Include="jkCloud.cpp">
+      <Filter>Gameob</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -54,6 +60,9 @@
     </Filter>
     <Filter Include="Script">
       <UniqueIdentifier>{2cfe3ec8-f284-499b-92eb-1916842908e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameob">
+      <UniqueIdentifier>{2f244ea4-3f8f-4b9c-b033-4382bbe8c0a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

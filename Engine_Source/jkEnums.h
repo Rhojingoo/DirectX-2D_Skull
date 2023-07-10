@@ -21,6 +21,7 @@ namespace jk::enums
 		Player,
 		Monster,
 		UI,
+		MapEffect,
 		End,
 	};
 

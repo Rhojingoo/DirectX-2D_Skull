@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="jkCameraScript.h" />
+    <ClInclude Include="jkCloud.h" />
     <ClInclude Include="jkGridScript.h" />
     <ClInclude Include="jkPlayScene.h" />
     <ClInclude Include="jkStage1.h" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp" />
+    <ClCompile Include="jkCloud.cpp" />
     <ClCompile Include="JKEngine.cpp" />
     <ClCompile Include="jkGridScript.cpp" />
     <ClCompile Include="jkPlayScene.cpp" />

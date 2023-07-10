@@ -71,6 +71,14 @@ namespace jk::renderer
 		Vector2 Resolution;
 	};
 
+	CBUFFER(ObjectTypeMoveCB, CBSLOT_MOVE)
+	{
+		int mtype;
+		Vector3 mTime;
+	};
+
+
+
 	extern Vertex vertexes[];
 	extern jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 
