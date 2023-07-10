@@ -1,6 +1,7 @@
 #pragma once
 #include "jkEntity.h"
 
+
 namespace jk
 {
 	using namespace jk::enums;

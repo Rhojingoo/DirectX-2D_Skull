@@ -16,6 +16,7 @@
 
 namespace jk::graphics
 {
+	using namespace jk::math;
 	class Texture : public Resource
 	{
 	public:
@@ -26,6 +27,10 @@ namespace jk::graphics
 		void BindShader(eShaderStage stage, UINT startSlot);
 		void Clear();
 
+		const Vector2& GetTexSize() { return mTextureSize; }
+		void SetTexSize(const Vector2& textureSize) { mTextureSize = textureSize; }
+		size_t GetHeight() { return mDesc.Height; }
+		size_t GetWidth() { return mDesc.Width; }
 
 	private:
 		ScratchImage mImage;
@@ -39,5 +44,7 @@ namespace jk::graphics
 		HDC mHdc;
 		UINT mWidth;
 		UINT mHeight;
+		
+		Vector2 mTextureSize;
 	};
 }

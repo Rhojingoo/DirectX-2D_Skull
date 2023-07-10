@@ -3,7 +3,7 @@
 #include "jkTexture.h"
 #include "jkMaterial.h"
 
-namespace renderer
+namespace jk::renderer
 {	
 	using namespace jk;
 	using namespace jk::graphics;
@@ -203,11 +203,7 @@ namespace renderer
 		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 		vertexes[3].uv = Vector2(0.0f, 1.0f);
 #pragma endregion
-	}
 
-
-	void LoadBuffer()
-	{
 		// Vertex Buffer
 		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 		Resources::Insert(L"RectMesh", mesh);
@@ -224,9 +220,19 @@ namespace renderer
 		indexes.push_back(3);
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 
+	}
+
+
+	void LoadBuffer()
+	{
+
 		// Constant Buffer
 		constantBuffer[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffer[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
+
+		// Material Buffer
+		constantBuffer[(UINT)eCBType::Material] = new ConstantBuffer(eCBType::Material);
+		constantBuffer[(UINT)eCBType::Material]->Create(sizeof(MaterialCB));
 
 		// Grid Buffer
 		constantBuffer[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
@@ -299,6 +305,8 @@ namespace renderer
 			Resources::Insert(L"Catle_wall_Front_01", material);
 #pragma endregion
 
+
+
 #pragma region PlayScene_Devil(background_materials)
 			//{
 			//	std::shared_ptr<Texture> texture
@@ -348,6 +356,15 @@ namespace renderer
 #pragma endregion
 
 
+#pragma region PlayScene_Tile_map(Dungreed)
+			texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resource\\Tile\\DG_Tile.png");
+			material = std::make_shared<Material>();
+			material->SetShader(spriteShader);
+			material->SetTexture(texture);
+			Resources::Insert(L"DG_Tile", material);
+#pragma endregion
+
+
 #pragma region Stage2(Back)
 				texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
 				material = std::make_shared<Material>();
@@ -355,6 +372,10 @@ namespace renderer
 				material->SetTexture(texture);
 				Resources::Insert(L"SpriteMaterial02", material);
 #pragma endregion
+
+
+
+
 
 #pragma region Grid
 		std::shared_ptr<Shader> gridShader
@@ -365,20 +386,21 @@ namespace renderer
 		Resources::Insert(L"GridMaterial", material);
 #pragma endregion
 
-#pragma region Tile
+#pragma region Tile_window2_Create
 		texture = Resources::Load<Texture>(L"TileAtlas", L"..\\Resource\\Tile\\Tile.bmp");
 		material->SetTexture(texture);
 			//Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png")
 #pragma endregion
 
+
 		//타일 미완성
 #pragma region Tile_map
-		texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
-		material = std::make_shared<Material>();
-		material->SetShader(spriteShader);
-		material->SetTexture(texture);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert(L"MTRL_Map_Tile", material);
+		//texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
+		//material = std::make_shared<Material>();
+		//material->SetShader(spriteShader);
+		//material->SetTexture(texture);
+		//material->SetRenderingMode(eRenderingMode::Transparent);
+		//Resources::Insert(L"MTRL_Map_Tile", material);
 #pragma endregion
 
 	}
@@ -387,8 +409,8 @@ namespace renderer
 	void Initialize()
 	{
 		LoadMesh();
-		LoadBuffer();
 		LoadShader();
+		LoadBuffer();
 		SetupState();
 		LoadMaterial();	
 	}

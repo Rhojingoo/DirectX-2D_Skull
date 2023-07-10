@@ -20,6 +20,7 @@ namespace jk::graphics
 		bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
 		bool CreateRasterizeState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState);
 		bool CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc, ID3D11DepthStencilState** ppDepthStencilState);
+		bool CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView);
 		bool CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc, ID3D11BlendState** ppBlendState);
 
 
@@ -35,6 +36,7 @@ namespace jk::graphics
 		void BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV);
 		void BindSampler(eShaderStage stage, UINT StartSlot, ID3D11SamplerState** ppSamplers);
 		void BindViewPort(D3D11_VIEWPORT* viewPort);
+		void BindBuffer(ID3D11Buffer* buffer, void* data, UINT size);
 		void BindRasterizeState(ID3D11RasterizerState* pRasterizerState);
 		void BindDepthStencilState(ID3D11DepthStencilState* pDepthStencilState);
 		void BindBlendState(ID3D11BlendState* pBlendState);

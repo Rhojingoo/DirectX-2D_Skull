@@ -6,7 +6,7 @@
 namespace jk
 {
 	MeshRenderer::MeshRenderer()
-		: Component(eComponentType::MeshRenderer)
+		: BaseRenderer(eComponentType::MeshRenderer)
 	{
 	}
 	MeshRenderer::~MeshRenderer()
@@ -23,13 +23,19 @@ namespace jk
 	}
 	void MeshRenderer::Render()
 	{
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		tr->BindConstantBuffer();
+		GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
 
-		mMesh->BindBuffer();
-		mMaterial->Binds();
-		mMesh->Render();
-
-		mMaterial->Clear();
+		GetMesh()->BindBuffer();
+		GetMaterial()->Binds();
+		GetMesh()->Render();
+		GetMaterial()->Clear();
+		
+		//선생코드
+		//Transform* tr = GetOwner()->GetComponent<Transform>();
+		//tr->BindConstantBuffer();
+		//mMesh->BindBuffer();
+		//mMaterial->Binds();
+		//mMesh->Render();
+		//mMaterial->Clear();
 	}
 }

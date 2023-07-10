@@ -8,6 +8,9 @@
 #include "jkCamera.h"
 #include "jkInput.h"
 #include "jkGridScript.h"
+#include "jkTileMap.h"
+#include "jkXmlParser.h"
+
 
 namespace jk
 {
@@ -57,6 +60,7 @@ namespace jk
 			player->SetName(L"Skul_UI");
 			AddGameObject(eLayerType::UI, player);
 			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"Skul_UI");
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"Skul_UI"));
 			player->GetComponent<Transform>()->SetScale(Vector3(0.5f, 0.5f, 0.f));
@@ -84,7 +88,7 @@ namespace jk
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
 		}
 
-
+		//Grid
 		{
 			GameObject* grid = new GameObject();
 			grid->SetName(L"Grid");
@@ -95,6 +99,54 @@ namespace jk
 			GridScript* gridSc = grid->AddComponent<GridScript>();
 			gridSc->SetCamera(cameraComp);
 		}
+
+		//Tilemap
+		{
+			GameObject* Tile_map = new GameObject();
+				//object::Instantiate<GameObject>(eLayerType::BackGround);
+			Tile_map->SetName(L"TileMap");
+			Transform* tr = Tile_map->GetComponent<Transform>();
+			tr->SetPositionZ(5.f);
+			tr->AddPositionY(64.f * 8.f);
+			tr->SetScale(Vector3(64.f * 114.f, 64.f * 24.f, 1.f));
+
+			TileMap* tilemap = Tile_map->AddComponent<TileMap>();			
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"DG_Tile");
+			
+			tilemap->SetMaterial(material);
+			tilemap->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			tilemap->SetAtlasTex(material->GetTexture());
+			tilemap->SetTileSize(Vector2(64.f, 64.f));
+			tilemap->SetTileMapCount(114, 24);
+			//Test(tilemap);
+			//tilemap->SetAllTileData(88);
+			bool xmlTest = false;
+			XmlParser* testParser = new XmlParser;
+			xmlTest = testParser->LoadFile(L"..\\Resources\\Metadata\\TileMap\\00_Town.xml");
+			if (xmlTest)
+			{
+				xmlTest = testParser->FindElem(L"map");
+				testParser->IntoElem();
+				xmlTest = testParser->FindElem(L"layer");
+				testParser->IntoElem();
+				xmlTest = testParser->FindElem(L"data");
+				testParser->IntoElem();
+
+				int tileIdx = 0;
+				while (testParser->FindElem("tile"))
+				{
+					if (testParser->HasAttribute("gid"))
+					{
+						int imgIdx = testParser->GetIntAttribute("gid") - 1;
+						tilemap->SetTileData(tileIdx, imgIdx);
+					}
+					tileIdx++;
+				}
+			}
+		}
+
+
+
 
 
 		//{

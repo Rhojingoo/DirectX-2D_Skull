@@ -55,6 +55,9 @@
     <Filter Include="Common\Object">
       <UniqueIdentifier>{21d122ca-337c-44fe-a20f-bbd9c422df3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Parser">
+      <UniqueIdentifier>{c1eb6dd3-745a-4873-8754-4d822c44e018}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -140,6 +143,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkObject.h">
       <Filter>Common\Object</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTileMap.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkBaseRenderer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkXmlParser.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -209,6 +220,14 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkImage.cpp">
       <Filter>Common\TileImage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTileMap.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkBaseRenderer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkXmlParser.cpp">
+      <Filter>Parser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

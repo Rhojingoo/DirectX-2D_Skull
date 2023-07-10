@@ -61,9 +61,9 @@ namespace jk
 	void Transform::BindConstantBuffer()
 	{
 		renderer::TransformCB trCB = {};
-		trCB.mWorld = mWorld;
-		trCB.mView = Camera::GetViewMatrix();
-		trCB.mProjection = Camera::GetProjectionMatrix();
+		trCB.world = mWorld;
+		trCB.view = Camera::GetViewMatrix();
+		trCB.projection = Camera::GetProjectionMatrix();
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Transform];
 		cb->SetData(&trCB);

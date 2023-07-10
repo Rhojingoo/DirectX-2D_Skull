@@ -77,3 +77,22 @@ constexpr bool has_flag(E lhs, E rhs)
 {
 	return (lhs & rhs) == rhs;
 }
+
+
+static std::wstring StringToWideString(const std::string& str)
+{
+	int numChars = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
+	if (numChars == 0)
+	{
+		return L"";
+	}
+
+	std::wstring wideStr(numChars, 0);
+
+	if (!MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, &wideStr[0], numChars))
+	{
+		return L"";
+	}
+
+	return wideStr;
+}

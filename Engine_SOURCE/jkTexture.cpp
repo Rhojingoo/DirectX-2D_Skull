@@ -12,7 +12,7 @@ namespace jk::graphics
 		, mBitmap(NULL)
 		, mHdc(NULL)
 		, mWidth(0)
-		, mHeight(0)
+		, mHeight(0)		
 	{
 	}
 
@@ -22,8 +22,8 @@ namespace jk::graphics
 
 	HRESULT Texture::Load(const std::wstring& path)
 	{
-		wchar_t szExtension[50] = {};
-		_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, 50);
+		wchar_t szExtension[256] = {};
+		_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, 256);
 
 		std::wstring extension = szExtension;
 		if (extension == L".dds" || extension == L".DDS")
@@ -51,6 +51,10 @@ namespace jk::graphics
 			, mSRV.GetAddressOf()
 		);
 		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
+		mTexture->GetDesc(&mDesc);
+
+		mTextureSize.x = (float)mImage.GetImages()[0].width;
+		mTextureSize.y = (float)mImage.GetImages()[0].height;
 
 		return S_OK;
 	}

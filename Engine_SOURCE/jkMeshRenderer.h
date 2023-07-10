@@ -2,10 +2,11 @@
 #include "jkComponent.h"
 #include "jkMesh.h"
 #include "jkMaterial.h"
+#include "jkBaseRenderer.h"
 
 namespace jk
 {
-	class MeshRenderer : public Component
+	class MeshRenderer : public BaseRenderer
 	{
 	public:
 		MeshRenderer();
@@ -16,12 +17,5 @@ namespace jk
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
-		void SetMesh(std::shared_ptr<Mesh> mesh) { mMesh = mesh; }
-		void SetMaterial(std::shared_ptr<Material> material) { mMaterial = material; }
-		std::shared_ptr<Material> GetMaterial() { return mMaterial; }
-
-	private:
-		std::shared_ptr<Mesh> mMesh;
-		std::shared_ptr<Material> mMaterial;
 	};
 }

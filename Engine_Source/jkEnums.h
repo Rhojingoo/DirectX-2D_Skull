@@ -8,10 +8,10 @@ namespace jk::enums
 		None,
 		Transform,
 		Mesh,
-		Particle,
 		MeshRenderer,
-		Script,
 		Camera,
+		TileMap,
+		Script,
 		End,
 	};
 

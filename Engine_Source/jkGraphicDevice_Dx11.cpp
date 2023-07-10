@@ -234,6 +234,15 @@ namespace jk::graphics
 		return true;
 	}
 
+
+	bool GraphicDevice_Dx11::CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView)
+	{
+		if (FAILED(mDevice->CreateShaderResourceView(pResource, pDesc, ppSRView)))
+			return false;
+
+		return true;
+	}
+
 	bool GraphicDevice_Dx11::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc, ID3D11BlendState** ppBlendState)
 	{
 		if (FAILED(mDevice->CreateBlendState(pBlendStateDesc, ppBlendState)))
@@ -247,6 +256,15 @@ namespace jk::graphics
 	{
 		mContext->RSSetViewports(1, viewPort);
 	}
+
+	void GraphicDevice_Dx11::BindBuffer(ID3D11Buffer* buffer, void* data, UINT size)
+	{
+		D3D11_MAPPED_SUBRESOURCE sub = {};
+		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
+		memcpy(sub.pData, data, size);
+		mContext->Unmap(buffer, 0);
+	}
+
 
 	void GraphicDevice_Dx11::BindRasterizeState(ID3D11RasterizerState* pRasterizerState)
 	{
@@ -305,6 +323,7 @@ namespace jk::graphics
 		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &subRes);
 		memcpy(subRes.pData, data, size);
 		mContext->Unmap(buffer, 0);
+
 	}
 
 	void GraphicDevice_Dx11::BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)

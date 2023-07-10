@@ -81,7 +81,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             application.Run();
         }
     }
-    renderer::Release();
+    jk::renderer::Release();
     jk::SceneManager::Release();
 
     return (int) msg.wParam;
