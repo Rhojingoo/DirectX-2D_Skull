@@ -151,6 +151,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkXmlParser.h">
       <Filter>Parser</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkCollider2D.h">
+      <Filter>GameObject\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkCollisionManager.h">
+      <Filter>Scene\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -228,6 +234,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkXmlParser.cpp">
       <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkCollider2D.cpp">
+      <Filter>GameObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkCollisionManager.cpp">
+      <Filter>Scene\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

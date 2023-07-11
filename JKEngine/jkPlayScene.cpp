@@ -24,40 +24,40 @@ namespace jk
 	}
 	void PlayScene::Initialize()
 	{	
+		//{
+		//	GameObject* player = new GameObject();
+		//	player->SetName(L"Catle_Back");
+		//	AddGameObject(eLayerType::Player, player);
+		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Back"));
+		//	player->GetComponent<Transform>()->SetScale(Vector3(9.f, 3.f, 0.f));
+		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 100.01f));
+		//}
+		
+		//{
+		//	GameObject* player = new GameObject();
+		//	player->SetName(L"Catle");
+		//	AddGameObject(eLayerType::Player, player);
+		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_01"));
+		//	player->GetComponent<Transform>()->SetScale(Vector3(16.5f, 6.f, 0.f));
+		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.35f, 10.0f)); 
+		//} 
+		
+		//{
+		//	GameObject* player = new GameObject();
+		//	player->SetName(L"Devil_chair");
+		//	AddGameObject(eLayerType::Player, player);
+		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Devil_Chair"));
+		//	player->GetComponent<Transform>()->SetScale(Vector3(3.f, 3.f, 0.f));
+		//	player->GetComponent<Transform>()->SetPosition(Vector3(-7.f, 0.1f, 1.0f));
+		//}
 
-		{
-			GameObject* player = new GameObject();
-			player->SetName(L"Catle_Back");
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Back"));
-			player->GetComponent<Transform>()->SetScale(Vector3(9.f, 3.f, 0.f));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 100.01f));
-		}
-
-		{
-			GameObject* player = new GameObject();
-			player->SetName(L"Catle");
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_01"));
-			player->GetComponent<Transform>()->SetScale(Vector3(16.5f, 6.f, 0.f));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.35f, 10.0f)); 
-		} 
-
-		{
-			GameObject* player = new GameObject();
-			player->SetName(L"Devil_chair");
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Devil_Chair"));
-			player->GetComponent<Transform>()->SetScale(Vector3(3.f, 3.f, 0.f));
-			player->GetComponent<Transform>()->SetPosition(Vector3(-7.f, 0.1f, 1.0f));
-		}
-
+		
 		{
 			GameObject* player = new GameObject();
 			player->SetName(L"Skul_UI");
@@ -80,6 +80,7 @@ namespace jk
 			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
+			renderer::cameras.push_back(cameraComp);
 		}
 
 		//UI Camera
@@ -90,41 +91,46 @@ namespace jk
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
 		}
-
-		//Cloud
-		{			
-			GameObject* player = new GameObject();
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"Cloud_Devil"));
-			player->GetComponent<Transform>()->SetScale(Vector3(5.f, 5.f, 0.f));
-			player->GetComponent<Transform>()->SetPosition(Vector3(1.f, 1.0f, 190.0f));
-		}
-
-
-		//Grid
-		{
-			GameObject* grid = new GameObject();
-			grid->SetName(L"Grid");
-			AddGameObject(eLayerType::Grid, grid);
-			MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
-			GridScript* gridSc = grid->AddComponent<GridScript>();
-			gridSc->SetCamera(cameraComp);
-		}
+		
+		////Cloud
+		//{			
+		//	//Cloud* player = new Cloud();
+		//	GameObject* player = new GameObject();
+		//	AddGameObject(eLayerType::MapEffect, player);
+		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Cloud_Devil"));
+		//	player->GetComponent<Transform>()->SetScale(Vector3(5.f, 5.f, 0.f));
+		//	player->GetComponent<Transform>()->SetPosition(Vector3(1.f, 1.0f, 190.0f));
+		//}
+		//
+		//
+		////Grid
+		//{
+		//	GameObject* grid = new GameObject();
+		//	grid->SetName(L"Grid");
+		//	AddGameObject(eLayerType::Grid, grid);
+		//	MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+		//	GridScript* gridSc = grid->AddComponent<GridScript>();
+		//	gridSc->SetCamera(cameraComp);
+		//}
 
 		//Tilemap
 		{
 			GameObject* Tile_map = new GameObject();
 				//object::Instantiate<GameObject>(eLayerType::BackGround);
+			AddGameObject(eLayerType::Player, Tile_map);
 			Tile_map->SetName(L"TileMap");
 			Transform* tr = Tile_map->GetComponent<Transform>();
 			tr->SetPositionZ(5.f);
-			tr->AddPositionY(64.f * 8.f);
-			tr->SetScale(Vector3(64.f * 114.f, 64.f * 24.f, 1.f));
+			//tr->AddPositionY(64.f * 8.f);
+			//tr->SetScale(Vector3(64.f * 114.f, 64.f * 24.f, 0.2f));
+			//tr->AddPositionY(0.f * 0.f);
+			tr->SetScale(Vector3(1.f, 1.f, 0.2f));
 
+			//MeshRenderer* mr = Tile_map->AddComponent<MeshRenderer>();
 			TileMap* tilemap = Tile_map->AddComponent<TileMap>();			
 			std::shared_ptr<Material> material = Resources::Find<Material>(L"DG_Tile");
 			
@@ -133,11 +139,10 @@ namespace jk
 			tilemap->SetAtlasTex(material->GetTexture());
 			tilemap->SetTileSize(Vector2(64.f, 64.f));
 			tilemap->SetTileMapCount(114, 24);
-			//Test(tilemap);
-			//tilemap->SetAllTileData(88);
+		
 			bool xmlTest = false;
 			XmlParser* testParser = new XmlParser;
-			xmlTest = testParser->LoadFile(L"..\\Resources\\Metadata\\TileMap\\00_Town.xml");
+			xmlTest = testParser->LoadFile(L"\\Resources\\Metadata\\TileMap\\00_Town.xml");
 			if (xmlTest)
 			{
 				xmlTest = testParser->FindElem(L"map");
@@ -146,7 +151,7 @@ namespace jk
 				testParser->IntoElem();
 				xmlTest = testParser->FindElem(L"data");
 				testParser->IntoElem();
-
+			
 				int tileIdx = 0;
 				while (testParser->FindElem("tile"))
 				{

@@ -1,4 +1,7 @@
 #include "jkBaseRenderer.h"
+#include "jkGameObject.h"
+#include "jkTransform.h"
+#include "jkRenderer.h"
 
 namespace jk
 {
@@ -21,5 +24,11 @@ namespace jk
 
 	void BaseRenderer::Render()
 	{
+		//GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
+
+		//GetMesh()->BindBuffer();
+		//GetMaterial()->Binds();
+		//GetMesh()->Render();
+		//GetMaterial()->Clear();
 	}
 }

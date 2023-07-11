@@ -66,9 +66,15 @@ namespace jk::renderer
 
 	CBUFFER(GridCB, CBSLOT_GRID)
 	{
-		Vector4 CameraPosition;
-		Vector2 CameraScale;
-		Vector2 Resolution;
+		Vector4 cameraPosition;
+		Vector2 cameraScale;
+		Vector2 resolution;
+		float	meshScale;
+		Vector3 padding;
+
+		//Vector4 CameraPosition;
+		//Vector2 CameraScale;
+		//Vector2 Resolution;
 	};
 
 	CBUFFER(ObjectTypeMoveCB, CBSLOT_MOVE)
@@ -77,9 +83,6 @@ namespace jk::renderer
 		Vector3 mTime;
 	};
 
-
-
-	extern Vertex vertexes[];
 	extern jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 
 
@@ -89,10 +92,13 @@ namespace jk::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
 	extern std::vector<jk::Camera*> cameras;
+	extern std::vector<DebugMesh> debugMeshs;
 
 	void Initialize();
 	void Render();
 	void Release();
+
+	void PushDebugMeshAttribute(DebugMesh& mesh);
 }
 
 

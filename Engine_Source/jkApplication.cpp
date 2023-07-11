@@ -60,15 +60,17 @@ namespace jk
 
 		//SceneManager::Render();
 		renderer::Render();
-		//graphicDevice->Draw();
-
-		graphicDevice->Present();
-				
+		//graphicDevice->Draw();				
 	}
 
 	void Application::Destroy()
 	{
 		SceneManager::Destroy();
+	}
+
+	void Application::Present()
+	{
+		graphicDevice->Present();
 	}
 
 

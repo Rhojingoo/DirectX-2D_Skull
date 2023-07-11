@@ -6,22 +6,23 @@ namespace jk::enums
 	enum class eComponentType
 	{
 		None,
+		TileMap,
 		Transform,
 		Mesh,
+		Collider2D,
 		MeshRenderer,
 		Camera,
-		TileMap,
 		Script,
 		End,
 	};
 
 	enum class eLayerType
 	{
+		MapEffect,
 		Grid,
 		Player,
 		Monster,
-		UI,
-		MapEffect,
+		UI,	
 		End,
 	};
 
@@ -32,6 +33,15 @@ namespace jk::enums
 		Material,
 		Mesh,
 		Image,
+		End,
+	};
+
+	enum class eColliderType
+	{
+		Rect,
+		Circle,
+		Sphere,
+		Cube,
 		End,
 	};
 }

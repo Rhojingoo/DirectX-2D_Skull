@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)TriangleVS.hlsl">
+      <Filter>Triangle</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)TrianglePS.hlsl">
+      <Filter>Triangle</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)MoveVS.hlsl">
+      <Filter>Move</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)MovePS.hlsl">
+      <Filter>Move</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)GridPS.hlsl">
+      <Filter>Grid</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)GridVS.hlsl">
+      <Filter>Grid</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVS.hlsl">
+      <Filter>Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)SpritePS.hlsl">
+      <Filter>Sprite</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)TileMapPS.hlsl">
+      <Filter>Tile</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)DebugPS.hlsl">
+      <Filter>Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)DebugVS.hlsl">
+      <Filter>Debug</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Triangle">
+      <UniqueIdentifier>{81688041-db4d-46a9-904e-6000245d779b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Move">
+      <UniqueIdentifier>{264e3c49-2ba9-42f1-ada0-fc571208ee8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Grid">
+      <UniqueIdentifier>{accdf565-8b10-4587-9763-5a72311d6162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite">
+      <UniqueIdentifier>{c3deafc4-5763-4f43-af9e-33b78e50dc98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tile">
+      <UniqueIdentifier>{93c162cf-87b6-4713-9200-737f1bd8e614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{56181e78-3918-4218-a11c-e6c2f6b4b8b3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

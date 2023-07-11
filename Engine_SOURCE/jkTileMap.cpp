@@ -16,7 +16,7 @@ namespace jk
 	{
 		SetName(L"TileMap Comp");
 
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"test");
+		std::shared_ptr<Material> material = Resources::Find<Material>(L"DG_Tile");
 		if (material)
 		{
 			SetMaterial(material);
@@ -71,7 +71,7 @@ namespace jk
 			mbBufferUpdated = true;
 		}
 		
-		mBuffer->Bind(eShaderStage::PS, 16);
+		mBuffer->Bind(eShaderStage::PS, 7);
 	}
 
 	void TileMap::Render()

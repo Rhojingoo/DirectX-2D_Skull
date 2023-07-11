@@ -19,5 +19,6 @@ namespace jk
 
 	private:
 		Camera* mCamera;
+		float	mMeshScale;
 	};
 }

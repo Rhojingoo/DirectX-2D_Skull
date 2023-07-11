@@ -45,7 +45,8 @@ namespace jk
 		void DisableDepthStencilState();
 
 		float GetSize() { return mSize; }
-
+		void SetSize(float size) { mSize = size;}
+		 
 
 	private:
 		static Matrix View;

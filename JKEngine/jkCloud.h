@@ -25,10 +25,10 @@ namespace jk
 
 	private:
 		CloudType mCloudType;
-		MeshRenderer* mr;
+		MeshRenderer* meshrenderer;
 		Transform* tr;
 		float mTime;
-		Vector3 mPos;
-		Vector3 mInitialPos;
+		Vector3 _Pos;
+		Vector3 _mPos;
 	};
 }

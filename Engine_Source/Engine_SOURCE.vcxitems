@@ -18,6 +18,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkBaseRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JKEngine.h" />
@@ -52,6 +54,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkBaseRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp" />

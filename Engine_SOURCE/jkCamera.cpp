@@ -6,6 +6,7 @@
 #include "jkScene.h"
 #include "jkSceneManager.h"
 #include "jkMeshRenderer.h"
+#include "jkBaseRenderer.h"
 
 extern jk::Application application;
 
@@ -171,10 +172,16 @@ namespace jk
 		for (GameObject* obj : gameObjs)
 		{
 			//·»´õ·¯ ÄÄÆ÷³ÍÆ®°¡ ¾ø´Ù¸é?
-			MeshRenderer* mr
-				= obj->GetComponent<MeshRenderer>();
+			BaseRenderer* mr
+				= obj->GetComponent<BaseRenderer>();
 			if (mr == nullptr)
 				continue;
+			
+			//¼±»ý´ÔÄÚµå
+			//MeshRenderer* mr
+			//	= obj->GetComponent<MeshRenderer>();
+			//if (br == nullptr)
+			//	continue;
 
 			std::shared_ptr<Material> mt = mr->GetMaterial();
 			eRenderingMode mode = mt->GetRenderingMode();
@@ -202,6 +209,10 @@ namespace jk
 			if (gameObj == nullptr)
 				continue;
 
+			if (gameObj->GetState()
+				!= GameObject::eState::Active)
+				continue;
+
 			gameObj->Render();
 		}
 	}
@@ -213,6 +224,10 @@ namespace jk
 			if (gameObj == nullptr)
 				continue;
 
+			if (gameObj->GetState()
+				!= GameObject::eState::Active)
+				continue;
+
 			gameObj->Render();
 		}
 	}
@@ -222,6 +237,10 @@ namespace jk
 		for (GameObject* gameObj : mTransparentGameObjects)
 		{
 			if (gameObj == nullptr)
+				continue;
+
+			if (gameObj->GetState()
+				!= GameObject::eState::Active)
 				continue;
 
 			gameObj->Render();

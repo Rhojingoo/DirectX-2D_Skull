@@ -17,6 +17,8 @@
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)DebugPS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)DebugVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)GridPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)GridVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)MovePS.hlsl" />
