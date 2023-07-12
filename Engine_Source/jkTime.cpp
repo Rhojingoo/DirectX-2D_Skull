@@ -1,4 +1,5 @@
 #include "jkTime.h"
+#include "jkInput.h"
 #include "jkApplication.h"
 
 extern jk::Application application;
@@ -38,10 +39,10 @@ namespace jk
 		if (mSecond > 1.0f)
 		{
 			HWND hWnd = application.GetHwnd();
-
+			Vector2 _MousePos = jk::Input::GetMousePos();
 			wchar_t szFloat[50] = {};
 			float FPS = 1.0f / (float)mDeltaTime;
-			swprintf_s(szFloat, 50, L"FPS : %d", (UINT)FPS);
+			swprintf_s(szFloat, 50, L"FPS : %d Mouse : %d, %d", (UINT)FPS, (UINT)_MousePos.x, (UINT)_MousePos.y);
 			//int iLen = wcsnlen_s(szFloat, 50);
 			SetWindowText(hWnd, szFloat);
 

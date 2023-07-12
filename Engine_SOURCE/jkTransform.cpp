@@ -29,14 +29,18 @@ namespace jk
 
 	void Transform::LateUpdate()
 	{
+		// 렌더링에 사용될 위치값을 업데이트.
+		// 1. 월드 행렬 생성
+		// - 크기 변환 행렬
 		mWorld = Matrix::Identity;
-
 		Matrix scale = Matrix::CreateScale(mScale);
 
+		// - 회전 변환 행렬
 		Matrix rotation;
 		rotation = Matrix::CreateRotationX(mRotation.x);
 		rotation *= Matrix::CreateRotationY(mRotation.y);
 		rotation *= Matrix::CreateRotationZ(mRotation.z);
+
 
 		Matrix position;
 		position.Translation(mPosition);
@@ -52,6 +56,9 @@ namespace jk
 			mWorld *= mParent->mWorld;
 		}
 	}
+
+
+
 
 	void Transform::Render()
 	{

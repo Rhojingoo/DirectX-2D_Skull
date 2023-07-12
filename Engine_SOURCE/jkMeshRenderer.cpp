@@ -2,6 +2,7 @@
 #include "jkGameObject.h"
 #include "jkTransform.h"
 #include "jkRenderer.h"
+#include "jkInput.h"
 
 namespace jk
 {
@@ -24,6 +25,8 @@ namespace jk
 	void MeshRenderer::Render()
 	{
 		GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
+	
+
 
 		GetMesh()->BindBuffer();
 		GetMaterial()->Binds();

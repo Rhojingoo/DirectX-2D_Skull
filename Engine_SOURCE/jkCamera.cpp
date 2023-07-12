@@ -30,7 +30,7 @@ namespace jk
 		, mAspectRatio(1.0f)
 		, mNear(1.0f)
 		, mFar(1000.0f)
-		, mSize(5.0f)
+		, mSize(1.0f)
 		, mLayerMask{}
 		, mOpaqueGameObjects{}
 		, mCutOutGameObjects{}
@@ -62,8 +62,7 @@ namespace jk
 	}
 
 	void Camera::Render()
-	{
-	
+	{	
 		View = mView;
 		Projection = mProjection;
 
@@ -108,14 +107,16 @@ namespace jk
 		float height = rect.bottom - rect.top;
 		mAspectRatio = width / height;;
 
-		if (type == eProjectionType::OrthoGraphic)
+
+		if (mType == eProjectionType::OrthoGraphic)
 		{
-			float OrthorGraphicRatio = mSize / 1000.0f;
+			float OrthorGraphicRatio = mSize;
 			width *= OrthorGraphicRatio;
 			height *= OrthorGraphicRatio;
 
 			mProjection = Matrix::CreateOrthographicLH(width, height, mNear, mFar);
 		}
+
 		else
 		{
 			mProjection = Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
@@ -260,5 +261,17 @@ namespace jk
 			= renderer::depthStencilStates[(UINT)eDSType::None];
 		GetDevice()->BindDepthStencilState(dsState.Get());
 	}
+
+
+	Matrix Camera::GetmView()
+	{
+		return mView;
+	}
+	Matrix Camera::GetmProjection()
+	{
+		return mProjection;
+	}
+
+
 
 }

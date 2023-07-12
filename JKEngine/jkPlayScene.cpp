@@ -11,7 +11,7 @@
 #include "jkTileMap.h"
 #include "jkXmlParser.h"
 #include "jkCloud.h"
-
+#include "jkMouse.h"
 
 
 namespace jk
@@ -24,98 +24,109 @@ namespace jk
 	}
 	void PlayScene::Initialize()
 	{	
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"Catle_Back");
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Back"));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(9.f, 3.f, 0.f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 100.01f));
-		//}
+		{
+			GameObject* player = new GameObject();
+			player->SetName(L"Catle_Back");
+			AddGameObject(eLayerType::Player, player);
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Back"));
+			player->GetComponent<Transform>()->SetScale(Vector3(950, 350.f, 0.f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.01f));
+		}
 		
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"Catle");
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_01"));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(16.5f, 6.f, 0.f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.35f, 10.0f)); 
-		//} 
+		{
+			GameObject* player = new GameObject();
+			player->SetName(L"Catle");
+			AddGameObject(eLayerType::Player, player);
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_01"));
+			player->GetComponent<Transform>()->SetScale(Vector3(1890.f, 548.f, 0.f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.35f, -300.0f)); 
+		} 
 		
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"Devil_chair");
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Devil_Chair"));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(3.f, 3.f, 0.f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(-7.f, 0.1f, 1.0f));
-		//}
+		{
+			GameObject* player = new GameObject();
+			player->SetName(L"Devil_chair");
+			AddGameObject(eLayerType::Player, player);
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Devil_Chair"));
+			player->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(-650.f, 0.1f, -350.f));
+		}
 
 		
 		{
 			GameObject* player = new GameObject();
 			player->SetName(L"Skul_UI");
 			AddGameObject(eLayerType::UI, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-			std::shared_ptr<Material> material = Resources::Find<Material>(L"Skul_UI");
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();			
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"Skul_UI"));
-			player->GetComponent<Transform>()->SetScale(Vector3(0.5f, 0.5f, 0.f));
-			player->GetComponent<Transform>()->SetPosition(Vector3(-3.5f, -1.4f, 1.0f));
+			player->GetComponent<Transform>()->SetScale(Vector3(68.f, 68.f, 0.f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(-750.5f, -350.4f, 1.0f));
 		}
 		
 
-		//Main Camera
+		//Main Camera		
+		{
 		Camera* cameraComp = nullptr;
+		GameObject* camera = new GameObject();
+		AddGameObject(eLayerType::Player, camera);
+		camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
+		cameraComp = camera->AddComponent<Camera>();
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		camera->AddComponent<CameraScript>();
+		renderer::cameras.push_back(cameraComp);
+		}
+			
+
+		//UI Camera		
+		GameObject* camera = new GameObject();
+		AddGameObject(eLayerType::Player, camera);
+		camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -9.f));
+		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp->TurnLayerMask(eLayerType::Player, false);
+		cameraComp->TurnLayerMask(eLayerType::MapEffect, false);
+		
+		
+		Mouse* cursor = new Mouse();
+		cursor->SetName(L"Mouse_UI");
+		AddGameObject(eLayerType::UI, cursor);
+		MeshRenderer* mr = cursor->AddComponent<MeshRenderer>();
+		mr->SetMaterial(Resources::Find<Material>(L"Mouse"));
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -10.f));
+		cursor->GetComponent<Transform>()->SetPosition(Vector3::One);
+		cursor->SetCamera(camera);
+
+
+		//Cloud
+		{			
+			Cloud* player = new Cloud();			
+			AddGameObject(eLayerType::MapEffect, player);
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Cloud_Devil"));
+			player->GetComponent<Transform>()->SetScale(Vector3(1120.f, 2204.f, 0.f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(1.f, 1.0f, 190.0f));
+		}
+	
+
+		//Grid
 		{
-			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
-			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
-			cameraComp = camera->AddComponent<Camera>();
-			cameraComp->TurnLayerMask(eLayerType::UI, false);
-			camera->AddComponent<CameraScript>();
-			renderer::cameras.push_back(cameraComp);
+			GameObject* grid = new GameObject();
+			grid->SetName(L"Grid");
+			AddGameObject(eLayerType::Grid, grid);
+			MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
+			GridScript* gridSc = grid->AddComponent<GridScript>();
+			gridSc->SetCamera(cameraComp);
 		}
 
-		//UI Camera
-		{
-			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
-			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -9.f));
-			Camera* cameraComp = camera->AddComponent<Camera>();
-			cameraComp->TurnLayerMask(eLayerType::Player, false);
-		}
-		
-		////Cloud
-		//{			
-		//	//Cloud* player = new Cloud();
-		//	GameObject* player = new GameObject();
-		//	AddGameObject(eLayerType::MapEffect, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Cloud_Devil"));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(5.f, 5.f, 0.f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(1.f, 1.0f, 190.0f));
-		//}
-		//
-		//
-		////Grid
-		//{
-		//	GameObject* grid = new GameObject();
-		//	grid->SetName(L"Grid");
-		//	AddGameObject(eLayerType::Grid, grid);
-		//	MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
-		//	GridScript* gridSc = grid->AddComponent<GridScript>();
-		//	gridSc->SetCamera(cameraComp);
-		//}
 
 		//Tilemap
 		{
@@ -125,10 +136,10 @@ namespace jk
 			Tile_map->SetName(L"TileMap");
 			Transform* tr = Tile_map->GetComponent<Transform>();
 			tr->SetPositionZ(5.f);
-			//tr->AddPositionY(64.f * 8.f);
-			//tr->SetScale(Vector3(64.f * 114.f, 64.f * 24.f, 0.2f));
+			tr->AddPositionY(64.f * 8.f);
+			tr->SetScale(Vector3(64.f * 114.f, 64.f * 24.f, 10.f));
 			//tr->AddPositionY(0.f * 0.f);
-			tr->SetScale(Vector3(1.f, 1.f, 0.2f));
+			//tr->SetScale(Vector3(1.f, 1.f, 0.2f));
 
 			//MeshRenderer* mr = Tile_map->AddComponent<MeshRenderer>();
 			TileMap* tilemap = Tile_map->AddComponent<TileMap>();			

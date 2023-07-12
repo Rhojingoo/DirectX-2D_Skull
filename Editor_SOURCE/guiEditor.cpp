@@ -31,16 +31,16 @@ namespace gui
 		mr->SetMesh(mesh);
 
 
-		EditorObject* grid = new EditorObject();
-		grid->SetName(L"Grid");
+		//EditorObject* grid = new EditorObject();
+		//grid->SetName(L"Grid");
 
-		mr = grid->AddComponent<jk::MeshRenderer>();
-		mr->SetMesh(jk::Resources::Find<jk::Mesh>(L"RectMesh"));
-		mr->SetMaterial(jk::Resources::Find<jk::Material>(L"GridMaterial"));
-		jk::GridScript* gridSc = grid->AddComponent<jk::GridScript>();
-		gridSc->SetCamera(jk::renderer::cameras[0]);
+		//mr = grid->AddComponent<jk::MeshRenderer>();
+		//mr->SetMesh(jk::Resources::Find<jk::Mesh>(L"RectMesh"));
+		//mr->SetMaterial(jk::Resources::Find<jk::Material>(L"GridMaterial"));
+		//jk::GridScript* gridSc = grid->AddComponent<jk::GridScript>();
+		//gridSc->SetCamera(jk::renderer::cameras[0]);
 
-		mEditorObjects.push_back(grid);
+		//mEditorObjects.push_back(grid);
 
 	}
 	void Editor::Run()

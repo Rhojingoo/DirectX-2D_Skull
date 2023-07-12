@@ -35,6 +35,7 @@ namespace jk::graphics
 		Transform,
 		Material,
 		Grid,
+		Move,
 		End,
 	};
 

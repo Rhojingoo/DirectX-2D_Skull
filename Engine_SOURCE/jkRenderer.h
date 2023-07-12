@@ -77,10 +77,9 @@ namespace jk::renderer
 		//Vector2 Resolution;
 	};
 
-	CBUFFER(ObjectTypeMoveCB, CBSLOT_MOVE)
+	CBUFFER(MoveCB, CBSLOT_MOVE)
 	{
-		int mtype;
-		Vector3 mTime;
+		Vector4 mTime;
 	};
 
 	extern jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];

@@ -143,7 +143,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkObject.h">
       <Filter>Common\Object</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTileMap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkBaseRenderer.h">
       <Filter>Graphics</Filter>
@@ -156,6 +155,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkCollisionManager.h">
       <Filter>Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkMouse.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -227,7 +232,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkImage.cpp">
       <Filter>Common\TileImage</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTileMap.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkBaseRenderer.cpp">
       <Filter>Graphics</Filter>
@@ -240,6 +244,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCollisionManager.cpp">
       <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkMouse.cpp">
+      <Filter>Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

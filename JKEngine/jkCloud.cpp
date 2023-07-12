@@ -8,10 +8,13 @@
 namespace jk
 {
 	Cloud::Cloud()
-		:mTime(0.0f)
+		: meshrenderer()
+		, tr()		
+		, _Pos(1000)
+		, _Time(0.f)
+		, mTime(0.f)
 	{
 		tr = GetComponent<Transform>();
-		meshrenderer = AddComponent<MeshRenderer>();
 	}
 	Cloud::Cloud(Vector3 mPos)
 	{
@@ -22,14 +25,25 @@ namespace jk
 	}
 	void Cloud::Initialize()
 	{
-		meshrenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		meshrenderer->SetMaterial(Resources::Find<Material>(L"Cloud_Devil"));
-		tr->SetScale(2.0f, 1.0f, 1.0f);
 		GameObject::Initialize();
-
 	}
 	void Cloud::Update()
 	{
+		//_Pos = tr->GetPosition();
+		//if (_Pos.x <= -1000.0f)
+		//{
+		//	_Pos.x = 1000.0f;
+		//}
+		//_Pos.x -= 100.f * Time::DeltaTime();
+
+		//tr->SetPosition(_Pos);
+
+		
+		_Time +=  0.1*Time::DeltaTime();
+		if(_Time>7.f)
+		{
+			_Time = 0.f;
+		}
 
 		GameObject::Update();
 	}
@@ -39,6 +53,17 @@ namespace jk
 	}
 	void Cloud::Render()
 	{
+		BindConstantBuffer();
 		GameObject::Render();
+	}
+	void Cloud::BindConstantBuffer()
+	{
+		renderer::MoveCB trCB = {};
+		trCB.mTime.x = mTime;
+		trCB.mTime.y = _Time;
+
+		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Move];
+		cb->SetData(&trCB);
+		cb->Bind(eShaderStage::PS);
 	}
 }

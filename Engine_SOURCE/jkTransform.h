@@ -55,6 +55,8 @@ namespace jk
 		void AddScaleZ(const float scaleZ) { mScale.z += scaleZ; }
 
 
+		const Matrix& GetWorldMatrix() const { return mWorld; }
+
 		Vector3 GetPosition() { return mPosition; }
 		Vector3 GetRotation() { return mRotation; }
 		Vector3 GetScale() { return mScale; }
@@ -75,9 +77,18 @@ namespace jk
 		Vector3 mUp;
 		Vector3 mFoward;
 		Vector3 mRight;
+		Vector3 mRelativeForward;
+		Vector3 mRelativeRight;
+		Vector3 mRelativeUp;
 
 		Matrix mWorld;
 
 		Transform* mParent;
+
+		bool mInheritParentScale;
+		Vector3 mWorldPosition;
+		Vector3 mWorldRotation;
+		Vector3 mWorldScale;
+
 	};
 }

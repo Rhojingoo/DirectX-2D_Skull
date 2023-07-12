@@ -8,12 +8,6 @@ namespace jk
 	class Cloud : public GameObject
 	{
 	public:
-		enum class CloudType
-		{
-			UVMode,
-			NoneUVMode,
-		};
-
 		Cloud();
 		Cloud(Vector3 mPos);
 		virtual ~Cloud();
@@ -23,12 +17,13 @@ namespace jk
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
-	private:
-		CloudType mCloudType;
+		void BindConstantBuffer();
+
+	private:		
 		MeshRenderer* meshrenderer;
 		Transform* tr;
 		float mTime;
+		float _Time;
 		Vector3 _Pos;
-		Vector3 _mPos;
 	};
 }

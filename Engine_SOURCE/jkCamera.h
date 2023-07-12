@@ -47,6 +47,9 @@ namespace jk
 		float GetSize() { return mSize; }
 		void SetSize(float size) { mSize = size;}
 		 
+		Matrix GetmView();
+		Matrix GetmProjection();
+
 
 	private:
 		static Matrix View;

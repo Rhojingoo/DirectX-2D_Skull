@@ -34,6 +34,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkMouse.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResource.h" />
@@ -67,6 +68,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMeshRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkMouse.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResources.cpp" />

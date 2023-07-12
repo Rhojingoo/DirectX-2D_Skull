@@ -300,17 +300,21 @@ namespace jk::renderer
 
 	void LoadBuffer()
 	{
-		// Constant Buffer
+		// Transform ConBuffer
 		constantBuffer[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
 		constantBuffer[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 
-		// Material Buffer
+		// Material ConBuffer
 		constantBuffer[(UINT)eCBType::Material] = new ConstantBuffer(eCBType::Material);
 		constantBuffer[(UINT)eCBType::Material]->Create(sizeof(MaterialCB));
 
-		// Grid Buffer
+		// Grid ConBuffer
 		constantBuffer[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
 		constantBuffer[(UINT)eCBType::Grid]->Create(sizeof(TransformCB));
+
+		// Move ConBuffer
+		constantBuffer[(UINT)eCBType::Move] = new ConstantBuffer(eCBType::Move);
+		constantBuffer[(UINT)eCBType::Move]->Create(sizeof(MoveCB));
 	}
 
 	void LoadShader()
@@ -324,6 +328,7 @@ namespace jk::renderer
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		jk::Resources::Insert(L"SpriteShader", spriteShader);
+
 
 		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
 		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
@@ -340,9 +345,10 @@ namespace jk::renderer
 
 		//구름
 		std::shared_ptr<Shader> moveShader = std::make_shared<Shader>();
-		moveShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		moveShader->Create(eShaderStage::VS, L"MoveVS.hlsl", "main");
 		moveShader->Create(eShaderStage::PS, L"MovePS.hlsl", "main");
 		jk::Resources::Insert(L"Move_Shader", moveShader);
+
 
 		//타일 미완성
 #pragma region Tile_map
@@ -351,30 +357,39 @@ namespace jk::renderer
 		TileShader->Create(eShaderStage::PS, L"TileMapPS.hlsl", "main");
 		
 		jk::Resources::Insert(L"Tile_Shader", TileShader);
-#pragma endregion
-
-	
+#pragma endregion	
 	}
 
 	void LoadMaterial()
 	{
 		std::shared_ptr<Shader> spriteShader
 			= Resources::Find<Shader>(L"SpriteShader");
-		//std::shared_ptr<Shader> TileShader
-		//	= Resources::Find<Shader>(L"Tile_Shader");
+		std::shared_ptr<Shader> TileShader
+			= Resources::Find<Shader>(L"Tile_Shader");
 		std::shared_ptr<Shader> moveShader
 			= Resources::Find<Shader>(L"Move_Shader");
 		
+	#pragma region Public
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"mouse", L"..\\Resources\\Texture\\Mouse_Cursor.png");
+			std::shared_ptr<Material> material = std::make_shared<Material>();
+			material->SetShader(spriteShader);
+			material->SetTexture(texture);
+			Resources::Insert(L"Mouse", material);
+	#pragma endregion
+
+
 	#pragma region Title
-				std::shared_ptr<Texture> texture
+				texture
 					= Resources::Load<Texture>(L"Title", L"..\\Resources\\Texture\\Title\\Title.png");
 
-				std::shared_ptr<Material> material = std::make_shared<Material>();
+				material = std::make_shared<Material>();
 				material->SetShader(spriteShader);
 				material->SetTexture(texture);
 				Resources::Insert(L"SpriteMaterial", material);
 	#pragma endregion
 		
+
 
 	#pragma region PlayScene
 		#pragma region PlayScene_Devil(back)
@@ -384,6 +399,7 @@ namespace jk::renderer
 					material->SetTexture(texture);
 					Resources::Insert(L"Catle_wall_Back", material);
 		#pragma endregion
+
 
 
 		#pragma region PlayScene_Devil(front)
@@ -396,6 +412,7 @@ namespace jk::renderer
 		#pragma endregion
 
 
+
 		#pragma region PlayScene_Devil(Devil_Chair)
 					texture	= Resources::Load<Texture>(L"Devil_chair", L"..\\Resources\\Texture\\Devil_Catle\\Devil_chair.png");
 					material = std::make_shared<Material>();
@@ -404,6 +421,7 @@ namespace jk::renderer
 					material->SetRenderingMode(eRenderingMode::Transparent);
 					Resources::Insert(L"Devil_Chair", material);
 		#pragma endregion
+
 
 
 		#pragma region PlayScene_Devil(UI)
@@ -416,13 +434,15 @@ namespace jk::renderer
 		#pragma endregion
 
 
+
 		#pragma region PlayScene_Tile_map(Dungreed)
 					texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resources\\Tile\\DG_Tile.png");
 					material = std::make_shared<Material>();
-					material->SetShader(spriteShader);
+					material->SetShader(TileShader);
 					material->SetTexture(texture);
 					Resources::Insert(L"DG_Tile", material);
 		#pragma endregion
+
 
 
 		#pragma region Cloud				
@@ -433,6 +453,7 @@ namespace jk::renderer
 					material->SetTexture(texture);
 					Resources::Insert(L"Cloud_Devil", material);
 		#pragma endregion
+
 
 
 		#pragma region PlayScene_Devil(background_materials)

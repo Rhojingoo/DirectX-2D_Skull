@@ -24,12 +24,12 @@ namespace jk
 		}
 		else if (Input::GetKey(eKeyCode::A))
 		{
-			pos.x -= 5.0f * Time::DeltaTime();
+			pos.x -= 100.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 5.0f * Time::DeltaTime();
+			pos.x += 100.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::Q))

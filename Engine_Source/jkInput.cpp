@@ -60,8 +60,14 @@ namespace jk
 				}
 			}
 
+
 			POINT mousePos = {};
-			GetCursorPos(&mousePos);
+			GetCursorPos(&mousePos);			
+
+			Vector2 mousenomal = Vector2::Zero;
+
+			mousenomal.x = (2.0f * mousePos.x / application.GetWidth()) - 1.0f;
+			mousenomal.y = 1.0f - (2.0f * mousePos.y / application.GetHeight());
 
 			ScreenToClient(application.GetHwnd(), &mousePos);
 			mMousePos.x = mousePos.x;

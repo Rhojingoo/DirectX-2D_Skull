@@ -32,14 +32,14 @@ namespace jk::graphics
 		size_t GetHeight() { return mDesc.Height; }
 		size_t GetWidth() { return mDesc.Width; }
 
-	private:
-		ScratchImage mImage;
+	private:	
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mSRV;
 		D3D11_TEXTURE2D_DESC mDesc;
 
 
 	private:
+		ScratchImage mImage;
 		HBITMAP mBitmap;
 		HDC mHdc;
 		UINT mWidth;
