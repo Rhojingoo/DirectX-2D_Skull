@@ -1,5 +1,7 @@
 #pragma once
-#include "jkScript.h"
+//#include "jkScript.h"
+#include "Include_Common.h"
+
 namespace jk
 {
 	class ToolScript : public Script

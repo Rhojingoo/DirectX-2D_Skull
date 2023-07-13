@@ -1,10 +1,5 @@
 #include "jkUI_Mouse.h"
-#include "jkInput.h"
-#include "jkTransform.h"
-#include "jkMeshRenderer.h"
-#include "jkResources.h"
-#include "jkSceneManager.h"
-#include "jkCamera.h"
+
 
 
 namespace jk
@@ -15,6 +10,10 @@ namespace jk
 		:mPos(Vector3(0.0f, 0.0f, 10.0f))
 		,mCamera(nullptr)
 	{
+		MeshRenderer* mr = AddComponent<MeshRenderer>();
+		mr->SetMaterial(Resources::Find<Material>(L"Mouse"));
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		
 	}
 	UI_Mouse::~UI_Mouse()
 	{

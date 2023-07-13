@@ -40,8 +40,6 @@ namespace jk
 		UINT mWidth;
 		UINT mHeight;
 		HWND mToolHwnd;
-
-
 		Scene* mScene;
 	};
 

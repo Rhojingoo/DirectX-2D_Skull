@@ -47,7 +47,7 @@ namespace jk
 		int maxRow = mAtlas->GetHeight() / TILE_SIZE_Y;
 
 		mY = index / maxCol;
-		mX = index % maxRow;
+		mX = index % maxCol;
 	}
 	void Tile::Update()
 	{
@@ -55,73 +55,33 @@ namespace jk
 	}
 	void Tile::Render()
 	{
-		//BindConstantBuffer();
-
+		
+		BindConstantBuffer(mX, mY);
+		
 		GameObject::Render();
 	}
 
-	void Tile::BindConstantBuffer()
+	void Tile::BindConstantBuffer(UINT X, UINT Y)
 	{
-		jk::renderer::uvCB uvCB = {};
+		UINT index_x = 1/8;
+		UINT index_y = 1/8;
 
-		uvCB.LeftTop = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-
+		jk::renderer::TileMap_CB TILECB = {};		
+		TILECB.LeftTop = Vector4(mX*0.125f, mY*0.1666f, 0.0f, 0.0f);
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::UV];
-
-		cb->SetData(&uvCB);
+		cb->SetData(&TILECB);
 		cb->Bind(eShaderStage::VS);
 	}
 
-	//void Tile::OnCollisionEnter(Collider* other)
+
+	//void Tile::BindConstantBuffer()
 	//{
-	//	//GameObject* obj = other->GetOwner();
+	//	renderer::MoveCB trCB = {};
+	//	trCB.mTime.x = mTime;
+	//	trCB.mTime.y = _Time;
 
-	//	//Rigidbody* rb = obj->GetComponent<Rigidbody>();
-
-	//	//if (rb == nullptr)
-	//	//{
-	//	//	return;
-	//	//}
-
-	//	//rb->SetGround(true);
-
-
-	//	//Collider* objCol = obj->GetComponent<Collider>();
-	//	//Vector2 objPos = objCol->GetPos();
-
-	//	//Collider* groundCol = this->GetComponent<Collider>();
-	//	//Vector2 groundPos = groundCol->GetPos();
-
-	//	//float fLen = fabs(objPos.y - groundPos.y);
-
-
-	//	//float fSize = (objCol->GetSize().y / 2.0f) + (groundCol->GetSize().y / 2.0f);
-
-	//	//if (fLen < fSize)
-	//	//{
-	//	//	Transform* objTr = obj->GetComponent<Transform>();
-	//	//	Transform* grTr = this->GetComponent<Transform>();
-
-	//	//	Vector2 objPos = objTr->GetPos();
-	//	//	Vector2 grPos = grTr->GetPos();
-
-	//	//	objPos.y -= (fSize - fLen) - 1.0f;
-	//	//	objTr->SetPos(objPos);
-	//	//}
-	//}
-
-	//void Tile::OnCollisionStay(Collider* other)
-	//{
-	//}
-
-	//void Tile::OnCollisionExit(Collider* other)
-	//{
-	//	//GameObject* obj = other->GetOwner();
-
-	//	//Rigidbody* rb = obj->GetComponent<Rigidbody>();
-	//	//if (rb == nullptr)
-	//	//	return;
-
-	//	//rb->SetGround(false);
+	//	ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Move];
+	//	cb->SetData(&trCB);
+	//	cb->Bind(eShaderStage::PS);
 	//}
 }

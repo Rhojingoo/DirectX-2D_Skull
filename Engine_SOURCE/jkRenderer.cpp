@@ -69,7 +69,7 @@ namespace jk::renderer
 			, shader->GetInputLayoutAddressOf());
 
 		
-		shader = jk::Resources::Find<Shader>(L"Tile_Shader");
+		shader = jk::Resources::Find<Shader>(L"fail_Tile_Shader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
@@ -204,8 +204,8 @@ namespace jk::renderer
 		std::vector<Vertex> vertexes = {};
 		std::vector<UINT> indexes = {};
 	#pragma region RECT
+
 		//RECT
-	
 		vertexes.resize(4);
 		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
 		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -223,11 +223,9 @@ namespace jk::renderer
 		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 		vertexes[3].uv = Vector2(0.0f, 1.0f);
 
-
 		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 		Resources::Insert(L"RectMesh", mesh);
-
-		mesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		mesh->CreateVertexBuffer(vertexes.data(), (UINT)vertexes.size());
 
 	
 		indexes.push_back(0);
@@ -237,14 +235,13 @@ namespace jk::renderer
 		indexes.push_back(0);
 		indexes.push_back(2);
 		indexes.push_back(3);
-		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
-
+		mesh->CreateIndexBuffer(indexes.data(), (UINT)indexes.size());		
 
 		// Rect Debug Mesh
 		std::shared_ptr<Mesh> rectDebug = std::make_shared<Mesh>();
 		Resources::Insert(L"DebugRect", rectDebug);
-		rectDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
-		rectDebug->CreateIndexBuffer(indexes.data(), indexes.size());
+		rectDebug->CreateVertexBuffer(vertexes.data(), (UINT)vertexes.size());
+		rectDebug->CreateIndexBuffer(indexes.data(), (UINT)indexes.size());
 	#pragma endregion
 
 	#pragma region Circle
@@ -292,8 +289,8 @@ namespace jk::renderer
 
 		std::shared_ptr<Mesh> circleDebug = std::make_shared<Mesh>();
 		Resources::Insert(L"DebugCircle", circleDebug);
-		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
-		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
+		circleDebug->CreateVertexBuffer(vertexes.data(), (UINT)vertexes.size());
+		circleDebug->CreateIndexBuffer(indexes.data(), (UINT)indexes.size());
 	#pragma endregion
 
 	}
@@ -315,6 +312,10 @@ namespace jk::renderer
 		// Move ConBuffer
 		constantBuffer[(UINT)eCBType::Move] = new ConstantBuffer(eCBType::Move);
 		constantBuffer[(UINT)eCBType::Move]->Create(sizeof(MoveCB));
+
+		// UV ConBuffer
+		constantBuffer[(UINT)eCBType::UV] = new ConstantBuffer(eCBType::UV);
+		constantBuffer[(UINT)eCBType::UV]->Create(sizeof(TileMap_CB));
 	}
 
 	void LoadShader()
@@ -350,21 +351,12 @@ namespace jk::renderer
 		jk::Resources::Insert(L"Move_Shader", moveShader);
 
 
-		// 선생타일
-		//std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
-		//spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
-		//spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
-		//jk::Resources::Insert(L"SpriteShader", spriteShader);
-
-
-
 		//타일 미완성
-#pragma region Tile_map
-		std::shared_ptr<Shader> TileShader = std::make_shared<Shader>();
-		TileShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
-		TileShader->Create(eShaderStage::PS, L"TileMapPS.hlsl", "main");	
-		
-		jk::Resources::Insert(L"Tile_Shader", TileShader);
+#pragma region Tile_map_cmarkup
+		std::shared_ptr<Shader> Tile_Shader = std::make_shared<Shader>();
+		Tile_Shader->Create(eShaderStage::VS, L"TileMapVS.hlsl", "main");
+		Tile_Shader->Create(eShaderStage::PS, L"TileMapPS.hlsl", "main");
+		jk::Resources::Insert(L"fail_Tile_Shader", Tile_Shader);
 #pragma endregion	
 	}
 
@@ -372,19 +364,33 @@ namespace jk::renderer
 	{
 		std::shared_ptr<Shader> spriteShader
 			= Resources::Find<Shader>(L"SpriteShader");
-		std::shared_ptr<Shader> TileShader
-			= Resources::Find<Shader>(L"Tile_Shader");
+		//std::shared_ptr<Shader> TileShader
+		//	= Resources::Find<Shader>(L"Tile_Shader");
 		std::shared_ptr<Shader> moveShader
 			= Resources::Find<Shader>(L"Move_Shader");
+		std::shared_ptr<Shader> tilefail_Shader
+			= Resources::Find<Shader>(L"fail_Tile_Shader");
 		
 
 	#pragma region Public
+
+		#pragma region Mouse
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"mouse", L"..\\Resources\\Texture\\Mouse_Cursor.png");
 			std::shared_ptr<Material> material = std::make_shared<Material>();
 			material->SetShader(spriteShader);
 			material->SetTexture(texture);
 			Resources::Insert(L"Mouse", material);
+		#pragma endregion
+
+		#pragma region Grid
+			std::shared_ptr<Shader> gridShader
+				= Resources::Find<Shader>(L"Grid_Shader");
+			material = std::make_shared<Material>();
+			material->SetShader(gridShader);
+			Resources::Insert(L"GridMaterial", material);
+		#pragma endregion
+
 	#pragma endregion
 
 
@@ -405,6 +411,7 @@ namespace jk::renderer
 					material = std::make_shared<Material>();
 					material->SetShader(spriteShader);
 					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
 					Resources::Insert(L"Catle_wall_Back", material);
 		#pragma endregion
 
@@ -447,28 +454,20 @@ namespace jk::renderer
 					material = std::make_shared<Material>();
 					material->SetShader(moveShader);
 					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
 					Resources::Insert(L"Cloud_Devil", material);
 		#pragma endregion
 
 
-#pragma region  teacher_tilemap			
-					texture = Resources::Load<Texture>(L"tile_at", L"..\\Resources\\Tile\\Tile.bmp");
+
+		#pragma region PlayScene_Tile_map(Mark_Up)
+					texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resources\\Tile\\DG_Tile.png");
 					material = std::make_shared<Material>();
-					material->SetShader(spriteShader);
+					material->SetShader(tilefail_Shader);
 					material->SetTexture(texture);
-					Resources::Insert(L"tile_At", material);
-#pragma endregion
-
-
-
-		#pragma region PlayScene_Tile_map(Dungreed)
-					//texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resources\\Tile\\DG_Tile.png");
-					//material = std::make_shared<Material>();
-					//material->SetShader(TileShader);//TileShader
-					//material->SetTexture(texture);
-					//material->SetRenderingMode(eRenderingMode::Transparent);
-					//Resources::Insert(L"DG_Tile", material);
-#pragma endregion
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"DG_Tile", material);
+		#pragma endregion
 
 
 
@@ -512,14 +511,6 @@ namespace jk::renderer
 					Resources::Insert(L"SpriteMaterial02", material);
 	#pragma endregion
 
-
-	#pragma region Grid
-			std::shared_ptr<Shader> gridShader
-				= Resources::Find<Shader>(L"Grid_Shader");
-			material = std::make_shared<Material>();
-			material->SetShader(gridShader);
-			Resources::Insert(L"GridMaterial", material);
-	#pragma endregion
 
 	//타일툴 보류
 	#pragma region Tile_window2_Create

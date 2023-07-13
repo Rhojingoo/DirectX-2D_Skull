@@ -30,6 +30,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)SpritePS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TileMapPS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)TileMapVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)Tile_PS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)Tile_VS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TrianglePS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TriangleVS.hlsl" />
   </ItemGroup>

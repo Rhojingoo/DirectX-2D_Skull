@@ -59,3 +59,9 @@ cbuffer Move : register(b3)
 {
     float4 Time;
 }
+
+
+cbuffer Tile : register(b4)
+{
+    float4 Index_map;
+}

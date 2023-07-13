@@ -9,6 +9,7 @@ namespace jk
 	Application::Application()
 		: graphicDevice(nullptr)
 		, mHwnd(NULL)
+		, mToolHwnd(NULL)
 		, mWidth(-1)
 		, mHeight(-1)
 		, mScene(nullptr)

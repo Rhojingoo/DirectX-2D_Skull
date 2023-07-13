@@ -70,8 +70,8 @@ namespace jk
 			mousenomal.y = 1.0f - (2.0f * mousePos.y / application.GetHeight());
 
 			ScreenToClient(application.GetHwnd(), &mousePos);
-			mMousePos.x = mousePos.x;
-			mMousePos.y = mousePos.y;
+			mMousePos.x = (float)mousePos.x;
+			mMousePos.y = (float)mousePos.y;
 		}
 		else
 		{

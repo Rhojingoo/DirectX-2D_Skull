@@ -1,6 +1,6 @@
 #pragma once
 #include "jkGameObject.h"
-//#include "jkUICamera.h"
+#include "Include_Common.h"
 
 using namespace jk::math;
 using namespace jk;

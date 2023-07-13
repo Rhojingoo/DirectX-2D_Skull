@@ -1,11 +1,10 @@
 #pragma once
-#include "jkGameObject.h"
-#include "jkMeshRenderer.h"
-#include "jkTransform.h"
+#include "Include_Common.h"
+#include "BG.h"
 
 namespace jk
 {
-	class Cloud : public GameObject
+	class Cloud : public BG
 	{
 	public:
 		Cloud();

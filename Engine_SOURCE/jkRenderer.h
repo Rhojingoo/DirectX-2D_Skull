@@ -83,7 +83,7 @@ namespace jk::renderer
 	};
 
 
-	CBUFFER(uvCB, CBSLOT_UV)
+	CBUFFER(TileMap_CB, CBSLOT_TILEM)
 	{
 		Vector4 LeftTop;
 	};

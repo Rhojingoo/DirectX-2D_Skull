@@ -1,5 +1,5 @@
 #pragma once
-#include <jkScript.h>
+#include "Include_Common.h"
 
 namespace jk
 {

@@ -1,20 +1,4 @@
 #include "jkPlayScene.h"
-#include "jkSceneManager.h"
-#include "jkTransform.h"
-#include "jkMeshRenderer.h"
-#include "jkResources.h"
-#include "jkMesh.h"
-#include "jkCameraScript.h"
-#include "jkCamera.h"
-#include "jkInput.h"
-#include "jkGridScript.h"
-#include "jkTileMap.h"
-#include "jkXmlParser.h"
-#include "jkCloud.h"
-#include "jkUI_Mouse.h"
-#include "jkTile_Mouse.h"
-#include "jkToolScript.h"
-#include "jkPalatte.h"
 
 namespace jk
 {
@@ -26,202 +10,6 @@ namespace jk
 	}
 	void PlayScene::Initialize()
 	{	
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"Catle_Back");
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Back"));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(950, 350.f, 0.f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -100.01f));
-		//}
-		//
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"Catle");
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_01"));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(1890.f, 548.f, 0.f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.35f, -300.0f)); 
-		//} 
-		//
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"Devil_chair");
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Devil_Chair"));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(-650.f, 0.1f, -350.f));
-		//}
-		
-		{
-		GameObject* player = new GameObject();
-		player->SetName(L"Skul_UI");
-		AddGameObject(eLayerType::UI, player);
-		MeshRenderer* mr = player->AddComponent<MeshRenderer>();			
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"Skul_UI"));
-		player->GetComponent<Transform>()->SetScale(Vector3(68.f, 68.f, 0.f));
-		player->GetComponent<Transform>()->SetPosition(Vector3(-750.5f, -350.4f, 1.0f));
-		}
-		
-
-		//Main Camera		
-		Camera* cameraComp = nullptr;
-		GameObject* camera = new GameObject();
-		AddGameObject(eLayerType::Player, camera);
-		camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
-		cameraComp = camera->AddComponent<Camera>();
-		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		camera->AddComponent<CameraScript>();
-		renderer::cameras.push_back(cameraComp);
-				
-
-		//UI Camera		
-		GameObject* UI_camera = new GameObject();
-		AddGameObject(eLayerType::Player, UI_camera);
-		UI_camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.f));
-		Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
-		cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::MapEffect, false);
-		
-
-		//UI_Mouse
-		UI_Mouse* cursor = new UI_Mouse();
-		cursor->SetName(L"Mouse_UI");
-		AddGameObject(eLayerType::UI, cursor);
-		MeshRenderer* mr = cursor->AddComponent<MeshRenderer>();
-		mr->SetMaterial(Resources::Find<Material>(L"Mouse"));
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -10.f));
-		cursor->GetComponent<Transform>()->SetPosition(Vector3::One);
-		cursor->SetCamera(UI_camera);
-
-
-		//Tile_Mouse
-		Tile_Mouse* t_cursor = new Tile_Mouse();
-		t_cursor->SetName(L"Mouse_Tile");
-		AddGameObject(eLayerType::UI, t_cursor);	
-		t_cursor->SetCamera(camera);
-		t_cursor->AddComponent<ToolScript>();
-
-		TilePalatte::Intialize();
-
-
-		//Cloud
-		//{			
-		//	Cloud* player = new Cloud();			
-		//	AddGameObject(eLayerType::MapEffect, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Cloud_Devil"));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(1120.f, 2204.f, 0.f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(1.f, 1.0f, 190.0f));
-		//}
-	
-
-		//Grid
-		//{
-		//	GameObject* grid = new GameObject();
-		//	grid->SetName(L"Grid");
-		//	AddGameObject(eLayerType::Grid, grid);
-		//	MeshRenderer* mr = grid->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"GridMaterial"));
-		//	GridScript* gridSc = grid->AddComponent<GridScript>();
-		//	gridSc->SetCamera(cameraComp);
-		//}
-
-#pragma region TiledTool tile_map
-		//Tilemap
-		//{
-		//	GameObject* Tile_map = new GameObject();
-		//		//object::Instantiate<GameObject>(eLayerType::BackGround);
-		//	AddGameObject(eLayerType::Player, Tile_map);
-		//	Tile_map->SetName(L"Tile_Map");
-		//	Transform* tr = Tile_map->GetComponent<Transform>();
-		//	//tr->SetPositionZ(5.f);
-		//	//tr->AddPositionY(64.f * 8.f);
-		//	tr->SetScale(Vector3(64.f*114, 64.f*24, 10.f));
-
-
-		//	//MeshRenderer* mr = Tile_map->AddComponent<MeshRenderer>();
-		//	TileMap* tilemap = Tile_map->AddComponent<TileMap>();			
-		//	std::shared_ptr<Material> material = Resources::Find<Material>(L"DG_Tile");
-		//	
-		//	tilemap->SetMaterial(material);
-		//	tilemap->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	tilemap->SetAtlasTex(material->GetTexture());
-		//	tilemap->SetTileSize(Vector2(64.f, 64.f));
-		//	tilemap->SetTileMapCount(114, 24);
-		//
-		//	bool xmlTest = false;
-		//	XmlParser* testParser = new XmlParser;
-		//	xmlTest = testParser->LoadFile(L"\\Resources\\Metadata\\TileMap\\00_Town.xml");
-		//	if (xmlTest)
-		//	{
-		//		xmlTest = testParser->FindElem(L"map");
-		//		testParser->IntoElem();
-		//		xmlTest = testParser->FindElem(L"layer");
-		//		testParser->IntoElem();
-		//		xmlTest = testParser->FindElem(L"data");
-		//		testParser->IntoElem();
-		//	
-		//		int tileIdx = 0;
-		//		while (testParser->FindElem("tile"))
-		//		{
-		//			if (testParser->HasAttribute("gid"))
-		//			{
-		//				int imgIdx = testParser->GetIntAttribute("gid") - 1;
-		//				tilemap->SetTileData(tileIdx, imgIdx);
-		//			}
-		//			tileIdx++;
-		//		}
-		//	}
-		//}
-#pragma endregion
-
-
-		//{
-		//	GameObject* player = new GameObject();
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_04"));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(0.7f, 2.5f, 0.f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(-4.77f, 0.35f, 0.0f));
-		//	//player->AddComponent<CameraScript>();
-		//}
-
-
-		//{
-		//	GameObject* player = new GameObject();
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_03"));
-		//	//player->GetComponent<Transform>()->SetScale(Vector3(10.25f, 5.0f, 0.0f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(2.0f, 0.0f, 0.0f));
-		//	//player->AddComponent<CameraScript>();
-		//}
-
-
-		//{
-		//	GameObject* player = new GameObject();
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_04"));
-		//	//player->GetComponent<Transform>()->SetScale(Vector3(10.25f, 5.0f, 0.0f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(2.0f, 0.0f, 0.0f));
-		//	//player->AddComponent<CameraScript>();
-		//}
-
 	}
 
 	void PlayScene::Update()
@@ -235,21 +23,6 @@ namespace jk
 
 	void PlayScene::LateUpdate()
 	{
-
-		//마우스좌표계 변경하는법
-		//Vector3 pos(600, 450, 0.0f);
-		//Vector3 pos2(600, 450, 1000.0f);
-		//Viewport viewport;
-		//viewport.width = 1600.0f;
-		//viewport.height = 900.0f;
-		//viewport.x = 0;
-		//viewport.y = 0;
-		//viewport.minDepth = 0.0f;
-		//viewport.maxDepth = 1.0f;
-
-		//pos = viewport.Unproject(pos, Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
-		//pos2 = viewport.Unproject(pos2, Camera::GetProjectionMatrix(), Camera::GetViewMatrix(), Matrix::Identity);
-
 		Scene::LateUpdate();
 	}
 
@@ -258,3 +31,138 @@ namespace jk
 		Scene::Render();
 	}
 }
+
+
+
+//#pragma region CASTLE
+//Devil_Castle* Castle_wall_Back = object::Instantiate<Devil_Castle>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND);
+//Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(950, 350.f, 0.f));
+//Castle_wall_Back->SetName(L"Catle_Back");
+//
+//Devil_Castle_front* Castle_wall = object::Instantiate<Devil_Castle_front>(Vector3(0.0f, 0.35f, -150.f), eLayerType::BACK_GROUND);
+//Castle_wall->GetComponent<Transform>()->SetScale(Vector3(1890.f, 548.f, 0.f));
+//Castle_wall->SetName(L"Catle_front");
+//
+//Decil_chair* _chair = object::Instantiate<Decil_chair>(Vector3(-695.f, 0.1f, -200.f), eLayerType::BACK_GROUND);
+//_chair->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f));
+//_chair->SetName(L"Devil_chair");
+//
+//Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 190.f), eLayerType::Map_Effect);
+//cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f));
+//cloud->SetName(L"Castle_cloud");
+//#pragma endregion					
+//
+//#pragma region UI	
+//Player_State_UI* Player_UI = object::Instantiate<Player_State_UI>(Vector3(-750.5f, -350.4f, 1.0f), eLayerType::UI);
+//Player_UI->GetComponent<Transform>()->SetScale(Vector3(68.f, 68.f, 0.f));
+//Player_UI->SetName(L"Devil_chair");
+//#pragma endregion		
+//
+//#pragma region Cam & Mouse& Grid
+////Main Camera			
+//Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+//Camera* cameraComp = camera->AddComponent<Camera>();
+//cameraComp->TurnLayerMask(eLayerType::UI, false);
+//camera->AddComponent<CameraScript>();
+//renderer::cameras.push_back(cameraComp);
+//
+////UI Camera		
+//UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+//Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
+//cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
+//cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
+//cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
+//cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
+//cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
+//cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+//
+////UI_Mouse
+//UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
+//cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -10.f));
+//cursor->SetName(L"Mouse_UI");
+//cursor->SetCamera(UI_camera);
+//
+////Grid
+//Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+//grid->SetName(L"Grid");
+//GridScript* gridSc = grid->AddComponent<GridScript>();
+//gridSc->SetCamera(cameraComp);
+//#pragma endregion	
+//
+//#pragma region tile_map		
+//{
+//	GameObject* Tile_map = object::Instantiate<GameObject>(eLayerType::BACK_GROUND);
+//	Tile_map->SetName(L"Tile_Map");
+//	Transform* tr = Tile_map->GetComponent<Transform>();
+//	tr->SetPositionZ(5.f);
+//	tr->AddPositionY(64.f);
+//	tr->SetScale(Vector3(500.f, 500.f, 10.f));
+//
+//	TileMap* tilemap = Tile_map->AddComponent<TileMap>();
+//	std::shared_ptr<Material> material = Resources::Find<Material>(L"DG_Tile");
+//
+//	tilemap->SetMaterial(material);
+//	tilemap->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+//	tilemap->SetAtlasTex(material->GetTexture());
+//	tilemap->SetTileSize(Vector2(64.f, 64.f));
+//	tilemap->SetTileMapCount(114, 24);
+//
+//	bool xmlTest = false;
+//	XmlParser* testParser = new XmlParser;
+//	xmlTest = testParser->LoadFile(L"\\Resources\\Metadata\\TileMap\\00_Town.xml");
+//	if (xmlTest)
+//	{
+//		xmlTest = testParser->FindElem(L"map");
+//		testParser->IntoElem();
+//		xmlTest = testParser->FindElem(L"layer");
+//		testParser->IntoElem();
+//		xmlTest = testParser->FindElem(L"data");
+//		testParser->IntoElem();
+//
+//		int tileIdx = 0;
+//		while (testParser->FindElem("tile"))
+//		{
+//			if (testParser->HasAttribute("gid"))
+//			{
+//				int imgIdx = testParser->GetIntAttribute("gid") - 1;
+//				tilemap->SetTileData(tileIdx, imgIdx);
+//			}
+//			tileIdx++;
+//		}
+//	}
+//}
+//
+//#pragma endregion
+//
+//#pragma region 보류
+//{
+//	GameObject* player = new GameObject();
+//	AddGameObject(eLayerType::Player, player);
+//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_04"));
+//	player->GetComponent<Transform>()->SetScale(Vector3(0.7f, 2.5f, 0.f));
+//	player->GetComponent<Transform>()->SetPosition(Vector3(-4.77f, 0.35f, 0.0f));
+//	//player->AddComponent<CameraScript>();
+//}
+//{
+//	GameObject* player = new GameObject();
+//	AddGameObject(eLayerType::Player, player);
+//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_03"));
+//	//player->GetComponent<Transform>()->SetScale(Vector3(10.25f, 5.0f, 0.0f));
+//	player->GetComponent<Transform>()->SetPosition(Vector3(2.0f, 0.0f, 0.0f));
+//	//player->AddComponent<CameraScript>();
+//}
+//{
+//	GameObject* player = new GameObject();
+//	AddGameObject(eLayerType::Player, player);
+//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_04"));
+//	//player->GetComponent<Transform>()->SetScale(Vector3(10.25f, 5.0f, 0.0f));
+//	player->GetComponent<Transform>()->SetPosition(Vector3(2.0f, 0.0f, 0.0f));
+//	//player->AddComponent<CameraScript>();
+//}
+#pragma endregion

@@ -3,7 +3,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h">
-      <Filter>Load</Filter>
+      <Filter>Scene\Load</Filter>
     </ClInclude>
     <ClInclude Include="jkTitleScene.h">
       <Filter>Scene</Filter>
@@ -23,15 +23,51 @@
     <ClInclude Include="jkGridScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="jkCloud.h">
-      <Filter>Gameob</Filter>
-    </ClInclude>
     <ClInclude Include="jkToolScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="Include_Common.h" />
+    <ClInclude Include="jkStage2.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="BG.h">
+      <Filter>Game_ob\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Game_ob\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Devil_Castle_back.h">
+      <Filter>Game_ob\BG\Devil_Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="Devil_Castle_front.h">
+      <Filter>Game_ob\BG\Devil_Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="Decil_chair.h">
+      <Filter>Game_ob\BG\Devil_Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="jkCloud.h">
+      <Filter>Game_ob\BG\Devil_Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="Player_State_UI.h">
+      <Filter>Game_ob\UI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Camera.h">
+      <Filter>Game_ob\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Main_Camera.h">
+      <Filter>Game_ob\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Game_ob\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Castle_Area.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="JKEngine.cpp" />
     <ClCompile Include="jkStage1.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -50,25 +86,83 @@
     <ClCompile Include="jkGridScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="jkCloud.cpp">
-      <Filter>Gameob</Filter>
-    </ClCompile>
     <ClCompile Include="jkToolScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
+    <ClCompile Include="jkStage2.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine_SOURCE\jkGameObject.cpp" />
+    <ClCompile Include="BG.cpp">
+      <Filter>Game_ob\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Game_ob\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Devil_Castle_back.cpp">
+      <Filter>Game_ob\BG\Devil_Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="Devil_Castle_front.cpp">
+      <Filter>Game_ob\BG\Devil_Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="Decil_chair.cpp">
+      <Filter>Game_ob\BG\Devil_Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="jkCloud.cpp">
+      <Filter>Game_ob\BG\Devil_Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_State_UI.cpp">
+      <Filter>Game_ob\UI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Main_Camera.cpp">
+      <Filter>Game_ob\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Camera.cpp">
+      <Filter>Game_ob\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Game_ob\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Castle_Area.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Load">
-      <UniqueIdentifier>{81a081ec-d7e4-4db0-9b3e-8daeaf0849c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{bd4a17a5-055d-4632-9130-980f61688ef4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Script">
       <UniqueIdentifier>{2cfe3ec8-f284-499b-92eb-1916842908e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Gameob">
-      <UniqueIdentifier>{2f244ea4-3f8f-4b9c-b033-4382bbe8c0a8}</UniqueIdentifier>
+    <Filter Include="Game_ob">
+      <UniqueIdentifier>{02611969-1c17-4b96-9ef7-21de2027f4b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG">
+      <UniqueIdentifier>{65349587-d16a-4a74-a433-4473bf562971}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\PLAYER">
+      <UniqueIdentifier>{510c99e4-2c5c-47ee-876d-8d3c13dc63de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\UI">
+      <UniqueIdentifier>{0d76d847-e12d-419d-97f1-b4e2310b5caf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Load">
+      <UniqueIdentifier>{81a081ec-d7e4-4db0-9b3e-8daeaf0849c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\Devil_Castle">
+      <UniqueIdentifier>{70c64eda-360b-4d75-8679-576fd75f0414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\UI\HP_bar">
+      <UniqueIdentifier>{dc0bdfc4-04d7-4b53-9d10-a59498e3cb5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\UI\State">
+      <UniqueIdentifier>{1de27e97-3894-48c8-afdf-1fdf896695df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Camera">
+      <UniqueIdentifier>{33499aa4-ff68-48e5-9cb8-eede46a35ef3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -32,7 +32,7 @@ float4 main(VSOut In) : SV_TARGET
 
     if (-1 == TileDataBuffer[TileDataIdx].ImgIdx)
         discard;
-    
+
     float2 LeftTopUV = TileDataBuffer[TileDataIdx].LTUV;
     float2 ImgUV = frac(UV);
     float2 SampleUV = LeftTopUV + ImgUV * SliceSizeUV;
@@ -40,6 +40,6 @@ float4 main(VSOut In) : SV_TARGET
     OutColor = albedoTexture.Sample(pointSampler, SampleUV);
     if (OutColor.a == 0.f)
         discard;
-        
+
     return OutColor;
 }

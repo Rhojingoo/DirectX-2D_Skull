@@ -47,13 +47,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_EDITORWINDOW, szWindowClass, MAX_LOADSTRING);
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(1133);
+    //_CrtSetBreakAlloc(1098);
 
-        // main window
+    // main window
     MyRegisterClass(hInstance, szWindowClass, WndProc);
 
     // tiletool window
-    MyRegisterClass(hInstance, L"ToolWindow", ToolWndProc);
+   // MyRegisterClass(hInstance, L"ToolWindow", ToolWndProc);
 
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
@@ -139,8 +139,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
    //Tool
-   HWND hWnd2 = CreateWindowW(L"ToolWindow", szTitle, WS_OVERLAPPEDWINDOW,
-       CW_USEDEFAULT, 0, 500, 500, nullptr, nullptr, hInstance, nullptr);
+   //HWND hWnd2 = CreateWindowW(L"ToolWindow", szTitle, WS_OVERLAPPEDWINDOW,
+   //    CW_USEDEFAULT, 0, 500, 500, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -151,11 +151,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
-   ShowWindow(hWnd2, nCmdShow);
-   UpdateWindow(hWnd2);
+   //ShowWindow(hWnd2, nCmdShow);
+   //UpdateWindow(hWnd2);
 
    application.Initialize();
-   application.SetToolHwnd(hWnd2);
+   //application.SetToolHwnd(hWnd2);
    jk::InitializeScenes();
    gui::Editor::Initialize();
 

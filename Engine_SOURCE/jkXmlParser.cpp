@@ -17,7 +17,7 @@ namespace jk
 	}
 
 	bool XmlParser::LoadFile(const std::wstring& name)
-	{
+	{		
 		std::filesystem::path parentPath = std::filesystem::current_path().parent_path();
 		std::wstring fullPath = parentPath.wstring() + name;
 

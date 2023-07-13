@@ -1,8 +1,5 @@
 #include "jkCloud.h"
-#include "jkTime.h"
-#include "jkResources.h"
-#include "jkTransform.h"
-#include "jkMeshRenderer.h"
+
 
 
 namespace jk
@@ -14,9 +11,17 @@ namespace jk
 		, _Time(0.f)
 		, mTime(0.f)
 	{
+		MeshRenderer* mr = AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"Cloud_Devil"));
 		tr = GetComponent<Transform>();
 	}
 	Cloud::Cloud(Vector3 mPos)
+		: meshrenderer()
+		, tr()
+		, _Pos(1000)
+		, _Time(0.f)
+		, mTime(0.f)
 	{
 
 	}
@@ -29,17 +34,8 @@ namespace jk
 	}
 	void Cloud::Update()
 	{
-		//_Pos = tr->GetPosition();
-		//if (_Pos.x <= -1000.0f)
-		//{
-		//	_Pos.x = 1000.0f;
-		//}
-		//_Pos.x -= 100.f * Time::DeltaTime();
-
-		//tr->SetPosition(_Pos);
-
 		
-		_Time +=  0.1*Time::DeltaTime();
+		_Time +=  0.1* (float)Time::DeltaTime();
 		if(_Time>7.f)
 		{
 			_Time = 0.f;

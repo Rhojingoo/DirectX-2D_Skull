@@ -34,6 +34,15 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugVS.hlsl">
       <Filter>HLSL\Debug</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Tile_PS.hlsl">
+      <Filter>HLSL\Tile</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Tile_VS.hlsl">
+      <Filter>HLSL\Tile</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)TileMapVS.hlsl">
+      <Filter>HLSL\Tile</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HLSL">

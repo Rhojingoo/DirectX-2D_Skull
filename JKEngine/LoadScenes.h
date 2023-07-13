@@ -1,9 +1,7 @@
 #pragma once
-#include "..\Engine_SOURCE\jkSceneManager.h"
-#include "jkPlayScene.h"
-#include "jkTitleScene.h"
-#include "jkStage1.h"
-#include "jkToolScene.h"
+//#include "..\Engine_SOURCE\jkSceneManager.h"
+#include "Include_Common.h"
+
 
 
 #ifdef _DEBUG
@@ -20,11 +18,15 @@ namespace jk
 	void InitializeScenes()
 	{		
 		//Tool 
-		SceneManager::CreateScene<ToolScene>(L"ToolScene");
+		//SceneManager::CreateScene<ToolScene>(L"ToolScene");
+		
+		
+		
 		//Scene
-		//SceneManager::CreateScene<jkStage1>(L"Stage1");
-		SceneManager::CreateScene<PlayScene>(L"PlayScene"); 
-		//SceneManager::CreateScene<jkTitleScene>(L"TitleScene");
+		//SceneManager::CreateScene<Stage2>(L"Stage2");
+		//SceneManager::CreateScene<jkStage1>(L"Stage1");		
+		SceneManager::CreateScene<Castle_Area>(L"Start_Scene"); 
+		SceneManager::CreateScene<jkTitleScene>(L"TitleScene");
 
 	}
 }

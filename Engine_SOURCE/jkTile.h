@@ -22,7 +22,7 @@ namespace jk
 		UINT Index() { return mIndex; }
 
 
-		void BindConstantBuffer();
+		void BindConstantBuffer(UINT X, UINT Y);
 
 		/*virtual void OnCollisionEnter(class Collider* other);
 		virtual void OnCollisionStay(class Collider* other);

@@ -18,12 +18,15 @@ namespace jk::enums
 
 	enum class eLayerType
 	{
-		MapEffect,
+		Camera,
 		Grid,
-		Player,
 		Monster,
-		UI,	
-		TI,
+		Player,
+		BACK_GROUND,
+		Mid_Ground,
+		Fore_Ground,
+		Map_Effect,
+		UI,		
 		End,
 	};
 

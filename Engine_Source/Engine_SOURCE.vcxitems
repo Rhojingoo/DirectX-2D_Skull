@@ -55,6 +55,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkXmlParser.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\JKEngine\JKEngine.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkBaseRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCamera.cpp" />
@@ -63,7 +64,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkGraphicDevice_Dx11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkImage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkInput.cpp" />

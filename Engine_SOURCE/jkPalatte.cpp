@@ -31,10 +31,10 @@ namespace jk
 		if (mousPos.y >= 900.0f || mousPos.y <= 0.0f)
 			return;
 
-		Tile* tile = object::Instantiate<Tile>(eLayerType::TI);
+		Tile* tile = object::Instantiate<Tile>(eLayerType::BACK_GROUND);
 		tile->InitializeTile(mImage, index);
 		MeshRenderer* mr =  tile-> AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMesh(Resources::Find<Mesh>(L"Tile_Mesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"tile_At"));
 		Transform* tr = tile->GetComponent<Transform>();
 		tr->SetPosition(Vector3((float)pos.x, (float)pos.y, 0.5f));
@@ -161,7 +161,7 @@ namespace jk
 			if (fread(&id.id, sizeof(TileID), 1, file) == NULL)
 				break;
 
-			CreateTile(index, Vector2(id.x, id.y));
+			CreateTile(index, Vector2((float)id.x, (float)id.y));
 		}
 
 		fclose(file);
@@ -193,7 +193,7 @@ namespace jk
 			if (fread(&id.id, sizeof(TileID), 1, file) == NULL)
 				break;
 
-			CreateTile(index, Vector2(id.x, id.y));
+			CreateTile(index, Vector2((float)id.x, (float)id.y));
 
 
 			//mPixel = Image::Create(L"Pixels", id.x, id.y,RGB(255,0,255));
@@ -208,9 +208,9 @@ namespace jk
 
 	Vector2 TilePalatte::GetTilePos(Vector2 mousePos)
 	{
-		int indexY = mousePos.y / TILE_SIZE_Y;
-		int indexX = mousePos.x / TILE_SIZE_X;
+		int indexY = (int)mousePos.y / TILE_SIZE_Y;
+		int indexX = (int)mousePos.x / TILE_SIZE_X;
 
-		return Vector2(indexX, indexY);
+		return Vector2((float)indexX, (float)indexY);
 	}
 }

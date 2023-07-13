@@ -1,8 +1,5 @@
 #include "jkCameraScript.h"
-#include "jkTransform.h"
-#include "jkGameObject.h"
-#include "jkTime.h"
-#include "jkInput.h"
+
 
 namespace jk
 {
@@ -14,32 +11,32 @@ namespace jk
 
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.z += 5.0f * Time::DeltaTime();
+			pos.z += 5.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::S))
 		{
-			pos.z -= 5.0f * Time::DeltaTime();
+			pos.z -= 5.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::A))
 		{
-			pos.x -= 100.0f * Time::DeltaTime();
+			pos.x -= 100.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 100.0f * Time::DeltaTime();
+			pos.x += 100.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::Q))
 		{
-			pos.y -= 5.0f * Time::DeltaTime();
+			pos.y -= 5.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::E))
 		{
-			pos.y += 5.0f * Time::DeltaTime();
+			pos.y += 5.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 	}

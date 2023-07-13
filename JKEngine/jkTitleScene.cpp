@@ -1,12 +1,4 @@
 #include "jkTitleScene.h"
-#include "jkSceneManager.h"
-#include "jkTransform.h"
-#include "jkMeshRenderer.h"
-#include "jkResources.h"
-#include "jkMesh.h"
-#include "jkCameraScript.h"
-#include "jkCamera.h"
-#include "jkInput.h"
 
 namespace jk
 {
@@ -25,7 +17,7 @@ namespace jk
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
 			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			player->GetComponent<Transform>()->SetScale(Vector3(8.0f, 4.5f, 0.0f));
+			player->GetComponent<Transform>()->SetScale(Vector3(1024.f, 1024.f, 0.0f));
 			//player->AddComponent<CameraScript>();
 		}
 
@@ -42,7 +34,7 @@ namespace jk
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(L"PlayScene");
+			SceneManager::LoadScene(L"Start_Scene");
 		}
 	}
 	void jkTitleScene::LateUpdate()

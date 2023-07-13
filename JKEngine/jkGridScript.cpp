@@ -1,5 +1,5 @@
 #include "jkGridScript.h"
-#include "jkConstantBuffer.h"
+
 #include "jkCamera.h"
 #include "jkTransform.h"
 #include "jkApplication.h"
@@ -7,7 +7,7 @@
 #include "jkRenderer.h"
 #include "jkTime.h"
 #include "jkInput.h"
-#include "jkObject.h"
+
 
 extern jk::Application application;
 
@@ -45,7 +45,7 @@ namespace jk
 
 		if (Input::GetKeyState(eKeyCode::T) == eKeyState::Pressed)
 		{
-			float adjustVal = 1.f * Time::DeltaTime();
+			float adjustVal = 1.f * (float)Time::DeltaTime();
 			float newCameraScale = 0.f;
 
 			if (mMeshScale + adjustVal > 2.9f)
@@ -63,7 +63,7 @@ namespace jk
 		}
 		if (Input::GetKeyState(eKeyCode::G) == eKeyState::Pressed)
 		{
-			float adjustVal = 1.f * Time::DeltaTime();
+			float adjustVal = 1.f * (float)Time::DeltaTime();
 			float newCameraScale = 0.f;
 
 			if (mMeshScale - adjustVal < 0.1f)

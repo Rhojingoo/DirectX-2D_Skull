@@ -1,6 +1,5 @@
 #include "jkToolScript.h"
-#include "jkInput.h"
-#include "jkPalatte.h"
+
 
 namespace jk
 {

@@ -103,8 +103,8 @@ namespace jk
 	{
 		RECT rect = {};
 		GetClientRect(application.GetHwnd(), &rect);
-		float width = rect.right - rect.left;
-		float height = rect.bottom - rect.top;
+		float width = (float)rect.right - (float)rect.left;
+		float height = (float)rect.bottom - (float)rect.top;
 		mAspectRatio = width / height;;
 
 
@@ -173,16 +173,16 @@ namespace jk
 		for (GameObject* obj : gameObjs)
 		{
 			//·»´õ·¯ ÄÄÆ÷³ÍÆ®°¡ ¾ø´Ù¸é?
-			//BaseRenderer* mr
-			//	= obj->GetComponent<BaseRenderer>();
-			//if (mr == nullptr)
-			//	continue;
-			
-			//¼±»ý´ÔÄÚµå
-			MeshRenderer* mr
-				= obj->GetComponent<MeshRenderer>();
+			BaseRenderer* mr
+				= obj->GetComponent<BaseRenderer>();
 			if (mr == nullptr)
 				continue;
+			
+			//¼±»ý´ÔÄÚµå
+			//MeshRenderer* mr
+			//	= obj->GetComponent<MeshRenderer>();
+			//if (mr == nullptr)
+			//	continue;
 
 			std::shared_ptr<Material> mt = mr->GetMaterial();
 			eRenderingMode mode = mt->GetRenderingMode();

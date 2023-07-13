@@ -1,12 +1,5 @@
 #include "jkStage1.h"
-#include "jkSceneManager.h"
-#include "jkTransform.h"
-#include "jkMeshRenderer.h"
-#include "jkResources.h"
-#include "jkMesh.h"
-#include "jkCameraScript.h"
-#include "jkCamera.h"
-#include "jkInput.h"
+
 
 namespace jk
 {

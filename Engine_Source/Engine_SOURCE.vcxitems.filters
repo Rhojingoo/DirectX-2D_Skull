@@ -55,14 +55,14 @@
     <Filter Include="Common\Object">
       <UniqueIdentifier>{21d122ca-337c-44fe-a20f-bbd9c422df3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Tile">
-      <UniqueIdentifier>{566726af-f8f4-4c79-abd1-fa96c6b1d1ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="★practice">
       <UniqueIdentifier>{ea60c8aa-265c-4925-9565-d740482574ba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="★practice\Parser">
+    <Filter Include="Common\Parser">
       <UniqueIdentifier>{c1eb6dd3-745a-4873-8754-4d822c44e018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="★practice\Tile">
+      <UniqueIdentifier>{566726af-f8f4-4c79-abd1-fa96c6b1d1ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -138,8 +138,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTransform.h">
       <Filter>GameObject\Component</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkTexture.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h">
       <Filter>GameObject\Component</Filter>
     </ClInclude>
@@ -153,7 +151,7 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkXmlParser.h">
-      <Filter>★practice\Parser</Filter>
+      <Filter>Common\Parser</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkCollider2D.h">
       <Filter>GameObject\Component</Filter>
@@ -167,17 +165,23 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkUI_Mouse.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkTile.h">
-      <Filter>GameObject\Tile</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkPalatte.h">
-      <Filter>GameObject\Tile</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkTileMap.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTile_Mouse.h">
       <Filter>★practice</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkTile_Mouse.h">
-      <Filter>Input</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTileMap.h">
+      <Filter>Common\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTexture.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkCamera.h">
+      <Filter>GameObject\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTile.h">
+      <Filter>★practice\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkPalatte.h">
+      <Filter>★practice\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -223,9 +227,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkComponent.cpp">
       <Filter>GameObject\Component</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkGameObject.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkSceneManager.cpp">
       <Filter>Scene\Manager</Filter>
     </ClCompile>
@@ -241,8 +242,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTransform.cpp">
       <Filter>GameObject\Component</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkTexture.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMaterial.cpp">
       <Filter>GameObject\Component</Filter>
     </ClCompile>
@@ -253,7 +252,7 @@
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkXmlParser.cpp">
-      <Filter>★practice\Parser</Filter>
+      <Filter>Common\Parser</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCollider2D.cpp">
       <Filter>GameObject\Component</Filter>
@@ -267,17 +266,26 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkUI_Mouse.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkTile.cpp">
-      <Filter>GameObject\Tile</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkPalatte.cpp">
-      <Filter>GameObject\Tile</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkTileMap.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTile_Mouse.cpp">
       <Filter>★practice</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkTile_Mouse.cpp">
-      <Filter>Input</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTileMap.cpp">
+      <Filter>Common\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTexture.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkCamera.cpp">
+      <Filter>GameObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkPalatte.cpp">
+      <Filter>★practice\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTile.cpp">
+      <Filter>★practice\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\JKEngine\JKEngine.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

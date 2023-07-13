@@ -1,5 +1,5 @@
 #pragma once
-//#include <jkScene.h>
+#include "Include_Common.h"
 #include "..\Engine_SOURCE\jkScene.h"
 
 namespace jk
@@ -16,6 +16,6 @@ namespace jk
 		virtual void Render() override;
 
 	private:
-
+		
 	};
 }
