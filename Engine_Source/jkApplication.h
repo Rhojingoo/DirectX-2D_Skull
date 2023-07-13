@@ -27,6 +27,9 @@ namespace jk
 		UINT GetHeight() { return mHeight; }
 		HWND GetHwnd() { return  mHwnd; }
 		
+		void SetToolHwnd(HWND hwnd) { mToolHwnd = hwnd; }
+		HWND GetToolHwnd() { return mToolHwnd; }
+
 	private:
 		bool mbInitialize = false;
 		// 오로지 한개의 객체만 만들수 있는 스마트 포인터
@@ -36,6 +39,8 @@ namespace jk
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;
+		HWND mToolHwnd;
+
 
 		Scene* mScene;
 	};

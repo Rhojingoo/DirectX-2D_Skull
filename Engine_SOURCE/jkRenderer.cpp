@@ -350,11 +350,19 @@ namespace jk::renderer
 		jk::Resources::Insert(L"Move_Shader", moveShader);
 
 
+		// 선생타일
+		//std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
+		//spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		//spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
+		//jk::Resources::Insert(L"SpriteShader", spriteShader);
+
+
+
 		//타일 미완성
 #pragma region Tile_map
 		std::shared_ptr<Shader> TileShader = std::make_shared<Shader>();
 		TileShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
-		TileShader->Create(eShaderStage::PS, L"TileMapPS.hlsl", "main");
+		TileShader->Create(eShaderStage::PS, L"TileMapPS.hlsl", "main");	
 		
 		jk::Resources::Insert(L"Tile_Shader", TileShader);
 #pragma endregion	
@@ -369,6 +377,7 @@ namespace jk::renderer
 		std::shared_ptr<Shader> moveShader
 			= Resources::Find<Shader>(L"Move_Shader");
 		
+
 	#pragma region Public
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"mouse", L"..\\Resources\\Texture\\Mouse_Cursor.png");
@@ -389,7 +398,6 @@ namespace jk::renderer
 				Resources::Insert(L"SpriteMaterial", material);
 	#pragma endregion
 		
-
 
 	#pragma region PlayScene
 		#pragma region PlayScene_Devil(back)
@@ -423,7 +431,6 @@ namespace jk::renderer
 		#pragma endregion
 
 
-
 		#pragma region PlayScene_Devil(UI)
 					texture = Resources::Load<Texture>(L"Skul_ui", L"..\\Resources\\Texture\\UI\\Skul_UI.png");
 					material = std::make_shared<Material>();
@@ -434,17 +441,6 @@ namespace jk::renderer
 		#pragma endregion
 
 
-
-		#pragma region PlayScene_Tile_map(Dungreed)
-					texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resources\\Tile\\DG_Tile.png");
-					material = std::make_shared<Material>();
-					material->SetShader(TileShader);
-					material->SetTexture(texture);
-					Resources::Insert(L"DG_Tile", material);
-		#pragma endregion
-
-
-
 		#pragma region Cloud				
 			
 					texture = Resources::Load<Texture>(L"Cloud_devil", L"..\\Resources\\Texture\\Effect\\Cloud_devil.png");
@@ -453,6 +449,26 @@ namespace jk::renderer
 					material->SetTexture(texture);
 					Resources::Insert(L"Cloud_Devil", material);
 		#pragma endregion
+
+
+#pragma region  teacher_tilemap			
+					texture = Resources::Load<Texture>(L"tile_at", L"..\\Resources\\Tile\\Tile.bmp");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					Resources::Insert(L"tile_At", material);
+#pragma endregion
+
+
+
+		#pragma region PlayScene_Tile_map(Dungreed)
+					//texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resources\\Tile\\DG_Tile.png");
+					//material = std::make_shared<Material>();
+					//material->SetShader(TileShader);//TileShader
+					//material->SetTexture(texture);
+					//material->SetRenderingMode(eRenderingMode::Transparent);
+					//Resources::Insert(L"DG_Tile", material);
+#pragma endregion
 
 
 
@@ -505,7 +521,7 @@ namespace jk::renderer
 			Resources::Insert(L"GridMaterial", material);
 	#pragma endregion
 
-
+	//타일툴 보류
 	#pragma region Tile_window2_Create
 			texture = Resources::Load<Texture>(L"TileAtlas", L"..\\Resource\\Tile\\Tile.bmp");
 			material->SetTexture(texture);

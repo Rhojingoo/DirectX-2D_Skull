@@ -44,6 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -51,6 +52,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -161,6 +163,7 @@
     <ClInclude Include="jkTitleScene.h" />
     <ClInclude Include="jkToolScene.h" />
     <ClInclude Include="LoadScenes.h" />
+    <ClInclude Include="jkToolScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp" />
@@ -171,6 +174,7 @@
     <ClCompile Include="jkStage1.cpp" />
     <ClCompile Include="jkTitleScene.cpp" />
     <ClCompile Include="jkToolScene.cpp" />
+    <ClCompile Include="jkToolScript.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

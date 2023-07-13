@@ -50,6 +50,7 @@ namespace jk
 		Matrix GetmView();
 		Matrix GetmProjection();
 
+		Vector3 GetWorldTransform(Vector3 pos);
 
 	private:
 		static Matrix View;

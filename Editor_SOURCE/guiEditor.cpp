@@ -1,11 +1,11 @@
 #include "guiEditor.h"
-#include "jkMesh.h"
-#include "jkResources.h"
-#include "jkTransform.h"
-#include "jkMeshRenderer.h"
-#include "jkMaterial.h"
+#include "..\\Engine_SOURCE\\jkMesh.h"
+#include "..\\Engine_SOURCE\\jkResources.h"
+#include "..\\Engine_SOURCE\\jkTransform.h"
+#include "..\\Engine_SOURCE\\jkMeshRenderer.h"
+#include "..\\Engine_SOURCE\\jkMaterial.h"
+#include "..\\Engine_SOURCE\\jkRenderer.h"
 #include "jkGridScript.h"
-#include "jkRenderer.h"
 
 namespace gui
 {
@@ -84,6 +84,23 @@ namespace gui
 	}
 	void Editor::Release()
 	{
+		for (auto widget : mWidgets)
+		{
+			delete widget;
+			widget = nullptr;
+		}
+
+		for (auto editorObj : mEditorObjects)
+		{
+			delete editorObj;
+			editorObj = nullptr;
+		}
+
+		for (auto debugObj : mDebugOjbects)
+		{
+			delete debugObj;
+			debugObj = nullptr;
+		}
 	}
 
 	void Editor::DebugRender(const jk::graphics::DebugMesh& mesh)

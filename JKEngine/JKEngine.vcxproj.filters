@@ -26,6 +26,9 @@
     <ClInclude Include="jkCloud.h">
       <Filter>Gameob</Filter>
     </ClInclude>
+    <ClInclude Include="jkToolScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="JKEngine.cpp" />
@@ -49,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="jkCloud.cpp">
       <Filter>Gameob</Filter>
+    </ClCompile>
+    <ClCompile Include="jkToolScript.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

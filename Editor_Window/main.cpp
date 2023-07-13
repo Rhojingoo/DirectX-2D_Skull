@@ -47,7 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_EDITORWINDOW, szWindowClass, MAX_LOADSTRING);
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(889);
+    //_CrtSetBreakAlloc(1133);
 
         // main window
     MyRegisterClass(hInstance, szWindowClass, WndProc);
@@ -155,6 +155,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    UpdateWindow(hWnd2);
 
    application.Initialize();
+   application.SetToolHwnd(hWnd2);
    jk::InitializeScenes();
    gui::Editor::Initialize();
 

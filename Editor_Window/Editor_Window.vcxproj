@@ -59,7 +59,6 @@
   </ImportGroup>
   <ImportGroup Label="Shared">
     <Import Project="..\Editor_SOURCE\Editor_SOURCE.vcxitems" Label="Shared" />
-    <Import Project="..\Engine_SOURCE\Engine_SOURCE.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -151,6 +150,11 @@
   <ItemGroup>
     <Image Include="Editor_Window.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JKEngine\JKEngine.vcxproj">
+      <Project>{e9a6fe25-9814-4f83-a7e5-e41cf9a32370}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

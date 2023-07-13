@@ -23,6 +23,7 @@ namespace jk::enums
 		Player,
 		Monster,
 		UI,	
+		TI,
 		End,
 	};
 

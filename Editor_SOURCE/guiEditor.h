@@ -1,10 +1,11 @@
 #pragma once
-#include "CommonInclude.h"
-#include "JKEngine.h"
+#include "..\\Engine_SOURCE\\CommonInclude.h"
+#include "..\\Engine_SOURCE\\JKEngine.h"
+#include "..\\Engine_SOURCE\\jkGraphics.h"
 #include "guiWidget.h"
 #include "guiEditorObject.h"
 #include "DebugOjbect.h"
-#include "jkGraphics.h"
+
 
 namespace gui
 {

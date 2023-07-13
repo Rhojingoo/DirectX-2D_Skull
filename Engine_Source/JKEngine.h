@@ -20,3 +20,6 @@
 #include "Commoninclude.h"
 #include "jkEnums.h"
 #include "jkMath.h"
+
+#define TILE_SIZE_X 32
+#define TILE_SIZE_Y 32

@@ -1,6 +1,5 @@
 #pragma once
-#include "jkGameObject.h"
-
+#include "..\\Engine_SOURCE\\jkGameObject.h"
 
 namespace gui
 {

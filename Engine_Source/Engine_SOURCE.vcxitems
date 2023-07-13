@@ -34,8 +34,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMeshRenderer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkMouse.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTile_Mouse.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkUI_Mouse.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkPalatte.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResources.h" />
@@ -44,6 +46,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTile.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTileMap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMesh.h" />
@@ -68,7 +71,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMeshRenderer.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkMouse.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTile_Mouse.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkUI_Mouse.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkPalatte.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResources.cpp" />
@@ -77,6 +82,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTile.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTileMap.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMesh.cpp" />

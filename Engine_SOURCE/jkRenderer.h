@@ -82,6 +82,12 @@ namespace jk::renderer
 		Vector4 mTime;
 	};
 
+
+	CBUFFER(uvCB, CBSLOT_UV)
+	{
+		Vector4 LeftTop;
+	};
+
 	extern jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 
 

@@ -23,8 +23,7 @@ VSOut main(VSIn In)
     float4 world = mul(float4(In.Pos, 1.0f), WorldMatrix);
     float4 view = mul(world, ViewMatrix);
     float4 proj = mul(view, ProjectionMatrix);
-
-    
+        
     Out.Pos = proj;
     Out.Color = In.Color;
     Out.UV = In.UV;

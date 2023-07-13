@@ -173,16 +173,16 @@ namespace jk
 		for (GameObject* obj : gameObjs)
 		{
 			//·»´õ·¯ ÄÄÆ÷³ÍÆ®°¡ ¾ø´Ù¸é?
-			BaseRenderer* mr
-				= obj->GetComponent<BaseRenderer>();
-			if (mr == nullptr)
-				continue;
+			//BaseRenderer* mr
+			//	= obj->GetComponent<BaseRenderer>();
+			//if (mr == nullptr)
+			//	continue;
 			
 			//¼±»ý´ÔÄÚµå
-			//MeshRenderer* mr
-			//	= obj->GetComponent<MeshRenderer>();
-			//if (br == nullptr)
-			//	continue;
+			MeshRenderer* mr
+				= obj->GetComponent<MeshRenderer>();
+			if (mr == nullptr)
+				continue;
 
 			std::shared_ptr<Material> mt = mr->GetMaterial();
 			eRenderingMode mode = mt->GetRenderingMode();
@@ -272,6 +272,17 @@ namespace jk
 		return mProjection;
 	}
 
+	Vector3 Camera::GetWorldTransform(Vector3 pos)
+	{
+		Vector3 mpos = Vector3(pos.x, pos.y, pos.z);
+		Matrix world = Matrix::Identity;
+		RECT rt = {};
+		GetClientRect(application.GetHwnd(), &rt);
 
+		Viewport viewport(rt);
+		Vector3 translatePos = viewport.Unproject(mpos, mProjection, mView, world);
+
+		return Vector3(translatePos.x, translatePos.y, translatePos.z);
+	}
 
 }

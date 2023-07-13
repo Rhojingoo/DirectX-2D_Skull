@@ -55,7 +55,13 @@
     <Filter Include="Common\Object">
       <UniqueIdentifier>{21d122ca-337c-44fe-a20f-bbd9c422df3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Parser">
+    <Filter Include="GameObject\Tile">
+      <UniqueIdentifier>{566726af-f8f4-4c79-abd1-fa96c6b1d1ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="★practice">
+      <UniqueIdentifier>{ea60c8aa-265c-4925-9565-d740482574ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="★practice\Parser">
       <UniqueIdentifier>{c1eb6dd3-745a-4873-8754-4d822c44e018}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -143,12 +149,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkObject.h">
       <Filter>Common\Object</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkTileMap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkBaseRenderer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkXmlParser.h">
-      <Filter>Parser</Filter>
+      <Filter>★practice\Parser</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkCollider2D.h">
       <Filter>GameObject\Component</Filter>
@@ -159,7 +164,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkMouse.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkUI_Mouse.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTile.h">
+      <Filter>GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkPalatte.h">
+      <Filter>GameObject\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTileMap.h">
+      <Filter>★practice</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTile_Mouse.h">
       <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
@@ -232,12 +249,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkImage.cpp">
       <Filter>Common\TileImage</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkTileMap.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkBaseRenderer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkXmlParser.cpp">
-      <Filter>Parser</Filter>
+      <Filter>★practice\Parser</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCollider2D.cpp">
       <Filter>GameObject\Component</Filter>
@@ -248,7 +264,19 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkMouse.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkUI_Mouse.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTile.cpp">
+      <Filter>GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkPalatte.cpp">
+      <Filter>GameObject\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTileMap.cpp">
+      <Filter>★practice</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTile_Mouse.cpp">
       <Filter>Input</Filter>
     </ClCompile>
   </ItemGroup>
