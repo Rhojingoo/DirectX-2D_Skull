@@ -27,7 +27,7 @@ namespace jk::enums
 		Fore_Ground,
 		Map_Effect,
 		UI,		
-		End,
+		End = 16, 
 	};
 
 	enum class eResourceType

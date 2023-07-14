@@ -64,6 +64,9 @@
     <Filter Include="★practice\Tile">
       <UniqueIdentifier>{566726af-f8f4-4c79-abd1-fa96c6b1d1ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\Collider">
+      <UniqueIdentifier>{ac1532e7-99f1-47f0-b756-0d3568a4bfd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -153,9 +156,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkXmlParser.h">
       <Filter>Common\Parser</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkCollider2D.h">
-      <Filter>GameObject\Component</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkCollisionManager.h">
       <Filter>Scene\Manager</Filter>
     </ClInclude>
@@ -182,6 +182,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkPalatte.h">
       <Filter>★practice\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkCollider2D.h">
+      <Filter>GameObject\Component\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +257,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkXmlParser.cpp">
       <Filter>Common\Parser</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkCollider2D.cpp">
-      <Filter>GameObject\Component</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCollisionManager.cpp">
       <Filter>Scene\Manager</Filter>
     </ClCompile>
@@ -286,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\JKEngine\JKEngine.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkCollider2D.cpp">
+      <Filter>GameObject\Component\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

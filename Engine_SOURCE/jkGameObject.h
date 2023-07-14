@@ -46,7 +46,7 @@ namespace jk
 		}
 
 		template <typename T>
-		std::vector<T*> GetComponents()
+		const std::vector<T*>& GetComponents()
 		{
 			std::vector<T*> components = {};
 
@@ -55,6 +55,13 @@ namespace jk
 			{
 				comp = dynamic_cast<T*>(c);
 
+				if (comp != nullptr)
+					components.push_back(comp);
+			}
+
+			for (Script* script : mScripts)
+			{
+				comp = dynamic_cast<T*>(script);
 				if (comp != nullptr)
 					components.push_back(comp);
 			}

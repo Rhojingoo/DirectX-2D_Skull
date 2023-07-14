@@ -4,12 +4,15 @@
 
 namespace jk
 {
+	UINT Collider2D::mColliderNumber = 0;
 	Collider2D::Collider2D()
 		: Component(eComponentType::Collider2D)
 		, mTransform(nullptr)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
 	{
+		mColliderNumber++;
+		mColliderID = mColliderNumber;
 	}
 	Collider2D::~Collider2D()
 	{
@@ -47,5 +50,35 @@ namespace jk
 	}
 	void Collider2D::Render()
 	{
+	}
+	void Collider2D::OnCollisionEnter(Collider2D* other)
+	{
+		const std::vector<Script*>& scripts
+			= GetOwner()->GetComponents<Script>();
+
+		for (Script* script : scripts)
+		{
+			script->OnCollisionEnter(other);
+		}
+	}
+	void Collider2D::OnCollisionStay(Collider2D* other)
+	{
+		const std::vector<Script*>& scripts
+			= GetOwner()->GetComponents<Script>();
+
+		for (Script* script : scripts)
+		{
+			script->OnCollisionStay(other);
+		}
+	}
+	void Collider2D::OnCollisionExit(Collider2D* other)
+	{
+		const std::vector<Script*>& scripts
+			= GetOwner()->GetComponents<Script>();
+
+		for (Script* script : scripts)
+		{
+			script->OnCollisionExit(other);
+		}
 	}
 }

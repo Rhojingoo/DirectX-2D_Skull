@@ -51,8 +51,6 @@ namespace gui
 	}
 	void Editor::Update()
 	{
-
-
 		for (EditorObject* obj : mEditorObjects)
 		{
 			obj->Update();
@@ -77,6 +75,7 @@ namespace gui
 		{
 			DebugRender(mesh);
 		}
+		renderer::debugMeshs.clear();
 	}
 	void Editor::Release()
 	{
