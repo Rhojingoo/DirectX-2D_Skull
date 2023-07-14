@@ -28,7 +28,8 @@ namespace jk
 #pragma endregion	
 
 #pragma region Player	
-
+		Skul_Basic* Basic_Skul = object::Instantiate<Skul_Basic>(Vector3(0.f, -160.f, -300.f), eLayerType::Fore_Ground);
+		Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));	Basic_Skul->SetName(L"Basic_Skul");
 #pragma endregion
 
 #pragma region Npc	

@@ -181,6 +181,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player_State_UI.h" />
     <ClInclude Include="S2_King_BG.h" />
+    <ClInclude Include="Skul_Basic.h" />
     <ClInclude Include="Title_Logo1.h" />
     <ClInclude Include="Title_Image.h" />
     <ClInclude Include="Title_Logo2.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_State_UI.cpp" />
     <ClCompile Include="S2_King_BG.cpp" />
+    <ClCompile Include="Skul_Basic.cpp" />
     <ClCompile Include="Title_Logo1.cpp" />
     <ClCompile Include="Title_Image.cpp" />
     <ClCompile Include="Title_Logo2.cpp" />

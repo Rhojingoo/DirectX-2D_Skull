@@ -387,28 +387,38 @@ namespace jk::renderer
 			Resources::Insert(L"GridMaterial", material);
 		#pragma endregion
 
-		#pragma region UI_PlayerState
-				texture = Resources::Load<Texture>(L"state_ui", L"..\\Resources\\Texture\\UI\\State_UI\\State_UI.png");
-				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"State_UI", material);
+		#pragma region	UI	
+				#pragma region UI_PlayerState
+						texture = Resources::Load<Texture>(L"state_ui", L"..\\Resources\\Texture\\UI\\State_UI\\State_UI.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"State_UI", material);
+				#pragma endregion
+
+				#pragma region UI_PlaerFace
+						texture = Resources::Load<Texture>(L"skul_ui", L"..\\Resources\\Texture\\UI\\Face_UI\\Skul_UI.png");
+						material = std::make_shared<Material>();material->SetShader(spriteShader);	material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);Resources::Insert(L"Skul_UI", material);
+				#pragma endregion
+
+				#pragma region UI_Player_HP_Clean
+						texture = Resources::Load<Texture>(L"healthbar_ui", L"..\\Resources\\Texture\\UI\\Hp_Bar\\Player_HealthBar.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"HealthUar_Ui", material);
+				#pragma endregion
+
+				#pragma region UI_Player_HP_Damege
+						texture = Resources::Load<Texture>(L"damagebar_ui", L"..\\Resources\\Texture\\UI\\Hp_Bar\\Player_HealthBar_Damage.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"DamageBar_Ui", material);
+				#pragma endregion
 		#pragma endregion
 
-		#pragma region UI_PlaerFace
-				texture = Resources::Load<Texture>(L"skul_ui", L"..\\Resources\\Texture\\UI\\Face_UI\\Skul_UI.png");
-				material = std::make_shared<Material>();material->SetShader(spriteShader);	material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);Resources::Insert(L"Skul_UI", material);
-		#pragma endregion
-
-		#pragma region UI_Player_HP_Clean
-				texture = Resources::Load<Texture>(L"healthbar_ui", L"..\\Resources\\Texture\\UI\\Hp_Bar\\Player_HealthBar.png");
+		#pragma region Player
+			#pragma region Skul_Base
+				texture = Resources::Load<Texture>(L"basic_skul", L"..\\Resources\\Texture\\Player\\Normal\\Idle\\Idle_0.png");
 				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"HealthUar_Ui", material);
-		#pragma endregion
-
-		#pragma region UI_Player_HP_Damege
-				texture = Resources::Load<Texture>(L"damagebar_ui", L"..\\Resources\\Texture\\UI\\Hp_Bar\\Player_HealthBar_Damage.png");
-				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"DamageBar_Ui", material);
+				material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Basic_Skul", material);
+			#pragma endregion
 		#pragma endregion
 
 	#pragma endregion

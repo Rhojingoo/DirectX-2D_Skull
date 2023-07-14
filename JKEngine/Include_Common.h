@@ -32,7 +32,7 @@
 #include "jkCameraScript.h"
 
 
-#include "Player.h"
+
 
 #include "BG.h"
 #include "Devil_Castle_back.h"
@@ -53,7 +53,12 @@
 //stage2
 #include "S2_King_BG.h"
 
+//PLAYER
+#include "Player.h"
+#include "Skul_Basic.h"
 
+
+//UI
 #include "UI.h"
 #include "Player_State_UI.h"
 #include "Player_Hp_Bar.h"

@@ -91,6 +91,9 @@
     <ClInclude Include="out_Castle_Fore_ground.h">
       <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClInclude>
+    <ClInclude Include="Skul_Basic.h">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkStage1.cpp">
@@ -178,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="out_Castle_Fore_ground.cpp">
       <Filter>Game_ob\BG\2.Devil_Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Basic.cpp">
+      <Filter>Game_ob\PLAYER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
