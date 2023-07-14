@@ -40,6 +40,13 @@
 #include "Decil_chair.h"
 #include "jkCloud.h"
 
+
+#include "Title_Image.h"
+#include "Title_Logo1.h"
+#include "Title_Logo2.h"
+
+
+
 #include "UI.h"
 #include "Player_State_UI.h"
 #include "Main_Camera.h"

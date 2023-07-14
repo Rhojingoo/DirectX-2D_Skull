@@ -10,23 +10,22 @@ namespace jk
 	}
 	void jkTitleScene::Initialize()
 	{
-		{
-			GameObject* player = new GameObject();
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			player->GetComponent<Transform>()->SetScale(Vector3(1024.f, 1024.f, 0.0f));
-			//player->AddComponent<CameraScript>();
-		}
+		
+		Title_Image* sc_image = object::Instantiate<Title_Image>(Vector3(0.f, 0.f, 10.f), eLayerType::Fore_Ground);
+		sc_image->GetComponent<Transform>()->SetScale(Vector3(1920.f, 1080.f, 0.f));		
+	
+		//Title_Logo1* sc_logo = object::Instantiate<Title_Logo1>(Vector3(0.f, 0.f, 0.f), eLayerType::BACK_GROUND);
+		//sc_logo->GetComponent<Transform>()->SetScale(Vector3(1275, 693.f, 0.f));
+
+		Title_Logo2* sc_logo2 = object::Instantiate<Title_Logo2>(Vector3(0.f, 0.f, 0.f), eLayerType::BACK_GROUND);
+		sc_logo2->GetComponent<Transform>()->SetScale(Vector3(1632, 257.f, 0.f));
 
 		//Main Camera
 		GameObject* camera = new GameObject();
 		AddGameObject(eLayerType::Player, camera);
 		camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
-		camera->AddComponent<CameraScript>();
+		//camera->AddComponent<CameraScript>();
 	}
 	void jkTitleScene::Update()
 	{

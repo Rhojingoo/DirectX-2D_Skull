@@ -351,7 +351,7 @@ namespace jk::renderer
 		jk::Resources::Insert(L"Move_Shader", moveShader);
 
 
-		//타일 미완성
+		//타일
 #pragma region Tile_map_cmarkup
 		std::shared_ptr<Shader> Tile_Shader = std::make_shared<Shader>();
 		Tile_Shader->Create(eShaderStage::VS, L"TileMapVS.hlsl", "main");
@@ -373,39 +373,56 @@ namespace jk::renderer
 		
 
 	#pragma region Public
-
-		#pragma region Mouse
-			std::shared_ptr<Texture> texture
-				= Resources::Load<Texture>(L"mouse", L"..\\Resources\\Texture\\Mouse_Cursor.png");
-			std::shared_ptr<Material> material = std::make_shared<Material>();
-			material->SetShader(spriteShader);
-			material->SetTexture(texture);
-			Resources::Insert(L"Mouse", material);
-		#pragma endregion
-
-		#pragma region Grid
-			std::shared_ptr<Shader> gridShader
-				= Resources::Find<Shader>(L"Grid_Shader");
-			material = std::make_shared<Material>();
-			material->SetShader(gridShader);
-			Resources::Insert(L"GridMaterial", material);
-		#pragma endregion
-
+	#pragma region Mouse
+		std::shared_ptr<Texture> texture
+			= Resources::Load<Texture>(L"mouse", L"..\\Resources\\Texture\\Mouse_Cursor.png");
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		material->SetShader(spriteShader);
+		material->SetTexture(texture);
+		Resources::Insert(L"Mouse", material);
 	#pragma endregion
 
+	#pragma region Grid
+		std::shared_ptr<Shader> gridShader
+			= Resources::Find<Shader>(L"Grid_Shader");
+		material = std::make_shared<Material>();
+		material->SetShader(gridShader);
+		Resources::Insert(L"GridMaterial", material);
+	#pragma endregion
+
+	#pragma region UI_PlayerState
+				//std::shared_ptr<Shader> gridShader
+				//	= Resources::Find<Shader>(L"Grid_Shader");
+				//material = std::make_shared<Material>();
+				//material->SetShader(gridShader);
+				//Resources::Insert(L"GridMaterial", material);
+	#pragma endregion
+
+	#pragma region UI_Player_HP_bar
+				//std::shared_ptr<Shader> gridShader
+				//	= Resources::Find<Shader>(L"Grid_Shader");
+				//material = std::make_shared<Material>();
+				//material->SetShader(gridShader);
+				//Resources::Insert(L"GridMaterial", material);
+
+	#pragma endregion
+	#pragma endregion
 
 	#pragma region Title
-				texture
-					= Resources::Load<Texture>(L"Title", L"..\\Resources\\Texture\\Title\\Title.png");
+			texture	= Resources::Load<Texture>(L"title_image", L"..\\Resources\\Texture\\Title\\Title_Art2.png");
+			material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);	
+			Resources::Insert(L"Title_Image", material);
 
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				Resources::Insert(L"SpriteMaterial", material);
-	#pragma endregion
-		
+			texture = Resources::Load<Texture>(L"title_logo", L"..\\Resources\\Texture\\Title\\Title_Logo.png");
+			material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);	
+			material->SetRenderingMode(eRenderingMode::Transparent);  Resources::Insert(L"Title_Logo", material);
 
-	#pragma region PlayScene
+			texture = Resources::Load<Texture>(L"title_mlogo2", L"..\\Resources\\Texture\\Title\\Title_Logo2.png");
+			material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);	
+			material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Title_Mini_Logo", material);
+	#pragma endregion		
+
+	#pragma region StartScene
 		#pragma region PlayScene_Devil(back)
 					texture	= Resources::Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png");
 					material = std::make_shared<Material>();
@@ -502,6 +519,13 @@ namespace jk::renderer
 
 	#pragma endregion
 
+	#pragma region Stage1(Back)
+					//texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
+					//material = std::make_shared<Material>();
+					//material->SetShader(spriteShader);
+					//material->SetTexture(texture);
+					//Resources::Insert(L"SpriteMaterial02", material);
+	#pragma endregion
 
 	#pragma region Stage2(Back)
 					texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
@@ -514,11 +538,10 @@ namespace jk::renderer
 
 	//타일툴 보류
 	#pragma region Tile_window2_Create
-			texture = Resources::Load<Texture>(L"TileAtlas", L"..\\Resource\\Tile\\Tile.bmp");
-			material->SetTexture(texture);
-				//Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png")
+			//texture = Resources::Load<Texture>(L"TileAtlas", L"..\\Resource\\Tile\\Tile.bmp");
+			//material->SetTexture(texture);
+			//Load<Texture>(L"DevilCastle", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Back.png")
 	#pragma endregion
-
 
 	//타일 미완성
 	#pragma region Tile_map

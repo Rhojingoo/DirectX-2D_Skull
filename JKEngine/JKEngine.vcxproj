@@ -175,6 +175,9 @@
     <ClInclude Include="Main_Camera.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player_State_UI.h" />
+    <ClInclude Include="Title_Logo1.h" />
+    <ClInclude Include="Title_Image.h" />
+    <ClInclude Include="Title_Logo2.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_Camera.h" />
   </ItemGroup>
@@ -198,6 +201,9 @@
     <ClCompile Include="Main_Camera.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_State_UI.cpp" />
+    <ClCompile Include="Title_Logo1.cpp" />
+    <ClCompile Include="Title_Image.cpp" />
+    <ClCompile Include="Title_Logo2.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_Camera.cpp" />
   </ItemGroup>

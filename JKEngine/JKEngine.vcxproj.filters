@@ -40,16 +40,16 @@
       <Filter>Game_ob\UI</Filter>
     </ClInclude>
     <ClInclude Include="Devil_Castle_back.h">
-      <Filter>Game_ob\BG\Devil_Castle</Filter>
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClInclude>
     <ClInclude Include="Devil_Castle_front.h">
-      <Filter>Game_ob\BG\Devil_Castle</Filter>
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClInclude>
     <ClInclude Include="Decil_chair.h">
-      <Filter>Game_ob\BG\Devil_Castle</Filter>
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClInclude>
     <ClInclude Include="jkCloud.h">
-      <Filter>Game_ob\BG\Devil_Castle</Filter>
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClInclude>
     <ClInclude Include="Player_State_UI.h">
       <Filter>Game_ob\UI\State</Filter>
@@ -65,6 +65,15 @@
     </ClInclude>
     <ClInclude Include="Castle_Area.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Title_Image.h">
+      <Filter>Game_ob\BG\1.Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Title_Logo1.h">
+      <Filter>Game_ob\BG\1.Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Title_Logo2.h">
+      <Filter>Game_ob\BG\1.Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -103,16 +112,16 @@
       <Filter>Game_ob\UI</Filter>
     </ClCompile>
     <ClCompile Include="Devil_Castle_back.cpp">
-      <Filter>Game_ob\BG\Devil_Castle</Filter>
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClCompile>
     <ClCompile Include="Devil_Castle_front.cpp">
-      <Filter>Game_ob\BG\Devil_Castle</Filter>
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClCompile>
     <ClCompile Include="Decil_chair.cpp">
-      <Filter>Game_ob\BG\Devil_Castle</Filter>
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClCompile>
     <ClCompile Include="jkCloud.cpp">
-      <Filter>Game_ob\BG\Devil_Castle</Filter>
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClCompile>
     <ClCompile Include="Player_State_UI.cpp">
       <Filter>Game_ob\UI\State</Filter>
@@ -128,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="Castle_Area.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Title_Image.cpp">
+      <Filter>Game_ob\BG\1.Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Title_Logo1.cpp">
+      <Filter>Game_ob\BG\1.Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Title_Logo2.cpp">
+      <Filter>Game_ob\BG\1.Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,9 +170,6 @@
     <Filter Include="Scene\Load">
       <UniqueIdentifier>{81a081ec-d7e4-4db0-9b3e-8daeaf0849c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\BG\Devil_Castle">
-      <UniqueIdentifier>{70c64eda-360b-4d75-8679-576fd75f0414}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game_ob\UI\HP_bar">
       <UniqueIdentifier>{dc0bdfc4-04d7-4b53-9d10-a59498e3cb5a}</UniqueIdentifier>
     </Filter>
@@ -163,6 +178,12 @@
     </Filter>
     <Filter Include="Game_ob\Camera">
       <UniqueIdentifier>{33499aa4-ff68-48e5-9cb8-eede46a35ef3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\2.Devil_Castle">
+      <UniqueIdentifier>{70c64eda-360b-4d75-8679-576fd75f0414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\1.Title">
+      <UniqueIdentifier>{f2e0c067-74a7-4650-a22c-94c7412e847f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
