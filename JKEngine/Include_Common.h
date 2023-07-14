@@ -45,6 +45,11 @@
 #include "Title_Logo1.h"
 #include "Title_Logo2.h"
 
+//stage1
+#include "S1_King_BG.h"
+
+//stage2
+#include "S2_King_BG.h"
 
 
 #include "UI.h"

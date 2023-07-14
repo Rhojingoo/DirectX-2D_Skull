@@ -11,16 +11,9 @@ namespace jk
 	}
 	void jkStage1::Initialize()
 	{
-		{
-			GameObject* player = new GameObject();
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial02"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			player->GetComponent<Transform>()->SetScale(Vector3(7.f, 7.0f, 0.0f));
-			//player->AddComponent<CameraScript>();
-		}
+	
+			S1_King_BG* player = object::Instantiate<S1_King_BG>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND);				
+			player->GetComponent<Transform>()->SetScale(Vector3(900.f, 560.0f, 0.0f));			
 
 		//Main Camera
 			GameObject* camera = new GameObject();
@@ -35,7 +28,7 @@ namespace jk
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(L"TitleScene");
+			SceneManager::LoadScene(L"Stage2");
 		}
 	}
 	void jkStage1::LateUpdate()

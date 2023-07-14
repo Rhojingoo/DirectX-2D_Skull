@@ -56,13 +56,13 @@ namespace jk
 
 		//UI_Mouse
 		UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
+		cursor->SetName(L"Catle_Cursor_UI");
 		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -10.f));
-		cursor->SetName(L"Mouse_UI");
-		cursor->SetCamera(UI_camera);
+		cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
 
 		//Grid
 		Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
-		grid->SetName(L"Grid");
+		grid->SetName(L"Catle_Grid");
 		GridScript* gridSc = grid->AddComponent<GridScript>();
 		gridSc->SetCamera(cameraComp);
 #pragma endregion	

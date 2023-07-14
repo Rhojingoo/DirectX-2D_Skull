@@ -75,6 +75,10 @@
     <ClInclude Include="Title_Logo2.h">
       <Filter>Game_ob\BG\1.Title</Filter>
     </ClInclude>
+    <ClInclude Include="S1_King_BG.h">
+      <Filter>Game_ob\BG\3.Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="S2_King_BG.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkStage1.cpp">
@@ -147,6 +151,10 @@
     <ClCompile Include="Title_Logo2.cpp">
       <Filter>Game_ob\BG\1.Title</Filter>
     </ClCompile>
+    <ClCompile Include="S1_King_BG.cpp">
+      <Filter>Game_ob\BG\3.Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="S2_King_BG.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -184,6 +192,12 @@
     </Filter>
     <Filter Include="Game_ob\BG\1.Title">
       <UniqueIdentifier>{f2e0c067-74a7-4650-a22c-94c7412e847f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\3.Stage1">
+      <UniqueIdentifier>{30876091-eed8-481b-b6fe-c627daaad204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\4.Stage2">
+      <UniqueIdentifier>{f0b1b757-f0cf-415c-afb0-7e368cdbcb15}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

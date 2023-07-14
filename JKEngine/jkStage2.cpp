@@ -10,23 +10,15 @@ namespace jk
 	}
 	void Stage2::Initialize()
 	{
-		{
-			GameObject* player = new GameObject();
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial02"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			player->GetComponent<Transform>()->SetScale(Vector3(7.f, 7.0f, 0.0f));
-			//player->AddComponent<CameraScript>();
-		}
-
+			S2_King_BG* player = object::Instantiate<S2_King_BG>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND);
+			player->GetComponent<Transform>()->SetScale(Vector3(900.f, 400.0f, 0.0f));
+		
 		//Main Camera
-		GameObject* camera = new GameObject();
-		AddGameObject(eLayerType::Player, camera);
-		camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
-		Camera* cameraComp = camera->AddComponent<Camera>();
-		camera->AddComponent<CameraScript>();
+			GameObject* camera = new GameObject();
+			AddGameObject(eLayerType::Player, camera);
+			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
+			Camera* cameraComp = camera->AddComponent<Camera>();
+			camera->AddComponent<CameraScript>();
 	}
 	void Stage2::Update()
 	{

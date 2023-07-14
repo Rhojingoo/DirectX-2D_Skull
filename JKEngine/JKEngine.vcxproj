@@ -170,11 +170,13 @@
     <ClInclude Include="jkStage2.h" />
     <ClInclude Include="jkTitleScene.h" />
     <ClInclude Include="jkToolScene.h" />
+    <ClInclude Include="S1_King_BG.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="jkToolScript.h" />
     <ClInclude Include="Main_Camera.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player_State_UI.h" />
+    <ClInclude Include="S2_King_BG.h" />
     <ClInclude Include="Title_Logo1.h" />
     <ClInclude Include="Title_Image.h" />
     <ClInclude Include="Title_Logo2.h" />
@@ -198,9 +200,11 @@
     <ClCompile Include="jkTitleScene.cpp" />
     <ClCompile Include="jkToolScene.cpp" />
     <ClCompile Include="jkToolScript.cpp" />
+    <ClCompile Include="S1_King_BG.cpp" />
     <ClCompile Include="Main_Camera.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_State_UI.cpp" />
+    <ClCompile Include="S2_King_BG.cpp" />
     <ClCompile Include="Title_Logo1.cpp" />
     <ClCompile Include="Title_Image.cpp" />
     <ClCompile Include="Title_Logo2.cpp" />

@@ -23,8 +23,8 @@ namespace jk
 		
 		
 		//Scene
-		//SceneManager::CreateScene<Stage2>(L"Stage2");
-		//SceneManager::CreateScene<jkStage1>(L"Stage1");		
+		SceneManager::CreateScene<Stage2>(L"Stage2");
+		SceneManager::CreateScene<jkStage1>(L"Stage1");		
 		SceneManager::CreateScene<Castle_Area>(L"Start_Scene"); 
 		SceneManager::CreateScene<jkTitleScene>(L"TitleScene");
 
