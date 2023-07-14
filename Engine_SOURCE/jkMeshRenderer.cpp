@@ -25,8 +25,6 @@ namespace jk
 	void MeshRenderer::Render()
 	{
 		GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
-	
-
 
 		GetMesh()->BindBuffer();
 		GetMaterial()->Binds();

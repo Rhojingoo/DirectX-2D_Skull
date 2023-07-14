@@ -262,16 +262,6 @@ namespace jk
 		GetDevice()->BindDepthStencilState(dsState.Get());
 	}
 
-
-	Matrix Camera::GetmView()
-	{
-		return mView;
-	}
-	Matrix Camera::GetmProjection()
-	{
-		return mProjection;
-	}
-
 	Vector3 Camera::GetWorldTransform(Vector3 pos)
 	{
 		Vector3 mpos = Vector3(pos.x, pos.y, pos.z);

@@ -42,7 +42,6 @@ namespace jk
 				if (component != nullptr)
 					return component;
 			}
-
 			return nullptr;
 		}
 
@@ -59,7 +58,6 @@ namespace jk
 				if (comp != nullptr)
 					components.push_back(comp);
 			}
-
 			return components;
 		}
 

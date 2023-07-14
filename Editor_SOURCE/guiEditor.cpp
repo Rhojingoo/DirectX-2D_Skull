@@ -66,11 +66,7 @@ namespace gui
 		}
 	}
 	void Editor::Render()
-	{
-		//Microsoft::WRL::ComPtr<ID3D11DepthStencilState> ds
-		//	= renderer::depthStencilStates[(UINT)ya::graphics::eDSType::Less];
-		//ya::graphics::GetDevice()->BindDepthStencilState(ds.Get());
-
+	{	
 		for (EditorObject* obj : mEditorObjects)
 		{
 			obj->Render();
@@ -109,6 +105,18 @@ namespace gui
 
 		// 위치 크기 회전 정보를 받아와서
 		// 해당 게임오브젝트위에 그려주면된다.
+		jk::Transform* tr = debugObj->GetComponent<jk::Transform>();
+		Vector3 pos = mesh.position;
+		pos.z -= 0.01f;
+
+		tr->SetPosition(pos);
+		tr->SetScale(mesh.scale);
+		tr->SetRotation(mesh.rotation);
+		tr->LateUpdate();
+
+		jk::Camera* mainCamara = renderer::mainCamera;
+		jk::Camera::SetGpuViewMatrix(mainCamara->GetViewMatrix());
+		jk::Camera::SetGpuProjectionMatrix(mainCamara->GetProjectionMatrix());
 
 		debugObj->Render();
 	}

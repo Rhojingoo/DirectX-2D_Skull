@@ -14,8 +14,10 @@ namespace jk
 			None,
 		};
 
-		static Matrix GetViewMatrix() { return View; }
-		static Matrix GetProjectionMatrix() { return Projection; }
+		static Matrix& GetGpuViewMatrix() { return View; }
+		static void SetGpuViewMatrix(Matrix view) { View = view; }
+		static Matrix& GetGpuProjectionMatrix() { return Projection; }
+		static void SetGpuProjectionMatrix(Matrix projection) { Projection = projection; }
 
 		Camera();
 		~Camera();
@@ -46,9 +48,8 @@ namespace jk
 
 		float GetSize() { return mSize; }
 		void SetSize(float size) { mSize = size;}
-		 
-		Matrix GetmView();
-		Matrix GetmProjection();
+		Matrix& GetViewMatrix() { return mView; }
+		Matrix& GetProjectionMatrix() { return mProjection; }
 
 		Vector3 GetWorldTransform(Vector3 pos);
 

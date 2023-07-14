@@ -96,6 +96,7 @@ namespace jk::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
+	extern jk::Camera* mainCamera;
 	extern std::vector<jk::Camera*> cameras;
 	extern std::vector<DebugMesh> debugMeshs;
 
@@ -103,7 +104,7 @@ namespace jk::renderer
 	void Render();
 	void Release();
 
-	void PushDebugMeshAttribute(DebugMesh& mesh);
+	void PushDebugMeshAttribute(DebugMesh mesh);
 }
 
 

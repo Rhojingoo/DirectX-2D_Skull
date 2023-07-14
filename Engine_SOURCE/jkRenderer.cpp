@@ -15,6 +15,7 @@ namespace jk::renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
+	jk::Camera* mainCamera = nullptr;
 	std::vector<jk::Camera*> cameras = {};
 	std::vector<DebugMesh> debugMeshs = {};
 
@@ -421,6 +422,7 @@ namespace jk::renderer
 			#pragma endregion
 		#pragma endregion
 
+
 	#pragma endregion
 
 	#pragma region Title
@@ -575,7 +577,7 @@ namespace jk::renderer
 		LoadMaterial();	
 	}
 
-	void renderer::PushDebugMeshAttribute(DebugMesh& mesh)
+	void renderer::PushDebugMeshAttribute(DebugMesh mesh)
 	{
 		debugMeshs.push_back(mesh);
 	}

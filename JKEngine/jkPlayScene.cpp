@@ -15,10 +15,6 @@ namespace jk
 	void PlayScene::Update()
 	{
 		Scene::Update();
-		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
-		{
-			SceneManager::LoadScene(L"Stage1");
-		}
 	}
 
 	void PlayScene::LateUpdate()
@@ -34,7 +30,7 @@ namespace jk
 
 
 
-//#pragma region CASTLE
+#pragma region before playscene
 //Devil_Castle* Castle_wall_Back = object::Instantiate<Devil_Castle>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND);
 //Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(950, 350.f, 0.f));
 //Castle_wall_Back->SetName(L"Catle_Back");

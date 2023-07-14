@@ -44,8 +44,8 @@ namespace jk
 	{
 		Camera* camera = mCamera->GetComponent<Camera>();
 		Vector3 mpos = Vector3(pos.x, pos.y, pos.z);
-		Matrix projection = camera->GetmProjection();
-		Matrix view = camera->GetmView();
+		Matrix projection = camera->GetProjectionMatrix();
+		Matrix view = camera->GetViewMatrix();
 		Matrix world = Matrix::Identity;
 		RECT rt = {};
 		GetClientRect(application.GetHwnd(), &rt);
