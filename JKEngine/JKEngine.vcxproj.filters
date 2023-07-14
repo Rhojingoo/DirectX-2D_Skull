@@ -14,9 +14,6 @@
     <ClInclude Include="jkStage1.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="jkToolScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="jkCameraScript.h">
       <Filter>Script</Filter>
     </ClInclude>
@@ -42,7 +39,7 @@
     <ClInclude Include="Devil_Castle_back.h">
       <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClInclude>
-    <ClInclude Include="Devil_Castle_front.h">
+    <ClInclude Include="Devil_Castle_mid.h">
       <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClInclude>
     <ClInclude Include="Decil_chair.h">
@@ -79,6 +76,21 @@
       <Filter>Game_ob\BG\3.Stage1</Filter>
     </ClInclude>
     <ClInclude Include="S2_King_BG.h" />
+    <ClInclude Include="jkToolScene.h">
+      <Filter>Scene\practice</Filter>
+    </ClInclude>
+    <ClInclude Include="Player_Hp_Bar.h">
+      <Filter>Game_ob\UI\HP_bar</Filter>
+    </ClInclude>
+    <ClInclude Include="Face_UI.h">
+      <Filter>Game_ob\UI\Face</Filter>
+    </ClInclude>
+    <ClInclude Include="in_Castle_Fore_ground.h">
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="out_Castle_Fore_ground.h">
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkStage1.cpp">
@@ -88,9 +100,6 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="jkPlayScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="jkToolScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="jkCameraScript.cpp">
@@ -118,7 +127,7 @@
     <ClCompile Include="Devil_Castle_back.cpp">
       <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClCompile>
-    <ClCompile Include="Devil_Castle_front.cpp">
+    <ClCompile Include="Devil_Castle_mid.cpp">
       <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClCompile>
     <ClCompile Include="Decil_chair.cpp">
@@ -155,6 +164,21 @@
       <Filter>Game_ob\BG\3.Stage1</Filter>
     </ClCompile>
     <ClCompile Include="S2_King_BG.cpp" />
+    <ClCompile Include="jkToolScene.cpp">
+      <Filter>Scene\practice</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_Hp_Bar.cpp">
+      <Filter>Game_ob\UI\HP_bar</Filter>
+    </ClCompile>
+    <ClCompile Include="Face_UI.cpp">
+      <Filter>Game_ob\UI\Face</Filter>
+    </ClCompile>
+    <ClCompile Include="in_Castle_Fore_ground.cpp">
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="out_Castle_Fore_ground.cpp">
+      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -198,6 +222,12 @@
     </Filter>
     <Filter Include="Game_ob\BG\4.Stage2">
       <UniqueIdentifier>{f0b1b757-f0cf-415c-afb0-7e368cdbcb15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\practice">
+      <UniqueIdentifier>{caf04a8c-2b82-4e5a-b578-8460651d9a7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\UI\Face">
+      <UniqueIdentifier>{91d71bed-1aac-42e5-8761-c9807b68a0e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

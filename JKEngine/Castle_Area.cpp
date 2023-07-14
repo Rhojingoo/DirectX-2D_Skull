@@ -10,31 +10,52 @@ namespace jk
 	}
 	void Castle_Area::Initialize()
 	{
+#pragma region UI	
+		Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
+		Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
+		Player_State->SetName(L"playyer_state_inventory");
 
+		Player_Hp_Bar* Player_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
+		Player_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
+		Player_Hp->SetName(L"player_hp_bar");
+		Player_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+
+		Face_UI* Player_Face = object::Instantiate<Face_UI>(Vector3(-0.33f, 0.23f, -2.1f), eLayerType::UI);
+		Player_Face->GetComponent<Transform>()->SetScale(Vector3(0.324f, 0.824f, 0.f));
+		Player_Face->SetName(L"player_head");
+		Player_Face->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+
+#pragma endregion	
+
+#pragma region Player	
+
+#pragma endregion
+
+#pragma region Npc	
+
+#pragma endregion
 
 #pragma region CASTLE
-		Devil_Castle* Castle_wall_Back = object::Instantiate<Devil_Castle>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND);
-		Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(950, 350.f, 0.f));
-		Castle_wall_Back->SetName(L"Catle_Back");
 
-		Devil_Castle_front* Castle_wall = object::Instantiate<Devil_Castle_front>(Vector3(0.0f, 0.35f, -150.f), eLayerType::BACK_GROUND);
-		Castle_wall->GetComponent<Transform>()->SetScale(Vector3(1890.f, 548.f, 0.f));
-		Castle_wall->SetName(L"Catle_front");
+		in_Castle_Fore_ground* in_Catle_Back = object::Instantiate<in_Castle_Fore_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground);
+		in_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1280.f, 720.f, 0.f));	in_Catle_Back->SetName(L"in_Catle_Back");
+
+		out_Castle_Fore_ground* out_Catle_Back = object::Instantiate<out_Castle_Fore_ground>(Vector3(1200.f, 0.f, 101.f), eLayerType::Fore_Ground);
+		out_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1200.f, 2204.f, 0.f));	out_Catle_Back->SetName(L"out_Catle_Back");
+
+		Devil_Castle* Castle_wall_Back = object::Instantiate<Devil_Castle>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND);
+		Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(950, 350.f, 0.f)); Castle_wall_Back->SetName(L"Catle_Back");
+
+		Devil_Castle_mid* Castle_wall = object::Instantiate<Devil_Castle_mid>(Vector3(0.0f, 0.35f, -150.f), eLayerType::BACK_GROUND);
+		Castle_wall->GetComponent<Transform>()->SetScale(Vector3(1890.f, 548.f, 0.f));	Castle_wall->SetName(L"Catle_front");
 
 		Decil_chair* _chair = object::Instantiate<Decil_chair>(Vector3(-695.f, 0.1f, -200.f), eLayerType::BACK_GROUND);
-		_chair->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f));
-		_chair->SetName(L"Devil_chair");
+		_chair->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f)); _chair->SetName(L"Devil_chair");
 
-		Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 190.f), eLayerType::Map_Effect);
-		cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f));
-		cloud->SetName(L"Castle_cloud");
-#pragma endregion					
+		Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 90.f), eLayerType::Map_Effect);
+		cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f)); cloud->SetName(L"Castle_cloud");
 
-#pragma region UI	
-		Player_State_UI* Player_UI = object::Instantiate<Player_State_UI>(Vector3(-750.5f, -350.4f, 1.0f), eLayerType::UI);
-		Player_UI->GetComponent<Transform>()->SetScale(Vector3(68.f, 68.f, 0.f));
-		Player_UI->SetName(L"Devil_chair");
-#pragma endregion		
+#pragma endregion				
 
 #pragma region Cam & Mouse& Grid
 		//Main Camera			
@@ -73,8 +94,8 @@ namespace jk
 			Tile_map->SetName(L"Tile_Map");
 			Transform* tr = Tile_map->GetComponent<Transform>();
 			tr->SetPositionZ(5.f);
-			tr->AddPositionY(64.f);
-			tr->SetScale(Vector3(500.f, 500.f, 10.f));
+			tr->AddPositionY(350.f);
+			tr->SetScale(Vector3(64*114.f, 64*24.f, 500.f));
 
 			TileMap* tilemap = Tile_map->AddComponent<TileMap>();
 			std::shared_ptr<Material> material = Resources::Find<Material>(L"DG_Tile");

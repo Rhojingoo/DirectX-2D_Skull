@@ -6,7 +6,7 @@ namespace jk
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"Skul_UI"));
+		mr->SetMaterial(Resources::Find<Material>(L"State_UI"));
 	}
 	Player_State_UI::~Player_State_UI()
 	{

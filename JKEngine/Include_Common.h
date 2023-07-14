@@ -36,7 +36,9 @@
 
 #include "BG.h"
 #include "Devil_Castle_back.h"
-#include "Devil_Castle_front.h"
+#include "Devil_Castle_mid.h"
+#include "in_Castle_Fore_ground.h"
+#include "out_Castle_Fore_ground.h"
 #include "Decil_chair.h"
 #include "jkCloud.h"
 
@@ -54,6 +56,8 @@
 
 #include "UI.h"
 #include "Player_State_UI.h"
+#include "Player_Hp_Bar.h"
+#include "Face_UI.h"
 #include "Main_Camera.h"
 #include "UI_Camera.h"
 #include "Grid.h"

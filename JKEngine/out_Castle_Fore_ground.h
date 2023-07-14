@@ -1,14 +1,13 @@
 #pragma once
 #include "Include_Common.h"
 
-
 namespace jk
 {
-	class Devil_Castle_front : public BG
+	class out_Castle_Fore_ground : public BG
 	{
 	public:
-		Devil_Castle_front();
-		virtual ~Devil_Castle_front();
+		out_Castle_Fore_ground();
+		virtual ~out_Castle_Fore_ground();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
