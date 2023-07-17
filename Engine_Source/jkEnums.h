@@ -21,11 +21,11 @@ namespace jk::enums
 		Camera,
 		Grid,
 		Monster,
-		Player,
 		BACK_GROUND,
 		Mid_Ground,
 		Fore_Ground,
 		Map_Effect,
+		Player,
 		UI,		
 		End = 16, 
 	};

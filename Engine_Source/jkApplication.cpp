@@ -3,6 +3,7 @@
 #include "jkTime.h"
 #include "jkRenderer.h"
 #include "jkSceneManager.h"
+#include "jkCollisionManager.h"
 
 namespace jk
 {
@@ -44,6 +45,7 @@ namespace jk
 	{
 		Time::Update();
 		Input::Update();
+		CollisionManager::Update();
 		SceneManager::Update();
 	}
 

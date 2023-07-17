@@ -2,6 +2,8 @@
 #include "jkResources.h"
 #include "jkTexture.h"
 #include "jkMaterial.h"
+#include "jkCollider2D.h"
+#include "jkCollisionManager.h"
 
 namespace jk::renderer
 {	
@@ -421,6 +423,22 @@ namespace jk::renderer
 				material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Basic_Skul", material);
 			#pragma endregion
 		#pragma endregion
+
+#pragma region Test
+				//texture	= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
+				//material = std::make_shared<Material>();
+				//material->SetShader(spriteShader);
+				//material->SetTexture(texture);				
+				//Resources::Insert(L"SpriteMaterial", material);
+
+				//texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
+				//material = std::make_shared<Material>();
+				//material->SetShader(spriteShader);
+				//material->SetTexture(texture);
+				//material->SetRenderingMode(eRenderingMode::Transparent);
+				//Resources::Insert(L"SpriteMaterial02", material);
+
+#pragma endregion
 
 
 	#pragma endregion

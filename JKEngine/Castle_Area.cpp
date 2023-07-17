@@ -10,6 +10,34 @@ namespace jk
 	}
 	void Castle_Area::Initialize()
 	{
+
+		//GameObject* Zelda
+		//	= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, -700.f), eLayerType::Player);
+
+		//Zelda->SetName(L"Zelda");
+
+		//Collider2D* cd = Zelda->AddComponent<Collider2D>();
+		//MeshRenderer* mr = Zelda->AddComponent<MeshRenderer>();
+		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
+		//const float pi = 3.141592f;
+		//float degree = pi / 8.0f;
+		//Zelda->GetComponent<Transform>()->SetPosition(Vector3(-2.0f, 0.0f, 1.0001f));
+		//Zelda->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
+
+
+
+		//GameObject* mon = new GameObject();
+		//mon->SetName(L"Smile");
+		//Collider2D* cd2 = mon->AddComponent<Collider2D>();
+		//AddGameObject(eLayerType::Monster, mon);
+		//MeshRenderer* mr2 = mon->AddComponent<MeshRenderer>();
+		//mr2->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//mr2->SetMaterial(Resources::Find<Material>(L"SpriteMaterial02"));
+		//mon->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -701.f));
+		//mon->AddComponent<CameraScript>();
+
+
 #pragma region UI	
 		Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
 		Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
@@ -27,9 +55,11 @@ namespace jk
 
 #pragma endregion	
 
+
 #pragma region Player	
-		Skul_Basic* Basic_Skul = object::Instantiate<Skul_Basic>(Vector3(0.f, 0.f/*-160.f*/, -201.f), eLayerType::Player);
+		Skul_Basic* Basic_Skul = object::Instantiate<Skul_Basic>(Vector3(0.f, -0.f, -251.f), eLayerType::Fore_Ground);
 		Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));	Basic_Skul->SetName(L"Basic_Skul");
+		//Basic_Skul->AddComponent<Collider2D>();
 #pragma endregion
 
 #pragma region Npc	

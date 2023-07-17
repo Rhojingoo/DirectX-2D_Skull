@@ -24,6 +24,10 @@ namespace jk
 		void SetSize(Vector2 size) { mSize = size; }
 		void SetCenter(Vector2 size) { mCenter = size; }
 		UINT GetColliderID() { return mColliderID; }
+		Vector3 GetPosition() {	return mPosition; }
+		Vector2 GetSize() { return mSize; }
+		Vector2 GetCenter() { return mCenter; }
+
 
 	private:
 		static UINT mColliderNumber;
