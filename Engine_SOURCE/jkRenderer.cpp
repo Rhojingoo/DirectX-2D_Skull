@@ -520,7 +520,6 @@ namespace jk::renderer
 						Resources::Insert(L"DG_Tile", material);
 			#pragma endregion
 
-
 			#pragma region Tile_map(Mark_Up)
 									texture = Resources::Load<Texture>(L"Devil_castle_tiles", L"..\\Resources\\Tile\\Devil_castle_tile.png");
 									material = std::make_shared<Material>();
@@ -528,13 +527,7 @@ namespace jk::renderer
 									material->SetTexture(texture);
 									material->SetRenderingMode(eRenderingMode::Transparent);
 									Resources::Insert(L"Devil_castle_tile", material);
-			#pragma endregion
-
-
-
-
-
-		
+			#pragma endregion	
 
 
 
@@ -575,6 +568,49 @@ namespace jk::renderer
 				material->SetShader(spriteShader);
 				material->SetTexture(texture);
 				Resources::Insert(L"Stage_king1", material);
+
+
+		#pragma region Tile_map(Stage1_1)
+						texture = Resources::Load<Texture>(L"stage1_1tiles", L"..\\Resources\\Tile\\S1_tile1.png");
+						material = std::make_shared<Material>();
+						material->SetShader(tile_shader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_1Tile", material);
+		#pragma endregion
+
+		#pragma region Tile_map(Stage1_2)
+						texture = Resources::Load<Texture>(L"stage1_2tiles", L"..\\Resources\\Tile\\S1_tile1.png");
+						material = std::make_shared<Material>();
+						material->SetShader(tile_shader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_2Tile", material);
+		#pragma endregion
+						
+
+		#pragma region Tile_map(Stage1_MiniBoss)
+						texture = Resources::Load<Texture>(L"Stage1_miniboss", L"..\\Resources\\Tile\\S1_tile1.png");
+						material = std::make_shared<Material>();
+						material->SetShader(tile_shader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_MiniBoss", material);
+		#pragma endregion
+
+		#pragma region Tile_map(Stage1_Boss)
+						texture = Resources::Load<Texture>(L"Stage1_boss", L"..\\Resources\\Tile\\S1_tile1.png");
+						material = std::make_shared<Material>();
+						material->SetShader(tile_shader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Boss", material);
+		#pragma endregion
+
+
+
+
+
 		#pragma endregion
 
 		#pragma region Stage2(Back)

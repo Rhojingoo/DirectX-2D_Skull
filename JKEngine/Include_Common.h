@@ -69,11 +69,13 @@
 #include "Grid.h"
 
 
-
 #include "jkTitleScene.h"
 #include "jkPlayScene.h"
-#include "jkStage1.h"
-#include "jkStage2.h"
+#include "jkStage1_1.h"
+#include "jkStage1_MiniBoss.h"
+#include "jkStage1_2.h"
+#include "jkStage1_Boss.h"
+#include "jkStage2_1.h"
 #include "Castle_Area.h"
 
 

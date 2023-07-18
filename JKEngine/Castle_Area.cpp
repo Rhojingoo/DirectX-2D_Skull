@@ -199,7 +199,7 @@ namespace jk
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(L"Stage1");
+			SceneManager::LoadScene(L"Stage1_1");
 		}
 	}
 

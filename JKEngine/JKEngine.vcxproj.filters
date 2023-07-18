@@ -5,13 +5,7 @@
     <ClInclude Include="LoadScenes.h">
       <Filter>Scene\Load</Filter>
     </ClInclude>
-    <ClInclude Include="jkTitleScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="jkPlayScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="jkStage1.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="jkCameraScript.h">
@@ -24,9 +18,6 @@
       <Filter>Script</Filter>
     </ClInclude>
     <ClInclude Include="Include_Common.h" />
-    <ClInclude Include="jkStage2.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="BG.h">
       <Filter>Game_ob\BG</Filter>
     </ClInclude>
@@ -59,9 +50,6 @@
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Game_ob\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Castle_Area.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Title_Image.h">
       <Filter>Game_ob\BG\1.Title</Filter>
@@ -100,14 +88,29 @@
     <ClInclude Include="jkPlayerScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="jkStage1_1.h">
+      <Filter>Scene\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="jkStage2_1.h">
+      <Filter>Scene\Stage2</Filter>
+    </ClInclude>
+    <ClInclude Include="jkStage1_2.h">
+      <Filter>Scene\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="jkStage1_MiniBoss.h">
+      <Filter>Scene\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="jkStage1_Boss.h">
+      <Filter>Scene\Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="Castle_Area.h">
+      <Filter>Scene\Castle_Area</Filter>
+    </ClInclude>
+    <ClInclude Include="jkTitleScene.h">
+      <Filter>Scene\Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="jkStage1.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="jkTitleScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="jkPlayScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -119,9 +122,6 @@
     </ClCompile>
     <ClCompile Include="jkToolScript.cpp">
       <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="jkStage2.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="BG.cpp">
       <Filter>Game_ob\BG</Filter>
@@ -155,9 +155,6 @@
     </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>Game_ob\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Castle_Area.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Title_Image.cpp">
       <Filter>Game_ob\BG\1.Title</Filter>
@@ -197,6 +194,27 @@
     </ClCompile>
     <ClCompile Include="jkPlayerScript.cpp">
       <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="jkStage1_1.cpp">
+      <Filter>Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="jkStage2_1.cpp">
+      <Filter>Scene\Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="jkStage1_2.cpp">
+      <Filter>Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="jkStage1_MiniBoss.cpp">
+      <Filter>Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="jkStage1_Boss.cpp">
+      <Filter>Scene\Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="Castle_Area.cpp">
+      <Filter>Scene\Castle_Area</Filter>
+    </ClCompile>
+    <ClCompile Include="jkTitleScene.cpp">
+      <Filter>Scene\Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +265,18 @@
     </Filter>
     <Filter Include="Game_ob\UI\Face">
       <UniqueIdentifier>{91d71bed-1aac-42e5-8761-c9807b68a0e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Stage1">
+      <UniqueIdentifier>{ea4e2f0d-3385-40c6-9828-3d92e50cba51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Stage2">
+      <UniqueIdentifier>{4b146d0a-6bb0-43e8-9d6d-56f49b8b24a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Castle_Area">
+      <UniqueIdentifier>{fc88d6b9-434c-4758-a512-9b4ea32a9936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Title">
+      <UniqueIdentifier>{24efe6b1-644a-4a31-9c7a-c5b66bc2f922}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

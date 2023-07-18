@@ -169,8 +169,11 @@
     <ClInclude Include="jkGridScript.h" />
     <ClInclude Include="jkPlayerScript.h" />
     <ClInclude Include="jkPlayScene.h" />
-    <ClInclude Include="jkStage1.h" />
-    <ClInclude Include="jkStage2.h" />
+    <ClInclude Include="jkStage1_1.h" />
+    <ClInclude Include="jkStage1_2.h" />
+    <ClInclude Include="jkStage1_Boss.h" />
+    <ClInclude Include="jkStage1_MiniBoss.h" />
+    <ClInclude Include="jkStage2_1.h" />
     <ClInclude Include="jkTitleScene.h" />
     <ClInclude Include="jkToolScene.h" />
     <ClInclude Include="out_Castle_Fore_ground.h" />
@@ -205,8 +208,11 @@
     <ClCompile Include="jkGridScript.cpp" />
     <ClCompile Include="jkPlayerScript.cpp" />
     <ClCompile Include="jkPlayScene.cpp" />
-    <ClCompile Include="jkStage1.cpp" />
-    <ClCompile Include="jkStage2.cpp" />
+    <ClCompile Include="jkStage1_1.cpp" />
+    <ClCompile Include="jkStage1_2.cpp" />
+    <ClCompile Include="jkStage1_Boss.cpp" />
+    <ClCompile Include="jkStage1_MiniBoss.cpp" />
+    <ClCompile Include="jkStage2_1.cpp" />
     <ClCompile Include="jkTitleScene.cpp" />
     <ClCompile Include="jkToolScene.cpp" />
     <ClCompile Include="jkToolScript.cpp" />
