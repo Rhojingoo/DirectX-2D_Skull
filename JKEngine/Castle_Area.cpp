@@ -11,18 +11,18 @@ namespace jk
 	void Castle_Area::Initialize()
 	{
 
-		GameObject* Zelda
-			= object::Instantiate<GameObject>(Vector3(0.0f, -50.0f, -700.f), eLayerType::Monster);
-		Zelda->SetName(L"Zelda");
-		Collider2D* cd = Zelda->AddComponent<Collider2D>();
-		MeshRenderer* mr = Zelda->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-		const float pi = 3.141592f;
-		float degree = pi / 8.0f;
-		Zelda->GetComponent<Transform>()->SetPosition(Vector3(-200.0f, 0.0f, -250.f));
-		Zelda->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
-		Zelda->GetComponent<Transform>()->SetScale(Vector3(140.f, 130.f, 0.f));
+		//GameObject* Zelda
+		//	= object::Instantiate<GameObject>(Vector3(0.0f, -50.0f, -700.f), eLayerType::Monster);
+		//Zelda->SetName(L"Zelda");
+		//Collider2D* cd = Zelda->AddComponent<Collider2D>();
+		//MeshRenderer* mr = Zelda->AddComponent<MeshRenderer>();
+		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
+		//const float pi = 3.141592f;
+		//float degree = pi / 8.0f;
+		//Zelda->GetComponent<Transform>()->SetPosition(Vector3(-200.0f, 0.0f, -250.f));
+		//Zelda->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
+		//Zelda->GetComponent<Transform>()->SetScale(Vector3(140.f, 130.f, 0.f));
 
 #pragma region UI	
 		Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
@@ -44,7 +44,7 @@ namespace jk
 #pragma region Player	
 		Skul_Basic* Basic_Skul = object::Instantiate<Skul_Basic>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));	Basic_Skul->SetName(L"Basic_Skul");
-		cd = Basic_Skul->AddComponent<Collider2D>();
+		Collider2D* cd = Basic_Skul->AddComponent<Collider2D>();
 		Basic_Skul->AddComponent<PlayerScript>();
 		Basic_Skul->AddComponent<CameraScript>();
 #pragma endregion
@@ -114,22 +114,23 @@ namespace jk
 			GameObject* Tile_map = object::Instantiate<GameObject>(eLayerType::BACK_GROUND);
 			Tile_map->SetName(L"Tile_Map");
 			Transform* tr = Tile_map->GetComponent<Transform>();
-			tr->SetPositionZ(5.f);
-			tr->AddPositionY(350.f);
-			tr->SetScale(Vector3(64*114.f, 64*24.f, 500.f));
+			tr->SetPositionZ(-200.f);
+			tr->AddPositionY(-280.f);
+			tr->SetPositionX(-300.f);
+			tr->SetScale(Vector3(60*32.f, 8*32.f, 0.f));
 
 			TileMap* tilemap = Tile_map->AddComponent<TileMap>();
-			std::shared_ptr<Material> material = Resources::Find<Material>(L"DG_Tile");
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"Devil_castle_tile");
 
 			tilemap->SetMaterial(material);
 			tilemap->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			tilemap->SetAtlasTex(material->GetTexture());
-			tilemap->SetTileSize(Vector2(64.f, 64.f));
-			tilemap->SetTileMapCount(114, 24);
+			tilemap->SetTileSize(Vector2(32.f, 32.f));
+			tilemap->SetTileMapCount(60, 8);
 
 			bool xmlTest = false;
 			XmlParser* testParser = new XmlParser;
-			xmlTest = testParser->LoadFile(L"\\Resources\\Metadata\\TileMap\\00_Town.xml");
+			xmlTest = testParser->LoadFile(L"\\Resources\\Metadata\\TileMap\\Devil_castle_Tile.xml");
 			if (xmlTest)
 			{
 				xmlTest = testParser->FindElem(L"map");

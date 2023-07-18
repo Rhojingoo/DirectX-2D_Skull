@@ -492,64 +492,80 @@ namespace jk::renderer
 				#pragma endregion
 			#pragma endregion
 
-				#pragma region out_Castle
-				#pragma region Out(fore_ground)
-							texture = Resources::Load<Texture>(L"out_front", L"..\\Resources\\Texture\\Devil_Catle\\Out_Fore_GR.png");
-							material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
-							material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Out_Fore_GR", material);
-				#pragma endregion	
-
+			#pragma region out_Castle
+			#pragma region Out(fore_ground)
+						texture = Resources::Load<Texture>(L"out_front", L"..\\Resources\\Texture\\Devil_Catle\\Out_Fore_GR.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Out_Fore_GR", material);
 			#pragma endregion	
 
-				#pragma region Cloud				
+		#pragma endregion	
+
+			#pragma region Cloud				
 			
-							texture = Resources::Load<Texture>(L"Cloud_devil", L"..\\Resources\\Texture\\Effect\\Cloud_devil.png");
-							material = std::make_shared<Material>();
-							material->SetShader(moveShader);
-							material->SetTexture(texture);
-							material->SetRenderingMode(eRenderingMode::Transparent);
-							Resources::Insert(L"Cloud_Devil", material);
-				#pragma endregion
+						texture = Resources::Load<Texture>(L"Cloud_devil", L"..\\Resources\\Texture\\Effect\\Cloud_devil.png");
+						material = std::make_shared<Material>();
+						material->SetShader(moveShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Cloud_Devil", material);
+			#pragma endregion
 
-				#pragma region Tile_map(Mark_Up)
-							texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resources\\Tile\\DG_Tile.png");
-							material = std::make_shared<Material>();
-							material->SetShader(tile_shader);
-							material->SetTexture(texture);
-							material->SetRenderingMode(eRenderingMode::Transparent);
-							Resources::Insert(L"DG_Tile", material);
-				#pragma endregion
+			#pragma region Tile_map(Mark_Up_practive)
+						texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resources\\Tile\\DG_Tile.png");
+						material = std::make_shared<Material>();
+						material->SetShader(tile_shader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"DG_Tile", material);
+			#pragma endregion
+
+
+			#pragma region Tile_map(Mark_Up)
+									texture = Resources::Load<Texture>(L"Devil_castle_tiles", L"..\\Resources\\Tile\\Devil_castle_tile.png");
+									material = std::make_shared<Material>();
+									material->SetShader(tile_shader);
+									material->SetTexture(texture);
+									material->SetRenderingMode(eRenderingMode::Transparent);
+									Resources::Insert(L"Devil_castle_tile", material);
+			#pragma endregion
 
 
 
-				#pragma region PlayScene_Devil(background_materials)
-							//{
-							//	std::shared_ptr<Texture> texture
-							//		= Resources::Load<Texture>(L"Catle_wall_Front2", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_02.png");
-							//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-							//	spriteMateiral->SetShader(spriteShader);
-							//	spriteMateiral->SetTexture(texture);
-							//	Resources::Insert(L"Catle_wall_Front_02", spriteMateiral);
+
+
+		
+
+
+
+			#pragma region PlayScene_Devil(background_materials)
+						//{
+						//	std::shared_ptr<Texture> texture
+						//		= Resources::Load<Texture>(L"Catle_wall_Front2", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_02.png");
+						//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+						//	spriteMateiral->SetShader(spriteShader);
+						//	spriteMateiral->SetTexture(texture);
+						//	Resources::Insert(L"Catle_wall_Front_02", spriteMateiral);
+						//}
+
+						//{
+						//	std::shared_ptr<Texture> texture
+						//		= Resources::Load<Texture>(L"Catle_wall_Front3", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_03.png");
+						//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+						//	spriteMateiral->SetShader(spriteShader);
+						//	spriteMateiral->SetTexture(texture);
+						//	Resources::Insert(L"Catle_wall_Front_03", spriteMateiral);
+						//}
+
+						//{
+						//	std::shared_ptr<Texture> texture
+						//		= Resources::Load<Texture>(L"Catle_wall_Front4", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_04.png");
+						//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+						//	spriteMateiral->SetShader(spriteShader);
+						//	spriteMateiral->SetTexture(texture);
+						//	Resources::Insert(L"Catle_wall_Front_04", spriteMateiral);
 							//}
-
-							//{
-							//	std::shared_ptr<Texture> texture
-							//		= Resources::Load<Texture>(L"Catle_wall_Front3", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_03.png");
-							//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-							//	spriteMateiral->SetShader(spriteShader);
-							//	spriteMateiral->SetTexture(texture);
-							//	Resources::Insert(L"Catle_wall_Front_03", spriteMateiral);
-							//}
-
-							//{
-							//	std::shared_ptr<Texture> texture
-							//		= Resources::Load<Texture>(L"Catle_wall_Front4", L"..\\Resources\\Texture\\Devil_Catle\\Catle_wall_Front_04.png");
-							//	std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-							//	spriteMateiral->SetShader(spriteShader);
-							//	spriteMateiral->SetTexture(texture);
-							//	Resources::Insert(L"Catle_wall_Front_04", spriteMateiral);
-								//}
-				#pragma endregion
+			#pragma endregion
 
 		#pragma endregion
 
