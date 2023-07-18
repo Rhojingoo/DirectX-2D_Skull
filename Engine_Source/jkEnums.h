@@ -20,12 +20,12 @@ namespace jk::enums
 	{
 		Camera,
 		Grid,
+		Player,
 		Monster,
 		BACK_GROUND,
 		Mid_Ground,
 		Fore_Ground,
 		Map_Effect,
-		Player,
 		UI,		
 		End = 16, 
 	};

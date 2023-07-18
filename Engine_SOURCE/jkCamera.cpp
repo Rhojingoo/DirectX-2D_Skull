@@ -178,12 +178,12 @@ namespace jk
 			if (mr == nullptr)
 				continue;
 			
-			//急积丛内靛
+			////急积丛内靛
 			//MeshRenderer* mr
 			//	= obj->GetComponent<MeshRenderer>();
 			//if (mr == nullptr)
 			//	continue;
-
+			
 			std::shared_ptr<Material> mt = mr->GetMaterial();
 			eRenderingMode mode = mt->GetRenderingMode();
 			switch (mode)

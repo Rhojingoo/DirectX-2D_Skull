@@ -75,7 +75,6 @@
     <ClInclude Include="S1_King_BG.h">
       <Filter>Game_ob\BG\3.Stage1</Filter>
     </ClInclude>
-    <ClInclude Include="S2_King_BG.h" />
     <ClInclude Include="jkToolScene.h">
       <Filter>Scene\practice</Filter>
     </ClInclude>
@@ -93,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="Skul_Basic.h">
       <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="S2_King_BG.h">
+      <Filter>Game_ob\BG\4.Stage2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -117,7 +119,6 @@
     <ClCompile Include="jkStage2.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine_SOURCE\jkGameObject.cpp" />
     <ClCompile Include="BG.cpp">
       <Filter>Game_ob\BG</Filter>
     </ClCompile>
@@ -166,7 +167,6 @@
     <ClCompile Include="S1_King_BG.cpp">
       <Filter>Game_ob\BG\3.Stage1</Filter>
     </ClCompile>
-    <ClCompile Include="S2_King_BG.cpp" />
     <ClCompile Include="jkToolScene.cpp">
       <Filter>Scene\practice</Filter>
     </ClCompile>
@@ -184,6 +184,12 @@
     </ClCompile>
     <ClCompile Include="Skul_Basic.cpp">
       <Filter>Game_ob\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="S2_King_BG.cpp">
+      <Filter>Game_ob\BG\4.Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine_SOURCE\jkGameObject.cpp">
+      <Filter>Game_ob</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

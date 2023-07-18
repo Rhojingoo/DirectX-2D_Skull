@@ -20,7 +20,7 @@ namespace jk
         {
             for (UINT row = 0; row < (UINT)eLayerType::End; row++)
             {
-                if (mMatrix[row] == (1 << column))
+                if (mMatrix[column][row] == true)
                 {
                     LayerCollision((eLayerType)column, (eLayerType)row);
                 }
@@ -133,25 +133,22 @@ namespace jk
 
 
         // OBB 정보 만들기 중
-        Vector3 Distance = leftPos - rightPos;
-        Vector3 Left_Width = left->GetOwner()->GetComponent<Transform>()->Right();
-        Vector3 Left_height = left->GetOwner()->GetComponent<Transform>()->Up();
-        Vector3 RIGHT_Width = right->GetOwner()->GetComponent<Transform>()->Right();
-        Vector3 RIGHT_height = right->GetOwner()->GetComponent<Transform>()->Up();
-
-        Vector3 Left_Scale = left->GetOwner()->GetComponent<Transform>()->GetScale();
-        Vector3 Right_Scale = right->GetOwner()->GetComponent<Transform>()->GetScale();
-
-        Vector3 Normal_L_W = Left_Width / Left_Scale.x;
-        Vector3 Normal_L_H = Left_Width / Left_Scale.y;
-        Vector3 Normal_R_W = RIGHT_Width / Right_Scale.x;
-        Vector3 Normal_R_H = RIGHT_Width / Right_Scale.y;
-
-        std::vector<Vector3> Normal = {};
-        Normal.push_back(Left_Width);
-        Normal.push_back(Left_height);
-        Normal.push_back(Normal_R_W);
-        Normal.push_back(Normal_R_H);
+        //Vector3 Distance = leftPos - rightPos;
+        //Vector3 Left_Width = left->GetOwner()->GetComponent<Transform>()->Right();
+        //Vector3 Left_height = left->GetOwner()->GetComponent<Transform>()->Up();
+        //Vector3 RIGHT_Width = right->GetOwner()->GetComponent<Transform>()->Right();
+        //Vector3 RIGHT_height = right->GetOwner()->GetComponent<Transform>()->Up();
+        //Vector3 Left_Scale = left->GetOwner()->GetComponent<Transform>()->GetScale();
+        //Vector3 Right_Scale = right->GetOwner()->GetComponent<Transform>()->GetScale();
+        //Vector3 Normal_L_W = Left_Width / Left_Scale.x;
+        //Vector3 Normal_L_H = Left_Width / Left_Scale.y;
+        //Vector3 Normal_R_W = RIGHT_Width / Right_Scale.x;
+        //Vector3 Normal_R_H = RIGHT_Width / Right_Scale.y;
+        //std::vector<Vector3> Normal = {};
+        //Normal.push_back(Left_Width);
+        //Normal.push_back(Left_height);
+        //Normal.push_back(Normal_R_W);
+        //Normal.push_back(Normal_R_H);
 
 
         //사각형충돌
@@ -173,58 +170,65 @@ namespace jk
 
 
         // OBB 충돌
-       #pragma region 1안
-        //for (int i = 0; i < 3; ++i)
-        //{
-        //   Vector3 axis = obb1.axes[i];
+       #pragma region obb
+      // Rect vs Rect 
+        // 0 --- 1
+        // |     |
+        // 3 --- 2
+        Vector3 arrLocalPos[4] =
+        {
+           Vector3{-0.5f, 0.5f, 0.0f}
+           ,Vector3{0.5f, 0.5f, 0.0f}
+           ,Vector3{0.5f, -0.5f, 0.0f}
+           ,Vector3{-0.5f, -0.5f, 0.0f}
+        };
 
-        //   // 첫 번째 OBB의 프로젝션 구간 계산
-        //   float min1 = INFINITY, max1 = -INFINITY;
-        //   for (int j = 0; j < 8; ++j)
-        //   {
-        //      Vector3 vertex = obb1.center + obb1.extents.x * (j & 1 ? -axis : axis)
-        //         + obb1.extents.y * ((j >> 1) & 1 ? -obb1.axes[(i + 1) % 3] : obb1.axes[(i + 1) % 3])
-        //         + obb1.extents.z * ((j >> 2) & 1 ? -obb1.axes[(i + 2) % 3] : obb1.axes[(i + 2) % 3]);
-        //      float projection = vertex.x * axis.x + vertex.y * axis.y + vertex.z * axis.z;
-        //      min1 = fmin(min1, projection);
-        //      max1 = fmax(max1, projection);
-        //   }
+        Transform* leftTr = left->GetOwner()->GetComponent<Transform>();
+        Transform* rightTr = right->GetOwner()->GetComponent<Transform>();
 
-        //   // 두 번째 OBB의 프로젝션 구간 계산
-        //   float min2 = INFINITY, max2 = -INFINITY;
-        //   for (int j = 0; j < 8; ++j)
-        //   {
-        //      Vector3 vertex = obb2.center + obb2.extents.x * (j & 1 ? -axis : axis)
-        //         + obb2.extents.y * ((j >> 1) & 1 ? -obb2.axes[(i + 1) % 3] : obb2.axes[(i + 1) % 3])
-        //         + obb2.extents.z * ((j >> 2) & 1 ? -obb2.axes[(i + 2) % 3] : obb2.axes[(i + 2) % 3]);
-        //      float projection = vertex.x * axis.x + vertex.y * axis.y + vertex.z * axis.z;
-        //      min2 = fmin(min2, projection);
-        //      max2 = fmax(max2, projection);
-        //   }
+        Matrix leftMatrix = leftTr->GetMatrix();
+        Matrix rightMatrix = rightTr->GetMatrix();
 
-        //   // 프로젝션 구간이 겹치지 않으면 충돌하지 않음
-        //   if (max1 < min2 || max2 < min1)
-        //   {
-        //      return false;
-        //   }
-        //}
-        #pragma endregion 
-        
-        #pragma region 2안
-        //★★★★★★★★구현중(미흡함)★★★★★★★
-        //for (int i = 0; i < 4; i++)
-        //{
-        //   float _Distance = abs((Normal[i].Dot(Distance)));
+        Vector3 Axis[4] = {};
 
-        //   if (_Distance < abs(Normal[i].Dot(Left_Width))
-        //      + abs(Normal[i].Dot(Left_height))
-        //      + abs(Normal[i].Dot(RIGHT_Width))
-        //      + abs(Normal[i].Dot(RIGHT_height)))
-        //   {   
-        //      int a = 0;
-        //      return false;
-        //   }
-        //}
+        Vector3 leftScale = Vector3(left->GetSize().x, left->GetSize().y, 1.0f);
+        Matrix finalLeft = Matrix::CreateScale(leftScale);
+        finalLeft *= leftMatrix;
+
+        Vector3 rightScale = Vector3(right->GetSize().x, right->GetSize().y, 1.0f);
+        Matrix finalRight = Matrix::CreateScale(rightScale);
+        finalRight *= rightMatrix;
+
+        Axis[0] = Vector3::Transform(arrLocalPos[1], finalLeft);
+        Axis[1] = Vector3::Transform(arrLocalPos[3], finalLeft);
+        Axis[2] = Vector3::Transform(arrLocalPos[1], finalRight);
+        Axis[3] = Vector3::Transform(arrLocalPos[3], finalRight);
+
+        Axis[0] -= Vector3::Transform(arrLocalPos[0], finalLeft);
+        Axis[1] -= Vector3::Transform(arrLocalPos[0], finalLeft);
+        Axis[2] -= Vector3::Transform(arrLocalPos[0], finalRight);
+        Axis[3] -= Vector3::Transform(arrLocalPos[0], finalRight);
+
+        for (size_t i = 0; i < 4; i++)
+            Axis[i].z = 0.0f;
+
+        Vector3 vc = leftTr->GetPosition() - rightTr->GetPosition();
+        vc.z = 0.0f;
+
+        Vector3 centerDir = vc;
+        for (size_t i = 0; i < 4; i++)
+        {
+            Vector3 vA = Axis[i];
+
+            float projDistance = 0.0f;
+            for (size_t j = 0; j < 4; j++)
+            {
+                projDistance += fabsf(Axis[j].Dot(vA) / 2.0f);
+            }
+
+            if (projDistance < fabsf(centerDir.Dot(vA)))
+                return false;
+        }    
         #pragma endregion 
 
         return false;

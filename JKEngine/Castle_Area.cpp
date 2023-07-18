@@ -11,25 +11,23 @@ namespace jk
 	void Castle_Area::Initialize()
 	{
 
-		//GameObject* Zelda
-		//	= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, -700.f), eLayerType::Player);
-
-		//Zelda->SetName(L"Zelda");
-
-		//Collider2D* cd = Zelda->AddComponent<Collider2D>();
-		//MeshRenderer* mr = Zelda->AddComponent<MeshRenderer>();
-		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-		//const float pi = 3.141592f;
-		//float degree = pi / 8.0f;
-		//Zelda->GetComponent<Transform>()->SetPosition(Vector3(-2.0f, 0.0f, 1.0001f));
-		//Zelda->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
-
+		GameObject* Zelda
+			= object::Instantiate<GameObject>(Vector3(0.0f, -50.0f, -700.f), eLayerType::Player);
+		Zelda->SetName(L"Zelda");
+		Collider2D* cd = Zelda->AddComponent<Collider2D>();
+		MeshRenderer* mr = Zelda->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
+		const float pi = 3.141592f;
+		float degree = pi / 8.0f;
+		Zelda->GetComponent<Transform>()->SetPosition(Vector3(-2.0f, 0.0f, 1.0001f));
+		Zelda->GetComponent<Transform>()->SetRotation(Vector3(0.0f, 0.0f, degree));
+		Zelda->GetComponent<Transform>()->SetScale(Vector3(140.f, 130.f, 0.f));
+		
 
 
 		//GameObject* mon = new GameObject();
 		//mon->SetName(L"Smile");
-		//Collider2D* cd2 = mon->AddComponent<Collider2D>();
 		//AddGameObject(eLayerType::Monster, mon);
 		//MeshRenderer* mr2 = mon->AddComponent<MeshRenderer>();
 		//mr2->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -55,11 +53,10 @@ namespace jk
 
 #pragma endregion	
 
-
 #pragma region Player	
-		Skul_Basic* Basic_Skul = object::Instantiate<Skul_Basic>(Vector3(0.f, -0.f, -251.f), eLayerType::Fore_Ground);
-		Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));	Basic_Skul->SetName(L"Basic_Skul");
-		//Basic_Skul->AddComponent<Collider2D>();
+		Skul_Basic* Basic_Skul = object::Instantiate<Skul_Basic>(Vector3(0.f, -100.f, -120.f), eLayerType::Player);
+		Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f*10, 30.f*3, 0.f));	Basic_Skul->SetName(L"Basic_Skul");
+		cd = Basic_Skul->AddComponent<Collider2D>();
 #pragma endregion
 
 #pragma region Npc	
@@ -68,23 +65,23 @@ namespace jk
 
 #pragma region CASTLE
 
-		in_Castle_Fore_ground* in_Catle_Back = object::Instantiate<in_Castle_Fore_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground);
-		in_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1280.f, 720.f, 0.f));	in_Catle_Back->SetName(L"in_Catle_Back");
+		//in_Castle_Fore_ground* in_Catle_Back = object::Instantiate<in_Castle_Fore_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground);
+		//in_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1280.f, 720.f, 0.f));	in_Catle_Back->SetName(L"in_Catle_Back");
 
-		out_Castle_Fore_ground* out_Catle_Back = object::Instantiate<out_Castle_Fore_ground>(Vector3(1200.f, 0.f, 101.f), eLayerType::Fore_Ground);
-		out_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1200.f, 2204.f, 0.f));	out_Catle_Back->SetName(L"out_Catle_Back");
+		//out_Castle_Fore_ground* out_Catle_Back = object::Instantiate<out_Castle_Fore_ground>(Vector3(1200.f, 0.f, 101.f), eLayerType::Fore_Ground);
+		//out_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1200.f, 2204.f, 0.f));	out_Catle_Back->SetName(L"out_Catle_Back");
 
-		Devil_Castle* Castle_wall_Back = object::Instantiate<Devil_Castle>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND);
-		Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(950, 350.f, 0.f)); Castle_wall_Back->SetName(L"Catle_Back");
+		//Devil_Castle* Castle_wall_Back = object::Instantiate<Devil_Castle>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND);
+		//Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(950, 350.f, 0.f)); Castle_wall_Back->SetName(L"Catle_Back");
 
-		Devil_Castle_mid* Castle_wall = object::Instantiate<Devil_Castle_mid>(Vector3(0.0f, 0.35f, -150.f), eLayerType::BACK_GROUND);
-		Castle_wall->GetComponent<Transform>()->SetScale(Vector3(1890.f, 548.f, 0.f));	Castle_wall->SetName(L"Catle_front");
+		//Devil_Castle_mid* Castle_wall = object::Instantiate<Devil_Castle_mid>(Vector3(0.0f, 0.35f, -150.f), eLayerType::BACK_GROUND);
+		//Castle_wall->GetComponent<Transform>()->SetScale(Vector3(1890.f, 548.f, 0.f));	Castle_wall->SetName(L"Catle_front");
 
-		Decil_chair* _chair = object::Instantiate<Decil_chair>(Vector3(-695.f, 0.1f, -200.f), eLayerType::BACK_GROUND);
-		_chair->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f)); _chair->SetName(L"Devil_chair");
+		//Decil_chair* _chair = object::Instantiate<Decil_chair>(Vector3(-695.f, 0.1f, -200.f), eLayerType::BACK_GROUND);
+		//_chair->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f)); _chair->SetName(L"Devil_chair");
 
-		Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 90.f), eLayerType::Map_Effect);
-		cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f)); cloud->SetName(L"Castle_cloud");
+		//Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 90.f), eLayerType::Map_Effect);
+		//cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f)); cloud->SetName(L"Castle_cloud");
 
 #pragma endregion				
 
@@ -95,6 +92,7 @@ namespace jk
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(cameraComp);
+		renderer::mainCamera = cameraComp;
 
 		//UI Camera		
 		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -105,22 +103,23 @@ namespace jk
 		cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+		//renderer::cameras.push_back(cameraComp_ui);
 
 		//UI_Mouse
 		UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
 		cursor->SetName(L"Catle_Cursor_UI");
-		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -10.f));
+		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
 		cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
 
 		//Grid
-		Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
-		grid->SetName(L"Catle_Grid");
-		GridScript* gridSc = grid->AddComponent<GridScript>();
-		gridSc->SetCamera(cameraComp);
+		//Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+		//grid->SetName(L"Catle_Grid");
+		//GridScript* gridSc = grid->AddComponent<GridScript>();
+		//gridSc->SetCamera(cameraComp);
 #pragma endregion	
 
 #pragma region tile_map		
-		{
+	/*	{
 			GameObject* Tile_map = object::Instantiate<GameObject>(eLayerType::BACK_GROUND);
 			Tile_map->SetName(L"Tile_Map");
 			Transform* tr = Tile_map->GetComponent<Transform>();
@@ -160,7 +159,7 @@ namespace jk
 					tileIdx++;
 				}
 			}
-		}
+		}*/
 
 #pragma endregion
 

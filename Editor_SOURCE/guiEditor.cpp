@@ -18,17 +18,12 @@ namespace gui
 	{
 		mDebugOjbects.resize((UINT)eColliderType::End);
 
-		std::shared_ptr<jk::Mesh> mesh
-			= jk::Resources::Find<jk::Mesh>(L"DebugRect");
-		std::shared_ptr<jk::Material> material
-			= jk::Resources::Find<jk::Material>(L"DebugMaterial");
-
+		std::shared_ptr<jk::Mesh> mesh = jk::Resources::Find<jk::Mesh>(L"DebugRect");
+		std::shared_ptr<jk::Material> material = jk::Resources::Find<jk::Material>(L"DebugMaterial");
 		mDebugOjbects[(UINT)eColliderType::Rect] = new DebugOjbect();
 		mDebugOjbects[(UINT)eColliderType::Rect]->AddComponent<jk::Transform>();
-		jk::MeshRenderer* mr
-			= mDebugOjbects[(UINT)eColliderType::Rect]->AddComponent<jk::MeshRenderer>();
-		mr->SetMaterial(material);
-		mr->SetMesh(mesh);
+		jk::MeshRenderer* mr = mDebugOjbects[(UINT)eColliderType::Rect]->AddComponent<jk::MeshRenderer>();
+		mr->SetMaterial(material);		mr->SetMesh(mesh);
 
 
 		//EditorObject* grid = new EditorObject();
