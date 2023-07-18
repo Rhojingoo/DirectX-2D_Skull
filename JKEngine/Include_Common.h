@@ -30,6 +30,7 @@
 #include "jkGridScript.h"
 #include "jkToolScript.h"
 #include "jkCameraScript.h"
+#include "jkPlayerScript.h"
 
 
 

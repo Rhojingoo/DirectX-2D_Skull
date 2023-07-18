@@ -416,9 +416,9 @@ namespace jk::renderer
 		#pragma region Player
 			#pragma region Skul_Base
 				texture = Resources::Load<Texture>(L"basic_skul", L"..\\Resources\\Texture\\Player\\Normal\\Idle\\Idle_1.png");
-				material = std::make_shared<Material>(); material->SetShader(moveShader);	material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Basic_Skul", material);
-				
+				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Basic_Skul", material);				
 			#pragma endregion
 		#pragma endregion
 
@@ -426,7 +426,8 @@ namespace jk::renderer
 				texture	= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
 				material = std::make_shared<Material>();
 				material->SetShader(spriteShader);
-				material->SetTexture(texture);				
+				material->SetTexture(texture);			
+				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"SpriteMaterial", material);
 
 				texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
@@ -435,7 +436,6 @@ namespace jk::renderer
 				material->SetTexture(texture);
 				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"SpriteMaterial02", material);
-
 #pragma endregion
 
 

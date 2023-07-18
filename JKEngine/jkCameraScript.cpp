@@ -9,17 +9,17 @@ namespace jk
 		Vector3 pos = tr->GetPosition();
 
 
-		if (Input::GetKey(eKeyCode::W))
-		{
-			pos.z += 5.0f * (float)Time::DeltaTime();
-			tr->SetPosition(pos);
-		}
-		else if (Input::GetKey(eKeyCode::S))
-		{
-			pos.z -= 5.0f * (float)Time::DeltaTime();
-			tr->SetPosition(pos);
-		}
-		else if (Input::GetKey(eKeyCode::A))
+		//if (Input::GetKey(eKeyCode::W))
+		//{
+		//	pos.z += 100.0f * (float)Time::DeltaTime();
+		//	tr->SetPosition(pos);
+		//}
+		//else if (Input::GetKey(eKeyCode::S))
+		//{
+		//	pos.z -= 100.0f * (float)Time::DeltaTime();
+		//	tr->SetPosition(pos);
+		//}
+		if (Input::GetKey(eKeyCode::A))
 		{
 			pos.x -= 100.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
@@ -31,12 +31,12 @@ namespace jk
 		}
 		else if (Input::GetKey(eKeyCode::Q))
 		{
-			pos.y -= 5.0f * (float)Time::DeltaTime();
+			pos.y -= 100.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 		else if (Input::GetKey(eKeyCode::E))
 		{
-			pos.y += 5.0f * (float)Time::DeltaTime();
+			pos.y += 100.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
 	}

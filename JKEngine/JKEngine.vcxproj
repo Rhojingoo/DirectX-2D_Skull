@@ -167,6 +167,7 @@
     <ClInclude Include="jkCameraScript.h" />
     <ClInclude Include="jkCloud.h" />
     <ClInclude Include="jkGridScript.h" />
+    <ClInclude Include="jkPlayerScript.h" />
     <ClInclude Include="jkPlayScene.h" />
     <ClInclude Include="jkStage1.h" />
     <ClInclude Include="jkStage2.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="jkToolScene.h" />
     <ClInclude Include="out_Castle_Fore_ground.h" />
     <ClInclude Include="Player_Hp_Bar.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="S1_King_BG.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="jkToolScript.h" />
@@ -201,6 +203,7 @@
     <ClCompile Include="jkCameraScript.cpp" />
     <ClCompile Include="jkCloud.cpp" />
     <ClCompile Include="jkGridScript.cpp" />
+    <ClCompile Include="jkPlayerScript.cpp" />
     <ClCompile Include="jkPlayScene.cpp" />
     <ClCompile Include="jkStage1.cpp" />
     <ClCompile Include="jkStage2.cpp" />
@@ -220,6 +223,9 @@
     <ClCompile Include="Title_Logo2.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_Camera.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="JKEngine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

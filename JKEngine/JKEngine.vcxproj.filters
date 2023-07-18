@@ -96,6 +96,10 @@
     <ClInclude Include="S2_King_BG.h">
       <Filter>Game_ob\BG\4.Stage2</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="jkPlayerScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkStage1.cpp">
@@ -191,6 +195,9 @@
     <ClCompile Include="..\Engine_SOURCE\jkGameObject.cpp">
       <Filter>Game_ob</Filter>
     </ClCompile>
+    <ClCompile Include="jkPlayerScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -241,5 +248,8 @@
     <Filter Include="Game_ob\UI\Face">
       <UniqueIdentifier>{91d71bed-1aac-42e5-8761-c9807b68a0e0}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="JKEngine.rc" />
   </ItemGroup>
 </Project>
