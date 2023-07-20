@@ -11,7 +11,7 @@ namespace jk
 		, mPosition(Vector3::Zero)
 		, mRotation(Vector3::Zero)
 		, mScale(Vector3::One)
-	{
+	{//iloveyou
 	}
 
 	Transform::~Transform()
