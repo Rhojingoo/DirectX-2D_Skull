@@ -10,16 +10,32 @@ namespace jk
 	}
 	void Stage1_2::Initialize()
 	{
-
-		//S1_King_BG* player = object::Instantiate<S1_King_BG>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND);				
-		//player->GetComponent<Transform>()->SetScale(Vector3(900.f, 560.0f, 0.0f));			
-
 	//Main Camera
 		GameObject* camera = new GameObject();
 		AddGameObject(eLayerType::Player, camera);
 		camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		camera->AddComponent<CameraScript>();
+
+#pragma region BG	
+		{
+			Mid_GR_1_2* Mid_S1_2 = object::Instantiate<Mid_GR_1_2>(Vector3(0.f, 230.f, 70.f), eLayerType::Mid_Ground);
+			Mid_S1_2->GetComponent<Transform>()->SetScale(Vector3(718.f*5, 280.f, 0.f));	Mid_S1_2->SetName(L"Mid_S1_2");	
+
+			Fore_GR_1_2* Fore_S1_2 = object::Instantiate<Fore_GR_1_2>(Vector3(0.f, 0.f, 101.f), eLayerType::Fore_Ground);
+			Fore_S1_2->GetComponent<Transform>()->SetScale(Vector3(1800.f, 800.f, 0.f));	Fore_S1_2->SetName(L"Fore_S1_2");
+
+			GameObject* Tree = object::Instantiate<GameObject>(Vector3(0.0f, -50.0f, 50.f), eLayerType::Mid_Ground);
+			Tree->SetName(L"tree");	MeshRenderer* mr = Tree->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh")); mr->SetMaterial(Resources::Find<Material>(L"Mid_GR1_22"));
+			Tree->GetComponent<Transform>()->SetScale(Vector3(718*3.f, 380*3.f, 0.f));
+
+			Back_GR_1_2* Back_S1_2 = object::Instantiate<Back_GR_1_2>(Vector3(0.f, 50.f, 30.f), eLayerType::BACK_GROUND);
+			Back_S1_2->GetComponent<Transform>()->SetScale(Vector3(718 * 2.f, 380 * 2.f, 0.f));	Back_S1_2->SetName(L"Back_S1_2");
+
+		}
+#pragma endregion
+
 
 
 #pragma region tile_map		

@@ -154,12 +154,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Back_GR_1_1.h" />
+    <ClInclude Include="Back_GR_1_2.h" />
+    <ClInclude Include="Back_GR_1_MiniBoss.h" />
     <ClInclude Include="BG.h" />
     <ClInclude Include="Castle_Area.h" />
     <ClInclude Include="Decil_chair.h" />
     <ClInclude Include="Devil_Castle_back.h" />
     <ClInclude Include="Devil_Castle_mid.h" />
     <ClInclude Include="Face_UI.h" />
+    <ClInclude Include="Fore_GR_1_1.h" />
+    <ClInclude Include="Fore_GR_1_2.h" />
+    <ClInclude Include="Fore_GR_1_MiniBoss.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Include_Common.h" />
@@ -176,6 +182,9 @@
     <ClInclude Include="jkStage2_1.h" />
     <ClInclude Include="jkTitleScene.h" />
     <ClInclude Include="jkToolScene.h" />
+    <ClInclude Include="Mid_GR_1_1.h" />
+    <ClInclude Include="Mid_GR_1_2.h" />
+    <ClInclude Include="Mid_GR_1_MiniBoss.h" />
     <ClInclude Include="out_Castle_Fore_ground.h" />
     <ClInclude Include="Player_Hp_Bar.h" />
     <ClInclude Include="resource.h" />
@@ -195,12 +204,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Engine_SOURCE\jkGameObject.cpp" />
+    <ClCompile Include="Back_GR_1_1.cpp" />
+    <ClCompile Include="Back_GR_1_2.cpp" />
+    <ClCompile Include="Back_GR_1_MiniBoss.cpp" />
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="Castle_Area.cpp" />
     <ClCompile Include="Decil_chair.cpp" />
     <ClCompile Include="Devil_Castle_back.cpp" />
     <ClCompile Include="Devil_Castle_mid.cpp" />
     <ClCompile Include="Face_UI.cpp" />
+    <ClCompile Include="Fore_GR_1_1.cpp" />
+    <ClCompile Include="Fore_GR_1_2.cpp" />
+    <ClCompile Include="Fore_GR_1_MiniBoss.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="in_Castle_Fore_ground.cpp" />
     <ClCompile Include="jkCameraScript.cpp" />
@@ -216,6 +231,9 @@
     <ClCompile Include="jkTitleScene.cpp" />
     <ClCompile Include="jkToolScene.cpp" />
     <ClCompile Include="jkToolScript.cpp" />
+    <ClCompile Include="Mid_GR_1_1.cpp" />
+    <ClCompile Include="Mid_GR_1_2.cpp" />
+    <ClCompile Include="Mid_GR_1_MiniBoss.cpp" />
     <ClCompile Include="out_Castle_Fore_ground.cpp" />
     <ClCompile Include="Player_Hp_Bar.cpp" />
     <ClCompile Include="S1_King_BG.cpp" />

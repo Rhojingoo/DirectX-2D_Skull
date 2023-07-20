@@ -60,9 +60,6 @@
     <ClInclude Include="Title_Logo2.h">
       <Filter>Game_ob\BG\1.Title</Filter>
     </ClInclude>
-    <ClInclude Include="S1_King_BG.h">
-      <Filter>Game_ob\BG\3.Stage1</Filter>
-    </ClInclude>
     <ClInclude Include="jkToolScene.h">
       <Filter>Scene\practice</Filter>
     </ClInclude>
@@ -108,6 +105,36 @@
     </ClInclude>
     <ClInclude Include="jkTitleScene.h">
       <Filter>Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="S1_King_BG.h">
+      <Filter>Game_ob\BG\3.Stage1\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Fore_GR_1_1.h">
+      <Filter>Game_ob\BG\3.Stage1\1-1</Filter>
+    </ClInclude>
+    <ClInclude Include="Mid_GR_1_1.h">
+      <Filter>Game_ob\BG\3.Stage1\1-1</Filter>
+    </ClInclude>
+    <ClInclude Include="Back_GR_1_1.h">
+      <Filter>Game_ob\BG\3.Stage1\1-1</Filter>
+    </ClInclude>
+    <ClInclude Include="Fore_GR_1_2.h">
+      <Filter>Game_ob\BG\3.Stage1\1-2</Filter>
+    </ClInclude>
+    <ClInclude Include="Back_GR_1_2.h">
+      <Filter>Game_ob\BG\3.Stage1\1-2</Filter>
+    </ClInclude>
+    <ClInclude Include="Mid_GR_1_2.h">
+      <Filter>Game_ob\BG\3.Stage1\1-2</Filter>
+    </ClInclude>
+    <ClInclude Include="Fore_GR_1_MiniBoss.h">
+      <Filter>Game_ob\BG\3.Stage1\Mini_Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Back_GR_1_MiniBoss.h">
+      <Filter>Game_ob\BG\3.Stage1\Mini_Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Mid_GR_1_MiniBoss.h">
+      <Filter>Game_ob\BG\3.Stage1\Mini_Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +192,6 @@
     <ClCompile Include="Title_Logo2.cpp">
       <Filter>Game_ob\BG\1.Title</Filter>
     </ClCompile>
-    <ClCompile Include="S1_King_BG.cpp">
-      <Filter>Game_ob\BG\3.Stage1</Filter>
-    </ClCompile>
     <ClCompile Include="jkToolScene.cpp">
       <Filter>Scene\practice</Filter>
     </ClCompile>
@@ -215,6 +239,36 @@
     </ClCompile>
     <ClCompile Include="jkTitleScene.cpp">
       <Filter>Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="S1_King_BG.cpp">
+      <Filter>Game_ob\BG\3.Stage1\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Fore_GR_1_1.cpp">
+      <Filter>Game_ob\BG\3.Stage1\1-1</Filter>
+    </ClCompile>
+    <ClCompile Include="Mid_GR_1_1.cpp">
+      <Filter>Game_ob\BG\3.Stage1\1-1</Filter>
+    </ClCompile>
+    <ClCompile Include="Back_GR_1_1.cpp">
+      <Filter>Game_ob\BG\3.Stage1\1-1</Filter>
+    </ClCompile>
+    <ClCompile Include="Fore_GR_1_2.cpp">
+      <Filter>Game_ob\BG\3.Stage1\1-2</Filter>
+    </ClCompile>
+    <ClCompile Include="Back_GR_1_2.cpp">
+      <Filter>Game_ob\BG\3.Stage1\1-2</Filter>
+    </ClCompile>
+    <ClCompile Include="Mid_GR_1_2.cpp">
+      <Filter>Game_ob\BG\3.Stage1\1-2</Filter>
+    </ClCompile>
+    <ClCompile Include="Back_GR_1_MiniBoss.cpp">
+      <Filter>Game_ob\BG\3.Stage1\Mini_Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Fore_GR_1_MiniBoss.cpp">
+      <Filter>Game_ob\BG\3.Stage1\Mini_Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Mid_GR_1_MiniBoss.cpp">
+      <Filter>Game_ob\BG\3.Stage1\Mini_Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +331,18 @@
     </Filter>
     <Filter Include="Scene\Title">
       <UniqueIdentifier>{24efe6b1-644a-4a31-9c7a-c5b66bc2f922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\3.Stage1\1-1">
+      <UniqueIdentifier>{efbe9742-abe1-4345-bd67-36911cd5f57b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\3.Stage1\1-2">
+      <UniqueIdentifier>{975060df-bcd2-44c5-a904-e89ec433f89a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\3.Stage1\Mini_Boss">
+      <UniqueIdentifier>{8953c251-88c8-48bc-a550-d22bb02e42a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\3.Stage1\Boss">
+      <UniqueIdentifier>{0a9d19ae-f27f-4ce8-8664-71e351ef0ced}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

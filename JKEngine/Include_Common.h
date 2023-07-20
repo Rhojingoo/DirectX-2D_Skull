@@ -49,7 +49,17 @@
 #include "Title_Logo2.h"
 
 //stage1
+#include "Fore_GR_1_1.h"
+#include "Back_GR_1_1.h"
+#include "Mid_GR_1_1.h"
+#include "Back_GR_1_2.h"
+#include "Fore_GR_1_2.h"
+#include "Mid_GR_1_2.h"
+#include "Mid_GR_1_MiniBoss.h"
+#include "Fore_GR_1_MiniBoss.h"
+#include "Back_GR_1_MiniBoss.h"
 #include "S1_King_BG.h"
+
 
 //stage2
 #include "S2_King_BG.h"

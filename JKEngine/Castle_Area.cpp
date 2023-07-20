@@ -73,6 +73,11 @@ namespace jk
 		Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 90.f), eLayerType::Map_Effect);
 		cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f)); cloud->SetName(L"Castle_cloud");
 
+		GameObject* front_obj = object::Instantiate<GameObject>(Vector3(-300.f, 0.f, -220.f), eLayerType::Monster);
+		front_obj->SetName(L"front_obj"); MeshRenderer* mr = front_obj->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh")); mr->SetMaterial(Resources::Find<Material>(L"Front_obj"));		
+		front_obj->GetComponent<Transform>()->SetScale(Vector3(1266.f, 548.f, 0.f));
+
 #pragma endregion				
 
 #pragma region Cam & Mouse& Grid
