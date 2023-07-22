@@ -69,6 +69,9 @@
     <Filter Include="HLSLI">
       <UniqueIdentifier>{88893458-69d8-43b6-99f2-7e34b76be176}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HLSL\Animation">
+      <UniqueIdentifier>{b4534a7e-827a-428c-969a-580d451f0856}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli">

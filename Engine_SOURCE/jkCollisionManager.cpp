@@ -131,26 +131,6 @@ namespace jk
                 rightradius = rightSize.y / 2;
         }
 
-
-        // OBB 정보 만들기 중
-        //Vector3 Distance = leftPos - rightPos;
-        //Vector3 Left_Width = left->GetOwner()->GetComponent<Transform>()->Right();
-        //Vector3 Left_height = left->GetOwner()->GetComponent<Transform>()->Up();
-        //Vector3 RIGHT_Width = right->GetOwner()->GetComponent<Transform>()->Right();
-        //Vector3 RIGHT_height = right->GetOwner()->GetComponent<Transform>()->Up();
-        //Vector3 Left_Scale = left->GetOwner()->GetComponent<Transform>()->GetScale();
-        //Vector3 Right_Scale = right->GetOwner()->GetComponent<Transform>()->GetScale();
-        //Vector3 Normal_L_W = Left_Width / Left_Scale.x;
-        //Vector3 Normal_L_H = Left_Width / Left_Scale.y;
-        //Vector3 Normal_R_W = RIGHT_Width / Right_Scale.x;
-        //Vector3 Normal_R_H = RIGHT_Width / Right_Scale.y;
-        //std::vector<Vector3> Normal = {};
-        //Normal.push_back(Left_Width);
-        //Normal.push_back(Left_height);
-        //Normal.push_back(Normal_R_W);
-        //Normal.push_back(Normal_R_H);
-
-
         //사각형충돌
         //if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
         //   && fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f))

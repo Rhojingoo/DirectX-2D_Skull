@@ -55,13 +55,22 @@ cbuffer Grid : register(b2)
     float3 cbGridPadding;
 }
 
-cbuffer Move : register(b3)
+cbuffer Animator : register(b3)
+{
+    float2 SpriteLeftTop;
+    float2 SpriteSize;
+    float2 SpriteOffset;
+    float2 AtlasSize;
+}
+
+
+cbuffer Move : register(b4)
 {
     float4 Time;
 }
 
 
-cbuffer Tile : register(b4)
+cbuffer Tile : register(b5)
 {
     float4 Index_map;
 }

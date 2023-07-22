@@ -11,6 +11,7 @@ namespace jk::enums
 		Mesh,
 		Collider2D,
 		MeshRenderer,
+		Animator,
 		Camera,
 		Script,
 		End,
@@ -36,6 +37,7 @@ namespace jk::enums
 		Shader,
 		Material,
 		Mesh,
+		Animation,
 		Image,
 		End,
 	};

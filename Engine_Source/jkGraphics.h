@@ -15,8 +15,9 @@
 #define CBSLOT_TRANSFORM			0
 #define CBSLOT_MATERIAL				1
 #define CBSLOT_GRID					2
-#define CBSLOT_MOVE					3	
-#define CBSLOT_TILEM				4
+#define CBSLOT_ANIMATION2D			3
+#define CBSLOT_MOVE					4	
+#define CBSLOT_TILEM				5
 
 namespace jk::graphics
 {
@@ -36,6 +37,7 @@ namespace jk::graphics
 		Transform,
 		Material,
 		Grid,
+		Animator,
 		Move,
 		UV,
 		End,

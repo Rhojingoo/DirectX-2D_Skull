@@ -77,6 +77,14 @@ namespace jk::renderer
 		//Vector2 Resolution;
 	};
 
+	CBUFFER(AnimatorCB, CBSLOT_ANIMATION2D)
+	{
+		Vector2 spriteLeftTop;
+		Vector2 spriteSize;
+		Vector2 spriteOffset;
+		Vector2 atlasSize;
+	};
+
 	CBUFFER(MoveCB, CBSLOT_MOVE)
 	{
 		Vector4 mTime;

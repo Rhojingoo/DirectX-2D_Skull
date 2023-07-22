@@ -312,6 +312,10 @@ namespace jk::renderer
 		constantBuffer[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
 		constantBuffer[(UINT)eCBType::Grid]->Create(sizeof(TransformCB));
 
+		// Animation Buffer
+		constantBuffer[(UINT)eCBType::Animator] = new ConstantBuffer(eCBType::Animator);
+		constantBuffer[(UINT)eCBType::Animator]->Create(sizeof(AnimatorCB));
+
 		// Move ConBuffer
 		constantBuffer[(UINT)eCBType::Move] = new ConstantBuffer(eCBType::Move);
 		constantBuffer[(UINT)eCBType::Move]->Create(sizeof(MoveCB));

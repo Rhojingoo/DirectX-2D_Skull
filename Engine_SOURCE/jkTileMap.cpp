@@ -109,8 +109,8 @@ namespace jk
 		mTileData[tileIdx].mImgIdx = imgIdx;
 
 		// 아틀라스에서 타일의 행, 렬 개수 구하기
-		mColCount = (UINT)mAtlasTexture->GetWidth() / (UINT)mSlicePixel.x;
-		mRowCount = (UINT)mAtlasTexture->GetHeight() / (UINT)mSlicePixel.y;
+		mColCount = (UINT)mAtlasTexture->GetWidth_Desc() / (UINT)mSlicePixel.x;
+		mRowCount = (UINT)mAtlasTexture->GetHeight_Desc() / (UINT)mSlicePixel.y;
 
 		int row = mTileData[tileIdx].mImgIdx / mColCount;
 		int col = mTileData[tileIdx].mImgIdx % mColCount;
