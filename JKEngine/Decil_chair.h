@@ -5,7 +5,7 @@ namespace jk
 {
 	class Decil_chair : public BG
 	{
-	public:
+	public:	
 		Decil_chair();
 		virtual ~Decil_chair();
 

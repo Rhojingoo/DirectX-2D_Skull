@@ -55,28 +55,32 @@ namespace jk
 
 #pragma region CASTLE
 
-		in_Castle_Fore_ground* in_Catle_Back = object::Instantiate<in_Castle_Fore_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground);
+		Back_ground* in_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground, L"In_Fore_GR");
 		in_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1280.f, 720.f, 0.f));	in_Catle_Back->SetName(L"in_Catle_Back");
 
-		out_Castle_Fore_ground* out_Catle_Back = object::Instantiate<out_Castle_Fore_ground>(Vector3(1200.f, 0.f, 101.f), eLayerType::Fore_Ground);
+		Back_ground* out_Catle_Back = object::Instantiate<Back_ground>(Vector3(1200.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Out_Fore_GR");
 		out_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1200.f, 2204.f, 0.f));	out_Catle_Back->SetName(L"out_Catle_Back");
 
-		Devil_Castle* Castle_wall_Back = object::Instantiate<Devil_Castle>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND);
+		Back_ground* Castle_wall_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND, L"Catle_wall_Back");
 		Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(950, 350.f, 0.f)); Castle_wall_Back->SetName(L"Catle_Back");
 
-		Devil_Castle_mid* Castle_wall = object::Instantiate<Devil_Castle_mid>(Vector3(0.0f, -880.f, -150.f), eLayerType::BACK_GROUND);
+		Back_ground* Castle_wall = object::Instantiate<Back_ground>(Vector3(0.0f, -880.f, -150.f), eLayerType::BACK_GROUND, L"Catle_wall_Front_01");
 		Castle_wall->GetComponent<Transform>()->SetScale(Vector3(1966.f, 2306.f, 0.f));	Castle_wall->SetName(L"Catle_front");
 
-		Decil_chair* _chair = object::Instantiate<Decil_chair>(Vector3(-695.f, 0.1f, -200.f), eLayerType::BACK_GROUND);
+		Back_ground* _chair = object::Instantiate<Back_ground>(Vector3(-695.f, 0.1f, -200.f), eLayerType::BACK_GROUND, L"Devil_Chair");
 		_chair->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f)); _chair->SetName(L"Devil_chair");
+
+		Back_ground* front_obj = object::Instantiate<Back_ground>(Vector3(-300.f, 0.f, -220.f), eLayerType::BACK_GROUND, L"Front_obj");
+		front_obj->GetComponent<Transform>()->SetScale(Vector3(1266.f, 548.f, 0.f)); front_obj->SetName(L"front_obj");
 
 		Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 90.f), eLayerType::Map_Effect);
 		cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f)); cloud->SetName(L"Castle_cloud");
 
-		GameObject* front_obj = object::Instantiate<GameObject>(Vector3(-300.f, 0.f, -220.f), eLayerType::Monster);
-		front_obj->SetName(L"front_obj"); MeshRenderer* mr = front_obj->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh")); mr->SetMaterial(Resources::Find<Material>(L"Front_obj"));		
-		front_obj->GetComponent<Transform>()->SetScale(Vector3(1266.f, 548.f, 0.f));
+
+		//GameObject* front_obj = object::Instantiate<GameObject>(Vector3(-300.f, 0.f, -220.f), eLayerType::Monster);
+		//front_obj->SetName(L"front_obj"); MeshRenderer* mr = front_obj->AddComponent<MeshRenderer>();
+		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh")); mr->SetMaterial(Resources::Find<Material>(L"Front_obj"));		
+		//front_obj->GetComponent<Transform>()->SetScale(Vector3(1266.f, 548.f, 0.f));
 
 #pragma endregion				
 
@@ -157,46 +161,7 @@ namespace jk
 				}
 			}
 		}
-
 #pragma endregion
-
-#pragma region º¸·ù
-		//{
-		//	GameObject* player = new GameObject();
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_04"));
-		//	player->GetComponent<Transform>()->SetScale(Vector3(0.7f, 2.5f, 0.f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(-4.77f, 0.35f, 0.0f));
-		//	//player->AddComponent<CameraScript>();
-		//}
-
-
-		//{
-		//	GameObject* player = new GameObject();
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_03"));
-		//	//player->GetComponent<Transform>()->SetScale(Vector3(10.25f, 5.0f, 0.0f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(2.0f, 0.0f, 0.0f));
-		//	//player->AddComponent<CameraScript>();
-		//}
-
-
-		//{
-		//	GameObject* player = new GameObject();
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"Catle_wall_Front_04"));
-		//	//player->GetComponent<Transform>()->SetScale(Vector3(10.25f, 5.0f, 0.0f));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(2.0f, 0.0f, 0.0f));
-		//	//player->AddComponent<CameraScript>();
-		//}
-#pragma endregion
-
 	}
 
 	void Castle_Area::Update()

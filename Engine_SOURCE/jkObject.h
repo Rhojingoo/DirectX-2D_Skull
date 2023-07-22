@@ -32,6 +32,20 @@ namespace jk::object
 	}
 
 	template <typename T>
+	static __forceinline T* Instantiate(Vector3 pos, enums::eLayerType layer, const std::wstring& path)
+	{
+		T* gameObj = new T(path);
+		Transform* tr = gameObj->GetComponent<Transform>();
+		tr->SetPosition(pos);
+
+		Scene* scene = SceneManager::GetActiveScene();
+		scene->AddGameObject(layer, gameObj);
+
+		return gameObj;
+	}
+
+
+	template <typename T>
 	static __forceinline T* Instantiate(Vector3 pos, Vector3 rotate, enums::eLayerType layer)
 	{
 		T* gameObj = new T();

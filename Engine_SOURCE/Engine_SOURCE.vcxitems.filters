@@ -109,6 +109,9 @@
     <Filter Include="GameObject\Component\Animator">
       <UniqueIdentifier>{ec7014e8-510c-4165-8a79-f0614b7a9e07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Commoninclude">
+      <UniqueIdentifier>{8e55eaef-cd00-4a9e-8ebc-7717729eaadd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -121,9 +124,6 @@
       <Filter>Common\Time</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEnums.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)JKEngine.h">
@@ -234,6 +234,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkAnimator.h">
       <Filter>GameObject\Component\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h">
+      <Filter>Common\Commoninclude</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\External\CMarkUp\Include\Markup.h">
+      <Filter>Common\Commoninclude</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -343,6 +349,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkAnimator.cpp">
       <Filter>GameObject\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\External\CMarkUp\Include\Markup.cpp">
+      <Filter>Common\Commoninclude</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

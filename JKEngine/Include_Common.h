@@ -36,6 +36,9 @@
 
 
 #include "BG.h"
+#include "jkBack_ground.h"
+#include "Mid_GR_1_2.h"
+
 #include "Devil_Castle_back.h"
 #include "Devil_Castle_mid.h"
 #include "in_Castle_Fore_ground.h"
@@ -48,21 +51,6 @@
 #include "Title_Logo1.h"
 #include "Title_Logo2.h"
 
-//stage1
-#include "Fore_GR_1_1.h"
-#include "Back_GR_1_1.h"
-#include "Mid_GR_1_1.h"
-#include "Back_GR_1_2.h"
-#include "Fore_GR_1_2.h"
-#include "Mid_GR_1_2.h"
-#include "Mid_GR_1_MiniBoss.h"
-#include "Fore_GR_1_MiniBoss.h"
-#include "Back_GR_1_MiniBoss.h"
-#include "S1_King_BG.h"
-
-
-//stage2
-#include "S2_King_BG.h"
 
 //PLAYER
 #include "Player.h"

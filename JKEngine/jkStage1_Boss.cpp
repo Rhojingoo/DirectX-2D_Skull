@@ -17,7 +17,7 @@ namespace jk
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		camera->AddComponent<CameraScript>();
 
-		S1_King_BG* Kingbg = object::Instantiate<S1_King_BG>(Vector3(40.f, 120.f, -100.f), eLayerType::BACK_GROUND);				
+		Back_ground* Kingbg = object::Instantiate<Back_ground>(Vector3(40.f, 120.f, -100.f), eLayerType::BACK_GROUND, L"Stage_king1");
 		Kingbg->GetComponent<Transform>()->SetScale(Vector3(900.f*2, 560.0f*2, 0.0f));
 
 #pragma region tile_map		

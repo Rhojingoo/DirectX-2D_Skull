@@ -19,13 +19,13 @@ namespace jk
 
 		#pragma region BG	
 				{
-					Fore_GR_1_MiniBoss* Fore_S1_1 = object::Instantiate<Fore_GR_1_MiniBoss>(Vector3(0.f, 0.f, 101.f), eLayerType::Fore_Ground);
+					Back_ground* Fore_S1_1 = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Fore_GR1_MB");
 					Fore_S1_1->GetComponent<Transform>()->SetScale(Vector3(1800.f, 800.f, 0.f));	Fore_S1_1->SetName(L"Fore_S1_mb");
 
-					Mid_GR_1_MiniBoss* Mid_S1_1 = object::Instantiate<Mid_GR_1_MiniBoss>(Vector3(0.f, 150.f, 100.f), eLayerType::Mid_Ground);
+					Back_ground* Mid_S1_1 = object::Instantiate<Back_ground>(Vector3(0.f, 150.f, 100.f), eLayerType::Mid_Ground, L"Mid_GR1_MB");
 					Mid_S1_1->GetComponent<Transform>()->SetScale(Vector3(960 * 2.f, 800 * 1.5f, 0.f));	Mid_S1_1->SetName(L"Mid_S1_mb");
 
-					Back_GR_1_MiniBoss* Back_S1_mb = object::Instantiate<Back_GR_1_MiniBoss>(Vector3(0.f, -150.f, -100.f), eLayerType::BACK_GROUND);
+					Back_ground* Back_S1_mb = object::Instantiate<Back_ground>(Vector3(0.f, -150.f, -100.f), eLayerType::BACK_GROUND, L"Back_GR1_MB");
 					Back_S1_mb->GetComponent<Transform>()->SetScale(Vector3(687.f, 281.f, 0.f));	Back_S1_mb->SetName(L"Back_S1_mb");
 				}
 		#pragma endregion
