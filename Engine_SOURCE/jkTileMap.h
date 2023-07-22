@@ -4,6 +4,7 @@
 #include "jkMesh.h"
 #include "jkMaterial.h"
 #include "jkStructuredBuffer.h"
+#include "jkXmlParser.h"
 
 namespace jk
 {
@@ -57,6 +58,10 @@ namespace jk
 		void ClearTileData();
 
 		void SetAllTileData(int imgIdx);
+
+		static void TileMap_Setting(GameObject* SetGob, const std::wstring& Material_path, 
+			Vector2 Tilesize, int tile_colum, int tile_row, const std::wstring& Tile_path);
+
 
 	private:
 		std::shared_ptr<Texture>       mAtlasTexture;

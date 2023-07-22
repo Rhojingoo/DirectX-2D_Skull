@@ -40,11 +40,6 @@
 #include "jkCloud.h"
 
 
-#include "Title_Image.h"
-#include "Title_Logo1.h"
-#include "Title_Logo2.h"
-
-
 //PLAYER
 #include "Player.h"
 #include "Skul_Basic.h"

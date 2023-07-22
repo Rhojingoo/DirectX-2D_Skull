@@ -5,9 +5,6 @@
     <ClInclude Include="LoadScenes.h">
       <Filter>Scene\Load</Filter>
     </ClInclude>
-    <ClInclude Include="jkPlayScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="jkCameraScript.h">
       <Filter>Script</Filter>
     </ClInclude>
@@ -38,15 +35,6 @@
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Game_ob\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Title_Image.h">
-      <Filter>Game_ob\BG\1.Title</Filter>
-    </ClInclude>
-    <ClInclude Include="Title_Logo1.h">
-      <Filter>Game_ob\BG\1.Title</Filter>
-    </ClInclude>
-    <ClInclude Include="Title_Logo2.h">
-      <Filter>Game_ob\BG\1.Title</Filter>
     </ClInclude>
     <ClInclude Include="jkToolScene.h">
       <Filter>Scene\practice</Filter>
@@ -91,11 +79,11 @@
     <ClInclude Include="jkCloud.h">
       <Filter>Game_ob\BG\Cloud</Filter>
     </ClInclude>
+    <ClInclude Include="jkPlayScene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="jkPlayScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="jkCameraScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
@@ -125,15 +113,6 @@
     </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>Game_ob\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Title_Image.cpp">
-      <Filter>Game_ob\BG\1.Title</Filter>
-    </ClCompile>
-    <ClCompile Include="Title_Logo1.cpp">
-      <Filter>Game_ob\BG\1.Title</Filter>
-    </ClCompile>
-    <ClCompile Include="Title_Logo2.cpp">
-      <Filter>Game_ob\BG\1.Title</Filter>
     </ClCompile>
     <ClCompile Include="jkToolScene.cpp">
       <Filter>Scene\practice</Filter>
@@ -180,6 +159,9 @@
     <ClCompile Include="jkCloud.cpp">
       <Filter>Game_ob\BG\Cloud</Filter>
     </ClCompile>
+    <ClCompile Include="jkPlayScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -212,9 +194,6 @@
     <Filter Include="Game_ob\Camera">
       <UniqueIdentifier>{33499aa4-ff68-48e5-9cb8-eede46a35ef3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\BG\1.Title">
-      <UniqueIdentifier>{f2e0c067-74a7-4650-a22c-94c7412e847f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\practice">
       <UniqueIdentifier>{caf04a8c-2b82-4e5a-b578-8460651d9a7a}</UniqueIdentifier>
     </Filter>
@@ -238,6 +217,12 @@
     </Filter>
     <Filter Include="Game_ob\BG\Cloud">
       <UniqueIdentifier>{c4de2ad1-f938-4fad-b417-fc0a628121f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{342b9687-f343-41ab-86f1-3e50dd42f6f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Tilemap">
+      <UniqueIdentifier>{4f4880bc-5738-4f5e-9f43-3bced8e48c64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

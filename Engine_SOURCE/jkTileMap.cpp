@@ -148,4 +148,40 @@ namespace jk
 		}
 	}
 
+	void TileMap::TileMap_Setting(GameObject* SetGob, const std::wstring& Material_path, Vector2 Tilesize, int tile_colum, int tile_row, const std::wstring& Tile_path)
+	{
+		TileMap* tilemap = SetGob->AddComponent<TileMap>();
+		std::shared_ptr<Material> material = Resources::Find<Material>(Material_path);
+
+		tilemap->SetMaterial(material);
+		tilemap->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		tilemap->SetAtlasTex(material->GetTexture());
+		tilemap->SetTileSize(Tilesize);
+		tilemap->SetTileMapCount(tile_colum, tile_row);
+
+		bool xmlTest = false;
+		std::unique_ptr<XmlParser> testParser = std::make_unique<XmlParser>();
+		xmlTest = testParser->LoadFile(Tile_path);
+		if (xmlTest)
+		{
+			xmlTest = testParser->FindElem(L"map");
+			testParser->IntoElem();
+			xmlTest = testParser->FindElem(L"layer");
+			testParser->IntoElem();
+			xmlTest = testParser->FindElem(L"data");
+			testParser->IntoElem();
+
+			int tileIdx = 0;
+			while (testParser->FindElem("tile"))
+			{
+				if (testParser->HasAttribute("gid"))
+				{
+					int imgIdx = testParser->GetIntAttribute("gid") - 1;
+					tilemap->SetTileData(tileIdx, imgIdx);
+				}
+				tileIdx++;
+			}
+		}
+	}
+
 }

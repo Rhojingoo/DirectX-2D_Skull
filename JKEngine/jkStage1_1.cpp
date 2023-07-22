@@ -32,55 +32,25 @@ namespace jk
 		}
 		#pragma endregion
 
-
-
 		#pragma region tile_map		
 		{
-			GameObject* Tile_map = object::Instantiate<GameObject>(eLayerType::BACK_GROUND);
+			static Vector2 TileSize = Vector2(32.f, 32.f);
+			static int Tile_Colum = 30;
+			static int Tile_Row = 30;
+
+			static GameObject* Tile_map = object::Instantiate<GameObject>(eLayerType::BACK_GROUND);
 			Tile_map->SetName(L"tile_stage1");
 			Transform* tr = Tile_map->GetComponent<Transform>();
 			//tr->SetPositionZ(-200.f);
 			tr->AddPositionY(0.f);
 			tr->SetPositionX(-100.f);
-			tr->SetScale(Vector3(30 * 32.f, 30 * 32.f, 0.f));
+			tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
 
-			TileMap* tilemap = Tile_map->AddComponent<TileMap>();
-			std::shared_ptr<Material> material = Resources::Find<Material>(L"Stage1_1Tile");
-
-			tilemap->SetMaterial(material);
-			tilemap->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			tilemap->SetAtlasTex(material->GetTexture());
-			tilemap->SetTileSize(Vector2(32.f, 32.f));
-			tilemap->SetTileMapCount(30, 30);
-
-			bool xmlTest = false;
-			std::unique_ptr<XmlParser> testParser = std::make_unique<XmlParser>();
-			xmlTest = testParser->LoadFile(L"\\Resources\\Metadata\\TileMap\\Stage1_1.xml");
-			if (xmlTest)
-			{
-				xmlTest = testParser->FindElem(L"map");
-				testParser->IntoElem();
-				xmlTest = testParser->FindElem(L"layer");
-				testParser->IntoElem();
-				xmlTest = testParser->FindElem(L"data");
-				testParser->IntoElem();
-
-				int tileIdx = 0;
-				while (testParser->FindElem("tile"))
-				{
-					if (testParser->HasAttribute("gid"))
-					{
-						int imgIdx = testParser->GetIntAttribute("gid") - 1;
-						tilemap->SetTileData(tileIdx, imgIdx);
-					}
-					tileIdx++;
-				}
-			}
+			TileMap::TileMap_Setting(Tile_map, L"Stage1_1Tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Stage1_1.xml");
 		}
-			#pragma endregion
-
-	
+		#pragma endregion	
 	}
+
 	void Stage1_1::Update()
 	{
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
@@ -89,6 +59,7 @@ namespace jk
 		}
 		Scene::Update();
 	}
+
 	void Stage1_1::LateUpdate()
 	{
 		Scene::LateUpdate();
