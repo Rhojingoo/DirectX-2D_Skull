@@ -37,7 +37,6 @@
 
 #include "BG.h"
 #include "jkBack_ground.h"
-#include "Mid_GR_1_2.h"
 #include "jkCloud.h"
 
 

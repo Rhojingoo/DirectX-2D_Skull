@@ -85,9 +85,6 @@
     <ClInclude Include="jkTitleScene.h">
       <Filter>Scene\Title</Filter>
     </ClInclude>
-    <ClInclude Include="Mid_GR_1_2.h">
-      <Filter>Game_ob\BG\3.Stage1\1-2</Filter>
-    </ClInclude>
     <ClInclude Include="jkBack_ground.h">
       <Filter>Game_ob\BG\Back_Ground</Filter>
     </ClInclude>
@@ -177,9 +174,6 @@
     <ClCompile Include="jkTitleScene.cpp">
       <Filter>Scene\Title</Filter>
     </ClCompile>
-    <ClCompile Include="Mid_GR_1_2.cpp">
-      <Filter>Game_ob\BG\3.Stage1\1-2</Filter>
-    </ClCompile>
     <ClCompile Include="jkBack_ground.cpp">
       <Filter>Game_ob\BG\Back_Ground</Filter>
     </ClCompile>
@@ -218,14 +212,8 @@
     <Filter Include="Game_ob\Camera">
       <UniqueIdentifier>{33499aa4-ff68-48e5-9cb8-eede46a35ef3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\BG\2.Devil_Castle">
-      <UniqueIdentifier>{70c64eda-360b-4d75-8679-576fd75f0414}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game_ob\BG\1.Title">
       <UniqueIdentifier>{f2e0c067-74a7-4650-a22c-94c7412e847f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\BG\3.Stage1">
-      <UniqueIdentifier>{30876091-eed8-481b-b6fe-c627daaad204}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene\practice">
       <UniqueIdentifier>{caf04a8c-2b82-4e5a-b578-8460651d9a7a}</UniqueIdentifier>
@@ -244,9 +232,6 @@
     </Filter>
     <Filter Include="Scene\Title">
       <UniqueIdentifier>{24efe6b1-644a-4a31-9c7a-c5b66bc2f922}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\BG\3.Stage1\1-2">
-      <UniqueIdentifier>{975060df-bcd2-44c5-a904-e89ec433f89a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game_ob\BG\Back_Ground">
       <UniqueIdentifier>{c0fdddce-cb3a-4801-a4b5-39b0df94ac3e}</UniqueIdentifier>
