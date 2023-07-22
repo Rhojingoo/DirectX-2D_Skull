@@ -21,14 +21,23 @@ namespace jk
 
 		#pragma region BG	
 		{	
-			Back_ground* Fore_S1_1 = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Fore_GR1_1");
-			Fore_S1_1->GetComponent<Transform>()->SetScale(Vector3(1800.f, 800.f, 0.f));	Fore_S1_1->SetName(L"Fore_S1_1");
+			Back_ground* Fore_S1_1_color = object::Instantiate<Back_ground>(Vector3(-100.f, 50.f, 105.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Color");
+			Fore_S1_1_color->GetComponent<Transform>()->SetScale(Vector3(960.f, 800.f, 0.f));	Fore_S1_1_color->SetName(L"s1_1_fore_gr_color");
 
-			Cloud* Mid_S1_1 = object::Instantiate<Cloud>(Vector3(0.f, 150.f, 100.f), eLayerType::Mid_Ground, L"Mid_GR1_1");
-			Mid_S1_1->GetComponent<Transform>()->SetScale(Vector3(951*5.f, 345*1.5f, 0.f));	Mid_S1_1->SetName(L"Mid_S1_1");
+			Back_ground* Fore_S1_1_tree = object::Instantiate<Back_ground>(Vector3(-100.f, -150.f, 103.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Tree");
+			Fore_S1_1_tree->GetComponent<Transform>()->SetScale(Vector3(960.f, 800.f, 0.f));	Fore_S1_1_tree->SetName(L"s1_1_fore_gr_tree");
 
-			Back_ground* Back_S1_1 = object::Instantiate<Back_ground>(Vector3(0.f, -230.f, -100.f), eLayerType::BACK_GROUND, L"Back_GR1_1");
-			Back_S1_1->GetComponent<Transform>()->SetScale(Vector3(780.f, 189.f, 0.f));	Back_S1_1->SetName(L"Back_S1_1");
+			Back_ground* Mid_S1_1 = object::Instantiate<Back_ground>(Vector3(-100.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Stage1_Mid_GR1_1");
+			Mid_S1_1->GetComponent<Transform>()->SetScale(Vector3(960.f, 800.f, 0.f));	Mid_S1_1->SetName(L"Mid_S1_1");
+
+			Back_ground* Back_GR00 = object::Instantiate<Back_ground>(Vector3(50.f, -235.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR00");
+			Back_GR00->GetComponent<Transform>()->SetScale(Vector3(785.f, 190.f, 0.f));	Back_GR00->SetName(L"back_gr00");
+
+			Back_ground* Back_GR01 = object::Instantiate<Back_ground>(Vector3(-100.f, 300.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR02");
+			Back_GR01->GetComponent<Transform>()->SetScale(Vector3(145.f, 172.f, 0.f));	Back_GR01->SetName(L"back_gr01");
+
+			Back_ground* Back_GR02 = object::Instantiate<Back_ground>(Vector3(45.f, 300.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR02");
+			Back_GR02->GetComponent<Transform>()->SetScale(Vector3(145.f, 172.f, 0.f));	Back_GR02->SetName(L"back_gr02");
 		}
 		#pragma endregion
 
