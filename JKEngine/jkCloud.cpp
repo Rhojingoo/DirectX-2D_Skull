@@ -4,7 +4,7 @@
 
 namespace jk
 {
-	Cloud::Cloud()
+	Cloud::Cloud(const std::wstring& path)
 		: meshrenderer()
 		, tr()		
 		, _Pos(1000)
@@ -13,7 +13,7 @@ namespace jk
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"Cloud_Devil"));
+		mr->SetMaterial(Resources::Find<Material>(path));
 		tr = GetComponent<Transform>();
 	}
 	Cloud::Cloud(Vector3 mPos)

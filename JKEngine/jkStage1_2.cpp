@@ -19,7 +19,7 @@ namespace jk
 
 #pragma region BG	
 		{
-			Mid_GR_1_2* Mid_S1_2 = object::Instantiate<Mid_GR_1_2>(Vector3(0.f, 230.f, 70.f), eLayerType::Mid_Ground);
+			Cloud* Mid_S1_2 = object::Instantiate<Cloud>(Vector3(0.f, 230.f, 70.f), eLayerType::Mid_Ground, L"Cloud_S1_2");
 			Mid_S1_2->GetComponent<Transform>()->SetScale(Vector3(718.f*5, 280.f, 0.f));	Mid_S1_2->SetName(L"Mid_S1_2");	
 
 			Back_ground* Fore_S1_2 = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Fore_GR1_2");

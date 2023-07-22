@@ -7,7 +7,7 @@ namespace jk
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"Cloud_S1_2"));
+		mr->SetMaterial(Resources::Find<Material>(L"Cloud_Devil"));
 		tr = GetComponent<Transform>();
 	}
 	Mid_GR_1_2::~Mid_GR_1_2()

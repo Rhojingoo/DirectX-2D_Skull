@@ -546,15 +546,6 @@ namespace jk::renderer
 						Resources::Insert(L"Cloud_Devil", material);
 			#pragma endregion
 
-			#pragma region Tile_map(Mark_Up_practive)
-						texture = Resources::Load<Texture>(L"DG_Tiles", L"..\\Resources\\Tile\\DG_Tile.png");
-						material = std::make_shared<Material>();
-						material->SetShader(tile_shader);
-						material->SetTexture(texture);
-						material->SetRenderingMode(eRenderingMode::Transparent);
-						Resources::Insert(L"DG_Tile", material);
-			#pragma endregion
-
 			#pragma region Tile_map(Mark_Up)
 									texture = Resources::Load<Texture>(L"Devil_castle_tiles", L"..\\Resources\\Tile\\Devil_castle_tile.png");
 									material = std::make_shared<Material>();
@@ -563,8 +554,6 @@ namespace jk::renderer
 									material->SetRenderingMode(eRenderingMode::Transparent);
 									Resources::Insert(L"Devil_castle_tile", material);
 			#pragma endregion	
-
-
 
 			#pragma region PlayScene_Devil(background_materials)
 						//{

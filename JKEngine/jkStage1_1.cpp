@@ -24,7 +24,7 @@ namespace jk
 			Back_ground* Fore_S1_1 = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Fore_GR1_1");
 			Fore_S1_1->GetComponent<Transform>()->SetScale(Vector3(1800.f, 800.f, 0.f));	Fore_S1_1->SetName(L"Fore_S1_1");
 
-			Back_ground* Mid_S1_1 = object::Instantiate<Back_ground>(Vector3(0.f, 150.f, 100.f), eLayerType::Mid_Ground, L"Mid_GR1_1");
+			Cloud* Mid_S1_1 = object::Instantiate<Cloud>(Vector3(0.f, 150.f, 100.f), eLayerType::Mid_Ground, L"Mid_GR1_1");
 			Mid_S1_1->GetComponent<Transform>()->SetScale(Vector3(951*5.f, 345*1.5f, 0.f));	Mid_S1_1->SetName(L"Mid_S1_1");
 
 			Back_ground* Back_S1_1 = object::Instantiate<Back_ground>(Vector3(0.f, -230.f, -100.f), eLayerType::BACK_GROUND, L"Back_GR1_1");

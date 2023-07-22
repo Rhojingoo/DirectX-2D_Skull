@@ -38,12 +38,6 @@
 #include "BG.h"
 #include "jkBack_ground.h"
 #include "Mid_GR_1_2.h"
-
-#include "Devil_Castle_back.h"
-#include "Devil_Castle_mid.h"
-#include "in_Castle_Fore_ground.h"
-#include "out_Castle_Fore_ground.h"
-#include "Decil_chair.h"
 #include "jkCloud.h"
 
 

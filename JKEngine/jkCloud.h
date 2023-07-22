@@ -7,7 +7,7 @@ namespace jk
 	class Cloud : public BG
 	{
 	public:
-		Cloud();
+		Cloud(const std::wstring& path);
 		Cloud(Vector3 mPos);
 		virtual ~Cloud();
 

@@ -27,18 +27,6 @@
     <ClInclude Include="UI.h">
       <Filter>Game_ob\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Devil_Castle_back.h">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
-    </ClInclude>
-    <ClInclude Include="Devil_Castle_mid.h">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
-    </ClInclude>
-    <ClInclude Include="Decil_chair.h">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
-    </ClInclude>
-    <ClInclude Include="jkCloud.h">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
-    </ClInclude>
     <ClInclude Include="Player_State_UI.h">
       <Filter>Game_ob\UI\State</Filter>
     </ClInclude>
@@ -68,12 +56,6 @@
     </ClInclude>
     <ClInclude Include="Face_UI.h">
       <Filter>Game_ob\UI\Face</Filter>
-    </ClInclude>
-    <ClInclude Include="in_Castle_Fore_ground.h">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
-    </ClInclude>
-    <ClInclude Include="out_Castle_Fore_ground.h">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClInclude>
     <ClInclude Include="Skul_Basic.h">
       <Filter>Game_ob\PLAYER</Filter>
@@ -109,6 +91,9 @@
     <ClInclude Include="jkBack_ground.h">
       <Filter>Game_ob\BG\Back_Ground</Filter>
     </ClInclude>
+    <ClInclude Include="jkCloud.h">
+      <Filter>Game_ob\BG\Cloud</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkPlayScene.cpp">
@@ -131,18 +116,6 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>Game_ob\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Devil_Castle_back.cpp">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
-    </ClCompile>
-    <ClCompile Include="Devil_Castle_mid.cpp">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
-    </ClCompile>
-    <ClCompile Include="Decil_chair.cpp">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
-    </ClCompile>
-    <ClCompile Include="jkCloud.cpp">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClCompile>
     <ClCompile Include="Player_State_UI.cpp">
       <Filter>Game_ob\UI\State</Filter>
@@ -173,12 +146,6 @@
     </ClCompile>
     <ClCompile Include="Face_UI.cpp">
       <Filter>Game_ob\UI\Face</Filter>
-    </ClCompile>
-    <ClCompile Include="in_Castle_Fore_ground.cpp">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
-    </ClCompile>
-    <ClCompile Include="out_Castle_Fore_ground.cpp">
-      <Filter>Game_ob\BG\2.Devil_Castle</Filter>
     </ClCompile>
     <ClCompile Include="Skul_Basic.cpp">
       <Filter>Game_ob\PLAYER</Filter>
@@ -215,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="jkBack_ground.cpp">
       <Filter>Game_ob\BG\Back_Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="jkCloud.cpp">
+      <Filter>Game_ob\BG\Cloud</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +250,9 @@
     </Filter>
     <Filter Include="Game_ob\BG\Back_Ground">
       <UniqueIdentifier>{c0fdddce-cb3a-4801-a4b5-39b0df94ac3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\Cloud">
+      <UniqueIdentifier>{c4de2ad1-f938-4fad-b417-fc0a628121f7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
