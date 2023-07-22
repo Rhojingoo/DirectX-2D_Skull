@@ -4,6 +4,7 @@ namespace jk
 
 	XmlParser::XmlParser()
 	{
+		//std::shared_ptr<CMarkup> mXml;
 		mXml = new CMarkup;
 	}
 

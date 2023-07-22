@@ -54,7 +54,7 @@ namespace jk
 			tilemap->SetTileMapCount(30, 30);
 
 			bool xmlTest = false;
-			XmlParser* testParser = new XmlParser;
+			std::unique_ptr<XmlParser> testParser = std::make_unique<XmlParser>();
 			xmlTest = testParser->LoadFile(L"\\Resources\\Metadata\\TileMap\\Stage1_1.xml");
 			if (xmlTest)
 			{

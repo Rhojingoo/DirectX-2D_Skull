@@ -79,7 +79,6 @@ constexpr bool has_flag(E lhs, E rhs)
 }
 
 
-
 static std::wstring StringToWideString(const std::string& str)
 {
 	int numChars = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\\External\\CMarkUp\\Include\\Markup.h"
+//#include "..\\External\\CMarkUp\\Include\\Markup.cpp"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\External\\CMarkUp\\lib\\CMarkUp_debug.lib")
@@ -37,6 +38,8 @@ namespace jk
 		int GetIntAttribute(const std::wstring& attibuteIntName);
 
 	private:
+		//CMarkup* mXml = new CMarkup;
 		CMarkup* mXml;
+		//std::shared_ptr<CMarkup> mXml;
 	};
 }
