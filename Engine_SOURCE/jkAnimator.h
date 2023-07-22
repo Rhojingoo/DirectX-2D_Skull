@@ -37,7 +37,7 @@ namespace jk
 		virtual void LateUpdate();
 		virtual void Render();
 
-		Animation* Create(const std::wstring& name
+		void Create(const std::wstring& name
 			, std::shared_ptr<graphics::Texture> atlas
 			, Vector2 leftTop
 			, Vector2 size
@@ -46,8 +46,13 @@ namespace jk
 			, float duration = 0.1f);
 
 		Animation* FindAnimation(const std::wstring& name);
+		Events* FindEvents(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop);
 		void Binds();
+
+		std::function<void()>& StartEvent(const std::wstring key);
+		std::function<void()>& CompleteEvent(const std::wstring key);
+		std::function<void()>& EndEvent(const std::wstring key);
 
 	private:
 		std::map<std::wstring, Animation*> mAnimations;

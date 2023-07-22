@@ -4,9 +4,22 @@
 #include "jkGameObject.h"
 #include "jkTime.h"
 #include "jkInput.h"
+#include "jkAnimator.h"
 
 namespace jk
 {
+	PlayerScript::PlayerScript()
+	{
+	}
+	PlayerScript::~PlayerScript()
+	{
+	}
+	void PlayerScript::Initialize()
+	{
+		//Animator* at = GetOwner()->GetComponent<Animator>();
+		//at->CompleteEvent(L"Idle") = std::bind(&PlayerScript::Complete, this);
+
+	}
 	void PlayerScript::Update()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -34,5 +47,9 @@ namespace jk
 			pos.y += 100.0f * Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
+	}
+	void PlayerScript::Complete()
+	{
+		int a = 0;
 	}
 }

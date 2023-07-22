@@ -21,6 +21,8 @@
     <None Include="$(MSBuildThisFileDirectory)Texture.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AnimationPS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)AnimationVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)GridPS.hlsl" />

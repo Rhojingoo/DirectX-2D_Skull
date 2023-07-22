@@ -71,6 +71,12 @@ namespace jk::renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+
+		shader = jk::Resources::Find<Shader>(L"Animation_Shader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 		
 		shader = jk::Resources::Find<Shader>(L"Tile_Shader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
@@ -338,6 +344,12 @@ namespace jk::renderer
 		jk::Resources::Insert(L"SpriteShader", spriteShader);
 
 
+		std::shared_ptr<Shader> spriteAniShader = std::make_shared<Shader>();
+		spriteAniShader->Create(eShaderStage::VS, L"AnimationVS.hlsl", "main");
+		spriteAniShader->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
+		jk::Resources::Insert(L"Animation_Shader", spriteAniShader);
+
+
 		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
 		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
@@ -374,6 +386,8 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"Move_Shader");
 		std::shared_ptr<Shader> tile_shader
 			= Resources::Find<Shader>(L"Tile_Shader");
+		std::shared_ptr<Shader> animationShader
+			= Resources::Find<Shader>(L"Animation_Shader");
 
 		#pragma region Public
 		#pragma region Mouse
@@ -444,6 +458,13 @@ namespace jk::renderer
 
 
 	#pragma endregion
+
+
+				//º´½ÅÁþ ÇØ¼®ÇØºÁ¾ßÇÔ
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Animation_Shader", material);
 
 		#pragma region Title
 				texture	= Resources::Load<Texture>(L"title_image", L"..\\Resources\\Texture\\Title\\Title_Art2.png");
