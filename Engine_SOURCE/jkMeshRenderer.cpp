@@ -3,6 +3,7 @@
 #include "jkTransform.h"
 #include "jkRenderer.h"
 #include "jkInput.h"
+#include "jkAnimator.h"
 
 namespace jk
 {
@@ -31,6 +32,12 @@ namespace jk
 		GetMesh()->Render();
 		GetMaterial()->Clear();
 		
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		if (animator)
+		{
+			animator->Binds();
+		}
 		//선생코드
 		//Transform* tr = GetOwner()->GetComponent<Transform>();
 		//tr->BindConstantBuffer();

@@ -51,7 +51,6 @@ cbuffer Grid : register(b2)
     float2 cameraScale;
     float2 resolution;
     float meshScale;
-
     float3 cbGridPadding;
 }
 
@@ -61,6 +60,7 @@ cbuffer Animator : register(b3)
     float2 SpriteSize;
     float2 SpriteOffset;
     float2 AtlasSize;
+    uint animationType;
 }
 
 

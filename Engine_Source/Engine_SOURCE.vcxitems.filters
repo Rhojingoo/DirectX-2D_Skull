@@ -67,6 +67,48 @@
     <Filter Include="GameObject\Component\Collider">
       <UniqueIdentifier>{ac1532e7-99f1-47f0-b756-0d3568a4bfd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\Camera">
+      <UniqueIdentifier>{325e5378-70ac-4ae9-b36a-37924fbd6234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Base">
+      <UniqueIdentifier>{2e87fb99-d7e0-4984-ba95-38a29f6f1c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\MeshRenderer">
+      <UniqueIdentifier>{fe7192c8-82b3-4187-8c16-07aa7b0cf3ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Transform">
+      <UniqueIdentifier>{4c816747-d1ce-4874-8dce-f5e6e868c033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{94fc6e40-d357-4b14-a0c8-eb5b48063520}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\StructBuffer">
+      <UniqueIdentifier>{b14fb97a-11ac-4cbe-a4f5-a9a84116874e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Mesh">
+      <UniqueIdentifier>{26240e1b-be86-4415-baca-c10046fdad03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\ConstantBuffer">
+      <UniqueIdentifier>{714dbb75-8179-4cbf-8cfe-1892d8ecc47d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{e9be916b-bc0f-4a52-9b0a-15e4f2dec27e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader">
+      <UniqueIdentifier>{662efd55-eef0-4921-8ff4-e0e920cc7eb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Renderer">
+      <UniqueIdentifier>{fbaa5d6f-246b-49ff-ad20-17c7c0f8215c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\GraphicDevice">
+      <UniqueIdentifier>{635ecddb-34ee-41d6-b08c-9645f2a3d748}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Animation">
+      <UniqueIdentifier>{b2cbeeeb-0084-45b8-913a-b1cc42dc841b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Animator">
+      <UniqueIdentifier>{ec7014e8-510c-4165-8a79-f0614b7a9e07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -90,9 +132,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkApplication.h">
       <Filter>High Level Interface</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkGraphicDevice_Dx11.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkGraphics.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -105,23 +144,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkResource.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkRenderer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkMesh.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkShader.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkConstantBuffer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkScript.h">
       <Filter>GameObject\Component\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkComponent.h">
-      <Filter>GameObject\Component</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkGameObject.h">
       <Filter>GameObject</Filter>
@@ -135,32 +159,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkScene.h">
       <Filter>Scene\Base</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkMeshRenderer.h">
-      <Filter>GameObject\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkTransform.h">
-      <Filter>GameObject\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h">
-      <Filter>GameObject\Component</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkImage.h">
       <Filter>Common\TileImage</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkObject.h">
       <Filter>Common\Object</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkBaseRenderer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkXmlParser.h">
       <Filter>Common\Parser</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkCollisionManager.h">
       <Filter>Scene\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.h">
-      <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkUI_Mouse.h">
       <Filter>Input</Filter>
@@ -171,12 +180,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTileMap.h">
       <Filter>Common\Parser</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkTexture.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkCamera.h">
-      <Filter>GameObject\Component</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTile.h">
       <Filter>★practice\Tile</Filter>
     </ClInclude>
@@ -185,6 +188,51 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkCollider2D.h">
       <Filter>GameObject\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkCamera.h">
+      <Filter>GameObject\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkComponent.h">
+      <Filter>GameObject\Component\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkMeshRenderer.h">
+      <Filter>GameObject\Component\MeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTransform.h">
+      <Filter>GameObject\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkMesh.h">
+      <Filter>Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkBaseRenderer.h">
+      <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkRenderer.h">
+      <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkShader.h">
+      <Filter>Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkConstantBuffer.h">
+      <Filter>Resource\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.h">
+      <Filter>Graphics\StructBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkGraphicDevice_Dx11.h">
+      <Filter>Graphics\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkAnimation.h">
+      <Filter>Resource\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkAnimator.h">
+      <Filter>GameObject\Component\Animator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +248,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkApplication.cpp">
       <Filter>High Level Interface</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkGraphicDevice_Dx11.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkInput.cpp">
       <Filter>Input</Filter>
     </ClCompile>
@@ -212,23 +257,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkResource.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkRenderer.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkMesh.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkShader.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkConstantBuffer.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkScript.cpp">
       <Filter>GameObject\Component\Script</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkComponent.cpp">
-      <Filter>GameObject\Component</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkSceneManager.cpp">
       <Filter>Scene\Manager</Filter>
@@ -239,29 +269,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkScene.cpp">
       <Filter>Scene\Base</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkMeshRenderer.cpp">
-      <Filter>GameObject\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkTransform.cpp">
-      <Filter>GameObject\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkMaterial.cpp">
-      <Filter>GameObject\Component</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkImage.cpp">
       <Filter>Common\TileImage</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkBaseRenderer.cpp">
-      <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkXmlParser.cpp">
       <Filter>Common\Parser</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCollisionManager.cpp">
       <Filter>Scene\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.cpp">
-      <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkUI_Mouse.cpp">
       <Filter>Input</Filter>
@@ -271,12 +286,6 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTileMap.cpp">
       <Filter>Common\Parser</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkTexture.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkCamera.cpp">
-      <Filter>GameObject\Component</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkPalatte.cpp">
       <Filter>★practice\Tile</Filter>
@@ -289,6 +298,51 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCollider2D.cpp">
       <Filter>GameObject\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkCamera.cpp">
+      <Filter>GameObject\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkComponent.cpp">
+      <Filter>GameObject\Component\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkMeshRenderer.cpp">
+      <Filter>GameObject\Component\MeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTransform.cpp">
+      <Filter>GameObject\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkMesh.cpp">
+      <Filter>Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkBaseRenderer.cpp">
+      <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkRenderer.cpp">
+      <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkShader.cpp">
+      <Filter>Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkConstantBuffer.cpp">
+      <Filter>Resource\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.cpp">
+      <Filter>Graphics\StructBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkGraphicDevice_Dx11.cpp">
+      <Filter>Graphics\GraphicDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkAnimation.cpp">
+      <Filter>Resource\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkAnimator.cpp">
+      <Filter>GameObject\Component\Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

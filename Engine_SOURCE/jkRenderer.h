@@ -83,6 +83,7 @@ namespace jk::renderer
 		Vector2 spriteSize;
 		Vector2 spriteOffset;
 		Vector2 atlasSize;
+		UINT animationType;
 	};
 
 	CBUFFER(MoveCB, CBSLOT_MOVE)
