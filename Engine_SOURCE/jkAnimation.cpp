@@ -47,6 +47,8 @@ namespace jk
 	void Animation::Render()
 	{
 	}
+
+	//Create(key, mImageAtlas, Vector2(0.0), Vector2(width, height), fileCount);
 	void Animation::Create(std::wstring name
 		, std::shared_ptr<graphics::Texture> atlas
 		, Vector2 leftTop
@@ -70,6 +72,7 @@ namespace jk
 			sprite.size.y = size.y / height;
 			sprite.offset = offset;
 			sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
+			//sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
 			sprite.duration = duration;
 
 			mSprites.push_back(sprite);

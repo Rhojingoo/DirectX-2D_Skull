@@ -27,6 +27,7 @@ namespace jk::object
 
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
+		gameObj->Initialize();
 
 		return gameObj;
 	}
@@ -40,6 +41,7 @@ namespace jk::object
 
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
+		gameObj->Initialize();
 
 		return gameObj;
 	}
@@ -55,6 +57,7 @@ namespace jk::object
 
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
+		gameObj->Initialize();
 
 		return gameObj;
 	}
@@ -70,6 +73,7 @@ namespace jk::object
 
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
+		gameObj->Initialize();
 
 		return gameObj;
 	}

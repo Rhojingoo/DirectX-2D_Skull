@@ -1,5 +1,6 @@
 #include "jkTexture.h"
 #include "jkGraphicDevice_Dx11.h"
+#include "jkGameObject.h"
 
 namespace jk::graphics
 {
@@ -20,10 +21,29 @@ namespace jk::graphics
 	{
 	}
 
-    HRESULT Texture::CreateTex(const std::wstring& path, UINT width, UINT height, UINT fileCount)
+    void Texture::Reverse_Image(DirectX::ScratchImage& image)
+    {
+        auto img = *image.GetImage(0, 0, 0);
+
+        for (size_t y = 0; y < img.height; y++)
+        {
+            auto rowStart = reinterpret_cast<UINT32*>(img.pixels + y * img.rowPitch);
+            auto rowEnd = rowStart + img.width - 1;
+
+            while (rowStart < rowEnd)
+            {
+                std::swap(*rowStart, *rowEnd);
+                rowStart++;
+                rowEnd--;
+            }
+        }
+    }
+
+    HRESULT Texture::CreateTex(const std::wstring& path, UINT width, UINT height, UINT fileCount, int check_reverse)
     {
         ScratchImage atlasImage;
         HRESULT hr = S_OK;
+        reversecheck = check_reverse;
 
         wchar_t ext[_MAX_EXT] = {};
         _wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, ext, _MAX_EXT);
@@ -60,7 +80,10 @@ namespace jk::graphics
                 if (FAILED(hr))
                 {
                     return hr;
-                }
+                }                
+               
+                if(reversecheck==1 /*|| reversecheck == 3*/)
+                Reverse_Image(convertedImage);                
 
                 if (isMake == false)
                 {
@@ -72,28 +95,34 @@ namespace jk::graphics
                     return hr;
                 }
 
-
-                UINT checkwidth = convertedImage.GetMetadata().width;
-                UINT pluswidth = 0;
-                UINT checkheight = convertedImage.GetMetadata().height;
-                UINT plusheight = 0;
-
-                if (checkwidth >= width)
-                    pluswidth = 0;
+          
+                if (reversecheck == 0 /*|| reversecheck == 2*/)
+                {
+                    //오른쪽
+                    UINT checkwidth = convertedImage.GetMetadata().width;       //각각 스프라이트 이미지 사이즈 받아오기
+                    UINT checkheight = convertedImage.GetMetadata().height;
+                    UINT spriteRight = checkwidth;
+                    UINT spriteBottom = checkheight;
+                    UINT atlasSegmentRight = (width * count) + width;
+                    UINT atlasSegmentBottom = height;
+                    INT offsetX = atlasSegmentRight - checkwidth;
+                    INT offsetY = atlasSegmentBottom - checkheight;    
+                    hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, checkwidth, checkheight),
+                        *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, offsetX, offsetY);
+                }
                 else
                 {
-                    pluswidth = (width - checkwidth) / 2;
+                    UINT checkwidth = convertedImage.GetMetadata().width;
+                    UINT checkheight = convertedImage.GetMetadata().height;
+                    UINT spriteRight = checkwidth;
+                    UINT spriteBottom = checkheight;
+                    UINT atlasSegmentRight = width * count;
+                    UINT atlasSegmentBottom = height;
+                    INT offsetX = atlasSegmentRight;
+                    INT offsetY = atlasSegmentBottom - checkheight;
+                    hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, checkwidth, checkheight),
+                        *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, offsetX, offsetY);
                 }
-                if (checkheight >= height)
-                    plusheight = 0;
-                else
-                {
-                    plusheight = height - checkheight;
-                }
-
-                hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, convertedImage.GetMetadata().width, convertedImage.GetMetadata().height),
-                    *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, (width * count) + pluswidth, plusheight);
-
                 if (FAILED(hr))
                 {
                     return hr;
@@ -113,9 +142,6 @@ namespace jk::graphics
 
         mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
 
-        //atlasTexture = std::make_shared<graphics::Texture>();
-        //atlasTexture->mTexture = mTexture.Get();
-        //atlasTexture->mSRV = mSRV.Get();
 
         this->mImage.Initialize2D(
             atlasImage.GetMetadata().format,
@@ -180,5 +206,8 @@ namespace jk::graphics
 		GetDevice()->BindShaderResource(eShaderStage::HS, 0, &srv);
 		GetDevice()->BindShaderResource(eShaderStage::CS, 0, &srv);
 		GetDevice()->BindShaderResource(eShaderStage::PS, 0, &srv);
-	}
+	}   
 }
+
+
+  

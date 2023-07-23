@@ -459,11 +459,11 @@ namespace jk::renderer
 
 	#pragma endregion
 
-				////해석해봐야함
-				//material = std::make_shared<Material>();
-				//material->SetShader(animationShader);
-				//material->SetRenderingMode(eRenderingMode::Transparent);
-				//Resources::Insert(L"Animation_Shader", material);
+				//해석해봐야함
+				material = std::make_shared<Material>();
+				material->SetShader(animationShader);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Animation_Shader", material);
 
 		#pragma region Title
 				texture	= Resources::Load<Texture>(L"title_image", L"..\\Resources\\Texture\\Title\\Title_Art2.png");

@@ -7,6 +7,7 @@ namespace jk
 {
 	Animator::Animator()
 		: Component(eComponentType::Animator)
+		, reverse(0)
 	{
 	}
 
@@ -61,7 +62,7 @@ namespace jk
 	{
 	}
 
-
+	//Create(key, mImageAtlas, Vector2(0.0), Vector2(width, height), fileCount);
 	void Animator::Create(const std::wstring& name
 		, std::shared_ptr<graphics::Texture> atlas
 		, Vector2 leftTop
@@ -95,11 +96,13 @@ namespace jk
 		mEvents.insert(std::make_pair(name, events));
 	}
 
-	Animation* Animator::CreateAnimations(const std::wstring& path)
+	Animation* Animator::CreateAnimations(const std::wstring& path, GameObject* OBJ, int reverse_check)
 	{
-		UINT width = 0;
-		UINT height = 0;
+		UINT width = 0.00000000000000000000000000000000000000000000000000000000000000000001;
+		UINT height = 100;
 		UINT fileCount = 0;
+		UINT Scanbos_H = 100;
+		reverse = reverse_check;
 
 		std::filesystem::path fs(path);
 		std::vector<std::shared_ptr<Texture>> textures = {};
@@ -120,8 +123,6 @@ namespace jk
 			{
 				height = tex->GetHeight();
 			}
-			fileCount++;
-
 
 			textures.push_back(tex);
 
@@ -129,14 +130,24 @@ namespace jk
 		}
 
 		std::wstring key = fs.parent_path().filename();
-		key += fs.filename();
+		if (reverse == 0 /*|| reverse == 2*/)
+		{	
+			key += fs.filename();
+		}
+		else if (reverse == 1 /*|| reverse == 3*/)
+		{			
+			key += fs.filename();
+			key += L"R";
+		}
 
+		GameObject* ScaleSet = OBJ;
+		//ScaleSet->GetComponent<Transform>()->SetScale(Vector3(width , height, 1.0f));
+		ScaleSet->GetComponent<Transform>()->SetScale(Vector3(width* fileCount, height* fileCount, 1.0f));
 
 		mImageAtlas = std::make_shared<graphics::Texture>();
-		mImageAtlas->CreateTex(path, width, height, fileCount);
-		//mImageAtlas->CreateTex(path, fileCount, maxwidth, maxheight);
-		//textures[0]->CreateTex(path, width, height, fileCount, mImageAtlas);
-		Create(key, mImageAtlas, Vector2(0.0), Vector2(width, height), 4);
+		mImageAtlas->CreateTex(path, width, height, fileCount, reverse);
+
+		Create(key, mImageAtlas, Vector2(0.0), Vector2(width, height), fileCount);
 
 		return nullptr;
 	}

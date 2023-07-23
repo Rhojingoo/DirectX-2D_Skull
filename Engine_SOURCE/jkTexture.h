@@ -23,7 +23,8 @@ namespace jk::graphics
 		Texture();
 		~Texture();
 
-		HRESULT CreateTex(const std::wstring& path, UINT width, UINT height, UINT fileCount);
+		HRESULT CreateTex(const std::wstring& path, UINT width, UINT height, UINT fileCount, int check_reverse = 0);
+		void Reverse_Image(DirectX::ScratchImage& image);//Horizontally
 
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShader(eShaderStage stage, UINT startSlot);
@@ -49,5 +50,6 @@ namespace jk::graphics
 		UINT mWidth;
 		UINT mHeight;		
 		Vector2 mTextureSize;
+		int reversecheck;
 	};
 }

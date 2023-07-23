@@ -19,22 +19,22 @@ namespace jk
 		//	pos.z -= 100.0f * (float)Time::DeltaTime();
 		//	tr->SetPosition(pos);
 		//}
-		if (Input::GetKey(eKeyCode::A))
+		if (Input::GetKey(eKeyCode::LEFT))
 		{
 			pos.x -= 100.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
-		else if (Input::GetKey(eKeyCode::D))
+		else if (Input::GetKey(eKeyCode::RIGHT))
 		{
 			pos.x += 100.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
-		else if (Input::GetKey(eKeyCode::Q))
+		else if (Input::GetKey(eKeyCode::UP))
 		{
 			pos.y -= 100.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);
 		}
-		else if (Input::GetKey(eKeyCode::E))
+		else if (Input::GetKey(eKeyCode::DOWN))
 		{
 			pos.y += 100.0f * (float)Time::DeltaTime();
 			tr->SetPosition(pos);

@@ -45,7 +45,7 @@ namespace jk
 			, Vector2 offset = Vector2::Zero
 			, float duration = 0.1f);
 
-		Animation* CreateAnimations(const std::wstring& path);
+		Animation* CreateAnimations(const std::wstring& path, GameObject* OBJ, int reverse_check = 0);
 
 
 		Animation* FindAnimation(const std::wstring& name);
@@ -65,6 +65,7 @@ namespace jk
 		std::shared_ptr<Texture> mImageAtlas;
 
 		bool mbLoop;
+		int reverse;
 	};
 }
 

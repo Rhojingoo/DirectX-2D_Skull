@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\External\CMarkUp\Include\Markup.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\External\DirectXTex\Include\DirectXTex.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Commoninclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkAnimator.h" />
@@ -97,6 +98,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkXmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\External\DirectXTex\Include\DirectXTex.inl" />
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl" />
   </ItemGroup>
 </Project>
