@@ -434,7 +434,7 @@ namespace jk::renderer
 		#pragma region Player
 			#pragma region Skul_Base
 				texture = Resources::Load<Texture>(L"basic_skul", L"..\\Resources\\Texture\\Player\\Normal\\Idle\\Idle_1.png");
-				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+				material = std::make_shared<Material>(); material->SetShader(animationShader);	material->SetTexture(texture);
 				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"Basic_Skul", material);				
 			#pragma endregion
@@ -459,11 +459,11 @@ namespace jk::renderer
 
 	#pragma endregion
 
-				//해석해봐야함
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Animation_Shader", material);
+				////해석해봐야함
+				//material = std::make_shared<Material>();
+				//material->SetShader(animationShader);
+				//material->SetRenderingMode(eRenderingMode::Transparent);
+				//Resources::Insert(L"Animation_Shader", material);
 
 		#pragma region Title
 				texture	= Resources::Load<Texture>(L"title_image", L"..\\Resources\\Texture\\Title\\Title_Art2.png");

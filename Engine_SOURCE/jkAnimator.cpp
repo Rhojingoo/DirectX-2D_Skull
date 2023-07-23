@@ -1,5 +1,6 @@
 #include "jkAnimator.h"
-#include "jkAnimator.h"
+#include "jkTexture.h"
+#include "jkResources.h"
 
 
 namespace jk
@@ -92,6 +93,52 @@ namespace jk
 
 		events = new Events();
 		mEvents.insert(std::make_pair(name, events));
+	}
+
+	Animation* Animator::CreateAnimations(const std::wstring& path)
+	{
+		UINT width = 0;
+		UINT height = 0;
+		UINT fileCount = 0;
+
+		std::filesystem::path fs(path);
+		std::vector<std::shared_ptr<Texture>> textures = {};
+		for (const auto& p : std::filesystem::recursive_directory_iterator(path))
+		{
+			std::wstring fileName = p.path().filename();
+			std::wstring fullName = p.path().wstring(); // Use the full path from the iterator
+			const std::wstring ext = p.path().extension();
+
+			std::shared_ptr<Texture> tex = Resources::Load<Texture>(fileName, fullName);
+
+
+			if (width < tex->GetWidth())
+			{
+				width = tex->GetWidth();
+			}
+			if (height < tex->GetHeight())
+			{
+				height = tex->GetHeight();
+			}
+			fileCount++;
+
+
+			textures.push_back(tex);
+
+			fileCount++;
+		}
+
+		std::wstring key = fs.parent_path().filename();
+		key += fs.filename();
+
+
+		mImageAtlas = std::make_shared<graphics::Texture>();
+		mImageAtlas->CreateTex(path, width, height, fileCount);
+		//mImageAtlas->CreateTex(path, fileCount, maxwidth, maxheight);
+		//textures[0]->CreateTex(path, width, height, fileCount, mImageAtlas);
+		Create(key, mImageAtlas, Vector2(0.0), Vector2(width, height), 4);
+
+		return nullptr;
 	}
 
 	Animation* Animator::FindAnimation(const std::wstring& name)

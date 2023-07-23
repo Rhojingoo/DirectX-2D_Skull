@@ -1,4 +1,5 @@
 #include "Castle_Area.h"
+#include "jkAnimator.h"
 
 namespace jk
 {
@@ -25,19 +26,19 @@ namespace jk
 		//Zelda->GetComponent<Transform>()->SetScale(Vector3(140.f, 130.f, 0.f));
 
 #pragma region UI	
-		Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
-		Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
-		Player_State->SetName(L"playyer_state_inventory");
+		//Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
+		//Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
+		//Player_State->SetName(L"playyer_state_inventory");
 
-		Player_Hp_Bar* Player_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
-		Player_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
-		Player_Hp->SetName(L"player_hp_bar");
-		Player_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+		//Player_Hp_Bar* Player_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
+		//Player_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
+		//Player_Hp->SetName(L"player_hp_bar");
+		//Player_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 
-		Face_UI* Player_Face = object::Instantiate<Face_UI>(Vector3(-0.33f, 0.23f, -2.1f), eLayerType::UI);
-		Player_Face->GetComponent<Transform>()->SetScale(Vector3(0.324f, 0.824f, 0.f));
-		Player_Face->SetName(L"player_head");
-		Player_Face->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+		//Face_UI* Player_Face = object::Instantiate<Face_UI>(Vector3(-0.33f, 0.23f, -2.1f), eLayerType::UI);
+		//Player_Face->GetComponent<Transform>()->SetScale(Vector3(0.324f, 0.824f, 0.f));
+		//Player_Face->SetName(L"player_head");
+		//Player_Face->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 
 #pragma endregion	
 
@@ -47,6 +48,11 @@ namespace jk
 		Collider2D* cd = Basic_Skul->AddComponent<Collider2D>();
 		Basic_Skul->AddComponent<PlayerScript>();
 		Basic_Skul->AddComponent<CameraScript>();
+		Animator* at = Basic_Skul->AddComponent<Animator>();
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Normal\\Walk");
+		at->PlayAnimation(L"NormalWalk", true);
+
+
 #pragma endregion
 
 #pragma region Npc	

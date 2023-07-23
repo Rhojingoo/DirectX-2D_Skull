@@ -23,6 +23,8 @@ namespace jk::graphics
 		Texture();
 		~Texture();
 
+		HRESULT CreateTex(const std::wstring& path, UINT width, UINT height, UINT fileCount);
+
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShader(eShaderStage stage, UINT startSlot);
 		void Clear();
@@ -45,8 +47,7 @@ namespace jk::graphics
 		HBITMAP mBitmap;
 		HDC mHdc;
 		UINT mWidth;
-		UINT mHeight;
-		
+		UINT mHeight;		
 		Vector2 mTextureSize;
 	};
 }

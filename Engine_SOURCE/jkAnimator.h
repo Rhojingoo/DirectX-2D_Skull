@@ -45,6 +45,9 @@ namespace jk
 			, Vector2 offset = Vector2::Zero
 			, float duration = 0.1f);
 
+		Animation* CreateAnimations(const std::wstring& path);
+
+
 		Animation* FindAnimation(const std::wstring& name);
 		Events* FindEvents(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop);
@@ -58,6 +61,8 @@ namespace jk
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
 		Animation* mActiveAnimation;
+		std::shared_ptr<Texture> mSpriteSheet;
+		std::shared_ptr<Texture> mImageAtlas;
 
 		bool mbLoop;
 	};
