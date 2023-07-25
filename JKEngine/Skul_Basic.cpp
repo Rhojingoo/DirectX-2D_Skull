@@ -6,6 +6,8 @@ namespace jk
 	Skul_Basic::Skul_Basic()
 		: mDir(1)
 		, _attack(0)
+		, _State(Skul_Basic_State::Idle)
+		, at(nullptr)
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -37,8 +39,8 @@ namespace jk
 		at->PlayAnimation(L"NormalIdle", true);
 		at->CompleteEvent(L"NormalAttackA") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NormalAttackAR") = std::bind(&Skul_Basic::attack_choice, this);
-		at->CompleteEvent(L"NormalAttackB") = std::bind(&Skul_Basic::attack_wait, this);
-		at->CompleteEvent(L"NormalAttackBR") = std::bind(&Skul_Basic::attack_wait, this);
+		at->CompleteEvent(L"NormalAttackB") = std::bind(&Skul_Basic::attack_choice, this);
+		at->CompleteEvent(L"NormalAttackBR") = std::bind(&Skul_Basic::attack_choice, this);
 		//at->PlayAnimation(L"NormalIdleR", true);
 		//at->PlayAnimation(L"NormalWalk", true);
 
@@ -128,7 +130,6 @@ namespace jk
 			}
 		}
 
-
 		//if (Input::GetKeyDown(eKeyCode::C))
 		//{
 		//	_State = Skul_Basic_State::Jump;
@@ -158,8 +159,8 @@ namespace jk
 				mDir = -1;
 			}
 		}
-
 	}
+
 	void Skul_Basic::move()
 	{
 		if (Input::GetKeyUp(eKeyCode::RIGHT)
@@ -178,6 +179,20 @@ namespace jk
 			}
 		}
 
+		if (Input::GetKey(eKeyCode::X))
+		{
+			_State = Skul_Basic_State::Attack_A;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"NormalAttackA", true);
+				mDir = 1;
+			}
+			else if (mDir == -1)
+			{
+				at->PlayAnimation(L"NormalAttackAR", true);
+				mDir = -1;
+			}
+		}
 	}
 	void Skul_Basic::jump()
 	{
@@ -190,32 +205,30 @@ namespace jk
 	}
 	void Skul_Basic::attack_a()
 	{
-		_attack = false;
-
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
 			_attack = true;
-			if (_attack == true)
-			{
-				_State = Skul_Basic_State::Attack_B;
-				if (mDir == 1)
-				{
-					at->PlayAnimation(L"NormalAttackB", true);
-					mDir = 1;
-				}
-				else if (mDir == -1)
-				{
-					at->PlayAnimation(L"NormalAttackBR", true);
-					mDir = -1;
-				}
-				_attack = false;
-			}
 		}
-
+		if (Input::GetKeyDown(eKeyCode::RIGHT))
+		{			
+			mDir = 1;
+		}
+		else if (Input::GetKeyDown(eKeyCode::LEFT))
+		{			
+			mDir = -1;
+		}
 	}
 	void Skul_Basic::attack_b()
 	{
 		_attack = false;
+		if (Input::GetKeyDown(eKeyCode::RIGHT))
+		{
+			mDir = 1;
+		}
+		else if (Input::GetKeyDown(eKeyCode::LEFT))
+		{
+			mDir = -1;
+		}
 	}
 	void Skul_Basic::jumpattack()
 	{
@@ -246,8 +259,6 @@ namespace jk
 
 	void Skul_Basic::attack_choice()
 	{
-
-
 		if (_attack == true)
 		{
 			_State = Skul_Basic_State::Attack_B;
@@ -262,24 +273,6 @@ namespace jk
 				mDir = -1;
 			}
 		}
-		if (_attack == false)
-		{
-			_State = Skul_Basic_State::Idle;
-			if (mDir == 1)
-			{
-				at->PlayAnimation(L"NormalIdle", true);
-				mDir = 1;
-			}
-			else if (mDir == -1)
-			{
-				at->PlayAnimation(L"NormalIdleR", true);
-				mDir = -1;
-			}
-		}
-	}
-
-	void Skul_Basic::attack_wait()
-	{
 		if (_attack == false)
 		{
 			_State = Skul_Basic_State::Idle;

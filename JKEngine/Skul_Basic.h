@@ -49,8 +49,5 @@ namespace jk
 		int mDir;
 		bool _attack;
 		void attack_choice();
-		void attack_wait();
-
-
 	};
 }
