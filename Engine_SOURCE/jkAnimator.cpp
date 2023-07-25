@@ -1,5 +1,4 @@
 #include "jkAnimator.h"
-#include "jkTexture.h"
 #include "jkResources.h"
 
 
@@ -98,8 +97,9 @@ namespace jk
 
 	Animation* Animator::CreateAnimations(const std::wstring& path, GameObject* OBJ, int reverse_check)
 	{
-		UINT width = 0.00000000000000000000000000000000000000000000000000000000000000000001;
-		UINT height = 100;
+		//UINT width = 0.00000000000000000000000000000000000000000000000000000000000000000001;
+		UINT width = 0;
+		UINT height = 80;
 		UINT fileCount = 0;
 		UINT Scanbos_H = 100;
 		reverse = reverse_check;

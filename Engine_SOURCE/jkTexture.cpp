@@ -99,19 +99,19 @@ namespace jk::graphics
                 if (reversecheck == 0 /*|| reversecheck == 2*/)
                 {
                     //오른쪽
-                    UINT checkwidth = convertedImage.GetMetadata().width;       //각각 스프라이트 이미지 사이즈 받아오기
-                    UINT checkheight = convertedImage.GetMetadata().height;
-                    UINT spriteRight = checkwidth;
-                    UINT spriteBottom = checkheight;
-                    UINT atlasSegmentRight = (width * count) + width;
-                    UINT atlasSegmentBottom = height;
-                    INT offsetX = atlasSegmentRight - checkwidth;
-                    INT offsetY = atlasSegmentBottom - checkheight;    
-                    hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, checkwidth, checkheight),
-                        *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, offsetX, offsetY);
-                }
-                else
-                {
+                    //UINT checkwidth = convertedImage.GetMetadata().width;       //각각 스프라이트 이미지 사이즈 받아오기
+                    //UINT checkheight = convertedImage.GetMetadata().height;
+                    //UINT spriteRight = checkwidth;
+                    //UINT spriteBottom = checkheight;
+                    //UINT atlasSegmentRight = (width * count) + width;
+                    //UINT atlasSegmentBottom = height;
+                    //INT offsetX = atlasSegmentRight - checkwidth;
+                    //INT offsetY = atlasSegmentBottom - checkheight;    
+                    //hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, checkwidth, checkheight),
+                    //    *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, offsetX, offsetY);
+
+
+                     //왼쪽
                     UINT checkwidth = convertedImage.GetMetadata().width;
                     UINT checkheight = convertedImage.GetMetadata().height;
                     UINT spriteRight = checkwidth;
@@ -119,6 +119,33 @@ namespace jk::graphics
                     UINT atlasSegmentRight = width * count;
                     UINT atlasSegmentBottom = height;
                     INT offsetX = atlasSegmentRight;
+                    INT offsetY = atlasSegmentBottom - checkheight;
+                    hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, checkwidth, checkheight),
+                        *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, offsetX, offsetY);
+                }
+                else
+                {
+                    //왼쪽
+                    //UINT checkwidth = convertedImage.GetMetadata().width;
+                    //UINT checkheight = convertedImage.GetMetadata().height;
+                    //UINT spriteRight = checkwidth;
+                    //UINT spriteBottom = checkheight;
+                    //UINT atlasSegmentRight = width * count;
+                    //UINT atlasSegmentBottom = height;
+                    //INT offsetX = atlasSegmentRight;
+                    //INT offsetY = atlasSegmentBottom - checkheight;
+                    //hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, checkwidth, checkheight),
+                    //    *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, offsetX, offsetY);
+
+
+                    //오른쪽
+                    UINT checkwidth = convertedImage.GetMetadata().width;       //각각 스프라이트 이미지 사이즈 받아오기
+                    UINT checkheight = convertedImage.GetMetadata().height;
+                    UINT spriteRight = checkwidth;
+                    UINT spriteBottom = checkheight;
+                    UINT atlasSegmentRight = (width * count) + width;
+                    UINT atlasSegmentBottom = height;
+                    INT offsetX = atlasSegmentRight - checkwidth;
                     INT offsetY = atlasSegmentBottom - checkheight;
                     hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, checkwidth, checkheight),
                         *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, offsetX, offsetY);

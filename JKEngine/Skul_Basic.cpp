@@ -1,5 +1,4 @@
 #include "Skul_Basic.h"
-#include "jkAnimator.h"
 
 namespace jk
 {
@@ -275,16 +274,35 @@ namespace jk
 		}
 		if (_attack == false)
 		{
-			_State = Skul_Basic_State::Idle;
-			if (mDir == 1)
+
+			if (Input::GetKey(eKeyCode::RIGHT)
+				|| Input::GetKey(eKeyCode::LEFT))
 			{
-				at->PlayAnimation(L"NormalIdle", true);
-				mDir = 1;
+				_State = Skul_Basic_State::Move;
+				if (Input::GetKey(eKeyCode::RIGHT))
+				{
+					at->PlayAnimation(L"NormalWalk", true);
+					mDir = 1;
+				}
+				else if (Input::GetKey(eKeyCode::LEFT))
+				{
+					at->PlayAnimation(L"NormalWalkR", true);
+					mDir = -1;
+				}
 			}
-			else if (mDir == -1)
+			else
 			{
-				at->PlayAnimation(L"NormalIdleR", true);
-				mDir = -1;
+				_State = Skul_Basic_State::Idle;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"NormalIdle", true);
+					mDir = 1;
+				}
+				else if (mDir == -1)
+				{
+					at->PlayAnimation(L"NormalIdleR", true);
+					mDir = -1;
+				}
 			}
 		}
 	}

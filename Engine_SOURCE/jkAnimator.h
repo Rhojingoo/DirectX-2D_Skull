@@ -1,6 +1,7 @@
 #pragma once
 #include "jkComponent.h"
 #include "jkAnimation.h"
+#include "Commoninclude.h"
 
 namespace jk
 {
