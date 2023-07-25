@@ -47,6 +47,9 @@ namespace jk
 		Skul_Basic_State _State;
 		Animator* at;
 		int mDir;
+		bool _attack;
+		void attack_choice();
+		void attack_wait();
 
 
 	};

@@ -4,7 +4,8 @@
 namespace jk
 {
 	Skul_Basic::Skul_Basic()
-		:mDir(1)
+		: mDir(1)
+		, _attack(0)
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -34,7 +35,10 @@ namespace jk
 		
 
 		at->PlayAnimation(L"NormalIdle", true);
-	
+		at->CompleteEvent(L"NormalAttackA") = std::bind(&Skul_Basic::attack_choice, this);
+		at->CompleteEvent(L"NormalAttackAR") = std::bind(&Skul_Basic::attack_choice, this);
+		at->CompleteEvent(L"NormalAttackB") = std::bind(&Skul_Basic::attack_wait, this);
+		at->CompleteEvent(L"NormalAttackBR") = std::bind(&Skul_Basic::attack_wait, this);
 		//at->PlayAnimation(L"NormalIdleR", true);
 		//at->PlayAnimation(L"NormalWalk", true);
 
@@ -109,17 +113,17 @@ namespace jk
 			}
 		}
 
-		if (Input::GetKeyDown(eKeyCode::X))
+		if (Input::GetKey(eKeyCode::X))
 		{
 			_State = Skul_Basic_State::Attack_A;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"NormalAttackA", false);
+				at->PlayAnimation(L"NormalAttackA", true);
 				mDir = 1;
 			}
 			else if (mDir == -1)
 			{
-				at->PlayAnimation(L"NormalAttackAR", false);
+				at->PlayAnimation(L"NormalAttackAR", true);
 				mDir = -1;
 			}
 		}
@@ -186,24 +190,45 @@ namespace jk
 	}
 	void Skul_Basic::attack_a()
 	{
-		if (Input::GetKeyUp(eKeyCode::X))		
+		_attack = false;
+
+		if (Input::GetKeyDown(eKeyCode::X))
 		{
-			_State = Skul_Basic_State::Idle;
-			if (mDir==1)
+			_attack = true;
+			if (_attack == true)
 			{
-				at->PlayAnimation(L"NormalIdle", true);
-				mDir = 1;
-			}
-			else if (mDir == -1)
-			{
-				at->PlayAnimation(L"NormalIdleR", true);
-				mDir = -1;
+				_State = Skul_Basic_State::Attack_B;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"NormalAttackB", true);
+					mDir = 1;
+				}
+				else if (mDir == -1)
+				{
+					at->PlayAnimation(L"NormalAttackBR", true);
+					mDir = -1;
+				}
+				_attack = false;
 			}
 		}
+
 	}
 	void Skul_Basic::attack_b()
 	{
-		if (Input::GetKeyUp(eKeyCode::X))
+		_attack = false;
+	}
+	void Skul_Basic::jumpattack()
+	{
+	}
+	void Skul_Basic::skill_a()
+	{
+	}
+	void Skul_Basic::skill_b()
+	{
+	}
+	void Skul_Basic::death()
+	{
+		if (Input::GetKeyUp(eKeyCode::Z))
 		{
 			_State = Skul_Basic_State::Idle;
 			if (mDir == 1)
@@ -218,18 +243,44 @@ namespace jk
 			}
 		}
 	}
-	void Skul_Basic::jumpattack()
+
+	void Skul_Basic::attack_choice()
 	{
+
+
+		if (_attack == true)
+		{
+			_State = Skul_Basic_State::Attack_B;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"NormalAttackB", true);
+				mDir = 1;
+			}
+			else if (mDir == -1)
+			{
+				at->PlayAnimation(L"NormalAttackBR", true);
+				mDir = -1;
+			}
+		}
+		if (_attack == false)
+		{
+			_State = Skul_Basic_State::Idle;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"NormalIdle", true);
+				mDir = 1;
+			}
+			else if (mDir == -1)
+			{
+				at->PlayAnimation(L"NormalIdleR", true);
+				mDir = -1;
+			}
+		}
 	}
-	void Skul_Basic::skill_a()
+
+	void Skul_Basic::attack_wait()
 	{
-	}
-	void Skul_Basic::skill_b()
-	{
-	}
-	void Skul_Basic::death()
-	{
-		if (Input::GetKeyUp(eKeyCode::Z))
+		if (_attack == false)
 		{
 			_State = Skul_Basic_State::Idle;
 			if (mDir == 1)

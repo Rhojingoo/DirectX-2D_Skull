@@ -45,7 +45,7 @@ namespace jk
 #pragma region Player	
 		Skul_Basic* Basic_Skul = object::Instantiate<Skul_Basic>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		Basic_Skul->SetName(L"Basic_Skul");
-		//Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));	
+		//Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
 		Collider2D* cd = Basic_Skul->AddComponent<Collider2D>();
 		Basic_Skul->AddComponent<PlayerScript>();
 		Basic_Skul->AddComponent<CameraScript>();
