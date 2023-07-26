@@ -43,12 +43,40 @@ namespace jk
 #pragma endregion	
 
 #pragma region Player	
-		Skul_Basic* Basic_Skul = object::Instantiate<Skul_Basic>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-		Basic_Skul->SetName(L"Basic_Skul");
-		//Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
-		Collider2D* cd = Basic_Skul->AddComponent<Collider2D>();
-		Basic_Skul->AddComponent<PlayerScript>();
-		Basic_Skul->AddComponent<CameraScript>();
+		{
+			//Skul_Basic* Basic_Skul = object::Instantiate<Skul_Basic>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+			//Basic_Skul->SetName(L"Basic_Skul");
+			////Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
+			//Collider2D* cd = Basic_Skul->AddComponent<Collider2D>();
+			//Basic_Skul->AddComponent<PlayerScript>();
+			//Basic_Skul->AddComponent<CameraScript>();
+		}
+		{
+			//Skul_Nohead* Nohead_Skul = object::Instantiate<Skul_Nohead>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+			//Nohead_Skul->SetName(L"Nohead_Skul");
+			////Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
+			//Collider2D* cd = Nohead_Skul->AddComponent<Collider2D>();
+			//Nohead_Skul->AddComponent<PlayerScript>();
+			//Nohead_Skul->AddComponent<CameraScript>();
+		}
+		{
+			//Skul_Spear* Spear_Skul = object::Instantiate<Skul_Spear>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+			//Spear_Skul->SetName(L"Spear_Skul");
+			////Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
+			//Collider2D* cd = Spear_Skul->AddComponent<Collider2D>();
+			//Spear_Skul->AddComponent<PlayerScript>();
+			//Spear_Skul->AddComponent<CameraScript>();
+		}
+		{
+			Skul_Wolf* Wolf_Skul = object::Instantiate<Skul_Wolf>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+			Wolf_Skul->SetName(L"Wolf_Skul");
+			//Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
+			Collider2D* cd = Wolf_Skul->AddComponent<Collider2D>();
+			Wolf_Skul->AddComponent<PlayerScript>();
+			Wolf_Skul->AddComponent<CameraScript>();
+		}
+
+
 
 #pragma endregion
 

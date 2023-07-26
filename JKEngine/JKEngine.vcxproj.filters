@@ -82,6 +82,18 @@
     <ClInclude Include="jkPlayScene.h">
       <Filter>Scene\Base</Filter>
     </ClInclude>
+    <ClInclude Include="Skul_Nohead.h">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="Skul_Wolf.h">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="Skul_Spear.h">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="Skul_Sword.h">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -161,6 +173,18 @@
     </ClCompile>
     <ClCompile Include="jkPlayScene.cpp">
       <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Nohead.cpp">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Wolf.cpp">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Spear.cpp">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Sword.cpp">
+      <Filter>Game_ob\PLAYER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

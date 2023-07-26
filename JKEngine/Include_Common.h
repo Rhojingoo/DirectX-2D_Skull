@@ -59,6 +59,10 @@
 //PLAYER
 #include "Player.h"
 #include "Skul_Basic.h"
+#include "Skul_Nohead.h"
+#include "Skul_Spear.h"
+#include "Skul_Wolf.h"
+#include "Skul_Sword.h"
 
 
 //UI

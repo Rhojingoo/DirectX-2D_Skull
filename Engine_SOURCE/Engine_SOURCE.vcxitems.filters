@@ -82,9 +82,6 @@
     <Filter Include="Resource\Material">
       <UniqueIdentifier>{94fc6e40-d357-4b14-a0c8-eb5b48063520}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\StructBuffer">
-      <UniqueIdentifier>{b14fb97a-11ac-4cbe-a4f5-a9a84116874e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource\Mesh">
       <UniqueIdentifier>{26240e1b-be86-4415-baca-c10046fdad03}</UniqueIdentifier>
     </Filter>
@@ -111,6 +108,9 @@
     </Filter>
     <Filter Include="Common\Commoninclude">
       <UniqueIdentifier>{8e55eaef-cd00-4a9e-8ebc-7717729eaadd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\StructBuffer">
+      <UniqueIdentifier>{b14fb97a-11ac-4cbe-a4f5-a9a84116874e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -223,7 +223,7 @@
       <Filter>Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.h">
-      <Filter>Graphics\StructBuffer</Filter>
+      <Filter>Resource\StructBuffer</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkGraphicDevice_Dx11.h">
       <Filter>Graphics\GraphicDevice</Filter>
@@ -342,7 +342,7 @@
       <Filter>Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkStructuredBuffer.cpp">
-      <Filter>Graphics\StructBuffer</Filter>
+      <Filter>Resource\StructBuffer</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkGraphicDevice_Dx11.cpp">
       <Filter>Graphics\GraphicDevice</Filter>

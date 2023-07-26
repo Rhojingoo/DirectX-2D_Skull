@@ -97,9 +97,8 @@ namespace jk
 
 	Animation* Animator::CreateAnimations(const std::wstring& path, GameObject* OBJ, int reverse_check)
 	{
-		//UINT width = 0.00000000000000000000000000000000000000000000000000000000000000000001;
 		UINT width = 0;
-		UINT height = 80;
+		UINT height = 0;
 		UINT fileCount = 0;
 		UINT Scanbos_H = 100;
 		reverse = reverse_check;
