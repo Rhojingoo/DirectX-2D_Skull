@@ -10,6 +10,7 @@ namespace jk::enums
 		Transform,
 		Mesh,
 		Collider2D,
+		RigidBody,
 		MeshRenderer,
 		Animator,
 		Camera,
@@ -50,4 +51,14 @@ namespace jk::enums
 		Cube,
 		End,
 	};
+
+	enum class eMoveDir
+	{
+		Left = 0,
+		Top,
+		Right,
+		Bottom,
+		End,
+	};
+
 }

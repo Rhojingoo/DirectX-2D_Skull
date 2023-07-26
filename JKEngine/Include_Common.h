@@ -28,6 +28,7 @@
 #include "..\\Engine_SOURCE\\jkMeshRenderer.h"
 #include "..\\Engine_SOURCE\\jkBaseRenderer.h"
 #include "..\\Engine_SOURCE\\jkAnimator.h"
+#include "..\\Engine_SOURCE\\jkRigidBody.h"
 
 
 

@@ -21,40 +21,39 @@ namespace jk
 	}
 	void Skul_Nohead::Initialize()
 	{
-		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackA", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackB", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Dash", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Fall", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\FallRepeat", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Idle", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Jump", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\JumpAttack", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Skill", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Switch", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Walk", this);
+	/*	at = AddComponent<Animator>();
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\AttackA", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\AttackB", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Dash", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Fall", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\FallRepeat", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Idle", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Jump", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\JumpAttack", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Skill", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Switch", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Walk", this);
 
 
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackA", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackB", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Dash", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Fall", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\FallRepeat", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Idle", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Jump", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\JumpAttack", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Skill", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Switch", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Walk", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\AttackA", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\AttackB", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Dash", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Fall", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\FallRepeat", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Idle", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Jump", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\JumpAttack", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Skill", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Switch", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\Walk", this, 1);
 
 
-		//at->PlayAnimation(L"Skul_BasicIdle", true);
-		at->CompleteEvent(L"Skul_BasicAttackA") = std::bind(&Skul_Nohead::attack_choice, this);
-		at->CompleteEvent(L"Skul_BasicAttackAR") = std::bind(&Skul_Nohead::attack_choice, this);
-		at->CompleteEvent(L"Skul_BasicAttackB") = std::bind(&Skul_Nohead::attack_choice, this);
-		at->CompleteEvent(L"Skul_BasicAttackBR") = std::bind(&Skul_Nohead::attack_choice, this);
-		//at->CompleteEvent(L"Skul_BasicDash") = std::bind(&Skul_Basic::dash_check, this);
-		//at->CompleteEvent(L"Skul_BasicDashR") = std::bind(&Skul_Basic::dash_check, this);
+		at->PlayAnimation(L"Skul_NoheadIdle", true);
+		at->CompleteEvent(L"Skul_NoheadAttackA") = std::bind(&Skul_Nohead::attack_choice, this);
+		at->CompleteEvent(L"Skul_NoheadAttackAR") = std::bind(&Skul_Nohead::attack_choice, this);
+		at->CompleteEvent(L"Skul_NoheadAttackB") = std::bind(&Skul_Nohead::attack_choice, this);
+		at->CompleteEvent(L"Skul_NoheadAttackBR") = std::bind(&Skul_Nohead::attack_choice, this);*/
+
 		GameObject::Initialize();
 
 	}
@@ -116,12 +115,12 @@ namespace jk
 			_State = Skul_Nohead_State::Move;
 			if (Input::GetKey(eKeyCode::RIGHT))
 			{
-				at->PlayAnimation(L"Skul_BasicWalk", true);
+				at->PlayAnimation(L"Skul_NoheadWalk", true);
 				mDir = 1;
 			}
 			else if (Input::GetKey(eKeyCode::LEFT))
 			{
-				at->PlayAnimation(L"Skul_BasicWalkR", true);
+				at->PlayAnimation(L"Skul_NoheadWalkR", true);
 				mDir = -1;
 			}
 		}
@@ -131,12 +130,12 @@ namespace jk
 			_State = Skul_Nohead_State::Attack_A;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"Skul_BasicAttackA", true);
+				at->PlayAnimation(L"Skul_NoheadAttackA", true);
 				mDir = 1;
 			}
 			else if (mDir == -1)
 			{
-				at->PlayAnimation(L"Skul_BasicAttackAR", true);
+				at->PlayAnimation(L"Skul_NoheadAttackAR", true);
 				mDir = -1;
 			}
 		}
@@ -161,12 +160,12 @@ namespace jk
 			_State = Skul_Nohead_State::Dash;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"Skul_BasicDash", false);
+				at->PlayAnimation(L"Skul_NoheadDash", false);
 				mDir = 1;
 			}
 			else if (mDir == -1)
 			{
-				at->PlayAnimation(L"Skul_BasicDashR", false);
+				at->PlayAnimation(L"Skul_NoheadDashR", false);
 				mDir = -1;
 			}
 		}
@@ -179,12 +178,12 @@ namespace jk
 			_State = Skul_Nohead_State::Idle;
 			if (Input::GetKeyUp(eKeyCode::RIGHT))
 			{
-				at->PlayAnimation(L"Skul_BasicIdle", true);
+				at->PlayAnimation(L"Skul_NoheadIdle", true);
 				mDir = 1;
 			}
 			else if (Input::GetKeyUp(eKeyCode::LEFT))
 			{
-				at->PlayAnimation(L"Skul_BasicIdleR", true);
+				at->PlayAnimation(L"Skul_NoheadIdleR", true);
 				mDir = -1;
 			}
 		}
@@ -194,12 +193,12 @@ namespace jk
 			_State = Skul_Nohead_State::Attack_A;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"Skul_BasicAttackA", true);
+				at->PlayAnimation(L"Skul_NoheadAttackA", true);
 				mDir = 1;
 			}
 			else if (mDir == -1)
 			{
-				at->PlayAnimation(L"Skul_BasicAttackAR", true);
+				at->PlayAnimation(L"Skul_NoheadAttackAR", true);
 				mDir = -1;
 			}
 		}
@@ -209,12 +208,12 @@ namespace jk
 			_State = Skul_Nohead_State::Dash;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"Skul_BasicDash", false);
+				at->PlayAnimation(L"Skul_NoheadDash", false);
 				mDir = 1;
 			}
 			else if (mDir == -1)
 			{
-				at->PlayAnimation(L"Skul_BasicDashR", false);
+				at->PlayAnimation(L"Skul_NoheadDashR", false);
 				mDir = -1;
 			}
 		}
@@ -233,12 +232,12 @@ namespace jk
 			_State = Skul_Nohead_State::Idle;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"Skul_BasicIdle", true);
+				at->PlayAnimation(L"Skul_NoheadIdle", true);
 				mDir = 1;
 			}
 			else if (mDir == -1)
 			{
-				at->PlayAnimation(L"Skul_BasicIdleR", true);
+				at->PlayAnimation(L"Skul_NoheadIdleR", true);
 				mDir = -1;
 			}
 			_time = 0;
@@ -290,12 +289,12 @@ namespace jk
 			_State = Skul_Nohead_State::Attack_B;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"Skul_BasicAttackB", true);
+				at->PlayAnimation(L"Skul_NoheadAttackB", true);
 				mDir = 1;
 			}
 			else if (mDir == -1)
 			{
-				at->PlayAnimation(L"Skul_BasicAttackBR", true);
+				at->PlayAnimation(L"Skul_NoheadAttackBR", true);
 				mDir = -1;
 			}
 		}
@@ -306,12 +305,12 @@ namespace jk
 				_State = Skul_Nohead_State::Dash;
 				if (mDir == 1)
 				{
-					at->PlayAnimation(L"Skul_BasicDash", false);
+					at->PlayAnimation(L"Skul_NoheadDash", false);
 					mDir = 1;
 				}
 				else if (mDir == -1)
 				{
-					at->PlayAnimation(L"Skul_BasicDashR", false);
+					at->PlayAnimation(L"Skul_NoheadDashR", false);
 					mDir = -1;
 				}
 			}
@@ -322,12 +321,12 @@ namespace jk
 				_State = Skul_Nohead_State::Move;
 				if (Input::GetKey(eKeyCode::RIGHT))
 				{
-					at->PlayAnimation(L"Skul_BasicWalk", true);
+					at->PlayAnimation(L"Skul_NoheadWalk", true);
 					mDir = 1;
 				}
 				else if (Input::GetKey(eKeyCode::LEFT))
 				{
-					at->PlayAnimation(L"Skul_BasicWalkR", true);
+					at->PlayAnimation(L"Skul_NoheadWalkR", true);
 					mDir = -1;
 				}
 			}
@@ -336,12 +335,12 @@ namespace jk
 				_State = Skul_Nohead_State::Idle;
 				if (mDir == 1)
 				{
-					at->PlayAnimation(L"Skul_BasicIdle", true);
+					at->PlayAnimation(L"Skul_NoheadIdle", true);
 					mDir = 1;
 				}
 				else if (mDir == -1)
 				{
-					at->PlayAnimation(L"Skul_BasicIdleR", true);
+					at->PlayAnimation(L"Skul_NoheadIdleR", true);
 					mDir = -1;
 				}
 			}

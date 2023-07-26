@@ -72,8 +72,9 @@ namespace jk
 			Wolf_Skul->SetName(L"Wolf_Skul");
 			//Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
 			Collider2D* cd = Wolf_Skul->AddComponent<Collider2D>();
-			Wolf_Skul->AddComponent<PlayerScript>();
+			//Wolf_Skul->AddComponent<PlayerScript>();
 			Wolf_Skul->AddComponent<CameraScript>();
+			//Wolf_Skul->AddComponent<RigidBody>();
 		}
 
 

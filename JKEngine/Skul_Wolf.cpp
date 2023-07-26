@@ -12,6 +12,7 @@ namespace jk
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"Basic_Skul"));
+
 		//Vector2 mSize = mr->GetMaterial()->GetTexture()->GetTexSize();
 		//GetComponent<Transform>()->SetScale(Vector3(mSize.x, mSize.y, 1.0f));
 	}
@@ -20,6 +21,8 @@ namespace jk
 	}
 	void Skul_Wolf::Initialize()
 	{
+		_Rig = AddComponent<RigidBody>();
+		_Rig->SetMass(1.f);
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this);
@@ -106,6 +109,55 @@ namespace jk
 		default:
 			break;
 		}
+
+		Transform* tr = GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+			_Rig->SetFriction(100.f);
+			_Rig->AddForce(Vector2(-150.f, 0.f));
+			//pos.x -= 100.0f * Time::DeltaTime();
+			//tr->SetPosition(pos);
+		}
+		if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			_Rig->SetFriction(100.f);
+			_Rig->AddForce(Vector2(150.f, 0.f));
+			//pos.x += 100.0f * Time::DeltaTime();
+			//tr->SetPosition(pos);
+		}
+		if (Input::GetKey(eKeyCode::DOWN))
+		{
+			//_Rig->AddForce(Vector2(-150.f, 0.f));
+			pos.y -= 100.0f * Time::DeltaTime();
+			//tr->SetPosition(pos);
+		}
+		if (Input::GetKey(eKeyCode::UP))
+		{
+			//_Rig->AddForce(Vector2(-150.f, 0.f));
+			pos.y += 100.0f * Time::DeltaTime();
+			//tr->SetPosition(pos);
+		}
+
+		if (Input::GetKey(eKeyCode::Z))
+		{			
+			if(mDir ==1)
+			pos.x += 1000.0f * Time::DeltaTime();
+			else
+			pos.x -= 1000.0f * Time::DeltaTime();
+			//tr->SetPosition(pos);
+		}
+
+		if (Input::GetKeyUp(eKeyCode::RIGHT)
+			|| Input::GetKeyUp(eKeyCode::LEFT))
+		{
+			_Rig->SetVelocity(Vector2(0.f, 0.f));
+			_Rig->SetFriction(1000);
+		}
+
+		tr->SetPosition(pos);
 
 		GameObject::Update();
 	}

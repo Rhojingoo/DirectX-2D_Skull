@@ -13,6 +13,7 @@ namespace jk
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"Basic_Skul"));
+		//RigidBody* mRigidBody = AddComponent<RigidBody>();
 		//Vector2 mSize = mr->GetMaterial()->GetTexture()->GetTexSize();
 		//GetComponent<Transform>()->SetScale(Vector3(mSize.x, mSize.y, 1.0f));
 	}

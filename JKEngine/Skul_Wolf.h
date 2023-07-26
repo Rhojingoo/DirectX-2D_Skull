@@ -48,6 +48,7 @@ namespace jk
 		int mDir;
 		float _time;
 		bool _attack;
+		RigidBody* _Rig;
 		void attack_choice();
 		void dash_check();
 	};

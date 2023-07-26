@@ -21,6 +21,6 @@ namespace jk
 		//virtual void OnCollisionExit(Collider2D* other) override;
 
 	private:
-
+		class RigidBody* _Rig;
 	};
 }
