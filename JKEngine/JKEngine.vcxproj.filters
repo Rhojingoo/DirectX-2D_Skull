@@ -94,6 +94,9 @@
     <ClInclude Include="Skul_Sword.h">
       <Filter>Game_ob\PLAYER</Filter>
     </ClInclude>
+    <ClInclude Include="jkTile_Ground.h">
+      <Filter>Game_ob\BG\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -137,9 +140,6 @@
     </ClCompile>
     <ClCompile Include="Skul_Basic.cpp">
       <Filter>Game_ob\PLAYER</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine_SOURCE\jkGameObject.cpp">
-      <Filter>Game_ob</Filter>
     </ClCompile>
     <ClCompile Include="jkPlayerScript.cpp">
       <Filter>Script</Filter>
@@ -185,6 +185,9 @@
     </ClCompile>
     <ClCompile Include="Skul_Sword.cpp">
       <Filter>Game_ob\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="jkTile_Ground.cpp">
+      <Filter>Game_ob\BG\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +250,9 @@
     </Filter>
     <Filter Include="Game_ob\Tilemap">
       <UniqueIdentifier>{4f4880bc-5738-4f5e-9f43-3bced8e48c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\Tile">
+      <UniqueIdentifier>{c0334ba9-04dc-4b54-99f8-740c8bf0578c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

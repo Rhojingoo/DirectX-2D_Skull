@@ -49,6 +49,9 @@ namespace jk
 		void skill_b();
 		void death();
 
+		virtual void OnCollisionEnter(Collider2D* other) override;
+		virtual void OnCollisionStay(Collider2D* other) override;
+		virtual void OnCollisionExit(Collider2D* other) override;
 	private:
 		Skul_Sword_State _State;
 		Animator* at;

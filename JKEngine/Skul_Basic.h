@@ -43,13 +43,25 @@ namespace jk
 		void skill_b();
 		void death();
 
+		virtual void OnCollisionEnter(Collider2D* other) override;
+		virtual void OnCollisionStay(Collider2D* other) override;
+		virtual void OnCollisionExit(Collider2D* other) override;
+
 	private:
 		Skul_Basic_State _State;
-		Animator* at;
+		Animator* at = nullptr;
+		RigidBody* _rigidbody = nullptr;
+		Collider2D* _collider = nullptr;
+		Transform* tr = nullptr;
+
+	private:
 		int mDir;
 		float _time;
 		bool _attack;
+
+	private:
 		void attack_choice();
 		void dash_check();
+		void Input_move();
 	};
 }

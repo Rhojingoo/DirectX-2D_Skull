@@ -278,6 +278,18 @@ namespace jk
 	{
 	}
 
+	void Skul_Sword::OnCollisionEnter(Collider2D* other)
+	{
+	}
+
+	void Skul_Sword::OnCollisionStay(Collider2D* other)
+	{
+	}
+
+	void Skul_Sword::OnCollisionExit(Collider2D* other)
+	{
+	}
+
 	void Skul_Sword::attack_A_choice()
 	{
 		if (_attack == true)

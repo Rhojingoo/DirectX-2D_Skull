@@ -294,6 +294,18 @@ namespace jk
 
 	}
 
+	void Skul_Basic::OnCollisionEnter(Collider2D* other)
+	{
+	}
+
+	void Skul_Basic::OnCollisionStay(Collider2D* other)
+	{
+	}
+
+	void Skul_Basic::OnCollisionExit(Collider2D* other)
+	{
+	}
+
 	void Skul_Basic::attack_choice()
 	{
 		if (_attack == true)
@@ -359,6 +371,9 @@ namespace jk
 		}
 	}
 	void Skul_Basic::dash_check()
+	{
+	}
+	void Skul_Basic::Input_move()
 	{
 	}
 }

@@ -111,25 +111,25 @@ namespace jk
     {
 
         //사각형 충돌 정보 만들기   
-        Vector3 leftPos = left->GetPosition();
-        Vector3 rightPos = right->GetPosition();
-        Vector2 leftSize = left->GetSize();
-        Vector2 rightSize = right->GetSize();
+        //Vector3 leftPos = left->GetPosition();
+        //Vector3 rightPos = right->GetPosition();
+        //Vector2 leftSize = left->GetSize();
+        //Vector2 rightSize = right->GetSize();
 
-        //원형 충돌 정보 만들기      
-        float leftradius = 0;
-        float rightradius = 0;
-        {
-            if (leftSize.x > leftSize.y)
-                leftradius = leftSize.x / 2;
-            else
-                leftradius = leftSize.y / 2;
+        ////원형 충돌 정보 만들기      
+        //float leftradius = 0;
+        //float rightradius = 0;
+        //{
+        //    if (leftSize.x > leftSize.y)
+        //        leftradius = leftSize.x / 2;
+        //    else
+        //        leftradius = leftSize.y / 2;
 
-            if (rightSize.x > rightSize.y)
-                rightradius = rightSize.x / 2;
-            else
-                rightradius = rightSize.y / 2;
-        }
+        //    if (rightSize.x > rightSize.y)
+        //        rightradius = rightSize.x / 2;
+        //    else
+        //        rightradius = rightSize.y / 2;
+        //}
 
         //사각형충돌
         //if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
@@ -150,8 +150,7 @@ namespace jk
 
 
         // OBB 충돌
-       #pragma region obb
-      // Rect vs Rect 
+        // Rect vs Rect 
         // 0 --- 1
         // |     |
         // 3 --- 2
@@ -208,10 +207,9 @@ namespace jk
 
             if (projDistance < fabsf(centerDir.Dot(vA)))
                 return false;
-        }    
-        #pragma endregion 
+        }
 
-        return false;
+        return true;
     }
 
 	void CollisionManager::SetLayer(eLayerType left, eLayerType right, bool enable)

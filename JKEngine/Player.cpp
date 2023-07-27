@@ -24,4 +24,13 @@ namespace jk
 	{
 		GameObject::Render();
 	}
+	void Player::OnCollisionEnter(Collider2D* other)
+	{
+	}
+	void Player::OnCollisionStay(Collider2D* other)
+	{
+	}
+	void Player::OnCollisionExit(Collider2D* other)
+	{
+	}
 }

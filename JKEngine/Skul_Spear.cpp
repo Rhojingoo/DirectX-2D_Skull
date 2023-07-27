@@ -299,6 +299,15 @@ namespace jk
 	void Skul_Spear::death()
 	{
 	}
+	void Skul_Spear::OnCollisionEnter(Collider2D* other)
+	{
+	}
+	void Skul_Spear::OnCollisionStay(Collider2D* other)
+	{
+	}
+	void Skul_Spear::OnCollisionExit(Collider2D* other)
+	{
+	}
 	void Skul_Spear::attack_choice()
 	{
 		if (_attack == true)

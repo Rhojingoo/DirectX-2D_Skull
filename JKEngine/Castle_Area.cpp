@@ -11,7 +11,7 @@ namespace jk
 	}
 	void Castle_Area::Initialize()
 	{
-
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 		//GameObject* Zelda
 		//	= object::Instantiate<GameObject>(Vector3(0.0f, -50.0f, -700.f), eLayerType::Monster);
 		//Zelda->SetName(L"Zelda");
@@ -71,7 +71,7 @@ namespace jk
 			Skul_Wolf* Wolf_Skul = object::Instantiate<Skul_Wolf>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 			Wolf_Skul->SetName(L"Wolf_Skul");
 			//Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
-			Collider2D* cd = Wolf_Skul->AddComponent<Collider2D>();
+			//Collider2D* cd = Wolf_Skul->AddComponent<Collider2D>();
 			//Wolf_Skul->AddComponent<PlayerScript>();
 			Wolf_Skul->AddComponent<CameraScript>();
 			//Wolf_Skul->AddComponent<RigidBody>();
@@ -152,9 +152,10 @@ namespace jk
 
 #pragma region tile_map		
 		{
-			GameObject* Tile_map = object::Instantiate<GameObject>(eLayerType::BACK_GROUND);
+			Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
 			Tile_map->SetName(L"Tile_Map");
 			Transform* tr = Tile_map->GetComponent<Transform>();
+			Collider2D* cd = Tile_map->AddComponent<Collider2D>();
 			tr->SetPositionZ(-200.f);
 			tr->AddPositionY(-280.f);
 			tr->SetPositionX(-300.f);

@@ -42,14 +42,28 @@ namespace jk
 		void skill_b();
 		void death();
 
+
+		virtual void OnCollisionEnter(Collider2D* other) override;
+		virtual void OnCollisionStay(Collider2D* other) override;
+		virtual void OnCollisionExit(Collider2D* other) override;
+
+
 	private:
 		Skul_Wolf_State _State;
-		Animator* at;
+		Animator* at = nullptr;
+		RigidBody* _rigidbody = nullptr;
+		Collider2D* _collider = nullptr;
+		Transform* tr = nullptr;
+		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+		
+	private:
 		int mDir;
 		float _time;
 		bool _attack;
-		RigidBody* _Rig;
+
+	private:
 		void attack_choice();
 		void dash_check();
+		void Input_move();
 	};
 }

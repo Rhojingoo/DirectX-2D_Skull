@@ -20,9 +20,12 @@ namespace jk
 	{
 	}
 	void Skul_Wolf::Initialize()
-	{
-		_Rig = AddComponent<RigidBody>();
-		_Rig->SetMass(1.f);
+	{	
+		_collider = AddComponent<Collider2D>();
+		_rigidbody = AddComponent<RigidBody>();
+		_rigidbody->SetMass(1.f);
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this);
@@ -71,6 +74,10 @@ namespace jk
 	}
 	void Skul_Wolf::Update()
 	{
+		 tr = GetComponent<Transform>();
+		 pos = tr->GetPosition();
+
+
 		switch (_State)
 		{
 		case jk::Skul_Wolf::Skul_Wolf_State::Idle:idle();
@@ -109,60 +116,18 @@ namespace jk
 		default:
 			break;
 		}
-
-		Transform* tr = GetComponent<Transform>();
-		Vector3 pos = tr->GetPosition();
-
-
-		if (Input::GetKey(eKeyCode::LEFT))
-		{
-			_Rig->SetFriction(100.f);
-			_Rig->AddForce(Vector2(-150.f, 0.f));
-			//pos.x -= 100.0f * Time::DeltaTime();
-			//tr->SetPosition(pos);
-		}
-		if (Input::GetKey(eKeyCode::RIGHT))
-		{
-			_Rig->SetFriction(100.f);
-			_Rig->AddForce(Vector2(150.f, 0.f));
-			//pos.x += 100.0f * Time::DeltaTime();
-			//tr->SetPosition(pos);
-		}
-		if (Input::GetKey(eKeyCode::DOWN))
-		{
-			//_Rig->AddForce(Vector2(-150.f, 0.f));
-			pos.y -= 100.0f * Time::DeltaTime();
-			//tr->SetPosition(pos);
-		}
-		if (Input::GetKey(eKeyCode::UP))
-		{
-			//_Rig->AddForce(Vector2(-150.f, 0.f));
-			pos.y += 100.0f * Time::DeltaTime();
-			//tr->SetPosition(pos);
-		}
-
-		if (Input::GetKey(eKeyCode::Z))
-		{			
-			if(mDir ==1)
-			pos.x += 1000.0f * Time::DeltaTime();
-			else
-			pos.x -= 1000.0f * Time::DeltaTime();
-			//tr->SetPosition(pos);
-		}
-
-		if (Input::GetKeyUp(eKeyCode::RIGHT)
-			|| Input::GetKeyUp(eKeyCode::LEFT))
-		{
-			_Rig->SetVelocity(Vector2(0.f, 0.f));
-			_Rig->SetFriction(1000);
-		}
-
+		
+		Input_move();
 		tr->SetPosition(pos);
 
 		GameObject::Update();
 	}
 	void Skul_Wolf::LateUpdate()
 	{
+		_collider->SetSize(Vector2(0.07f, 0.05f));
+		_collider->SetCenter(Vector2(0.0f, -0.1f));
+
+
 		GameObject::LateUpdate();
 	}
 	void Skul_Wolf::Render()
@@ -344,6 +309,22 @@ namespace jk
 	void Skul_Wolf::death()
 	{
 	}
+	void Skul_Wolf::OnCollisionEnter(Collider2D* other)
+	{
+		int a;
+		
+		if (Input::GetKey(eKeyCode::Z)|| (Input::GetKey(eKeyCode::C)))
+			_rigidbody->SetGround(false);
+		else
+		_rigidbody->SetGround(true);
+
+	}
+	void Skul_Wolf::OnCollisionStay(Collider2D* other)
+	{
+	}
+	void Skul_Wolf::OnCollisionExit(Collider2D* other)
+	{
+	}
 	void Skul_Wolf::attack_choice()
 	{
 		if (_attack == true)
@@ -410,5 +391,45 @@ namespace jk
 	}
 	void Skul_Wolf::dash_check()
 	{
+	}
+
+	void Skul_Wolf::Input_move()
+	{
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+
+			pos.x -= 150.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			_rigidbody->SetFriction(100.f);
+			_rigidbody->AddForce(Vector2(150.f, 0.f));
+			pos.x += 150.0f * Time::DeltaTime();
+			
+		}
+		if (Input::GetKey(eKeyCode::DOWN))
+		{
+			pos.y -= 100.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::UP))
+		{
+			pos.y += 100.0f * Time::DeltaTime();
+		}
+
+		if (Input::GetKey(eKeyCode::Z))
+		{
+			if(mDir == 1)
+			_rigidbody->AddForce(Vector2(550.f, 1500.f));
+			else
+			_rigidbody->AddForce(Vector2(-550.f, 1500.f));
+			_rigidbody->SetGround(false);
+		}
+
+		if (Input::GetKey(eKeyCode::C))
+		{
+			_rigidbody->AddForce(Vector2(0.f, 1800.f));
+			_rigidbody->SetGround(false);
+
+		}
 	}
 }

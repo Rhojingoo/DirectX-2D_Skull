@@ -402,3 +402,4 @@ FodyWeavers.xsd
 # Image Resource files
 *.bmp
 *.wav
+/JKEngine/jkTile.h

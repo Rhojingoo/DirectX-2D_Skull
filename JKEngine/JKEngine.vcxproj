@@ -171,6 +171,7 @@
     <ClInclude Include="jkStage1_Boss.h" />
     <ClInclude Include="jkStage1_MiniBoss.h" />
     <ClInclude Include="jkStage2_1.h" />
+    <ClInclude Include="jkTile_Ground.h" />
     <ClInclude Include="jkTitleScene.h" />
     <ClInclude Include="jkToolScene.h" />
     <ClInclude Include="Player_Hp_Bar.h" />
@@ -189,7 +190,6 @@
     <ClInclude Include="UI_Camera.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Engine_SOURCE\jkGameObject.cpp" />
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="Castle_Area.cpp" />
     <ClCompile Include="Face_UI.cpp" />
@@ -205,6 +205,7 @@
     <ClCompile Include="jkStage1_Boss.cpp" />
     <ClCompile Include="jkStage1_MiniBoss.cpp" />
     <ClCompile Include="jkStage2_1.cpp" />
+    <ClCompile Include="jkTile_Ground.cpp" />
     <ClCompile Include="jkTitleScene.cpp" />
     <ClCompile Include="jkToolScene.cpp" />
     <ClCompile Include="jkToolScript.cpp" />

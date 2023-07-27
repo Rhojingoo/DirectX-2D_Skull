@@ -1,6 +1,7 @@
 #pragma once
 #include "..\\Engine_SOURCE\\jkApplication.h"
 #include "..\\Engine_SOURCE\\jkSceneManager.h"
+#include "..\\Engine_SOURCE\\jkCollisionManager.h"
 #include "..\\Engine_SOURCE\\jkGameObject.h"
 #include "..\\Engine_SOURCE\\jkObject.h"
 #include "..\\Engine_SOURCE\\jkResources.h"
@@ -50,12 +51,11 @@
 #include "jkPlayerScript.h"
 
 
-
-
+//¹è°æ
 #include "BG.h"
 #include "jkBack_ground.h"
 #include "jkCloud.h"
-
+#include "jkTile_Ground.h"
 
 //PLAYER
 #include "Player.h"

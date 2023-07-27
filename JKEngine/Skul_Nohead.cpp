@@ -282,6 +282,15 @@ namespace jk
 	void Skul_Nohead::death()
 	{
 	}
+	void Skul_Nohead::OnCollisionEnter(Collider2D* other)
+	{
+	}
+	void Skul_Nohead::OnCollisionStay(Collider2D* other)
+	{
+	}
+	void Skul_Nohead::OnCollisionExit(Collider2D* other)
+	{
+	}
 	void Skul_Nohead::attack_choice()
 	{
 		if (_attack == true)
