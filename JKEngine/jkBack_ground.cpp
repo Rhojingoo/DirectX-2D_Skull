@@ -27,4 +27,13 @@ namespace jk
 	{
 		GameObject::Render();
 	}
+	void Back_ground::OnCollisionEnter(Collider2D* other)
+	{
+	}
+	void Back_ground::OnCollisionStay(Collider2D* other)
+	{
+	}
+	void Back_ground::OnCollisionExit(Collider2D* other)
+	{
+	}
 }

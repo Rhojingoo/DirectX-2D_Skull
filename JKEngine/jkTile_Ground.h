@@ -15,6 +15,17 @@ namespace jk
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
+
+		virtual void OnCollisionEnter(Collider2D* other) override;
+		virtual void OnCollisionStay(Collider2D* other) override;
+		virtual void OnCollisionExit(Collider2D* other) override;
+
+	private:
+		Collider2D* _collider = nullptr;
+		Transform* tr = nullptr;
+		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+	
+
 	};
 
 }

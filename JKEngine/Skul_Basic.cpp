@@ -10,6 +10,8 @@ namespace jk
 		, _time(0.f)
 		, _State(Skul_Basic_State::Idle)
 		, at(nullptr)
+		, _jump(0)
+		, _fallcheck(0)
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -61,6 +63,8 @@ namespace jk
 		at->CompleteEvent(L"Skul_BasicAttackAR") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"Skul_BasicAttackB") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"Skul_BasicAttackBR") = std::bind(&Skul_Basic::attack_choice, this);
+		at->CompleteEvent(L"Skul_BasicJumpAttack") = std::bind(&Skul_Basic::attack_choice, this);
+		at->CompleteEvent(L"Skul_BasicJumpAttackR") = std::bind(&Skul_Basic::attack_choice, this);
 		//at->CompleteEvent(L"Skul_BasicDash") = std::bind(&Skul_Basic::dash_check, this);
 		//at->CompleteEvent(L"Skul_BasicDashR") = std::bind(&Skul_Basic::dash_check, this);
 		GameObject::Initialize();
@@ -70,6 +74,7 @@ namespace jk
 	{
 		tr = GetComponent<Transform>();
 		pos = tr->GetPosition();
+		_velocity = _rigidbody->GetVelocity();
 
 		switch (_State)
 		{
@@ -80,6 +85,9 @@ namespace jk
 			break;
 
 		case jk::Skul_Basic::Skul_Basic_State::Jump:jump();
+			break;
+
+		case jk::Skul_Basic::Skul_Basic_State::Fall:fall();
 			break;
 
 		case jk::Skul_Basic::Skul_Basic_State::Falling:falling();
@@ -143,6 +151,25 @@ namespace jk
 			}
 		}
 
+
+		if (Input::GetKeyDown(eKeyCode::C))
+		{
+			_State = Skul_Basic_State::Jump;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"Skul_BasicJump", true);
+				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetGround(false);	mDir = 1;
+			}
+			else if (mDir == -1)
+			{
+				at->PlayAnimation(L"Skul_BasicJumpR", true);
+				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetGround(false);	mDir = -1;
+			}
+			_jump++;
+		}
+
 		if (Input::GetKey(eKeyCode::X))
 		{
 			_State = Skul_Basic_State::Attack_A;
@@ -158,34 +185,22 @@ namespace jk
 			}
 		}
 
-		//if (Input::GetKeyDown(eKeyCode::C))
-		//{
-		//	_State = Skul_Basic_State::Jump;
-		//	//if (mDir == 1)
-		//	//{
-		//	//	mAnimator->Play(L"", true);
-		//	//	mDir = 1;
-		//	//}
-		//	//else if (mDir == -1)
-		//	//{
-		//	//	mAnimator->Play(L"", true);
-		//	//	mDir = -1;
-		//	//}
-		//}
 
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
 			_State = Skul_Basic_State::Dash;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"Skul_BasicDash", false);
+				at->PlayAnimation(L"Skul_BasicDash", true);
+				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
 				mDir = 1;
 			}
-			else if (mDir == -1)
+			if (mDir == -1)
 			{
-				at->PlayAnimation(L"Skul_BasicDashR", false);
+				at->PlayAnimation(L"Skul_BasicDashR", true);
+				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
 				mDir = -1;
-			}
+			}						
 		}
 	}
 
@@ -207,6 +222,25 @@ namespace jk
 			}
 		}
 
+		if (Input::GetKeyDown(eKeyCode::C))
+		{
+			_State = Skul_Basic_State::Jump;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"Skul_BasicJump", true);
+				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetGround(false);	mDir = 1;
+			}
+			else if (mDir == -1)
+			{
+				at->PlayAnimation(L"Skul_BasicJumpR", true);
+				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetGround(false);	mDir = -1;
+			}
+			_jump++;
+		}
+
+
 		if (Input::GetKey(eKeyCode::X))
 		{
 			_State = Skul_Basic_State::Attack_A;
@@ -227,41 +261,195 @@ namespace jk
 			_State = Skul_Basic_State::Dash;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"Skul_BasicDash", false);
+				at->PlayAnimation(L"Skul_BasicDash", true);
+				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
 				mDir = 1;
 			}
-			else if (mDir == -1)
+			if (mDir == -1)
 			{
-				at->PlayAnimation(L"Skul_BasicDashR", false);
+				at->PlayAnimation(L"Skul_BasicDashR", true);
+				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
 				mDir = -1;
 			}
 		}
 	}
+
 	void Skul_Basic::jump()
-	{
-	}
-	void Skul_Basic::falling()
-	{
-	}
-	void Skul_Basic::dash()
-	{
-		_time += Time::DeltaTime();
-		if (_time > 0.7f)
+	{		
+		_Ground_check = false;
+		if((_velocity.y <= 0.f)||(_jump>=2))
 		{
-			_State = Skul_Basic_State::Idle;
+			_State = Skul_Basic_State::Fall;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"Skul_BasicIdle", true);
+				at->PlayAnimation(L"Skul_BasicFall", false);				
 				mDir = 1;
 			}
-			else if (mDir == -1)
+			if (mDir == -1)
 			{
-				at->PlayAnimation(L"Skul_BasicIdleR", true);
+				at->PlayAnimation(L"Skul_BasicFallR", false);				
 				mDir = -1;
+			}
+			_jump = 0;
+		}
+
+		if (_jump < 3)
+		{
+			if (Input::GetKeyDown(eKeyCode::C))
+			{
+				if (mDir == 1)
+				{
+					_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+					mDir = 1;
+				}
+				else if (mDir == -1)
+				{
+					_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+					mDir = -1;
+				}
+				_jump++;
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::X))
+		{
+			if (mDir == 1)
+			{
+				_State = Skul_Basic_State::JumpAttack;
+				at->PlayAnimation(L"Skul_BasicJumpAttack", true);
+			}
+			if (mDir == -1)
+			{
+				_State = Skul_Basic_State::JumpAttack;
+				at->PlayAnimation(L"Skul_BasicJumpAttackR", true);
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::Z))
+		{
+			_State = Skul_Basic_State::Dash;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"Skul_BasicDash", true);
+				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+				mDir = 1;
+			}
+			if (mDir == -1)
+			{
+				at->PlayAnimation(L"Skul_BasicDashR", true);
+				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+				mDir = -1;
+			}
+		}
+
+	}
+
+	void Skul_Basic::fall()
+	{
+		_time += Time::DeltaTime();
+		if (_time > 2.f)
+		{
+			_State = Skul_Basic_State::Falling;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"Skul_BasicFallRepeat", true);	
+				mDir = 1;  _fallcheck = 2;
+			}
+			if (mDir == -1)
+			{
+				at->PlayAnimation(L"Skul_BasicFallRepeatR", true);	
+				mDir = -1; _fallcheck = 2;
 			}
 			_time = 0;
 		}
+		if (Input::GetKeyDown(eKeyCode::X))
+		{
+			if (mDir == 1)
+			{
+				_State = Skul_Basic_State::JumpAttack;
+				at->PlayAnimation(L"Skul_BasicJumpAttack", true);
+			}
+			if (mDir == -1)
+			{
+				_State = Skul_Basic_State::JumpAttack;
+				at->PlayAnimation(L"Skul_BasicJumpAttackR", true);
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::Z))
+		{
+			_State = Skul_Basic_State::Dash;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"Skul_BasicDash", true);
+				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+				mDir = 1;
+			}
+			if (mDir == -1)
+			{
+				at->PlayAnimation(L"Skul_BasicDashR", true);
+				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+				mDir = -1;
+			}
+		}
+
 	}
+
+	void Skul_Basic::falling()
+	{
+		if (Input::GetKeyDown(eKeyCode::X))
+		{
+			if (mDir == 1)
+			{
+				_State = Skul_Basic_State::JumpAttack;
+				at->PlayAnimation(L"Skul_BasicJumpAttack", true);
+			}
+			if (mDir == -1)
+			{
+				_State = Skul_Basic_State::JumpAttack;
+				at->PlayAnimation(L"Skul_BasicJumpAttackR", true);
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::Z))
+		{
+			_State = Skul_Basic_State::Dash;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"Skul_BasicDash", true);
+				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+				mDir = 1;
+			}
+			if (mDir == -1)
+			{
+				at->PlayAnimation(L"Skul_BasicDashR", true);
+				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+				mDir = -1;
+			}
+		}
+	}
+
+	void Skul_Basic::dash()
+	{		 
+		_rigidbody->ClearVelocityY();
+		if (mDir == 1 && _velocity.x <= 220.0)
+		{
+			_State = Skul_Basic_State::Idle;
+			at->PlayAnimation(L"Skul_BasicIdle", true);
+			_rigidbody->SetGround(false);
+			_rigidbody->ClearVelocityX();
+			mDir = 1;
+		}
+		else if (mDir == -1 && _velocity.x >= -220.0)
+		{
+			_State = Skul_Basic_State::Idle;
+			at->PlayAnimation(L"Skul_BasicIdleR", true);
+			_rigidbody->SetGround(false);
+			_rigidbody->ClearVelocityX();
+			mDir = -1;
+		}				
+	}
+
 	void Skul_Basic::attack_a()
 	{
 		if (Input::GetKeyDown(eKeyCode::X))
@@ -277,6 +465,7 @@ namespace jk
 			mDir = -1;
 		}
 	}
+
 	void Skul_Basic::attack_b()
 	{
 		_attack = false;
@@ -289,22 +478,46 @@ namespace jk
 			mDir = -1;
 		}
 	}
+
 	void Skul_Basic::jumpattack()
 	{
 	}
+
 	void Skul_Basic::skill_a()
 	{
 	}
+
 	void Skul_Basic::skill_b()
 	{
 	}
+
 	void Skul_Basic::death()
 	{
 
 	}
 
+
 	void Skul_Basic::OnCollisionEnter(Collider2D* other)
-	{
+	{		
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_fallcheck = 0;	_jump = 0;
+				_rigidbody->SetGround(true);
+				_Ground_check = _rigidbody->GetGround();
+				_State = Skul_Basic_State::Idle;
+				if (mDir == 1)
+					at->PlayAnimation(L"Skul_BasicIdle", true);
+				else
+					at->PlayAnimation(L"Skul_BasicIdleR", true);
+			}
+			else
+			{
+				int a;
+			}
+		}	
+	
 	}
 
 	void Skul_Basic::OnCollisionStay(Collider2D* other)
@@ -348,6 +561,33 @@ namespace jk
 				}
 			}
 
+			if (_fallcheck == 1)
+			{				
+				_State = Skul_Basic_State::Fall;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"Skul_BasicFall", false);					
+				}
+				else if (mDir == -1)
+				{
+					at->PlayAnimation(L"Skul_BasicFallR", false);					
+				}				
+			}
+			if (_fallcheck == 2)
+			{
+				_State = Skul_Basic_State::Falling;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"Skul_BasicFallRepeat", true);
+					mDir = 1;
+				}
+				else if (mDir == -1)
+				{
+					at->PlayAnimation(L"Skul_BasicFallRepeatR", true);
+					mDir = -1;
+				}				
+			}
+
 			if (Input::GetKey(eKeyCode::RIGHT)
 				|| Input::GetKey(eKeyCode::LEFT))
 			{
@@ -379,47 +619,21 @@ namespace jk
 			}
 		}
 	}
-	void Skul_Basic::dash_check()
-	{
-	}
+
 	void Skul_Basic::Input_move()
 	{
 		if (Input::GetKey(eKeyCode::LEFT))
-		{
-
 			pos.x -= 150.0f * Time::DeltaTime();
-		}
+
 		if (Input::GetKey(eKeyCode::RIGHT))
-		{
-			_rigidbody->SetFriction(100.f);
-			_rigidbody->AddForce(Vector2(150.f, 0.f));
 			pos.x += 150.0f * Time::DeltaTime();
-
-		}
+	
 		if (Input::GetKey(eKeyCode::DOWN))
-		{
 			pos.y -= 100.0f * Time::DeltaTime();
-		}
-		if (Input::GetKey(eKeyCode::UP))
-		{
+		
+		if (Input::GetKey(eKeyCode::UP))		
 			pos.y += 100.0f * Time::DeltaTime();
-		}
 
-		if (Input::GetKey(eKeyCode::Z))
-		{
-			if (mDir == 1)
-				_rigidbody->AddForce(Vector2(550.f, 1500.f));
-			else
-				_rigidbody->AddForce(Vector2(-550.f, 1500.f));
-			_rigidbody->SetGround(false);
-		}
-
-		if (Input::GetKey(eKeyCode::C))
-		{
-			_rigidbody->AddForce(Vector2(0.f, 1800.f));
-			_rigidbody->SetGround(false);
-
-		}
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{

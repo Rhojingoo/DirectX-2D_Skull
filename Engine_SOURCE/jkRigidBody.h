@@ -18,10 +18,13 @@ namespace jk
 		void AddForce(Vector2 force);
 		void SetMass(float mass) { mMass = mass; }
 		void SetGround(bool isGround) { mbGround = isGround; }
+		bool GetGround() { return mbGround; }
 		bool IsGround() { return mbGround; }
 		Vector2 GetVelocity() { return mVelocity; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
+		void ClearVelocityX() { mVelocity.x = 0.f; }
 		void ClearVelocityY() { mVelocity.y = 0.f; }
+		void ClearVelocity() { mVelocity = Vector2(0.f,0.f); }
 		void SetFriction(float fl) { mFriction = fl; }
 
 	/*	void OnFriction(bool isOn) { mbOnFriction = isOn; }

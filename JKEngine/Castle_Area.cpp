@@ -154,7 +154,7 @@ namespace jk
 			Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
 			Tile_map->SetName(L"Tile_Map");
 			Transform* tr = Tile_map->GetComponent<Transform>();
-			Collider2D* cd = Tile_map->AddComponent<Collider2D>();
+			//Collider2D* cd = Tile_map->AddComponent<Collider2D>();
 			tr->SetPositionZ(-200.f);
 			tr->AddPositionY(-280.f);
 			tr->SetPositionX(-300.f);

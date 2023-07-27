@@ -396,8 +396,8 @@ namespace jk
 		}
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
-			_rigidbody->SetFriction(100.f);
-			_rigidbody->AddForce(Vector2(150.f, 0.f));
+			//_rigidbody->SetFriction(100.f);
+			//_rigidbody->AddForce(Vector2(150.f, 0.f));
 			pos.x += 150.0f * Time::DeltaTime();
 
 		}
@@ -413,15 +413,15 @@ namespace jk
 		if (Input::GetKey(eKeyCode::Z))
 		{
 			if (mDir == 1)
-				_rigidbody->AddForce(Vector2(550.f, 1500.f));
+				_rigidbody->AddForce(Vector2(50.f, 150.f));
 			else
-				_rigidbody->AddForce(Vector2(-550.f, 1500.f));
+				_rigidbody->AddForce(Vector2(-55.f, 150.f));
 			_rigidbody->SetGround(false);
 		}
 
 		if (Input::GetKey(eKeyCode::C))
 		{
-			_rigidbody->AddForce(Vector2(0.f, 1800.f));
+			_rigidbody->AddForce(Vector2(0.f, 180.f));
 			_rigidbody->SetGround(false);
 		}		
 	}

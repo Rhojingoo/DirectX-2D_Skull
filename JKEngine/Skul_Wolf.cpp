@@ -88,7 +88,7 @@ namespace jk
 			 else 
 				at->PlayAnimation(L"WolfSwitchR", false);
 
-			 _switch = false;
+			 //_switch = false;
 		 }
 
 		switch (_State)
@@ -327,21 +327,25 @@ namespace jk
 	}
 	void Skul_Wolf::change()
 	{
-		if (mDir == 1)
-		{			
-			_rigidbody->AddForce(Vector2(550.f, 1500.f));
-			_rigidbody->SetGround(false);
-			//at->PlayAnimation(L"WolfSwitch", true);
-			//pos.x += 150.0f * Time::DeltaTime();
+		if (_switch == true)
+		{
+			if (mDir == 1)
+			{
+				//_rigidbody->AddForce(Vector2(55.f, 150.f));
+				_rigidbody->SetGround(false);
+				_switch = false;
+				//at->PlayAnimation(L"WolfSwitch", true);
+				//pos.x += 150.0f * Time::DeltaTime();
+			}
+			else
+			{
+				//_rigidbody->AddForce(Vector2(-55.f, 150.f));
+				_rigidbody->SetGround(false);
+				_switch = false;
+				//at->PlayAnimation(L"WolfSwitchR", true);
+				//pos.x -= 150.0f * Time::DeltaTime();
+			}
 		}
-		else		
-		{					
-			_rigidbody->AddForce(Vector2(-550.f, 1500.f));
-			_rigidbody->SetGround(false);		
-			//at->PlayAnimation(L"WolfSwitchR", true);
-			//pos.x -= 150.0f * Time::DeltaTime();
-		}
-		//_switch = false;
 
 	}
 	void Skul_Wolf::death()
@@ -349,8 +353,6 @@ namespace jk
 	}
 	void Skul_Wolf::OnCollisionEnter(Collider2D* other)
 	{
-		int a;
-		
 		if (Input::GetKey(eKeyCode::Z)|| (Input::GetKey(eKeyCode::C)))
 			_rigidbody->SetGround(false);
 		else
@@ -362,11 +364,7 @@ namespace jk
 			else
 				at->PlayAnimation(L"WolfSIdleR", false);
 		}
-
-
-
-		_rigidbody->SetVelocity(Vector2(0.f, 0.f));
-
+		//_rigidbody->SetVelocity(Vector2(0.f, 0.f));
 	}
 	void Skul_Wolf::OnCollisionStay(Collider2D* other)
 	{
@@ -463,18 +461,18 @@ namespace jk
 			pos.y += 100.0f * Time::DeltaTime();
 		}
 
-		if (Input::GetKey(eKeyCode::Z))
+		if (Input::GetKeyDown(eKeyCode::Z))
 		{
-			if(mDir == 1)
-			_rigidbody->AddForce(Vector2(550.f, 1500.f));
-			else
-			_rigidbody->AddForce(Vector2(-550.f, 1500.f));
-			_rigidbody->SetGround(false);
+			//if(mDir == 1)
+			//_rigidbody->AddForce(Vector2(200.f, 2000.f));
+			//else
+			//_rigidbody->AddForce(Vector2(-200.f, 2000.f));
+			//_rigidbody->SetGround(false);
 		}
 
-		if (Input::GetKey(eKeyCode::C))
+		if (Input::GetKeyDown(eKeyCode::C))
 		{
-			_rigidbody->AddForce(Vector2(0.f, 1800.f));
+			_rigidbody->AddForce(Vector2(0.f, 350.f));
 			_rigidbody->SetGround(false);
 
 		}

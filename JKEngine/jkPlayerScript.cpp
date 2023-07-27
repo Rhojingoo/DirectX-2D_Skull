@@ -31,7 +31,7 @@ namespace jk
 
 		if (Input::GetKey(eKeyCode::LEFT))
 		{
-			_Rig->AddForce(Vector2(-1000.f, 0.f));
+			//_Rig->AddForce(Vector2(-1000.f, 0.f));
 				//-= 100.0f * Time::DeltaTime();
 			//tr->SetPosition(pos);
 		}
@@ -51,11 +51,11 @@ namespace jk
 			//tr->SetPosition(pos);
 		}
 
-		if (Input::GetKey(eKeyCode::Z))
-		{
-			pos.x += 1000.0f * Time::DeltaTime();
-			//tr->SetPosition(pos);
-		}
+		//if (Input::GetKey(eKeyCode::Z))
+		//{
+		//	pos.x += 1000.0f * Time::DeltaTime();
+		//	//tr->SetPosition(pos);
+		//}
 
 
 		tr->SetPosition(pos);

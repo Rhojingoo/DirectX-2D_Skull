@@ -7,14 +7,14 @@ namespace jk
 {
 	RigidBody::RigidBody()
 		: Component(eComponentType::RigidBody)
-		, mMass(0.0f)
+		, mMass(1.f)
 		, mForce(Vector2::Zero)
 		, mAccelation(Vector2::Zero)
 		, mVelocity(Vector2::Zero)
 	{
 		mLimitedVelocity.x = 200.0f;
-		mLimitedVelocity.y = 1000.0f;
-		mbGround = true;
+		mLimitedVelocity.y = 200.0f;
+		mbGround = false;
 		mGravity = Vector2(0.0f, -800.0f);
 		mFriction = 100.0f;
 	}
