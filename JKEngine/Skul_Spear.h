@@ -48,13 +48,25 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+
+
 	private:
 		Skul_Spear_State _State;
-		Animator* at;
+		Animator* at = nullptr;
+		RigidBody* _rigidbody = nullptr;
+		Collider2D* _collider = nullptr;
+		Transform* tr = nullptr;
+		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+
+	private:
 		int mDir;
 		float _time;
 		bool _attack;
+
+	private:
 		void attack_choice();
 		void dash_check();
+		void Input_move();
+
 	};
 }

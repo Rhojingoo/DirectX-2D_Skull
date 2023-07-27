@@ -67,14 +67,13 @@ namespace jk
 			//Spear_Skul->AddComponent<PlayerScript>();
 			//Spear_Skul->AddComponent<CameraScript>();
 		}
+		//{
+		//	Skul_Wolf* Wolf_Skul = object::Instantiate<Skul_Wolf>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+		//	Wolf_Skul->SetName(L"Wolf_Skul");	
+		//}
 		{
-			Skul_Wolf* Wolf_Skul = object::Instantiate<Skul_Wolf>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-			Wolf_Skul->SetName(L"Wolf_Skul");
-			//Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
-			//Collider2D* cd = Wolf_Skul->AddComponent<Collider2D>();
-			//Wolf_Skul->AddComponent<PlayerScript>();
-			Wolf_Skul->AddComponent<CameraScript>();
-			//Wolf_Skul->AddComponent<RigidBody>();
+			Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+			_player->SetName(L"player_select");
 		}
 
 

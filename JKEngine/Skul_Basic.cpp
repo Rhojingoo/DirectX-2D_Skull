@@ -22,7 +22,13 @@ namespace jk
 	}
 	void Skul_Basic::Initialize()
 	{
-		/*at = AddComponent<Animator>();
+		CameraScript* cam = AddComponent<CameraScript>();
+		_collider = AddComponent<Collider2D>();
+		_rigidbody = AddComponent<RigidBody>();
+		_rigidbody->SetMass(1.f);
+
+
+		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackB", this) ;
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Dash", this);
@@ -46,20 +52,17 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\JumpAttack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Skill", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Switch", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Walk", this, 1);*/
-
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Walk", this, 1);
 
 		//´ë½¬
 		//at->PlayAnimation(L"Skul_BasicDash", true);
 		//at->PlayAnimation(L"Skul_BasicDashR", true);			
 
-
-
-		//at->PlayAnimation(L"Skul_BasicIdle", true);
-		//at->CompleteEvent(L"Skul_BasicAttackA") = std::bind(&Skul_Basic::attack_choice, this);		
-		//at->CompleteEvent(L"Skul_BasicAttackAR") = std::bind(&Skul_Basic::attack_choice, this);
-		//at->CompleteEvent(L"Skul_BasicAttackB") = std::bind(&Skul_Basic::attack_choice, this);
-		//at->CompleteEvent(L"Skul_BasicAttackBR") = std::bind(&Skul_Basic::attack_choice, this);
+		at->PlayAnimation(L"Skul_BasicIdle", true);
+		at->CompleteEvent(L"Skul_BasicAttackA") = std::bind(&Skul_Basic::attack_choice, this);		
+		at->CompleteEvent(L"Skul_BasicAttackAR") = std::bind(&Skul_Basic::attack_choice, this);
+		at->CompleteEvent(L"Skul_BasicAttackB") = std::bind(&Skul_Basic::attack_choice, this);
+		at->CompleteEvent(L"Skul_BasicAttackBR") = std::bind(&Skul_Basic::attack_choice, this);
 		//at->CompleteEvent(L"Skul_BasicDash") = std::bind(&Skul_Basic::dash_check, this);
 		//at->CompleteEvent(L"Skul_BasicDashR") = std::bind(&Skul_Basic::dash_check, this);
 		GameObject::Initialize();
@@ -67,6 +70,9 @@ namespace jk
 
 	void Skul_Basic::Update()
 	{
+		tr = GetComponent<Transform>();
+		pos = tr->GetPosition();
+
 		switch (_State)
 		{
 		case jk::Skul_Basic::Skul_Basic_State::Idle:idle();
@@ -105,10 +111,15 @@ namespace jk
 		default:
 			break;
 		}
+
+		Input_move();
+		tr->SetPosition(pos);
 		GameObject::Update();
 	}
 	void Skul_Basic::LateUpdate()
 	{
+		_collider->SetSize(Vector2(0.07f, 0.05f));
+		_collider->SetCenter(Vector2(0.0f, -0.1f));
 		GameObject::LateUpdate();
 	}
 	void Skul_Basic::Render()
@@ -375,5 +386,47 @@ namespace jk
 	}
 	void Skul_Basic::Input_move()
 	{
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+
+			pos.x -= 150.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			_rigidbody->SetFriction(100.f);
+			_rigidbody->AddForce(Vector2(150.f, 0.f));
+			pos.x += 150.0f * Time::DeltaTime();
+
+		}
+		if (Input::GetKey(eKeyCode::DOWN))
+		{
+			pos.y -= 100.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::UP))
+		{
+			pos.y += 100.0f * Time::DeltaTime();
+		}
+
+		if (Input::GetKey(eKeyCode::Z))
+		{
+			if (mDir == 1)
+				_rigidbody->AddForce(Vector2(550.f, 1500.f));
+			else
+				_rigidbody->AddForce(Vector2(-550.f, 1500.f));
+			_rigidbody->SetGround(false);
+		}
+
+		if (Input::GetKey(eKeyCode::C))
+		{
+			_rigidbody->AddForce(Vector2(0.f, 1800.f));
+			_rigidbody->SetGround(false);
+
+		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE))
+		{
+			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true);
+			SetPlayer_Pos(pos);
+		}
 	}
 }

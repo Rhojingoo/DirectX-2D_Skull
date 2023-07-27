@@ -10,6 +10,7 @@ namespace jk
 	}
 	void Skul_Sword::Initialize()
 	{
+		CameraScript* cam = AddComponent<CameraScript>();
 		//at = AddComponent<Animator>();
 
 		//at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\AttackA", this);

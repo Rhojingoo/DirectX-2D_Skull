@@ -21,11 +21,12 @@ namespace jk
 	}
 	void Skul_Wolf::Initialize()
 	{	
+		CameraScript* cam = AddComponent<CameraScript>();
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
-
-
+		
+		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this);
@@ -56,20 +57,12 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Switch", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Walk", this, 1);
 
-
-		//´ë½¬
-		//at->PlayAnimation(L"Skul_BasicDash", true);
-		//at->PlayAnimation(L"Skul_BasicDashR", true);			
-
-
-
 		at->PlayAnimation(L"WolfIdle", true);
 		at->CompleteEvent(L"WolfAttackA") = std::bind(&Skul_Wolf::attack_choice, this);
 		at->CompleteEvent(L"WolfAttackAR") = std::bind(&Skul_Wolf::attack_choice, this);
 		at->CompleteEvent(L"WolfAttackB") = std::bind(&Skul_Wolf::attack_choice, this);
 		at->CompleteEvent(L"WolfAttackBR") = std::bind(&Skul_Wolf::attack_choice, this);
-		//at->CompleteEvent(L"Skul_BasicDash") = std::bind(&Skul_Basic::dash_check, this);
-		//at->CompleteEvent(L"Skul_BasicDashR") = std::bind(&Skul_Basic::dash_check, this);
+
 		GameObject::Initialize();
 	}
 	void Skul_Wolf::Update()
@@ -317,6 +310,7 @@ namespace jk
 			_rigidbody->SetGround(false);
 		else
 		_rigidbody->SetGround(true);
+		_rigidbody->SetVelocity(Vector2(0.f, 0.f));
 
 	}
 	void Skul_Wolf::OnCollisionStay(Collider2D* other)
@@ -430,6 +424,12 @@ namespace jk
 			_rigidbody->AddForce(Vector2(0.f, 1800.f));
 			_rigidbody->SetGround(false);
 
+		}
+
+		if (Input::GetKeyDown(eKeyCode::SPACE))
+		{
+			SetPlay_List(PlayerList::basic_Skul,PlayerList::wolf_Skul, true);
+			SetPlayer_Pos(pos);
 		}
 	}
 }

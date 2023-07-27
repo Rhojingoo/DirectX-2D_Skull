@@ -15,14 +15,18 @@ namespace jk
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"Basic_Skul"));
-		//Vector2 mSize = mr->GetMaterial()->GetTexture()->GetTexSize();
-		//GetComponent<Transform>()->SetScale(Vector3(mSize.x, mSize.y, 1.0f));
 	}
 	Skul_Spear::~Skul_Spear()
 	{
 	}
 	void Skul_Spear::Initialize()
 	{
+		CameraScript* cam = AddComponent<CameraScript>();
+		_collider = AddComponent<Collider2D>();
+		_rigidbody = AddComponent<RigidBody>();
+		_rigidbody->SetMass(1.f);
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\AttackB", this) ;
@@ -71,6 +75,10 @@ namespace jk
 	}
 	void Skul_Spear::Update()
 	{
+		tr = GetComponent<Transform>();
+		pos = tr->GetPosition();
+
+
 		switch (_State)
 		{
 		case jk::Skul_Spear::Skul_Spear_State::Idle:idle();
@@ -109,6 +117,9 @@ namespace jk
 		default:
 			break;
 		}
+		Input_move();
+		tr->SetPosition(pos);
+
 		GameObject::Update();
 	}
 	void Skul_Spear::LateUpdate()
@@ -374,5 +385,43 @@ namespace jk
 	}
 	void Skul_Spear::dash_check()
 	{
+	}
+	void Skul_Spear::Input_move()
+	{	
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+
+			pos.x -= 150.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			_rigidbody->SetFriction(100.f);
+			_rigidbody->AddForce(Vector2(150.f, 0.f));
+			pos.x += 150.0f * Time::DeltaTime();
+
+		}
+		if (Input::GetKey(eKeyCode::DOWN))
+		{
+			pos.y -= 100.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::UP))
+		{
+			pos.y += 100.0f * Time::DeltaTime();
+		}
+
+		if (Input::GetKey(eKeyCode::Z))
+		{
+			if (mDir == 1)
+				_rigidbody->AddForce(Vector2(550.f, 1500.f));
+			else
+				_rigidbody->AddForce(Vector2(-550.f, 1500.f));
+			_rigidbody->SetGround(false);
+		}
+
+		if (Input::GetKey(eKeyCode::C))
+		{
+			_rigidbody->AddForce(Vector2(0.f, 1800.f));
+			_rigidbody->SetGround(false);
+		}		
 	}
 }

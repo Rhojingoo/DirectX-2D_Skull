@@ -12,7 +12,7 @@ namespace jk
 	{
 		#pragma region Title_Image & Camera
 				Back_ground* sc_image = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 10.f), eLayerType::Fore_Ground, L"Title_Image");
-				sc_image->GetComponent<Transform>()->SetScale(Vector3(1920.f, 1080.f, 0.f));		
+				sc_image->GetComponent<Transform>()->SetScale(Vector3(1600.f, 900.f, 0.f));		//(1920.f, 1080.f, 0.f)
 			
 				//Back_ground* sc_logo = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 0.f), eLayerType::BACK_GROUND, L"Title_Logo");
 				//sc_logo->GetComponent<Transform>()->SetScale(Vector3(1275, 693.f, 0.f));

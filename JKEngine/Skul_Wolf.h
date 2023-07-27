@@ -47,6 +47,8 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		//virtual Vector3 GetPlayer_Pos() { return pos}
+		//virtual void SetPlayer_Pos(Vector3 pos) { pos = pos; }
 
 	private:
 		Skul_Wolf_State _State;

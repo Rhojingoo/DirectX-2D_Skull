@@ -274,5 +274,4 @@ namespace jk
 
 		return Vector3(translatePos.x, translatePos.y, translatePos.z);
 	}
-
 }

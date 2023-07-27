@@ -112,8 +112,8 @@
     <Filter Include="Resource\StructBuffer">
       <UniqueIdentifier>{b14fb97a-11ac-4cbe-a4f5-a9a84116874e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Component\RigidBody">
-      <UniqueIdentifier>{2355b4c5-6d76-4e84-b28e-01ade8051fa7}</UniqueIdentifier>
+    <Filter Include="GameObject\Component\Rigidbody">
+      <UniqueIdentifier>{ab8e05a6-452c-4c51-b3ea-450c934fafe9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +149,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkScript.h">
       <Filter>GameObject\Component\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkGameObject.h">
-      <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkSceneManager.h">
       <Filter>Scene\Manager</Filter>
@@ -246,8 +243,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\External\DirectXTex\Include\DirectXTex.h">
       <Filter>Common\Commoninclude</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkRigidBody.h">
-      <Filter>GameObject\Component\RigidBody</Filter>
+      <Filter>GameObject\Component\Rigidbody</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -362,8 +362,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\External\CMarkUp\Include\Markup.cpp">
       <Filter>Common\Commoninclude</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkRigidBody.cpp">
-      <Filter>GameObject\Component\RigidBody</Filter>
+      <Filter>GameObject\Component\Rigidbody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

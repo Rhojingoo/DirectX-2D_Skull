@@ -53,6 +53,7 @@ namespace jk
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
+		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 
 	private:
 		int mDir;
@@ -63,5 +64,6 @@ namespace jk
 		void attack_choice();
 		void dash_check();
 		void Input_move();
+
 	};
 }
