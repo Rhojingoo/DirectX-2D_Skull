@@ -1,10 +1,14 @@
 #include "Skul_Wolf.h"
 
+
+
 namespace jk
 {
+	int Skul_Wolf::mDir = 1;
+	bool Skul_Wolf::_switch = false;
+
 	Skul_Wolf::Skul_Wolf()
-		: mDir(1)
-		, _attack(0)
+		: _attack(0)
 		, _time(0.f)
 		, _State(Skul_Wolf_State::Idle)
 		, at(nullptr)
@@ -62,6 +66,12 @@ namespace jk
 		at->CompleteEvent(L"WolfAttackAR") = std::bind(&Skul_Wolf::attack_choice, this);
 		at->CompleteEvent(L"WolfAttackB") = std::bind(&Skul_Wolf::attack_choice, this);
 		at->CompleteEvent(L"WolfAttackBR") = std::bind(&Skul_Wolf::attack_choice, this);
+		//at->CompleteEvent(L"WolfSwitch") = std::bind(&Skul_Wolf::attack_choice, this);
+		//at->CompleteEvent(L"WolfSwitchR") = std::bind(&Skul_Wolf::attack_choice, this);
+		//at->CompleteEvent(L"WolfDash") = std::bind(&Skul_Wolf::attack_choice, this);
+		//at->CompleteEvent(L"WolfDashR") = std::bind(&Skul_Wolf::attack_choice, this);
+
+		
 
 		GameObject::Initialize();
 	}
@@ -70,6 +80,16 @@ namespace jk
 		 tr = GetComponent<Transform>();
 		 pos = tr->GetPosition();
 
+		 if (_switch == true)
+		 {
+			 _State = Skul_Wolf::Skul_Wolf_State::Switch;
+			 if(mDir ==1)
+				at->PlayAnimation(L"WolfSwitch", false);
+			 else 
+				at->PlayAnimation(L"WolfSwitchR", false);
+
+			 _switch = false;
+		 }
 
 		switch (_State)
 		{
@@ -103,12 +123,18 @@ namespace jk
 		case jk::Skul_Wolf::Skul_Wolf_State::Skill_B:skill_b();
 			break;
 
+		case jk::Skul_Wolf::Skul_Wolf_State::Switch:change();
+			break;
+
 		case jk::Skul_Wolf::Skul_Wolf_State::Death:death();
 			break;
 
 		default:
 			break;
 		}
+
+		
+			
 		
 		Input_move();
 		tr->SetPosition(pos);
@@ -299,6 +325,25 @@ namespace jk
 	void Skul_Wolf::skill_b()
 	{
 	}
+	void Skul_Wolf::change()
+	{
+		if (mDir == 1)
+		{			
+			_rigidbody->AddForce(Vector2(550.f, 1500.f));
+			_rigidbody->SetGround(false);
+			//at->PlayAnimation(L"WolfSwitch", true);
+			//pos.x += 150.0f * Time::DeltaTime();
+		}
+		else		
+		{					
+			_rigidbody->AddForce(Vector2(-550.f, 1500.f));
+			_rigidbody->SetGround(false);		
+			//at->PlayAnimation(L"WolfSwitchR", true);
+			//pos.x -= 150.0f * Time::DeltaTime();
+		}
+		//_switch = false;
+
+	}
 	void Skul_Wolf::death()
 	{
 	}
@@ -309,7 +354,17 @@ namespace jk
 		if (Input::GetKey(eKeyCode::Z)|| (Input::GetKey(eKeyCode::C)))
 			_rigidbody->SetGround(false);
 		else
-		_rigidbody->SetGround(true);
+		{
+			_rigidbody->SetGround(true);
+			_State = Skul_Wolf_State::Idle;
+			if (mDir == 1)
+				at->PlayAnimation(L"WolfIdle", false);
+			else
+				at->PlayAnimation(L"WolfSIdleR", false);
+		}
+
+
+
 		_rigidbody->SetVelocity(Vector2(0.f, 0.f));
 
 	}
@@ -386,12 +441,10 @@ namespace jk
 	void Skul_Wolf::dash_check()
 	{
 	}
-
 	void Skul_Wolf::Input_move()
 	{
 		if (Input::GetKey(eKeyCode::LEFT))
 		{
-
 			pos.x -= 150.0f * Time::DeltaTime();
 		}
 		if (Input::GetKey(eKeyCode::RIGHT))
@@ -428,7 +481,7 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SetPlay_List(PlayerList::basic_Skul,PlayerList::wolf_Skul, true);
+			SetPlay_List(PlayerList::basic_Skul,PlayerList::wolf_Skul, true, mDir);
 			SetPlayer_Pos(pos);
 		}
 	}

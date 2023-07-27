@@ -3,9 +3,10 @@
 
 namespace jk
 {
+	int Skul_Basic::mDir = 1;
+
 	Skul_Basic::Skul_Basic()
-		: mDir(1)
-		, _attack(0)
+		: _attack(0)
 		, _time(0.f)
 		, _State(Skul_Basic_State::Idle)
 		, at(nullptr)
@@ -13,9 +14,6 @@ namespace jk
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"Basic_Skul"));
-		//RigidBody* mRigidBody = AddComponent<RigidBody>();
-		//Vector2 mSize = mr->GetMaterial()->GetTexture()->GetTexSize();
-		//GetComponent<Transform>()->SetScale(Vector3(mSize.x, mSize.y, 1.0f));
 	}
 	Skul_Basic::~Skul_Basic()
 	{
@@ -425,7 +423,7 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true);
+			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
 			SetPlayer_Pos(pos);
 		}
 	}

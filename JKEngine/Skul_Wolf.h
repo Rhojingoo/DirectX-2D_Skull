@@ -27,6 +27,7 @@ namespace jk
 			JumpAttack,
 			Skill_A,
 			Skill_B,
+			Switch,
 			Death,
 		};
 
@@ -40,15 +41,15 @@ namespace jk
 		void jumpattack();
 		void skill_a();
 		void skill_b();
+		void change();
 		void death();
 
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
-
-		//virtual Vector3 GetPlayer_Pos() { return pos}
-		//virtual void SetPlayer_Pos(Vector3 pos) { pos = pos; }
+			
+		static void SetDirection(int dir, bool sw) { mDir = dir, _switch = sw; }
 
 	private:
 		Skul_Wolf_State _State;
@@ -59,9 +60,11 @@ namespace jk
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		
 	private:
-		int mDir;
+		static int mDir;
+		static bool _switch;
 		float _time;
 		bool _attack;
+
 
 	private:
 		void attack_choice();

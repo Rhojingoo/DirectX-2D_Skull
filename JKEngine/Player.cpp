@@ -6,6 +6,7 @@ namespace jk
 	Player:: PlayerList Player::player_check = PlayerList::basic_Skul;
 	Vector3 Player::_Pos = Vector3(0.f, 0.f, 0.f);
 	bool Player:: _check_change = 0;
+	int Player:: mDir = 1;
 
 	Player::Player() 	
 	{
@@ -48,7 +49,7 @@ namespace jk
 			{
 				_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::basic_Skul]->GetComponent<Transform>();
-				tr->SetPosition(_Pos);
+				tr->SetPosition(_Pos); Skul_Basic::SetDirection(mDir);
 
 
 				if (player_check == PlayerList::wolf_Skul)
@@ -61,7 +62,7 @@ namespace jk
 			{
 				_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::wolf_Skul]->GetComponent<Transform>();
-				tr->SetPosition(_Pos);
+				tr->SetPosition(_Pos);  Skul_Wolf::SetDirection(mDir, true);
 
 				if (player_check == PlayerList::basic_Skul)
 					_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
@@ -72,7 +73,7 @@ namespace jk
 			{
 				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::spere_Skul]->GetComponent<Transform>();
-				tr->SetPosition(_Pos);
+				tr->SetPosition(_Pos);  Skul_Spear::SetDirection(mDir);
 
 				if (player_check == PlayerList::wolf_Skul)
 					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);

@@ -48,6 +48,7 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		static void SetDirection(int dir) { mDir = dir; }
 
 
 	private:
@@ -59,7 +60,7 @@ namespace jk
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 
 	private:
-		int mDir;
+		static int mDir;
 		float _time;
 		bool _attack;
 

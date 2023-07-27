@@ -28,7 +28,8 @@ namespace jk
 	public:
 		virtual Vector3 GetPlayer_Pos() { return _Pos; }
 		virtual void SetPlayer_Pos(Vector3 pos) { _Pos = pos; }
-		static void SetPlay_List(PlayerList change, PlayerList current, bool ckeck) { player_select = change, player_check = current, _check_change = ckeck; }
+		static void SetPlay_List(PlayerList change, PlayerList current, bool ckeck, int direction) 
+		{ player_select = change, player_check = current, _check_change = ckeck, mDir = direction; }
 
 	private:
 		static PlayerList player_select;
@@ -36,6 +37,7 @@ namespace jk
 		static Vector3 _Pos; 
 		GameObject* _Gobjs[3];
 		static bool _check_change;
+		static int mDir;
 		
 	};
 }

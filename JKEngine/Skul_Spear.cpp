@@ -5,9 +5,10 @@
 
 namespace jk
 {
+	int Skul_Spear::mDir = 1;
+
 	Skul_Spear::Skul_Spear()
-		: mDir(1)
-		, _attack(0)
+		: _attack(0)
 		, _time(0.f)
 		, _State(Skul_Spear_State::Idle)
 		, at(nullptr)
