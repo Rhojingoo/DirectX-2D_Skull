@@ -14,7 +14,6 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		
-
 		//at = AddComponent<Animator>();
 		//at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_head", this);
 		//at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_head", this, 1);
@@ -62,44 +61,24 @@ namespace jk
 
 	void Skul_head::idle()
 	{
-
-		//if (_attack == true)
-		//{
-			//_state = Skul_Head_State::Move;
-			//if (mDir == 1)
-			//{
-			//	//at->PlayAnimation(L"PlayerSkul_head", false);
-			//	//_rigidbody->SetVelocity(Vector2(270.f, 0.f));
-			//	mDir = 1;
-			//}
-			//if (mDir == -1)
-			//{
-			//	//at->PlayAnimation(L"PlayerSkul_headR", false);
-			//	//_rigidbody->SetVelocity(Vector2(-270.f, 0.f));
-			//	mDir = -1;
-			//}
-		//}
-		//else
-		//{
-		//}
 	}
 	void Skul_head::move()
 	{
-		_rigidbody->ClearVelocityY();
-		if (mDir == 1 && _velocity.x <= 220.0)
-		{			
-			_state = Skul_Head_State::Idle;
-			_rigidbody->SetGround(false);
-			_rigidbody->ClearVelocityX();
-			mDir = 1;			
-		}
-		else if (mDir == -1 && _velocity.x >= -220.0)
-		{			
-			_state = Skul_Head_State::Idle;
-			_rigidbody->SetGround(false);
-			_rigidbody->ClearVelocityX();
-			mDir = -1; 			
-		}
+		//_rigidbody->ClearVelocityY();
+		//if (mDir == 1 && _velocity.x <= 220.0)
+		//{			
+		//	_state = Skul_Head_State::Idle;
+		//	_rigidbody->SetGround(false);
+		//	_rigidbody->ClearVelocityX();
+		//	mDir = 1;			
+		//}
+		//else if (mDir == -1 && _velocity.x >= -220.0)
+		//{			
+		//	_state = Skul_Head_State::Idle;
+		//	_rigidbody->SetGround(false);
+		//	_rigidbody->ClearVelocityX();
+		//	mDir = -1; 			
+		//}
 	}
 	void Skul_head::attack()
 	{
@@ -112,7 +91,7 @@ namespace jk
 			{
 				_attack = false;
 				_rigidbody->SetGround(true);
-				_Ground_check = _rigidbody->GetGround();				
+				_Ground_check = true;
 			}
 			else
 			{

@@ -6,11 +6,10 @@
 namespace jk
 {
 	int Skul_Spear::mDir = 1;
+	bool Skul_Spear::_switch = false;
 
 	Skul_Spear::Skul_Spear()
-		: _attack(0)
-		, _time(0.f)
-		, _State(Skul_Spear_State::Idle)
+		: _State(Skul_Spear_State::Idle)
 		, at(nullptr)
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
@@ -27,10 +26,9 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 
-
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\AttackA", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\AttackB", this) ;
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\AttackB", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\AttackC", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Dash", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Fall", this);
@@ -39,7 +37,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Jump", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\JumpAttack", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Skill", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Switch", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Switch", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Walk", this);
 
 
@@ -53,7 +51,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Jump", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\JumpAttack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Skill", this, 1);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Switch", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Switch", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Walk", this, 1);
 
 
@@ -69,17 +67,29 @@ namespace jk
 		at->CompleteEvent(L"SpearAttackB") = std::bind(&Skul_Spear::attack_choice, this);
 		at->CompleteEvent(L"SpearAttackBR") = std::bind(&Skul_Spear::attack_choice, this);
 		at->CompleteEvent(L"SpearAttackC") = std::bind(&Skul_Spear::attack_choice, this);
-		at->CompleteEvent(L"SpearAttackCR") = std::bind(&Skul_Spear::attack_choice, this);
-		//at->CompleteEvent(L"Skul_BasicDash") = std::bind(&Skul_Basic::dash_check, this);
-		//at->CompleteEvent(L"Skul_BasicDashR") = std::bind(&Skul_Basic::dash_check, this);
+		at->CompleteEvent(L"SpearAttackCR") = std::bind(&Skul_Spear::attack_choice, this);	
+		at->CompleteEvent(L"SpearSwitch") = std::bind(&Skul_Spear::switch_on_off, this);
+		at->CompleteEvent(L"SpearSwitchR") = std::bind(&Skul_Spear::switch_on_off, this);
+
+
 		GameObject::Initialize();
 	}
 	void Skul_Spear::Update()
 	{
 		tr = GetComponent<Transform>();
 		pos = tr->GetPosition();
+		_velocity = _rigidbody->GetVelocity();
 
+		if (_switch == true)
+		{
+			_State = Skul_Spear_State::Switch;
+			if (mDir == 1)
+				at->PlayAnimation(L"SpearSwitch", true);
+			else
+				at->PlayAnimation(L"SpearSwitchR", true);
+		}
 
+	
 		switch (_State)
 		{
 		case jk::Skul_Spear::Skul_Spear_State::Idle:idle();
@@ -89,6 +99,9 @@ namespace jk
 			break;
 
 		case jk::Skul_Spear::Skul_Spear_State::Jump:jump();
+			break;
+
+		case jk::Skul_Spear::Skul_Spear_State::Fall:fall();
 			break;
 
 		case jk::Skul_Spear::Skul_Spear_State::Falling:falling();
@@ -112,6 +125,9 @@ namespace jk
 		case jk::Skul_Spear::Skul_Spear_State::Skill_B:skill_b();
 			break;
 
+		case jk::Skul_Spear::Skul_Spear_State::Switch:change();
+			break;
+
 		case jk::Skul_Spear::Skul_Spear_State::Death:death();
 			break;
 
@@ -125,12 +141,16 @@ namespace jk
 	}
 	void Skul_Spear::LateUpdate()
 	{
+		_collider->SetSize(Vector2(0.05f, 0.05f));
+		_collider->SetCenter(Vector2(0.0f, -0.1f));
 		GameObject::LateUpdate();
 	}
+
 	void Skul_Spear::Render()
 	{
 		GameObject::Render();
 	}
+
 	void Skul_Spear::idle()
 	{
 		if (Input::GetKey(eKeyCode::RIGHT)
@@ -149,6 +169,37 @@ namespace jk
 			}
 		}
 
+			if (Input::GetKey(eKeyCode::A))
+			{
+				_State = Skul_Spear_State::Skill_A;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"SpearSkill", true); mDir = 1;
+					_rigidbody->SetVelocity(Vector2(300.f, 0.f));
+				}
+				else if (mDir == -1)
+				{
+					at->PlayAnimation(L"SpearSkillR", true); mDir = -1;
+					_rigidbody->SetVelocity(Vector2(-300.f, 0.f));
+				}
+			}
+			//if (Input::GetKey(eKeyCode::S))
+			//{
+			//	_State = Skul_Wolf_State::Skill_B;
+			//	if (mDir == 1)
+			//	{
+			//		at->PlayAnimation(L"WolfSkillB", true); mDir = 1;
+			//		_rigidbody->SetVelocity(Vector2(100.f, 0.f));
+			//	}
+			//	else if (mDir == -1)
+			//	{
+			//		at->PlayAnimation(L"WolfSkillBR", true); mDir = -1;
+			//		_rigidbody->SetVelocity(Vector2(-100.f, 0.f));
+			//	}
+			//}
+
+
+
 		if (Input::GetKey(eKeyCode::X))
 		{
 			_State = Skul_Spear_State::Attack_A;
@@ -164,20 +215,25 @@ namespace jk
 			}
 		}
 
-		//if (Input::GetKeyDown(eKeyCode::C))
-		//{
-		//	_State = Skul_Basic_State::Jump;
-		//	//if (mDir == 1)
-		//	//{
-		//	//	mAnimator->Play(L"", true);
-		//	//	mDir = 1;
-		//	//}
-		//	//else if (mDir == -1)
-		//	//{
-		//	//	mAnimator->Play(L"", true);
-		//	//	mDir = -1;
-		//	//}
-		//}
+		if (Input::GetKeyDown(eKeyCode::C))
+		{
+			_State = Skul_Spear_State::Jump;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"SpearJump", true);
+
+				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetGround(false);	mDir = 1;
+			}
+			else if (mDir == -1)
+			{
+				at->PlayAnimation(L"SpearJumpR", true);
+
+				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetGround(false);	mDir = -1;
+			}
+			_jump++;
+		}
 
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
@@ -185,15 +241,18 @@ namespace jk
 			if (mDir == 1)
 			{
 				at->PlayAnimation(L"SpearDash", false);
+				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
 				mDir = 1;
 			}
 			else if (mDir == -1)
 			{
 				at->PlayAnimation(L"SpearDashR", false);
+				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
 				mDir = -1;
 			}
 		}
 	}
+
 	void Skul_Spear::move()
 	{
 		if (Input::GetKeyUp(eKeyCode::RIGHT)
@@ -227,46 +286,220 @@ namespace jk
 			}
 		}
 
+		if (Input::GetKeyDown(eKeyCode::C))
+		{
+			_State = Skul_Spear_State::Jump;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"SpearJump", true);
+
+				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetGround(false);	mDir = 1;
+			}
+			else if (mDir == -1)
+			{
+				at->PlayAnimation(L"SpearJumpR", true);
+
+				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetGround(false);	mDir = -1;
+			}
+			_jump++;
+		}
+
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
 			_State = Skul_Spear_State::Dash;
 			if (mDir == 1)
 			{
 				at->PlayAnimation(L"SpearDash", false);
+				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
 				mDir = 1;
 			}
 			else if (mDir == -1)
 			{
 				at->PlayAnimation(L"SpearDashR", false);
+				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
 				mDir = -1;
 			}
 		}
 	}
+
 	void Skul_Spear::jump()
 	{
-	}
-	void Skul_Spear::falling()
-	{
-	}
-	void Skul_Spear::dash()
-	{
-		_time += Time::DeltaTime();
-		if (_time > 0.7f)
+		_Ground_check = false;
+		if ((_velocity.y <= 0.f) || (_jump >= 2))
 		{
-			_State = Skul_Spear_State::Idle;
+			_State = Skul_Spear_State::Fall;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"SpearIdle", true);
+				at->PlayAnimation(L"SpearFall", false);
 				mDir = 1;
+			}
+			if (mDir == -1)
+			{
+				at->PlayAnimation(L"SpearFallR", false);
+				mDir = -1;
+			}
+			_jump = 0;
+		}
+
+		if (_jump < 3)
+		{
+			if (Input::GetKeyDown(eKeyCode::C))
+			{
+				if (mDir == 1)
+				{
+					_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+					mDir = 1;
+				}
+				else if (mDir == -1)
+				{
+					_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+					mDir = -1;
+				}
+				_jump++;
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::X))
+		{
+			if (mDir == 1)
+			{
+				_State = Skul_Spear_State::JumpAttack;
+				at->PlayAnimation(L"SpearJumpAttack", true);
+			}
+
+			if (mDir == -1)
+			{
+				_State = Skul_Spear_State::JumpAttack;
+				at->PlayAnimation(L"SpearJumpAttackR", true);
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::Z))
+		{
+			_State = Skul_Spear_State::Dash;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"SpearDash", false);
+				_rigidbody->SetVelocity(Vector2(250.f, 150.f));
+				_rigidbody->SetGround(false);	mDir = 1;
 			}
 			else if (mDir == -1)
 			{
-				at->PlayAnimation(L"SpearIdleR", true);
-				mDir = -1;
+				at->PlayAnimation(L"SpearDashR", false);
+				_rigidbody->SetVelocity(Vector2(-250.f, 150.f));
+				_rigidbody->SetGround(false);	mDir = -1;
+			}
+		}
+	}
+
+	void Skul_Spear::fall()
+	{
+		_time += Time::DeltaTime();
+		if (_time > 2.f)
+		{
+			_State = Skul_Spear_State::Falling;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"SpearFallRepeat", true);
+				mDir = 1;  _fallcheck = 2;
+			}
+			if (mDir == -1)
+			{
+				at->PlayAnimation(L"SpearFallRepeatR", true);
+				mDir = -1; _fallcheck = 2;
 			}
 			_time = 0;
 		}
+		if (Input::GetKeyDown(eKeyCode::X))
+		{
+			if (mDir == 1)
+			{
+				_State = Skul_Spear_State::JumpAttack;
+				at->PlayAnimation(L"SpearJumpAttack", true);
+			}
+			if (mDir == -1)
+			{
+				_State = Skul_Spear_State::JumpAttack;
+				at->PlayAnimation(L"SpearJumpAttackR", true);
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::Z))
+		{
+			_State = Skul_Spear_State::Dash;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"SpearDash", true);
+				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+				mDir = 1;
+			}
+			if (mDir == -1)
+			{
+				at->PlayAnimation(L"SpearDashR", true);
+				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+				mDir = -1;
+			}
+		}
 	}
+
+	void Skul_Spear::falling()
+	{
+		if (Input::GetKeyDown(eKeyCode::X))
+		{
+			if (mDir == 1)
+			{
+				_State = Skul_Spear_State::JumpAttack;
+				at->PlayAnimation(L"SpearJumpAttack", true);
+			}
+			if (mDir == -1)
+			{
+				_State = Skul_Spear_State::JumpAttack;
+				at->PlayAnimation(L"SpearJumpAttackR", true);
+			}
+		}
+
+		if (Input::GetKeyDown(eKeyCode::Z))
+		{
+			_State = Skul_Spear_State::Dash;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"SpearDash", true);
+				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+				mDir = 1;
+			}
+			if (mDir == -1)
+			{
+				at->PlayAnimation(L"SpearDashR", true);
+				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+				mDir = -1;
+			}
+		}
+	}
+
+	void Skul_Spear::dash()
+	{
+		_Ground_check = false;
+		_rigidbody->ClearVelocityY();
+		if (mDir == 1 && _velocity.x <= 220.0)
+		{
+			_State = Skul_Spear_State::Idle;
+			at->PlayAnimation(L"SpearIdle", true);
+			_rigidbody->SetGround(false);
+			_rigidbody->ClearVelocityX();
+			mDir = 1;
+		}
+		else if (mDir == -1 && _velocity.x >= -220.0)
+		{
+			_State = Skul_Spear_State::Idle;
+			at->PlayAnimation(L"SpearIdleR", true);
+			_rigidbody->SetGround(false);
+			_rigidbody->ClearVelocityX();
+			mDir = -1;
+		}
+	}
+
 	void Skul_Spear::attack_a()
 	{
 		if (Input::GetKeyDown(eKeyCode::X))
@@ -282,6 +515,7 @@ namespace jk
 			mDir = -1;
 		}
 	}
+
 	void Skul_Spear::attack_b()
 	{
 		_attack = false;
@@ -294,6 +528,7 @@ namespace jk
 			mDir = -1;
 		}
 	}
+
 	void Skul_Spear::attack_c()
 	{
 	}
@@ -301,25 +536,98 @@ namespace jk
 	void Skul_Spear::jumpattack()
 	{
 	}
+
 	void Skul_Spear::skill_a()
 	{
+		_Ground_check = false;
+		_rigidbody->ClearVelocityY();
+		if (mDir == 1 && _velocity.x <= 280.0)
+		{
+			_State = Skul_Spear_State::Idle;
+			at->PlayAnimation(L"SpearIdle", true);
+			_rigidbody->SetGround(false);
+			_rigidbody->ClearVelocityX();
+			mDir = 1;
+		}
+		else if (mDir == -1 && _velocity.x >= -280.0)
+		{
+			_State = Skul_Spear_State::Idle;
+			at->PlayAnimation(L"SpearIdleR", true);
+			_rigidbody->SetGround(false);
+			_rigidbody->ClearVelocityX();
+			mDir = -1;
+		}
 	}
+
 	void Skul_Spear::skill_b()
 	{
+	}
+
+	void Skul_Spear::change()
+	{
+		if (_switch == true)
+		{	
+			if (mDir == 1)
+			{
+				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+				_switch = false; 
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+				_switch = false;
+			}
+		}
 	}
 
 	void Skul_Spear::death()
 	{
 	}
+
 	void Skul_Spear::OnCollisionEnter(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+			{
+
+				if (_Ground_check == false)
+				{
+					_fallcheck = 0;	_jump = 0;
+					_rigidbody->SetGround(true);
+					_Ground_check = _rigidbody->GetGround();
+				}
+				else
+				{
+					if (Input::GetKeyDown(eKeyCode::Z))
+					{
+						_State = Skul_Spear_State::Dash;
+						if (mDir == 1)
+						{
+							at->PlayAnimation(L"SpearDash", true);
+							_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+							mDir = 1;
+						}
+						if (mDir == -1)
+						{
+							at->PlayAnimation(L"SpearDashR", true);
+							_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+							mDir = -1;
+						}
+					}
+				}
+			}
+		}
 	}
+
 	void Skul_Spear::OnCollisionStay(Collider2D* other)
 	{
 	}
+
 	void Skul_Spear::OnCollisionExit(Collider2D* other)
 	{
 	}
+
 	void Skul_Spear::attack_choice()
 	{
 		if (_attack == true)
@@ -384,45 +692,61 @@ namespace jk
 			}
 		}
 	}
+
 	void Skul_Spear::dash_check()
 	{
 	}
-	void Skul_Spear::Input_move()
-	{	
-		if (Input::GetKey(eKeyCode::LEFT))
-		{
 
+	void Skul_Spear::Input_move()
+	{
+		if (Input::GetKey(eKeyCode::LEFT))
 			pos.x -= 150.0f * Time::DeltaTime();
-		}
+
 		if (Input::GetKey(eKeyCode::RIGHT))
-		{
-			//_rigidbody->SetFriction(100.f);
-			//_rigidbody->AddForce(Vector2(150.f, 0.f));
 			pos.x += 150.0f * Time::DeltaTime();
 
-		}
 		if (Input::GetKey(eKeyCode::DOWN))
-		{
 			pos.y -= 100.0f * Time::DeltaTime();
-		}
+
 		if (Input::GetKey(eKeyCode::UP))
-		{
 			pos.y += 100.0f * Time::DeltaTime();
-		}
 
-		if (Input::GetKey(eKeyCode::Z))
-		{
-			if (mDir == 1)
-				_rigidbody->AddForce(Vector2(50.f, 150.f));
-			else
-				_rigidbody->AddForce(Vector2(-55.f, 150.f));
-			_rigidbody->SetGround(false);
-		}
+		//if (Input::GetKeyDown(eKeyCode::C))
+		//{
+		//	_rigidbody->AddForce(Vector2(0.f, 350.f));
+		//	_rigidbody->SetGround(false);
+		//}
 
-		if (Input::GetKey(eKeyCode::C))
+		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			_rigidbody->AddForce(Vector2(0.f, 180.f));
-			_rigidbody->SetGround(false);
-		}		
+			SetPlay_List(PlayerList::basic_Skul, PlayerList::spere_Skul, true, mDir);
+			SetPlayer_Pos(pos);
+		}
+	}
+
+	void jk::Skul_Spear::switch_on_off()
+	{
+		if (_switch == false)
+		{
+			_Ground_check = false;			
+			_rigidbody->ClearVelocityY();
+			if (mDir == 1 && _velocity.x <= 220.0)
+			{
+				_State = Skul_Spear_State::Idle;
+				at->PlayAnimation(L"SpearIdle", true);
+				_rigidbody->SetGround(false);
+				_rigidbody->ClearVelocityX();
+				mDir = 1;
+			}
+			else if (mDir == -1 && _velocity.x >= -220.0)
+			{
+				_State = Skul_Spear_State::Idle;
+				at->PlayAnimation(L"SpearIdleR", true);
+				_rigidbody->SetGround(false);
+				_rigidbody->ClearVelocityX();
+				mDir = -1;
+			}
+			
+		}
 	}
 }

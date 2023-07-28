@@ -176,12 +176,14 @@ namespace jk
 		tr->SetPosition(pos);
 		GameObject::Update();
 	}
+
 	void Skul_Basic::LateUpdate()
 	{
 		_collider->SetSize(Vector2(0.05f, 0.05f));
 		_collider->SetCenter(Vector2(0.0f, -0.1f));
 		GameObject::LateUpdate();
 	}
+
 	void Skul_Basic::Render()
 	{
 		GameObject::Render();
@@ -285,6 +287,8 @@ namespace jk
 			if (_Skulhead == false)
 			{
 				_State = Skul_Basic_State::Skill_A;
+				RigidBody* head_rjg = Skul_Head->Getrigidbody();
+				head_rjg->SetGround(false);
 				Skul_Head->SetState(eState::Active);
 				if (mDir == 1)
 				{
@@ -292,7 +296,7 @@ namespace jk
 					mDir = 1; _Skulhead = true;			
 					Skul_Head->Setattack(true);
 					Skul_Head->GetComponent<Transform>()->SetPositionXY(Vector2{ tr->GetPosition().x+35, tr->GetPosition().y +10 });
-					Skul_Head->GetComponent<RigidBody>()->SetVelocity(Vector2{ 250.0f, 0.0f });
+					Skul_Head->GetComponent<RigidBody>()->SetVelocity(Vector2{ 350.f, 0.0f });
 				}
 				else if (mDir == -1)
 				{
@@ -300,7 +304,7 @@ namespace jk
 					mDir = -1; _Skulhead = true;		
 					Skul_Head->Setattack(true);
 					Skul_Head->GetComponent<Transform>()->SetPositionXY(Vector2{ tr->GetPosition().x-35, tr->GetPosition().y + 10 });
-					Skul_Head->GetComponent<RigidBody>()->SetVelocity(Vector2{ -250.0f, 0.0f });
+					Skul_Head->GetComponent<RigidBody>()->SetVelocity(Vector2{ -350.f, 0.0f });
 				}					
 			}
 			else
@@ -431,14 +435,14 @@ namespace jk
 			{
 				at->PlayAnimation(L"Skul_BasicFall", false);	
 				if (_Skulhead == true)
-					at->PlayAnimation(L"NoHeadFall", true);
+					at->PlayAnimation(L"NoHeadFall", false);
 				mDir = 1;
 			}
 			if (mDir == -1)
 			{
 				at->PlayAnimation(L"Skul_BasicFallR", false);		
 				if (_Skulhead == true)
-					at->PlayAnimation(L"NoHeadFallR", true);
+					at->PlayAnimation(L"NoHeadFallR", false);
 				mDir = -1;
 			}
 			_jump = 0;
@@ -505,6 +509,7 @@ namespace jk
 
 	void Skul_Basic::fall()
 	{
+		_Ground_check = false;
 		_time += Time::DeltaTime();
 		if (_time > 2.f)
 		{
@@ -568,6 +573,7 @@ namespace jk
 
 	void Skul_Basic::falling()
 	{
+		_Ground_check = false;
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
 			if (mDir == 1)
@@ -669,6 +675,25 @@ namespace jk
 
 	void Skul_Basic::skill_a()
 	{
+		RigidBody* head_rjg = Skul_Head->Getrigidbody();
+		head_rjg->ClearVelocityY();
+		Vector2 _velocity_head = head_rjg->GetVelocity();
+		Skul_Head->Setgroundcheck(false);
+		
+		if (mDir == 1 && _velocity_head.x <= 220.0)
+		{
+			head_rjg->SetGround(false);
+			head_rjg->ClearVelocityX();
+			mDir = 1;
+		}
+		else if (mDir == -1 && _velocity_head.x >= -220.0)
+		{
+			head_rjg->SetGround(false);
+			head_rjg->ClearVelocityX();
+			mDir = -1;
+		}
+
+
 	}
 
 	void Skul_Basic::skill_b()
@@ -701,28 +726,47 @@ namespace jk
 	{		
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
-			if (_State == Skul_Basic_State::Switch)
-			{
-
-			}
 
 			if (_Ground_check == false)
 			{
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
+				_Ground_check = true;
 				_Ground_check = _rigidbody->GetGround();
-				_State = Skul_Basic_State::Idle;
-				if (mDir == 1)
-					at->PlayAnimation(L"Skul_BasicIdle", true);
-				else
-					at->PlayAnimation(L"Skul_BasicIdleR", true);
+
+				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
+				{
+					_State = Skul_Basic_State::Idle;
+					if (mDir == 1)
+						at->PlayAnimation(L"Skul_BasicIdle", true);
+					else
+						at->PlayAnimation(L"Skul_BasicIdleR", true);
+				}
 			}
 			else
 			{
-				int a;
+				if (Input::GetKeyDown(eKeyCode::Z))
+				{
+					_State = Skul_Basic_State::Dash;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"Skul_BasicDash", true);
+						if (_Skulhead == true)
+							at->PlayAnimation(L"NoHeadDash", true);
+						_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+						mDir = 1;
+					}
+					if (mDir == -1)
+					{
+						at->PlayAnimation(L"Skul_BasicDashR", true);
+						if (_Skulhead == true)
+							at->PlayAnimation(L"NoHeadDashR", true);
+						_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+						mDir = -1;
+					}
+				}
 			}
 		}	
-
 		if (Skul_head* _head = dynamic_cast<Skul_head*>(other->GetOwner()))
 		{
 			if (_Skulhead == true)
@@ -863,7 +907,8 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
+			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
+			SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
 			SetPlayer_Pos(pos);
 		}
 	}

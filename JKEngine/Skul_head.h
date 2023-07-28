@@ -33,6 +33,8 @@ namespace jk
 
 		static void SetDirection(int dir) { mDir = dir; }
 		static void Setattack(bool check) { _attack = check; }
+		RigidBody* Getrigidbody() {return _rigidbody;}
+		void Setgroundcheck(bool check) { _Ground_check = check; }
 
 	private:
 		Animator* at = nullptr;

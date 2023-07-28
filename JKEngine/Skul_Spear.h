@@ -20,6 +20,7 @@ namespace jk
 			Idle,
 			Move,
 			Jump,
+			Fall,
 			Falling,
 			Dash,
 			Attack_A,
@@ -28,12 +29,14 @@ namespace jk
 			JumpAttack,
 			Skill_A,
 			Skill_B,
+			Switch,
 			Death,
 		};
 
 		void idle();
 		void move();
 		void jump();
+		void fall();
 		void falling();
 		void dash();
 		void attack_a();
@@ -42,13 +45,14 @@ namespace jk
 		void jumpattack();
 		void skill_a();
 		void skill_b();
+		void change();
 		void death();
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
-		static void SetDirection(int dir) { mDir = dir; }
+		static void SetDirection(int dir, bool sw) { mDir = dir, _switch = sw; }
 
 
 	private:
@@ -58,16 +62,24 @@ namespace jk
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+		Vector2 _velocity = Vector2(0.f, 0.f);
+
 
 	private:
 		static int mDir;
-		float _time;
-		bool _attack;
+		static bool _switch;
+		float _time = 0.f;
+		bool _attack = false;
+		int _jump = 0;
+		int _fallcheck = 0;
+		bool _dash = false;
+		bool _Ground_check = false;
+
 
 	private:
 		void attack_choice();
 		void dash_check();
 		void Input_move();
-
+		void switch_on_off();
 	};
 }

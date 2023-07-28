@@ -76,7 +76,7 @@ namespace jk
 			{
 				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::spere_Skul]->GetComponent<Transform>();
-				tr->SetPosition(_Pos);  Skul_Spear::SetDirection(mDir);
+				tr->SetPosition(_Pos);  Skul_Spear::SetDirection(mDir, true);
 
 				if (player_check == PlayerList::wolf_Skul)
 					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
