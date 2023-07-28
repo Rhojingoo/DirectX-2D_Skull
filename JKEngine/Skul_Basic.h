@@ -30,6 +30,7 @@ namespace jk
 			JumpAttack,
 			Skill_A,
 			Skill_B,
+			Switch,
 			Death,
 		};
 
@@ -44,13 +45,14 @@ namespace jk
 		void jumpattack();
 		void skill_a();
 		void skill_b();
+		void change();
 		void death();
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
-		static void SetDirection(int dir) { mDir = dir; }
+		static void SetDirection(int dir, bool sw) { mDir = dir, _switch = sw; }
 		static int GetDirection() { return mDir; }
 
 	private:
@@ -65,6 +67,7 @@ namespace jk
 
 	private:
 		static int mDir;
+		static bool _switch;
 		float _time = 0.f;
 		bool _attack = false;
 		int _jump = 0;
@@ -75,6 +78,7 @@ namespace jk
 	private:
 		void attack_choice();
 		void Input_move();
+		void switch_on_off();
 
 	};
 }

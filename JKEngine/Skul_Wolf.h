@@ -20,6 +20,7 @@ namespace jk
 			Idle,
 			Move,
 			Jump,
+			Fall,
 			Falling,
 			Dash,
 			Attack_A,
@@ -34,6 +35,7 @@ namespace jk
 		void idle();
 		void move();
 		void jump();
+		void fall();
 		void falling();
 		void dash();
 		void attack_a();
@@ -58,12 +60,17 @@ namespace jk
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+		Vector2 _velocity = Vector2(0.f, 0.f);
 		
 	private:
 		static int mDir;
 		static bool _switch;
-		float _time;
-		bool _attack;
+		float _time = 0.f;
+		bool _attack = false;
+		int _jump = 0;
+		int _fallcheck = 0;
+		bool _dash = false;
+		bool _Ground_check = false;
 
 
 	private:

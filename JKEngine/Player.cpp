@@ -52,14 +52,14 @@ namespace jk
 			{
 				_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::basic_Skul]->GetComponent<Transform>();
-				tr->SetPosition(_Pos); Skul_Basic::SetDirection(mDir);
-	
+				tr->SetPosition(_Pos); Skul_Basic::SetDirection(mDir, true);
 
 				if (player_check == PlayerList::wolf_Skul)
 					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
 				else if (player_check == PlayerList::spere_Skul)
 					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
 			}
+
 			if (player_select == PlayerList::wolf_Skul)
 			{
 				_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Active);
@@ -71,6 +71,7 @@ namespace jk
 				else if (player_check == PlayerList::spere_Skul)
 					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
 			}
+
 			if (player_select == PlayerList::spere_Skul)
 			{
 				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Active);

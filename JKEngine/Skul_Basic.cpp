@@ -4,6 +4,7 @@
 namespace jk
 {
 	int Skul_Basic::mDir = 1;
+	bool Skul_Basic::_switch = false;
 
 	Skul_Basic::Skul_Basic()
 		: _State(Skul_Basic_State::Idle)
@@ -97,6 +98,9 @@ namespace jk
 		at->CompleteEvent(L"Skul_BasicJumpAttackR") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"Skul_BasicSkill") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"Skul_BasicSkillR") = std::bind(&Skul_Basic::attack_choice, this);
+		at->CompleteEvent(L"Skul_BasicSwitch") = std::bind(&Skul_Basic::switch_on_off, this);
+		at->CompleteEvent(L"Skul_BasicSwitchR") = std::bind(&Skul_Basic::switch_on_off, this);
+
 		at->CompleteEvent(L"NoHeadAttackA") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NoHeadAttackAR") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NoHeadAttackB") = std::bind(&Skul_Basic::attack_choice, this);
@@ -112,6 +116,16 @@ namespace jk
 		tr = GetComponent<Transform>();
 		pos = tr->GetPosition();
 		_velocity = _rigidbody->GetVelocity();
+
+
+		if (_switch == true)
+		{
+			_State = Skul_Basic::Skul_Basic_State::Switch;
+			if (mDir == 1)
+				at->PlayAnimation(L"Skul_BasicSwitch", true);
+			else
+				at->PlayAnimation(L"Skul_BasicSwitchR", true);
+		}
 
 		switch (_State)
 		{
@@ -146,6 +160,9 @@ namespace jk
 			break;
 
 		case jk::Skul_Basic::Skul_Basic_State::Skill_B:skill_b();
+			break;
+
+		case jk::Skul_Basic::Skul_Basic_State::Switch:change();
 			break;
 
 		case jk::Skul_Basic::Skul_Basic_State::Death:death();
@@ -267,7 +284,6 @@ namespace jk
 		{
 			if (_Skulhead == false)
 			{
-
 				_State = Skul_Basic_State::Skill_A;
 				Skul_Head->SetState(eState::Active);
 				if (mDir == 1)
@@ -594,6 +610,7 @@ namespace jk
 
 	void Skul_Basic::dash()
 	{		 
+		_Ground_check = false;
 		_rigidbody->ClearVelocityY();
 		if (mDir == 1 && _velocity.x <= 220.0)
 		{
@@ -652,13 +669,26 @@ namespace jk
 
 	void Skul_Basic::skill_a()
 	{
-		//Setskillcheck(true);
-		//SetPlay_List(PlayerList::wolf_Skul, PlayerList::basic_Skul, true, mDir);
-		//SetPlayer_Pos(pos);
 	}
 
 	void Skul_Basic::skill_b()
 	{
+	}
+
+	void Skul_Basic::change()
+	{
+		{
+			if (mDir == 1)
+			{
+				_rigidbody->SetVelocity(Vector2(100.f, 0.f));				
+				_switch = false; _Ground_check = false;
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(-100.f, 0.f));				
+				_switch = false; _Ground_check = false;
+			}
+		}
 	}
 
 	void Skul_Basic::death()
@@ -671,6 +701,11 @@ namespace jk
 	{		
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
+			if (_State == Skul_Basic_State::Switch)
+			{
+
+			}
+
 			if (_Ground_check == false)
 			{
 				_fallcheck = 0;	_jump = 0;
@@ -701,12 +736,7 @@ namespace jk
 				_Skulhead = false;
 				Skul_Head->SetState(eState::Paused);
 			}
-			/*else
-			{
-				int a = 0;
-			}*/
 		}
-	
 	}
 
 	void Skul_Basic::OnCollisionStay(Collider2D* other)
@@ -816,7 +846,6 @@ namespace jk
 			}
 		}
 	}
-
 	void Skul_Basic::Input_move()
 	{
 		if (Input::GetKey(eKeyCode::LEFT))
@@ -836,6 +865,24 @@ namespace jk
 		{
 			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
 			SetPlayer_Pos(pos);
+		}
+	}
+	void Skul_Basic::switch_on_off()
+	{
+		if(_switch == false)
+		{
+			_State = Skul_Basic_State::Idle;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"Skul_BasicIdle", true);
+				mDir = 1;
+			}
+			else if (mDir == -1)
+			{
+				at->PlayAnimation(L"Skul_BasicIdleR", true);
+				mDir = -1;
+			}
+			_rigidbody->ClearVelocity();
 		}
 	}
 }
