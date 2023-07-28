@@ -6,6 +6,7 @@ namespace jk
 	Player:: PlayerList Player::player_check = PlayerList::basic_Skul;
 	Vector3 Player::_Pos = Vector3(0.f, 0.f, 0.f);
 	bool Player:: _check_change = 0;
+	bool Player::_skulhead_check = false;
 	int Player:: mDir = 1;
 
 	Player::Player() 	
@@ -22,10 +23,12 @@ namespace jk
 		_Gobjs[1]->Initialize();
 		_Gobjs[2] = new Skul_Spear;
 		_Gobjs[2]->Initialize();
+		//_Gobjs[3] = new Skul_head;
+		//_Gobjs[3]->Initialize();
 
 		for (int i = 0; i < 3; i++)
 		{
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetActiveScene();			
 			scene->AddGameObject(eLayerType::Player, _Gobjs[i]);
 			Transform* tr = _Gobjs[i]->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.f, 0.f, -250.f));
@@ -41,7 +44,7 @@ namespace jk
 		player_select;
 		player_check;
 		_Pos;
-		int a;
+
 
 		if (_check_change == true)
 		{
@@ -50,13 +53,12 @@ namespace jk
 				_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::basic_Skul]->GetComponent<Transform>();
 				tr->SetPosition(_Pos); Skul_Basic::SetDirection(mDir);
-
+	
 
 				if (player_check == PlayerList::wolf_Skul)
 					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
 				else if (player_check == PlayerList::spere_Skul)
 					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-
 			}
 			if (player_select == PlayerList::wolf_Skul)
 			{
@@ -82,6 +84,20 @@ namespace jk
 			}
 			_check_change = false;
 		}
+
+		//if (_skulhead_check == false)
+		//{
+		//	_Gobjs[(UINT)PlayerList::head]->SetState(eState::Paused);
+		//	Skul_head::Setattack(false);
+		//}
+		//else
+		//{
+		//	_Gobjs[(UINT)PlayerList::head]->SetState(eState::Active);
+		//	Skul_head::Setattack(true);  Skul_head::SetDirection(Skul_Basic::GetDirection());
+		//	Transform* tr = _Gobjs[(UINT)PlayerList::head]->GetComponent<Transform>();
+		//	tr->SetPosition(_Pos.x+100, _Pos.y, _Pos.z);
+		//}
+
 		
 		GameObject::Update();
 	}

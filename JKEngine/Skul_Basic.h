@@ -1,5 +1,6 @@
 #pragma once
 #include "Include_Common.h"
+#include "Skul_head.h"
 
 
 namespace jk
@@ -50,23 +51,26 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 		static void SetDirection(int dir) { mDir = dir; }
+		static int GetDirection() { return mDir; }
 
 	private:
 		Skul_Basic_State _State;
+		Skul_head* Skul_Head;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
-		Transform* tr = nullptr;
+		Transform* tr = nullptr;	
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:
 		static int mDir;
-		float _time;
-		bool _attack;
-		int _jump;
-		int _fallcheck;
-		bool _Ground_check;
+		float _time = 0.f;
+		bool _attack = false;
+		int _jump = 0;
+		int _fallcheck = 0;
+		bool _Ground_check = false;
+		bool _Skulhead = false;
 
 	private:
 		void attack_choice();

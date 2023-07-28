@@ -438,6 +438,14 @@ namespace jk::renderer
 				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"Basic_Skul", material);				
 			#pragma endregion
+
+			#pragma region Skul_Item
+				texture = Resources::Load<Texture>(L"skill_face", L"..\\Resources\\Texture\\Player\\Skul_head\\Skul_Skill.png");
+				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Skill_face", material);
+			#pragma endregion
+
 		#pragma endregion
 
 		#pragma region Test

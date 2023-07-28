@@ -11,6 +11,7 @@ namespace jk
 			basic_Skul,
 			wolf_Skul,
 			spere_Skul,
+			head,
 		};
 
 		Player();
@@ -30,14 +31,15 @@ namespace jk
 		virtual void SetPlayer_Pos(Vector3 pos) { _Pos = pos; }
 		static void SetPlay_List(PlayerList change, PlayerList current, bool ckeck, int direction) 
 		{ player_select = change, player_check = current, _check_change = ckeck, mDir = direction; }
+		static void Setskillcheck(bool check_head) {_skulhead_check = check_head;}
 
 	private:
 		static PlayerList player_select;
 		static PlayerList player_check;
 		static Vector3 _Pos; 
-		GameObject* _Gobjs[3];
+		GameObject* _Gobjs[4];
 		static bool _check_change;
 		static int mDir;
-		
+		static bool _skulhead_check;
 	};
 }

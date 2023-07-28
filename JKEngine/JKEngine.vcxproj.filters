@@ -97,6 +97,9 @@
     <ClInclude Include="jkTile_Ground.h">
       <Filter>Game_ob\BG\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="Skul_head.h">
+      <Filter>Game_ob\PLAYER\Skul_Head</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -189,6 +192,9 @@
     <ClCompile Include="jkTile_Ground.cpp">
       <Filter>Game_ob\BG\Tile</Filter>
     </ClCompile>
+    <ClCompile Include="Skul_head.cpp">
+      <Filter>Game_ob\PLAYER\Skul_Head</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -253,6 +259,9 @@
     </Filter>
     <Filter Include="Game_ob\BG\Tile">
       <UniqueIdentifier>{c0334ba9-04dc-4b54-99f8-740c8bf0578c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\PLAYER\Skul_Head">
+      <UniqueIdentifier>{72a62bd5-6394-44ac-8b31-cb16ba7593cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -70,9 +70,6 @@ namespace jk
 		//at->CompleteEvent(L"WolfSwitchR") = std::bind(&Skul_Wolf::attack_choice, this);
 		//at->CompleteEvent(L"WolfDash") = std::bind(&Skul_Wolf::attack_choice, this);
 		//at->CompleteEvent(L"WolfDashR") = std::bind(&Skul_Wolf::attack_choice, this);
-
-		
-
 		GameObject::Initialize();
 	}
 	void Skul_Wolf::Update()
@@ -132,8 +129,6 @@ namespace jk
 		default:
 			break;
 		}
-
-		
 			
 		
 		Input_move();
