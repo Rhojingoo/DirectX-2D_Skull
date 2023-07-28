@@ -588,35 +588,74 @@ namespace jk
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
-			if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
-			{
 
-				if (_Ground_check == false)
+
+			if (_Ground_check == false)
+			{
+				_fallcheck = 0;	_jump = 0;
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_Ground_check = _rigidbody->GetGround();
+
+				if (_State == Skul_Spear_State::JumpAttack || _State == Skul_Spear_State::Fall || _State == Skul_Spear_State::Falling)
 				{
-					_fallcheck = 0;	_jump = 0;
-					_rigidbody->SetGround(true);
-					_Ground_check = _rigidbody->GetGround();
+					_State = Skul_Spear_State::Idle;
+					if (mDir == 1)
+						at->PlayAnimation(L"SpearIdle", true);
+					else
+						at->PlayAnimation(L"SpearIdleR", true);
 				}
-				else
+			}
+			else
+			{
+				if (Input::GetKeyDown(eKeyCode::Z))
 				{
-					if (Input::GetKeyDown(eKeyCode::Z))
+					_State = Skul_Spear_State::Dash;
+					if (mDir == 1)
 					{
-						_State = Skul_Spear_State::Dash;
-						if (mDir == 1)
-						{
-							at->PlayAnimation(L"SpearDash", true);
-							_rigidbody->SetVelocity(Vector2(250.f, 0.f));
-							mDir = 1;
-						}
-						if (mDir == -1)
-						{
-							at->PlayAnimation(L"SpearDashR", true);
-							_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
-							mDir = -1;
-						}
+						at->PlayAnimation(L"SpearDash", true);				
+						_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+						mDir = 1;
+					}
+					if (mDir == -1)
+					{
+						at->PlayAnimation(L"SpearDashR", true);				
+						_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+						mDir = -1;
 					}
 				}
 			}
+
+
+			//if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+			//{
+
+			//	if (_Ground_check == false)
+			//	{
+			//		_fallcheck = 0;	_jump = 0;
+			//		_rigidbody->SetGround(true);
+			//		_Ground_check = _rigidbody->GetGround();
+			//	}
+			//	else
+			//	{
+			//		if (Input::GetKeyDown(eKeyCode::Z))
+			//		{
+			//			_State = Skul_Spear_State::Dash;
+			//			if (mDir == 1)
+			//			{
+			//				at->PlayAnimation(L"SpearDash", true);
+			//				_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+			//				mDir = 1;
+			//			}
+			//			if (mDir == -1)
+			//			{
+			//				at->PlayAnimation(L"SpearDashR", true);
+			//				_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+			//				mDir = -1;
+			//			}
+			//		}
+			//	}
+			//}
 		}
 	}
 

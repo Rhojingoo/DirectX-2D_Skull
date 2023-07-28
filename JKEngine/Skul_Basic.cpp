@@ -907,8 +907,8 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
-			SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
+			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
+			//SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
 			SetPlayer_Pos(pos);
 		}
 	}
