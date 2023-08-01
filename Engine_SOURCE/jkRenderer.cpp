@@ -349,12 +349,6 @@ namespace jk::renderer
 		spriteAniShader->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
 		jk::Resources::Insert(L"Animation_Shader", spriteAniShader);
 
-		//std::shared_ptr<Shader> ani2_shader = std::make_shared<Shader>();
-		//ani2_shader->Create(eShaderStage::VS, L"AnimationVS.hlsl", "main");
-		//ani2_shader->Create(eShaderStage::PS, L"ani2.hlsl", "main");
-		//jk::Resources::Insert(L"ani2_Shader", ani2_shader);
-
-
 		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
 		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
@@ -393,8 +387,7 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"Tile_Shader");
 		std::shared_ptr<Shader> animationShader
 			= Resources::Find<Shader>(L"Animation_Shader"); 
-		//std::shared_ptr<Shader> animation2
-		//	= Resources::Find<Shader>(L"ani2_shader");
+
 
 		#pragma region Public
 		#pragma region Mouse

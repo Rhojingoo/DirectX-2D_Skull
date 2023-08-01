@@ -3,6 +3,8 @@
 
 namespace jk
 {
+	GameObject* Mini_Boss::_player = nullptr;
+
 	Mini_Boss::Mini_Boss()
 	{
 	}
@@ -12,6 +14,9 @@ namespace jk
 
 	void Mini_Boss::Initialize()
 	{
+
+
+
 		GameObject::Initialize();
 	}
 

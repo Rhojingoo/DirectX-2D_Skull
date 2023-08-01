@@ -19,17 +19,21 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		static GameObject SetoWner(GameObject* ac) { oWner = ac; }
+
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+		Vector3 _playerpos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:
 		static int mDir;
 		static bool _switch;
+		static GameObject* oWner;
 		float _time = 0.f;
 		bool _attack = false;
 		int _jump = 0;

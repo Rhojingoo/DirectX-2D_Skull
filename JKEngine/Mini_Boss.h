@@ -19,5 +19,13 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		static void SetPlayer(GameObject* set) { _player = set; }
+		GameObject* Getplayer() { return _player; }
+		Vector3 GetPlayerPos() { return _playerpos; }
+
+	private : 
+		static GameObject* _player;
+		Vector3 _playerpos = Vector3( 0.f,0.f,0.f );
+	
 	};
 }

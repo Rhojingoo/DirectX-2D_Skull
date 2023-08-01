@@ -145,6 +145,8 @@ namespace jk
 
 		//at->CompleteEvent(L"Skul_BasicDash") = std::bind(&Skul_Basic::dash_check, this);
 		//at->CompleteEvent(L"Skul_BasicDashR") = std::bind(&Skul_Basic::dash_check, this);
+
+
 		GameObject::Initialize();
 	}
 

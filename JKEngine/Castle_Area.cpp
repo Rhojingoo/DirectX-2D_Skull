@@ -13,6 +13,7 @@ namespace jk
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
 		//GameObject* Zelda
 		//	= object::Instantiate<GameObject>(Vector3(0.0f, -50.0f, -700.f), eLayerType::Monster);
@@ -80,7 +81,10 @@ namespace jk
 
 #pragma region Test
 		{
-			Knight_male* test_mboss = object::Instantiate<Knight_male>(Vector3(0.f, -350.f, -250.f), eLayerType::MiniBoss);
+			Mini_Boss* testmboss = object::Instantiate<Knight_male>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
+			testmboss->SetName(L"test_mboss");
+
+			Knight_male* test_mboss = object::Instantiate<Knight_male>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
 			test_mboss->SetName(L"test_mboss");
 		}
 #pragma endregion
@@ -136,6 +140,8 @@ namespace jk
 		Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
 		cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
