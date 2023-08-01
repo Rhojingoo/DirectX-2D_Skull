@@ -80,8 +80,8 @@ namespace jk
 
 #pragma region Test
 		{
-			//Knight_male* test_mboss = object::Instantiate<Knight_male>(Vector3(0.f, -350.f, -250.f), eLayerType::MiniBoss);
-			//test_mboss->SetName(L"test_mboss");
+			Knight_male* test_mboss = object::Instantiate<Knight_male>(Vector3(0.f, -350.f, -250.f), eLayerType::MiniBoss);
+			test_mboss->SetName(L"test_mboss");
 		}
 #pragma endregion
 

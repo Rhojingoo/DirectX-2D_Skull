@@ -21,6 +21,9 @@
     <None Include="$(MSBuildThisFileDirectory)Texture.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ani2.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugPS.hlsl" />

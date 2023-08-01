@@ -75,7 +75,7 @@ namespace jk::renderer
 		shader = jk::Resources::Find<Shader>(L"Animation_Shader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+			, shader->GetInputLayoutAddressOf()); 
 
 		
 		shader = jk::Resources::Find<Shader>(L"Tile_Shader");
@@ -349,6 +349,11 @@ namespace jk::renderer
 		spriteAniShader->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
 		jk::Resources::Insert(L"Animation_Shader", spriteAniShader);
 
+		//std::shared_ptr<Shader> ani2_shader = std::make_shared<Shader>();
+		//ani2_shader->Create(eShaderStage::VS, L"AnimationVS.hlsl", "main");
+		//ani2_shader->Create(eShaderStage::PS, L"ani2.hlsl", "main");
+		//jk::Resources::Insert(L"ani2_Shader", ani2_shader);
+
 
 		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
 		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
@@ -387,7 +392,9 @@ namespace jk::renderer
 		std::shared_ptr<Shader> tile_shader
 			= Resources::Find<Shader>(L"Tile_Shader");
 		std::shared_ptr<Shader> animationShader
-			= Resources::Find<Shader>(L"Animation_Shader");
+			= Resources::Find<Shader>(L"Animation_Shader"); 
+		//std::shared_ptr<Shader> animation2
+		//	= Resources::Find<Shader>(L"ani2_shader");
 
 		#pragma region Public
 		#pragma region Mouse
@@ -451,12 +458,10 @@ namespace jk::renderer
 		#pragma region MiniBoss
 		#pragma region Knight_male
 				texture = Resources::Load<Texture>(L"knight_male", L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Idle\\Idle_0.png");
-				material = std::make_shared<Material>(); material->SetShader(animationShader);	material->SetTexture(texture);
+				material = std::make_shared<Material>(); material->SetShader(animationShader);//	material->SetTexture(texture);
 				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"Knight_male", material);
 		#pragma endregion
-
-
 		#pragma endregion
 
 

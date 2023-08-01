@@ -31,7 +31,7 @@ namespace jk
 		//Skul_Head->SetState(eState::Paused);
 
 		at = AddComponent<Animator>();
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_A", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_A", this);
 		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_B", this);
 		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_C", this);
 		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_D", this);
@@ -51,7 +51,7 @@ namespace jk
 		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Stinger", this);
 		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Stinger_Ready", this);
 
-		//at->PlayAnimation(L"Knight_maleAttack_A", true);
+		at->PlayAnimation(L"Knight_maleAttack_A", true);
 
 		GameObject::Initialize();
 	}
@@ -61,6 +61,8 @@ namespace jk
 	}
 	void Knight_male::LateUpdate()
 	{
+		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}
 	void Knight_male::Render()

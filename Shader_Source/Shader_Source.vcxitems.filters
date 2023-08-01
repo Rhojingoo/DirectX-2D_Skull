@@ -49,6 +49,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationPS.hlsl">
       <Filter>HLSL\Animation</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ani2.hlsl">
+      <Filter>HLSL</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HLSL">

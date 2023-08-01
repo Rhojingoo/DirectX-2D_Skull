@@ -113,7 +113,6 @@ namespace jk
 
 			std::shared_ptr<Texture> tex = Resources::Load<Texture>(fileName, fullName);
 
-
 			if (width < tex->GetWidth())
 			{
 				width = tex->GetWidth();
@@ -129,11 +128,11 @@ namespace jk
 		}
 
 		std::wstring key = fs.parent_path().filename();
-		if (reverse == 0 /*|| reverse == 2*/)
+		if (reverse == 0 )
 		{	
 			key += fs.filename();
 		}
-		else if (reverse == 1 /*|| reverse == 3*/)
+		else if (reverse == 1)
 		{			
 			key += fs.filename();
 			key += L"R";

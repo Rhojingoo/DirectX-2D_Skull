@@ -29,8 +29,7 @@ namespace jk
 
 		GetMesh()->BindBuffer();
 		GetMaterial()->Binds();
-		GetMesh()->Render();
-		GetMaterial()->Clear();
+	
 		
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
@@ -38,6 +37,9 @@ namespace jk
 		{
 			animator->Binds();
 		}
+
+		GetMesh()->Render();
+		GetMaterial()->Clear();
 		//선생코드
 		//Transform* tr = GetOwner()->GetComponent<Transform>();
 		//tr->BindConstantBuffer();
