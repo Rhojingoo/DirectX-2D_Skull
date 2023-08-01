@@ -25,6 +25,8 @@ namespace jk
 		_Gobjs[2]->Initialize();
 		//_Gobjs[3] = new Skul_head;
 		//_Gobjs[3]->Initialize();
+		CameraScript* cam = AddComponent<CameraScript>();
+		cam->SetTarget(this);
 
 		for (int i = 0; i < 3; i++)
 		{

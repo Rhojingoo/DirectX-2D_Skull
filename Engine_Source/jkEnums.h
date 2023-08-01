@@ -24,6 +24,8 @@ namespace jk::enums
 		Grid,
 		Player,
 		Monster,
+		MiniBoss,
+		Boss,
 		Item,
 		BACK_GROUND,
 		Mid_Ground,

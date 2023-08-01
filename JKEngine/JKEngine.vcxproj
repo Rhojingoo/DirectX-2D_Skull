@@ -154,7 +154,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Archer.h" />
     <ClInclude Include="BG.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Castle_Area.h" />
     <ClInclude Include="Face_UI.h" />
     <ClInclude Include="framework.h" />
@@ -174,6 +176,9 @@
     <ClInclude Include="jkTile_Ground.h" />
     <ClInclude Include="jkTitleScene.h" />
     <ClInclude Include="jkToolScene.h" />
+    <ClInclude Include="Knight_male.h" />
+    <ClInclude Include="Mini_Boss.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="Player_Hp_Bar.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="LoadScenes.h" />
@@ -191,7 +196,9 @@
     <ClInclude Include="UI_Camera.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Archer.cpp" />
     <ClCompile Include="BG.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Castle_Area.cpp" />
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -210,6 +217,9 @@
     <ClCompile Include="jkTitleScene.cpp" />
     <ClCompile Include="jkToolScene.cpp" />
     <ClCompile Include="jkToolScript.cpp" />
+    <ClCompile Include="Knight_male.cpp" />
+    <ClCompile Include="Mini_Boss.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player_Hp_Bar.cpp" />
     <ClCompile Include="Main_Camera.cpp" />
     <ClCompile Include="Player.cpp" />

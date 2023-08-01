@@ -67,6 +67,20 @@
 #include "Skul_head.h"
 
 
+//보스
+#include "Boss.h"
+
+
+//미니보스
+#include "Mini_Boss.h"
+#include "Knight_male.h"
+#include "Archer.h"
+
+
+//몬스터
+#include "Monster.h"
+
+
 //UI
 #include "UI.h"
 #include "Player_State_UI.h"
