@@ -14,6 +14,11 @@ namespace jk
 		virtual void LateUpdate()	override;
 		virtual void Render()		override;
 
+		enum class MinibossList
+		{
+			knight,	
+			archer,
+		};
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
@@ -27,5 +32,15 @@ namespace jk
 		static GameObject* _player;
 		Vector3 _playerpos = Vector3( 0.f,0.f,0.f );
 	
+		//static PlayerList player_select;
+		//static PlayerList player_check;
+		MinibossList _mboss;
+
+		static Vector3 _Pos;
+		GameObject* _Gobjs[1];
+		//static bool _check_change;
+		//static int mDir;	
+
+
 	};
 }
