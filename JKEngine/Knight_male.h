@@ -21,7 +21,51 @@ namespace jk
 
 		static GameObject SetoWner(GameObject* ac) { oWner = ac; }
 
+		enum class Knight_State
+		{
+			Idle,
+			Dash,
+			BackDash,
+			Jump,
+			JumpAttack,
+			Die,
+			Attack_A,
+			Attack_B,
+			Attack_C,
+			Attack_D,
+			Attack_E,
+			EnergeBall,
+			Explosion_Loop,
+			Glorggy,
+			Hit, 
+			Intro,
+			Potion,
+			Stinger,
+			Stinger_Ready,
+		};
+
+		void idle();
+		void dash();
+		void backdash();
+		void jump();
+		void jumpattack();
+		void die();
+		void attack_a();
+		void attack_b();
+		void attack_c();
+		void attack_d();
+		void attack_e();
+		void energeball();
+		void explosion_loop();
+		void glorggy();
+		void hit();
+		void intro();
+		void potion();
+		void stinger();
+		void stinger_Ready();
+
 	private:
+		Knight_State _state;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
@@ -39,6 +83,11 @@ namespace jk
 		int _jump = 0;
 		int _fallcheck = 0;
 		bool _Ground_check = false;
-		bool _Skulhead = false;
+		int _choicecombo = 0;
+		int _attackorder = 0;
+
+	private:
+		void choicecombo();
+		void combo1();
 	};
 }

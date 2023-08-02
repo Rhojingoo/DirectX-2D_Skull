@@ -8,6 +8,7 @@ namespace jk
 	GameObject* Knight_male::oWner = nullptr;
 
 	Knight_male::Knight_male()
+		:_state()
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -34,7 +35,7 @@ namespace jk
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_A", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_B", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_B", this); 
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_C", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_D", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_E", this);
@@ -72,11 +73,92 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Stinger_Ready", this, 1);
 
 
-		at->PlayAnimation(L"Knight_maleAttack_A", true);
+		//bind ºÎºÐ
+		at->CompleteEvent(L"Knight_maleAttack_A") = std::bind(&Knight_male::choicecombo, this);
+		at->CompleteEvent(L"Knight_maleAttack_B") = std::bind(&Knight_male::choicecombo, this);
+		at->CompleteEvent(L"Knight_maleAttack_C") = std::bind(&Knight_male::choicecombo, this);
+		at->CompleteEvent(L"Knight_maleAttack_AR") = std::bind(&Knight_male::choicecombo, this);
+		at->CompleteEvent(L"Knight_maleAttack_BR") = std::bind(&Knight_male::choicecombo, this);
+		at->CompleteEvent(L"Knight_maleAttack_CR") = std::bind(&Knight_male::choicecombo, this);
+		//at->CompleteEvent(L"Skul_BasicAttackBR") = std::bind(&Skul_Basic::attack_choice, this);
+		//at->CompleteEvent(L"Skul_BasicJumpAttack") = std::bind(&Skul_Basic::attack_choice, this);
+		//at->CompleteEvent(L"Skul_BasicJumpAttackR") = std::bind(&Skul_Basic::attack_choice, this);
+		//at->CompleteEvent(L"Skul_BasicSkill") = std::bind(&Skul_Basic::attack_choice, this);
+		//at->CompleteEvent(L"Skul_BasicSkillR") = std::bind(&Skul_Basic::attack_choice, this);
+		//at->CompleteEvent(L"Skul_BasicSwitch") = std::bind(&Skul_Basic::switch_on_off, this);
+		//at->CompleteEvent(L"Skul_BasicSwitchR") = std::bind(&Skul_Basic::switch_on_off, this);
+
+
+		at->PlayAnimation(L"Knight_maleIdle", true);
 		GameObject::Initialize();
 	}
+	
+	
 	void Knight_male::Update()
 	{
+		switch (_state)
+		{
+		case jk::Knight_male::Knight_State::Idle:idle();
+			break;
+
+		case jk::Knight_male::Knight_State::Dash:dash();
+			break;
+
+		case jk::Knight_male::Knight_State::BackDash:backdash();
+			break;
+
+		case jk::Knight_male::Knight_State::Jump:jump();
+			break;
+
+		case jk::Knight_male::Knight_State::JumpAttack:jumpattack();
+			break;
+
+		case jk::Knight_male::Knight_State::Die:die();
+			break;
+
+		case jk::Knight_male::Knight_State::Attack_A:attack_a();
+			break;
+
+		case jk::Knight_male::Knight_State::Attack_B:attack_b();
+			break;
+
+		case jk::Knight_male::Knight_State::Attack_C:attack_c();
+			break;
+
+		case jk::Knight_male::Knight_State::Attack_D:attack_d();
+			break;
+
+		case jk::Knight_male::Knight_State::Attack_E:attack_e();
+			break;
+
+		case jk::Knight_male::Knight_State::EnergeBall:energeball();
+			break;
+
+		case jk::Knight_male::Knight_State::Explosion_Loop:explosion_loop();
+			break;
+
+		case jk::Knight_male::Knight_State::Glorggy:glorggy();
+			break;
+
+		case jk::Knight_male::Knight_State::Hit:hit();
+			break;
+
+		case jk::Knight_male::Knight_State::Intro:intro();
+			break;
+
+		case jk::Knight_male::Knight_State::Potion:potion();
+			break;
+
+		case jk::Knight_male::Knight_State::Stinger:stinger();
+			break;
+
+		case jk::Knight_male::Knight_State::Stinger_Ready:stinger_Ready();
+			break;
+
+		default:
+			break;
+		}
+
 		GameObject::Update();
 	}
 	void Knight_male::LateUpdate()
@@ -140,5 +222,115 @@ namespace jk
 	}
 	void Knight_male::OnCollisionExit(Collider2D* other)
 	{
+	}
+
+	void Knight_male::idle()
+	{
+		_time += Time::DeltaTime();
+
+		if (_time > 3.f)
+		{
+			choicecombo();
+		}
+	}
+
+	void Knight_male::dash()
+	{
+	}
+	void Knight_male::backdash()
+	{
+	}
+	void Knight_male::jump()
+	{
+	}
+	void Knight_male::jumpattack()
+	{
+	}
+	void Knight_male::die()
+	{
+	}
+	void Knight_male::attack_a()
+	{
+		//_attackorder = 2;
+	}
+	void Knight_male::attack_b()
+	{
+		/*_attackorder = 3;*/
+	}
+	void Knight_male::attack_c()
+	{
+		_attackorder = 0;
+	}
+	void Knight_male::attack_d()
+	{
+	}
+	void Knight_male::attack_e()
+	{
+	}
+	void Knight_male::energeball()
+	{
+	}
+	void Knight_male::explosion_loop()
+	{
+	}
+	void Knight_male::glorggy()
+	{
+	}
+	void Knight_male::hit()
+	{
+	}
+	void Knight_male::intro()
+	{
+	}
+	void Knight_male::potion()
+	{
+	}
+	void Knight_male::stinger()
+	{
+	}
+	void Knight_male::stinger_Ready()
+	{
+	}
+	void Knight_male::choicecombo()
+	{
+		if (_choicecombo == 0)
+		{
+			_attackorder++;
+			combo1();
+		}
+		//if (_choicecombo == 1)
+		//{
+		//	combo1();
+		//}
+		//if (_choicecombo == 2)
+		//{
+		//	combo1();
+		//}
+
+	}
+	void Knight_male::combo1()
+	{
+		if (_attackorder == 1)
+		{
+			_state = Knight_State::Attack_A;
+			at->PlayAnimation(L"Knight_maleAttack_A", true);			
+		}
+		if (_attackorder == 2)
+		{ 
+			_state = Knight_State::Attack_B;
+			at->PlayAnimation(L"Knight_maleAttack_B", true);
+			
+		}
+		if (_attackorder == 3)
+		{
+			_state = Knight_State::Attack_C;
+			at->PlayAnimation(L"Knight_maleAttack_C", true);	
+		}
+		if (_attackorder == 0)
+		{
+			_state = Knight_State::Idle;
+			at->PlayAnimation(L"Knight_maleIdle", true);
+			_time = 0;
+		}
 	}
 }
