@@ -1,6 +1,8 @@
 #include "jkTime.h"
 #include "jkInput.h"
 #include "jkApplication.h"
+#include "jkCamera.h"
+#include "jkUI_Mouse.h"
 
 extern jk::Application application;
 
@@ -49,5 +51,48 @@ namespace jk
 			//TextOut(hdc, 0, 0, szFloat, 20);
 			mSecond = 0.0f;
 		}
+
+
+
+		mSecond += mDeltaTime;
+
+		HWND hWnd = application.GetHwnd();
+		wchar_t szFloat[100] = {};
+
+		//if (mSecond > 1.0f)
+		//{
+		//	//wchar_t szFloat[100] = {};
+		//	FPS = 1.0f / (float)mDeltaTime;
+		//	//swprintf_s(szFloat, 50, L"FPS : %d, Stage : %d, Chapter : %d, Num : %d", (UINT)FPS, index[0], index[1], index[2]);
+		//	////int iLen = wcsnlen_s(szFloat, 50);
+		//	//SetWindowText(hWnd, szFloat);
+
+		//	//TextOut(hdc, 0, 0, szFloat, 20);
+		//	mSecond = 0.0f;
+		//}
+
+
+
+		//Vector2 MousePos = Input::GetMousePos();
+		//Vector3 worldPos = Time::ChangeWorldPos(Vector3(MousePos.x, MousePos.y, 0.0f));
+
+		//swprintf_s(szFloat, 50, L"FPS : %d Mouse : %d, %d", (UINT)FPS, (UINT)MousePos.x, (UINT)MousePos.y);
+		////swprintf_s(szFloat, 100, L"FPS : %d,  x : %d, y : %d", (UINT)FPS, index[0], index[1], index[2], (int)worldPos.x, (int)worldPos.y);
+		//SetWindowText(hWnd, szFloat);
+
 	}
+
+	//Vector3 Time::ChangeWorldPos(Vector3 pos)
+	//{
+	//	Camera* camera = mCamera->GetComponent<Camera>();
+	//	Vector3 mpos = Vector3(pos.x, pos.y, pos.z);
+	//	Matrix projection = camera->GetProjectionMatrix();
+	//	Matrix view = camera->GetViewMatrix();
+	//	Matrix world = Matrix::Identity;
+	//	RECT rt = {};
+	//	GetClientRect(application.GetHwnd(), &rt);
+	//	Viewport viewport(rt);
+	//	Vector3 Current_Pos = viewport.Unproject(mpos, projection, view, world);
+	//	return Vector3(Current_Pos.x, Current_Pos.y, Current_Pos.z);
+	//}
 }

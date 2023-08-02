@@ -5,6 +5,7 @@ namespace jk
 {
 	GameObject* Mini_Boss::_player = nullptr;
 	Vector3 Mini_Boss::_Pos = Vector3(0.f,0.f,0.f);
+	Vector3 Mini_Boss::_playerpos = Vector3(0.f, 0.f, 0.f);
 
 	Mini_Boss::Mini_Boss()
 		:_mboss()
@@ -38,15 +39,16 @@ namespace jk
 
 	void Mini_Boss::Update()
 	{
+			_playerpos;  // 플레이어 포스 확인용
 
-			if (_mboss == MinibossList::knight)
-			{
-				_Gobjs[(UINT)MinibossList::knight]->SetState(eState::Active);
-				Transform* tr = _Gobjs[(UINT)MinibossList::knight]->GetComponent<Transform>();
-				tr->SetPosition(_Pos); //Skul_Basic::SetDirection(mDir, true);
-				//if (_mboss == MinibossList::knight)
-				//	_Gobjs[(UINT)MinibossList::knight]->SetState(eState::Paused);
-			}
+			//if (_mboss == MinibossList::knight)
+			//{
+			//	_Gobjs[(UINT)MinibossList::knight]->SetState(eState::Active);
+			//	Transform* tr = _Gobjs[(UINT)MinibossList::knight]->GetComponent<Transform>();
+			//	tr->SetPosition(_Pos); //Skul_Basic::SetDirection(mDir, true);
+			//	//if (_mboss == MinibossList::knight)
+			//	//	_Gobjs[(UINT)MinibossList::knight]->SetState(eState::Paused);
+			//}
 
 			//if (_mboss == MinibossList::archer)
 			//{
@@ -57,9 +59,6 @@ namespace jk
 			//	if (_mboss == MinibossList::knight)
 			//		_Gobjs[(UINT)MinibossList::knight]->SetState(eState::Paused);
 			//}
-
-
-
 		GameObject::Update();
 	}
 

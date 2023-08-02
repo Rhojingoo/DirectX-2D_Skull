@@ -74,19 +74,19 @@ namespace jk
 		//	Skul_Wolf* Wolf_Skul = object::Instantiate<Skul_Wolf>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		//	Wolf_Skul->SetName(L"Wolf_Skul");	
 		//}
-		{
+		
 			Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 			_player->SetName(L"player_select");
-		}
-
+		
 #pragma region Test
-		{
-			Mini_Boss* testmboss = object::Instantiate<Knight_male>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
+		
+			Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
 			testmboss->SetName(L"test_mboss");
+			Mini_Boss::SetPlayer(_player);
 			//Knight_male* test_mboss = object::Instantiate<Knight_male>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
-			//test_mboss->SetName(L"test_mboss");
-		}
+			//test_mboss->SetName(L"test_mboss");		
 #pragma endregion
+		
 
 #pragma endregion
 

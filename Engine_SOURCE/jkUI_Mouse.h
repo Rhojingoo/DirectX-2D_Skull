@@ -22,8 +22,10 @@ namespace jk
 		Vector3 GetPosition() { return mPos; }
 		Vector3 ChangeWorldPos(Vector3 pos);
 
+
 	private:
 		Vector3 mPos;
+		//static Vector3 _getPos;
 		GameObject* mCamera;
 	};
 }

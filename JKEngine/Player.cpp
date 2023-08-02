@@ -42,10 +42,10 @@ namespace jk
 	}
 	void Player::Update()
 	{
-
 		player_select;
 		player_check;
 		_Pos;
+		Mini_Boss::SetPlayerPos(_Pos);
 
 
 		if (_check_change == true)
@@ -100,7 +100,6 @@ namespace jk
 		//	Transform* tr = _Gobjs[(UINT)PlayerList::head]->GetComponent<Transform>();
 		//	tr->SetPosition(_Pos.x+100, _Pos.y, _Pos.z);
 		//}
-
 		
 		GameObject::Update();
 	}

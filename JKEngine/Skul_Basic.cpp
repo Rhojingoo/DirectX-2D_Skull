@@ -154,8 +154,8 @@ namespace jk
 	{
 		tr = GetComponent<Transform>();
 		pos = tr->GetPosition();
+		SetPlayer_Pos(pos);
 		_velocity = _rigidbody->GetVelocity();
-
 
 		if (_switch == true)
 		{

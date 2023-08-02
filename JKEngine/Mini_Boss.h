@@ -26,11 +26,12 @@ namespace jk
 
 		static void SetPlayer(GameObject* set) { _player = set; }
 		GameObject* Getplayer() { return _player; }
-		Vector3 GetPlayerPos() { return _playerpos; }
+		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
+		static Vector3 GetPlayerPos() { return _playerpos; }
+		static Vector3 _playerpos; //= Vector3(0.f, 0.f, 0.f);
 
 	private : 
 		static GameObject* _player;
-		Vector3 _playerpos = Vector3( 0.f,0.f,0.f );
 	
 		//static PlayerList player_select;
 		//static PlayerList player_check;
