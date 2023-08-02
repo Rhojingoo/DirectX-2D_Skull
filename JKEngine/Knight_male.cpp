@@ -89,8 +89,6 @@ namespace jk
 		at->CompleteEvent(L"Knight_maleExplosion_Loop") = std::bind(&Knight_male::choicecombo, this);
 		at->CompleteEvent(L"Knight_maleExplosion_LoopR") = std::bind(&Knight_male::choicecombo, this);
 
-		at->CompleteEvent(L"Knight_maleDash") = std::bind(&Knight_male::choicecombo, this);
-		at->CompleteEvent(L"Knight_maleDashR") = std::bind(&Knight_male::choicecombo, this);
 
 		//at->CompleteEvent(L"Skul_BasicAttackBR") = std::bind(&Skul_Basic::attack_choice, this);
 		//at->CompleteEvent(L"Skul_BasicJumpAttack") = std::bind(&Skul_Basic::attack_choice, this);
@@ -199,34 +197,14 @@ namespace jk
 		{
 
 			if (_Ground_check == false)
-			{
-				//_fallcheck = 0;	_jump = 0;
+			{				
 				_rigidbody->SetGround(true);
 				_Ground_check = true;
 				_Ground_check = _rigidbody->GetGround();
 			}
 			else
 			{
-				//if (Input::GetKeyDown(eKeyCode::Z))
-				//{
-				//	_State = Skul_Basic_State::Dash;
-				//	if (mDir == 1)
-				//	{
-				//		at->PlayAnimation(L"Skul_BasicDash", true);
-				//		if (_Skulhead == true)
-				//			at->PlayAnimation(L"NoHeadDash", true);
-				//		_rigidbody->SetVelocity(Vector2(250.f, 0.f));
-				//		mDir = 1;
-				//	}
-				//	if (mDir == -1)
-				//	{
-				//		at->PlayAnimation(L"Skul_BasicDashR", true);
-				//		if (_Skulhead == true)
-				//			at->PlayAnimation(L"NoHeadDashR", true);
-				//		_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
-				//		mDir = -1;
-				//	}
-				//}
+
 			}
 		}
 	}
@@ -244,18 +222,105 @@ namespace jk
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_int_distribution<int> distribution(0, 2);
+		_choicecombo = distribution(gen);
 
-		if (_time > 3.f)
-		{
-			_choicecombo = distribution(gen);
-			_attack = true;
-			choicecombo();
-		}
+
+			if (_number_of_attack >= 3)
+			{
+				_time = 0;
+				_number_of_attack = 0;
+			}
+			else
+			{
+				if (_time > 3.f)
+				{
+					if ((_distance >= 250 || _distance <= -250))
+					{
+						if (_choicecombo == 1)
+						{
+							if (_dash == false || _dash == true)
+								_attackorder++;
+							_number_of_attack++;
+							_attack = true;
+							energyball();
+						}
+						else
+						{
+							_state = Knight_State::Dash;
+							if (mDir == 1)
+							{
+								at->PlayAnimation(L"Knight_maleDash", true);
+								_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+							}
+							else
+							{
+								at->PlayAnimation(L"Knight_maleDashR", true);
+								_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+							}
+							_dash = true;
+						}
+					}
+					else
+					{
+						_attack = true;
+						choicecombo();
+					}
+				}
+			}
+		
+		//else
+		//{
+		//	if (_time > 3.f)
+		//	{
+		//		if ((_distance >= 250 || _distance <= -250))
+		//		{
+		//			if (_choicecombo == 1)
+		//			{
+		//				if (_dash == false || _dash == true)
+		//					energyball();
+		//				_attackorder++;
+		//			}
+		//			else
+		//			{
+		//				_state = Knight_State::Dash;
+		//				if (mDir == 1)
+		//				{
+		//					at->PlayAnimation(L"Knight_maleDash", true);
+		//					_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+		//				}
+		//				else
+		//				{
+		//					at->PlayAnimation(L"Knight_maleDashR", true);
+		//					_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+		//				}
+		//				_dash = true;
+		//			}
+		//		}
+		//		else
+		//		{
+		//			_attack = true;
+		//			choicecombo();
+		//		}
+		//	}
+		//}
 	}
 
 	void Knight_male::dash()
 	{
-
+		_rigidbody->ClearVelocityY();
+		if (mDir == 1 && _velocity.x <= 200.0)
+		{
+			_state = Knight_State::Idle;
+			at->PlayAnimation(L"Knight_maleIdle", true);			
+			_rigidbody->ClearVelocityX();			
+		}
+		else if (mDir == -1 && _velocity.x >= -200.0)
+		{
+			_state = Knight_State::Idle;
+			at->PlayAnimation(L"Knight_maleIdleR", true);			
+			_rigidbody->ClearVelocityX();			
+		}
+		_dash = false;
 	}
 
 	void Knight_male::backdash()
@@ -335,49 +400,41 @@ namespace jk
 	void Knight_male::choicecombo()
 	{
 		if (_attack == true)
-		{
-			if (_distance >= 200 || _distance <= -200)
-			{
-				access();
-			}
-			//if (_distance <= -200)
-			//{
-			//	access();
-			//}
-
+		{			
 			if (_choicecombo == 0)
 			{
-				_attackorder++;
+				if (_dash == false)
 				combo();
+					_attackorder++;
 			}
 			if (_choicecombo == 1)
 			{
-				_attackorder++;
+				if (_dash == false || _dash==true)
 				energyball();
+				_attackorder++;						
 			}
 			if (_choicecombo == 2)
 			{
-				_attackorder++;
-				explosionloop();
-			}
+				if (_dash == false)
+					explosionloop();
+				_attackorder++;						
+			}		
 		}
 		else
-		{			
-			if (_attackorder == 0)
-			{
-				_state = Knight_State::Idle;
-				if (mDir == 1)
+		{	
+			_number_of_attack++;
+			//if (_number_of_attack >= 3)
+			//{
+			//	_time = 0;
+			//	_number_of_attack = 0;
+			//}
+
+			_state = Knight_State::Idle;
+			if (mDir == 1)
 				at->PlayAnimation(L"Knight_maleIdle", true);
-				else
+			else
 				at->PlayAnimation(L"Knight_maleIdleR", true);
-				_number_of_attack++;
-				if (_number_of_attack >= 3)
-				{
-					_time = 0;
-					_number_of_attack = 0;
-				}					
-			}
-		}
+		}	
 	}
 
 	void Knight_male::combo()
@@ -440,18 +497,5 @@ namespace jk
 			at->PlayAnimation(L"Knight_maleExplosion_Loop", true);
 		}
 	}
-	void Knight_male::access()
-	{	
-		_state = Knight_State::Attack_A;
-		if (mDir == 1)
-		{
-			at->PlayAnimation(L"Knight_maleDash", true);
-			_rigidbody->SetVelocity(Vector2(250.f, 0.f));
-		}
-		else
-		{
-			at->PlayAnimation(L"Knight_maleDashR", true);
-			_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
-		}		
-	}
+
 }

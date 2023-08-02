@@ -83,6 +83,7 @@ namespace jk
 		float	_distance = 0.f;			// 플레이어와의 거리 체크
 		bool	_Ground_check = false;		// 땅체크시에 쓰이고 있는 변수
 
+		bool	_dash = false;
 		float	_time = 0.f;				// 공격시 사용중
 		bool	_attack = false;			// 공격에서 idle로 보내는 스위치 변수
 		int		_number_of_attack = 0;		// 공격횟수에 따라 idle로 보내는데, 공격횟수를 체크하는 변수
@@ -96,6 +97,6 @@ namespace jk
 		void combo();
 		void energyball();
 		void explosionloop();
-		void access();
+
 	};
 }
