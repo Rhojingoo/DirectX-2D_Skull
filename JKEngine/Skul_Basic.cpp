@@ -230,6 +230,8 @@ namespace jk
 
 	void Skul_Basic::idle()
 	{
+		_attackcheck = false;
+
 		if (Input::GetKey(eKeyCode::RIGHT)
 			|| Input::GetKey(eKeyCode::LEFT))
 		{
@@ -282,6 +284,7 @@ namespace jk
 
 		if (Input::GetKey(eKeyCode::X))
 		{
+			_attackcheck = true;
 			_State = Skul_Basic_State::Attack_A;
 			if (mDir == 1)
 			{
@@ -681,9 +684,11 @@ namespace jk
 
 	void Skul_Basic::attack_a()
 	{
+		_attackcheck = true;
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
 			_attack = true;
+	
 		}
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
 		{			
@@ -697,6 +702,7 @@ namespace jk
 
 	void Skul_Basic::attack_b()
 	{
+		_attackcheck = true;
 		_attack = false;
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
 		{
@@ -710,6 +716,7 @@ namespace jk
 
 	void Skul_Basic::jumpattack()
 	{
+		_attackcheck = true;
 	}
 
 	void Skul_Basic::skill_a()
@@ -763,6 +770,24 @@ namespace jk
 
 	void Skul_Basic::OnCollisionEnter(Collider2D* other)
 	{		
+		if (Skul_head* _head = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			if (_Skulhead == true)
+			{
+				_State = Skul_Basic_State::Idle;
+				if (mDir == 1)
+					at->PlayAnimation(L"Skul_BasicIdle", true);
+				else
+					at->PlayAnimation(L"Skul_BasicIdleR", true);
+				Setskillcheck(false);
+				_Skulhead = false;
+				Skul_Head->SetState(eState::Paused);
+			}
+		}
+	}
+
+	void Skul_Basic::OnCollisionStay(Collider2D* other)
+	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
 
@@ -805,25 +830,7 @@ namespace jk
 					}
 				}
 			}
-		}	
-		if (Skul_head* _head = dynamic_cast<Skul_head*>(other->GetOwner()))
-		{
-			if (_Skulhead == true)
-			{
-				_State = Skul_Basic_State::Idle;
-				if (mDir == 1)
-					at->PlayAnimation(L"Skul_BasicIdle", true);
-				else
-					at->PlayAnimation(L"Skul_BasicIdleR", true);
-				Setskillcheck(false);
-				_Skulhead = false;
-				Skul_Head->SetState(eState::Paused);
-			}
 		}
-	}
-
-	void Skul_Basic::OnCollisionStay(Collider2D* other)
-	{
 	}
 
 	void Skul_Basic::OnCollisionExit(Collider2D* other)

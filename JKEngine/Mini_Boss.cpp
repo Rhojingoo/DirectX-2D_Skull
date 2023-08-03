@@ -1,9 +1,11 @@
 #include "Mini_Boss.h"
-
+#include <iostream>
+#include <random>
 
 namespace jk
 {
 	GameObject* Mini_Boss::_player = nullptr;
+	Mini_Boss::MinibossList Mini_Boss::miniboss_select = MinibossList();
 	Vector3 Mini_Boss::_Pos = Vector3(0.f,0.f,0.f);
 	Vector3 Mini_Boss::_playerpos = Vector3(0.f, 0.f, 0.f);
 
@@ -17,21 +19,32 @@ namespace jk
 
 	void Mini_Boss::Initialize()
 	{
+		//_Gobjs[0] = new Archer;
+		//_Gobjs[0]->Initialize();
+
 		_Gobjs[0] = new Knight_male;
 		_Gobjs[0]->Initialize();
-		//_Gobjs[1] = new Skul_Wolf;
-		//_Gobjs[1]->Initialize();
-		//_Gobjs[2] = new Skul_Spear;
-		//_Gobjs[2]->Initialize();
+		_Gobjs[1] = new Archer;
+		_Gobjs[1]->Initialize();
 
-		for (int i = 0; i < 1; i++)
+
+		//std::random_device rd;
+		//std::mt19937 gen(rd());
+		//std::uniform_int_distribution<int> distribution(0, 1);
+		//_minibosschoice = distribution(gen);
+
+
+		for (int i = 0; i < 2; i++)
 		{
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs[i]);
 			Transform* tr = _Gobjs[i]->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.f, 0.f, -250.f));
 
-			//if ((UINT)player_select != i)
+			if (0 == i)
+				_Gobjs[i]->SetState(eState::Paused);
+
+			//if (_minibosschoice != i)
 			//	_Gobjs[i]->SetState(eState::Paused);
 		}
 		GameObject::Initialize();

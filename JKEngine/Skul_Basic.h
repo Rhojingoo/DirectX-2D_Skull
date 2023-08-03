@@ -54,6 +54,10 @@ namespace jk
 
 		static void SetDirection(int dir, bool sw) { mDir = dir, _switch = sw; }
 		static int GetDirection() { return mDir; }
+		Skul_Basic_State Get_Skul_state() { return _State; }
+
+		void SetAttack_check(bool check) { _attackcheck = check; }
+		bool Getattack_check() { return _attackcheck; }
 
 	private:
 		Skul_Basic_State _State;
@@ -68,6 +72,7 @@ namespace jk
 	private:
 		static int mDir;
 		static bool _switch;
+		bool _attackcheck;				//캐릭터의 어택상황을 체크하기 위해 필요한 변수
 		float _time = 0.f;
 		bool _attack = false;
 		int _jump = 0;

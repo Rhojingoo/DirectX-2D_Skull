@@ -31,14 +31,14 @@ namespace jk
 		static Vector3 _playerpos; //= Vector3(0.f, 0.f, 0.f);
 
 	private : 
-		static GameObject* _player;
-	
-		//static PlayerList player_select;
+		static GameObject* _player;	
+		static MinibossList miniboss_select;
 		//static PlayerList player_check;
 		MinibossList _mboss;
+		int _minibosschoice = 0;
 
 		static Vector3 _Pos;
-		GameObject* _Gobjs[1];
+		GameObject* _Gobjs[2];
 		//static bool _check_change;
 		//static int mDir;	
 
