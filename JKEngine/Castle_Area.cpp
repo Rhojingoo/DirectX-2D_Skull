@@ -13,6 +13,7 @@ namespace jk
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
@@ -81,11 +82,13 @@ namespace jk
 		
 #pragma region Test
 		
-			Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
-			testmboss->SetName(L"test_mboss");
-			Mini_Boss::SetPlayer(_player);
-			//Knight_male* test_mboss = object::Instantiate<Knight_male>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
-			//test_mboss->SetName(L"test_mboss");		
+			//Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
+			//testmboss->SetName(L"test_mboss");
+			//Mini_Boss::SetPlayer(_player);
+
+			Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
+			testmonster->SetName(L"test_monster"); 
+			Monster::SetPlayer(_player);	
 #pragma endregion
 		
 

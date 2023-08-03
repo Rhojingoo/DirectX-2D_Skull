@@ -161,6 +161,7 @@
     <ClInclude Include="Face_UI.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Ice_wizard.h" />
     <ClInclude Include="Include_Common.h" />
     <ClInclude Include="jkBack_ground.h" />
     <ClInclude Include="jkCameraScript.h" />
@@ -179,6 +180,8 @@
     <ClInclude Include="Knight_male.h" />
     <ClInclude Include="Mini_Boss.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="Monster_Hammer.h" />
+    <ClInclude Include="Monster_warrior.h" />
     <ClInclude Include="Player_Hp_Bar.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="LoadScenes.h" />
@@ -202,6 +205,7 @@
     <ClCompile Include="Castle_Area.cpp" />
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Ice_wizard.cpp" />
     <ClCompile Include="jkBack_ground.cpp" />
     <ClCompile Include="jkCameraScript.cpp" />
     <ClCompile Include="jkCloud.cpp" />
@@ -220,6 +224,8 @@
     <ClCompile Include="Knight_male.cpp" />
     <ClCompile Include="Mini_Boss.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Monster_Hammer.cpp" />
+    <ClCompile Include="Monster_warrior.cpp" />
     <ClCompile Include="Player_Hp_Bar.cpp" />
     <ClCompile Include="Main_Camera.cpp" />
     <ClCompile Include="Player.cpp" />

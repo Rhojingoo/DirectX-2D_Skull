@@ -46,7 +46,7 @@ namespace jk
 		player_check;
 		_Pos;
 		Mini_Boss::SetPlayerPos(_Pos);
-
+		Monster::SetPlayerPos(_Pos);
 
 		if (_check_change == true)
 		{

@@ -70,8 +70,7 @@ namespace jk
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
-		Vector3 pos = Vector3(0.f, 0.f, 0.f);
-		//Vector3 _playerpos = Vector3(0.f, 0.f, 0.f);
+		Vector3 pos = Vector3(0.f, 0.f, 0.f);	
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:

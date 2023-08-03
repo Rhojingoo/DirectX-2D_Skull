@@ -115,6 +115,15 @@
     <ClInclude Include="Archer.h">
       <Filter>Game_ob\MiniBoss\Archer</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_Hammer.h">
+      <Filter>Game_ob\Monster\Monster_Hammer</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_warrior.h">
+      <Filter>Game_ob\Monster\Monster_warrior</Filter>
+    </ClInclude>
+    <ClInclude Include="Ice_wizard.h">
+      <Filter>Game_ob\Monster\Ice_wizard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -225,6 +234,15 @@
     <ClCompile Include="Archer.cpp">
       <Filter>Game_ob\MiniBoss\Archer</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_Hammer.cpp">
+      <Filter>Game_ob\Monster\Monster_Hammer</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_warrior.cpp">
+      <Filter>Game_ob\Monster\Monster_warrior</Filter>
+    </ClCompile>
+    <ClCompile Include="Ice_wizard.cpp">
+      <Filter>Game_ob\Monster\Ice_wizard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -307,6 +325,15 @@
     </Filter>
     <Filter Include="Game_ob\MiniBoss\Archer">
       <UniqueIdentifier>{3143cc7d-479e-4908-a45e-84e9dc1c6eed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Ice_wizard">
+      <UniqueIdentifier>{38af4b08-f4c1-43b3-9bb2-9805767f4793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_Hammer">
+      <UniqueIdentifier>{9d583fd2-8c1a-43c7-8372-ae8327d385f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_warrior">
+      <UniqueIdentifier>{1c34e756-c8da-4dff-b5f2-c9e9e8da643e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

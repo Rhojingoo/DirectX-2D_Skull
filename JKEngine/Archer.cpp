@@ -190,7 +190,6 @@ namespace jk
 		if (Skul_Wolf* player = dynamic_cast<Skul_Wolf*>(other->GetOwner())){}
 
 	}
-
 	void Archer::OnCollisionStay(Collider2D* other)
 	{
 	}

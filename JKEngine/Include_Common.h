@@ -79,6 +79,9 @@
 
 //∏ÛΩ∫≈Õ
 #include "Monster.h"
+#include "Monster_Hammer.h"
+#include "Monster_warrior.h"
+#include "Ice_wizard.h"
 
 
 //UI
