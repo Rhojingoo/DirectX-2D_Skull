@@ -121,7 +121,7 @@
     <ClInclude Include="Monster_warrior.h">
       <Filter>Game_ob\Monster\Monster_warrior</Filter>
     </ClInclude>
-    <ClInclude Include="Ice_wizard.h">
+    <ClInclude Include="Stone_wizard.h">
       <Filter>Game_ob\Monster\Ice_wizard</Filter>
     </ClInclude>
   </ItemGroup>
@@ -240,7 +240,7 @@
     <ClCompile Include="Monster_warrior.cpp">
       <Filter>Game_ob\Monster\Monster_warrior</Filter>
     </ClCompile>
-    <ClCompile Include="Ice_wizard.cpp">
+    <ClCompile Include="Stone_wizard.cpp">
       <Filter>Game_ob\Monster\Ice_wizard</Filter>
     </ClCompile>
   </ItemGroup>
