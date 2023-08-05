@@ -104,11 +104,14 @@ namespace jk
 
 		if (_time > 3)
 		{
-			_state = Yggdrasil_State::Attack_A;
-		/*	if (mDir == 1)	*/			
-				Yggdrasil_Hand_Right::_Attackswitch = true;			
-			/*else*/			
-				//Yggdrasil_Hand_Left::_Attackswitch = true;
+			//_state = Yggdrasil_State::Attack_A;
+			////if (mDir == 1)				
+			//Yggdrasil_Hand_Right::_Attackswitch = true;			
+			////else			
+			////Yggdrasil_Hand_Left::_Attackswitch = true;
+
+			_state = Yggdrasil_State::Attack_B;
+			Yggdrasil_Hand_Right::_Attackswitch = true;
 		}
 	}
 

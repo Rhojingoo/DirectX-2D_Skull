@@ -180,7 +180,6 @@ namespace jk
 		Events* events;
 		if (prevAnimation != nullptr)
 		{
-
 			events = FindEvents(prevAnimation->GetKey());
 			if (events)
 				events->endEvent();

@@ -43,5 +43,8 @@ namespace jk
 	private:
 		float	_time = 0.f;							// 공격시 사용중
 		bool	_Ground_check = false;					// 땅체크시에 쓰이고 있는 변수
+		bool _attackready = false;
+		bool _attackon = false;
+		void attackbstart();
 	};
 }
