@@ -69,6 +69,12 @@
 
 //보스
 #include "Boss.h"
+#include "Yggdrasil.h"
+#include "Yggdrasil_Body.h"
+#include "Yggdrasil_Face.h"
+#include "Yggdrasil_Chin.h"
+#include "Yggdrasil_Hand_Left.h"
+#include "Yggdrasil_Hand_Right.h"
 
 
 //미니보스

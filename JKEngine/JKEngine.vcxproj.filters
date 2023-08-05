@@ -124,6 +124,24 @@
     <ClInclude Include="Stone_wizard.h">
       <Filter>Game_ob\Monster\Ice_wizard</Filter>
     </ClInclude>
+    <ClInclude Include="Yggdrasil.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Body.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Chin.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Face.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Hand_Right.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Hand_Left.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -243,6 +261,24 @@
     <ClCompile Include="Stone_wizard.cpp">
       <Filter>Game_ob\Monster\Ice_wizard</Filter>
     </ClCompile>
+    <ClCompile Include="Yggdrasil.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Body.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Chin.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Face.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Hand_Right.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Hand_Left.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -334,6 +370,9 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Monster_warrior">
       <UniqueIdentifier>{1c34e756-c8da-4dff-b5f2-c9e9e8da643e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Yggdrasil">
+      <UniqueIdentifier>{30793699-4c54-48e5-82ec-64db7beb560a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

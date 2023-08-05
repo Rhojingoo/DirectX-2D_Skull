@@ -197,6 +197,12 @@
     <ClInclude Include="Skul_Wolf.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_Camera.h" />
+    <ClInclude Include="Yggdrasil.h" />
+    <ClInclude Include="Yggdrasil_Body.h" />
+    <ClInclude Include="Yggdrasil_Chin.h" />
+    <ClInclude Include="Yggdrasil_Face.h" />
+    <ClInclude Include="Yggdrasil_Hand_Left.h" />
+    <ClInclude Include="Yggdrasil_Hand_Right.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Archer.cpp" />
@@ -238,6 +244,12 @@
     <ClCompile Include="Skul_Wolf.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_Camera.cpp" />
+    <ClCompile Include="Yggdrasil.cpp" />
+    <ClCompile Include="Yggdrasil_Body.cpp" />
+    <ClCompile Include="Yggdrasil_Chin.cpp" />
+    <ClCompile Include="Yggdrasil_Face.cpp" />
+    <ClCompile Include="Yggdrasil_Hand_Left.cpp" />
+    <ClCompile Include="Yggdrasil_Hand_Right.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="JKEngine.rc" />
