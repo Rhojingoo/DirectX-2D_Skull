@@ -26,6 +26,7 @@ namespace jk
 			Attack_A_Ready,
 			Attack_A_Right,
 			Attack_A_Left,
+			Attack_A_Loading,
 			Attack_A_Finish,
 			Attack_B_Set,
 			Attack_B_Ready,
@@ -42,6 +43,7 @@ namespace jk
 		void attack_a_ready();
 		void attack_a_right();
 		void attack_a_left();
+		void attack_a_loading();
 		void attack_a_finish();
 		void attack_b_set();
 		void attack_b_ready();
@@ -61,6 +63,10 @@ namespace jk
 		int	mDir = 1;
 		static float _time;
 
+		static bool _SetattackA_r;
+		static bool _SetattackA_l;
+		static bool _AttackA_Readyr;
+		static bool _AttackA_Readyl;
 		static bool _SetattackB_r;
 		static bool _SetattackB_l;
 		static bool _AttackB_Readyr;
@@ -70,5 +76,6 @@ namespace jk
 	private:
 		GameObject* _Gobjs[5];
 		static Vector3 _pos;
+		float _attackatime = 0.f;
 	};
 }

@@ -24,6 +24,7 @@ namespace jk
 		void attack_a_ready();
 		void attack_a_right();
 		void attack_a_left();
+		void attack_a_loading();
 		void attack_a_finish();
 		void attack_b_set();
 		void attack_b_ready();
@@ -48,6 +49,7 @@ namespace jk
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);		// 플레이어와의 거리 체크
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
+		Vector3 _AttackA_SavePos = Vector3(0.f, 0.f, 0.f);
 		Vector3 _AttackB_SavePos = Vector3(0.f, 0.f, 0.f);
 
 	private:
