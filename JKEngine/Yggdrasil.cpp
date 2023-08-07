@@ -1,4 +1,6 @@
 #include "Yggdrasil.h"
+#include <iostream>
+#include <random>
 
 namespace jk
 {
@@ -154,16 +156,26 @@ namespace jk
 	void Yggdrasil::idle()
 	{
 		_time += Time::DeltaTime();
-
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<int> distribution(0, 1);
+		Attack_Sellect = distribution(gen);
+		_NumberofAttack = 0;
 		if (_time > 3)
 		{
-			Yggdrasil_Hand_Left::_Attackswitch = true;
-			Yggdrasil_Hand_Right::_Attackswitch = true;			
-			_state = Yggdrasil_State::Attack_A_Set;						
+			if (Attack_Sellect == 0)
+			{
+				Yggdrasil_Hand_Left::_Attackswitch = true;
+				Yggdrasil_Hand_Right::_Attackswitch = true;
+				_state = Yggdrasil_State::Attack_A_Set;
+			}
 
-			//Yggdrasil_Hand_Right::_Attackswitch = true;
-			//Yggdrasil_Hand_Left::_Attackswitch = true;
-			//_state = Yggdrasil_State::Attack_B_Set;
+			if (Attack_Sellect == 1)
+			{
+				Yggdrasil_Hand_Right::_Attackswitch = true;
+				Yggdrasil_Hand_Left::_Attackswitch = true;
+				_state = Yggdrasil_State::Attack_B_Set;
+			}
 		}
 	}
 
@@ -237,7 +249,7 @@ namespace jk
 	}
 	void Yggdrasil::attack_b_ready()
 	{
-		if (_NumberofAttack == 2)
+		if (_NumberofAttack >= 2)
 		{
 			int a = 0;
 			_state = Yggdrasil_State::Attack_B_Finish;

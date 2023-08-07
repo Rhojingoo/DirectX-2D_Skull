@@ -939,17 +939,21 @@ namespace jk
 	void Skul_Basic::Input_move()
 	{
 		if (Input::GetKey(eKeyCode::LEFT))
+		{
+			mDir = -1;
 			pos.x -= 150.0f * Time::DeltaTime();
-
+		}
 		if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			mDir = 1;
 			pos.x += 150.0f * Time::DeltaTime();
-	
+		}
 		if (Input::GetKey(eKeyCode::DOWN))
 			pos.y -= 100.0f * Time::DeltaTime();
 		
 		if (Input::GetKey(eKeyCode::UP))		
 			pos.y += 100.0f * Time::DeltaTime();
-
+		
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{

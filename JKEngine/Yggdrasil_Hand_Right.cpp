@@ -372,7 +372,6 @@ namespace jk
 	{
 	}
 
-
 	void Yggdrasil_Hand_Right::attackb_setting()
 	{		
 		if (_attackready == false)
@@ -393,12 +392,3 @@ namespace jk
 }
 
 
-
-//double TimeSinceStartup()
-//{
-//	LARGE_INTEGER frequency;
-//	LARGE_INTEGER counter;
-//	QueryPerformanceFrequency(&frequency);
-//	QueryPerformanceCounter(&counter);
-//	return static_cast<double>(counter.QuadPart) / static_cast<double>(frequency.QuadPart);
-//}

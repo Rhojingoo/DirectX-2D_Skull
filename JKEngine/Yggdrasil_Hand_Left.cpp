@@ -289,8 +289,7 @@ namespace jk
 			attackb_setting();
 	}
 	void Yggdrasil_Hand_Left::attack_b_right()
-	{		
-		//at->PlayAnimation(L"Hand1_HandIdle", true);
+	{				
 	}
 	void Yggdrasil_Hand_Left::attack_b_left()
 	{	

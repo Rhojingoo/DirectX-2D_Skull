@@ -72,10 +72,12 @@ namespace jk
 		static bool _AttackB_Readyr;
 		static bool _AttackB_Readyl;
 		static int _NumberofAttack;
+		int Attack_Sellect = 0;
 
 	private:
 		GameObject* _Gobjs[5];
 		static Vector3 _pos;
 		float _attackatime = 0.f;
+		
 	};
 }
