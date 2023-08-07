@@ -18,6 +18,7 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
+	
 		//GameObject* Zelda
 		//	= object::Instantiate<GameObject>(Vector3(0.0f, -50.0f, -700.f), eLayerType::Monster);
 		//Zelda->SetName(L"Zelda");

@@ -56,7 +56,7 @@ namespace jk
 		
 
 		_Yggdrasildistance = GetPos()- _pos;
-		_Playerdistance = _playerpos - _pos;		
+		_Playerdistance = _playerpos - _pos;			
 
 		switch (_state)
 		{
@@ -64,12 +64,44 @@ namespace jk
 			Yggdrasil_Hand_Right::idle();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Attack_A:
-			Yggdrasil_Hand_Right::attack_a();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Set:
+			Yggdrasil_Hand_Right::attack_a_set();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Attack_B:			
-			Yggdrasil_Hand_Right::attack_b();		
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Ready:
+			Yggdrasil_Hand_Right::attack_a_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Right:
+			Yggdrasil_Hand_Right::attack_a_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Left:
+			Yggdrasil_Hand_Right::attack_a_left();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Finish:
+			Yggdrasil_Hand_Right::attack_a_finish();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Set:
+			Yggdrasil_Hand_Right::attack_b_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Ready:
+			Yggdrasil_Hand_Right::attack_b_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Right:
+			Yggdrasil_Hand_Right::attack_b_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Left:
+			Yggdrasil_Hand_Right::attack_b_left();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Finish:
+			Yggdrasil_Hand_Right::attack_b_finish();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
@@ -121,6 +153,18 @@ namespace jk
 
 			}
 		}
+
+		//if (Yggdrasil_Hand_Right* leftthand = dynamic_cast<Yggdrasil_Hand_Right*>(other->GetOwner()))
+		//{
+		//	if (_state == Yggdrasil_State::Attack_B_Right)
+		//	{
+		//		_pos = _AttackB_SavePos;
+		//		_NumberofAttack++;
+		//		tr->SetPosition(_pos);
+		//		_state = Yggdrasil_State::Attack_B_Ready;
+		//	}
+		//	else {}
+		//}
 	}
 
 	void Yggdrasil_Hand_Right::OnCollisionStay(Collider2D* other)
@@ -140,11 +184,16 @@ namespace jk
 		//	at->PlayAnimation(L"Hand1_HandRockR", true);
 	}
 
-	void Yggdrasil_Hand_Right::attack_a()
-	{		
-		
+	void Yggdrasil_Hand_Right::attack_a_set()
+	{
+	}
+	void Yggdrasil_Hand_Right::attack_a_ready()
+	{
+	}
+	void Yggdrasil_Hand_Right::attack_a_right()
+	{
 		if (_Attackswitch == true)
-		{	
+		{
 			//at->PlayAnimation(L"Hand1_HandAttackR", true);
 			at->PlayAnimation(L"Hand1_HandRockR", true);
 			_rigidbody->SetVelocity(Vector2(0.f, 500.f));
@@ -183,82 +232,133 @@ namespace jk
 
 			tr->SetPosition(Vector3(_pos));
 		}
-
 	}
-	
-	void Yggdrasil_Hand_Right::attack_b()
-	{		
+	void Yggdrasil_Hand_Right::attack_a_left()
+	{
+	}
+	void Yggdrasil_Hand_Right::attack_a_finish()
+	{
+	}
+
+
+	void Yggdrasil_Hand_Right::attack_b_set()
+	{
 		if (_Attackswitch == true)
-		{
-			at->PlayAnimation(L"Hand1_HandAttackR", false);		
-			_rigidbody->SetVelocity(Vector2(10.f, 0.f));
+		{			
+			_rigidbody->SetVelocity(Vector2(10.f, 0.f));			
 			_Attackswitch = false;
 		}
-		if (_Attackswitch == false)
+		else
 		{
-			attackbstart();
+			_SetattackB_r = true;
+			at->PlayAnimation(L"Hand1_HandAttackR", false);
 		}
-		
 	}
+	void Yggdrasil_Hand_Right::attack_b_ready()
+	{
+		if (_SetattackB_r == true)
+			attackb_setting();
+	}
+	void Yggdrasil_Hand_Right::attack_b_right()
+	{		
+		{
+			if (_attackon == true)
+				_rigidbody->SetVelocity(Vector2(-350.f, 0.f));
+			else
+			{
+				_NumberofAttack++;
+				_state = Yggdrasil_State::Attack_B_Set;
+				if (_NumberofAttack >= 2)
+				{
+					at->PlayAnimation(L"Hand1_HandIdleR", true);
+					_rigidbody->ClearVelocityX();
+					_pos.x = _Savepointpos.x;
+					_pos.y = _Savepointpos.y - 300;
+				}
+			}
+
+			if (_Yggdrasildistance.x >= 1000)
+			{
+				_rigidbody->ClearVelocityX();
+				_pos.x = _AttackB_SavePos.x;
+				_pos.y = _AttackB_SavePos.y;				
+				_attackon = false;
+			}		
+		}
+	}
+	void Yggdrasil_Hand_Right::attack_b_left()
+	{
+		//if (_NumberofAttack >= 2)
+		//{
+		//	at->PlayAnimation(L"Hand1_HandIdleR", true);
+		//	_rigidbody->ClearVelocityX();
+		//	_pos.x = _Savepointpos.x;
+		//	_pos.y = _Savepointpos.y - 300;
+		//}
+	}
+	void Yggdrasil_Hand_Right::attack_b_finish()
+	{
+		//공격이 끝난후
+		if (_NumberofAttack >= 2)
+		{
+			_attackon = false;
+			_pos.x = _Savepointpos.x;
+			_pos.y = _Savepointpos.y - 300;
+			_NumberofAttack = 3;
+			at->PlayAnimation(L"Hand1_HandIdleR", true);
+		}
+		if (_attackon == false)
+		{
+			if (_pos.y < _Savepointpos.y)
+				_pos.y += 150.0f * Time::DeltaTime();
+
+			if (_Savepointpos.x <= _pos.x)
+				_pos.x = _Savepointpos.x;
+			if (_Savepointpos.y <= _pos.y)
+				_pos.y = _Savepointpos.y;
+
+			tr->SetPosition(Vector3(_pos));
+
+			if ((_pos.x == _Savepointpos.x) && (_pos.y == _Savepointpos.y))
+			{
+				at->PlayAnimation(L"Hand1_HandIdleR", true);
+				//_state = Yggdrasil_State::Idle;
+				//Yggdrasil::_time = 0.f;
+				_attackready = false;
+				_attackon = false;
+			}
+		}
+	}
+
+
 
 	void Yggdrasil_Hand_Right::attack_c()
 	{
-		
 	}
-
 	void Yggdrasil_Hand_Right::intro()
 	{
 	}
-
 	void Yggdrasil_Hand_Right::die()
 	{
 	}
-	void Yggdrasil_Hand_Right::attackbstart()
+
+
+	void Yggdrasil_Hand_Right::attackb_setting()
 	{		
 		if (_attackready == false)
 		{
 			if (_Yggdrasildistance.x <= -500)
 			{
-				_pos.x = _pos.x; _attackready = true; _attackon = true;
+				_pos.x = _pos.x;
+				_AttackB_Readyr = true;
+				_AttackB_SavePos = _pos;
+				_attackon = true;
 			}
-			else
-			{
-				_pos.x += 150.0f * Time::DeltaTime();				
-			}
-			tr->SetPosition(Vector3(_pos));			
-		}
-		else
-		{
-			if (_attackon == true)		
-				_rigidbody->SetVelocity(Vector2(-350.f, 0.f));			
-			
-			if (_Yggdrasildistance.x >= 1000)
-			{
-				_rigidbody->ClearVelocityX();
-				_attackon = false;
-				_pos.x = _Savepointpos.x;
-				_pos.y = _Savepointpos.y - 300;
-			}
-			if(_attackon == false)
-			{
+			else			
+				_pos.x += 150.0f * Time::DeltaTime();
 				
-				if (_pos.y < _Savepointpos.y)
-					_pos.y += 150.0f * Time::DeltaTime();				
-
-				if (_Savepointpos.x <= _pos.x)
-					_pos.x = _Savepointpos.x;
-				if (_Savepointpos.y <= _pos.y)
-					_pos.y = _Savepointpos.y;
-				tr->SetPosition(Vector3(_pos));
-
-				if ((_pos.x == _Savepointpos.x) && (_pos.y == _Savepointpos.y))
-				{
-					at->PlayAnimation(L"Hand1_HandIdleR", true);
-					_state = Yggdrasil_State::Idle;
-					Yggdrasil::_time = 0.f;
-				}
-			}			
-		}
+			tr->SetPosition(Vector3(_pos));			
+		}	
 	}
 }
 

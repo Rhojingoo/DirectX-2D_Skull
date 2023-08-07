@@ -7,6 +7,15 @@ namespace jk
 	Vector3 Yggdrasil::_pos = Vector3(0.f, 0.f, 0.f);
 	float Yggdrasil::_time = 0.f;
 
+
+	bool Yggdrasil::_SetattackB_r = false;
+	bool Yggdrasil::_SetattackB_l = false;
+	bool Yggdrasil::_AttackB_Readyr = false;
+	bool Yggdrasil::_AttackB_Readyl = false;
+	int	Yggdrasil::_NumberofAttack = 0;
+
+
+
 	Yggdrasil::Yggdrasil()		
 	{
 	}
@@ -56,19 +65,56 @@ namespace jk
 		case jk::Yggdrasil::Yggdrasil_State::Idle:idle();
 			break;	
 
-		case jk::Yggdrasil::Yggdrasil_State::Attack_A:attack_a();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Finish:
+			attack_a_finish();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Attack_B:attack_b();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Set:
+			attack_a_set();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Attack_C:attack_c();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Ready:
+			attack_a_ready();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Intro:intro();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Right:
+			attack_a_right();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Die:die();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Left:
+			attack_a_left();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Set:
+			attack_b_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Ready:
+			attack_b_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Right:
+			attack_b_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Left:
+			attack_b_left();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Finish:
+			attack_b_finish();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
+			attack_c();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro:
+			intro();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Die:
+			die();
 			break;
 
 		default:
@@ -110,8 +156,9 @@ namespace jk
 			////else			
 			////Yggdrasil_Hand_Left::_Attackswitch = true;
 
-			_state = Yggdrasil_State::Attack_B;
 			Yggdrasil_Hand_Right::_Attackswitch = true;
+			Yggdrasil_Hand_Left::_Attackswitch = true;
+			_state = Yggdrasil_State::Attack_B_Set;
 		}
 	}
 
@@ -119,11 +166,79 @@ namespace jk
 	{
 	}
 
-	void Yggdrasil::attack_a()
+	void Yggdrasil::attack_a_set()
+	{
+	}
+	void Yggdrasil::attack_a_ready()
+	{
+		if (mDir == 1)
+		{
+			_state = Yggdrasil_State::Attack_A_Right;
+			Yggdrasil_Hand_Right::_Attackswitch = true;
+		}
+		else
+		{
+			_state = Yggdrasil_State::Attack_A_Left;
+			Yggdrasil_Hand_Left::_Attackswitch = true;
+		}
+	}
+	void Yggdrasil::attack_a_right()
+	{
+	}
+	void Yggdrasil::attack_a_left()
 	{
 	}
 
-	void Yggdrasil::attack_b()
+	void Yggdrasil::attack_a_finish()
+	{
+	}
+
+
+	void Yggdrasil::attack_b_set()
+	{
+		if ((_SetattackB_r == true) && (_SetattackB_l == true))
+			_state = Yggdrasil_State::Attack_B_Ready;		
+	}
+	void Yggdrasil::attack_b_ready()
+	{
+		if (_NumberofAttack == 2)
+		{
+			int a = 0;
+			_state = Yggdrasil_State::Attack_B_Finish;
+			Yggdrasil_Hand_Right::_Attackswitch = false;
+			Yggdrasil_Hand_Left::_Attackswitch = false;
+			_SetattackB_r = false;
+			_SetattackB_l = false;
+			_AttackB_Readyr = false;
+			_AttackB_Readyl = false;
+		}
+		else
+		{
+			if ((_AttackB_Readyr == true) && (_AttackB_Readyl == true))
+			{
+				if (mDir == 1)
+				{
+					_state = Yggdrasil_State::Attack_B_Right;
+					Yggdrasil_Hand_Right::_Attackswitch = true;
+				}
+				else
+				{
+					_state = Yggdrasil_State::Attack_B_Left;
+					Yggdrasil_Hand_Left::_Attackswitch = true;
+				}
+			}
+		}
+	}
+
+	void Yggdrasil::attack_b_left()
+	{
+	}
+
+	void Yggdrasil::attack_b_right()
+	{
+	}
+
+	void Yggdrasil::attack_b_finish()
 	{
 	}
 

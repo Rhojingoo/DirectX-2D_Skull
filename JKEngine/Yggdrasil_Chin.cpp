@@ -55,12 +55,28 @@ namespace jk
 			Yggdrasil_Chin::idle();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Attack_A:
-			Yggdrasil_Chin::attack_a();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Ready:
+			Yggdrasil_Chin::attack_a_ready();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Attack_B:
-			Yggdrasil_Chin::attack_b();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Right:
+			Yggdrasil_Chin::attack_a_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Left:
+			Yggdrasil_Chin::attack_a_left();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Ready:
+			Yggdrasil_Chin::attack_b_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Right:
+			Yggdrasil_Chin::attack_b_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Left:
+			Yggdrasil_Chin::attack_b_left();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
@@ -78,6 +94,7 @@ namespace jk
 		default:
 			break;
 		}
+		
 		GameObject::Update();
 	}
 	void Yggdrasil_Chin::LateUpdate()
@@ -106,13 +123,28 @@ namespace jk
 			Lmove_down();
 		else
 			Lmove_up();
-	}
-	void Yggdrasil_Chin::attack_a()
+	}	
+
+	void Yggdrasil_Chin::attack_a_right()
 	{
 	}
-	void Yggdrasil_Chin::attack_b()
+
+	void Yggdrasil_Chin::attack_a_left()
 	{
 	}
+
+	void Yggdrasil_Chin::attack_b_ready()
+	{
+	}
+
+	void Yggdrasil_Chin::attack_b_left()
+	{
+	}
+
+	void Yggdrasil_Chin::attack_b_right()
+	{
+	}
+
 	void Yggdrasil_Chin::attack_c()
 	{
 	}
@@ -120,6 +152,10 @@ namespace jk
 	{
 	}
 	void Yggdrasil_Chin::die()
+	{
+	}
+
+	void Yggdrasil_Chin::attack_a_ready()
 	{
 	}
 

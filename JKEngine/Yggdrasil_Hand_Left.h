@@ -19,11 +19,19 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 		void idle();
-		void attack_a();
-		void attack_b();
+		void die();
+		void attack_a_set();
+		void attack_a_ready();
+		void attack_a_right();
+		void attack_a_left();
+		void attack_a_finish();
+		void attack_b_set();
+		void attack_b_ready();
+		void attack_b_left();
+		void attack_b_right();
+		void attack_b_finish();
 		void attack_c();
 		void intro();
-		void die();
 
 	public:
 		static bool			_Attackswitch;
@@ -40,8 +48,13 @@ namespace jk
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);		// 플레이어와의 거리 체크
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
+		Vector3 _AttackB_SavePos = Vector3(0.f, 0.f, 0.f);
+
 	private:
 		float	_time = 0.f;							// 공격시 사용중
 		bool	_Ground_check = false;					// 땅체크시에 쓰이고 있는 변수
+		bool _attackready = false;
+		bool _attackon = false;
+		void attackb_setting();
 	};
 }

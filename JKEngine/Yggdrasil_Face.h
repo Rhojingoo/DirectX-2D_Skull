@@ -19,11 +19,15 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 		void idle();
-		void attack_a();
-		void attack_b();
+		void die();
+		void attack_a_ready();
+		void attack_a_right();
+		void attack_a_left();
+		void attack_b_ready();
+		void attack_b_left();
+		void attack_b_right();
 		void attack_c();
 		void intro();
-		void die();
 
 	private:
 		Animator* at = nullptr;

@@ -22,16 +22,32 @@ namespace jk
 		{
 			Idle,
 			Die,
-			Attack_A,
-			Attack_B,
+			Attack_A_Set,
+			Attack_A_Ready,
+			Attack_A_Right,
+			Attack_A_Left,
+			Attack_A_Finish,
+			Attack_B_Set,
+			Attack_B_Ready,
+			Attack_B_Right,
+			Attack_B_Left,
+			Attack_B_Finish,
 			Attack_C,
 			Intro,
 		};
 
 		void idle();
 		void die();
-		void attack_a();
-		void attack_b();
+		void attack_a_set();
+		void attack_a_ready();
+		void attack_a_right();
+		void attack_a_left();
+		void attack_a_finish();
+		void attack_b_set();
+		void attack_b_ready();
+		void attack_b_left();
+		void attack_b_right();
+		void attack_b_finish();
 		void attack_c();
 		void intro();
 
@@ -44,6 +60,12 @@ namespace jk
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
 		int	mDir = 1;
 		static float _time;
+
+		static bool _SetattackB_r;
+		static bool _SetattackB_l;
+		static bool _AttackB_Readyr;
+		static bool _AttackB_Readyl;
+		static int _NumberofAttack;
 
 	private:
 		GameObject* _Gobjs[5];

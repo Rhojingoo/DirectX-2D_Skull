@@ -40,7 +40,8 @@ namespace jk
 
 	void Yggdrasil_Body::Update()
 	{
-		SetPos(_pos);
+		SetPos(_pos);		
+
 
 		switch (_state)
 		{
@@ -48,12 +49,28 @@ namespace jk
 			Yggdrasil_Body::idle();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Attack_A:
-			Yggdrasil_Body::attack_a();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Ready:
+			Yggdrasil_Body::attack_a_ready();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Attack_B:
-			Yggdrasil_Body::attack_b();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Right:
+			Yggdrasil_Body::attack_a_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Left:
+			Yggdrasil_Body::attack_b_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Right:
+			Yggdrasil_Body::attack_b_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Ready:
+			Yggdrasil_Body::attack_b_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Left:
+			Yggdrasil_Body::attack_b_left();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
@@ -103,10 +120,19 @@ namespace jk
 	void Yggdrasil_Body::idle()
 	{
 	}
-	void Yggdrasil_Body::attack_a()
+	void Yggdrasil_Body::attack_a_right()
 	{
 	}
-	void Yggdrasil_Body::attack_b()
+	void Yggdrasil_Body::attack_a_left()
+	{
+	}
+	void Yggdrasil_Body::attack_b_ready()
+	{
+	}
+	void Yggdrasil_Body::attack_b_left()
+	{
+	}
+	void Yggdrasil_Body::attack_b_right()
 	{
 	}
 	void Yggdrasil_Body::attack_c()
@@ -116,6 +142,9 @@ namespace jk
 	{
 	}
 	void Yggdrasil_Body::die()
+	{
+	}
+	void Yggdrasil_Body::attack_a_ready()
 	{
 	}
 }
