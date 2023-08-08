@@ -11,6 +11,7 @@ namespace jk
 			basic_Skul,
 			wolf_Skul,
 			spere_Skul,
+			sowrd_Skul,
 			head,
 		};
 

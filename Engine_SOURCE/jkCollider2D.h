@@ -25,6 +25,7 @@ namespace jk
 		void SetCenter(Vector2 size) { mCenter = size; }
 		UINT GetColliderID() { return mColliderID; }
 		Vector3 GetPosition() {	return mPosition; }
+		void SetPosition(Vector3 Set) {  mPosition = Set; }
 		Vector2 GetSize() { return mSize; }
 		Vector2 GetCenter() { return mCenter; }
 
@@ -38,5 +39,6 @@ namespace jk
 		Vector3 mPosition;
 		Vector2 mSize;
 		Vector2 mCenter;
+		bool _Collider_attack = false;
 	};
 }

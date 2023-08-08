@@ -27,6 +27,7 @@ namespace jk::enums
 		MiniBoss,
 		Boss,
 		Item,
+		Hitbox,
 		BACK_GROUND,
 		Mid_Ground,
 		Fore_Ground,

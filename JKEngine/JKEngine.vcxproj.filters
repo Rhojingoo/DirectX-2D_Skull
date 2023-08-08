@@ -142,6 +142,7 @@
     <ClInclude Include="Yggdrasil_Hand_Left.h">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
     </ClInclude>
+    <ClInclude Include="Attack_HitBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -279,6 +280,7 @@
     <ClCompile Include="Yggdrasil_Hand_Left.cpp">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
     </ClCompile>
+    <ClCompile Include="Attack_HitBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">

@@ -77,6 +77,7 @@ namespace jk
 		void shootbow_forward();
 		void shootbow_upward();
 		void pushaway();
+		void complete_hit();
 
 	};
 }

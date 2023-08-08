@@ -14,9 +14,11 @@ namespace jk
 		mColliderNumber++;
 		mColliderID = mColliderNumber;
 	}
+
 	Collider2D::~Collider2D()
 	{
 	}
+
 	void Collider2D::Initialize()
 	{
 		mTransform = GetOwner()->GetComponent<Transform>();
@@ -25,20 +27,30 @@ namespace jk
 	void Collider2D::Update()
 	{
 	}
+
 	void Collider2D::LateUpdate()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		Vector3 scale = tr->GetScale();
-		scale.x *= mSize.x;
-		scale.y *= mSize.y;
-
 		Vector3 pos = tr->GetPosition();
-		pos.x += mCenter.x;
-		pos.y += mCenter.y;
 
-		mPosition = pos;
-
+			scale.x *= mSize.x;
+			scale.y *= mSize.y;
+			pos.x += mCenter.x;
+			pos.y += mCenter.y;
+			mPosition = pos;
+		//if (_Collider_attack == false)
+		//{
+		//}
+		//else
+		//{
+		//	scale.x *= mSize.x;
+		//	scale.y *= mSize.y;
+		//	pos.x += mCenter.x;
+		//	pos.y += mCenter.y;
+		//	mPosition = pos;
+		//}
 
 		graphics::DebugMesh mesh = {};
 		mesh.position = pos;
@@ -48,14 +60,14 @@ namespace jk
 
 		renderer::PushDebugMeshAttribute(mesh);
 	}
+
 	void Collider2D::Render()
 	{
 	}
+
 	void Collider2D::OnCollisionEnter(Collider2D* other)
 	{
-
 		GetOwner()->OnCollisionEnter(other);
-
 
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetComponents<Script>();
@@ -64,10 +76,10 @@ namespace jk
 			script->OnCollisionEnter(other);
 		}
 	}
+
 	void Collider2D::OnCollisionStay(Collider2D* other)
 	{
 		GetOwner()->OnCollisionStay(other);
-
 
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetComponents<Script>();
@@ -76,10 +88,10 @@ namespace jk
 			script->OnCollisionStay(other);
 		}
 	}
+
 	void Collider2D::OnCollisionExit(Collider2D* other)
 	{
 		GetOwner()->OnCollisionExit(other);
-
 
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetComponents<Script>();

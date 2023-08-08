@@ -52,6 +52,9 @@ namespace jk
 	{
 		for (Component* comp : mComponents)
 		{
+			if (comp == nullptr)
+				return;
+			
 			comp->LateUpdate();
 		}
 		for (Script* script : mScripts)

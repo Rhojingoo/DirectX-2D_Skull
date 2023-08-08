@@ -23,12 +23,12 @@ namespace jk
 		_Gobjs[1]->Initialize();
 		_Gobjs[2] = new Skul_Spear;
 		_Gobjs[2]->Initialize();
-		//_Gobjs[3] = new Skul_head;
-		//_Gobjs[3]->Initialize();
+		_Gobjs[3] = new Skul_Sword;
+		_Gobjs[3]->Initialize();
 		CameraScript* cam = AddComponent<CameraScript>();
 		cam->SetTarget(this);
 
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			Scene* scene = SceneManager::GetActiveScene();			
 			scene->AddGameObject(eLayerType::Player, _Gobjs[i]);
@@ -61,6 +61,8 @@ namespace jk
 					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
 				else if (player_check == PlayerList::spere_Skul)
 					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
+				else if (player_check == PlayerList::sowrd_Skul)
+					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
 			}
 
 			if (player_select == PlayerList::wolf_Skul)
@@ -72,6 +74,8 @@ namespace jk
 				if (player_check == PlayerList::basic_Skul)
 					_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
 				else if (player_check == PlayerList::spere_Skul)
+					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
+				else if (player_check == PlayerList::sowrd_Skul)
 					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
 			}
 
@@ -85,6 +89,22 @@ namespace jk
 					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
 				else if (player_check == PlayerList::basic_Skul)
 					_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
+				else if (player_check == PlayerList::sowrd_Skul)
+					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
+			}
+
+			if (player_select == PlayerList::sowrd_Skul)
+			{
+				_Gobjs[(UINT)PlayerList::sowrd_Skul]->SetState(eState::Active);
+				Transform* tr = _Gobjs[(UINT)PlayerList::sowrd_Skul]->GetComponent<Transform>();
+				tr->SetPosition(_Pos);  Skul_Sword::SetDirection(mDir, true);
+
+				if (player_check == PlayerList::wolf_Skul)
+					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
+				else if (player_check == PlayerList::basic_Skul)
+					_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
+				else if (player_check == PlayerList::spere_Skul)
+					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
 			}
 			_check_change = false;
 		}

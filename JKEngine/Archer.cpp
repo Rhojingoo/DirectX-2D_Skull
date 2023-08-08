@@ -22,6 +22,7 @@ namespace jk
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
+		_rigidbody->SetGround(true);
 		//_playerpos = oWner->GetComponent<Transform>()->GetPosition();
 
 		//Skul_Head = new Skul_head();
@@ -67,8 +68,8 @@ namespace jk
 		at->CompleteEvent(L"ArcherAttack_AR") = std::bind(&Archer::choicecombo, this);
 		at->CompleteEvent(L"ArcherAttack_BR") = std::bind(&Archer::choicecombo, this);
 		at->CompleteEvent(L"ArcherAttack_CR") = std::bind(&Archer::choicecombo, this);		
-		//at->CompleteEvent(L"ArcherHit") = std::bind(&Archer::choicecombo, this);
-		//at->CompleteEvent(L"ArcherHitR") = std::bind(&Archer::choicecombo, this);
+		at->CompleteEvent(L"ArcherHit") = std::bind(&Archer::complete_hit, this);
+		at->CompleteEvent(L"ArcherHitR") = std::bind(&Archer::complete_hit, this);
 		//at->CompleteEvent(L"Knight_maleExplosion_Loop") = std::bind(&Knight_male::choicecombo, this);
 		//at->CompleteEvent(L"Knight_maleExplosion_LoopR") = std::bind(&Knight_male::choicecombo, this);
 
@@ -130,7 +131,20 @@ namespace jk
 	void Archer::LateUpdate()
 	{
 		_collider->SetSize(Vector2(0.1f, 0.1f));
-		_collider->SetCenter(Vector2(0.0f, -0.25f));
+		_collider->SetCenter(Vector2(0.0f, -5.55f));
+
+		//_collider->SetSize(Vector2(0.04f, 0.05f));
+		//_collider->SetCenter(Vector2(0.0f, -25.f));
+		//if (mDir == 1)
+		//{
+		//	_collider->SetSize(Vector2(0.04f, 0.2f));
+		//	_collider->SetCenter(Vector2(0.1f, -0.1f));
+		//}
+		//else
+		//{
+		//	_collider->SetSize(Vector2(0.04f, 0.2f));
+		//	_collider->SetCenter(Vector2(0.1f, -0.1f));
+		//}
 		GameObject::LateUpdate();
 	}
 
@@ -140,49 +154,35 @@ namespace jk
 	}
 
 	void Archer::OnCollisionEnter(Collider2D* other)
-	{
-		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
-		{
-			if (_Ground_check == false)
-			{
-				_rigidbody->SetGround(true);
-				_Ground_check = true;
-				_Ground_check = _rigidbody->GetGround();
-				_rigidbody->ClearVelocity();
-			}
-			else
-			{
-			}
-		}
+	{	
 
 		if (Skul_Basic* player = dynamic_cast<Skul_Basic*>(other->GetOwner()))
 		{
-			Skul_BasicState = player->Get_Skul_state();
-			_player_attack_check = player->Getattack_check();
 
-			if (Skul_BasicState == Skul_Basic::Skul_Basic_State::Attack_A || Skul_BasicState == jk::Skul_Basic::Skul_Basic_State::Attack_B)//|| Skul_BasicState == jk::Skul_Basic::Skul_Basic_State::Switch
-			{						
-				if (_state == Archer_State::Idle)
-				{
-					if (_hit_switch == false)
-					{
-						_state = Archer_State::Hit;
-						if (mDir == 1)
-						{
-							at->PlayAnimation(L"ArcherHit", false);
-							_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
-						}
-						else
-						{
-							at->PlayAnimation(L"ArcherHitR", false);
-							_rigidbody->SetVelocity(Vector2(250.f, 0.f));
-						}
-						_hit_switch = true;
-					}
-				}				
-			}
 		}
-
+		if (Attack_HitBox* player = dynamic_cast<Attack_HitBox*>(other->GetOwner()))
+		{
+			if (_state == Archer_State::Hit || _state == Archer_State::BackDash)
+				return;
+	
+				_state = Archer_State::Hit;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"ArcherHit", true);						
+					_hit_switch = true;	_hit++;
+					pos.x -= 50.0f * Time::DeltaTime();
+					tr->SetPosition(pos);
+				}
+				if (mDir == -1)
+				{
+					at->PlayAnimation(L"ArcherHitR", true);						
+					_hit_switch = true;	_hit++;
+					pos.x += 50.0f * Time::DeltaTime();
+					tr->SetPosition(pos);
+				}						
+				if (_hit >= 2)
+					int a = 0;
+		}
 		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner())){}
 
 		if (Skul_Spear* player = dynamic_cast<Skul_Spear*>(other->GetOwner())){}
@@ -192,6 +192,14 @@ namespace jk
 	}
 	void Archer::OnCollisionStay(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_Ground_check = _rigidbody->GetGround();
+				_rigidbody->ClearVelocity();				
+		}
+		
 	}
 	void Archer::OnCollisionExit(Collider2D* other)
 	{
@@ -210,21 +218,23 @@ namespace jk
 
 		if (_hit >= 3)
 		{
+			int a = 0;
 			_state = Archer_State::BackDash;
-			if (_playerpos.x > pos.x)
-			{
-				_Ground_check = false;
-				_rigidbody->SetGround(false);
-				at->PlayAnimation(L"ArcherBackStepR", false);
-				_rigidbody->SetVelocity(Vector2(-350.f, 200.f));
-			}
-			else if (_playerpos.x < pos.x)
+			if (mDir == 1)
 			{
 				_Ground_check = false;
 				_rigidbody->SetGround(false);
 				at->PlayAnimation(L"ArcherBackStep", false);
+				_rigidbody->SetVelocity(Vector2(-350.f, 200.f));
+			}
+			else
+			{
+				_Ground_check = false;
+				_rigidbody->SetGround(false);
+				at->PlayAnimation(L"ArcherBackStepR", false);
 				_rigidbody->SetVelocity(Vector2(350.f, 200.f));
 			}
+			_hit = 0;
 		}
 
 		if ((_distance <= 80 && _distance >= -80))
@@ -287,21 +297,21 @@ namespace jk
 	}
 
 	void Archer::hit()
-	{
-		_rigidbody->ClearVelocityY();
-		if (mDir == 1 && _velocity.x >= -240.0 )
-		{
-			_state = Archer_State::Idle;
-			at->PlayAnimation(L"ArcherIdle", true);
-			_rigidbody->ClearVelocityX();
-		}
-		else if (mDir == -1 && _velocity.x <= 240.0)
-		{
-			_state = Archer_State::Idle;
-			at->PlayAnimation(L"ArchereIdleR", true);
-			_rigidbody->ClearVelocityX();
-		}		
-		_hit++;
+	{	
+
+
+		//if ( /*&& _velocity.x >= -240.0 */)
+		//{
+		//	_state = Archer_State::Idle;
+		//	at->PlayAnimation(L"ArcherIdle", true);
+		//	_rigidbody->ClearVelocityX();
+		//}
+		//else if (mDir == -1 /*&& _velocity.x <= 240.0*/)
+		//{
+		//	_state = Archer_State::Idle;
+		//	at->PlayAnimation(L"ArchereIdleR", true);
+		//	_rigidbody->ClearVelocityX();
+		//}				
 	}
 
 	void Archer::intro()
@@ -373,5 +383,18 @@ namespace jk
 			at->PlayAnimation(L"ArcherAttack_C", true);
 		else
 			at->PlayAnimation(L"ArcherAttack_CR", true);
+	}
+	void Archer::complete_hit()
+	{
+		if (mDir == 1)
+		{
+			_state = Archer_State::Idle;
+			at->PlayAnimation(L"ArcherIdle", true);
+		}
+		else if (mDir == -1)
+		{
+			_state = Archer_State::Idle;
+			at->PlayAnimation(L"ArchereIdleR", true);
+		}
 	}
 }

@@ -1,9 +1,4 @@
 #pragma once
-class Skul_Sword
-{
-};
-
-#pragma once
 #include "Include_Common.h"
 
 namespace jk
@@ -25,6 +20,7 @@ namespace jk
 			Idle,
 			Move,
 			Jump,
+			Fall,
 			Falling,
 			Dash,
 			Attack_A,
@@ -33,12 +29,14 @@ namespace jk
 			JumpAttack,
 			Skill_A,
 			Skill_B,
+			Switch,
 			Death,
 		};
 
 		void idle();
 		void move();
 		void jump();
+		void fall();
 		void falling();
 		void dash();
 		void attack_a();
@@ -47,19 +45,40 @@ namespace jk
 		void jumpattack();
 		void skill_a();
 		void skill_b();
+		void change();
 		void death();
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
+
+		static void SetDirection(int dir, bool sw) { mDir = dir, _switch = sw; }
+
 	private:
 		Skul_Sword_State _State;
-		Animator* at;
-		int mDir;
-		float _time;
-		bool _attack;
+		Animator* at = nullptr;
+		RigidBody* _rigidbody = nullptr;
+		Collider2D* _collider = nullptr;
+		Transform* tr = nullptr;
+		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+		Vector2 _velocity = Vector2(0.f, 0.f);
+
+	private:
+		static int mDir;
+		static bool _switch;
+		float _time = 0.f;
+		bool _attackB = false;
+		bool _attackC = false;
+		int _jump = 0;
+		int _fallcheck = 0;
+		bool _dash = false;
+		bool _Ground_check = false;
+
+
 		void attack_A_choice();
 		void attack_B_choice();
-		void dash_check();
+		//void attack_choice();
+		void Input_move();
+		void switch_on_off();
 	};
 }

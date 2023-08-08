@@ -5,7 +5,6 @@ namespace jk
 {
 	int Skul_Basic::mDir = 1;
 	bool Skul_Basic::_switch = false;
-
 	Skul_Basic::Skul_Basic()
 		: _State(Skul_Basic_State::Idle)
 		, at(nullptr)
@@ -21,6 +20,15 @@ namespace jk
 	{
 		CameraScript* cam = AddComponent<CameraScript>();
 		_collider = AddComponent<Collider2D>();
+
+		//_At_colR = AddComponent<Collider2D>();
+		//_At_colR->SetSize(Vector2(0.02f, 0.05f));
+		//_At_colR->SetCenter(Vector2(25.f, -0.1f));
+
+		//_At_colL = AddComponent<Collider2D>();
+		//_At_colL->SetSize(Vector2(0.02f, 0.05f));
+		//_At_colL->SetCenter(Vector2(-25.f, -0.1f));
+
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 
@@ -32,6 +40,13 @@ namespace jk
 		tr_head->SetPosition(Vector3(pos.x, pos.y, -250.f));
 		Skul_Head->GetComponent<Transform>()->SetScale(Vector3(15.f, 13.f, 0.f));
 		Skul_Head->SetState(eState::Paused);
+
+
+		Hit_Box = new Attack_HitBox();
+		Hit_Box->Initialize();
+		scene = SceneManager::GetActiveScene();
+		scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+		Hit_Box->SetState(eState::Active);
 
 
 		at = AddComponent<Animator>();
@@ -81,49 +96,6 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Jump", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\JumpAttack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Walk", this, 1);
-				
-		//대쉬
-		//at->PlayAnimation(L"Skul_BasicDash", true);
-		//at->PlayAnimation(L"Skul_BasicDashR", true);			
-
-
-
-
-		//테스트 남자기사
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_A", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_B", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_C", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_D", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_E", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\BackDash", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Dash", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Die", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\EnergeBall", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Explosion_Loop", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Glorggy", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Hit", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Idle", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Intro", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Jump", this);	
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Potion", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Stinger", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Stinger_Ready", this);
-
-
-		//궁수
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Attack_A", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Attack_B", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Attack_C", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\BackStep", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Die", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Groggy", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Hit", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Idle", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Intro", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Potion", this);
-
-		//at->PlayAnimation(L"ArcherPotion", true);
-
 
 
 		at->PlayAnimation(L"Skul_BasicIdle", true);
@@ -138,15 +110,11 @@ namespace jk
 		at->CompleteEvent(L"Skul_BasicSwitch") = std::bind(&Skul_Basic::switch_on_off, this);
 		at->CompleteEvent(L"Skul_BasicSwitchR") = std::bind(&Skul_Basic::switch_on_off, this);
 
+
 		at->CompleteEvent(L"NoHeadAttackA") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NoHeadAttackAR") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NoHeadAttackB") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NoHeadAttackBR") = std::bind(&Skul_Basic::attack_choice, this);	
-
-		//at->CompleteEvent(L"Skul_BasicDash") = std::bind(&Skul_Basic::dash_check, this);
-		//at->CompleteEvent(L"Skul_BasicDashR") = std::bind(&Skul_Basic::dash_check, this);
-
-
 		GameObject::Initialize();
 	}
 
@@ -218,9 +186,34 @@ namespace jk
 
 	void Skul_Basic::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.05f));
+		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
+		if (_attack_Acheck==true/*_State == Skul_Basic_State::Attack_A*/)
+		{	
+
+			Hit_Box->SetState(eState::Active);
+			if (mDir == 1)			
+				HitBox_TR->SetPosition(Vector3(pos.x + 50, pos.y, pos.z));			
+			else			
+				HitBox_TR->SetPosition(Vector3(pos.x - 50, pos.y, pos.z));			
+		}
+		else if (_attack_Bcheck==true/*_State == Skul_Basic_State::Attack_B*/)
+		{
+			Hit_Box->SetState(eState::Active);
+			if (mDir == 1)
+				HitBox_TR->SetPosition(Vector3(pos.x + 50, pos.y, pos.z));
+			else
+				HitBox_TR->SetPosition(Vector3(pos.x - 50, pos.y, pos.z));
+		}
+		else
+		{
+			Hit_Box->SetState(eState::Paused);			
+		}		
+		
+		_collider->SetSize(Vector2(0.02f, 0.05f));
 		_collider->SetCenter(Vector2(0.0f, -0.1f));
+
 		GameObject::LateUpdate();
+		
 	}
 
 	void Skul_Basic::Render()
@@ -230,7 +223,6 @@ namespace jk
 
 	void Skul_Basic::idle()
 	{
-		_attackcheck = false;
 
 		if (Input::GetKey(eKeyCode::RIGHT)
 			|| Input::GetKey(eKeyCode::LEFT))
@@ -283,8 +275,7 @@ namespace jk
 		}
 
 		if (Input::GetKey(eKeyCode::X))
-		{
-			_attackcheck = true;
+		{		
 			_State = Skul_Basic_State::Attack_A;
 			if (mDir == 1)
 			{
@@ -683,12 +674,11 @@ namespace jk
 	}
 
 	void Skul_Basic::attack_a()
-	{
-		_attackcheck = true;
+	{		
+		_attack_Acheck = true;
 		if (Input::GetKeyDown(eKeyCode::X))
-		{
-			_attack = true;
-	
+		{			
+			_attack = true;	
 		}
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
 		{			
@@ -701,9 +691,11 @@ namespace jk
 	}
 
 	void Skul_Basic::attack_b()
-	{
-		_attackcheck = true;
-		_attack = false;
+	{	
+		if (Input::GetKeyDown(eKeyCode::X))
+		{
+			_attack = true;
+		}
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
 		{
 			mDir = 1;
@@ -716,7 +708,7 @@ namespace jk
 
 	void Skul_Basic::jumpattack()
 	{
-		_attackcheck = true;
+		
 	}
 
 	void Skul_Basic::skill_a()
@@ -738,8 +730,6 @@ namespace jk
 			head_rjg->ClearVelocityX();
 			mDir = -1;
 		}
-
-
 	}
 
 	void Skul_Basic::skill_b()
@@ -767,7 +757,6 @@ namespace jk
 
 	}
 
-
 	void Skul_Basic::OnCollisionEnter(Collider2D* other)
 	{		
 		if (Skul_head* _head = dynamic_cast<Skul_head*>(other->GetOwner()))
@@ -785,12 +774,10 @@ namespace jk
 			}
 		}
 	}
-
 	void Skul_Basic::OnCollisionStay(Collider2D* other)
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
-
 			if (_Ground_check == false)
 			{
 				_fallcheck = 0;	_jump = 0;
@@ -832,15 +819,17 @@ namespace jk
 			}
 		}
 	}
-
 	void Skul_Basic::OnCollisionExit(Collider2D* other)
 	{
 	}
 
 	void Skul_Basic::attack_choice()
 	{
+		_attack_Acheck = false;
+		_attack_Bcheck = false;
+		Hit_Box->SetState(eState::Paused);
 		if (_attack == true)
-		{
+		{		
 			_State = Skul_Basic_State::Attack_B;
 			if (mDir == 1)
 			{
@@ -936,6 +925,7 @@ namespace jk
 			}
 		}
 	}
+
 	void Skul_Basic::Input_move()
 	{
 		if (Input::GetKey(eKeyCode::LEFT))
@@ -957,13 +947,15 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
+			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
+			SetPlay_List(PlayerList::sowrd_Skul, PlayerList::basic_Skul, true, mDir);
 			SetPlayer_Pos(pos);
 		}
 	}
+
 	void Skul_Basic::switch_on_off()
-	{
+	{	
 		if(_switch == false)
 		{
 			_State = Skul_Basic_State::Idle;

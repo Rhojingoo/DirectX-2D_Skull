@@ -97,6 +97,28 @@ namespace jk
 			return comp;
 		}
 
+		template <typename T>
+		T* RemoveComponent(UINT COLID)
+		{
+			for (auto it = mComponents.begin(); it != mComponents.end(); ++it)
+			{
+				T* component = dynamic_cast<T*>(*it);
+				if (component != nullptr)
+				{
+					if(component->GetColliderID() == COLID)
+					{	
+						delete component;
+						mComponents.erase(it);
+						return component; // 삭제된 컴포넌트 반환 (선택사항)
+					}
+				}
+			}
+			return nullptr;
+		}
+	
+
+
+
 		void SetState(eState state) { mState = state; }
 		eState GetState() { return mState; }
 

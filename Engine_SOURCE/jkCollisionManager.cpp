@@ -42,9 +42,14 @@ namespace jk
             Collider2D* leftCol = leftObj->GetComponent<Collider2D>();
             if (leftCol == nullptr)
                 continue;
+            //if (leftObj->GetState()
+            //    != GameObject::eState::Active)
+            //    continue;
+
             if (leftObj->GetState()
-                != GameObject::eState::Active)
+                == GameObject::eState::Dead)
                 continue;
+
 
             for (GameObject* rightObj : rights)
             {
@@ -53,8 +58,12 @@ namespace jk
                     continue;
                 if (leftObj == rightObj)
                     continue;
+                //if (rightObj->GetState()
+                //    != GameObject::eState::Active)
+                //    continue;
+
                 if (rightObj->GetState()
-                    != GameObject::eState::Active)
+                    == GameObject::eState::Dead)
                     continue;
 
                 ColliderCollision(leftCol, rightCol);
@@ -79,23 +88,41 @@ namespace jk
             iter = mCollisionMap.find(id.id);
         }
 
+        if (left->GetOwner()->GetState() == GameObject::eState::Paused
+            || right->GetOwner()->GetState() == GameObject::eState::Paused)
+        {
+            left->OnCollisionExit(right);
+            right->OnCollisionExit(left);
+
+            iter->second = false;
+
+            return;
+        }
+
+
         if (Intersect(left, right))
         {
+
             // 충돌
             if (iter->second == false)
             {
                 //최초 충돌
                 left->OnCollisionEnter(right);
-                right->OnCollisionEnter(left);
-
+                right->OnCollisionEnter(left);      
                 iter->second = true;
+         
             }
             else
             {
                 // 충돌 중
                 left->OnCollisionStay(right);
                 right->OnCollisionStay(left);
+
+                       if (iter->second == true)
+                    return;
             }
+            iter->second = true;
+
         }
         else
         {
@@ -195,8 +222,10 @@ namespace jk
         for (size_t i = 0; i < 4; i++)
             Axis[i].z = 0.0f;
 
-        Vector3 vc = leftTr->GetPosition() - rightTr->GetPosition();
+        Vector3 vc = left->GetPosition() - right->GetPosition();
         vc.z = 0.0f;
+        //Vector3 vc = leftTr->GetPosition() - rightTr->GetPosition();
+        //vc.z = 0.0f;
 
         Vector3 centerDir = vc;
         for (size_t i = 0; i < 4; i++)

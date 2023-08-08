@@ -56,23 +56,25 @@ namespace jk
 		static int GetDirection() { return mDir; }
 		Skul_Basic_State Get_Skul_state() { return _State; }
 
-		void SetAttack_check(bool check) { _attackcheck = check; }
-		bool Getattack_check() { return _attackcheck; }
+
 
 	private:
 		Skul_Basic_State _State;
 		Skul_head* Skul_Head;
+		GameObject* Attack_Skul;
+		GameObject* Hit_Box;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;	
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
+		int ColID = 0;
 
 	private:
 		static int mDir;
 		static bool _switch;
-		bool _attackcheck;				//캐릭터의 어택상황을 체크하기 위해 필요한 변수
+		
 		float _time = 0.f;
 		bool _attack = false;
 		int _jump = 0;
@@ -80,10 +82,11 @@ namespace jk
 		bool _Ground_check = false;
 		bool _Skulhead = false;
 
+		bool _attack_Acheck = false;				//캐릭터의 어택상황을 체크하기 위해 필요한 변수
+		bool _attack_Bcheck = false;
 	private:
 		void attack_choice();
 		void Input_move();
 		void switch_on_off();
-
 	};
 }
