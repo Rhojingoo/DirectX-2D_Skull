@@ -21,7 +21,6 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 
-
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\AttackB", this);
@@ -39,22 +38,23 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Switch", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Walk", this);
 
-		
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\AttackA", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\AttackB", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\AttackC", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Dash", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Fall", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\FallRepeat", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Idle", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Jump", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\JumpAttack", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\SkillA", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\SkillB", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\SlashBack", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\SlashFront", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Switch", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Walk", this,1);
+
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\AttackA", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\AttackB", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\AttackC", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Dash", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Fall", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\FallRepeat", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Idle", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Jump", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\JumpAttack", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\SkillA", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\SkillB", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\SlashBack", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\SlashFront", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Switch", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Sword\\Walk", this, 1);
+
 
 		at->CompleteEvent(L"SwordAttackA") = std::bind(&Skul_Sword::attack_A_choice, this);
 		at->CompleteEvent(L"SwordAttackAR") = std::bind(&Skul_Sword::attack_A_choice, this);
@@ -64,10 +64,6 @@ namespace jk
 		at->CompleteEvent(L"SwordAttackCR") = std::bind(&Skul_Sword::attack_B_choice, this);
 		at->CompleteEvent(L"SwordSwitch") = std::bind(&Skul_Sword::switch_on_off, this);
 		at->CompleteEvent(L"SwordSwitchR") = std::bind(&Skul_Sword::switch_on_off, this);
-		//at->CompleteEvent(L"SwordAttackA") = std::bind(&Skul_Sword::AttackACompleteEvent, this);
-		//at->CompleteEvent(L"SwordAttackB") = std::bind(&Skul_Sword::AttackBCompleteEvent, this);
-		//at->CompleteEvent(L"SwordAttackC") = std::bind(&Skul_Sword::AttackCCompleteEvent, this);
-
 		at->PlayAnimation(L"SwordIdle", true);
 
 		GameObject::Initialize();
@@ -89,46 +85,60 @@ namespace jk
 
 		switch (_State)
 		{
-		case jk::Skul_Sword::Skul_Sword_State::Idle:idle();
+		case jk::Skul_Sword::Skul_Sword_State::Idle:
+			idle();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Move:move();
+		case jk::Skul_Sword::Skul_Sword_State::Move:
+			move();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Jump:jump();
+		case jk::Skul_Sword::Skul_Sword_State::Jump:
+			jump();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Fall:fall();
+		case jk::Skul_Sword::Skul_Sword_State::Fall:
+			fall();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Falling:falling();
+		case jk::Skul_Sword::Skul_Sword_State::Falling:
+			falling();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Dash:dash();
+		case jk::Skul_Sword::Skul_Sword_State::Dash:
+			dash();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Attack_A:attack_a();
+		case jk::Skul_Sword::Skul_Sword_State::Attack_A:
+			attack_a();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Attack_B:attack_b();
+		case jk::Skul_Sword::Skul_Sword_State::Attack_B:
+			attack_b();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Attack_C:attack_c();
+		case jk::Skul_Sword::Skul_Sword_State::Attack_C:
+			attack_c();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::JumpAttack:jumpattack();
+		case jk::Skul_Sword::Skul_Sword_State::JumpAttack:
+			jumpattack();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Skill_A:skill_a();
+		case jk::Skul_Sword::Skul_Sword_State::Skill_A:
+			skill_a();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Skill_B:skill_b();
+		case jk::Skul_Sword::Skul_Sword_State::Skill_B:
+			skill_b();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Switch:change();
+		case jk::Skul_Sword::Skul_Sword_State::Switch:
+			change();
 			break;
 
-		case jk::Skul_Sword::Skul_Sword_State::Death:death();
+		case jk::Skul_Sword::Skul_Sword_State::Death:
+			death();
 			break;
 
 		default:
@@ -526,6 +536,7 @@ namespace jk
 			mDir = -1;
 		}
 	}
+
 	void Skul_Sword::attack_a()
 	{
 		if (Input::GetKeyDown(eKeyCode::X))

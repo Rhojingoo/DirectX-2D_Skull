@@ -143,6 +143,9 @@
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
     </ClInclude>
     <ClInclude Include="Attack_HitBox.h" />
+    <ClInclude Include="Skul_Thief.h">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -281,6 +284,9 @@
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
     </ClCompile>
     <ClCompile Include="Attack_HitBox.cpp" />
+    <ClCompile Include="Skul_Thief.cpp">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">

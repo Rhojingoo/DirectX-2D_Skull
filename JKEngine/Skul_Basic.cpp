@@ -949,7 +949,8 @@ namespace jk
 		{
 			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
-			SetPlay_List(PlayerList::sowrd_Skul, PlayerList::basic_Skul, true, mDir);
+			//SetPlay_List(PlayerList::sowrd_Skul, PlayerList::basic_Skul, true, mDir);
+			SetPlay_List(PlayerList::thief_Skul, PlayerList::basic_Skul, true, mDir);
 			SetPlayer_Pos(pos);
 		}
 	}

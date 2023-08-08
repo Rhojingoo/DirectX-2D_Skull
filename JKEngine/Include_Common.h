@@ -64,6 +64,7 @@
 #include "Skul_Spear.h"
 #include "Skul_Wolf.h"
 #include "Skul_Sword.h"
+#include "Skul_Thief.h"
 #include "Skul_head.h"
 #include "Attack_HitBox.h"
 

@@ -12,6 +12,7 @@ namespace jk
 			wolf_Skul,
 			spere_Skul,
 			sowrd_Skul,
+			thief_Skul,
 			head,
 		};
 
@@ -38,7 +39,7 @@ namespace jk
 		static PlayerList player_select;
 		static PlayerList player_check;
 		static Vector3 _Pos; 
-		GameObject* _Gobjs[4];
+		GameObject* _Gobjs[5];
 		static bool _check_change;
 		static int mDir;
 		static bool _skulhead_check;
