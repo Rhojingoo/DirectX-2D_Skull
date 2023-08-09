@@ -26,23 +26,23 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_Hammer\\Attack", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_Hammer\\Dead", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_Hammer\\Idle", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_Hammer\\Tackle", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_Hammer\\Walk", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Dead", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Idle", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Tackle", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Walk", this);
 
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_Hammer\\Attack", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_Hammer\\Dead", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_Hammer\\Idle", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_Hammer\\Tackle", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_Hammer\\Walk", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Dead", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Idle", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Tackle", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Walk", this, 1);
 
 		//bind ºÎºÐ
-		at->CompleteEvent(L"Monster_HammerAttack") = std::bind(&Monster_Hammer::attack_idle, this);
-		at->CompleteEvent(L"Monster_HammerAttackR") = std::bind(&Monster_Hammer::attack_idle, this);
+		at->CompleteEvent(L"HammerAttack") = std::bind(&Monster_Hammer::attack_idle, this);
+		at->CompleteEvent(L"HammerAttackR") = std::bind(&Monster_Hammer::attack_idle, this);
 
-		at->PlayAnimation(L"Monster_HammerIdle", true);
+		at->PlayAnimation(L"HammerIdle", true);
 		GameObject::Initialize();
 	}
 
@@ -94,6 +94,10 @@ namespace jk
 	}
 
 	void Monster_Hammer::OnCollisionEnter(Collider2D* other)
+	{		
+	}
+
+	void Monster_Hammer::OnCollisionStay(Collider2D* other)
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
@@ -108,10 +112,6 @@ namespace jk
 			{
 			}
 		}
-	}
-
-	void Monster_Hammer::OnCollisionStay(Collider2D* other)
-	{
 	}
 
 	void Monster_Hammer::OnCollisionExit(Collider2D* other)
@@ -136,9 +136,9 @@ namespace jk
 
 				_state = Monster_Hammer_State::Walk;
 				if (mDir == 1)
-					at->PlayAnimation(L"Monster_HammerWalk", true);
+					at->PlayAnimation(L"HammerWalk", true);
 				else
-					at->PlayAnimation(L"Monster_HammerWalkR", true);
+					at->PlayAnimation(L"HammerWalkR", true);
 			}	
 
 		
@@ -148,21 +148,21 @@ namespace jk
 				{
 				_state = Monster_Hammer_State::Attack;
 				if (mDir == 1)
-					at->PlayAnimation(L"Monster_HammerAttack", true);
+					at->PlayAnimation(L"HammerAttack", true);
 				else
-					at->PlayAnimation(L"Monster_HammerAttackR", true);
+					at->PlayAnimation(L"HammerAttackR", true);
 				}
 				if (_AttackCheck == 1)
 				{
 					_state = Monster_Hammer_State::Tackle;
 					if (mDir == 1)
 					{
-						at->PlayAnimation(L"Monster_HammerTackle", false);
+						at->PlayAnimation(L"HammerTackle", false);
 						_rigidbody->SetVelocity(Vector2(250.f, 0.f));
 					}
 					else
 					{
-						at->PlayAnimation(L"Monster_HammerTackleR", false);
+						at->PlayAnimation(L"HammerTackleR", false);
 						_rigidbody->SetVelocity(Vector2(250.f, 0.f));
 					}
 				}
@@ -180,13 +180,13 @@ namespace jk
 		if (mDir == 1 && _velocity.x <= 100.0)
 		{
 			_state = Monster_Hammer_State::Idle;
-			at->PlayAnimation(L"Monster_HammerIdle", true);
+			at->PlayAnimation(L"HammerIdle", true);
 			_rigidbody->ClearVelocityX();
 		}
 		else if (mDir == -1 && _velocity.x >= -100.0)
 		{
 			_state = Monster_Hammer_State::Idle;
-			at->PlayAnimation(L"Monster_HammerIdleR", true);
+			at->PlayAnimation(L"HammerIdleR", true);
 			_rigidbody->ClearVelocityX();
 		}		
 	}
@@ -197,28 +197,28 @@ namespace jk
 		{
 			//_state = Monster_Hammer_State::Attack;
 			//if (mDir == 1)
-			//	at->PlayAnimation(L"Monster_HammerAttack", true);
+			//	at->PlayAnimation(L"HammerAttack", true);
 			//else
-			//	at->PlayAnimation(L"Monster_HammerAttackR", true);
+			//	at->PlayAnimation(L"HammerAttackR", true);
 			if (_AttackCheck == 0)
 			{
 				_state = Monster_Hammer_State::Attack;
 				if (mDir == 1)
-					at->PlayAnimation(L"Monster_HammerAttack", true);
+					at->PlayAnimation(L"HammerAttack", true);
 				else
-					at->PlayAnimation(L"Monster_HammerAttackR", true);
+					at->PlayAnimation(L"HammerAttackR", true);
 			}
 			if (_AttackCheck == 1)
 			{
 				_state = Monster_Hammer_State::Tackle;
 				if (mDir == 1)
 				{
-					at->PlayAnimation(L"Monster_HammerTackle", false);
+					at->PlayAnimation(L"HammerTackle", false);
 					_rigidbody->SetVelocity(Vector2(250.f, 0.f));
 				}
 				else
 				{
-					at->PlayAnimation(L"Monster_HammerTackleR", false);
+					at->PlayAnimation(L"HammerTackleR", false);
 					_rigidbody->SetVelocity(Vector2(250.f, 0.f));
 				}
 			}
@@ -241,9 +241,9 @@ namespace jk
 	{
 		_state = Monster_Hammer_State::Idle;
 		if (mDir == 1)
-			at->PlayAnimation(L"Monster_HammerIdle", true);
+			at->PlayAnimation(L"HammerIdle", true);
 		else
-			at->PlayAnimation(L"Monster_HammerIdleR", true);
+			at->PlayAnimation(L"HammerIdleR", true);
 
 		_time = 0;
 	}

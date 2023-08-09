@@ -15,7 +15,7 @@ namespace jk
 	}
 	void Monster::Initialize()
 	{
-		_Gobjs[0] = new Stone_wizard;
+		_Gobjs[0] = new Monster_GreenTree;
 		_Gobjs[0]->Initialize();
 
 		//_Gobjs[0] = new Monster_warrior;
@@ -24,7 +24,12 @@ namespace jk
 		//_Gobjs[1]->Initialize();
 		//_Gobjs[2] = new Stone_wizard;
 		//_Gobjs[2]->Initialize();
-
+		//_Gobjs[3] = new Monster_BigEnt;
+		//_Gobjs[3]->Initialize();
+		//_Gobjs[4] = new Monster_GreenTree;
+		//_Gobjs[4]->Initialize();
+		//_Gobjs[5] = new Monster_BlossomEnt;
+		//_Gobjs[5]->Initialize();
 
 		for (int i = 0; i < 1; i++)
 		{

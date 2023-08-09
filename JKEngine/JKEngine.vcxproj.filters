@@ -122,7 +122,7 @@
       <Filter>Game_ob\Monster\Monster_warrior</Filter>
     </ClInclude>
     <ClInclude Include="Stone_wizard.h">
-      <Filter>Game_ob\Monster\Ice_wizard</Filter>
+      <Filter>Game_ob\Monster\Monster_Stone_wizard</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrasil.h">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
@@ -145,6 +145,15 @@
     <ClInclude Include="Attack_HitBox.h" />
     <ClInclude Include="Skul_Thief.h">
       <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_BigEnt.h">
+      <Filter>Game_ob\Monster\Monster_BigEnt</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_GreenTree.h">
+      <Filter>Game_ob\Monster\Monster_GreenTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_BlossomEnt.h">
+      <Filter>Game_ob\Monster\Monster_Blossom</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,7 +272,7 @@
       <Filter>Game_ob\Monster\Monster_warrior</Filter>
     </ClCompile>
     <ClCompile Include="Stone_wizard.cpp">
-      <Filter>Game_ob\Monster\Ice_wizard</Filter>
+      <Filter>Game_ob\Monster\Monster_Stone_wizard</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil.cpp">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
@@ -286,6 +295,15 @@
     <ClCompile Include="Attack_HitBox.cpp" />
     <ClCompile Include="Skul_Thief.cpp">
       <Filter>Game_ob\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_BigEnt.cpp">
+      <Filter>Game_ob\Monster\Monster_BigEnt</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_GreenTree.cpp">
+      <Filter>Game_ob\Monster\Monster_GreenTree</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_BlossomEnt.cpp">
+      <Filter>Game_ob\Monster\Monster_Blossom</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -370,9 +388,6 @@
     <Filter Include="Game_ob\MiniBoss\Archer">
       <UniqueIdentifier>{3143cc7d-479e-4908-a45e-84e9dc1c6eed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\Monster\Ice_wizard">
-      <UniqueIdentifier>{38af4b08-f4c1-43b3-9bb2-9805767f4793}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game_ob\Monster\Monster_Hammer">
       <UniqueIdentifier>{9d583fd2-8c1a-43c7-8372-ae8327d385f5}</UniqueIdentifier>
     </Filter>
@@ -381,6 +396,18 @@
     </Filter>
     <Filter Include="Game_ob\Boss\Yggdrasil">
       <UniqueIdentifier>{30793699-4c54-48e5-82ec-64db7beb560a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_BigEnt">
+      <UniqueIdentifier>{7a4ce52a-f3ba-44d0-b29e-53d37461596c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_Stone_wizard">
+      <UniqueIdentifier>{38af4b08-f4c1-43b3-9bb2-9805767f4793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_GreenTree">
+      <UniqueIdentifier>{1d62fcd7-c472-473d-9ead-9c20a9011d36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_Blossom">
+      <UniqueIdentifier>{798f4644-0aa9-4be0-a3b6-1f37d1717f63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

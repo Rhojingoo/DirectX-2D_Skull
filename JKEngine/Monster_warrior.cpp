@@ -24,23 +24,23 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_warrior\\Attack", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_warrior\\Dead", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_warrior\\Hit", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_warrior\\Idle", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_warrior\\Walk", this);
-
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_warrior\\Attack", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_warrior\\Dead", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_warrior\\Hit", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_warrior\\Idle", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Monster_warrior\\Walk", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Attack", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Dead", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Hit", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Idle", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Walk", this);
+																
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Attack", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Dead", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Hit", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Idle", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Walk", this, 1);
 
 		//bind ºÎºÐ
-		at->CompleteEvent(L"Monster_warriorAttack") = std::bind(&Monster_warrior::attack_idle, this);
-		at->CompleteEvent(L"Monster_warriorAttackR") = std::bind(&Monster_warrior::attack_idle, this);
+		at->CompleteEvent(L"WarriorAttack") = std::bind(&Monster_warrior::attack_idle, this);
+		at->CompleteEvent(L"WarriorAttackR") = std::bind(&Monster_warrior::attack_idle, this);
 
-		at->PlayAnimation(L"Monster_warriorIdle", true);
+		at->PlayAnimation(L"WarriorIdle", true);
 		GameObject::Initialize();
 	}
 
@@ -58,19 +58,24 @@ namespace jk
 
 		switch (_state)
 		{
-		case jk::Monster_warrior::Monster_warrior_State::Idle:idle();
+		case jk::Monster_warrior::Monster_warrior_State::Idle:
+			idle();
 			break;
 
-		case jk::Monster_warrior::Monster_warrior_State::Attack:attack();
+		case jk::Monster_warrior::Monster_warrior_State::Attack:
+			attack();
 			break;
 
-		case jk::Monster_warrior::Monster_warrior_State::Dead:dead();
+		case jk::Monster_warrior::Monster_warrior_State::Dead:
+			dead();
 			break;
 
-		case jk::Monster_warrior::Monster_warrior_State::Hit:hit();
+		case jk::Monster_warrior::Monster_warrior_State::Hit:
+			hit();
 			break;
 
-		case jk::Monster_warrior::Monster_warrior_State::Walk:walk();
+		case jk::Monster_warrior::Monster_warrior_State::Walk:
+			walk();
 			break;
 
 		default:
@@ -92,6 +97,10 @@ namespace jk
 	}
 
 	void Monster_warrior::OnCollisionEnter(Collider2D* other)
+	{	
+	}
+
+	void Monster_warrior::OnCollisionStay(Collider2D* other)
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
@@ -106,10 +115,6 @@ namespace jk
 			{
 			}
 		}
-	}
-
-	void Monster_warrior::OnCollisionStay(Collider2D* other)
-	{
 	}
 
 	void Monster_warrior::OnCollisionExit(Collider2D* other)
@@ -128,11 +133,11 @@ namespace jk
 					_state = Monster_warrior_State::Walk;
 					if (mDir == 1)
 					{
-						at->PlayAnimation(L"Monster_warriorWalk", true);					
+						at->PlayAnimation(L"WarriorWalk", true);					
 					}
 					else
 					{
-						at->PlayAnimation(L"Monster_warriorWalkR", true);							
+						at->PlayAnimation(L"WarriorWalkR", true);							
 					}					
 				}
 			}
@@ -140,11 +145,10 @@ namespace jk
 			{
 				_state = Monster_warrior_State::Attack;
 				if (mDir == 1)
-					at->PlayAnimation(L"Monster_warriorAttack", true);
+					at->PlayAnimation(L"WarriorAttack", true);
 				else
-					at->PlayAnimation(L"Monster_warriorAttackR", true);
+					at->PlayAnimation(L"WarriorAttackR", true);
 			}
-
 		}
 	}
 
@@ -180,9 +184,9 @@ namespace jk
 		{
 			_state = Monster_warrior_State::Attack;
 			if (mDir == 1)			
-				at->PlayAnimation(L"Monster_warriorAttack", true);			
+				at->PlayAnimation(L"WarriorAttack", true);			
 			else			
-				at->PlayAnimation(L"Monster_warriorAttackR", true);
+				at->PlayAnimation(L"WarriorAttackR", true);
 		}
 		else
 		{
@@ -197,9 +201,9 @@ namespace jk
 	{
 		_state = Monster_warrior_State::Idle;
 		if (mDir == 1)
-			at->PlayAnimation(L"Monster_warriorIdle", true);
+			at->PlayAnimation(L"WarriorIdle", true);
 		else
-			at->PlayAnimation(L"Monster_warriorIdleR", true);
+			at->PlayAnimation(L"WarriorIdleR", true);
 
 		_time = 0;
 	}

@@ -99,6 +99,11 @@ namespace jk
 
 	void Stone_wizard::OnCollisionEnter(Collider2D* other)
 	{
+	
+	}
+
+	void Stone_wizard::OnCollisionStay(Collider2D* other)
+	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
 			if (_Ground_check == false)
@@ -112,10 +117,6 @@ namespace jk
 			{
 			}
 		}
-	}
-
-	void Stone_wizard::OnCollisionStay(Collider2D* other)
-	{
 	}
 
 	void Stone_wizard::OnCollisionExit(Collider2D* other)

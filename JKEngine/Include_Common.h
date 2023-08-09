@@ -89,6 +89,9 @@
 #include "Monster_Hammer.h"
 #include "Monster_warrior.h"
 #include "Stone_wizard.h"
+#include "Monster_BigEnt.h"
+#include "Monster_GreenTree.h"
+#include "Monster_BlossomEnt.h"
 
 
 //UI
