@@ -155,6 +155,9 @@
     <ClInclude Include="Monster_BlossomEnt.h">
       <Filter>Game_ob\Monster\Monster_Blossom</Filter>
     </ClInclude>
+    <ClInclude Include="Mage.h">
+      <Filter>Game_ob\MiniBoss\Mage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -305,6 +308,9 @@
     <ClCompile Include="Monster_BlossomEnt.cpp">
       <Filter>Game_ob\Monster\Monster_Blossom</Filter>
     </ClCompile>
+    <ClCompile Include="Mage.cpp">
+      <Filter>Game_ob\MiniBoss\Mage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -408,6 +414,12 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Monster_Blossom">
       <UniqueIdentifier>{798f4644-0aa9-4be0-a3b6-1f37d1717f63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Mage">
+      <UniqueIdentifier>{d585cef5-d2db-4392-8245-3f8fd9d55179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Cleric">
+      <UniqueIdentifier>{964437c2-3cc2-4bb6-85c2-24958a9025c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

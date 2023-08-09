@@ -18,6 +18,7 @@ namespace jk
 		{
 			knight,	
 			archer,
+			mage,
 		};
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
@@ -38,7 +39,7 @@ namespace jk
 		int _minibosschoice = 0;
 
 		static Vector3 _Pos;
-		GameObject* _Gobjs[2];
+		GameObject* _Gobjs[1];
 		//static bool _check_change;
 		//static int mDir;	
 

@@ -89,13 +89,13 @@ namespace jk
 			//testboss->SetName(L"test_BOSS");
 			////Monster::SetPlayer(_player); 크게사용안함
 
-			//Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
-			//testmboss->SetName(L"test_mboss");
+			Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
+			testmboss->SetName(L"test_mboss");
 			//Mini_Boss::SetPlayer(_player);
 
-			Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
-			testmonster->SetName(L"test_monster"); 
-			Monster::SetPlayer(_player);	
+			//Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
+			//testmonster->SetName(L"test_monster"); 
+			//Monster::SetPlayer(_player);	
 #pragma endregion
 		
 
@@ -214,50 +214,3 @@ namespace jk
 		Scene::Render();
 	}
 }
-
-
-
-
-
-			//임시보류
-			//Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
-			//Tile_map->SetName(L"Tile_Map");
-			//Transform* tr = Tile_map->GetComponent<Transform>();
-			////Collider2D* cd = Tile_map->AddComponent<Collider2D>();
-			//tr->SetPositionZ(-200.f);
-			//tr->AddPositionY(-280.f);
-			//tr->SetPositionX(-300.f);
-			//tr->SetScale(Vector3(60*32.f, 8*32.f, 0.f));
-
-			//TileMap* tilemap = Tile_map->AddComponent<TileMap>();
-			//std::shared_ptr<Material> material = Resources::Find<Material>(L"Devil_castle_tile");
-
-			//tilemap->SetMaterial(material);
-			//tilemap->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			//tilemap->SetAtlasTex(material->GetTexture());
-			//tilemap->SetTileSize(Vector2(32.f, 32.f));
-			//tilemap->SetTileMapCount(60, 8);
-
-			//bool xmlTest = false;
-			//std::unique_ptr<XmlParser> testParser = std::make_unique<XmlParser>();	
-			//xmlTest = testParser->LoadFile(L"\\Resources\\Metadata\\TileMap\\Devil_castle_Tile.xml");
-			//if (xmlTest)
-			//{
-			//	xmlTest = testParser->FindElem(L"map");
-			//	testParser->IntoElem();
-			//	xmlTest = testParser->FindElem(L"layer");
-			//	testParser->IntoElem();
-			//	xmlTest = testParser->FindElem(L"data");
-			//	testParser->IntoElem();
-
-			//	int tileIdx = 0;
-			//	while (testParser->FindElem("tile"))
-			//	{
-			//		if (testParser->HasAttribute("gid"))
-			//		{
-			//			int imgIdx = testParser->GetIntAttribute("gid") - 1;
-			//			tilemap->SetTileData(tileIdx, imgIdx);
-			//		}
-			//		tileIdx++;
-			//	}
-			//}

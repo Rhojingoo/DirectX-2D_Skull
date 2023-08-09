@@ -33,10 +33,11 @@ namespace jk
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		Vector3 scale = tr->GetScale();
+		scale.x *= mSize.x;
+		scale.y *= mSize.y;
 		Vector3 pos = tr->GetPosition();
 
-			scale.x *= mSize.x;
-			scale.y *= mSize.y;
+
 			pos.x += mCenter.x;
 			pos.y += mCenter.y;
 			mPosition = pos;

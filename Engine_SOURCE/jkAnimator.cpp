@@ -139,8 +139,10 @@ namespace jk
 		}
 
 		GameObject* ScaleSet = OBJ;
-		//ScaleSet->GetComponent<Transform>()->SetScale(Vector3(width , height, 1.0f));
-		ScaleSet->GetComponent<Transform>()->SetScale(Vector3(width* fileCount, height* fileCount, 1.0f));
+		ScaleSet->GetComponent<Transform>()->SetScale(Vector3(width , height, 1.0f));
+		Collider2D* ColSET = OBJ->GetComponent<Collider2D>();
+		ColSET->SetSize(Vector2(width/ fileCount, height/ fileCount));
+		//ScaleSet->GetComponent<Transform>()->SetScale(Vector3(width* fileCount, height* fileCount, 1.0f));
 
 		mImageAtlas = std::make_shared<graphics::Texture>();
 		mImageAtlas->CreateTex(path, width, height, fileCount, reverse);

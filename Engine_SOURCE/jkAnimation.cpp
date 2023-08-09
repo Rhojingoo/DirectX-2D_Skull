@@ -63,6 +63,8 @@ namespace jk
 		float width = (float)atlas->GetWidth();
 		float height = (float)atlas->GetHeight();
 
+		//Vector2 mAtlasSize = Vector2(atlas.get()->GetWidth(), atlas.get()->GetHeight());
+
 		for (size_t i = 0; i < columnLength; i++)
 		{
 			Sprite sprite = {};
@@ -71,7 +73,8 @@ namespace jk
 			sprite.size.x = size.x / width;
 			sprite.size.y = size.y / height;
 			sprite.offset = offset;
-			sprite.atlasSize = Vector2(1000.0f / width, 1000.0f / height);
+			sprite.atlasSize = Vector2(size.x / width, size.y / height);
+			//sprite.atlasSize = Vector2(1000.0f / width, 1000.0f / height);
 			//sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
 			sprite.duration = duration;
 

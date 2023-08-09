@@ -209,7 +209,7 @@ namespace jk
 			Hit_Box->SetState(eState::Paused);			
 		}		
 		
-		_collider->SetSize(Vector2(0.02f, 0.05f));
+		_collider->SetSize(Vector2(0.1f, 0.5f));
 		_collider->SetCenter(Vector2(0.0f, -0.1f));
 
 		GameObject::LateUpdate();

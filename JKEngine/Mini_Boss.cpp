@@ -19,13 +19,15 @@ namespace jk
 
 	void Mini_Boss::Initialize()
 	{
-		//_Gobjs[0] = new Archer;
-		//_Gobjs[0]->Initialize();
-
-		_Gobjs[0] = new Knight_male;
+		_Gobjs[0] = new Mage;
 		_Gobjs[0]->Initialize();
-		_Gobjs[1] = new Archer;
-		_Gobjs[1]->Initialize();
+
+		//_Gobjs[0] = new Knight_male;
+		//_Gobjs[0]->Initialize();
+		//_Gobjs[1] = new Archer;
+		//_Gobjs[1]->Initialize();
+		//_Gobjs[2] = new Mage;
+		//_Gobjs[2]->Initialize();
 
 
 		//std::random_device rd;
@@ -34,15 +36,15 @@ namespace jk
 		//_minibosschoice = distribution(gen);
 
 
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs[i]);
 			Transform* tr = _Gobjs[i]->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.f, 0.f, -250.f));
 
-			if (0 == i)
-				_Gobjs[i]->SetState(eState::Paused);
+			//if (0 == i)
+			//	_Gobjs[i]->SetState(eState::Paused);
 
 			//if (_minibosschoice != i)
 			//	_Gobjs[i]->SetState(eState::Paused);

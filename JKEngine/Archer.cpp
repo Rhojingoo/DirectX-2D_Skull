@@ -124,7 +124,7 @@ namespace jk
 		default:
 			break;
 		}		
-
+		tr->SetPosition(Vector3(pos));
 		GameObject::Update();
 	}
 

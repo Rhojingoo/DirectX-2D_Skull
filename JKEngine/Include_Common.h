@@ -82,6 +82,7 @@
 #include "Mini_Boss.h"
 #include "Knight_male.h"
 #include "Archer.h"
+#include "Mage.h"
 
 
 //∏ÛΩ∫≈Õ
