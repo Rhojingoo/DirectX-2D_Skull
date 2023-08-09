@@ -158,6 +158,7 @@
     <ClInclude Include="BG.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Castle_Area.h" />
+    <ClInclude Include="Cleric.h" />
     <ClInclude Include="Face_UI.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Grid.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Castle_Area.cpp" />
+    <ClCompile Include="Cleric.cpp" />
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Attack_HitBox.cpp" />

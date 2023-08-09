@@ -19,7 +19,7 @@ namespace jk
 
 	void Mini_Boss::Initialize()
 	{
-		_Gobjs[0] = new Mage;
+		_Gobjs[0] = new Cleric;
 		_Gobjs[0]->Initialize();
 
 		//_Gobjs[0] = new Knight_male;
@@ -28,7 +28,8 @@ namespace jk
 		//_Gobjs[1]->Initialize();
 		//_Gobjs[2] = new Mage;
 		//_Gobjs[2]->Initialize();
-
+		//_Gobjs[2] = new Cleric;
+		//_Gobjs[2]->Initialize();
 
 		//std::random_device rd;
 		//std::mt19937 gen(rd());

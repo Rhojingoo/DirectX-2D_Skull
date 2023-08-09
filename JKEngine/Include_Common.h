@@ -83,6 +83,7 @@
 #include "Knight_male.h"
 #include "Archer.h"
 #include "Mage.h"
+#include "Cleric.h"
 
 
 //∏ÛΩ∫≈Õ

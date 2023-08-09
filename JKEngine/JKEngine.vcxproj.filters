@@ -158,6 +158,9 @@
     <ClInclude Include="Mage.h">
       <Filter>Game_ob\MiniBoss\Mage</Filter>
     </ClInclude>
+    <ClInclude Include="Cleric.h">
+      <Filter>Game_ob\MiniBoss\Cleric</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -310,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="Mage.cpp">
       <Filter>Game_ob\MiniBoss\Mage</Filter>
+    </ClCompile>
+    <ClCompile Include="Cleric.cpp">
+      <Filter>Game_ob\MiniBoss\Cleric</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

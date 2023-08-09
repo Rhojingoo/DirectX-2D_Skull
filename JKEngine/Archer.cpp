@@ -133,18 +133,6 @@ namespace jk
 		_collider->SetSize(Vector2(0.1f, 0.1f));
 		_collider->SetCenter(Vector2(0.0f, -5.55f));
 
-		//_collider->SetSize(Vector2(0.04f, 0.05f));
-		//_collider->SetCenter(Vector2(0.0f, -25.f));
-		//if (mDir == 1)
-		//{
-		//	_collider->SetSize(Vector2(0.04f, 0.2f));
-		//	_collider->SetCenter(Vector2(0.1f, -0.1f));
-		//}
-		//else
-		//{
-		//	_collider->SetSize(Vector2(0.04f, 0.2f));
-		//	_collider->SetCenter(Vector2(0.1f, -0.1f));
-		//}
 		GameObject::LateUpdate();
 	}
 
