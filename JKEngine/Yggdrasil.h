@@ -91,6 +91,16 @@ namespace jk
 		static bool _AttackC_Readyl;
 		static bool _AttackC_Finish;
 
+		static bool _Groggy_Body_Down;
+		static bool _Groggy_Face_Down;
+		static bool _Groggy_Chin_Down;
+		static bool _Groggy_Body_Up;
+		static bool _Groggy_Face_Up;
+		static bool _Groggy_Chin_Up;
+		static bool _Groggy_RightHand_Up;
+		static bool _Groggy_LeftHand_Up;
+
+
 		static int _NumberofAttack;
 		int Attack_Sellect = 0;
 
@@ -99,6 +109,7 @@ namespace jk
 		static Vector3 _pos;
 		static Vector3 _Rotation;
 		float _attackatime = 0.f;
+		int test = 0;
 		
 	};
 }

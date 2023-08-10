@@ -409,6 +409,11 @@ namespace jk
 
 	void Yggdrasil_Hand_Right::groggy_end()
 	{
+		if (_Groggy_RightHand_Up == false)
+		{
+			at->PlayAnimation(L"Hand1_HandIdleR", true);
+			_Groggy_RightHand_Up = true;
+		}
 	}
 
 

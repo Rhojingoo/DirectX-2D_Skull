@@ -218,13 +218,14 @@ namespace jk
 
 	void Yggdrasil_Body::groggy_start()
 	{
-		if (_groggy_body == false)
-		{
+		if (_groggy_body == false)		
 			body_down();
-		}
+		
 	}
 	void Yggdrasil_Body::groggy_end()
 	{
+		if(_groggy_body==true)
+			body_up();
 	}
 
 
@@ -233,14 +234,37 @@ namespace jk
 	}
 	void Yggdrasil_Body::body_down()
 	{
-		if (_pos.y>=-100.f)
-			_pos.y -= 25 * Time::DeltaTime();
-		if (_BodyRotation.z < 35.f)
-			_BodyRotation.z += 20*Time::DeltaTime();
-		tr->SetRotation(_BodyRotation);
+		if (_Groggy_Body_Down == false)
+		{
+			if (_pos.y >= -100.f)
+				_pos.y -= 25 * Time::DeltaTime();
+			if (_BodyRotation.z < 35.f)
+				_BodyRotation.z += 20 * Time::DeltaTime();
+			tr->SetRotation(_BodyRotation);
+			if ((_pos.y >= -100.f) && (_BodyRotation.z >= 35.f))
+			{
+				_Groggy_Body_Down = true;
+				_groggy_body = true;
+			}
+		}
 	}
 	void Yggdrasil_Body::body_up()
 	{
+		if (_Groggy_Body_Up == false)
+		{
+			if (_pos.y < -50.f)
+				_pos.y += 25 * Time::DeltaTime();
+			if (_BodyRotation.z >= 0.f)
+				_BodyRotation.z -= 20 * Time::DeltaTime();
+			tr->SetRotation(_BodyRotation);
+			if ((_pos.y >= -50.f) && (_BodyRotation.z <= 0.f))
+			{
+				_BodyRotation.z = 0.f;
+				_pos.y = -50.f;
+				_Groggy_Body_Up = true;
+				_groggy_body = false;
+			}
+		}
 	}
 	void Yggdrasil_Body::die()
 	{

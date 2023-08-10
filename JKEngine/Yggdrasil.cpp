@@ -24,6 +24,17 @@ namespace jk
 	bool Yggdrasil::_AttackC_Readyr = false;
 	bool Yggdrasil::_AttackC_Readyl = false;
 	bool Yggdrasil::_AttackC_Finish = false;
+	bool Yggdrasil::_Groggy_Body_Down = false;
+	bool Yggdrasil::_Groggy_Face_Down = false;
+	bool Yggdrasil::_Groggy_Chin_Down = false;
+	bool Yggdrasil::_Groggy_Body_Up = false;
+	bool Yggdrasil::_Groggy_Face_Up = false;
+	bool Yggdrasil::_Groggy_Chin_Up = false;
+	bool Yggdrasil::_Groggy_RightHand_Up = false;
+	bool Yggdrasil::_Groggy_LeftHand_Up = false;
+
+
+
 	int	Yggdrasil::_NumberofAttack = 0;
 
 
@@ -182,12 +193,23 @@ namespace jk
 	void Yggdrasil::idle()
 	{
 		_time += Time::DeltaTime();
-		//std::random_device rd;
-		//std::mt19937 gen(rd());
-		//std::uniform_int_distribution<int> distribution(0, 1);
-		//Attack_Sellect = distribution(gen);
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<int> distribution(0, 2);
+		Attack_Sellect = distribution(gen);
 		_NumberofAttack = 0;
-		Attack_Sellect = 2;
+		
+		if (test == 0)
+		{
+			Attack_Sellect = 2;
+			test = 1;
+		}
+		_Groggy_Chin_Up = false;
+		_Groggy_Body_Up = false;
+		_Groggy_Face_Up = false;
+		_Groggy_RightHand_Up = false;
+		_Groggy_LeftHand_Up = false;
+
 
 
 		if (_time > 3)
@@ -346,11 +368,15 @@ namespace jk
 
 	void Yggdrasil::groggy_start()
 	{
-		
+		if ((_Groggy_Chin_Down == true) && (_Groggy_Body_Down == true) && (_Groggy_Face_Down == true))
+			_state = Yggdrasil_State::Groggy_End;		
 	}
 
 	void Yggdrasil::groggy_end()
 	{
+		_Groggy_Chin_Down = false; _Groggy_Body_Down = false; _Groggy_Face_Down = false; _time = 0;
+		if ((_Groggy_Chin_Up == true) && (_Groggy_Body_Up == true) && (_Groggy_Face_Up == true)&&(_Groggy_RightHand_Up == true)&&(_Groggy_LeftHand_Up == true))
+			_state = Yggdrasil_State::Idle;
 	}
 
 	void Yggdrasil::intro()

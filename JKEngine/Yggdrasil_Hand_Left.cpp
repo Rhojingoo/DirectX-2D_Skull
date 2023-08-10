@@ -401,11 +401,14 @@ namespace jk
 	void Yggdrasil_Hand_Left::groggy_start()
 	{
 	}
-
 	void Yggdrasil_Hand_Left::groggy_end()
 	{
+		if (_Groggy_LeftHand_Up == false)
+		{
+			at->PlayAnimation(L"Hand1_HandIdle", true);
+			_Groggy_LeftHand_Up = true;
+		}
 	}
-
 
 	void Yggdrasil_Hand_Left::intro()
 	{

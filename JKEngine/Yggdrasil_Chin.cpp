@@ -233,6 +233,7 @@ namespace jk
 	}
 	void Yggdrasil_Chin::groggy_end()
 	{
+		groggy_up();
 	}
 
 
@@ -248,13 +249,34 @@ namespace jk
 	{
 		//_pos.x = YggdrasilFace_pos.x + 0.f;
 		//_pos.y = YggdrasilFace_pos.y - 65.f;
-		if (_pos.y >= -150.f)
-			_pos.y -= 40 * Time::DeltaTime();
-		if (_pos.x >= 7.f)
-			_pos.x -= 7 * Time::DeltaTime();
+
+
+		if (_Groggy_Chin_Down == false)
+		{
+			if (_pos.y >= -150.f)
+				_pos.y -= 40 * Time::DeltaTime();
+			if (_pos.x >= 7.f)
+				_pos.x -= 7 * Time::DeltaTime();
+			if ((_pos.y < -150.f) && (_pos.x < 7.f))
+				_Groggy_Chin_Down = true;
+		}
+
 	}
 	void Yggdrasil_Chin::groggy_up()
 	{
+		if (_Groggy_Chin_Up == false)
+		{
+			if (_pos.y <= -65.f)
+				_pos.y += 40 * Time::DeltaTime();
+			if (_pos.x <= 12.5f)
+				_pos.x += 7 * Time::DeltaTime();
+			if ((_pos.y >= -65.f) && (_pos.x >= 12.5f))
+			{
+				_pos.x = 12.5f;
+				_pos.y = -65.f;
+				_Groggy_Chin_Up = true;
+			}
+		}
 	}
 
 
