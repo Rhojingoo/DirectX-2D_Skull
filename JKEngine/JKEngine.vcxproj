@@ -157,8 +157,10 @@
     <ClInclude Include="Archer.h" />
     <ClInclude Include="BG.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Castle_Area.h" />
     <ClInclude Include="Cleric.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="Face_UI.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Grid.h" />
@@ -206,7 +208,10 @@
     <ClInclude Include="UI_Camera.h" />
     <ClInclude Include="Yggdrasil.h" />
     <ClInclude Include="Yggdrasil_Body.h" />
+    <ClInclude Include="Yggdrasil_BasicBullet.h" />
     <ClInclude Include="Yggdrasil_Chin.h" />
+    <ClInclude Include="Yggdrasil_Effect.h" />
+    <ClInclude Include="Yggdrasil_Energy_Bomb.h" />
     <ClInclude Include="Yggdrasil_Face.h" />
     <ClInclude Include="Yggdrasil_Hand_Left.h" />
     <ClInclude Include="Yggdrasil_Hand_Right.h" />
@@ -215,8 +220,10 @@
     <ClCompile Include="Archer.cpp" />
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Castle_Area.cpp" />
     <ClCompile Include="Cleric.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Attack_HitBox.cpp" />
@@ -260,7 +267,10 @@
     <ClCompile Include="UI_Camera.cpp" />
     <ClCompile Include="Yggdrasil.cpp" />
     <ClCompile Include="Yggdrasil_Body.cpp" />
+    <ClCompile Include="Yggdrasil_BasicBullet.cpp" />
     <ClCompile Include="Yggdrasil_Chin.cpp" />
+    <ClCompile Include="Yggdrasil_Effect.cpp" />
+    <ClCompile Include="Yggdrasil_Energy_Bomb.cpp" />
     <ClCompile Include="Yggdrasil_Face.cpp" />
     <ClCompile Include="Yggdrasil_Hand_Left.cpp" />
     <ClCompile Include="Yggdrasil_Hand_Right.cpp" />

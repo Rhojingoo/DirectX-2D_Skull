@@ -85,12 +85,12 @@ namespace jk
 		
 #pragma region Test
 		
-			//Yggdrasil* testboss = object::Instantiate<Yggdrasil>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
-			//testboss->SetName(L"test_BOSS");
+			Yggdrasil* testboss = object::Instantiate<Yggdrasil>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
+			testboss->SetName(L"test_BOSS");
 			////Monster::SetPlayer(_player); 크게사용안함
 
-			Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
-			testmboss->SetName(L"test_mboss");
+			//Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
+			//testmboss->SetName(L"test_mboss");
 			//Mini_Boss::SetPlayer(_player);
 
 			//Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
@@ -152,7 +152,8 @@ namespace jk
 		cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Hitbox, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);

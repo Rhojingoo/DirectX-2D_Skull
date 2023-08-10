@@ -7,7 +7,9 @@ namespace jk
 	Yggdrasil::Yggdrasil_State Yggdrasil::_state = Yggdrasil_State();
 	Vector3 Yggdrasil::_playerpos = Vector3(0.f, 0.f, 0.f);
 	Vector3 Yggdrasil::_pos = Vector3(0.f, 0.f, 0.f);
+	Vector3 Yggdrasil::_Rotation = Vector3(0.f, 0.f, 0.f);
 	float Yggdrasil::_time = 0.f;
+	int	Yggdrasil::mDir = 1;
 
 	bool Yggdrasil::_SetattackA_r = false;
 	bool Yggdrasil::_SetattackA_l = false;
@@ -17,8 +19,12 @@ namespace jk
 	bool Yggdrasil::_SetattackB_l = false;
 	bool Yggdrasil::_AttackB_Readyr = false;
 	bool Yggdrasil::_AttackB_Readyl = false;
+	bool Yggdrasil::_SetattackC_r = false;
+	bool Yggdrasil::_SetattackC_l = false;
+	bool Yggdrasil::_AttackC_Readyr = false;
+	bool Yggdrasil::_AttackC_Readyl = false;
+	bool Yggdrasil::_AttackC_Finish = false;
 	int	Yggdrasil::_NumberofAttack = 0;
-
 
 
 	Yggdrasil::Yggdrasil()		
@@ -63,7 +69,7 @@ namespace jk
 			mDir = 1;
 		else
 			mDir = -1;
-
+		//_state = Yggdrasil_State::Groggy_Start;
 
 		switch (_state)
 		{
@@ -114,8 +120,28 @@ namespace jk
 			attack_b_finish();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Set:
+			attack_c_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Ready:
+			attack_c_ready();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
 			attack_c();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Finish:
+			attack_c_finish();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Groggy_Start:
+			groggy_start();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Groggy_End:
+			groggy_end();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Intro:
@@ -156,11 +182,14 @@ namespace jk
 	void Yggdrasil::idle()
 	{
 		_time += Time::DeltaTime();
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<int> distribution(0, 1);
-		Attack_Sellect = distribution(gen);
+		//std::random_device rd;
+		//std::mt19937 gen(rd());
+		//std::uniform_int_distribution<int> distribution(0, 1);
+		//Attack_Sellect = distribution(gen);
 		_NumberofAttack = 0;
+		Attack_Sellect = 2;
+
+
 		if (_time > 3)
 		{
 			if (Attack_Sellect == 0)
@@ -176,9 +205,15 @@ namespace jk
 				Yggdrasil_Hand_Left::_Attackswitch = true;
 				_state = Yggdrasil_State::Attack_B_Set;
 			}
+
+			if (Attack_Sellect == 2)
+			{
+				Yggdrasil_Hand_Right::_Attackswitch = true;
+				Yggdrasil_Hand_Left::_Attackswitch = true;
+				_state = Yggdrasil_State::Attack_C_Set;
+			}
 		}
 	}
-
 	void Yggdrasil::die()
 	{
 	}
@@ -287,7 +322,34 @@ namespace jk
 	{
 	}
 
+	void Yggdrasil::attack_c_set()
+	{
+		if ((_SetattackC_r == true) && (_SetattackC_l == true))
+			_state = Yggdrasil_State::Attack_C_Ready;		
+	}
+	void Yggdrasil::attack_c_ready()
+	{
+		if (Yggdrasil_Effect::_effect_switch == true)
+		{
+			Yggdrasil_Effect::_effect_switch = false;
+			_state = Yggdrasil_State::Attack_C;
+		}
+	}
 	void Yggdrasil::attack_c()
+	{
+	}
+	void Yggdrasil::attack_c_finish()
+	{
+		if (_AttackC_Finish == true)
+			_state = Yggdrasil_State::Groggy_Start;
+	}
+
+	void Yggdrasil::groggy_start()
+	{
+		
+	}
+
+	void Yggdrasil::groggy_end()
 	{
 	}
 

@@ -22,7 +22,8 @@ namespace jk
 		Yggdrasil_pos = Yggdrasil::GetPos();
 		//_pos.y = Yggdrasil_pos.y - 5.f;
 		tr = GetComponent<Transform>();
-		tr->SetPosition(Vector3(_pos.x, _pos.y, -201.f));
+		_pos.z = -201.f;
+		tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z));
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Idle", this);
@@ -31,25 +32,59 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Die", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Die_Effect", this);
 
-
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
 
+		{
+			Energy_Bomb = new Yggdrasil_Energy_Bomb;
+			Energy_Bomb->Initialize();			
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Energy_Bomb);
+			Transform* bullet_tr = Energy_Bomb->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			basic_save_pos = Vector3(_pos.x + 10, _pos.y, -205);
+			Energy_Bomb->SetState(eState::Paused);
+		}
 
+		for (int i = 0; i < 8; i++)
+		{
+			Bullet[i] = new Yggdrasil_BasicBullet;
+			Bullet[i]->Initialize();		
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Bullet[i]);
+			Transform* bullet_tr = Bullet[i]->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			bullet_tr->SetScale(Vector3(35.f, 36.f, 0.f));
+			Bullet[i]->SetState(eState::Paused);
+		}
 		at->PlayAnimation(L"FaceYggdrasilFace_Idle", true);
 
 		GameObject::Initialize();
 	}
 	void Yggdrasil_Face::Update()
 	{
+		_playerpos;
+		Yggdrasil_rotation = GetRotations();
+		Yggdrasil_pos = GetPos();
+		_pos = (Vector3(_pos.x, _pos.y, -201));
 
+
+		_distance = _playerpos.x - _pos.x;
+		if (_distance >= 0.f)
+			mDir = 1;
+		else
+			mDir = -1;
 
 		switch (_state)
 		{
 		case jk::Yggdrasil::Yggdrasil_State::Idle:
 			Yggdrasil_Face::idle();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Set:
+			Yggdrasil_Face::attack_a_set();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Ready:
@@ -60,8 +95,16 @@ namespace jk
 			Yggdrasil_Face::attack_a_right();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Left:
-			Yggdrasil_Face::attack_a_left();
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Loading:
+			Yggdrasil_Face::attack_a_loading();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Finish:
+			Yggdrasil_Face::attack_a_finish();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Set:
+			Yggdrasil_Face::attack_b_set();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Ready:
@@ -76,8 +119,32 @@ namespace jk
 			Yggdrasil_Face::attack_b_left();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Attack_B_Finish:
+			Yggdrasil_Face::attack_b_finish();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Set:
+			Yggdrasil_Face::attack_c_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Ready:
+			Yggdrasil_Face::attack_c_ready();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
 			Yggdrasil_Face::attack_c();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Finish:
+			Yggdrasil_Face::attack_c_finish();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Groggy_Start:
+			Yggdrasil_Face::groggy_start();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Groggy_End:
+			Yggdrasil_Face::groggy_end();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Intro:
@@ -91,7 +158,9 @@ namespace jk
 		default:
 			break;
 		}
-		
+
+		tr->SetPosition(_pos);
+		tr->SetRotation(Yggdrasil_rotation);
 		GameObject::Update();
 	}
 	void Yggdrasil_Face::LateUpdate()
@@ -104,6 +173,7 @@ namespace jk
 	{
 		GameObject::Render();
 	}
+
 	void Yggdrasil_Face::OnCollisionEnter(Collider2D* other)
 	{
 	}
@@ -116,10 +186,25 @@ namespace jk
 	void Yggdrasil_Face::idle()
 	{
 	}
+	void Yggdrasil_Face::attack_a_set()
+	{
+	}
+	void Yggdrasil_Face::attack_a_ready()
+	{
+	}
 	void Yggdrasil_Face::attack_a_right()
 	{
 	}
 	void Yggdrasil_Face::attack_a_left()
+	{
+	}
+	void Yggdrasil_Face::attack_a_loading()
+	{
+	}
+	void Yggdrasil_Face::attack_a_finish()
+	{
+	}
+	void Yggdrasil_Face::attack_b_set()
 	{
 	}
 	void Yggdrasil_Face::attack_b_ready()
@@ -132,16 +217,135 @@ namespace jk
 	{
 	}
 
-	void Yggdrasil_Face::attack_c()
+	void Yggdrasil_Face::attack_b_finish()
 	{
 	}
+
+	void Yggdrasil_Face::attack_c_set()
+	{
+		set_basicbuulet();
+	}
+
+	void Yggdrasil_Face::attack_c_ready()
+	{
+		Yggdrasil_Effect::_effect_switch = true;
+		_time = 0;
+		_NumberofAttack++;
+	}
+
+	void Yggdrasil_Face::attack_c()
+	{
+		_time += Time::DeltaTime();
+		if (_time <= 7.f)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				Bullet[i]->SetState(eState::Active);
+			}
+			Energy_Bomb->SetState(eState::Active);
+			basicattack();
+			Energy_Bombattack();
+		}
+		else
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				Bullet[i]->SetState(eState::Paused);
+				Transform* bullet_tr = Bullet[i]->GetComponent<Transform>();
+				bullet_tr->SetPosition(basic_save_pos);
+			}
+			{
+				Energy_Bomb->SetState(eState::Paused);
+				Transform* bullet_tr = Energy_Bomb->GetComponent<Transform>();
+				bullet_tr->SetPosition(basic_save_pos);
+			}
+			if (_NumberofAttack >= 1)
+				_state = Yggdrasil_State::Attack_C_Finish;
+			else
+				_state = Yggdrasil_State::Attack_C_Ready;
+		}
+	}
+
+	void Yggdrasil_Face::attack_c_finish()
+	{
+		_time = 0;
+		_NumberofAttack = 0;
+		_AttackC_Finish = true;
+	}
+
+	void Yggdrasil_Face::groggy_start()
+	{
+		groggy_down();
+	}
+
+	void Yggdrasil_Face::groggy_end()
+	{
+	}
+
 	void Yggdrasil_Face::intro()
 	{
 	}
+
 	void Yggdrasil_Face::die()
 	{
 	}
-	void Yggdrasil_Face::attack_a_ready()
+
+	void Yggdrasil_Face::basicattack()
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			Transform* bullet_tr = Bullet[i]->GetComponent<Transform>();
+
+			Vector3 bulletattack = bullet_tr->GetPosition();
+			bulletattack.x += basic_pos[i].x * Time::DeltaTime();
+			bulletattack.y += basic_pos[i].y * Time::DeltaTime();
+			bullet_tr->SetPosition(Vector3(bulletattack.x, bulletattack.y, -205));
+		}
+	}
+
+	void Yggdrasil_Face::set_basicbuulet()
+	{
+		basic_pos[0] = Vector2(0.f, 150.f);
+		basic_pos[1] = Vector2(110.f, 110.f);
+		basic_pos[2] = Vector2(150.f, 0.f);
+		basic_pos[3] = Vector2(110.f, -110.f);
+		basic_pos[4] = Vector2(0.f, -150.f);
+		basic_pos[5] = Vector2(-110.f, -110.f);
+		basic_pos[6] = Vector2(-150.f, 0.f);
+		basic_pos[7] = Vector2(-110.f, 110.f);
+	}
+
+	void Yggdrasil_Face::Energy_Bombattack()
+	{
+		Transform* bullet_tr = Energy_Bomb->GetComponent<Transform>();
+
+		Vector3 Bullet_pos = bullet_tr->GetPosition();
+		if (mDir == 1)
+		{
+			if (!((_distance <= 30.f) && (_distance >= -30.f)))
+			{
+				Bullet_pos.x += 300 * Time::DeltaTime();				
+				Bullet_pos.y -= 200 * Time::DeltaTime();
+			}
+		}
+		else
+		{
+			if (!((_distance <= 30.f) && (_distance >= -30.f)))
+			{
+				Bullet_pos.x -= 300 * Time::DeltaTime();		
+				Bullet_pos.y -= 200 * Time::DeltaTime();
+			}
+		}
+		bullet_tr->SetPosition(Vector3(Bullet_pos));
+	}
+	void Yggdrasil_Face::groggy_down()
+	{
+		if (_pos.y >= -100.f)
+			_pos.y -= 50 * Time::DeltaTime();	
+		if (_pos.x >= -40.f)
+			_pos.x -= 35 * Time::DeltaTime();
+	}
+	void Yggdrasil_Face::groggy_up()
 	{
 	}
 }

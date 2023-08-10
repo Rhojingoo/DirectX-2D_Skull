@@ -33,7 +33,13 @@ namespace jk
 			Attack_B_Right,
 			Attack_B_Left,
 			Attack_B_Finish,
+			Attack_C_Set,
+			Attack_C_Ready,
 			Attack_C,
+			Attack_C_Finish,
+			Groggy_Start,
+			Groggy_End,
+
 			Intro,
 		};
 
@@ -50,18 +56,26 @@ namespace jk
 		void attack_b_left();
 		void attack_b_right();
 		void attack_b_finish();
+		void attack_c_set();
+		void attack_c_ready();
 		void attack_c();
+		void attack_c_finish();
+		void groggy_start();
+		void groggy_end();
 		void intro();
 
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
 		static Vector3 GetPlayerPos() { return _playerpos; }
 		static void SetPos(Vector3 set) { _pos = set; }
 		static Vector3 GetPos() { return _pos; }
+		static void SetRotation(Vector3 set) { _Rotation = set; }
+		static Vector3 GetRotations() { return _Rotation; }
 		static Yggdrasil_State _state;
 		static Vector3 _playerpos;
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
-		int	mDir = 1;
+		static int	mDir;
 		static float _time;
+
 
 		static bool _SetattackA_r;
 		static bool _SetattackA_l;
@@ -71,12 +85,19 @@ namespace jk
 		static bool _SetattackB_l;
 		static bool _AttackB_Readyr;
 		static bool _AttackB_Readyl;
+		static bool _SetattackC_r;
+		static bool _SetattackC_l;
+		static bool _AttackC_Readyr;
+		static bool _AttackC_Readyl;
+		static bool _AttackC_Finish;
+
 		static int _NumberofAttack;
 		int Attack_Sellect = 0;
 
 	private:
 		GameObject* _Gobjs[5];
 		static Vector3 _pos;
+		static Vector3 _Rotation;
 		float _attackatime = 0.f;
 		
 	};

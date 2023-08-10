@@ -692,10 +692,12 @@ namespace jk
 
 	void Skul_Basic::attack_b()
 	{	
-		if (Input::GetKeyDown(eKeyCode::X))
-		{
-			_attack = true;
-		}
+		_attack = false;
+		_attack_Bcheck = true;
+		//if (Input::GetKeyDown(eKeyCode::X))
+		//{
+		//	_attack = true;
+		//}
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
 		{
 			mDir = 1;
@@ -840,7 +842,7 @@ namespace jk
 			{
 				at->PlayAnimation(L"Skul_BasicAttackBR", true);
 				mDir = -1;
-			}
+			}			
 		}
 		if (_attack == false)
 		{

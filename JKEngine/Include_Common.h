@@ -85,7 +85,6 @@
 #include "Mage.h"
 #include "Cleric.h"
 
-
 //몬스터
 #include "Monster.h"
 #include "Monster_Hammer.h"
@@ -95,6 +94,14 @@
 #include "Monster_GreenTree.h"
 #include "Monster_BlossomEnt.h"
 
+//미사일
+#include "Bullet.h"
+#include "Yggdrasil_BasicBullet.h"
+#include "Yggdrasil_Energy_Bomb.h"
+
+//이펙트
+#include "Effect.h"
+#include "Yggdrasil_Effect.h"
 
 //UI
 #include "UI.h"

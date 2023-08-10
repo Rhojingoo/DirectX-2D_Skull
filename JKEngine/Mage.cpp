@@ -344,7 +344,6 @@ namespace jk
 	void Mage::attack_a()
 	{
 	}
-
 	void Mage::attack_a_ready()
 	{
 	}
@@ -370,7 +369,6 @@ namespace jk
 				_landingswich++;
 		}
 	}
-
 	void Mage::attack_b_ready()
 	{
 	}
@@ -632,7 +630,6 @@ namespace jk
 				at->PlayAnimation(L"MageAttack_AR", true);			
 		}
 	}
-
 	void Mage::attack_a_ready_complete()
 	{
 		_state = Mage_State::Attack_A;
@@ -642,10 +639,10 @@ namespace jk
 			at->PlayAnimation(L"MageAttack_AR", true);
 	}
 
+
 	void Mage::attack_b_complete()
 	{
 	}
-
 	void Mage::attack_b_ready_complete()
 	{
 		_state = Mage_State::Attack_B;
@@ -655,11 +652,11 @@ namespace jk
 			at->PlayAnimation(L"MageAttack_BR", false);
 	}
 
+
 	void Mage::attack_c_complete()
 	{
 		
 	}
-
 	void Mage::attack_c_ready_complete()
 	{
 		_state = Mage_State::Attack_C;
@@ -670,6 +667,8 @@ namespace jk
 
 		_Ground_check = true;
 	}
+
+
 
 	void Mage::attack_d_complete()
 	{
@@ -686,7 +685,6 @@ namespace jk
 		if (_sky == true)
 			_landingswich++;
 	}
-
 	void Mage::attack_d_ready_complete()
 	{
 		_state = Mage_State::Attack_D;

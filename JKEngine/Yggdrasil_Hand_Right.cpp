@@ -20,7 +20,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		
-		_pos = Vector3(GetPos().x + 150.f, GetPos().y, -203.f);
+		_pos = Vector3(GetPos().x + 150.f, GetPos().y-100, -203.f);
 		_Savepointpos = _pos;
 		tr = GetComponent<Transform>();
 		tr->SetPosition(Vector3(_pos));
@@ -31,13 +31,15 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_HandAttack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_HandAntlion", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_HandBullet", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_Bullet_off", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_Bullet_on", this, 1);
 
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandIdle_Change", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandRock_Change", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandAttack_Change", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandAntlion_Change", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandBullet_Change", this, 1);
-				
+
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"Hand1_HandAttackR") = std::bind(&Yggdrasil_Hand_Right::attackbstart, this);
 		//at->EndEvent(L"Hand1_HandAttackR") = std::bind(&Yggdrasil_Hand_Right::attackbstart, this);
@@ -104,8 +106,28 @@ namespace jk
 			Yggdrasil_Hand_Right::attack_b_finish();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Set:
+			Yggdrasil_Hand_Right::attack_c_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Ready:
+			Yggdrasil_Hand_Right::attack_c_ready();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
 			Yggdrasil_Hand_Right::attack_c();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Finish:
+			Yggdrasil_Hand_Right::attack_c_finish();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Groggy_Start:
+			Yggdrasil_Hand_Right::groggy_start();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Groggy_End:
+			Yggdrasil_Hand_Right::groggy_end();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Intro:
@@ -165,11 +187,7 @@ namespace jk
 
 	void Yggdrasil_Hand_Right::idle()
 	{
-		//if (_state == Yggdrasil_State::Attack_B)
-		//	at->PlayAnimation(L"Hand1_HandAttackR", true);
-
-		//if (_state == Yggdrasil::Yggdrasil_State::Attack_A)
-		//	at->PlayAnimation(L"Hand1_HandRockR", true);
+		_pos = Vector3(GetPos().x + 150.f, GetPos().y - 100, -203.f);
 	}
 
 
@@ -215,6 +233,9 @@ namespace jk
 			_rigidbody->SetVelocity(Vector2(-250.f, -150.f));
 			_AttackA_Readyr = false;
 		}
+	}
+	void Yggdrasil_Hand_Right::attack_a_left()
+	{
 	}
 	void Yggdrasil_Hand_Right::attack_a_loading()
 	{
@@ -361,10 +382,36 @@ namespace jk
 	}
 
 
-
+	void Yggdrasil_Hand_Right::attack_c_set()
+	{
+		if (_Attackswitch == true)
+		_Attackswitch = false;		
+		else
+		{
+			at->PlayAnimation(L"Hand1_Bullet_onR", false);
+			_SetattackC_r = true;
+		}
+	}
+	void Yggdrasil_Hand_Right::attack_c_ready()
+	{
+	}
 	void Yggdrasil_Hand_Right::attack_c()
 	{
 	}
+	void Yggdrasil_Hand_Right::attack_c_finish()
+	{
+
+	}
+
+	void Yggdrasil_Hand_Right::groggy_start()
+	{
+	}
+
+	void Yggdrasil_Hand_Right::groggy_end()
+	{
+	}
+
+
 	void Yggdrasil_Hand_Right::intro()
 	{
 	}

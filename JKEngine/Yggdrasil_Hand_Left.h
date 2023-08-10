@@ -30,7 +30,12 @@ namespace jk
 		void attack_b_left();
 		void attack_b_right();
 		void attack_b_finish();
+		void attack_c_set();
+		void attack_c_ready();
 		void attack_c();
+		void attack_c_finish();
+		void groggy_start();
+		void groggy_end();
 		void intro();
 
 	public:

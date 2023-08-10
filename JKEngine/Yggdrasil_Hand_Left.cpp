@@ -20,7 +20,7 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
 
-		_pos = Vector3(GetPos().x - 150.f, GetPos().y, -203.f);
+		_pos = Vector3(GetPos().x - 150.f, GetPos().y-100, -203.f);
 		_Savepointpos = _pos;
 		tr = GetComponent<Transform>();
 		tr->SetPosition(Vector3(_pos));
@@ -32,6 +32,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_HandAttack", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_HandAntlion", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_HandBullet", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_Bullet_off", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_Bullet_on", this);
 
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandIdle_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandRock_Change", this);
@@ -104,8 +106,29 @@ namespace jk
 			Yggdrasil_Hand_Left::attack_b_finish();
 			break;
 
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Set:
+			Yggdrasil_Hand_Left::attack_c_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Ready:
+			Yggdrasil_Hand_Left::attack_c_ready();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
 			Yggdrasil_Hand_Left::attack_c();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Finish:
+			Yggdrasil_Hand_Left::attack_c_finish();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Groggy_Start:
+			Yggdrasil_Hand_Left::groggy_start();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Groggy_End:
+			Yggdrasil_Hand_Left::groggy_end();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Intro:
@@ -166,6 +189,7 @@ namespace jk
 
 	void Yggdrasil_Hand_Left::idle()
 	{		
+		_pos = Vector3(GetPos().x - 150.f, GetPos().y - 100, -203.f);
 	}
 
 	void Yggdrasil_Hand_Left::attack_a_set()
@@ -352,9 +376,37 @@ namespace jk
 		}
 	}
 
+
+	void Yggdrasil_Hand_Left::attack_c_set()
+	{
+		if (_Attackswitch == true)		
+			_Attackswitch = false;		
+		else
+		{
+			at->PlayAnimation(L"Hand1_Bullet_on", false);
+			_SetattackC_l = true;
+		}
+	}
+	void Yggdrasil_Hand_Left::attack_c_ready()
+	{
+	}
 	void Yggdrasil_Hand_Left::attack_c()
 	{
 	}
+	void Yggdrasil_Hand_Left::attack_c_finish()
+	{
+
+	}
+
+	void Yggdrasil_Hand_Left::groggy_start()
+	{
+	}
+
+	void Yggdrasil_Hand_Left::groggy_end()
+	{
+	}
+
+
 	void Yggdrasil_Hand_Left::intro()
 	{
 	}

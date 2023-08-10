@@ -161,6 +161,21 @@
     <ClInclude Include="Cleric.h">
       <Filter>Game_ob\MiniBoss\Cleric</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Game_ob\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_BasicBullet.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Game_ob\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Energy_Bomb.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -317,6 +332,21 @@
     <ClCompile Include="Cleric.cpp">
       <Filter>Game_ob\MiniBoss\Cleric</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Game_ob\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_BasicBullet.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Game_ob\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Energy_Bomb.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -426,6 +456,12 @@
     </Filter>
     <Filter Include="Game_ob\MiniBoss\Cleric">
       <UniqueIdentifier>{964437c2-3cc2-4bb6-85c2-24958a9025c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Bullet">
+      <UniqueIdentifier>{d10b068c-df2b-4522-a283-c5efb2811418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Effect">
+      <UniqueIdentifier>{72a2e415-c966-4863-8469-969630925e2a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

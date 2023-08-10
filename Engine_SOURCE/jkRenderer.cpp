@@ -448,16 +448,23 @@ namespace jk::renderer
 
 		#pragma endregion
 
-		#pragma region MiniBoss
+		#pragma region Monster
 		#pragma region Knight_male
 				texture = Resources::Load<Texture>(L"knight_male", L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Idle\\Idle_0.png");
-				material = std::make_shared<Material>(); material->SetShader(animationShader);//	material->SetTexture(texture);
+				material = std::make_shared<Material>(); material->SetShader(animationShader);//material->SetTexture(texture);
 				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"Knight_male", material);
 		#pragma endregion
 		#pragma endregion
 
-
+		#pragma region Bullet
+		#pragma region Knight_male
+				material = std::make_shared<Material>(); 
+				material->SetShader(animationShader);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Bullet", material);
+		#pragma endregion
+		#pragma endregion
 
 
 		#pragma region Test
