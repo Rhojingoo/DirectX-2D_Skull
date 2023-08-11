@@ -31,7 +31,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Changing", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Die_Effect", this);
-
+		
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
@@ -39,6 +39,9 @@ namespace jk
 
 
 		at->PlayAnimation(L"BodyYggdrasilBody_Idle", true);
+		if (_Changeon == true)
+			at->PlayAnimation(L"BodyYggdrasilBody_Change", true);
+		
 		GameObject::Initialize();
 	}
 
@@ -158,6 +161,13 @@ namespace jk
 			Yggdrasil_Body::change_end();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::DieSet:
+			Yggdrasil_Body::die_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::DieReady:
+			Yggdrasil_Body::die_ready();
+			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Die:
 			Yggdrasil_Body::die();
@@ -198,6 +208,9 @@ namespace jk
 
 	void Yggdrasil_Body::idle()
 	{
+		at->PlayAnimation(L"BodyYggdrasilBody_Idle", true);
+		if (_Changeon == true)
+			at->PlayAnimation(L"BodyYggdrasilBody_Change", true);
 	}
 
 
@@ -255,8 +268,7 @@ namespace jk
 	void Yggdrasil_Body::groggy_start()
 	{
 		if (_groggy_body == false)		
-			body_down();
-		
+			body_down();		
 	}
 	void Yggdrasil_Body::groggy_end()
 	{
@@ -305,12 +317,26 @@ namespace jk
 	}
 	void Yggdrasil_Body::change()
 	{
-		if(_ChangeImage == true)
-			at->PlayAnimation(L"BodyYggdrasilBody_Change", false);
+		if(_Changeon == true)
+			at->PlayAnimation(L"BodyYggdrasilBody_Change", true);
 	}
 	void Yggdrasil_Body::change_end()
 	{
 	}
+
+
+	void Yggdrasil_Body::die_set()
+	{
+	}
+	void Yggdrasil_Body::die_ready()
+	{
+		if (_groggy_body == false)
+			body_down();
+	}
+	void Yggdrasil_Body::die()
+	{
+	}
+
 
 
 	void Yggdrasil_Body::body_down()
@@ -324,8 +350,13 @@ namespace jk
 			tr->SetRotation(_BodyRotation);
 			if ((_pos.y >= -100.f) && (_BodyRotation.z >= 35.f))
 			{
-				_Groggy_Body_Down = true;
-				_groggy_body = true;
+				if (_Diecheck < 3)
+				{
+					_Groggy_Body_Down = true;
+					_groggy_body = true;
+				}
+				if (_Diecheck == 3)
+					_Die_Body_Down = true;
 			}
 		}
 	}
@@ -349,8 +380,5 @@ namespace jk
 	}
 
 
-	void Yggdrasil_Body::die()
-	{
-	}
 
 }

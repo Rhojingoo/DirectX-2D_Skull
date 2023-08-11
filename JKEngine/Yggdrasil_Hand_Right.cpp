@@ -45,10 +45,9 @@ namespace jk
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"Hand1_HandAttackR") = std::bind(&Yggdrasil_Hand_Right::attackbstart, this);
 		//at->EndEvent(L"Hand1_HandAttackR") = std::bind(&Yggdrasil_Hand_Right::attackbstart, this);
-		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
-		
+		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);		
 
-		//at->PlayAnimation(L"Hand1_HandIdleR", true);
+
 		at->PlayAnimation(L"Hand1_HandintroR", true);
 		GameObject::Initialize();
 	}
@@ -59,7 +58,6 @@ namespace jk
 		_velocity = _rigidbody->GetVelocity();
 		_Yggdrasildistance = GetPos()- _pos;
 		_Playerdistance = _playerpos - _pos;			
-
 
 
 		switch (_state)
@@ -132,10 +130,6 @@ namespace jk
 			Yggdrasil_Hand_Right::groggy_end();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Die:
-			Yggdrasil_Hand_Right::die();
-			break;
-
 		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Set:
 			Yggdrasil_Hand_Right::attack_d_set();
 			break;
@@ -191,6 +185,19 @@ namespace jk
 		case jk::Yggdrasil::Yggdrasil_State::Change_End:
 			Yggdrasil_Hand_Right::change_end();
 			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::DieSet:
+			Yggdrasil_Hand_Right::die_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::DieReady:
+			Yggdrasil_Hand_Right::die_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Die:
+			Yggdrasil_Hand_Right::die();
+			break;
+
 
 		default:
 			break;
@@ -257,6 +264,8 @@ namespace jk
 		{
 			_SetattackA_r = true;
 			at->PlayAnimation(L"Hand1_HandRockR", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandRock_ChangeR", true);
 		}
 	}
 	void Yggdrasil_Hand_Right::attack_a_ready()
@@ -264,6 +273,8 @@ namespace jk
 		if (_SetattackA_r == true)
 		{
 			at->PlayAnimation(L"Hand1_HandRockR", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandRock_ChangeR", true);
 			_rigidbody->SetVelocity(Vector2(0.f, 500.f));
 			_rigidbody->SetGround(false);
 			_Attackswitch = false;
@@ -313,11 +324,13 @@ namespace jk
 					if (_NumberofAttack < 2)
 						_state = Yggdrasil_State::Attack_A_Set;
 					else
-					 _state = Yggdrasil_State::Attack_A_Finish;
+						_AttackA_LoadingR = true;;
 					
 				}
 			}
 		}
+		if (_NumberofAttack >= 2 && _AttackA_LoadingL == true)
+			_AttackA_LoadingR = true;
 	}
 	void Yggdrasil_Hand_Right::attack_a_finish()
 	{	
@@ -333,14 +346,16 @@ namespace jk
 			if (_Savepointpos.x <= _pos.x)
 				_pos.x = _Savepointpos.x;
 			if (_Savepointpos.y >= _pos.y)		
-				_pos.y = _Savepointpos.y;				
+				_pos.y = _Savepointpos.y;					
 		
-			at->PlayAnimation(L"Hand1_HandIdleR", true);
+
 			if ((_pos.x == _Savepointpos.x) && (_pos.y == _Savepointpos.y))
 			{
-				//at->PlayAnimation(L"Hand1_HandIdleR", true);
-				//_state = Yggdrasil_State::Idle;
-			}
+				_AttackA_FinishR = true;
+				at->PlayAnimation(L"Hand1_HandIdleR", true);	
+				if (_Changeon == true)
+					at->PlayAnimation(L"HandHandIdle_ChangeR", true);
+			}			
 		}
 	}
 
@@ -356,6 +371,8 @@ namespace jk
 		{
 			_SetattackB_r = true;
 			at->PlayAnimation(L"Hand1_HandAttackR", false);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandAttack_ChangeR", true);
 		}
 	}
 	void Yggdrasil_Hand_Right::attack_b_ready()
@@ -375,6 +392,8 @@ namespace jk
 				if (_NumberofAttack >= 2)
 				{
 					at->PlayAnimation(L"Hand1_HandIdleR", true);
+					if (_Changeon == true)
+						at->PlayAnimation(L"HandHandIdle_ChangeR", true);
 					_rigidbody->ClearVelocityX();
 					_pos.x = _Savepointpos.x;
 					_pos.y = _Savepointpos.y - 300;
@@ -410,6 +429,8 @@ namespace jk
 			_pos.y = _Savepointpos.y - 300;
 			_NumberofAttack = 3;
 			at->PlayAnimation(L"Hand1_HandIdleR", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandIdle_ChangeR", true);
 		}
 		if (_attackon == false)
 		{
@@ -426,6 +447,8 @@ namespace jk
 			if ((_pos.x == _Savepointpos.x) && (_pos.y == _Savepointpos.y))
 			{
 				at->PlayAnimation(L"Hand1_HandIdleR", true);
+				if (_Changeon == true)
+					at->PlayAnimation(L"HandHandIdle_ChangeR", true);
 				//_state = Yggdrasil_State::Idle;
 				//Yggdrasil::_time = 0.f;
 				_attackready = false;
@@ -442,6 +465,8 @@ namespace jk
 		else
 		{
 			at->PlayAnimation(L"Hand1_Bullet_onR", false);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandBullet_on_ChangeR", true);
 			_SetattackC_r = true;
 		}
 	}
@@ -465,10 +490,11 @@ namespace jk
 		if (_Groggy_RightHand_Up == false)
 		{
 			at->PlayAnimation(L"Hand1_HandIdleR", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandIdle_ChangeR", true);
 			_Groggy_RightHand_Up = true;
 		}
 	}
-
 
 
 	void Yggdrasil_Hand_Right::attack_d_set()
@@ -482,6 +508,8 @@ namespace jk
 		{
 			_SetattackD_r = true;
 			at->PlayAnimation(L"Hand1_HandRockR", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandRock_ChangeR", true);
 		}
 	}
 	void Yggdrasil_Hand_Right::attack_d_ready()
@@ -489,6 +517,8 @@ namespace jk
 		if (_SetattackD_r == true)
 		{
 			at->PlayAnimation(L"Hand1_HandRockR", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandRock_ChangeR", true);
 			_rigidbody->SetVelocity(Vector2(0.f, 500.f));
 			_rigidbody->SetGround(false);
 			_Attackswitch = false;
@@ -587,10 +617,11 @@ namespace jk
 			{
 				_AttackD_Finishr = false;
 				at->PlayAnimation(L"Hand1_HandIdleR", true);
+				if (_Changeon == true)
+					at->PlayAnimation(L"HandHandIdle_ChangeR", true);
 			}
 		}
 	}
-
 
 
 	void Yggdrasil_Hand_Right::intro_set_right()
@@ -660,13 +691,32 @@ namespace jk
 			_Change_Readyr = false;
 			_Change_HandR = true;
 		}
-		if (_ChangeImage == true)
+		if (_Changeon == true)
 		{
 			at->PlayAnimation(L"HandHandRock_ChangeR", false);
-			_Change_HandR = false;
+			_Change_HandR = true;
 		}
 	}
 	void Yggdrasil_Hand_Right::change_end()
+	{
+		if (_Change_FinishR == false)
+		{
+			at->PlayAnimation(L"HandHandIdle_ChangeR", true);
+			_Change_FinishR = true;
+		} 
+	}
+
+
+	void Yggdrasil_Hand_Right::die_set()
+	{
+		_pos = Vector3(GetPos().x + 150.f, GetPos().y - 100, -203.f);
+		at->PlayAnimation(L"HandBullet_on_ChangeR", false);
+		_Die_SetR = true;
+	}
+	void Yggdrasil_Hand_Right::die_ready()
+	{
+	}
+	void Yggdrasil_Hand_Right::die()
 	{
 	}
 
@@ -681,9 +731,6 @@ namespace jk
 			_Intro_SetR = true;
 			at->PlayAnimation(L"Hand1_HandAntlionR", false);
 		}
-	}
-	void Yggdrasil_Hand_Right::die()
-	{
 	}
 	void Yggdrasil_Hand_Right::attackb_setting()
 	{		

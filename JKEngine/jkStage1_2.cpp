@@ -10,12 +10,9 @@ namespace jk
 	}
 	void Stage1_2::Initialize()
 	{
-	//Main Camera
-		GameObject* camera = new GameObject();
-		AddGameObject(eLayerType::Player, camera);
-		camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
-		Camera* cameraComp = camera->AddComponent<Camera>();
-		camera->AddComponent<CameraScript>();
+
+
+
 
 	#pragma region BG	
 			{
@@ -50,7 +47,7 @@ namespace jk
 				static int Tile_Colum = 40;
 				static int Tile_Row = 30;
 
-				static GameObject* Tile_map = object::Instantiate<GameObject>(eLayerType::BACK_GROUND);
+				static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
 				Tile_map->SetName(L"tile_stage1_2");
 				Transform* tr = Tile_map->GetComponent<Transform>();
 				//tr->SetPositionZ(-200.f);
@@ -61,6 +58,46 @@ namespace jk
 				TileMap::TileMap_Setting(Tile_map, L"Stage1_2Tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Stage1_2.xml");
 			}
 	#pragma endregion	
+
+	#pragma region Cam & Mouse& Grid
+			//Main Camera			
+			Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+			Camera* cameraComp = camera->AddComponent<Camera>();
+			cameraComp->TurnLayerMask(eLayerType::UI, false);
+			camera->AddComponent<CameraScript>();
+			renderer::cameras.push_back(cameraComp);
+			renderer::mainCamera = cameraComp;
+
+			//UI Camera		
+			//UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+			//Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
+			//cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
+			//cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+			//renderer::cameras.push_back(cameraComp_ui);
+
+			//UI_Mouse
+			//UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
+			//cursor->SetName(L"Catle_Cursor_UI");
+			//cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
+			//cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
+
+			//Grid
+			//Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+			//grid->SetName(L"Catle_Grid");
+			//GridScript* gridSc = grid->AddComponent<GridScript>();
+			//gridSc->SetCamera(cameraComp);
+#pragma endregion	
+
 
 
 	}

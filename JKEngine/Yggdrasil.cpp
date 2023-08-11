@@ -11,6 +11,10 @@ namespace jk
 	float Yggdrasil::_time = 0.f;
 	int	Yggdrasil::mDir = 1;
 
+	int Yggdrasil::_Diecheck = 0;  //Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
+	bool Yggdrasil::_DieON = false;
+
+
 	bool Yggdrasil::_Intro = false;
 	bool Yggdrasil::_Intro_SetR = false;
 	bool Yggdrasil::_Intro_SetL = false;
@@ -26,15 +30,25 @@ namespace jk
 	bool Yggdrasil::_SetattackA_l = false;
 	bool Yggdrasil::_AttackA_Readyr = false;
 	bool Yggdrasil::_AttackA_Readyl = false;
+	bool Yggdrasil::_AttackA_LoadingR = false;
+	bool Yggdrasil::_AttackA_LoadingL = false;
+	bool Yggdrasil::_AttackA_FinishR = false;
+	bool Yggdrasil::_AttackA_FinishL = false;
+	
+
 	bool Yggdrasil::_SetattackB_r = false;
 	bool Yggdrasil::_SetattackB_l = false;
 	bool Yggdrasil::_AttackB_Readyr = false;
 	bool Yggdrasil::_AttackB_Readyl = false;
+
+
 	bool Yggdrasil::_SetattackC_r = false;
 	bool Yggdrasil::_SetattackC_l = false;
 	bool Yggdrasil::_AttackC_Readyr = false;
 	bool Yggdrasil::_AttackC_Readyl = false;
 	bool Yggdrasil::_AttackC_Finish = false;
+
+
 	bool Yggdrasil::_SetattackD_r = false;
 	bool Yggdrasil::_SetattackD_l = false;
 	bool Yggdrasil::_AttackD_Readyr = false;
@@ -54,10 +68,11 @@ namespace jk
 	bool  Yggdrasil::_Change_Face = false;
 	bool  Yggdrasil::_Change_HandR = false;
 	bool  Yggdrasil::_Change_HandL = false;
-	bool  Yggdrasil::_ChangeImage = false;
+	bool  Yggdrasil::_Changeon = false;
 
-	bool  Yggdrasil::_Change_Finishr = false;
-	bool  Yggdrasil::_Change_Finishl = false;
+	bool  Yggdrasil::_Change_FinishR = false; 
+	bool  Yggdrasil::_Change_FinishL = false;
+	bool  Yggdrasil::_Change_Finish = false;
 
 
 	bool Yggdrasil::_Groggy_Body_Down = false;
@@ -69,8 +84,14 @@ namespace jk
 	bool Yggdrasil::_Groggy_RightHand_Up = false;
 	bool Yggdrasil::_Groggy_LeftHand_Up = false;
 
-
-
+	bool Yggdrasil::_Die_SetR = false;
+	bool Yggdrasil::_Die_SetL = false;
+	bool Yggdrasil::_Die_READY_R = false;
+	bool Yggdrasil::_Die_READY_L = false;
+	bool Yggdrasil::_Die_Body_Down = false;
+	bool Yggdrasil::_Die_Face_Down = false;
+	bool Yggdrasil::_Die_Chin_Down = false;
+	
 	int	Yggdrasil::_NumberofAttack = 0;
 
 
@@ -105,7 +126,8 @@ namespace jk
 			//if (_minibosschoice != i)
 			//	_Gobjs[i]->SetState(eState::Paused);
 		}
-
+	
+		_Change = true;
 		GameObject::Initialize();
 	}
 	void Yggdrasil::Update()
@@ -115,8 +137,23 @@ namespace jk
 		if (_Playerdistance.x >= 0.f)
 			mDir = 1;
 		else
-			mDir = -1;
-		//_state = Yggdrasil_State::Groggy_Start;
+			mDir = -1;	
+
+
+		// 체인지 상태의 변환을 관리하며, 이미지의 변화를주는 변수->_Changeon
+		if (_Changeon == true)
+		{
+			_Change = false;
+			//_Diecheck = 2;
+		}
+		//Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
+		if (_Diecheck == 1)
+			_Change = true;
+		if (_Diecheck == 2)
+			_Change = false;
+		if (_Diecheck == 3)
+			_DieON = true;
+
 
 		switch (_state)
 		{
@@ -248,6 +285,14 @@ namespace jk
 			change_end();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::DieSet:
+			die_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::DieReady:
+			die_ready();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Die:
 			die();
 			break;
@@ -270,11 +315,9 @@ namespace jk
 	void Yggdrasil::OnCollisionEnter(Collider2D* other)
 	{
 	}
-
 	void Yggdrasil::OnCollisionStay(Collider2D* other)
 	{
 	}
-
 	void Yggdrasil::OnCollisionExit(Collider2D* other)
 	{
 	}
@@ -283,11 +326,11 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_NumberofAttack = 0;
-		//if (_Change == false)
+		//if (_Changeon == false)
 		//	Attack_Sellect = random(0, 2);
 		//else
 		//	Attack_Sellect = random(0, 3);
-
+		
 
 		if (_Intro == false)
 		{
@@ -301,19 +344,27 @@ namespace jk
 			//		Attack_Sellect = 2;
 			//		test = 1;
 			//	}
+			_AttackA_FinishR = false;
+			_AttackA_FinishL = false;
 			_Groggy_Chin_Up = false;
 			_Groggy_Body_Up = false;
 			_Groggy_Face_Up = false;
 			_Groggy_RightHand_Up = false;
 			_Groggy_LeftHand_Up = false;
 
-			if (_Change == false)
+			if (_Change == true)
 			{
 				Yggdrasil_Hand_Right::_Attackswitch = true;
 				Yggdrasil_Hand_Left::_Attackswitch = true;
 				_state = Yggdrasil_State::Change_Set;
 			}
 
+			if (_DieON == true)
+			{
+				Yggdrasil_Hand_Right::_Attackswitch = true;
+				Yggdrasil_Hand_Left::_Attackswitch = true;
+				_state = Yggdrasil_State::DieSet;
+			}
 	
 			if (_time > 3)
 			{
@@ -347,9 +398,7 @@ namespace jk
 			}			
 		}
 	}
-	void Yggdrasil::die()
-	{
-	}
+
 
 	void Yggdrasil::attack_a_set()
 	{
@@ -398,6 +447,8 @@ namespace jk
 	}
 	void Yggdrasil::attack_a_loading()
 	{
+		if (_AttackA_LoadingL == true && _AttackA_LoadingR == true)
+			_state = Yggdrasil_State::Attack_A_Finish;	
 	}
 	void Yggdrasil::attack_a_finish()
 	{
@@ -407,7 +458,15 @@ namespace jk
 		_SetattackA_l = false;
 		_AttackA_Readyr = false;
 		_AttackA_Readyl = false;
+		_AttackA_LoadingL = false;
+		_AttackA_LoadingR = false;
 
+		if (_AttackA_FinishR == true && _AttackA_FinishL == true)
+		{
+			_state = Yggdrasil_State::Idle;
+			Yggdrasil::_time = 0.f;
+			_NumberofAttack = 0;
+		}
 	}
 
 
@@ -522,7 +581,7 @@ namespace jk
 			_state = Yggdrasil_State::Attack_D_Loading;
 		}
 	}
-	void jk::Yggdrasil::attack_d_loading()
+	void Yggdrasil::attack_d_loading()
 	{		
 		if (_NumberofAttack < 6)
 		{
@@ -574,8 +633,7 @@ namespace jk
 		_Intro = true;
 		if (_Intro_EndR == true && _Intro_EndL == true )
 			_state = Yggdrasil_State::Idle;
-	}
-	
+	}	
 	
 	
 	void Yggdrasil::change_set()
@@ -583,7 +641,6 @@ namespace jk
 		if (_SetChange_r == true && _SetChange_l == true)
 			_state = Yggdrasil_State::Change_Ready;
 	}
-
 	void Yggdrasil::change_ready()
 	{
 		if (_Change_Readyr == true && _Change_Readyl == true)
@@ -596,7 +653,6 @@ namespace jk
 			}			
 		}
 	}
-
 	void Yggdrasil::change()
 	{
 		if (_Change_Chin == true && _Change_Face == true && _Change_HandR == true && _Change_HandL == true)
@@ -604,11 +660,32 @@ namespace jk
 			_state = Yggdrasil_State::Change_End;
 		}
 	}
-
 	void Yggdrasil::change_end()
 	{
+		_Change_HandL = false;	_Change_HandR = false;	_Change_Face = false; _Change_Chin = false; 
+		_Change_Readyl = false; _Change_Readyr = false; _SetChange_l = false; _SetChange_r = false;
+		if (_Change_FinishR == true && _Change_FinishL == true && _Change_Finish == true )
+		{
+			_Change = false;
+			_state = Yggdrasil_State::Idle;
+			_Diecheck = 3;
+		}
 	}
 
+
+	void Yggdrasil::die_set()
+	{
+		if (_Die_SetR == true && _Die_SetL == true)
+			_state = Yggdrasil_State::DieReady;
+	}
+	void Yggdrasil::die_ready()
+	{
+		if (_Die_Body_Down == true && _Die_Face_Down == true&& _Die_Chin_Down ==true)
+			_state = Yggdrasil_State::Die;
+	}
+	void Yggdrasil::die()
+	{
+	}
 
 
 	int Yggdrasil::random(int a, int b)

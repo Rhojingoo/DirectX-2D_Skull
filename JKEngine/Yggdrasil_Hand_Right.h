@@ -19,7 +19,6 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 		void idle();
-		void die();
 		void attack_a_set();
 		void attack_a_ready();
 		void attack_a_right();
@@ -53,6 +52,10 @@ namespace jk
 		void change_ready();
 		void change();
 		void change_end();
+
+		void die_set();
+		void die_ready();
+		void die();
 
 		void hand_intro_up();
 

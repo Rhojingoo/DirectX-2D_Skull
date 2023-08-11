@@ -23,7 +23,6 @@ namespace jk
 		static Vector3 FaceGetpos() { return _pos; }
 
 		void idle();
-		void die();
 		void attack_a_set();
 		void attack_a_ready();
 		void attack_a_right();
@@ -52,14 +51,20 @@ namespace jk
 		void change();
 		void change_end();
 
+		void die_set();
+		void die_ready();
+		void die();
+
 		void basicattack();
 		void set_basicbuulet();
 		void Energy_Bombattack();
 		void Energy_Corpsattack();
 		void groggy_down();
 		void groggy_up();
+		void Die_DOWN();
 		float UpdateVibration(float originalX, float amplitude, float frequency, float timeElapsed);
 
+		void Facepos_Setting();
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
@@ -86,5 +91,6 @@ namespace jk
 		GameObject::eState check_state;
 		float	_activetime = 0.f;
 		float   _introtime =  0.f;
+		bool	_FaceSet_of_Change = false;
 	};
 }

@@ -19,7 +19,6 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 		void idle();
-		void die();
 		void attack_a_set();
 		void attack_a_ready();
 		void attack_a_right();
@@ -37,8 +36,7 @@ namespace jk
 		void attack_c_finish();
 		void groggy_start();
 		void groggy_end();
-		void groggy_down();
-		void groggy_up();
+
 		void intro_set_right();
 		void intro_set_left();
 		void intro_ready();
@@ -50,11 +48,19 @@ namespace jk
 		void change();
 		void change_end();
 
+
+		void die_set();
+		void die_ready();
+		void die();
+
+
 		void Lmove_up();
 		void Lmove_down();
 		void Intro_chinplay();
 		void change_chinplay();
-
+		void groggy_down();
+		void groggy_up();
+		void Die_Down();
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;

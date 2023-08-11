@@ -50,9 +50,11 @@ namespace jk
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
+		
 
-
-		at->PlayAnimation(L"ChindYggdrasilChin_Idle", true);
+		at->PlayAnimation(L"ChindYggdrasilChin_Idle", true);		
+		if (_Changeon == true)
+			at->PlayAnimation(L"ChindYggdrasilChin_Change", true);
 
 		GameObject::Initialize();
 	}
@@ -169,7 +171,13 @@ namespace jk
 			Yggdrasil_Chin::change_end();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::DieSet:
+			Yggdrasil_Chin::die_set();
+			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::DieReady:
+			Yggdrasil_Chin::die_ready();
+			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Die:
 			Yggdrasil_Chin::die();
@@ -208,6 +216,9 @@ namespace jk
 
 	void Yggdrasil_Chin::idle()
 	{
+		at->PlayAnimation(L"ChindYggdrasilChin_Idle", true);
+		if (_Changeon == true)
+			at->PlayAnimation(L"ChindYggdrasilChin_Change", true);
 		//if (mDir == 1)
 		//	Lmove_down();
 		//else
@@ -272,42 +283,7 @@ namespace jk
 	void Yggdrasil_Chin::groggy_end()
 	{
 		groggy_up();
-	}
-
-		
-	void Yggdrasil_Chin::groggy_down()
-	{
-		//_pos.x = YggdrasilFace_pos.x + 0.f;
-		//_pos.y = YggdrasilFace_pos.y - 65.f;
-
-
-		if (_Groggy_Chin_Down == false)
-		{
-			if (_pos.y >= -150.f)
-				_pos.y -= 40 * Time::DeltaTime();
-			if (_pos.x >= 7.f)
-				_pos.x -= 7 * Time::DeltaTime();
-			if ((_pos.y < -150.f) && (_pos.x < 7.f))
-				_Groggy_Chin_Down = true;
-		}
-
-	}
-	void Yggdrasil_Chin::groggy_up()
-	{
-		if (_Groggy_Chin_Up == false)
-		{
-			if (_pos.y <= -65.f)
-				_pos.y += 40 * Time::DeltaTime();
-			if (_pos.x <= 12.5f)
-				_pos.x += 7 * Time::DeltaTime();
-			if ((_pos.y >= -65.f) && (_pos.x >= 12.5f))
-			{
-				_pos.x = 12.5f;
-				_pos.y = -65.f;
-				_Groggy_Chin_Up = true;
-			}
-		}
-	}
+	}		
 
 
 	void Yggdrasil_Chin::intro_set_right()
@@ -347,7 +323,7 @@ namespace jk
 	}
 	void Yggdrasil_Chin::change()
 	{
-		if (_ChangeImage == false)
+		if (_Changeon == false)
 		{
 			if (_Change_HandL == true && _Change_HandR == true)
 			{
@@ -359,15 +335,15 @@ namespace jk
 					_Change_HandR = false;
 				}
 			}
-			else
-			{
-				if (_Change_Face == true)
-				{
-					change_chinplay();
-				}
-			}
+			//else
+			//{
+			//	if (_Change_Face == true)
+			//	{
+			//		change_chinplay();
+			//	}
+			//}
 		}
-		if (_ChangeImage == true)
+		if (_Changeon == true)
 		{
 			at->PlayAnimation(L"ChindYggdrasilChin_Change", false);
 			_Change_Chin = true;	
@@ -375,9 +351,20 @@ namespace jk
 	}
 	void Yggdrasil_Chin::change_end()
 	{
+		if (_Change_Finish == false)
+		{
+			change_chinplay();
+		}		
 	}
 
 
+	void Yggdrasil_Chin::die_set()
+	{
+	}
+	void Yggdrasil_Chin::die_ready()
+	{
+		Die_Down();			
+	}
 	void Yggdrasil_Chin::die()
 	{
 	}
@@ -443,9 +430,56 @@ namespace jk
 			if (_pos.y >= YggdrasilFace_pos.y - 65.f)
 			{
 				_pos.y = YggdrasilFace_pos.y - 65.f;
-				//_ChangeImage = true;					
+				_Change_Finish = true;
 			}
 		}	
+	}
+
+	void Yggdrasil_Chin::groggy_down()
+	{
+		//_pos.x = YggdrasilFace_pos.x + 0.f;
+		//_pos.y = YggdrasilFace_pos.y - 65.f;
+
+
+		if (_Groggy_Chin_Down == false)
+		{
+			if (_pos.y >= -150.f)
+				_pos.y -= 40 * Time::DeltaTime();
+			if (_pos.x >= 7.f)
+				_pos.x -= 7 * Time::DeltaTime();
+			if ((_pos.y < -150.f) && (_pos.x < 7.f))
+				_Groggy_Chin_Down = true;
+		}
+
+	}
+	void Yggdrasil_Chin::groggy_up()
+	{
+		if (_Groggy_Chin_Up == false)
+		{
+			if (_pos.y <= -65.f)
+				_pos.y += 40 * Time::DeltaTime();
+			if (_pos.x <= 12.5f)
+				_pos.x += 7 * Time::DeltaTime();
+			if ((_pos.y >= -65.f) && (_pos.x >= 12.5f))
+			{
+				_pos.x = 12.5f;
+				_pos.y = -65.f;
+				_Groggy_Chin_Up = true;
+			}
+		}
+	}
+
+	void Yggdrasil_Chin::Die_Down()
+	{
+		if (_Die_Chin_Down == false)
+		{
+			if (_pos.y >= -150.f)
+				_pos.y -= 40 * Time::DeltaTime();
+			if (_pos.x >= 7.f)
+				_pos.x -= 7 * Time::DeltaTime();
+			if ((_pos.y < -150.f) && (_pos.x < 7.f))
+				_Die_Chin_Down = true;
+		}
 	}
 
 }

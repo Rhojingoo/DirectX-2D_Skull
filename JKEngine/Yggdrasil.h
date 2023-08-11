@@ -20,8 +20,7 @@ namespace jk
 
 		enum class Yggdrasil_State
 		{
-			Idle,
-			Die,
+			Idle,			
 			Attack_A_Set,
 			Attack_A_Ready,
 			Attack_A_Right,
@@ -53,11 +52,13 @@ namespace jk
 			Change_Ready,
 			Change,
 			Change_End,
-
+			DieSet,
+			DieReady,
+			Die,
 		};
 
 		void idle();
-		void die();
+	
 		void attack_a_set();
 		void attack_a_ready();
 		void attack_a_right();
@@ -73,8 +74,10 @@ namespace jk
 		void attack_c_ready();
 		void attack_c();
 		void attack_c_finish();
+
 		void groggy_start();
 		void groggy_end();
+
 		void attack_d_set();
 		void attack_d_ready();
 		void attack_d();
@@ -92,6 +95,9 @@ namespace jk
 		void change();
 		void change_end();
 
+		void die_set();
+		void die_ready();
+		void die();
 
 		int random(int a, int b);
 
@@ -106,7 +112,7 @@ namespace jk
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
 		static int	mDir;
 		static float _time;
-
+		static void SetChange_Yggdrasil(bool check) { _Change = check; }
 
 		static bool _Intro;
 		static bool _Intro_SetR;
@@ -123,6 +129,10 @@ namespace jk
 		static bool _SetattackA_l;
 		static bool _AttackA_Readyr;
 		static bool _AttackA_Readyl;
+		static bool _AttackA_LoadingR;
+		static bool _AttackA_LoadingL;
+		static bool _AttackA_FinishR;
+		static bool _AttackA_FinishL;
 
 
 		static bool _SetattackB_r;
@@ -157,10 +167,11 @@ namespace jk
 		static bool _Change_Face;
 		static bool _Change_HandR;
 		static bool _Change_HandL;
-		static bool _ChangeImage;
-		static bool _Change_Finishr;
-		static bool _Change_Finishl;
-
+		static bool _Changeon;
+		static bool _Change_FinishR;
+		static bool _Change_FinishL;
+		static bool _Change_Finish;		
+		
 
 		static bool _Groggy_Body_Down;
 		static bool _Groggy_Face_Down;
@@ -171,6 +182,19 @@ namespace jk
 		static bool _Groggy_RightHand_Up;
 		static bool _Groggy_LeftHand_Up;
 		static int _NumberofAttack;
+
+		static bool _Die_SetR;
+		static bool _Die_SetL;
+		static bool _Die_READY_R;
+		static bool _Die_READY_L;
+		static bool _Die_Body_Down;
+		static bool _Die_Face_Down;
+		static bool _Die_Chin_Down;
+
+
+
+		static int _Diecheck;			//Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
+		static bool _DieON;
 		int Attack_Sellect = 0;
 
 	private:

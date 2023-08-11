@@ -18,7 +18,6 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
-
 	
 		Yggdrasil_pos = Yggdrasil::GetPos();
 		_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
@@ -31,7 +30,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Die", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Die_Effect", this);
-	
+		
 		//bind 부분
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
@@ -70,8 +69,11 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -206.f));
 			Energy_Corps[i]->SetState(eState::Paused);
 		}
+	
 
 		at->PlayAnimation(L"FaceYggdrasilFace_Idle", true);
+		if (_Changeon == true)
+			at->PlayAnimation(L"FaceYggdrasilFace_Change", true);
 
 		GameObject::Initialize();
 	}
@@ -80,13 +82,10 @@ namespace jk
 		_playerpos;
 		Yggdrasil_rotation = GetRotations();
 		Yggdrasil_pos = Yggdrasil::GetPos();
+		Facepos_Setting();
+
 		
-		if (_Intro == false)
-		_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
-		if (_Change == false)
-		_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
-
-
+			
 		_distance = _playerpos.x - _pos.x;
 		if (_distance >= 0.f)
 			mDir = 1;
@@ -200,6 +199,14 @@ namespace jk
 			break;
 
 
+		case jk::Yggdrasil::Yggdrasil_State::DieSet:
+			Yggdrasil_Face::die_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::DieReady:
+			Yggdrasil_Face::die_ready();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Die:
 			Yggdrasil_Face::die();
 			break;
@@ -232,8 +239,13 @@ namespace jk
 	void Yggdrasil_Face::OnCollisionExit(Collider2D* other)
 	{
 	}
+
+
 	void Yggdrasil_Face::idle()
 	{
+		at->PlayAnimation(L"FaceYggdrasilFace_Idle", true);
+		if (_Changeon == true)
+			at->PlayAnimation(L"FaceYggdrasilFace_Change", true);
 	}
 
 
@@ -287,89 +299,94 @@ namespace jk
 	void Yggdrasil_Face::attack_c()
 	{
 		_time += Time::DeltaTime();
-		if (_time <= 7.f)
+		if (_Changeon == false)
 		{
-			for (int i = 0; i < 8; i++)
+			if (_time <= 7.f)
 			{
-				Bullet[i]->SetState(eState::Active);
+				for (int i = 0; i < 8; i++)
+				{
+					Bullet[i]->SetState(eState::Active);
+				}
+				Energy_Bomb->SetState(eState::Active);
+				basicattack();
+				Energy_Bombattack();
 			}
-			Energy_Bomb->SetState(eState::Active);
-			basicattack();
-			Energy_Bombattack();		
-		}
-		else
-		{
-			for (int i = 0; i < 8; i++)
-			{
-				Bullet[i]->SetState(eState::Paused);
-				Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
-				
-			}
-			{
-				Energy_Bomb->SetState(eState::Paused);
-				Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);				
-			}
-			for (int i = 0; i < 15; i++)
-			{
-				Energy_Corps[i]->SetState(eState::Paused);
-				Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
-			}
-			if (_NumberofAttack >= 3)
-				_state = Yggdrasil_State::Attack_C_Finish;
 			else
-				_state = Yggdrasil_State::Attack_C_Ready;
+			{
+				for (int i = 0; i < 8; i++)
+				{
+					Bullet[i]->SetState(eState::Paused);
+					Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
+
+				}
+				{
+					Energy_Bomb->SetState(eState::Paused);
+					Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
+				}
+				for (int i = 0; i < 15; i++)
+				{
+					Energy_Corps[i]->SetState(eState::Paused);
+					Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
+				}
+				if (_NumberofAttack >= 3)
+					_state = Yggdrasil_State::Attack_C_Finish;
+				else
+					_state = Yggdrasil_State::Attack_C_Ready;
+			}
 		}
+		// 체인지한뒤 에너지볼변경
+		if (_Changeon == true)
+		{
+			if (_time <= 15.f)
+			{
+				if (_time >= 1.f)
+				{
+					for (int i = 0; i < 5; i++)
+					{
+						Energy_Corps[i]->SetState(eState::Active);
+						Energy_Corpsattack();
+					}
+				}
+				if (_time >= 5.f)
+				{
+					for (int i = 5; i < 10; i++)
+					{
+						Energy_Corps[i]->SetState(eState::Active);
+						Energy_Corpsattack();
+					}
+				}
+				if (_time >= 10.f)
+				{
+					for (int i = 10; i < 15; i++)
+					{
+						Energy_Corps[i]->SetState(eState::Active);
+						Energy_Corpsattack();
+					}
+				}
+			}
+			else
+			{
+				for (int i = 0; i < 8; i++)
+				{
+					Bullet[i]->SetState(eState::Paused);
+					Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
 
-		// 2차 체인지 미사일
-		//if (_time <= 15.f)
-		//{
-		//	if (_time >= 1.f)
-		//	{
-		//		for (int i = 0; i < 5; i++)
-		//		{
-		//			Energy_Corps[i]->SetState(eState::Active);
-		//			Energy_Corpsattack();
-		//		}
-		//	}
-		//	if (_time >= 5.f)
-		//	{
-		//		for (int i = 5; i < 10; i++)
-		//		{
-		//			Energy_Corps[i]->SetState(eState::Active);
-		//			Energy_Corpsattack();
-		//		}
-		//	}
-		//	if (_time >= 10.f)
-		//	{
-		//		for (int i = 10; i < 15; i++)
-		//		{
-		//			Energy_Corps[i]->SetState(eState::Active);
-		//			Energy_Corpsattack();
-		//		}
-		//	}
-		//}
-		//else
-		//{
-		//	for (int i = 0; i < 8; i++)
-		//	{
-		//		Bullet[i]->SetState(eState::Paused);
-		//		Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
-
-		//	}
-		//	{
-		//		Energy_Bomb->SetState(eState::Paused);
-		//		Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
-		//	}
-		//	for (int i = 0; i < 15; i++)
-		//	{
-		//		Energy_Corps[i]->SetState(eState::Paused);
-		//		Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
-		//	}
-		//	if (_NumberofAttack >= 3)
-		//		_state = Yggdrasil_State::Attack_C_Finish;
-		//	else
-		//		_state = Yggdrasil_State::Attack_C_Ready;
-		//}
+				}
+				{
+					Energy_Bomb->SetState(eState::Paused);
+					Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
+				}
+				for (int i = 0; i < 15; i++)
+				{
+					Energy_Corps[i]->SetState(eState::Paused);
+					Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
+				}
+				if (_NumberofAttack >= 3)
+					_state = Yggdrasil_State::Attack_C_Finish;
+				else
+					_state = Yggdrasil_State::Attack_C_Ready;
+			}
+		}
 	}
 	void Yggdrasil_Face::attack_c_finish()
 	{
@@ -423,6 +440,8 @@ namespace jk
 
 	void Yggdrasil_Face::change_set()
 	{
+		if (_Change ==true)
+			_FaceSet_of_Change = true;
 	}
 	void Yggdrasil_Face::change_ready()
 	{
@@ -439,25 +458,32 @@ namespace jk
 					_pos.x = UpdateVibration(_pos.x, 10, 10.f * 3.14, _introtime);
 				}
 				else
-				{
-					_Change_Face = true;
-					_ChangeImage = true;
+				{					
+					_Changeon = true;
 					_pos.x = Yggdrasil_pos.x;
 				}
 			}
 		}
-		if (_ChangeImage == true)
+		if (_Changeon == true)
 		{
 			at->PlayAnimation(L"FaceYggdrasilFace_Change", false);
-			
+			_Change_Face = true;
 		}
 	}
-
 	void Yggdrasil_Face::change_end()
 	{
+		_FaceSet_of_Change = false;
 	}
 
+	void Yggdrasil_Face::die_set()
+	{
+	}
+	void Yggdrasil_Face::die_ready()
+	{
 
+		Die_DOWN();
+		
+	}
 	void Yggdrasil_Face::die()
 	{
 	}
@@ -542,9 +568,30 @@ namespace jk
 		}
 	}
 
+	void Yggdrasil_Face::Die_DOWN()
+	{
+		if (_Die_Face_Down == false)
+		{
+			if (_pos.y >= -100.f)
+				_pos.y -= 50 * Time::DeltaTime();
+			if (_pos.x >= -40.f)
+				_pos.x -= 35 * Time::DeltaTime();
+			if ((_pos.y < -100.f) && (_pos.x < -40.f))
+				_Die_Face_Down = true;
+		}
+	}
+
 	float Yggdrasil_Face::UpdateVibration(float originalX, float amplitude, float frequency, float timeElapsed)
 	{
 		return originalX + amplitude * std::sin(frequency * timeElapsed);
+	}
+
+	void Yggdrasil_Face::Facepos_Setting()
+	{
+		if (_Intro == false)
+			_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
+		if (_FaceSet_of_Change == true)
+			_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
 	}
 		
 

@@ -135,10 +135,6 @@ namespace jk
 			Yggdrasil_Hand_Left::groggy_end();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Die:
-			Yggdrasil_Hand_Left::die();
-			break;
-
 		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Set:
 			Yggdrasil_Hand_Left::attack_d_set();
 			break;
@@ -175,6 +171,10 @@ namespace jk
 			Yggdrasil_Hand_Left::intro();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Intro_End:
+			Yggdrasil_Hand_Left::intro_end();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Change_Set:
 			Yggdrasil_Hand_Left::change_set();
 			break;
@@ -191,9 +191,18 @@ namespace jk
 			Yggdrasil_Hand_Left::change_end();
 			break;
 
-		case jk::Yggdrasil::Yggdrasil_State::Intro_End:
-			Yggdrasil_Hand_Left::intro_end();
+		case jk::Yggdrasil::Yggdrasil_State::DieSet:
+			Yggdrasil_Hand_Left::die_set();
 			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::DieReady:
+			Yggdrasil_Hand_Left::die_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Die:
+			Yggdrasil_Hand_Left::die();
+			break;
+
 
 		default:
 			break;
@@ -259,6 +268,8 @@ namespace jk
 		{
 			_SetattackA_l = true;
 			at->PlayAnimation(L"Hand1_HandRock", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandRock_Change", true);
 		}
 	}
 	void Yggdrasil_Hand_Left::attack_a_ready()
@@ -268,6 +279,9 @@ namespace jk
 			//_Yggdrasildistance;
 			//int a = 0;
 			at->PlayAnimation(L"Hand1_HandRock", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandRock_Change", true);
+
 			_rigidbody->SetGround(false);
 			_rigidbody->SetVelocity(Vector2(0.f, 500.f));
 			_Attackswitch = false;
@@ -315,15 +329,17 @@ namespace jk
 					if (_NumberofAttack < 2)
 						_state = Yggdrasil_State::Attack_A_Set;
 					else					
-						_state = Yggdrasil_State::Attack_A_Finish;					
-				}
+						_AttackA_LoadingL = true;				
+				}				
 			}
 		}
+		if (_NumberofAttack >= 2 && _AttackA_LoadingR == true)
+			_AttackA_LoadingL = true;
 	}
 	void Yggdrasil_Hand_Left::attack_a_finish()
 	{
 		int a = 0;
-		if (_NumberofAttack == 2)
+		if (_NumberofAttack >= 2)
 		 {
 			_Savepointpos.x;
 			if (_pos.x > _Savepointpos.x)
@@ -336,14 +352,13 @@ namespace jk
 				_pos.x = _Savepointpos.x;
 			if (_Savepointpos.y >= _pos.y)
 				_pos.y = _Savepointpos.y;
-
-			at->PlayAnimation(L"Hand1_HandIdle", true);
+		
 			if ((_pos.x == _Savepointpos.x) && (_pos.y == _Savepointpos.y))
 			{
-				//at->PlayAnimation(L"Hand1_HandIdle", true);
-				_state = Yggdrasil_State::Idle;
-				Yggdrasil::_time = 0.f;
-				_NumberofAttack = 0;
+				at->PlayAnimation(L"Hand1_HandIdle", true);
+				if (_Changeon == true)
+					at->PlayAnimation(L"HandHandIdle_Change", true);
+				_AttackA_FinishL = true;
 			}
 		}
 	}
@@ -360,6 +375,8 @@ namespace jk
 		{
 			_SetattackB_l = true;
 			at->PlayAnimation(L"Hand1_HandAttack", false);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandAttack_Change", true);
 		}
 	}
 	void Yggdrasil_Hand_Left::attack_b_ready()
@@ -382,6 +399,8 @@ namespace jk
 				if (_NumberofAttack >= 2)
 				{
 					at->PlayAnimation(L"Hand1_HandIdle", true);
+					if (_Changeon == true)
+						at->PlayAnimation(L"HandHandIdle_Change", true);
 					_rigidbody->ClearVelocityX();
 					_pos.x = _Savepointpos.x;
 					_pos.y = _Savepointpos.y - 300;
@@ -406,6 +425,8 @@ namespace jk
 			_pos.y = _Savepointpos.y - 300;
 			Yggdrasil::_NumberofAttack = 0;
 			at->PlayAnimation(L"Hand1_HandIdle", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandIdle_Change", true);
 		}
 
 		if (_attackon == false)
@@ -423,6 +444,8 @@ namespace jk
 			if ((_pos.x == _Savepointpos.x) && (_pos.y == _Savepointpos.y))
 			{
 				at->PlayAnimation(L"Hand1_HandIdle", true);
+				if (_Changeon == true)
+					at->PlayAnimation(L"HandHandIdle_Change", true);
 				_state = Yggdrasil_State::Idle;
 				Yggdrasil::_time = 0.f;
 				_attackready = false;
@@ -439,6 +462,8 @@ namespace jk
 		else
 		{
 			at->PlayAnimation(L"Hand1_Bullet_on", false);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandBullet_on_Change", true);
 			_SetattackC_l = true;
 		}
 	}
@@ -453,6 +478,7 @@ namespace jk
 
 	}
 
+
 	void Yggdrasil_Hand_Left::groggy_start()
 	{
 	}
@@ -461,9 +487,12 @@ namespace jk
 		if (_Groggy_LeftHand_Up == false)
 		{
 			at->PlayAnimation(L"Hand1_HandIdle", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandIdle_Change", true);
 			_Groggy_LeftHand_Up = true;
 		}
 	}
+
 
 	void Yggdrasil_Hand_Left::attack_d_set()
 	{
@@ -476,6 +505,8 @@ namespace jk
 		{
 			_SetattackD_l = true;
 			at->PlayAnimation(L"Hand1_HandRock", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandRock_Change", true);
 		}
 	}
 	void Yggdrasil_Hand_Left::attack_d_ready()
@@ -483,6 +514,9 @@ namespace jk
 		if (_SetattackD_l == true)
 		{
 			at->PlayAnimation(L"Hand1_HandRock", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"HandHandRock_Change", true);
+
 			_rigidbody->SetGround(false);
 			_rigidbody->SetVelocity(Vector2(0.f, 500.f));
 			_Attackswitch = false;
@@ -585,6 +619,8 @@ namespace jk
 			{
 				_AttackD_Finishl = false;
 				at->PlayAnimation(L"Hand1_HandIdle", true);
+				if (_Changeon == true)
+					at->PlayAnimation(L"HandHandIdle_Change", true);
 			}
 		}
 	}
@@ -658,13 +694,31 @@ namespace jk
 			_Change_Readyl = false;
 			_Change_HandL = true;
 		}
-		if (_ChangeImage == true)
+		if (_Changeon == true)
 		{
-			at->PlayAnimation(L"HandHandRock_ChangeR", false);			
-			_Change_HandR = false;
+			at->PlayAnimation(L"HandHandRock_Change", false);			
+			_Change_HandL = true;
 		}
 	}
 	void Yggdrasil_Hand_Left::change_end()
+	{
+		if (_Change_FinishL == false)
+		{
+			at->PlayAnimation(L"HandHandIdle_Change", true);
+			_Change_FinishL = true;
+		}		
+	}
+
+	void Yggdrasil_Hand_Left::die_set()
+	{
+		_pos = Vector3(GetPos().x - 150.f, GetPos().y - 100, -203.f);
+		at->PlayAnimation(L"HandBullet_on_Change", false);
+		_Die_SetL = true;
+	}
+	void Yggdrasil_Hand_Left::die_ready()
+	{
+	}
+	void Yggdrasil_Hand_Left::die()
 	{
 	}
 
@@ -679,9 +733,6 @@ namespace jk
 			_Intro_SetL = true;
 			at->PlayAnimation(L"Hand1_HandAntlion", false);
 		}
-	}
-	void Yggdrasil_Hand_Left::die()
-	{
 	}
 	void Yggdrasil_Hand_Left::attackb_setting()
 	{
