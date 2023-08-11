@@ -36,6 +36,11 @@ namespace jk
 		void attack_c_finish();
 		void groggy_start();
 		void groggy_end();
+		void attack_d_set();
+		void attack_d_ready();
+		void attack_d();
+		void attack_d_loading();
+		void attack_d_finish();
 		void intro();
 
 	public:

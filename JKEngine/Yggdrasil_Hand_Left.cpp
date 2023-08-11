@@ -139,6 +139,26 @@ namespace jk
 			Yggdrasil_Hand_Left::die();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Set:
+			Yggdrasil_Hand_Left::attack_d_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Ready:
+			Yggdrasil_Hand_Left::attack_d_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_D:
+			Yggdrasil_Hand_Left::attack_d();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Loading:
+			Yggdrasil_Hand_Left::attack_d_loading();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Finish:
+			Yggdrasil_Hand_Left::attack_d_finish();
+			break;
+
 		default:
 			break;
 		}
@@ -293,7 +313,6 @@ namespace jk
 	}
 
 
-
 	void Yggdrasil_Hand_Left::attack_b_set()
 	{
 		if (_Attackswitch == true)
@@ -407,6 +426,130 @@ namespace jk
 		{
 			at->PlayAnimation(L"Hand1_HandIdle", true);
 			_Groggy_LeftHand_Up = true;
+		}
+	}
+
+	void Yggdrasil_Hand_Left::attack_d_set()
+	{
+		if (_Attackswitch == true)
+		{
+			_rigidbody->SetVelocity(Vector2(-10.f, 0.f));
+			_Attackswitch = false;
+		}
+		else
+		{
+			_SetattackD_l = true;
+			at->PlayAnimation(L"Hand1_HandRock", true);
+		}
+	}
+	void Yggdrasil_Hand_Left::attack_d_ready()
+	{
+		if (_SetattackD_l == true)
+		{
+			at->PlayAnimation(L"Hand1_HandRock", true);
+			_rigidbody->SetGround(false);
+			_rigidbody->SetVelocity(Vector2(0.f, 500.f));
+			_Attackswitch = false;
+			_Ground_check = false;
+		}
+
+		if (_Yggdrasildistance.y <= -137.f)
+		{
+			_rigidbody->ClearVelocity();
+			_rigidbody->SetGround(true);
+			if (_AttackA_SavePos.y < _pos.y)
+				_AttackA_SavePos = _pos;
+			_AttackD_Readyl = true;
+		}
+	}
+	void Yggdrasil_Hand_Left::attack_d()
+	{
+		if (_AttackD_Readyl == true)
+		{
+			_Ground_check = false;
+			_rigidbody->SetGround(false);
+			_rigidbody->SetVelocity(Vector2(0.F, -250.f));
+			_AttackD_Readyl = false;
+		}
+	}
+	void Yggdrasil_Hand_Left::attack_d_loading()
+	{
+		if (_Attackswitch == true && _Ground_check == true)
+		{
+			if (_NumberofAttack < 4)
+			{
+				if (_pos.x > _AttackA_SavePos.x)
+					_pos.x -= 150.0f * Time::DeltaTime();
+				if (_pos.y < _AttackA_SavePos.y)
+					_pos.y += 250.0f * Time::DeltaTime();
+				tr->SetPosition(Vector3(_pos));
+
+				if (_AttackA_SavePos.x >= _pos.x)
+					_pos.x = _AttackA_SavePos.x;
+				if (_AttackA_SavePos.y <= _pos.y)
+					_pos.y = _AttackA_SavePos.y;
+				if ((_pos.x == _AttackA_SavePos.x) && (_pos.y == _AttackA_SavePos.y))
+				{
+					if (_NumberofAttack < 4)
+						_AttackD_Loadingl = true;
+
+					if (_NumberofAttack >= 6)
+					{
+						_AttackD_Loadingl = false;
+						_AttackD_Finishl = true;
+					}
+				}
+			}
+			if (_NumberofAttack < 5)
+			{
+				if (_pos.x > _AttackA_SavePos.x)
+					_pos.x -= 150.0f * Time::DeltaTime();
+				if (_pos.y < _AttackA_SavePos.y)
+					_pos.y += 180.0f * Time::DeltaTime();
+				tr->SetPosition(Vector3(_pos));
+
+				if (_AttackA_SavePos.x >= _pos.x)
+					_pos.x = _AttackA_SavePos.x;
+				if (_AttackA_SavePos.y <= _pos.y)
+					_pos.y = _AttackA_SavePos.y;
+
+				if ((_pos.x == _AttackA_SavePos.x) && (_pos.y == _AttackA_SavePos.y))
+				{
+					if (_NumberofAttack < 6)
+						_AttackD_Loadingl = true;			
+				}
+			}
+			if (_NumberofAttack >= 6)
+			{
+				_AttackD_Loadingl = false;
+				_AttackD_Finishl = true;
+			}
+
+		}
+	}
+	void Yggdrasil_Hand_Left::attack_d_finish()
+	{
+		int a = 0;
+		if (_NumberofAttack >= 3)
+		{
+			_Savepointpos.x;
+			if (_pos.x > _Savepointpos.x)
+				_pos.x -= 150.0f * Time::DeltaTime();
+			if (_pos.y > _Savepointpos.y)
+				_pos.y -= 150.0f * Time::DeltaTime();
+			tr->SetPosition(Vector3(_pos));
+
+			if (_Savepointpos.x >= _pos.x)
+				_pos.x = _Savepointpos.x;
+			if (_Savepointpos.y >= _pos.y)
+				_pos.y = _Savepointpos.y;
+
+			
+			if ((_pos.x == _Savepointpos.x) && (_pos.y == _Savepointpos.y))
+			{
+				_AttackD_Finishl = false;
+				at->PlayAnimation(L"Hand1_HandIdle", true);
+			}
 		}
 	}
 

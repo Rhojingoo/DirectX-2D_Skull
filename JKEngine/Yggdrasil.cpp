@@ -24,6 +24,15 @@ namespace jk
 	bool Yggdrasil::_AttackC_Readyr = false;
 	bool Yggdrasil::_AttackC_Readyl = false;
 	bool Yggdrasil::_AttackC_Finish = false;
+	bool Yggdrasil::_SetattackD_r = false;
+	bool Yggdrasil::_SetattackD_l = false;
+	bool Yggdrasil::_AttackD_Readyr = false;
+	bool Yggdrasil::_AttackD_Readyl = false;
+	bool Yggdrasil:: _AttackD_Loadingr = false;
+	bool Yggdrasil:: _AttackD_Loadingl = false;
+	bool Yggdrasil::_AttackD_Finishr = false;
+	bool Yggdrasil::_AttackD_Finishl = false;
+
 	bool Yggdrasil::_Groggy_Body_Down = false;
 	bool Yggdrasil::_Groggy_Face_Down = false;
 	bool Yggdrasil::_Groggy_Chin_Down = false;
@@ -155,6 +164,26 @@ namespace jk
 			groggy_end();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Set:
+			attack_d_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Ready:
+			attack_d_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_D:
+			attack_d();
+			break; 
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Loading:
+			attack_d_loading();
+			break; 
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Finish:
+			attack_d_finish();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Intro:
 			intro();
 			break;
@@ -193,10 +222,10 @@ namespace jk
 	void Yggdrasil::idle()
 	{
 		_time += Time::DeltaTime();
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<int> distribution(0, 2);
-		Attack_Sellect = distribution(gen);
+		//std::random_device rd;
+		//std::mt19937 gen(rd());
+		//std::uniform_int_distribution<int> distribution(0, 2);
+		//Attack_Sellect = distribution(gen);
 		_NumberofAttack = 0;
 		
 		if (test == 0)
@@ -234,6 +263,13 @@ namespace jk
 				Yggdrasil_Hand_Left::_Attackswitch = true;
 				_state = Yggdrasil_State::Attack_C_Set;
 			}
+
+			if (Attack_Sellect == 3)
+			{
+				Yggdrasil_Hand_Right::_Attackswitch = true;
+				Yggdrasil_Hand_Left::_Attackswitch = true;
+				_state = Yggdrasil_State::Attack_D_Set;
+			}
 		}
 	}
 	void Yggdrasil::die()
@@ -242,7 +278,7 @@ namespace jk
 
 	void Yggdrasil::attack_a_set()
 	{
-		if (_SetattackA_r == true && _SetattackA_l)
+		if (_SetattackA_r == true && _SetattackA_l == true)
 			_state = Yggdrasil_State::Attack_A_Ready;
 	}
 	void Yggdrasil::attack_a_ready()
@@ -299,6 +335,7 @@ namespace jk
 
 	}
 
+
 	void Yggdrasil::attack_b_set()
 	{
 		if ((_SetattackB_r == true) && (_SetattackB_l == true))
@@ -344,6 +381,7 @@ namespace jk
 	{
 	}
 
+
 	void Yggdrasil::attack_c_set()
 	{
 		if ((_SetattackC_r == true) && (_SetattackC_l == true))
@@ -366,17 +404,74 @@ namespace jk
 			_state = Yggdrasil_State::Groggy_Start;
 	}
 
+
 	void Yggdrasil::groggy_start()
 	{
 		if ((_Groggy_Chin_Down == true) && (_Groggy_Body_Down == true) && (_Groggy_Face_Down == true))
 			_state = Yggdrasil_State::Groggy_End;		
 	}
-
 	void Yggdrasil::groggy_end()
 	{
 		_Groggy_Chin_Down = false; _Groggy_Body_Down = false; _Groggy_Face_Down = false; _time = 0;
 		if ((_Groggy_Chin_Up == true) && (_Groggy_Body_Up == true) && (_Groggy_Face_Up == true)&&(_Groggy_RightHand_Up == true)&&(_Groggy_LeftHand_Up == true))
 			_state = Yggdrasil_State::Idle;
+	}
+
+
+	void Yggdrasil::attack_d_set()
+	{
+		if (_SetattackD_r == true && _SetattackD_l == true)
+			_state = Yggdrasil_State::Attack_D_Ready;
+		
+	}
+	void Yggdrasil::attack_d_ready()
+	{
+		if (_AttackD_Readyr == true && _AttackD_Readyr == true)
+		{
+			if (_NumberofAttack == 0)
+			{
+				_attackatime += Time::DeltaTime();
+				if (_attackatime > 1.5f)
+				{
+					_state = Yggdrasil_State::Attack_D;
+					_attackatime = 0.f;
+				}
+			}
+			else
+				_state = Yggdrasil_State::Attack_D;
+		}
+	}
+	void Yggdrasil::attack_d()
+	{
+		if ((Yggdrasil_Hand_Left::_Attackswitch == true) && (Yggdrasil_Hand_Right::_Attackswitch == true))		
+		{
+			_state = Yggdrasil_State::Attack_D_Loading;
+		}
+	}
+	void jk::Yggdrasil::attack_d_loading()
+	{		
+		if (_NumberofAttack < 6)
+		{
+			if ((_AttackD_Loadingl == true) && (_AttackD_Loadingr == true))
+				_state = Yggdrasil_State::Attack_D_Set;
+		}
+
+		if (_NumberofAttack >= 6)
+		{
+			if ((_AttackD_Finishr == true) && (_AttackD_Finishl == true))
+				_state = Yggdrasil_State::Attack_D_Finish;
+		}
+	}
+	void Yggdrasil::attack_d_finish()
+	{
+		_SetattackD_r = false; _SetattackD_l = false;
+		_AttackD_Readyr = false;_AttackD_Readyl = false;
+		_AttackD_Loadingr = false;_AttackD_Loadingl = false;		
+		if (_AttackD_Finishr == false && _AttackD_Finishl == false)
+		{
+			_state = Yggdrasil_State::Idle;
+			_time = 0;					
+		}
 	}
 
 	void Yggdrasil::intro()

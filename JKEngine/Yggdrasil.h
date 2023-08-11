@@ -39,6 +39,11 @@ namespace jk
 			Attack_C_Finish,
 			Groggy_Start,
 			Groggy_End,
+			Attack_D_Set,
+			Attack_D_Ready,
+			Attack_D,
+			Attack_D_Loading,
+			Attack_D_Finish,
 
 			Intro,
 		};
@@ -62,6 +67,12 @@ namespace jk
 		void attack_c_finish();
 		void groggy_start();
 		void groggy_end();
+		void attack_d_set();
+		void attack_d_ready();
+		void attack_d();
+		void attack_d_loading();
+		void attack_d_finish();
+
 		void intro();
 
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
@@ -90,6 +101,17 @@ namespace jk
 		static bool _AttackC_Readyr;
 		static bool _AttackC_Readyl;
 		static bool _AttackC_Finish;
+
+
+		static bool _SetattackD_r;
+		static bool _SetattackD_l;
+		static bool _AttackD_Readyr;
+		static bool _AttackD_Readyl;
+		static bool _AttackD_Loadingr;
+		static bool _AttackD_Loadingl;
+		static bool _AttackD_Finishr;
+		static bool _AttackD_Finishl;
+
 
 		static bool _Groggy_Body_Down;
 		static bool _Groggy_Face_Down;
