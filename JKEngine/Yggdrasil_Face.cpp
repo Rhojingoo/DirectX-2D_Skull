@@ -59,6 +59,18 @@ namespace jk
 			bullet_tr->SetScale(Vector3(35.f, 36.f, 0.f));
 			Bullet[i]->SetState(eState::Paused);
 		}
+		
+		for (int i = 0; i < 15; i++)
+		{
+			Energy_Corps[i] = new Yggdrsil_Energy_Corps;
+			Energy_Corps[i]->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Energy_Corps[i]);
+			Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -206.f));
+			Energy_Corps[i]->SetState(eState::Paused);
+		}
+
 		at->PlayAnimation(L"FaceYggdrasilFace_Idle", true);
 
 		GameObject::Initialize();
@@ -244,26 +256,81 @@ namespace jk
 			}
 			Energy_Bomb->SetState(eState::Active);
 			basicattack();
-			Energy_Bombattack();
+			Energy_Bombattack();		
 		}
 		else
 		{
 			for (int i = 0; i < 8; i++)
 			{
 				Bullet[i]->SetState(eState::Paused);
-				Transform* bullet_tr = Bullet[i]->GetComponent<Transform>();
-				bullet_tr->SetPosition(basic_save_pos);
+				Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
+				
 			}
 			{
 				Energy_Bomb->SetState(eState::Paused);
-				Transform* bullet_tr = Energy_Bomb->GetComponent<Transform>();
-				bullet_tr->SetPosition(basic_save_pos);
+				Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);				
 			}
-			if (_NumberofAttack >= 1)
+			for (int i = 0; i < 15; i++)
+			{
+				Energy_Corps[i]->SetState(eState::Paused);
+				Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
+			}
+			if (_NumberofAttack >= 3)
 				_state = Yggdrasil_State::Attack_C_Finish;
 			else
 				_state = Yggdrasil_State::Attack_C_Ready;
 		}
+
+		// 2차 체인지 미사일
+		//if (_time <= 15.f)
+		//{
+		//	if (_time >= 1.f)
+		//	{
+		//		for (int i = 0; i < 5; i++)
+		//		{
+		//			Energy_Corps[i]->SetState(eState::Active);
+		//			Energy_Corpsattack();
+		//		}
+		//	}
+		//	if (_time >= 5.f)
+		//	{
+		//		for (int i = 5; i < 10; i++)
+		//		{
+		//			Energy_Corps[i]->SetState(eState::Active);
+		//			Energy_Corpsattack();
+		//		}
+		//	}
+		//	if (_time >= 10.f)
+		//	{
+		//		for (int i = 10; i < 15; i++)
+		//		{
+		//			Energy_Corps[i]->SetState(eState::Active);
+		//			Energy_Corpsattack();
+		//		}
+		//	}
+		//}
+		//else
+		//{
+		//	for (int i = 0; i < 8; i++)
+		//	{
+		//		Bullet[i]->SetState(eState::Paused);
+		//		Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
+
+		//	}
+		//	{
+		//		Energy_Bomb->SetState(eState::Paused);
+		//		Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
+		//	}
+		//	for (int i = 0; i < 15; i++)
+		//	{
+		//		Energy_Corps[i]->SetState(eState::Paused);
+		//		Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
+		//	}
+		//	if (_NumberofAttack >= 3)
+		//		_state = Yggdrasil_State::Attack_C_Finish;
+		//	else
+		//		_state = Yggdrasil_State::Attack_C_Ready;
+		//}
 	}
 
 	void Yggdrasil_Face::attack_c_finish()
@@ -303,7 +370,6 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(bulletattack.x, bulletattack.y, -205));
 		}
 	}
-
 	void Yggdrasil_Face::set_basicbuulet()
 	{
 		basic_pos[0] = Vector2(0.f, 150.f);
@@ -315,30 +381,34 @@ namespace jk
 		basic_pos[6] = Vector2(-150.f, 0.f);
 		basic_pos[7] = Vector2(-110.f, 110.f);
 	}
-
 	void Yggdrasil_Face::Energy_Bombattack()
 	{
 		Transform* bullet_tr = Energy_Bomb->GetComponent<Transform>();
+		RigidBody* bullet_Rb = Energy_Bomb->GetComponent<RigidBody>();
 
-		Vector3 Bullet_pos = bullet_tr->GetPosition();
-		if (mDir == 1)
-		{
-			if (!((_distance <= 30.f) && (_distance >= -30.f)))
-			{
-				Bullet_pos.x += 300 * Time::DeltaTime();				
-				Bullet_pos.y -= 200 * Time::DeltaTime();
-			}
-		}
-		else
-		{
-			if (!((_distance <= 30.f) && (_distance >= -30.f)))
-			{
-				Bullet_pos.x -= 300 * Time::DeltaTime();		
-				Bullet_pos.y -= 200 * Time::DeltaTime();
-			}
-		}
-		bullet_tr->SetPosition(Vector3(Bullet_pos));
+		_playerpos.x;
+		_playerpos.y;		
+		Vector2 attack_pos = Vector2(_playerpos.x, _playerpos.y);
+		attack_pos.Normalize();
+		bullet_Rb->SetGround(false);
+		bullet_Rb->SetVelocity(Vector2(attack_pos.x * 300.f, attack_pos.y*200));
 	}
+
+	void Yggdrasil_Face::Energy_Corpsattack()
+	{
+		for (int i = 0; i < 15; i++)
+		{						
+			RigidBody* bullet_Rb = Energy_Corps[i]->GetComponent<RigidBody>();
+			_playerpos.x;
+			_playerpos.y;
+			Vector2 attack_pos = Vector2(_playerpos.x, _playerpos.y);
+			attack_pos.Normalize();
+			bullet_Rb->SetGround(false);
+			bullet_Rb->SetVelocity(Vector2(attack_pos.x * 50.f, attack_pos.y * 250));
+		}
+	}
+
+
 	void Yggdrasil_Face::groggy_down()
 	{
 		if (_Groggy_Face_Down == false)

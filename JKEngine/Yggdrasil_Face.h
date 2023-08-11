@@ -2,6 +2,7 @@
 #include "Include_Common.h"
 #include "Yggdrasil_BasicBullet.h"
 #include "Yggdrasil_Energy_Bomb.h"
+#include "Yggdrsil_Energy_Corps.h"
 namespace jk
 {
 	class Yggdrasil_Face : public Yggdrasil
@@ -44,6 +45,7 @@ namespace jk
 		void basicattack();
 		void set_basicbuulet();
 		void Energy_Bombattack();
+		void Energy_Corpsattack();
 		void groggy_down();
 		void groggy_up();
 
@@ -70,6 +72,8 @@ namespace jk
 
 		Yggdrasil_BasicBullet* Bullet[8];
 		Yggdrasil_Energy_Bomb* Energy_Bomb;
-		//GameObject* _Gobjs[5];
+		Yggdrsil_Energy_Corps* Energy_Corps[15];
+		GameObject::eState check_state;
+		float	_activetime = 0.f;
 	};
 }

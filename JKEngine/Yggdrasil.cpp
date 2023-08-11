@@ -240,7 +240,6 @@ namespace jk
 		_Groggy_LeftHand_Up = false;
 
 
-
 		if (_time > 3)
 		{
 			if (Attack_Sellect == 0)
@@ -476,5 +475,13 @@ namespace jk
 
 	void Yggdrasil::intro()
 	{
+	}
+	int Yggdrasil::random(int a, int b)
+	{
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<int> distribution(a, b);
+		int abc = distribution(gen);
+		return abc;
 	}
 }

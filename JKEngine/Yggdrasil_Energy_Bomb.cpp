@@ -40,9 +40,15 @@ namespace jk
 	}
 	void Yggdrasil_Energy_Bomb::OnCollisionEnter(Collider2D* other)
 	{
+
 	}
 	void Yggdrasil_Energy_Bomb::OnCollisionStay(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+		}
 	}
 	void Yggdrasil_Energy_Bomb::OnCollisionExit(Collider2D* other)
 	{

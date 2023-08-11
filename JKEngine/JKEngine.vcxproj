@@ -215,6 +215,7 @@
     <ClInclude Include="Yggdrasil_Face.h" />
     <ClInclude Include="Yggdrasil_Hand_Left.h" />
     <ClInclude Include="Yggdrasil_Hand_Right.h" />
+    <ClInclude Include="Yggdrsil_Energy_Corps.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Archer.cpp" />
@@ -274,6 +275,7 @@
     <ClCompile Include="Yggdrasil_Face.cpp" />
     <ClCompile Include="Yggdrasil_Hand_Left.cpp" />
     <ClCompile Include="Yggdrasil_Hand_Right.cpp" />
+    <ClCompile Include="Yggdrsil_Energy_Corps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="JKEngine.rc" />

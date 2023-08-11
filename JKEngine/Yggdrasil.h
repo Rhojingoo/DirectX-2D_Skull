@@ -74,6 +74,7 @@ namespace jk
 		void attack_d_finish();
 
 		void intro();
+		int random(int a, int b);
 
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
 		static Vector3 GetPlayerPos() { return _playerpos; }

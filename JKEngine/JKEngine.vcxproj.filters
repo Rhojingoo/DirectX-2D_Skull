@@ -176,6 +176,9 @@
     <ClInclude Include="Yggdrasil_Energy_Bomb.h">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
     </ClInclude>
+    <ClInclude Include="Yggdrsil_Energy_Corps.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -345,6 +348,9 @@
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_Energy_Bomb.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrsil_Energy_Corps.cpp">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
     </ClCompile>
   </ItemGroup>

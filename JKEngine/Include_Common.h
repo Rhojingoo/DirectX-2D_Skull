@@ -98,6 +98,7 @@
 #include "Bullet.h"
 #include "Yggdrasil_BasicBullet.h"
 #include "Yggdrasil_Energy_Bomb.h"
+#include "Yggdrsil_Energy_Corps.h"
 
 //¿Ã∆Â∆Æ
 #include "Effect.h"
