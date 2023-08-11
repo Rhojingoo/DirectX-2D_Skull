@@ -49,6 +49,11 @@ namespace jk
 			Intro_Ready,
 			Intro,
 			Intro_End,
+			Change_Set,
+			Change_Ready,
+			Change,
+			Change_End,
+
 		};
 
 		void idle();
@@ -82,6 +87,11 @@ namespace jk
 		void intro();
 		void intro_end();
 
+		void change_set();
+		void change_ready();
+		void change();
+		void change_end();
+
 
 		int random(int a, int b);
 
@@ -113,10 +123,14 @@ namespace jk
 		static bool _SetattackA_l;
 		static bool _AttackA_Readyr;
 		static bool _AttackA_Readyl;
+
+
 		static bool _SetattackB_r;
 		static bool _SetattackB_l;
 		static bool _AttackB_Readyr;
 		static bool _AttackB_Readyl;
+
+
 		static bool _SetattackC_r;
 		static bool _SetattackC_l;
 		static bool _AttackC_Readyr;
@@ -132,6 +146,20 @@ namespace jk
 		static bool _AttackD_Loadingl;
 		static bool _AttackD_Finishr;
 		static bool _AttackD_Finishl;
+
+
+		static bool _Change;
+		static bool _SetChange_r;
+		static bool _SetChange_l;
+		static bool _Change_Readyr;
+		static bool _Change_Readyl;
+		static bool _Change_Chin;
+		static bool _Change_Face;
+		static bool _Change_HandR;
+		static bool _Change_HandL;
+		static bool _ChangeImage;
+		static bool _Change_Finishr;
+		static bool _Change_Finishl;
 
 
 		static bool _Groggy_Body_Down;

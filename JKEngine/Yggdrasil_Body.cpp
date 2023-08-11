@@ -29,6 +29,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Attack_C", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Change", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Changing", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Die_Effect", this);
 
 		//bind ºÎºÐ
@@ -141,6 +142,23 @@ namespace jk
 			Yggdrasil_Body::intro_end();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Change_Set:
+			Yggdrasil_Body::change_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change_Ready:
+			Yggdrasil_Body::change_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change:
+			Yggdrasil_Body::change();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change_End:
+			Yggdrasil_Body::change_end();
+			break;
+
+
 		case jk::Yggdrasil::Yggdrasil_State::Die:
 			Yggdrasil_Body::die();
 			break;
@@ -252,8 +270,6 @@ namespace jk
 	void Yggdrasil_Body::intro_set_left()
 	{
 	}
-
-
 	void Yggdrasil_Body::intro_ready()
 	{
 		if (introbody_ordernumber == 0)
@@ -277,6 +293,22 @@ namespace jk
 	{
 	}
 	void Yggdrasil_Body::intro_end()
+	{
+	}
+
+
+	void Yggdrasil_Body::change_set()
+	{
+	}
+	void Yggdrasil_Body::change_ready()
+	{
+	}
+	void Yggdrasil_Body::change()
+	{
+		if(_ChangeImage == true)
+			at->PlayAnimation(L"BodyYggdrasilBody_Change", false);
+	}
+	void Yggdrasil_Body::change_end()
 	{
 	}
 

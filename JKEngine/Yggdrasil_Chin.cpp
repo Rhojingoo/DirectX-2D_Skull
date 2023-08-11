@@ -45,7 +45,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Chind\\YggdrasilChin_Attac_C", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Chind\\YggdrasilChin_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Chind\\YggdrasilChin_Change_Die_Effect", this);
-
+		
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
@@ -152,6 +152,24 @@ namespace jk
 		case jk::Yggdrasil::Yggdrasil_State::Intro_End:
 			Yggdrasil_Chin::intro_end();
 			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change_Set:
+			Yggdrasil_Chin::change_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change_Ready:
+			Yggdrasil_Chin::change_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change:
+			Yggdrasil_Chin::change();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change_End:
+			Yggdrasil_Chin::change_end();
+			break;
+
+
 
 		case jk::Yggdrasil::Yggdrasil_State::Die:
 			Yggdrasil_Chin::die();
@@ -321,6 +339,45 @@ namespace jk
 	}
 
 
+	void Yggdrasil_Chin::change_set()
+	{
+	}
+	void Yggdrasil_Chin::change_ready()
+	{
+	}
+	void Yggdrasil_Chin::change()
+	{
+		if (_ChangeImage == false)
+		{
+			if (_Change_HandL == true && _Change_HandR == true)
+			{
+				_pos.y -= 80 * Time::DeltaTime();
+				if (YggdrasilFace_pos.y - 95 >= _pos.y)
+				{
+					_pos.y = YggdrasilFace_pos.y - 95;
+					_Change_HandL = false;
+					_Change_HandR = false;
+				}
+			}
+			else
+			{
+				if (_Change_Face == true)
+				{
+					change_chinplay();
+				}
+			}
+		}
+		if (_ChangeImage == true)
+		{
+			at->PlayAnimation(L"ChindYggdrasilChin_Change", false);
+			_Change_Chin = true;	
+		}
+	}
+	void Yggdrasil_Chin::change_end()
+	{
+	}
+
+
 	void Yggdrasil_Chin::die()
 	{
 	}
@@ -377,6 +434,18 @@ namespace jk
 					_pos.y = YggdrasilFace_pos.y - 65.f;
 			}
 		}
+	}
+	void Yggdrasil_Chin::change_chinplay()
+	{
+		if (_pos.y < YggdrasilFace_pos.y - 65.f)
+		{
+			_pos.y += 80 * Time::DeltaTime();
+			if (_pos.y >= YggdrasilFace_pos.y - 65.f)
+			{
+				_pos.y = YggdrasilFace_pos.y - 65.f;
+				//_ChangeImage = true;					
+			}
+		}	
 	}
 
 }

@@ -45,9 +45,15 @@ namespace jk
 		void intro();
 		void intro_end();
 
+		void change_set();
+		void change_ready();
+		void change();
+		void change_end();
+
 		void Lmove_up();
 		void Lmove_down();
 		void Intro_chinplay();
+		void change_chinplay();
 
 	private:
 		Animator* at = nullptr;

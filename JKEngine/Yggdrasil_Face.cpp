@@ -31,7 +31,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Die", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Die_Effect", this);
-
+	
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
@@ -82,6 +82,8 @@ namespace jk
 		Yggdrasil_pos = Yggdrasil::GetPos();
 		
 		if (_Intro == false)
+		_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
+		if (_Change == false)
 		_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
 
 
@@ -180,6 +182,23 @@ namespace jk
 		case jk::Yggdrasil::Yggdrasil_State::Intro_End:
 			Yggdrasil_Face::intro_end();
 			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change_Set:
+			Yggdrasil_Face::change_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change_Ready:
+			Yggdrasil_Face::change_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change:
+			Yggdrasil_Face::change();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change_End:
+			Yggdrasil_Face::change_end();
+			break;
+
 
 		case jk::Yggdrasil::Yggdrasil_State::Die:
 			Yggdrasil_Face::die();
@@ -397,6 +416,44 @@ namespace jk
 		}
 	}
 	void Yggdrasil_Face::intro_end()
+	{
+		_introtime = 0;
+	}
+
+
+	void Yggdrasil_Face::change_set()
+	{
+	}
+	void Yggdrasil_Face::change_ready()
+	{
+	}
+	void Yggdrasil_Face::change()
+	{
+		if (_Change_HandL == false && _Change_HandR == false)
+		{			
+			if (_Change_Face == false)
+			{
+				_introtime += Time::DeltaTime();
+				if (_introtime < 1.5)
+				{
+					_pos.x = UpdateVibration(_pos.x, 10, 10.f * 3.14, _introtime);
+				}
+				else
+				{
+					_Change_Face = true;
+					_ChangeImage = true;
+					_pos.x = Yggdrasil_pos.x;
+				}
+			}
+		}
+		if (_ChangeImage == true)
+		{
+			at->PlayAnimation(L"FaceYggdrasilFace_Change", false);
+			
+		}
+	}
+
+	void Yggdrasil_Face::change_end()
 	{
 	}
 

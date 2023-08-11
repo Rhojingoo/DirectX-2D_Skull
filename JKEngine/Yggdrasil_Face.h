@@ -47,7 +47,10 @@ namespace jk
 		void intro();
 		void intro_end();
 
-
+		void change_set();
+		void change_ready();
+		void change();
+		void change_end();
 
 		void basicattack();
 		void set_basicbuulet();

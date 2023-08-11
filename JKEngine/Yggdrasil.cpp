@@ -21,6 +21,7 @@ namespace jk
 	bool Yggdrasil::_Intro_EndR = false;
 	bool Yggdrasil::_Intro_EndL = false;
 
+
 	bool Yggdrasil::_SetattackA_r = false;
 	bool Yggdrasil::_SetattackA_l = false;
 	bool Yggdrasil::_AttackA_Readyr = false;
@@ -42,6 +43,22 @@ namespace jk
 	bool Yggdrasil:: _AttackD_Loadingl = false;
 	bool Yggdrasil::_AttackD_Finishr = false;
 	bool Yggdrasil::_AttackD_Finishl = false;
+
+	bool  Yggdrasil::_Change = false;
+	bool  Yggdrasil::_SetChange_r = false;
+	bool  Yggdrasil::_SetChange_l = false;
+	bool  Yggdrasil::_Change_Readyr = false;
+	bool  Yggdrasil::_Change_Readyl = false;
+
+	bool  Yggdrasil::_Change_Chin = false;
+	bool  Yggdrasil::_Change_Face = false;
+	bool  Yggdrasil::_Change_HandR = false;
+	bool  Yggdrasil::_Change_HandL = false;
+	bool  Yggdrasil::_ChangeImage = false;
+
+	bool  Yggdrasil::_Change_Finishr = false;
+	bool  Yggdrasil::_Change_Finishl = false;
+
 
 	bool Yggdrasil::_Groggy_Body_Down = false;
 	bool Yggdrasil::_Groggy_Face_Down = false;
@@ -103,7 +120,8 @@ namespace jk
 
 		switch (_state)
 		{
-		case jk::Yggdrasil::Yggdrasil_State::Idle:idle();
+		case jk::Yggdrasil::Yggdrasil_State::Idle:
+			idle();
 			break;	
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_A_Set:
@@ -214,6 +232,22 @@ namespace jk
 			intro_end();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Change_Set:
+			change_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change_Ready:
+			change_ready();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change:
+			change();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Change_End:
+			change_end();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Die:
 			die();
 			break;
@@ -248,32 +282,39 @@ namespace jk
 	void Yggdrasil::idle()
 	{
 		_time += Time::DeltaTime();
-		//std::random_device rd;
-		//std::mt19937 gen(rd());
-		//std::uniform_int_distribution<int> distribution(0, 2);
-		//Attack_Sellect = distribution(gen);
 		_NumberofAttack = 0;
+		//if (_Change == false)
+		//	Attack_Sellect = random(0, 2);
+		//else
+		//	Attack_Sellect = random(0, 3);
+
 
 		if (_Intro == false)
 		{
 			_state = Yggdrasil_State::Intro_Set_Left;
 		}
-
 		if (_Intro == true)
 		{	
 			
-			if (test == 0)
-				{
-					Attack_Sellect = 2;
-					test = 1;
-				}
+			//if (test == 0)
+			//	{
+			//		Attack_Sellect = 2;
+			//		test = 1;
+			//	}
 			_Groggy_Chin_Up = false;
 			_Groggy_Body_Up = false;
 			_Groggy_Face_Up = false;
 			_Groggy_RightHand_Up = false;
 			_Groggy_LeftHand_Up = false;
 
+			if (_Change == false)
+			{
+				Yggdrasil_Hand_Right::_Attackswitch = true;
+				Yggdrasil_Hand_Left::_Attackswitch = true;
+				_state = Yggdrasil_State::Change_Set;
+			}
 
+	
 			if (_time > 3)
 			{
 				if (Attack_Sellect == 0)
@@ -303,7 +344,7 @@ namespace jk
 					Yggdrasil_Hand_Left::_Attackswitch = true;
 					_state = Yggdrasil_State::Attack_D_Set;
 				}
-			}
+			}			
 		}
 	}
 	void Yggdrasil::die()
@@ -455,8 +496,7 @@ namespace jk
 	void Yggdrasil::attack_d_set()
 	{
 		if (_SetattackD_r == true && _SetattackD_l == true)
-			_state = Yggdrasil_State::Attack_D_Ready;
-		
+			_state = Yggdrasil_State::Attack_D_Ready;		
 	}
 	void Yggdrasil::attack_d_ready()
 	{
@@ -534,7 +574,40 @@ namespace jk
 		_Intro = true;
 		if (_Intro_EndR == true && _Intro_EndL == true )
 			_state = Yggdrasil_State::Idle;
-	}	
+	}
+	
+	
+	
+	void Yggdrasil::change_set()
+	{
+		if (_SetChange_r == true && _SetChange_l == true)
+			_state = Yggdrasil_State::Change_Ready;
+	}
+
+	void Yggdrasil::change_ready()
+	{
+		if (_Change_Readyr == true && _Change_Readyl == true)
+		{
+			_attackatime += Time::DeltaTime();
+			if (_attackatime > 1.5f)
+			{
+				_state = Yggdrasil_State::Change;
+				_attackatime = 0.f;
+			}			
+		}
+	}
+
+	void Yggdrasil::change()
+	{
+		if (_Change_Chin == true && _Change_Face == true && _Change_HandR == true && _Change_HandL == true)
+		{
+			_state = Yggdrasil_State::Change_End;
+		}
+	}
+
+	void Yggdrasil::change_end()
+	{
+	}
 
 
 
