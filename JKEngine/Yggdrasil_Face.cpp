@@ -19,11 +19,11 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
 
+	
 		Yggdrasil_pos = Yggdrasil::GetPos();
-		//_pos.y = Yggdrasil_pos.y - 5.f;
-		tr = GetComponent<Transform>();
-		_pos.z = -201.f;
-		tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z));
+		_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
+		tr = GetComponent<Transform>();		
+		tr->SetPosition(_pos);
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Idle", this);
@@ -79,8 +79,10 @@ namespace jk
 	{
 		_playerpos;
 		Yggdrasil_rotation = GetRotations();
-		Yggdrasil_pos = GetPos();
-		_pos = (Vector3(_pos.x, _pos.y, -201));
+		Yggdrasil_pos = Yggdrasil::GetPos();
+		
+		if (_Intro == false)
+		_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
 
 
 		_distance = _playerpos.x - _pos.x;
@@ -159,8 +161,24 @@ namespace jk
 			Yggdrasil_Face::groggy_end();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Set_Right:
+			Yggdrasil_Face::intro_set_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Set_Left:
+			Yggdrasil_Face::intro_set_left();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Ready:
+			Yggdrasil_Face::intro_ready();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Intro:
 			Yggdrasil_Face::intro();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_End:
+			Yggdrasil_Face::intro_end();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Die:
@@ -198,6 +216,8 @@ namespace jk
 	void Yggdrasil_Face::idle()
 	{
 	}
+
+
 	void Yggdrasil_Face::attack_a_set()
 	{
 	}
@@ -216,6 +236,8 @@ namespace jk
 	void Yggdrasil_Face::attack_a_finish()
 	{
 	}
+
+
 	void Yggdrasil_Face::attack_b_set()
 	{
 	}
@@ -228,23 +250,21 @@ namespace jk
 	void Yggdrasil_Face::attack_b_right()
 	{
 	}
-
 	void Yggdrasil_Face::attack_b_finish()
 	{
 	}
+
 
 	void Yggdrasil_Face::attack_c_set()
 	{
 		set_basicbuulet();
 	}
-
 	void Yggdrasil_Face::attack_c_ready()
 	{
 		Yggdrasil_Effect::_effect_switch = true;
 		_time = 0;
 		_NumberofAttack++;
 	}
-
 	void Yggdrasil_Face::attack_c()
 	{
 		_time += Time::DeltaTime();
@@ -332,7 +352,6 @@ namespace jk
 		//		_state = Yggdrasil_State::Attack_C_Ready;
 		//}
 	}
-
 	void Yggdrasil_Face::attack_c_finish()
 	{
 		_time = 0;
@@ -340,23 +359,52 @@ namespace jk
 		_AttackC_Finish = true;
 	}
 
+
 	void Yggdrasil_Face::groggy_start()
 	{
 		groggy_down();
 	}
-
 	void Yggdrasil_Face::groggy_end()
 	{
 		groggy_up();
 	}
 
-	void Yggdrasil_Face::intro()
+
+	void Yggdrasil_Face::intro_set_right()
 	{
 	}
+	void Yggdrasil_Face::intro_set_left()
+	{
+	}
+	void Yggdrasil_Face::intro_ready()
+	{
+	}
+	void Yggdrasil_Face::intro()
+	{
+		if (_Intro_Ready == false)
+		{			
+			_introtime += Time::DeltaTime();
+			if (_introtime < 1.5)
+			{
+				_pos.x = UpdateVibration(_pos.x, 10, 10.f * 3.14, _introtime);
+			}
+			else
+			{
+				_pos.x = Yggdrasil_pos.x;
+				Yggdrasil_Chin::_introchin = false;
+				Yggdrasil_Chin::_introchinup = true;
+			}
+		}
+	}
+	void Yggdrasil_Face::intro_end()
+	{
+	}
+
 
 	void Yggdrasil_Face::die()
 	{
 	}
+
 
 	void Yggdrasil_Face::basicattack()
 	{
@@ -393,7 +441,6 @@ namespace jk
 		bullet_Rb->SetGround(false);
 		bullet_Rb->SetVelocity(Vector2(attack_pos.x * 300.f, attack_pos.y*200));
 	}
-
 	void Yggdrasil_Face::Energy_Corpsattack()
 	{
 		for (int i = 0; i < 15; i++)
@@ -437,4 +484,12 @@ namespace jk
 			}
 		}
 	}
+
+	float Yggdrasil_Face::UpdateVibration(float originalX, float amplitude, float frequency, float timeElapsed)
+	{
+		return originalX + amplitude * std::sin(frequency * timeElapsed);
+	}
+		
+
+
 }

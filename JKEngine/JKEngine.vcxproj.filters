@@ -164,20 +164,20 @@
     <ClInclude Include="Bullet.h">
       <Filter>Game_ob\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Yggdrasil_BasicBullet.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Game_ob\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="Yggdrasil_Effect.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    <ClInclude Include="Yggdrasil_BasicBullet.h">
+      <Filter>Game_ob\Boss\Yggdrasil\_YggdrasilBullet</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrasil_Energy_Bomb.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\_YggdrasilBullet</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrsil_Energy_Corps.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\_YggdrasilBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -338,20 +338,20 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Game_ob\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Yggdrasil_BasicBullet.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Game_ob\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="Yggdrasil_Effect.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    <ClCompile Include="Yggdrasil_BasicBullet.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\_YggdrasilBullet</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_Energy_Bomb.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\_YggdrasilBullet</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrsil_Energy_Corps.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\_YggdrasilBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -468,6 +468,12 @@
     </Filter>
     <Filter Include="Game_ob\Effect">
       <UniqueIdentifier>{72a2e415-c966-4863-8469-969630925e2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Yggdrasil\_YggdrasilBullet">
+      <UniqueIdentifier>{44daa354-154c-4d33-bee9-180997c14241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Yggdrasil\Effect">
+      <UniqueIdentifier>{84a4b619-1569-4c65-bcb4-d58c416e16dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

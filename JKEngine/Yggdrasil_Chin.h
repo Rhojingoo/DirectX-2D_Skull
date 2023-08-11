@@ -37,15 +37,17 @@ namespace jk
 		void attack_c_finish();
 		void groggy_start();
 		void groggy_end();
-		void intro();
-		void basicattack();
-		void set_basicbuulet();
-		void Energy_Bombattack();
 		void groggy_down();
 		void groggy_up();
+		void intro_set_right();
+		void intro_set_left();
+		void intro_ready();
+		void intro();
+		void intro_end();
 
 		void Lmove_up();
 		void Lmove_down();
+		void Intro_chinplay();
 
 	private:
 		Animator* at = nullptr;
@@ -68,6 +70,9 @@ namespace jk
 		float fDist = 0.f;
 		float _maxdistance = 5.f;
 		float _chinspeed = 1.f;
+	public:
+		static bool _introchin;
+		static bool _introchinup;
 
 	};
 }

@@ -44,8 +44,11 @@ namespace jk
 			Attack_D,
 			Attack_D_Loading,
 			Attack_D_Finish,
-
+			Intro_Set_Right,
+			Intro_Set_Left,
+			Intro_Ready,
 			Intro,
+			Intro_End,
 		};
 
 		void idle();
@@ -73,7 +76,13 @@ namespace jk
 		void attack_d_loading();
 		void attack_d_finish();
 
+		void intro_set_right();
+		void intro_set_left();
+		void intro_ready();
 		void intro();
+		void intro_end();
+
+
 		int random(int a, int b);
 
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
@@ -87,6 +96,17 @@ namespace jk
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
 		static int	mDir;
 		static float _time;
+
+
+		static bool _Intro;
+		static bool _Intro_SetR;
+		static bool _Intro_SetL;
+		static bool _Intro_Ready;
+		static bool _Intro_StartCHIN;
+		static bool _Intro_StartR;
+		static bool _Intro_StartL;
+		static bool _Intro_EndR;
+		static bool _Intro_EndL;
 
 
 		static bool _SetattackA_r;
@@ -122,8 +142,6 @@ namespace jk
 		static bool _Groggy_Chin_Up;
 		static bool _Groggy_RightHand_Up;
 		static bool _Groggy_LeftHand_Up;
-
-
 		static int _NumberofAttack;
 		int Attack_Sellect = 0;
 

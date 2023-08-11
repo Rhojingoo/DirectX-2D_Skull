@@ -4,6 +4,9 @@
 namespace jk
 {
 	int Yggdrasil_Chin:: mDir = 1;		
+	bool Yggdrasil_Chin::_introchin = false;
+	bool Yggdrasil_Chin::_introchinup = false;
+
 	Yggdrasil_Chin::Yggdrasil_Chin()
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
@@ -20,25 +23,21 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
 
-		Yggdrasil_pos = Yggdrasil::GetPos();
-		YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
-		//_pos.x = Yggdrasil_pos.x + 12.5f;
-		//_pos.y = Yggdrasil_pos.y - 65.f;
-		_pos.x = YggdrasilFace_pos.x + 12.5f;
-		_pos.y = YggdrasilFace_pos.y - 65.f;
-		
 		//턱관리 포지션
 		//_pos.y = YggdrasilFace_pos.y - 55.f;	// 에너지볼 공격전 기모을때
 		//_pos.y = YggdrasilFace_pos.y - 65.f;	// 보통상태의 입다물기
 		//_pos.y = YggdrasilFace_pos.y - 75.f;	// 보통상태의 입벌리기
 		//_pos.y = YggdrasilFace_pos.y - 80.f;	// 공격시 입벌리기
 		//_pos.y = YggdrasilFace_pos.y - 95.f;	// 인트로 및 변신 및 그로기단계
-
-
+		Yggdrasil_pos = Yggdrasil::GetPos();
+		YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
+		_pos.x = YggdrasilFace_pos.x + 12.5f;
+		_pos.y = YggdrasilFace_pos.y - 65.f;
 		_pos.z = -202.f;
 		mCenterpos = _pos;
 		tr = GetComponent<Transform>();
 		tr->SetPosition(Vector3(_pos));
+
 
 
 		at = AddComponent<Animator>();
@@ -62,6 +61,7 @@ namespace jk
 		Yggdrasil_pos = Yggdrasil::GetPos();
 		YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
 		Yggdrasil_rotation = GetRotations();
+		Intro_chinplay();
 
 		switch (_state)
 		{
@@ -133,8 +133,24 @@ namespace jk
 			Yggdrasil_Chin::groggy_end();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Set_Right:
+			Yggdrasil_Chin::intro_set_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Set_Left:
+			Yggdrasil_Chin::intro_set_left();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Ready:
+			Yggdrasil_Chin::intro_ready();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Intro:
 			Yggdrasil_Chin::intro();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_End:
+			Yggdrasil_Chin::intro_end();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Die:
@@ -159,6 +175,8 @@ namespace jk
 	{
 		GameObject::Render();
 	}
+
+
 	void Yggdrasil_Chin::OnCollisionEnter(Collider2D* other)
 	{
 	}
@@ -168,6 +186,8 @@ namespace jk
 	void Yggdrasil_Chin::OnCollisionExit(Collider2D* other)
 	{
 	}
+
+
 	void Yggdrasil_Chin::idle()
 	{
 		//if (mDir == 1)
@@ -236,15 +256,7 @@ namespace jk
 		groggy_up();
 	}
 
-
-	void Yggdrasil_Chin::intro()
-	{
-	}
-	void Yggdrasil_Chin::die()
-	{
-	}
-
-
+		
 	void Yggdrasil_Chin::groggy_down()
 	{
 		//_pos.x = YggdrasilFace_pos.x + 0.f;
@@ -280,6 +292,39 @@ namespace jk
 	}
 
 
+	void Yggdrasil_Chin::intro_set_right()
+	{
+	}
+	void Yggdrasil_Chin::intro_set_left()
+	{
+	}
+	void Yggdrasil_Chin::intro_ready()
+	{	
+	}
+	void Yggdrasil_Chin::intro()
+	{		
+		if (_Intro_Ready == true)
+		{
+			_introchin = true;
+			_pos.y -= 80 * Time::DeltaTime();
+			if (YggdrasilFace_pos.y - 95 >= _pos.y)
+			{
+				_pos.y = YggdrasilFace_pos.y - 95;
+				_Intro_Ready = false;
+			}
+		}
+		else
+			_pos.x = YggdrasilFace_pos.x + 12.5f;
+	}
+	void Yggdrasil_Chin::intro_end()
+	{
+	}
+
+
+	void Yggdrasil_Chin::die()
+	{
+	}
+
 
 	void Yggdrasil_Chin::Lmove_up()
 	{
@@ -293,7 +338,6 @@ namespace jk
 
 		tr->SetPosition(_pos);
 	}
-
 	void Yggdrasil_Chin::Lmove_down()
 	{
 		Transform* tr = GetComponent<Transform>();
@@ -305,6 +349,34 @@ namespace jk
 			mDir *= -1;
 
 		tr->SetPosition(_pos);
+	}
+
+	void Yggdrasil_Chin::Intro_chinplay()
+	{
+		if (_Intro == false)
+		{
+			if (_introchin == false)
+			{
+				YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
+				_pos.x = YggdrasilFace_pos.x + 12.5f;
+				_pos.z = -202.f;
+
+				if (_introchinup == true)
+				{
+					if (_pos.y < YggdrasilFace_pos.y - 65.f)
+					{
+						_pos.y += 80 * Time::DeltaTime();
+						if (_pos.y >= YggdrasilFace_pos.y - 65.f)
+						{
+							_pos.y = YggdrasilFace_pos.y - 65.f;
+							_Intro_StartCHIN = true;
+						}			
+					}
+				}
+				else
+					_pos.y = YggdrasilFace_pos.y - 65.f;
+			}
+		}
 	}
 
 }

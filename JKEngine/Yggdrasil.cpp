@@ -11,6 +11,16 @@ namespace jk
 	float Yggdrasil::_time = 0.f;
 	int	Yggdrasil::mDir = 1;
 
+	bool Yggdrasil::_Intro = false;
+	bool Yggdrasil::_Intro_SetR = false;
+	bool Yggdrasil::_Intro_SetL = false;
+	bool Yggdrasil::_Intro_Ready = false;
+	bool Yggdrasil::_Intro_StartCHIN = false;
+	bool Yggdrasil::_Intro_StartR = false;
+	bool Yggdrasil::_Intro_StartL = false;
+	bool Yggdrasil::_Intro_EndR = false;
+	bool Yggdrasil::_Intro_EndL = false;
+
 	bool Yggdrasil::_SetattackA_r = false;
 	bool Yggdrasil::_SetattackA_l = false;
 	bool Yggdrasil::_AttackA_Readyr = false;
@@ -182,10 +192,26 @@ namespace jk
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_D_Finish:
 			attack_d_finish();
+			break;	
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Set_Right:
+			intro_set_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Set_Left:
+			intro_set_left();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Ready:
+			intro_ready();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Intro:
 			intro();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_End:
+			intro_end();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Die:
@@ -227,47 +253,56 @@ namespace jk
 		//std::uniform_int_distribution<int> distribution(0, 2);
 		//Attack_Sellect = distribution(gen);
 		_NumberofAttack = 0;
-		
-		if (test == 0)
+
+		if (_Intro == false)
 		{
-			Attack_Sellect = 2;
-			test = 1;
+			_state = Yggdrasil_State::Intro_Set_Left;
 		}
-		_Groggy_Chin_Up = false;
-		_Groggy_Body_Up = false;
-		_Groggy_Face_Up = false;
-		_Groggy_RightHand_Up = false;
-		_Groggy_LeftHand_Up = false;
+
+		if (_Intro == true)
+		{	
+			
+			if (test == 0)
+				{
+					Attack_Sellect = 2;
+					test = 1;
+				}
+			_Groggy_Chin_Up = false;
+			_Groggy_Body_Up = false;
+			_Groggy_Face_Up = false;
+			_Groggy_RightHand_Up = false;
+			_Groggy_LeftHand_Up = false;
 
 
-		if (_time > 3)
-		{
-			if (Attack_Sellect == 0)
+			if (_time > 3)
 			{
-				Yggdrasil_Hand_Left::_Attackswitch = true;
-				Yggdrasil_Hand_Right::_Attackswitch = true;
-				_state = Yggdrasil_State::Attack_A_Set;
-			}
+				if (Attack_Sellect == 0)
+				{
+					Yggdrasil_Hand_Left::_Attackswitch = true;
+					Yggdrasil_Hand_Right::_Attackswitch = true;
+					_state = Yggdrasil_State::Attack_A_Set;
+				}
 
-			if (Attack_Sellect == 1)
-			{
-				Yggdrasil_Hand_Right::_Attackswitch = true;
-				Yggdrasil_Hand_Left::_Attackswitch = true;
-				_state = Yggdrasil_State::Attack_B_Set;
-			}
+				if (Attack_Sellect == 1)
+				{
+					Yggdrasil_Hand_Right::_Attackswitch = true;
+					Yggdrasil_Hand_Left::_Attackswitch = true;
+					_state = Yggdrasil_State::Attack_B_Set;
+				}
 
-			if (Attack_Sellect == 2)
-			{
-				Yggdrasil_Hand_Right::_Attackswitch = true;
-				Yggdrasil_Hand_Left::_Attackswitch = true;
-				_state = Yggdrasil_State::Attack_C_Set;
-			}
+				if (Attack_Sellect == 2)
+				{
+					Yggdrasil_Hand_Right::_Attackswitch = true;
+					Yggdrasil_Hand_Left::_Attackswitch = true;
+					_state = Yggdrasil_State::Attack_C_Set;
+				}
 
-			if (Attack_Sellect == 3)
-			{
-				Yggdrasil_Hand_Right::_Attackswitch = true;
-				Yggdrasil_Hand_Left::_Attackswitch = true;
-				_state = Yggdrasil_State::Attack_D_Set;
+				if (Attack_Sellect == 3)
+				{
+					Yggdrasil_Hand_Right::_Attackswitch = true;
+					Yggdrasil_Hand_Left::_Attackswitch = true;
+					_state = Yggdrasil_State::Attack_D_Set;
+				}
 			}
 		}
 	}
@@ -473,9 +508,36 @@ namespace jk
 		}
 	}
 
+
+	void Yggdrasil::intro_set_right()
+	{
+		if (_Intro_SetR == true)
+			_state = Yggdrasil_State::Intro_Ready;
+	}
+	void Yggdrasil::intro_set_left()
+	{
+		if(_Intro_SetL == true)
+			_state = Yggdrasil_State::Intro_Set_Right;
+	}
+	void Yggdrasil::intro_ready()
+	{
+		if(_Intro_Ready ==true)
+			_state = Yggdrasil_State::Intro;
+	}
 	void Yggdrasil::intro()
 	{
+		if(_Intro_StartCHIN==true && _Intro_StartR==true && _Intro_StartL==true)
+			_state = Yggdrasil_State::Intro_End;
 	}
+	void Yggdrasil::intro_end()
+	{
+		_Intro = true;
+		if (_Intro_EndR == true && _Intro_EndL == true )
+			_state = Yggdrasil_State::Idle;
+	}	
+
+
+
 	int Yggdrasil::random(int a, int b)
 	{
 		std::random_device rd;

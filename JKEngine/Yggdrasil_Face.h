@@ -41,14 +41,21 @@ namespace jk
 		void attack_c_finish();
 		void groggy_start();
 		void groggy_end();
+		void intro_set_right();
+		void intro_set_left();
+		void intro_ready();
 		void intro();
+		void intro_end();
+
+
+
 		void basicattack();
 		void set_basicbuulet();
 		void Energy_Bombattack();
 		void Energy_Corpsattack();
 		void groggy_down();
 		void groggy_up();
-
+		float UpdateVibration(float originalX, float amplitude, float frequency, float timeElapsed);
 
 	private:
 		Animator* at = nullptr;
@@ -75,5 +82,6 @@ namespace jk
 		Yggdrsil_Energy_Corps* Energy_Corps[15];
 		GameObject::eState check_state;
 		float	_activetime = 0.f;
+		float   _introtime =  0.f;
 	};
 }

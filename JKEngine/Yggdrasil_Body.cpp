@@ -18,10 +18,12 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
+		
+
 		tr = GetComponent<Transform>();
-		_pos = Vector3(0.f, -50.f, -200.f);
-		tr->SetPosition(_pos);
+		_pos = Vector3(0.f, -350.f, -200.f);		
 		_savepos = Vector3(0.f, -50.f, -200.f);
+		tr->SetPosition(_pos);
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Idle", this);
@@ -119,8 +121,24 @@ namespace jk
 			Yggdrasil_Body::groggy_end();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Set_Right:
+			Yggdrasil_Body::intro_set_right();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Set_Left:
+			Yggdrasil_Body::intro_set_left();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_Ready:
+			Yggdrasil_Body::intro_ready();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Intro:
 			Yggdrasil_Body::intro();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Intro_End:
+			Yggdrasil_Body::intro_end();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Die:
@@ -228,10 +246,41 @@ namespace jk
 			body_up();
 	}
 
+	void Yggdrasil_Body::intro_set_right()
+	{
+	}
+	void Yggdrasil_Body::intro_set_left()
+	{
+	}
 
+
+	void Yggdrasil_Body::intro_ready()
+	{
+		if (introbody_ordernumber == 0)
+		{			
+			_pos.y += 150 * Time::DeltaTime();
+			if (_pos.y >= _savepos.y + 40)
+				introbody_ordernumber = 1;
+		}
+		if (introbody_ordernumber == 1)
+		{
+			if (_pos.y > _savepos.y)
+				_pos.y -= 150 * Time::DeltaTime();
+			if (_pos.y <= _savepos.y)
+			{
+				_pos.y = _savepos.y;
+				_Intro_Ready = true;
+			}
+		}
+	}
 	void Yggdrasil_Body::intro()
 	{
 	}
+	void Yggdrasil_Body::intro_end()
+	{
+	}
+
+
 	void Yggdrasil_Body::body_down()
 	{
 		if (_Groggy_Body_Down == false)
@@ -266,6 +315,8 @@ namespace jk
 			}
 		}
 	}
+
+
 	void Yggdrasil_Body::die()
 	{
 	}

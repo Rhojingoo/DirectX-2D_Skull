@@ -41,7 +41,14 @@ namespace jk
 		void attack_d();
 		void attack_d_loading();
 		void attack_d_finish();
+
+		void intro_set_right();
+		void intro_set_left();
+		void intro_ready();
 		void intro();
+		void intro_end();
+
+		void hand_intro_up();
 
 	public:
 		static bool			_Attackswitch;

@@ -37,7 +37,13 @@ namespace jk
 		void attack_c_finish();
 		void groggy_start();
 		void groggy_end();
+		void intro_set_right();
+		void intro_set_left();
+		void intro_ready();
 		void intro();
+		void intro_end();
+
+
 		void body_down();
 		void body_up();
 
@@ -57,5 +63,8 @@ namespace jk
 		bool    _groggy_body = false;
 		bool    _idle_bodyon = false;
 		float   _falldown = 0.f;
+
+
+		int introbody_ordernumber = 0;
 	};
 }
