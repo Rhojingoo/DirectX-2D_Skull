@@ -373,7 +373,8 @@ namespace jk
 		dotProduct = std::clamp(dotProduct, -1.0f, 1.0f);
 		float angle = std::acos(dotProduct);
 		float angleInDegrees = angle * (180.0f / XM_PI);
-		tr->SetRotation(Vector3(0.f,0.f, angleInDegrees));
+		//tr->SetRotation(Vector3(0.f,0.f, angleInDegrees));
+		tr->AddRotationZ(45);
 		
 		_rigidbody->SetGround(false);
 		_rigidbody->SetVelocity(Vector2(attackrotation_PLAYER.x * -300.f, attackrotation_PLAYER.y * 200));

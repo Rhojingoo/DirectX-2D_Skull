@@ -31,16 +31,16 @@ namespace jk
 	void Collider2D::LateUpdate()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-
+		Vector3 rotation =  tr->GetRotation();
 		Vector3 scale = tr->GetScale();
 		scale.x *= mSize.x;
 		scale.y *= mSize.y;
 		Vector3 pos = tr->GetPosition();
+		pos.x += mCenter.x;
+		pos.y += mCenter.y;
+		mPosition = pos;
 
 
-			pos.x += mCenter.x;
-			pos.y += mCenter.y;
-			mPosition = pos;
 		//if (_Collider_attack == false)
 		//{
 		//}
@@ -56,7 +56,7 @@ namespace jk
 		graphics::DebugMesh mesh = {};
 		mesh.position = pos;
 		mesh.scale = scale;
-		mesh.rotation = tr->GetRotation();
+		mesh.rotation = rotation;
 		mesh.type = eColliderType::Rect;
 
 		renderer::PushDebugMeshAttribute(mesh);

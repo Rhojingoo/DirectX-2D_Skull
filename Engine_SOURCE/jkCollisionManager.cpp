@@ -118,7 +118,7 @@ namespace jk
                 left->OnCollisionStay(right);
                 right->OnCollisionStay(left);
 
-                       if (iter->second == true)
+                if (iter->second == true)
                     return;
             }
             iter->second = true;
