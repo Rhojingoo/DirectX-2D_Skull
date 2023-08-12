@@ -81,6 +81,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Cross01_Ready", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Cross02_Landing", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Cross03_End", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Cross04_Attack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Ground01_Ready", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Ground02_Attack", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Ground03_Landing", this,1);
@@ -98,7 +99,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet_End", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_B_RisingPierce", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_C_DimensionPierce", this,1);
-
+		
 		//bind ºÎºÐ
 		at->CompleteEvent(L"Long_hairRush_Ready") = std::bind(&Layana_LongHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Long_hairRushA") = std::bind(&Layana_LongHair::Complete_Rush, this);
@@ -106,6 +107,8 @@ namespace jk
 		at->CompleteEvent(L"Long_hairRushC") = std::bind(&Layana_LongHair::Complete_Rush, this);
 		at->CompleteEvent(L"Long_hairRush_End") = std::bind(&Layana_LongHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Long_hairMeteor_Cross01_Ready") = std::bind(&Layana_LongHair::Complete_CrossJump, this);
+		//at->CompleteEvent(L"Long_hairMeteor_Cross02_Landing") = std::bind(&Layana_LongHair::Complete_CrossLanding, this);
+		at->CompleteEvent(L"Long_hairMeteor_Cross03_End") = std::bind(&Layana_LongHair::Complete_CrossEnd, this);
 		
 		at->CompleteEvent(L"Long_hairRush_ReadyR") = std::bind(&Layana_LongHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Long_hairRushAR") = std::bind(&Layana_LongHair::Complete_Rush, this);
@@ -113,8 +116,8 @@ namespace jk
 		at->CompleteEvent(L"Long_hairRushCR") = std::bind(&Layana_LongHair::Complete_Rush, this);
 		at->CompleteEvent(L"Long_hairRush_EndR") = std::bind(&Layana_LongHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Long_hairMeteor_Cross01_ReadyR") = std::bind(&Layana_LongHair::Complete_CrossJump, this);
-
-		 
+		//at->CompleteEvent(L"Long_hairMeteor_Cross02_LandingR") = std::bind(&Layana_LongHair::Complete_CrossLanding, this);
+		at->CompleteEvent(L"Long_hairMeteor_Cross03_EndR") = std::bind(&Layana_LongHair::Complete_CrossEnd, this);
 		
 		at->PlayAnimation(L"Long_hairIdle", true);
 
@@ -221,15 +224,21 @@ namespace jk
 			}
 			else
 			{
+				if (_state == Layana_Sisters_State::Meteor_Cross_Landing)
+				{						
+					if (mDir == 1)
+						at->PlayAnimation(L"Long_hairMeteor_Cross02_Landing", true);
+					else
+						at->PlayAnimation(L"Long_hairMeteor_Cross02_LandingR", true);			
+					tr->SetRotationZ(0.f);
+					_CrossMeteorLanding = true;
+				}
 			}
 		}
 	}
 	void Layana_LongHair::OnCollisionExit(Collider2D* other)
 	{
-	}
-
-
-	
+	}	
 
 	
 	void Layana_LongHair::idle()
@@ -314,13 +323,13 @@ namespace jk
 				{
 					at->PlayAnimation(L"Long_hairMeteor_Cross00_JumpR", false);
 					_rigidbody->SetVelocity(Vector2(250.f, 450.f));
-					_rigidbody->SetGround(false);
+					_rigidbody->SetGround(false);					
 				}
 				else
 				{
 					at->PlayAnimation(L"Long_hairMeteor_Cross00_Jump", false);
 					_rigidbody->SetVelocity(Vector2(-250.f, 450.f));
-					_rigidbody->SetGround(false);
+					_rigidbody->SetGround(false);					
 				}
 			}
 		}		
@@ -329,7 +338,7 @@ namespace jk
 
 	void Layana_LongHair::CrossJump()
 	{
-		_Ground_check = false;
+	
 		if (_velocity.y <= -0.1f)
 		{
 			_rigidbody->ClearVelocity();
@@ -340,20 +349,11 @@ namespace jk
 			else
 				at->PlayAnimation(L"Long_hairMeteor_Cross01_ReadyR", true);
 			_state = Layana_Sisters_State::Meteor_Cross_Ready;
+			_Ground_check = false;
 		}
 	}
 	void Layana_LongHair::CrossReady()
-	{
-		//Vector2 attackpoint = Vector2(_Playerpos.x, _Playerpos.y);
-		//Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x, _Playerpos.y);
-		//Vector2 rotation = Vector2(_pos.x, _pos.y);
-
-		//attackpoint.Normalize();
-		//float dotProduct = attackrotation_PLAYER.Dot(rotation);
-		//float angle = std::acos(dotProduct);
-		//float angleInDegrees = angle * (180.0f / XM_PI);
-
-	
+	{	
 	}
 	void Layana_LongHair::CrossAttack()
 	{
@@ -374,7 +374,10 @@ namespace jk
 		float angle = std::acos(dotProduct);
 		float angleInDegrees = angle * (180.0f / XM_PI);
 		//tr->SetRotation(Vector3(0.f,0.f, angleInDegrees));
-		tr->AddRotationZ(45);
+		if (mDir == 1)
+			tr->AddRotationZ(45);
+		else
+			tr->AddRotationZ(-45);		
 		
 		_rigidbody->SetGround(false);
 		_rigidbody->SetVelocity(Vector2(attackrotation_PLAYER.x * -300.f, attackrotation_PLAYER.y * 200));
@@ -383,6 +386,8 @@ namespace jk
 	}
 	void Layana_LongHair::CrossLanding()
 	{
+		if (_CrossMeteorLanding == true)
+			Complete_CrossLanding();
 	}
 	void Layana_LongHair::CrossEnd()
 	{
@@ -471,10 +476,33 @@ namespace jk
 		_Rushnumber++;
 	}
 
+
 	void Layana_LongHair::Complete_CrossJump()
 	{
 		_state = Layana_Sisters_State::Meteor_Cross_Attack;
-		at->PlayAnimation(L"Long_hairMeteor_Cross04_Attack", false);		
+		if(mDir == 1)
+		at->PlayAnimation(L"Long_hairMeteor_Cross04_AttackR", false);		
+		else
+		at->PlayAnimation(L"Long_hairMeteor_Cross04_Attack", false);
+	}
+	void Layana_LongHair::Complete_CrossLanding()
+	{
+		if (mDir)
+			at->PlayAnimation(L"Long_hairMeteor_Cross03_End", true);
+		else
+			at->PlayAnimation(L"Long_hairMeteor_Cross03_EndR", true);
+		_state = Layana_Sisters_State::Meteor_Cross_End;		
+	}
+	void Layana_LongHair::Complete_CrossEnd()
+	{
+		if (mDir)
+			at->PlayAnimation(L"Long_hairIdle", true);
+		else
+			at->PlayAnimation(L"Long_hairIdleR", true);
+		_state = Layana_Sisters_State::Idle;
+		_time = 0;
+		_CrossMeteorSwitch = false;
+		_CrossMeteorLanding = false;
 	}
 
 

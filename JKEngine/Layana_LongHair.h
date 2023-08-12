@@ -42,6 +42,8 @@ namespace jk
 		void Complete_Rush();
 		void Complete_RushReady();
 		void Complete_CrossJump();
+		void Complete_CrossLanding();
+		void Complete_CrossEnd();
 
 	private:
 		Animator* at = nullptr;
@@ -66,6 +68,7 @@ namespace jk
 	private:
 		bool	_RushSwitch = false;
 		bool	_CrossMeteorSwitch = false;
+		bool	_CrossMeteorLanding = false;
 
 		int		_SelectAttack = 0;
 	};
