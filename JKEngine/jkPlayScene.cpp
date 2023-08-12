@@ -9,7 +9,8 @@ namespace jk
 	{
 	}
 	void PlayScene::Initialize()
-	{	
+	{
+		Scene::Initialize();
 	}
 
 	void PlayScene::Update()

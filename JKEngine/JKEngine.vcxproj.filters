@@ -179,6 +179,15 @@
     <ClInclude Include="Yggdrasil_Effect.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Layana_Sisters.h">
+      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_LongHair.h">
+      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_ShortHair.h">
+      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -353,6 +362,15 @@
     <ClCompile Include="Yggdrasil_Effect.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Layana_LongHair.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_ShortHair.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Sisters.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -474,6 +492,9 @@
     </Filter>
     <Filter Include="Game_ob\Boss\Yggdrasil\Effect">
       <UniqueIdentifier>{84a4b619-1569-4c65-bcb4-d58c416e16dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters">
+      <UniqueIdentifier>{b278c1ab-d77d-4228-adf2-25fc5790c541}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

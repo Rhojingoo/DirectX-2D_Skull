@@ -76,6 +76,9 @@
 #include "Yggdrasil_Chin.h"
 #include "Yggdrasil_Hand_Left.h"
 #include "Yggdrasil_Hand_Right.h"
+#include "Layana_Sisters.h"
+#include "Layana_LongHair.h"
+#include "Layana_ShortHair.h"
 
 
 //미니보스

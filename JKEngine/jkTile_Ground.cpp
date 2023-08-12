@@ -5,7 +5,7 @@ namespace jk
 {
 	Tile_Ground::Tile_Ground()
 	{
-		_collider = AddComponent<Collider2D>();
+		//_collider = AddComponent<Collider2D>();
 	}
 	Tile_Ground::~Tile_Ground()
 	{

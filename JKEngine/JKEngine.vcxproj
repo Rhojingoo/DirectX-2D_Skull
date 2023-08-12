@@ -165,6 +165,9 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Attack_HitBox.h" />
+    <ClInclude Include="Layana_LongHair.h" />
+    <ClInclude Include="Layana_ShortHair.h" />
+    <ClInclude Include="Layana_Sisters.h" />
     <ClInclude Include="Mage.h" />
     <ClInclude Include="Monster_BigEnt.h" />
     <ClInclude Include="Monster_BlossomEnt.h" />
@@ -228,6 +231,9 @@
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Attack_HitBox.cpp" />
+    <ClCompile Include="Layana_LongHair.cpp" />
+    <ClCompile Include="Layana_ShortHair.cpp" />
+    <ClCompile Include="Layana_Sisters.cpp" />
     <ClCompile Include="Mage.cpp" />
     <ClCompile Include="Monster_BigEnt.cpp" />
     <ClCompile Include="Monster_BlossomEnt.cpp" />

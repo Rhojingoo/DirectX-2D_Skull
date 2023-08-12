@@ -85,10 +85,14 @@ namespace jk
 			_player->SetName(L"player_select");
 		
 #pragma region Test
-		
-			Yggdrasil* testboss = object::Instantiate<Yggdrasil>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
+
+			Layana_Sisters* testboss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
 			testboss->SetName(L"test_BOSS");
-			////Monster::SetPlayer(_player); 크게사용안함
+
+		
+			//Yggdrasil* testboss = object::Instantiate<Yggdrasil>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
+			//testboss->SetName(L"test_BOSS");
+
 
 			//Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
 			//testmboss->SetName(L"test_mboss");

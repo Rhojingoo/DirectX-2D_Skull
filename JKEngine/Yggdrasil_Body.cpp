@@ -22,7 +22,7 @@ namespace jk
 
 		tr = GetComponent<Transform>();
 		_pos = Vector3(0.f, -350.f, -200.f);		
-		_savepos = Vector3(0.f, -50.f, -200.f);
+		_savepos = Vector3(0.f, 0.f, -200.f);
 		tr->SetPosition(_pos);
 
 		at = AddComponent<Animator>();
