@@ -123,27 +123,28 @@ namespace jk
 
 
 
-
-
-		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical00_Jump:
-		
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical_Jump:
+			Vertical_Jump();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical01_Ready:
-		
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical_Ready:
+			Vertical_Ready();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical02_Attack:
-		
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical_Attack:
+			Vertical_Attack();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical03_Landing:
-	
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical_Landing:
+			Vertical_Landing();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical04_End:
-		
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical_End:
+			Vertical_End();
 			break;
+
+
+
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Skill_A_Bullet:
 			
@@ -267,6 +268,21 @@ namespace jk
 	{
 	}
 	void Layana_Sisters::GroundEnd()
+	{
+	}
+	void Layana_Sisters::Vertical_Jump()
+	{
+	}
+	void Layana_Sisters::Vertical_Ready()
+	{
+	}
+	void Layana_Sisters::Vertical_Attack()
+	{
+	}
+	void Layana_Sisters::Vertical_Landing()
+	{
+	}
+	void Layana_Sisters::Vertical_End()
 	{
 	}
 	void Layana_Sisters::die()

@@ -41,30 +41,28 @@ namespace jk
 			Meteor_Ground_Landing,
 			Meteor_Ground_End,
 
+			Meteor_Vertical_Jump,
+			Meteor_Vertical_Ready,
+			Meteor_Vertical_Attack,
+			Meteor_Vertical_Landing,
+			Meteor_Vertical_End,
+	
 
 
+			Skill_A_Bullet,
+			Skill_A_Bullet_End,
+			Skill_B_RisingPierce,
+			Skill_C_DimensionPierce,
+
+
+			Intro_Dash,
+			Intro_Fall,
+			Intro_Landing,
 
 			BackGround_Idle,
 			BackGround_Move,
 			BackStep,
 
-			Meteor_Vertical00_Jump,
-			Meteor_Vertical01_Ready,
-			Meteor_Vertical02_Attack,
-			Meteor_Vertical03_Landing,
-			Meteor_Vertical04_End,		
-
-
-			Skill_A_Bullet,
-			Skill_A_Bullet_End,
-
-			Skill_B_RisingPierce,
-
-			Skill_C_DimensionPierce,
-
-			Intro_Dash,
-			Intro_Fall,
-			Intro_Landing,
 
 			Awaken,
 			AwakenJump,
@@ -92,6 +90,13 @@ namespace jk
 		void GroundAttack();
 		void GroundLanding();
 		void GroundEnd();
+
+		void Vertical_Jump();
+		void Vertical_Ready();
+		void Vertical_Attack();
+		void Vertical_Landing();
+		void Vertical_End();
+
 
 
 		void die();

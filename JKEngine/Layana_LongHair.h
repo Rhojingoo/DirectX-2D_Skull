@@ -43,7 +43,11 @@ namespace jk
 		void GroundLanding();
 		void GroundEnd();
 
-
+		void Vertical_Jump();
+		void Vertical_Ready();
+		void Vertical_Attack();
+		void Vertical_Landing();
+		void Vertical_End();
 
 
 
@@ -52,17 +56,23 @@ namespace jk
 	public:
 		void Complete_Rush();
 		void Complete_RushReady();
+
 		void Complete_CrossJump();
 		void Complete_CrossLanding();
 		void Complete_CrossEnd();
+		
 		void Complete_GroundLanding();
-		void CompleteGroundEnd();
-		//void CompleteGround();
+		void Complete_GroundEnd();
+
+		void Complete_VerticalJump();
+		void Complete_VerticalReady();
+		void Complete_VerticalEnd();
 		//void CompleteGround();
 
 	public:
 		void Rush_Combo();
 		void Meteor_Cross_Combo();
+		void Meteor_Ground_Combo();
 
 
 	private:
@@ -88,12 +98,17 @@ namespace jk
 
 	private:
 		bool	_RushSwitch = false;
+
 		bool	_CrossMeteorSwitch = false;
 		bool	_CrossMeteorLanding = false;
+
 		bool	_GroundMeteorSwitch = false;
 		bool	_GroundMeteorLanding = false;
 		bool	_GroundMeteorAttack_Right = false;
 		bool	_GroundMeteorAttack_Left = false;
+
+		bool	_VerticalMeteorSwitch = false;
+		bool	_VerticalMeteorLanding = false;
 
 		int		_SelectAttack = 0;
 	};
