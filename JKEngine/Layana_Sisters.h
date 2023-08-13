@@ -29,6 +29,8 @@ namespace jk
 			Dash,
 			FlyDash,
 			LandingDash,
+			BackStep,
+
 
 			Meteor_Cross_Ready,
 			Meteor_Cross_Jump,
@@ -46,11 +48,15 @@ namespace jk
 			Meteor_Vertical_Attack,
 			Meteor_Vertical_Landing,
 			Meteor_Vertical_End,
-	
 
 
+			Skill_A_Bullet_Ready,
 			Skill_A_Bullet,
 			Skill_A_Bullet_End,
+
+
+
+
 			Skill_B_RisingPierce,
 			Skill_C_DimensionPierce,
 
@@ -61,7 +67,6 @@ namespace jk
 
 			BackGround_Idle,
 			BackGround_Move,
-			BackStep,
 
 
 			Awaken,
@@ -79,6 +84,7 @@ namespace jk
 		void Dash();
 		void FlyDash();
 		void LandingDash();
+		void BackStep();
 
 		void CrossJump();
 		void CrossReady();
@@ -97,6 +103,9 @@ namespace jk
 		void Vertical_Landing();
 		void Vertical_End();
 
+		void Skill_A_Ready();
+		void Skill_A();
+		void Skill_A_End();
 
 
 		void die();

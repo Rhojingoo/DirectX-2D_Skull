@@ -102,6 +102,7 @@
 #include "Yggdrasil_BasicBullet.h"
 #include "Yggdrasil_Energy_Bomb.h"
 #include "Yggdrsil_Energy_Corps.h"
+#include "Homing_Pierce.h"
 
 //¿Ã∆Â∆Æ
 #include "Effect.h"

@@ -188,6 +188,9 @@
     <ClInclude Include="Layana_ShortHair.h">
       <Filter>Game_ob\Boss\Layana_Sisters</Filter>
     </ClInclude>
+    <ClInclude Include="Homing_Pierce.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\LayanaBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -371,6 +374,9 @@
     <ClCompile Include="Layana_Sisters.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters</Filter>
     </ClCompile>
+    <ClCompile Include="Homing_Pierce.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\LayanaBullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -495,6 +501,9 @@
     </Filter>
     <Filter Include="Game_ob\Boss\Layana_Sisters">
       <UniqueIdentifier>{b278c1ab-d77d-4228-adf2-25fc5790c541}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\LayanaBullet">
+      <UniqueIdentifier>{2e3c30ec-81b4-430f-a41a-8d6e0d286d94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

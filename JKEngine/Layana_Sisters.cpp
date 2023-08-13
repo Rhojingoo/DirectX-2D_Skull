@@ -69,6 +69,12 @@ namespace jk
 			LandingDash();
 			break;
 
+		case jk::Layana_Sisters::Layana_Sisters_State::BackStep:
+			BackStep();
+			break;
+
+
+
 		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Idle:
 	
 			break;
@@ -77,9 +83,7 @@ namespace jk
 		
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::BackStep:
-	
-			break;
+
 
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Cross_Ready:
@@ -146,13 +150,19 @@ namespace jk
 
 
 
+		case jk::Layana_Sisters::Layana_Sisters_State::Skill_A_Bullet_Ready:
+			Skill_A_Ready();
+			break;
+
 		case jk::Layana_Sisters::Layana_Sisters_State::Skill_A_Bullet:
-			
+			Skill_A();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Skill_A_Bullet_End:
-			
+			Skill_A_End();
 			break;
+
+
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Skill_B_RisingPierce:
 			
@@ -243,6 +253,9 @@ namespace jk
 	void Layana_Sisters::LandingDash()
 	{
 	}
+	void Layana_Sisters::BackStep()
+	{
+	}
 	void Layana_Sisters::CrossJump()
 	{
 	}
@@ -283,6 +296,15 @@ namespace jk
 	{
 	}
 	void Layana_Sisters::Vertical_End()
+	{
+	}
+	void Layana_Sisters::Skill_A_Ready()
+	{
+	}
+	void Layana_Sisters::Skill_A()
+	{
+	}
+	void Layana_Sisters::Skill_A_End()
 	{
 	}
 	void Layana_Sisters::die()

@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "Layana_Sisters.h"
+#include "Homing_Pierce.h"
 
 namespace jk
 {
@@ -29,7 +30,7 @@ namespace jk
 		void Dash();
 		void FlyDash();
 		void LandingDash();
-
+		void BackStep();
 
 
 		void CrossJump();
@@ -50,6 +51,11 @@ namespace jk
 		void Vertical_End();
 
 
+		void Skill_A_Ready();
+		void Skill_A();
+		void Skill_A_End();
+
+
 
 		void die();
 
@@ -67,19 +73,28 @@ namespace jk
 		void Complete_VerticalJump();
 		void Complete_VerticalReady();
 		void Complete_VerticalEnd();
-		//void CompleteGround();
+		
+		
+		void Complete_Skill_A();
 
 	public:
 		void Rush_Combo();
 		void Meteor_Cross_Combo();
 		void Meteor_Ground_Combo();
+		void Meteor_Vertical_Combo();
 
+	public:
+		void CreateHoming();
+		void SettingHoming(Transform* set,int angle_of_number);
 
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
+		Homing_Pierce* Homing[3];
+
+
 	private:
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
 		Vector3	_Playerpos = Vector3(0.f, 0.f, 0.f);
@@ -87,6 +102,7 @@ namespace jk
 		Vector3 _BodyRotation = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 		Vector3 _LongHairCreatepos = Vector3(0.f, 0.f, 0.f);
+		Vector2 _HomingEditPOS = Vector2(0.f, 0.f);
 
 	private:
 		int		_Dir = 1;							// 방향설정
@@ -109,6 +125,13 @@ namespace jk
 
 		bool	_VerticalMeteorSwitch = false;
 		bool	_VerticalMeteorLanding = false;
+
+		bool	_SkillA_Switch = false;
+		bool	_SkillA_Landing = false;
+		bool	_SkillHomingON = false;
+		bool    _SkillHomingFire = false;
+		int		_HomingNumber = 0;
+		float   _HomingAngle[3];
 
 		int		_SelectAttack = 0;
 	};
