@@ -24,6 +24,7 @@ namespace jk
 
 		tr = GetComponent<Transform>();
 		_pos = Vector3(0.f, 0.f, -200.f);		
+		_LongHairCreatepos = _pos;
 		tr->SetPosition(_pos);
 		
 		
@@ -99,7 +100,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet_End", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_B_RisingPierce", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_C_DimensionPierce", this,1);
-		
+	
 		//bind 부분
 		at->CompleteEvent(L"Long_hairRush_Ready") = std::bind(&Layana_LongHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Long_hairRushA") = std::bind(&Layana_LongHair::Complete_Rush, this);
@@ -107,8 +108,10 @@ namespace jk
 		at->CompleteEvent(L"Long_hairRushC") = std::bind(&Layana_LongHair::Complete_Rush, this);
 		at->CompleteEvent(L"Long_hairRush_End") = std::bind(&Layana_LongHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Long_hairMeteor_Cross01_Ready") = std::bind(&Layana_LongHair::Complete_CrossJump, this);
-		//at->CompleteEvent(L"Long_hairMeteor_Cross02_Landing") = std::bind(&Layana_LongHair::Complete_CrossLanding, this);
 		at->CompleteEvent(L"Long_hairMeteor_Cross03_End") = std::bind(&Layana_LongHair::Complete_CrossEnd, this);
+		at->CompleteEvent(L"Long_hairMeteor_Ground01_Ready") = std::bind(&Layana_LongHair::Complete_GroundLanding, this);
+		at->CompleteEvent(L"Long_hairMeteor_Ground04_End") = std::bind(&Layana_LongHair::CompleteGroundEnd, this);
+
 		
 		at->CompleteEvent(L"Long_hairRush_ReadyR") = std::bind(&Layana_LongHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Long_hairRushAR") = std::bind(&Layana_LongHair::Complete_Rush, this);
@@ -116,8 +119,10 @@ namespace jk
 		at->CompleteEvent(L"Long_hairRushCR") = std::bind(&Layana_LongHair::Complete_Rush, this);
 		at->CompleteEvent(L"Long_hairRush_EndR") = std::bind(&Layana_LongHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Long_hairMeteor_Cross01_ReadyR") = std::bind(&Layana_LongHair::Complete_CrossJump, this);
-		//at->CompleteEvent(L"Long_hairMeteor_Cross02_LandingR") = std::bind(&Layana_LongHair::Complete_CrossLanding, this);
 		at->CompleteEvent(L"Long_hairMeteor_Cross03_EndR") = std::bind(&Layana_LongHair::Complete_CrossEnd, this);
+		at->CompleteEvent(L"Long_hairMeteor_Ground01_ReadyR") = std::bind(&Layana_LongHair::Complete_GroundLanding, this);
+		at->CompleteEvent(L"Long_hairMeteor_Ground04_EndR") = std::bind(&Layana_LongHair::CompleteGroundEnd, this);
+
 		
 		at->PlayAnimation(L"Long_hairIdle", true);
 
@@ -128,12 +133,12 @@ namespace jk
 		_Playerpos = Player::GetPlayer_Pos();
 		_velocity = _rigidbody->GetVelocity();
 		_Playerdistance.x = _Playerpos.x - _pos.x;
+		_Playerdistance.y = _Playerpos.y - _pos.y;
 		if (_Playerdistance.x >= 0)
 			mDir = 1;
 		else
 			mDir = -1;
 		_pos = tr->GetPosition();
-
 
 		switch (_state)
 		{
@@ -165,7 +170,13 @@ namespace jk
 			Layana_LongHair::Dash();
 			break;
 
+		case jk::Layana_Sisters::Layana_Sisters_State::FlyDash:
+			Layana_LongHair::FlyDash();
+			break;
 
+		case jk::Layana_Sisters::Layana_Sisters_State::LandingDash:
+			LandingDash();
+			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Cross_Ready:
 			Layana_LongHair::CrossReady();
@@ -187,7 +198,21 @@ namespace jk
 			Layana_LongHair::CrossEnd();
 			break;
 
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground_Ready:
+			Layana_LongHair::GroundReady();
+			break;
 
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground_Attack:
+			Layana_LongHair::GroundAttack();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground_Landing:
+			Layana_LongHair::GroundLanding();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground_End:
+			Layana_LongHair::GroundEnd();
+			break;
 
 		default:
 			break;
@@ -233,6 +258,14 @@ namespace jk
 					tr->SetRotationZ(0.f);
 					_CrossMeteorLanding = true;
 				}
+				if (_state == Layana_Sisters_State::LandingDash)
+				{					
+					if (mDir == 1)
+						at->PlayAnimation(L"Long_hairMeteor_Ground01_Ready", true);
+					else
+						at->PlayAnimation(L"Long_hairMeteor_Ground01_ReadyR", true);		
+					_GroundMeteorLanding = true;
+				}
 			}
 		}
 	}
@@ -245,40 +278,23 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		//_SelectAttack = random(0, 2);
-		_SelectAttack = 1;
+		_SelectAttack = 2;
 
 		if (_time >= 5.0)
 		{
 			if(_SelectAttack == 3)
-			Rush_Combo();
+				Rush_Combo();
 			if (_SelectAttack == 1)
+				Meteor_Cross_Combo();
+			if (_SelectAttack == 2)
 			{
-				_CrossMeteorSwitch = true;
-				if (_Playerdistance.x <= 30 && _Playerdistance.x >= -30)
-				{
-					_state = Layana_Sisters_State::Meteor_Cross_Jump;
-					if (mDir == 1)
-					{
-						at->PlayAnimation(L"Long_hairMeteor_Cross00_JumpR", false);
-						_rigidbody->SetVelocity(Vector2(250.f, 300.f));
-						_rigidbody->SetGround(false);
-					}
-					else
-					{
-						at->PlayAnimation(L"Long_hairMeteor_Cross00_Jump", false);
-						_rigidbody->SetVelocity(Vector2(-250.f, 300.f));
-						_rigidbody->SetGround(false);
-					}
-				}
+				_GroundMeteorSwitch = true; // 이동이 되었을때 공격하는 모션 온
+				_state = Layana_Sisters_State::FlyDash;			
+				if (mDir == -1)
+					at->PlayAnimation(L"Long_hairDash", true);
 				else
-				{
-					_state = Layana_Sisters_State::Dash;
-					if (mDir == 1)
-						at->PlayAnimation(L"Long_hairDash", true);
-					else
-						at->PlayAnimation(L"Long_hairDashR", true);
-				}
-			}
+					at->PlayAnimation(L"Long_hairDashR", true);					
+			}			
 		}
 	}
 	void Layana_LongHair::Rushready()
@@ -334,6 +350,7 @@ namespace jk
 			}
 		}		
 	}
+
 	
 
 	void Layana_LongHair::CrossJump()
@@ -391,6 +408,110 @@ namespace jk
 	}
 	void Layana_LongHair::CrossEnd()
 	{
+	}
+
+
+
+	void Layana_LongHair::GroundReady()
+	{
+	}
+	void Layana_LongHair::GroundAttack()
+	{
+		if (_GroundMeteorAttack_Right == true)
+		{
+			if (_pos.x >= _LongHairCreatepos.x + 312)
+			{
+				_rigidbody->ClearVelocity();
+				_GroundMeteorAttack_Right = false;
+				_state = Layana_Sisters_State::Meteor_Ground_End;
+				if(mDir == 1)
+					at->PlayAnimation(L"Long_hairMeteor_Ground04_End", true);					
+				else
+					at->PlayAnimation(L"Long_hairMeteor_Ground04_EndR", true);
+			}
+		}
+		if (_GroundMeteorAttack_Left == true)
+		{
+			if (_pos.x <= _LongHairCreatepos.x - 312)
+			{
+				_rigidbody->ClearVelocity();
+				_GroundMeteorAttack_Left = false;
+				_state = Layana_Sisters_State::Meteor_Ground_End;
+				if (mDir == 1)
+					at->PlayAnimation(L"Long_hairMeteor_Ground04_End", true);
+				else
+					at->PlayAnimation(L"Long_hairMeteor_Ground04_EndR", true);
+			}
+		}			
+	}
+	void Layana_LongHair::GroundLanding()
+	{
+	}
+	void Layana_LongHair::GroundEnd()
+	{
+	}
+	void Layana_LongHair::FlyDash()
+	{
+		if (_GroundMeteorSwitch == true)
+		{
+			GroundAttackpos_Right;
+			if (mDir == -1)
+			{
+				if (_pos.x < _LongHairCreatepos.x + 700)
+					_pos.x += 750.f * Time::DeltaTime();
+				if (_pos.y < _LongHairCreatepos.y + 150)
+					_pos.y += 150.f * Time::DeltaTime();
+			}
+			else
+			{
+				if (_pos.x > _LongHairCreatepos.x - 700)
+					_pos.x -= 750.f * Time::DeltaTime();
+				if (_pos.y < _LongHairCreatepos.y + 150)
+					_pos.y += 150.f * Time::DeltaTime();
+			}
+			if (_pos.y >= _LongHairCreatepos.y + 150.f)
+			{
+				_state = Layana_Sisters_State::LandingDash;
+				_Ground_check = false;
+				_rigidbody->SetGround(false);
+				if (mDir == -1)
+				{
+					_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
+					at->PlayAnimation(L"Long_hairDashR", true);
+				}
+				else
+				{
+					_rigidbody->SetVelocity(Vector2(650.f, -150.f));
+					at->PlayAnimation(L"Long_hairDash", true);
+				}
+			}
+		}
+
+	}
+	void Layana_LongHair::LandingDash()
+	{
+		_Attacktime += Time::DeltaTime();
+		if (_GroundMeteorLanding == true)
+		{
+			if (_Attacktime >= 1.f)
+			{
+				_state = Layana_Sisters_State::Meteor_Ground_Attack;
+
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"Long_hairMeteor_Ground02_Attack", true);
+					_rigidbody->SetVelocity(Vector2(700.f, 0.f));
+					_GroundMeteorAttack_Right = true;
+				}
+				else
+				{
+					at->PlayAnimation(L"Long_hairMeteor_Ground02_AttackR", true);
+					_rigidbody->SetVelocity(Vector2(-700.f, 0.f));
+					_GroundMeteorAttack_Left = true;
+				}
+				_Attacktime = 0;
+			}
+		}
 	}
 
 
@@ -477,6 +598,34 @@ namespace jk
 	}
 
 
+	void Layana_LongHair::Meteor_Cross_Combo()
+	{
+		_CrossMeteorSwitch = true;
+		if (_Playerdistance.x <= 30 && _Playerdistance.x >= -30)
+		{
+			_state = Layana_Sisters_State::Meteor_Cross_Jump;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"Long_hairMeteor_Cross00_JumpR", false);
+				_rigidbody->SetVelocity(Vector2(250.f, 300.f));
+				_rigidbody->SetGround(false);
+			}
+			else
+			{
+				at->PlayAnimation(L"Long_hairMeteor_Cross00_Jump", false);
+				_rigidbody->SetVelocity(Vector2(-250.f, 300.f));
+				_rigidbody->SetGround(false);
+			}
+		}
+		else
+		{
+			_state = Layana_Sisters_State::Dash;
+			if (mDir == 1)
+				at->PlayAnimation(L"Long_hairDash", true);
+			else
+				at->PlayAnimation(L"Long_hairDashR", true);
+		}
+	}
 	void Layana_LongHair::Complete_CrossJump()
 	{
 		_state = Layana_Sisters_State::Meteor_Cross_Attack;
@@ -503,6 +652,24 @@ namespace jk
 		_time = 0;
 		_CrossMeteorSwitch = false;
 		_CrossMeteorLanding = false;
+	}
+
+	void Layana_LongHair::Complete_GroundLanding()
+	{		
+	}
+	void Layana_LongHair::CompleteGroundEnd()
+	{
+		if (mDir==1)
+			at->PlayAnimation(L"Long_hairIdle", true);
+		else
+			at->PlayAnimation(L"Long_hairIdleR", true);
+		_state = Layana_Sisters_State::Idle;
+		_time = 0;
+
+		_GroundMeteorSwitch = false;
+		_GroundMeteorLanding = false;
+		_GroundMeteorAttack_Right = false;
+		_GroundMeteorAttack_Left = false;
 	}
 
 

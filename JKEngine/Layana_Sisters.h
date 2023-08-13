@@ -27,6 +27,8 @@ namespace jk
 			RushC,
 			Rush_End,
 			Dash,
+			FlyDash,
+			LandingDash,
 
 			Meteor_Cross_Ready,
 			Meteor_Cross_Jump,
@@ -34,15 +36,17 @@ namespace jk
 			Meteor_Cross_Landing,
 			Meteor_Cross_End,
 
+			Meteor_Ground_Ready,
+			Meteor_Ground_Attack,
+			Meteor_Ground_Landing,
+			Meteor_Ground_End,
+
+
+
+
 			BackGround_Idle,
 			BackGround_Move,
 			BackStep,
-
-			Meteor_Ground01_Ready,
-			Meteor_Ground02_Attack,
-			Meteor_Ground03_Landing,
-			Meteor_Ground04_End,
-
 
 			Meteor_Vertical00_Jump,
 			Meteor_Vertical01_Ready,
@@ -75,12 +79,19 @@ namespace jk
 		void Rush_C();
 		void Rush_End();
 		void Dash();
+		void FlyDash();
+		void LandingDash();
 
 		void CrossJump();
 		void CrossReady();
 		void CrossAttack();
 		void CrossLanding();
 		void CrossEnd();
+
+		void GroundReady();
+		void GroundAttack();
+		void GroundLanding();
+		void GroundEnd();
 
 
 		void die();
@@ -99,7 +110,8 @@ namespace jk
 		static Layana_Sisters_State _state;
 		static int	mDir;
 		static float _time;
-
+		static Vector3 GroundAttackpos_Right;
+		static Vector3 GroundAttackpos_Left;
 
 	private:
 		GameObject* _Gobjs[3];

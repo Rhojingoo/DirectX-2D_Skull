@@ -9,6 +9,8 @@ namespace jk
 	Vector3 Layana_Sisters::_Rotation = Vector3(0.f, 0.f, 0.f);
 	int	Layana_Sisters::mDir = 1;
 	float Layana_Sisters::_time = 0.f;
+	Vector3 Layana_Sisters::GroundAttackpos_Right = Vector3(0.f, 0.f, 0.f);
+	Vector3 Layana_Sisters::GroundAttackpos_Left = Vector3(0.f, 0.f, 0.f);
 
 	Layana_Sisters::Layana_Sisters()
 	{
@@ -59,7 +61,13 @@ namespace jk
 			Dash();
 			break;
 
+		case jk::Layana_Sisters::Layana_Sisters_State::FlyDash:
+			FlyDash();
+			break;
 
+		case jk::Layana_Sisters::Layana_Sisters_State::LandingDash:
+			LandingDash();
+			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Idle:
 	
@@ -94,21 +102,28 @@ namespace jk
 			CrossEnd();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground01_Ready:
-		
+
+
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground_Ready:
+			GroundReady();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground02_Attack:
-
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground_Attack:
+			GroundAttack();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground03_Landing:
-		
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground_Landing:
+			GroundLanding();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground04_End:
-		
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground_End:
+			GroundEnd();
 			break;
+
+
+
+
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical00_Jump:
 		
@@ -221,6 +236,12 @@ namespace jk
 	void Layana_Sisters::Dash()
 	{
 	}
+	void Layana_Sisters::FlyDash()
+	{
+	}
+	void Layana_Sisters::LandingDash()
+	{
+	}
 	void Layana_Sisters::CrossJump()
 	{
 	}
@@ -234,6 +255,18 @@ namespace jk
 	{
 	}
 	void Layana_Sisters::CrossEnd()
+	{
+	}
+	void Layana_Sisters::GroundReady()
+	{
+	}
+	void Layana_Sisters::GroundAttack()
+	{
+	}
+	void Layana_Sisters::GroundLanding()
+	{
+	}
+	void Layana_Sisters::GroundEnd()
 	{
 	}
 	void Layana_Sisters::die()
