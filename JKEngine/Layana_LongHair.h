@@ -92,7 +92,16 @@ namespace jk
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
+
+
+	private:
 		Homing_Pierce* Homing[3];
+		Transform* bullet_tr1 = nullptr;
+		Transform* bullet_tr2 = nullptr;
+		Transform* bullet_tr3 = nullptr;
+		RigidBody* bullet_rb1 = nullptr;
+		RigidBody* bullet_rb2 = nullptr;
+		RigidBody* bullet_rb3 = nullptr;
 
 
 	private:
