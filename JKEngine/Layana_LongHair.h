@@ -2,6 +2,7 @@
 #include "Include_Common.h"
 #include "Layana_Sisters.h"
 #include "Homing_Pierce.h"
+#include "Rising_Pierce.h"
 
 namespace jk
 {
@@ -55,7 +56,8 @@ namespace jk
 		void Skill_A();
 		void Skill_A_End();
 
-
+		void Skill_B();
+		void Skill_B_End();
 
 		void die();
 
@@ -76,12 +78,15 @@ namespace jk
 		
 		
 		void Complete_Skill_A();
+		void Complete_Skill_B();
 
 	public:
 		void Rush_Combo();
 		void Meteor_Cross_Combo();
 		void Meteor_Ground_Combo();
 		void Meteor_Vertical_Combo();
+		void Skill_A_Combo();
+		void Skill_B_Combo();
 
 	public:
 		void CreateHoming();
@@ -103,6 +108,12 @@ namespace jk
 		RigidBody* bullet_rb2 = nullptr;
 		RigidBody* bullet_rb3 = nullptr;
 
+
+	private:
+		Rising_Pierce* Rising[19];
+		Transform* Risingbullet_tr[19];
+		RigidBody* risingbullet_rb[19];
+	
 
 	private:
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
@@ -141,6 +152,9 @@ namespace jk
 		bool    _SkillHomingFire = false;
 		int		_HomingNumber = 0;
 		float   _HomingAngle[3];
+
+		bool	_SkillB_Switch = false;
+		//bool	_SkillB_Switch = false;
 
 		int		_SelectAttack = 0;
 	};

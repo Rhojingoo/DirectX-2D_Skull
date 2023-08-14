@@ -65,6 +65,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_B_RisingPierce", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_B_RisingPierce_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_C_DimensionPierce", this);
 		
 	
@@ -103,8 +104,11 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet_End", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_B_RisingPierce", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_B_RisingPierce_End", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_C_DimensionPierce", this,1);
 		
+		
+
 		//bind 부분
 		at->CompleteEvent(L"Long_hairRush_Ready") = std::bind(&Layana_LongHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Long_hairRushA") = std::bind(&Layana_LongHair::Complete_Rush, this);
@@ -119,6 +123,9 @@ namespace jk
 		at->CompleteEvent(L"Long_hairMeteor_Vertical01_Ready") = std::bind(&Layana_LongHair::Complete_VerticalReady, this);
 		at->CompleteEvent(L"Long_hairMeteor_Vertical04_End") = std::bind(&Layana_LongHair::Complete_VerticalEnd, this);
 		at->CompleteEvent(L"Long_hairSkill_A_Bullet_End") = std::bind(&Layana_LongHair::Complete_Skill_A, this);
+		at->CompleteEvent(L"Long_hairSkill_B_RisingPierce_End") = std::bind(&Layana_LongHair::Complete_Skill_B, this);
+
+		
 
 
 		at->CompleteEvent(L"Long_hairRush_ReadyR") = std::bind(&Layana_LongHair::Complete_RushReady, this);
@@ -134,6 +141,7 @@ namespace jk
 		at->CompleteEvent(L"Long_hairMeteor_Vertical01_ReadyR") = std::bind(&Layana_LongHair::Complete_VerticalReady, this);
 		at->CompleteEvent(L"Long_hairMeteor_Vertical04_EndR") = std::bind(&Layana_LongHair::Complete_VerticalEnd, this);
 		at->CompleteEvent(L"Long_hairSkill_A_Bullet_EndR") = std::bind(&Layana_LongHair::Complete_Skill_A, this);
+		at->CompleteEvent(L"Long_hairSkill_B_RisingPierce_EndR") = std::bind(&Layana_LongHair::Complete_Skill_B, this);
 
 
 		for (int i = 0; i < 3; i++)
@@ -153,8 +161,20 @@ namespace jk
 		bullet_rb2 = Homing[1]->GetComponent<RigidBody>();
 		bullet_rb3 = Homing[2]->GetComponent<RigidBody>();
 
-		at->PlayAnimation(L"Long_hairIdle", true);
 
+		
+		for (int a = 0; a< 19; a++)
+		{
+			Rising[a] = new Rising_Pierce;
+			Rising[a]->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Rising[a]);
+			Risingbullet_tr[a] = Rising[a]->GetComponent<Transform>();
+			Risingbullet_tr[a]->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			Rising[a]->SetState(eState::Paused);
+		}
+
+		at->PlayAnimation(L"Long_hairIdle", true);
 		GameObject::Initialize();
 	}
 	void Layana_LongHair::Update()
@@ -243,6 +263,10 @@ namespace jk
 			Layana_LongHair::GroundLanding();
 			break;
 
+		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground_End:
+			Layana_LongHair::GroundEnd();
+			break;
+
 		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Vertical_Jump:
 			Layana_LongHair::Vertical_Jump();
 			break;
@@ -275,9 +299,16 @@ namespace jk
 			Layana_LongHair::Skill_A_End();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Ground_End:
-			Layana_LongHair::GroundEnd();
+		case jk::Layana_Sisters::Layana_Sisters_State::Skill_B_RisingPierce:
+			Layana_LongHair::Skill_B();
 			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Skill_B_RisingPierce_End:
+			Layana_LongHair::Skill_B_End();
+			break;
+
+
+
 
 		default:
 			break;
@@ -359,9 +390,9 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		//_SelectAttack = random(0, 2);
-		_SelectAttack = 4;
+		_SelectAttack = 5;
 
-		if (_time >= 5.0)
+		if (_time >= 3.0)
 		{
 			if(_SelectAttack == 0)
 				Rush_Combo();
@@ -372,18 +403,9 @@ namespace jk
 			if (_SelectAttack == 3)
 				Meteor_Vertical_Combo();
 			if (_SelectAttack == 4)
-			{
-				_SkillA_Switch = true;
-				if (_SkillA_Switch == true)
-				{
-					_state = _state = Layana_Sisters_State::Skill_A_Bullet_Ready;
-					if (mDir == 1)
-						at->PlayAnimation(L"Long_hairSkill_A_Bullet_Ready", true);
-					else
-						at->PlayAnimation(L"Long_hairSkill_A_Bullet_ReadyR", true);					
-					_SkillA_Landing = true;
-				}
-			}
+				Skill_A_Combo();
+			if (_SelectAttack == 5)			
+				Skill_B_Combo();					
 		}
 	}
 
@@ -795,6 +817,55 @@ namespace jk
 
 	}
 
+	void Layana_LongHair::Skill_B()
+	{
+		static float edidpos = 20;
+		static int lastActivatedIndex = 0;
+		if (_SkillB_Switch == false)
+		{
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime >= 0.8 && _Attacktime <= 1)
+			{
+				Risingbullet_tr[0]->SetPosition(Vector3(_pos.x, _pos.y + 35, -250));
+				Rising[0]->SetState(eState::Active);
+			}
+			if (_Attacktime <= 5)
+			{
+				for (int i = lastActivatedIndex; i < 9; i++)
+				{
+					// 0.5초마다 하나씩 처리
+					if (_Attacktime >= (1.0f + 0.2f * i))
+					{
+						Risingbullet_tr[i + 1]->SetPosition(Vector3(_pos.x + edidpos, _pos.y + 35, -255));
+						Rising[i + 1]->SetState(eState::Active);
+
+						Risingbullet_tr[i + 10]->SetPosition(Vector3(_pos.x - edidpos, _pos.y + 35, -255));
+						Rising[i + 10]->SetState(eState::Active);
+
+						edidpos += 25;
+						lastActivatedIndex = i + 1; 
+						continue; 
+					}
+				}
+			}
+			else
+			{
+				_SkillB_Switch = true;
+				_state = _state = Layana_Sisters_State::Skill_B_RisingPierce_End;
+				if (mDir == 1)
+					at->PlayAnimation(L"Long_hairSkill_B_RisingPierce_End", true);
+				else
+					at->PlayAnimation(L"Long_hairSkill_B_RisingPierce_EndR", true);
+				_Attacktime = 0;
+				edidpos = 20;
+				lastActivatedIndex = 0;
+			}
+		}				
+	}
+	void Layana_LongHair::Skill_B_End()
+	{
+	}
+
 
 
 	void Layana_LongHair::Rush_Combo()
@@ -975,7 +1046,7 @@ namespace jk
 			at->PlayAnimation(L"Long_hairDash", true);
 		else
 			at->PlayAnimation(L"Long_hairDashR", true);
-	}
+	}	
 	void jk::Layana_LongHair::Complete_VerticalJump()
 	{
 		_Ground_check = false;
@@ -1009,6 +1080,21 @@ namespace jk
 		_VerticalMeteorLanding = false;
 	}
 
+
+
+	void Layana_LongHair::Skill_A_Combo()
+	{
+		_SkillA_Switch = true;
+		if (_SkillA_Switch == true)
+		{
+			_state = _state = Layana_Sisters_State::Skill_A_Bullet_Ready;
+			if (mDir == 1)
+				at->PlayAnimation(L"Long_hairSkill_A_Bullet_Ready", true);
+			else
+				at->PlayAnimation(L"Long_hairSkill_A_Bullet_ReadyR", true);
+			_SkillA_Landing = true;
+		}
+	}
 	void Layana_LongHair::Complete_Skill_A()
 	{
 		if (mDir == 1)
@@ -1024,6 +1110,27 @@ namespace jk
 		_SkillHomingFire = false;
 		_HomingNumber = 0;
 		_Attacktime = 0.f;
+	}
+
+
+	void Layana_LongHair::Skill_B_Combo()
+	{
+		_state = _state = Layana_Sisters_State::Skill_B_RisingPierce;
+		if (mDir == 1)
+			at->PlayAnimation(L"Long_hairSkill_B_RisingPierce", false);
+		else
+			at->PlayAnimation(L"Long_hairSkill_B_RisingPierceR", false);
+	}
+	void Layana_LongHair::Complete_Skill_B()
+	{
+		if (mDir == 1)
+			at->PlayAnimation(L"Long_hairIdle", true);
+		else
+			at->PlayAnimation(L"Long_hairIdleR", true);
+		_state = Layana_Sisters_State::Idle;
+
+		_time = 0.f;
+		_SkillB_Switch = false;
 	}
 
 
@@ -1118,6 +1225,10 @@ namespace jk
 		if (angle_of_number == 2)
 			_HomingAngle[2] = anglew;
 	}
+
+
+
+
 
 	void Layana_LongHair::die()
 	{

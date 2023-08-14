@@ -23,17 +23,16 @@ namespace jk
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Homing_pierce", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Homing_pierce", this,1);
-
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Homing_pierce", this, 1);
 
 		at->PlayAnimation(L"BulletHoming_pierce", true);
 		GameObject::Initialize();
 	}
 	void Homing_Pierce::Update()
 	{
-		if(mDir==1)
+		if(mDir ==1)
 			at->PlayAnimation(L"BulletHoming_pierce", true);
-		else
+		else 
 			at->PlayAnimation(L"BulletHoming_pierceR", true);
 
 		GameObject::Update();
@@ -57,4 +56,5 @@ namespace jk
 	void Homing_Pierce::OnCollisionExit(Collider2D* other)
 	{
 	}
+
 }

@@ -24,6 +24,8 @@ namespace jk
 		static void SetDirection(int set) { mDir = set; }
 		static int	mDir;
 
+	
+
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;

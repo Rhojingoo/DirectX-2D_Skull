@@ -75,15 +75,6 @@ namespace jk
 
 
 
-		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Idle:
-	
-			break;
-
-		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Move:
-		
-			break;
-
-
 
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Cross_Ready:
@@ -164,9 +155,31 @@ namespace jk
 
 
 
+
 		case jk::Layana_Sisters::Layana_Sisters_State::Skill_B_RisingPierce:
-			
+			Skill_B();
 			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Skill_B_RisingPierce_End:
+			Skill_B_End();
+			break;
+
+			
+
+
+		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Idle:
+
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Move:
+
+			break;
+
+
+
+
+
+
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Skill_C_DimensionPierce:
 			
@@ -305,6 +318,12 @@ namespace jk
 	{
 	}
 	void Layana_Sisters::Skill_A_End()
+	{
+	}
+	void Layana_Sisters::Skill_B()
+	{
+	}
+	void Layana_Sisters::Skill_B_End()
 	{
 	}
 	void Layana_Sisters::die()

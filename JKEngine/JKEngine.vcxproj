@@ -173,6 +173,7 @@
     <ClInclude Include="Monster_BigEnt.h" />
     <ClInclude Include="Monster_BlossomEnt.h" />
     <ClInclude Include="Monster_GreenTree.h" />
+    <ClInclude Include="Rising_Pierce.h" />
     <ClInclude Include="Skul_Thief.h" />
     <ClInclude Include="Stone_wizard.h" />
     <ClInclude Include="Include_Common.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="Monster_BigEnt.cpp" />
     <ClCompile Include="Monster_BlossomEnt.cpp" />
     <ClCompile Include="Monster_GreenTree.cpp" />
+    <ClCompile Include="Rising_Pierce.cpp" />
     <ClCompile Include="Skul_Thief.cpp" />
     <ClCompile Include="Stone_wizard.cpp" />
     <ClCompile Include="jkBack_ground.cpp" />

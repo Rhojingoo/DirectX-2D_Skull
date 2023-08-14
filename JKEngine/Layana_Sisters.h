@@ -55,9 +55,10 @@ namespace jk
 			Skill_A_Bullet_End,
 
 
-
-
 			Skill_B_RisingPierce,
+			Skill_B_RisingPierce_End,
+		
+
 			Skill_C_DimensionPierce,
 
 
@@ -107,6 +108,8 @@ namespace jk
 		void Skill_A();
 		void Skill_A_End();
 
+		void Skill_B();
+		void Skill_B_End();
 
 		void die();
 

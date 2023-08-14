@@ -191,6 +191,9 @@
     <ClInclude Include="Homing_Pierce.h">
       <Filter>Game_ob\Boss\Layana_Sisters\LayanaBullet</Filter>
     </ClInclude>
+    <ClInclude Include="Rising_Pierce.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\LayanaBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -375,6 +378,9 @@
       <Filter>Game_ob\Boss\Layana_Sisters</Filter>
     </ClCompile>
     <ClCompile Include="Homing_Pierce.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\LayanaBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Rising_Pierce.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\LayanaBullet</Filter>
     </ClCompile>
   </ItemGroup>

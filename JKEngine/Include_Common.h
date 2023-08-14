@@ -103,6 +103,7 @@
 #include "Yggdrasil_Energy_Bomb.h"
 #include "Yggdrsil_Energy_Corps.h"
 #include "Homing_Pierce.h"
+#include "Rising_Pierce.h"
 
 //¿Ã∆Â∆Æ
 #include "Effect.h"
