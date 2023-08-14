@@ -3,6 +3,9 @@
 #include "Layana_Sisters.h"
 #include "Homing_Pierce.h"
 #include "Rising_Pierce.h"
+#include "Dimension_Pierce.h"
+#include "Dimension_Pierce_BossEffect.h"
+#include "Dimension_Pierce_BulletEffect.h"
 
 namespace jk
 {
@@ -59,6 +62,8 @@ namespace jk
 		void Skill_B();
 		void Skill_B_End();
 
+		void Skill_C();
+
 		void die();
 
 	public:
@@ -113,7 +118,11 @@ namespace jk
 		Rising_Pierce* Rising[19];
 		Transform* Risingbullet_tr[19];
 		RigidBody* risingbullet_rb[19];
-	
+
+	private:
+		Dimension_Pierce_BossEffect* Dimension_boss_effect = nullptr;
+		Dimension_Pierce* Dimension_Bullet = nullptr;
+		Dimension_Pierce_BulletEffect* Dimension_BulletEffect = nullptr;
 
 	private:
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
@@ -154,7 +163,8 @@ namespace jk
 		float   _HomingAngle[3];
 
 		bool	_SkillB_Switch = false;
-		//bool	_SkillB_Switch = false;
+
+		bool	_SkillC_Switch = false;
 
 		int		_SelectAttack = 0;
 	};

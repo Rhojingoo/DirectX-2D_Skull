@@ -26,6 +26,7 @@ namespace jk::enums
 		Monster,
 		MiniBoss,
 		Bullet,
+		Effect,
 		Boss,
 		Item,
 		Hitbox,

@@ -104,10 +104,15 @@
 #include "Yggdrsil_Energy_Corps.h"
 #include "Homing_Pierce.h"
 #include "Rising_Pierce.h"
+#include "Dimension_Pierce.h"
 
 //¿Ã∆Â∆Æ
 #include "Effect.h"
+//Yggdrasil Effect
 #include "Yggdrasil_Effect.h"
+// Layana_Sisters Effect
+#include "Dimension_Pierce_BossEffect.h"
+#include "Dimension_Pierce_BulletEffect.h"
 
 //UI
 #include "UI.h"

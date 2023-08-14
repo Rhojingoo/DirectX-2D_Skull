@@ -174,6 +174,39 @@ namespace jk
 			Rising[a]->SetState(eState::Paused);
 		}
 
+		{
+			Dimension_boss_effect = new Dimension_Pierce_BossEffect;
+			Dimension_boss_effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Dimension_boss_effect);
+			Transform* boss_effect = Dimension_boss_effect->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			Dimension_boss_effect->SetState(eState::Paused);
+		}
+
+
+		{
+			Dimension_Bullet = new Dimension_Pierce;
+			Dimension_Bullet->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Dimension_Bullet);
+			Transform* boss_effect = Dimension_Bullet->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			Dimension_Bullet->SetState(eState::Paused);
+		}
+		
+
+		{
+			Dimension_BulletEffect = new Dimension_Pierce_BulletEffect;
+			Dimension_BulletEffect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Dimension_BulletEffect);
+			Transform* bullte_effect = Dimension_BulletEffect->GetComponent<Transform>();
+			bullte_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			Dimension_BulletEffect->SetState(eState::Paused);
+		}
+
+
 		at->PlayAnimation(L"Long_hairIdle", true);
 		GameObject::Initialize();
 	}
@@ -307,6 +340,9 @@ namespace jk
 			Layana_LongHair::Skill_B_End();
 			break;
 
+		case jk::Layana_Sisters::Layana_Sisters_State::Skill_C_DimensionPierce:
+			Layana_LongHair::Skill_C();
+			break;
 
 
 
@@ -390,7 +426,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		//_SelectAttack = random(0, 2);
-		_SelectAttack = 5;
+		_SelectAttack = 6;
 
 		if (_time >= 3.0)
 		{
@@ -405,7 +441,9 @@ namespace jk
 			if (_SelectAttack == 4)
 				Skill_A_Combo();
 			if (_SelectAttack == 5)			
-				Skill_B_Combo();					
+				Skill_B_Combo();		
+			if (_SelectAttack == 6)			
+				Skill_C_Combo();
 		}
 	}
 
@@ -731,7 +769,6 @@ namespace jk
 	}
 	void Layana_LongHair::Skill_A()
 	{
-
 		_Attacktime += Time::DeltaTime();
 	
 		if (_Attacktime < 5)
@@ -817,6 +854,7 @@ namespace jk
 
 	}
 
+
 	void Layana_LongHair::Skill_B()
 	{
 		static float edidpos = 20;
@@ -864,6 +902,104 @@ namespace jk
 	}
 	void Layana_LongHair::Skill_B_End()
 	{
+	}
+
+
+
+	void Layana_LongHair::Skill_C()
+	{
+		if (_SkillC_Switch == false)
+		{
+			{
+				Transform* boss_effect = Dimension_boss_effect->GetComponent<Transform>();
+				boss_effect->SetPosition(Vector3(_pos.x, _pos.y - 10, -250));
+				Dimension_boss_effect->SetState(eState::Active);
+				Dimension_boss_effect->_SwitchOn = true;
+				if (mDir == 1)
+					Dimension_boss_effect->SetDirection(1);
+				else
+					Dimension_boss_effect->SetDirection(-1);
+			}
+			{
+				Transform* boss_bullet = Dimension_Bullet->GetComponent<Transform>();
+				Dimension_Bullet->_effect_switch = true;
+				int Setrotation = random(1, 2);				
+				if (mDir == 1)
+				{					
+					Dimension_Bullet->SetDirection(1);
+					float anglew = 0.f;
+					if (Setrotation == 1)
+					{						
+						int setangle = random(295, 335);
+						float anglew = setangle / (180.0f / XM_PI);
+						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y + 25, -250));
+					}
+					else
+					{						
+						int setangle = random(25, 65);
+						float anglew = setangle / (180.0f / XM_PI);
+						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y - 25, -250));
+					}					
+					Dimension_Bullet->SetState(eState::Active);
+				}		
+				else
+				{					
+					Dimension_Bullet->SetDirection(-1);
+					if (Setrotation == 1)
+					{
+						int setangle = random(-335, -295);						
+						float anglew = setangle / (180.0f / XM_PI);
+						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y + 25, -250));
+					}
+					else
+					{					
+						int setangle = random(-65, -25);							
+						float anglew = setangle / (180.0f / XM_PI);
+						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y - 25, -250));
+					}				
+					Dimension_Bullet->SetState(eState::Active);
+				}				
+			}
+			_SkillC_Switch = true;
+		}
+		else
+		{
+			_Attacktime += Time::DeltaTime();
+
+			if (_Attacktime >= 2 && _Attacktime < 3)
+			{
+				Transform* boss_bullet = Dimension_Bullet->GetComponent<Transform>();
+				Transform* boss_effect = Dimension_BulletEffect->GetComponent<Transform>();
+				boss_effect->SetPosition(Vector3(boss_bullet->GetPositionX(), boss_bullet->GetPositionY(), -250));
+				boss_effect->SetRotationZ(boss_bullet->GetRotationZ());
+				Dimension_BulletEffect->_SwitchOn = true;
+				Dimension_BulletEffect->SetState(eState::Active);
+
+				Dimension_BulletEffect->_SwitchOn = true;
+				if (mDir == 1)
+					Dimension_BulletEffect->SetDirection(1);
+				else
+					Dimension_BulletEffect->SetDirection(-1);
+			}
+			if (Dimension_BulletEffect->_SwitchOff == true)
+			{
+				Dimension_Bullet->SetState(eState::Paused);
+				Dimension_BulletEffect->_SwitchOff = false;
+				
+
+				if (mDir == 1)
+					at->PlayAnimation(L"Long_hairIdle", true);
+				else
+					at->PlayAnimation(L"Long_hairIdleR", true);
+				_state = Layana_Sisters_State::Idle;
+				_Attacktime = 0;
+				_SkillC_Switch = false;
+			}
+		}
 	}
 
 
@@ -1134,6 +1270,18 @@ namespace jk
 	}
 
 
+	void Layana_LongHair::Skill_C_Combo()
+	{
+		_state = _state = Layana_Sisters_State::Skill_C_DimensionPierce;
+		if (mDir == 1)
+			at->PlayAnimation(L"Long_hairSkill_C_DimensionPierce", false);
+		else
+			at->PlayAnimation(L"Long_hairSkill_C_DimensionPierceR", false);
+	}
+
+
+
+
 
 	void Layana_LongHair::CreateHoming()
 	{
@@ -1225,9 +1373,6 @@ namespace jk
 		if (angle_of_number == 2)
 			_HomingAngle[2] = anglew;
 	}
-
-
-
 
 
 	void Layana_LongHair::die()

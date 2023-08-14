@@ -163,8 +163,16 @@ namespace jk
 		case jk::Layana_Sisters::Layana_Sisters_State::Skill_B_RisingPierce_End:
 			Skill_B_End();
 			break;
-
 			
+
+
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Skill_C_DimensionPierce:
+			Skill_C();
+			break;
+
+
+
 
 
 		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Idle:
@@ -181,9 +189,7 @@ namespace jk
 
 
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Skill_C_DimensionPierce:
-			
-			break;
+
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Dash:
 			
@@ -324,6 +330,9 @@ namespace jk
 	{
 	}
 	void Layana_Sisters::Skill_B_End()
+	{
+	}
+	void Layana_Sisters::Skill_C()
 	{
 	}
 	void Layana_Sisters::die()

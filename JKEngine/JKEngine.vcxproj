@@ -160,6 +160,9 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Castle_Area.h" />
     <ClInclude Include="Cleric.h" />
+    <ClInclude Include="Dimension_Pierce_BossEffect.h" />
+    <ClInclude Include="Dimension_Pierce.h" />
+    <ClInclude Include="Dimension_Pierce_BulletEffect.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Face_UI.h" />
     <ClInclude Include="framework.h" />
@@ -229,6 +232,9 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Castle_Area.cpp" />
     <ClCompile Include="Cleric.cpp" />
+    <ClCompile Include="Dimension_Pierce_BossEffect.cpp" />
+    <ClCompile Include="Dimension_Pierce.cpp" />
+    <ClCompile Include="Dimension_Pierce_BulletEffect.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Grid.cpp" />

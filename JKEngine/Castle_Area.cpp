@@ -158,6 +158,7 @@ namespace jk
 		cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Effect, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);

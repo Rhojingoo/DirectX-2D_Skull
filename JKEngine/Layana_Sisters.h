@@ -57,10 +57,11 @@ namespace jk
 
 			Skill_B_RisingPierce,
 			Skill_B_RisingPierce_End,
-		
+
 
 			Skill_C_DimensionPierce,
 
+	
 
 			Intro_Dash,
 			Intro_Fall,
@@ -110,6 +111,8 @@ namespace jk
 
 		void Skill_B();
 		void Skill_B_End();
+
+		void Skill_C();
 
 		void die();
 

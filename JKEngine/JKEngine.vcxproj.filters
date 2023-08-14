@@ -189,10 +189,19 @@
       <Filter>Game_ob\Boss\Layana_Sisters</Filter>
     </ClInclude>
     <ClInclude Include="Homing_Pierce.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\LayanaBullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Rising_Pierce.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\LayanaBullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Dimension_Pierce_BossEffect.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClInclude>
+    <ClInclude Include="Dimension_Pierce.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Dimension_Pierce_BulletEffect.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -378,10 +387,19 @@
       <Filter>Game_ob\Boss\Layana_Sisters</Filter>
     </ClCompile>
     <ClCompile Include="Homing_Pierce.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\LayanaBullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Rising_Pierce.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\LayanaBullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Dimension_Pierce_BossEffect.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClCompile>
+    <ClCompile Include="Dimension_Pierce.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Dimension_Pierce_BulletEffect.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -508,7 +526,10 @@
     <Filter Include="Game_ob\Boss\Layana_Sisters">
       <UniqueIdentifier>{b278c1ab-d77d-4228-adf2-25fc5790c541}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\Boss\Layana_Sisters\LayanaBullet">
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Layana_Efeect">
+      <UniqueIdentifier>{6b402006-6ee9-471a-a9f1-db88d72f624a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Layana_Bullet">
       <UniqueIdentifier>{2e3c30ec-81b4-430f-a41a-8d6e0d286d94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
