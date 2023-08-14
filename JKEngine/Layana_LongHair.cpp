@@ -124,6 +124,7 @@ namespace jk
 		at->CompleteEvent(L"Long_hairMeteor_Vertical04_End") = std::bind(&Layana_LongHair::Complete_VerticalEnd, this);
 		at->CompleteEvent(L"Long_hairSkill_A_Bullet_End") = std::bind(&Layana_LongHair::Complete_Skill_A, this);
 		at->CompleteEvent(L"Long_hairSkill_B_RisingPierce_End") = std::bind(&Layana_LongHair::Complete_Skill_B, this);
+		at->CompleteEvent(L"Long_hairIntro_Landing") = std::bind(&Layana_LongHair::Complete_IntroRanding, this);
 
 		
 
@@ -142,6 +143,7 @@ namespace jk
 		at->CompleteEvent(L"Long_hairMeteor_Vertical04_EndR") = std::bind(&Layana_LongHair::Complete_VerticalEnd, this);
 		at->CompleteEvent(L"Long_hairSkill_A_Bullet_EndR") = std::bind(&Layana_LongHair::Complete_Skill_A, this);
 		at->CompleteEvent(L"Long_hairSkill_B_RisingPierce_EndR") = std::bind(&Layana_LongHair::Complete_Skill_B, this);
+		at->CompleteEvent(L"Long_hairIntro_LandingR") = std::bind(&Layana_LongHair::Complete_IntroRanding, this);
 
 
 		for (int i = 0; i < 3; i++)
@@ -344,6 +346,17 @@ namespace jk
 			Layana_LongHair::Skill_C();
 			break;
 
+		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Dash:
+			Layana_LongHair::Intro_Dash();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Fall:
+			Layana_LongHair::Intro_Fall();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Landing:
+			Layana_LongHair::Intro_Landing();
+			break;
 
 
 		default:
@@ -414,6 +427,12 @@ namespace jk
 				//		at->PlayAnimation(L"Long_hairSkill_A_Bullet_ReadyR", true);					
 				//	_SkillA_Landing = true;
 				//}
+				if (_state == Layana_Sisters_State::Intro_Fall)
+				{					
+					at->PlayAnimation(L"Long_hairIntro_Landing", false);			
+					_Intro_Landing = true;
+				}
+
 			}
 		}
 	}
@@ -426,7 +445,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		//_SelectAttack = random(0, 2);
-		_SelectAttack = 6;
+		_SelectAttack = 7;
 
 		if (_time >= 3.0)
 		{
@@ -444,6 +463,10 @@ namespace jk
 				Skill_B_Combo();		
 			if (_SelectAttack == 6)			
 				Skill_C_Combo();
+			if (_SelectAttack == 7)
+				Intro_Combo();
+				
+			
 		}
 	}
 
@@ -1003,6 +1026,32 @@ namespace jk
 	}
 
 
+	void Layana_LongHair::Intro_Dash()
+	{
+		_Attacktime += Time::DeltaTime();
+		if (_Attacktime > 1.5 && _Attacktime < 2)
+		{
+			_rigidbody->ClearVelocity();
+			_rigidbody->SetGround(false);
+			_pos = Vector3(_LongHairCreatepos.x + 200, _LongHairCreatepos.y - 50, _LongHairCreatepos.z);
+
+			_state =  Layana_Sisters_State::Intro_Fall;
+			at->PlayAnimation(L"Long_hairIntro_Fall", false);
+		}
+	}
+	void Layana_LongHair::Intro_Fall()
+	{
+		if (_Intro_Landing == true)
+		{
+			_state = Layana_Sisters_State::Intro_Landing;
+			at->PlayAnimation(L"Long_hairIntro_LandingR", true);
+		}
+	}
+	void Layana_LongHair::Intro_Landing()
+	{
+	}
+
+
 
 	void Layana_LongHair::Rush_Combo()
 	{
@@ -1223,7 +1272,7 @@ namespace jk
 		_SkillA_Switch = true;
 		if (_SkillA_Switch == true)
 		{
-			_state = _state = Layana_Sisters_State::Skill_A_Bullet_Ready;
+			_state =  Layana_Sisters_State::Skill_A_Bullet_Ready;
 			if (mDir == 1)
 				at->PlayAnimation(L"Long_hairSkill_A_Bullet_Ready", true);
 			else
@@ -1251,7 +1300,7 @@ namespace jk
 
 	void Layana_LongHair::Skill_B_Combo()
 	{
-		_state = _state = Layana_Sisters_State::Skill_B_RisingPierce;
+		_state = Layana_Sisters_State::Skill_B_RisingPierce;
 		if (mDir == 1)
 			at->PlayAnimation(L"Long_hairSkill_B_RisingPierce", false);
 		else
@@ -1272,12 +1321,48 @@ namespace jk
 
 	void Layana_LongHair::Skill_C_Combo()
 	{
-		_state = _state = Layana_Sisters_State::Skill_C_DimensionPierce;
+		_state =  Layana_Sisters_State::Skill_C_DimensionPierce;
 		if (mDir == 1)
 			at->PlayAnimation(L"Long_hairSkill_C_DimensionPierce", false);
 		else
 			at->PlayAnimation(L"Long_hairSkill_C_DimensionPierceR", false);
 	}
+
+	void Layana_LongHair::Intro_Combo()
+	{
+		if (_Intro_Switch == false)
+		{
+			_pos = Vector3(_LongHairCreatepos.x + 150, _LongHairCreatepos.y + 200, _LongHairCreatepos.z);
+			tr->SetPosition(_pos);
+			_Intro_Switch = true;
+		}
+		if (_Intro_Switch == true)
+		{
+			_state = Layana_Sisters_State::Intro_Dash;
+			at->PlayAnimation(L"Long_hairIntro_Dash", false);
+			_rigidbody->SetGround(false);
+			_rigidbody->SetVelocity(Vector2(1050.f, 150.f));
+			_Ground_check = false;
+			_Intro_Switch = false;
+		}
+	}
+
+
+	void Layana_LongHair::Complete_IntroRanding()
+	{
+		if (mDir == 1)
+			at->PlayAnimation(L"Long_hairIdle", true);
+		else
+			at->PlayAnimation(L"Long_hairIdleR", true);
+		_state = Layana_Sisters_State::Idle;
+
+		_time = 0.f;
+		_Attacktime = 0.f;
+		_Intro_Switch = false;
+		_Intro_Landing = false;
+	}	
+
+
 
 
 

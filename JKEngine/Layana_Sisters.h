@@ -62,13 +62,13 @@ namespace jk
 			Skill_C_DimensionPierce,
 
 	
-
 			Intro_Dash,
 			Intro_Fall,
 			Intro_Landing,
 
 			BackGround_Idle,
 			BackGround_Move,
+
 
 
 			Awaken,
@@ -113,6 +113,12 @@ namespace jk
 		void Skill_B_End();
 
 		void Skill_C();
+
+
+		void Intro_Dash();
+		void Intro_Landing();
+		void Intro_Fall();
+
 
 		void die();
 

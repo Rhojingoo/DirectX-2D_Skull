@@ -187,21 +187,19 @@ namespace jk
 
 
 
-
-
-
-
 		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Dash:
-			
+			Intro_Dash();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Fall:
-			
+			Intro_Landing();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Landing:
-			
+			Intro_Fall();
 			break;
+
+
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Awaken:
 			
@@ -214,6 +212,9 @@ namespace jk
 		case jk::Layana_Sisters::Layana_Sisters_State::AwakenReady:
 			
 			break;
+
+
+
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Die:
 			
@@ -333,6 +334,15 @@ namespace jk
 	{
 	}
 	void Layana_Sisters::Skill_C()
+	{
+	}
+	void Layana_Sisters::Intro_Dash()
+	{
+	}
+	void Layana_Sisters::Intro_Landing()
+	{
+	}
+	void Layana_Sisters::Intro_Fall()
 	{
 	}
 	void Layana_Sisters::die()

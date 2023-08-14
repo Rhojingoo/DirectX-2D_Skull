@@ -64,6 +64,13 @@ namespace jk
 
 		void Skill_C();
 
+
+		void Intro_Dash();
+		void Intro_Landing();
+		void Intro_Fall();
+
+
+
 		void die();
 
 	public:
@@ -79,11 +86,12 @@ namespace jk
 
 		void Complete_VerticalJump();
 		void Complete_VerticalReady();
-		void Complete_VerticalEnd();
-		
+		void Complete_VerticalEnd();		
 		
 		void Complete_Skill_A();
 		void Complete_Skill_B();
+
+		void Complete_IntroRanding();
 
 	public:
 		void Rush_Combo();
@@ -92,6 +100,9 @@ namespace jk
 		void Meteor_Vertical_Combo();
 		void Skill_A_Combo();
 		void Skill_B_Combo();
+		void Skill_C_Combo();
+		void Intro_Combo();
+		
 
 	public:
 		void CreateHoming();
@@ -165,6 +176,9 @@ namespace jk
 		bool	_SkillB_Switch = false;
 
 		bool	_SkillC_Switch = false;
+
+		bool	_Intro_Switch = false;
+		bool	_Intro_Landing = false;
 
 		int		_SelectAttack = 0;
 	};
