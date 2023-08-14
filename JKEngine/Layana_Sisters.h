@@ -21,6 +21,8 @@ namespace jk
 		enum class Layana_Sisters_State
 		{
 			Idle,
+
+
 			Rush_Ready,
 			RushA,
 			RushB,
@@ -61,19 +63,19 @@ namespace jk
 
 			Skill_C_DimensionPierce,
 
-	
+
 			Intro_Dash,
 			Intro_Fall,
 			Intro_Landing,
 
-			BackGround_Idle,
-			BackGround_Move,
 
 			Awaken,
 			AwakenJump,
 			AwakenReady,
 
 
+			BackGround_Idle,
+			BackGround_Move,
 
 			Die,
 		};
@@ -124,6 +126,10 @@ namespace jk
 		void Awaken();
 		void AwakenJump();
 		void AwakenReady();
+
+		void BackGround_Idle();
+		void BackGround_Move();
+
 
 		void die();
 

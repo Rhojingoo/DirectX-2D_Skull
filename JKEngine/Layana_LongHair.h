@@ -74,6 +74,8 @@ namespace jk
 		void AwakenJump();
 		void AwakenReady();
 
+		void BackGround_Idle();
+		void BackGround_Move();
 
 		void die();
 
@@ -157,6 +159,7 @@ namespace jk
 		float	_time = 0.f;						// 공격패턴시 사용중	
 		float	_Attacktime = 0.f;					// 공격패턴시 보조사용중
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
+		bool	_BackGround_check = true;
 		int		_Rushnumber = 0;					// 러쉬 공격시 1번 = a, 2번 = b, 3번 =c , 0 = 대기상태
 
 
@@ -190,7 +193,9 @@ namespace jk
 
 		bool	_Awaken_Switch = false;
 		bool	_Awaken_Ready = false;
-		
+
+		bool	_BackGround_Switch = false;
+		bool	_BackGround_Idle = false;
 
 		int		_SelectAttack = 0;
 	};

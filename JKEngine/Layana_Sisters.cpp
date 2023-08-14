@@ -166,23 +166,19 @@ namespace jk
 			
 
 
-
 		case jk::Layana_Sisters::Layana_Sisters_State::Skill_C_DimensionPierce:
 			Skill_C();
 			break;
 
 
 
-
-
 		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Idle:
-
+			BackGround_Idle();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Move:
-
+			BackGround_Move();
 			break;
-
 
 
 
@@ -351,6 +347,12 @@ namespace jk
 	{
 	}
 	void Layana_Sisters::AwakenReady()
+	{
+	}
+	void Layana_Sisters::BackGround_Idle()
+	{
+	}
+	void Layana_Sisters::BackGround_Move()
 	{
 	}
 	void Layana_Sisters::die()

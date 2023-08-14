@@ -37,7 +37,7 @@ namespace jk
 		#pragma region BackGround
 
 					{
-						Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, -100.f), eLayerType::BACK_GROUND, L"Layana_Sisters_Map");
+						Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 10.f), eLayerType::BACK_GROUND, L"Layana_Sisters_Map");
 						Back_Ground->GetComponent<Transform>()->SetScale(Vector3(900.f, 400.0f, 0.0f)); 
 					}
 					{	
