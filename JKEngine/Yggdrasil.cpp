@@ -127,7 +127,7 @@ namespace jk
 			//	_Gobjs[i]->SetState(eState::Paused);
 		}
 	
-		_Change = true;
+		//_Change = true;
 		GameObject::Initialize();
 	}
 	void Yggdrasil::Update()
@@ -326,10 +326,12 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_NumberofAttack = 0;
-		//if (_Changeon == false)
-		//	Attack_Sellect = random(0, 2);
-		//else
-		//	Attack_Sellect = random(0, 3);
+		_playerpos = Player::GetPlayer_Pos();
+
+		if (_Changeon == false)
+			Attack_Sellect = random(0, 2);
+		else
+			Attack_Sellect = random(0, 3);
 		
 
 		if (_Intro == false)

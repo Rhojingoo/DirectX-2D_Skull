@@ -382,8 +382,6 @@ namespace jk
 			BackGround_Move();
 			break;
 
-
-
 		default:
 			break;
 		}

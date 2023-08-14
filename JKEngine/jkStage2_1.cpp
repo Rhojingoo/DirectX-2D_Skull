@@ -26,8 +26,8 @@ namespace jk
 		//#pragma endregion 
 
 
-		//Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-		//_player->SetName(L"player_select");
+		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+		_player->SetName(L"player_select");
 
 		Layana_Sisters* testboss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
 		testboss->SetName(L"test_BOSS");

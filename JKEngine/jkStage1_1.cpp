@@ -14,6 +14,7 @@ namespace jk
 			
 
 
+
 		#pragma region BG	
 		{	
 			Back_ground* Fore_S1_1_color = object::Instantiate<Back_ground>(Vector3(-100.f, 50.f, 105.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Color");

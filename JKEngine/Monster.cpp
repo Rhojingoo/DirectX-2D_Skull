@@ -15,7 +15,7 @@ namespace jk
 	}
 	void Monster::Initialize()
 	{
-		_Gobjs[0] = new Monster_GreenTree;
+		_Gobjs[0] = new Monster_BlossomEnt;
 		_Gobjs[0]->Initialize();
 
 		//_Gobjs[0] = new Monster_warrior;
@@ -43,7 +43,7 @@ namespace jk
 	}
 	void Monster::Update()
 	{
-		_playerpos;
+		_playerpos = Player::GetPlayer_Pos();;
 
 		GameObject::Update();
 	}

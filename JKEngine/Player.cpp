@@ -47,8 +47,8 @@ namespace jk
 		player_select;
 		player_check;
 		_Pos;
-		Yggdrasil::SetPlayerPos(_Pos);
-		Mini_Boss::SetPlayerPos(_Pos);
+		//Yggdrasil::SetPlayerPos(_Pos);
+		//Mini_Boss::SetPlayerPos(_Pos);
 		Monster::SetPlayerPos(_Pos);
 
 		if (_check_change == true)

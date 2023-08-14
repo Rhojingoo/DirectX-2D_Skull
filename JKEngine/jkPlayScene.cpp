@@ -10,6 +10,9 @@ namespace jk
 	}
 	void PlayScene::Initialize()
 	{
+		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+		_player->SetName(L"player_select");
+
 		Scene::Initialize();
 	}
 

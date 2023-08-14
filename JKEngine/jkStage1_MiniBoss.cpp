@@ -42,6 +42,7 @@ namespace jk
 
 					static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
 					Tile_map->SetName(L"tile_stage1_miniboss");
+					//Collider2D* cd = Tile_map->AddComponent<Collider2D>();
 					Transform* tr = Tile_map->GetComponent<Transform>();
 					//tr->SetPositionZ(-200.f);
 					tr->AddPositionY(0.f);

@@ -19,7 +19,7 @@ namespace jk
 
 	void Mini_Boss::Initialize()
 	{
-		_Gobjs[0] = new Cleric;
+		_Gobjs[0] = new Knight_male;
 		_Gobjs[0]->Initialize();
 
 		//_Gobjs[0] = new Knight_male;
@@ -55,7 +55,7 @@ namespace jk
 
 	void Mini_Boss::Update()
 	{
-			_playerpos;  // 플레이어 포스 확인용
+			_playerpos = Player::GetPlayer_Pos();
 
 			//if (_mboss == MinibossList::knight)
 			//{
