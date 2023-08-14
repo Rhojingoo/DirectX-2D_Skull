@@ -68,7 +68,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_B_RisingPierce_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_C_DimensionPierce", this);
 		
-	
+		
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Awaken", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\AwakenJump", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\AwakenReady", this,1);
@@ -125,6 +125,8 @@ namespace jk
 		at->CompleteEvent(L"Long_hairSkill_A_Bullet_End") = std::bind(&Layana_LongHair::Complete_Skill_A, this);
 		at->CompleteEvent(L"Long_hairSkill_B_RisingPierce_End") = std::bind(&Layana_LongHair::Complete_Skill_B, this);
 		at->CompleteEvent(L"Long_hairIntro_Landing") = std::bind(&Layana_LongHair::Complete_IntroRanding, this);
+		at->CompleteEvent(L"Long_hairAwaken") = std::bind(&Layana_LongHair::Complete_Awaken, this);
+		at->CompleteEvent(L"Long_hairAwakenReadyR") = std::bind(&Layana_LongHair::Complete_Awaken_Ready, this);
 
 		
 
@@ -144,8 +146,13 @@ namespace jk
 		at->CompleteEvent(L"Long_hairSkill_A_Bullet_EndR") = std::bind(&Layana_LongHair::Complete_Skill_A, this);
 		at->CompleteEvent(L"Long_hairSkill_B_RisingPierce_EndR") = std::bind(&Layana_LongHair::Complete_Skill_B, this);
 		at->CompleteEvent(L"Long_hairIntro_LandingR") = std::bind(&Layana_LongHair::Complete_IntroRanding, this);
+		at->CompleteEvent(L"Long_hairAwakenR") = std::bind(&Layana_LongHair::Complete_Awaken, this);
+		at->CompleteEvent(L"Long_hairAwakenReadyR") = std::bind(&Layana_LongHair::Complete_Awaken_Ready, this);
 
 
+
+
+		
 		for (int i = 0; i < 3; i++)
 		{
 			Homing[i] = new Homing_Pierce;	
@@ -359,6 +366,21 @@ namespace jk
 			break;
 
 
+
+		case jk::Layana_Sisters::Layana_Sisters_State::AwakenJump:
+			Layana_LongHair::AwakenJump();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::AwakenReady:
+			Layana_LongHair::AwakenReady();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Awaken:
+			Layana_LongHair::Awaken();
+			break;
+
+
+
 		default:
 			break;
 		}
@@ -432,7 +454,10 @@ namespace jk
 					at->PlayAnimation(L"Long_hairIntro_Landing", false);			
 					_Intro_Landing = true;
 				}
-
+				if (_state == Layana_Sisters_State::AwakenJump)				
+					_Awaken_Ready = true;
+				
+				
 			}
 		}
 	}
@@ -445,7 +470,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		//_SelectAttack = random(0, 2);
-		_SelectAttack = 7;
+		_SelectAttack = 8;
 
 		if (_time >= 3.0)
 		{
@@ -465,8 +490,19 @@ namespace jk
 				Skill_C_Combo();
 			if (_SelectAttack == 7)
 				Intro_Combo();
-				
-			
+			if (_SelectAttack == 8)
+			{
+				if (_Awaken_Switch == false)
+				{
+					_pos = Vector3(_LongHairCreatepos.x + 200, _LongHairCreatepos.y - 50, _LongHairCreatepos.z);
+					tr->SetPosition(_pos);
+					_rigidbody->SetGround(false);
+					_Ground_check = false;
+					at->PlayAnimation(L"Long_hairAwakenJumpR", false);
+					_state = Layana_Sisters_State::AwakenJump;
+					_Awaken_Switch = true;
+				}				
+			}
 		}
 	}
 
@@ -928,7 +964,6 @@ namespace jk
 	}
 
 
-
 	void Layana_LongHair::Skill_C()
 	{
 		if (_SkillC_Switch == false)
@@ -1048,6 +1083,24 @@ namespace jk
 		}
 	}
 	void Layana_LongHair::Intro_Landing()
+	{
+	}
+
+
+
+	void Layana_LongHair::AwakenJump()
+	{
+		if (_Awaken_Ready == true)
+		{
+			_state = Layana_Sisters_State::AwakenReady;
+			at->PlayAnimation(L"Long_hairAwakenReadyR", true);
+			_Awaken_Ready = false;
+		}
+	}
+	void Layana_LongHair::AwakenReady()
+	{
+	}
+	void Layana_LongHair::Awaken()
 	{
 	}
 
@@ -1360,12 +1413,29 @@ namespace jk
 		_Attacktime = 0.f;
 		_Intro_Switch = false;
 		_Intro_Landing = false;
-	}	
+	}
 
 
+	void Layana_LongHair::Complete_Awaken_Ready()
+	{
+		_state = Layana_Sisters_State::Awaken;
+		at->PlayAnimation(L"Long_hairAwakenR", true);
+	}
 
-
-
+	void Layana_LongHair::Complete_Awaken()
+	{
+		if (mDir == 1)
+			at->PlayAnimation(L"Long_hairIdle", true);
+		else
+			at->PlayAnimation(L"Long_hairIdleR", true);
+		_state = Layana_Sisters_State::Idle;
+	
+		// 나중에 각성보스 추가시 여기서 변경코드 넣으면됨
+		_time = 0.f;
+		_Attacktime = 0.f;
+		_Awaken_Switch = false;
+		_Awaken_Ready = false;
+	}
 
 
 	void Layana_LongHair::CreateHoming()

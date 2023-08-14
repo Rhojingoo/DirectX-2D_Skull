@@ -70,6 +70,10 @@ namespace jk
 		void Intro_Fall();
 
 
+		void Awaken();
+		void AwakenJump();
+		void AwakenReady();
+
 
 		void die();
 
@@ -92,6 +96,9 @@ namespace jk
 		void Complete_Skill_B();
 
 		void Complete_IntroRanding();
+
+		void Complete_Awaken_Ready();
+		void Complete_Awaken();
 
 	public:
 		void Rush_Combo();
@@ -179,6 +186,10 @@ namespace jk
 
 		bool	_Intro_Switch = false;
 		bool	_Intro_Landing = false;
+
+		bool	_Awaken_Switch = false;
+		bool	_Awaken_Ready = false;
+		
 
 		int		_SelectAttack = 0;
 	};

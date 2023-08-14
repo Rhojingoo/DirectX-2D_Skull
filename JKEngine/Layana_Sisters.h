@@ -69,11 +69,12 @@ namespace jk
 			BackGround_Idle,
 			BackGround_Move,
 
-
-
 			Awaken,
 			AwakenJump,
 			AwakenReady,
+
+
+
 			Die,
 		};
 
@@ -119,6 +120,10 @@ namespace jk
 		void Intro_Landing();
 		void Intro_Fall();
 
+
+		void Awaken();
+		void AwakenJump();
+		void AwakenReady();
 
 		void die();
 

@@ -200,17 +200,16 @@ namespace jk
 			break;
 
 
-
 		case jk::Layana_Sisters::Layana_Sisters_State::Awaken:
-			
+			Awaken();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::AwakenJump:
-			
+			AwakenJump();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::AwakenReady:
-			
+			AwakenReady();
 			break;
 
 
@@ -343,6 +342,15 @@ namespace jk
 	{
 	}
 	void Layana_Sisters::Intro_Fall()
+	{
+	}
+	void Layana_Sisters::Awaken()
+	{
+	}
+	void Layana_Sisters::AwakenJump()
+	{
+	}
+	void Layana_Sisters::AwakenReady()
 	{
 	}
 	void Layana_Sisters::die()
