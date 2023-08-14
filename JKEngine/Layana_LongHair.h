@@ -109,6 +109,7 @@ namespace jk
 		void Skill_B_Combo();
 		void Skill_C_Combo();
 		void Intro_Combo();
+		void Awaken_Combo();
 		
 
 	public:

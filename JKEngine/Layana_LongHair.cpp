@@ -216,6 +216,27 @@ namespace jk
 		}
 
 
+#pragma region tile_map		
+		{
+			static Vector2 TileSize = Vector2(32.f, 32.f);
+			static int Tile_Colum = 60;
+			static int Tile_Row = 8;
+
+			static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
+			Tile_map->SetName(L"Tile_Map");
+			Transform* tr = Tile_map->GetComponent<Transform>();
+			Collider2D* cd = Tile_map->AddComponent<Collider2D>();
+			//tr->SetPositionZ(-200.f);
+			tr->SetPositionZ(-200.f);
+			tr->AddPositionY(-280.f);
+			tr->SetPositionX(-300.f);
+			tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
+
+			TileMap::TileMap_Setting(Tile_map, L"Devil_castle_tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Layana_Sisters_BossMaP.xml");
+		}
+
+
+
 		at->PlayAnimation(L"Long_hairIdle", true);
 		GameObject::Initialize();
 	}
@@ -365,8 +386,6 @@ namespace jk
 			Layana_LongHair::Intro_Landing();
 			break;
 
-
-
 		case jk::Layana_Sisters::Layana_Sisters_State::AwakenJump:
 			Layana_LongHair::AwakenJump();
 			break;
@@ -490,19 +509,9 @@ namespace jk
 				Skill_C_Combo();
 			if (_SelectAttack == 7)
 				Intro_Combo();
-			if (_SelectAttack == 8)
-			{
-				if (_Awaken_Switch == false)
-				{
-					_pos = Vector3(_LongHairCreatepos.x + 200, _LongHairCreatepos.y - 50, _LongHairCreatepos.z);
-					tr->SetPosition(_pos);
-					_rigidbody->SetGround(false);
-					_Ground_check = false;
-					at->PlayAnimation(L"Long_hairAwakenJumpR", false);
-					_state = Layana_Sisters_State::AwakenJump;
-					_Awaken_Switch = true;
-				}				
-			}
+			if (_SelectAttack == 8)			
+				Awaken_Combo();			
+			
 		}
 	}
 
@@ -1371,7 +1380,6 @@ namespace jk
 		_SkillB_Switch = false;
 	}
 
-
 	void Layana_LongHair::Skill_C_Combo()
 	{
 		_state =  Layana_Sisters_State::Skill_C_DimensionPierce;
@@ -1380,6 +1388,7 @@ namespace jk
 		else
 			at->PlayAnimation(L"Long_hairSkill_C_DimensionPierceR", false);
 	}
+
 
 	void Layana_LongHair::Intro_Combo()
 	{
@@ -1399,8 +1408,6 @@ namespace jk
 			_Intro_Switch = false;
 		}
 	}
-
-
 	void Layana_LongHair::Complete_IntroRanding()
 	{
 		if (mDir == 1)
@@ -1416,12 +1423,24 @@ namespace jk
 	}
 
 
+	void Layana_LongHair::Awaken_Combo()
+	{
+		if (_Awaken_Switch == false)
+		{
+			_pos = Vector3(_LongHairCreatepos.x + 200, _LongHairCreatepos.y - 50, _LongHairCreatepos.z);
+			tr->SetPosition(_pos);
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+			at->PlayAnimation(L"Long_hairAwakenJumpR", false);
+			_state = Layana_Sisters_State::AwakenJump;
+			_Awaken_Switch = true;
+		}
+	}
 	void Layana_LongHair::Complete_Awaken_Ready()
 	{
 		_state = Layana_Sisters_State::Awaken;
 		at->PlayAnimation(L"Long_hairAwakenR", true);
 	}
-
 	void Layana_LongHair::Complete_Awaken()
 	{
 		if (mDir == 1)

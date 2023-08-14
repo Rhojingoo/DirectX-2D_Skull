@@ -387,7 +387,8 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"Tile_Shader");
 		std::shared_ptr<Shader> animationShader
 			= Resources::Find<Shader>(L"Animation_Shader"); 
-
+		std::shared_ptr<Shader> debugShader
+			= Resources::Find<Shader>(L"DebugShader");
 
 		#pragma region Public
 		#pragma region Mouse
@@ -484,18 +485,18 @@ namespace jk::renderer
 #pragma endregion
 
 
-	#pragma endregion
+		#pragma endregion
 
-				//해석해봐야함
-				material = std::make_shared<Material>();
-				material->SetShader(animationShader);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Animation_Shader", material);
+		////애니메이션 만들때 사용
+		//material = std::make_shared<Material>();
+		//material->SetShader(animationShader);
+		//material->SetRenderingMode(eRenderingMode::Transparent);
+		//Resources::Insert(L"Animation_Shader", material);
 
 		#pragma region Title
 				texture	= Resources::Load<Texture>(L"title_image", L"..\\Resources\\Texture\\Title\\Title_Art2.png");
 				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);	
-				Resources::Insert(L"Title_Image", material);
+				Resources::Insert(L"Title_Image", material); 
 
 				texture = Resources::Load<Texture>(L"title_logo", L"..\\Resources\\Texture\\Title\\Title_Logo.png");
 				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);	
@@ -613,175 +614,204 @@ namespace jk::renderer
 		#pragma endregion
 
 
-#pragma region Stage1
-		#pragma region Stage1(BackGround Public)
-				//포그라운드(배경색)
-				texture = Resources::Load<Texture>(L"fore_gr_color", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Fore_GR1.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Fore_GR_Color", material);
+		#pragma region Stage1
+				#pragma region Stage1(BackGround Public)
+						//포그라운드(배경색)
+						texture = Resources::Load<Texture>(L"fore_gr_color", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Fore_GR1.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Fore_GR_Color", material);
 
-				//포그라운드(나무)
-				texture = Resources::Load<Texture>(L"fore_gr_", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Fore_GR2.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Fore_GR_Tree", material);
+						//포그라운드(나무)
+						texture = Resources::Load<Texture>(L"fore_gr_", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Fore_GR2.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Fore_GR_Tree", material);
 
-				//미드그라운드(나무)
-				texture = Resources::Load<Texture>(L"mid_gr1_1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Mid_GR.png");
-				material = std::make_shared<Material>();
-				material->SetShader(moveShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Mid_GR1_1", material);	
-
-
+						//미드그라운드(나무)
+						texture = Resources::Load<Texture>(L"mid_gr1_1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Mid_GR.png");
+						material = std::make_shared<Material>();
+						material->SetShader(moveShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Mid_GR1_1", material);	
 
 
-				//백그라운드 나무00
-				texture = Resources::Load<Texture>(L"back_gr00_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR00.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Back_GR00", material);
+
+
+						//백그라운드 나무00
+						texture = Resources::Load<Texture>(L"back_gr00_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR00.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Back_GR00", material);
 
 		
-				//백그라운드 나무01
-				texture = Resources::Load<Texture>(L"back_gr01_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR01.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Back_GR01", material);
-
-
-				//백그라운드 나무02
-				texture = Resources::Load<Texture>(L"back_gr02_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR02.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Back_GR02", material);
-
-
-				//백그라운드 나무12
-				texture = Resources::Load<Texture>(L"back_gr12_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR12.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Back_GR12", material);
-
-				//백그라운드 나무13
-				texture = Resources::Load<Texture>(L"back_gr13_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR13.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Back_GR13", material);
-
-				//백그라운드 나무14
-				texture = Resources::Load<Texture>(L"back_gr14_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR14.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Back_GR14", material);
-
-				//백그라운드 나무15
-				texture = Resources::Load<Texture>(L"back_gr15_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR15.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Back_GR15", material);
-
-				//백그라운드 나무16
-				texture = Resources::Load<Texture>(L"back_gr16_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR16.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage1_Back_GR16", material);
-		#pragma endregion
-
-		#pragma region Stage1_Boss
-				texture = Resources::Load<Texture>(L"king1", L"..\\Resources\\Texture\\Stage1\\Stag1_Boss\\King1.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				Resources::Insert(L"Stage_king1", material);
-		#pragma endregion
-#pragma endregion
-
-
-
-#pragma region Stage1_Tile	
-		#pragma region Tile_map(Stage1_1)
-						texture = Resources::Load<Texture>(L"stage1_1tiles", L"..\\Resources\\Tile\\S1_tile1.png");
+						//백그라운드 나무01
+						texture = Resources::Load<Texture>(L"back_gr01_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR01.png");
 						material = std::make_shared<Material>();
-						material->SetShader(tile_shader);
+						material->SetShader(spriteShader);
 						material->SetTexture(texture);
 						material->SetRenderingMode(eRenderingMode::Transparent);
-						Resources::Insert(L"Stage1_1Tile", material);
-		#pragma endregion
+						Resources::Insert(L"Stage1_Back_GR01", material);
 
-		#pragma region Tile_map(Stage1_2)
-						texture = Resources::Load<Texture>(L"stage1_2tiles", L"..\\Resources\\Tile\\S1_tile1.png");
+
+						//백그라운드 나무02
+						texture = Resources::Load<Texture>(L"back_gr02_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR02.png");
 						material = std::make_shared<Material>();
-						material->SetShader(tile_shader);
+						material->SetShader(spriteShader);
 						material->SetTexture(texture);
 						material->SetRenderingMode(eRenderingMode::Transparent);
-						Resources::Insert(L"Stage1_2Tile", material);
+						Resources::Insert(L"Stage1_Back_GR02", material);
+
+
+						//백그라운드 나무12
+						texture = Resources::Load<Texture>(L"back_gr12_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR12.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Back_GR12", material);
+
+						//백그라운드 나무13
+						texture = Resources::Load<Texture>(L"back_gr13_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR13.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Back_GR13", material);
+
+						//백그라운드 나무14
+						texture = Resources::Load<Texture>(L"back_gr14_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR14.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Back_GR14", material);
+
+						//백그라운드 나무15
+						texture = Resources::Load<Texture>(L"back_gr15_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR15.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Back_GR15", material);
+
+						//백그라운드 나무16
+						texture = Resources::Load<Texture>(L"back_gr16_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR16.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Back_GR16", material);
+				#pragma endregion
+
+				#pragma region Stage1_Boss
+						texture = Resources::Load<Texture>(L"king1", L"..\\Resources\\Texture\\Stage1\\Stag1_Boss\\King1.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						Resources::Insert(L"Stage_king1", material);
+				#pragma endregion
 		#pragma endregion
+
+		#pragma region Tile	
+				#pragma region Tile_map(Stage1_1)
+								texture = Resources::Load<Texture>(L"stage1_1tiles", L"..\\Resources\\Tile\\S1_tile1.png");
+								material = std::make_shared<Material>();
+								material->SetShader(tile_shader);
+								material->SetTexture(texture);
+								material->SetRenderingMode(eRenderingMode::Transparent);
+								Resources::Insert(L"Stage1_1Tile", material);
+				#pragma endregion
+
+				#pragma region Tile_map(Stage1_2)
+								texture = Resources::Load<Texture>(L"stage1_2tiles", L"..\\Resources\\Tile\\S1_tile1.png");
+								material = std::make_shared<Material>();
+								material->SetShader(tile_shader);
+								material->SetTexture(texture);
+								material->SetRenderingMode(eRenderingMode::Transparent);
+								Resources::Insert(L"Stage1_2Tile", material);
+				#pragma endregion
 						
 
-		#pragma region Tile_map(Stage1_MiniBoss)
-						texture = Resources::Load<Texture>(L"Stage1_miniboss", L"..\\Resources\\Tile\\S1_tile1.png");
-						material = std::make_shared<Material>();
-						material->SetShader(tile_shader);
-						material->SetTexture(texture);
-						material->SetRenderingMode(eRenderingMode::Transparent);
-						Resources::Insert(L"Stage1_MiniBoss", material);
-		#pragma endregion
+				#pragma region Tile_map(Stage1_MiniBoss)
+								texture = Resources::Load<Texture>(L"Stage1_miniboss", L"..\\Resources\\Tile\\S1_tile1.png");
+								material = std::make_shared<Material>();
+								material->SetShader(tile_shader);
+								material->SetTexture(texture);
+								material->SetRenderingMode(eRenderingMode::Transparent);
+								Resources::Insert(L"Stage1_MiniBoss", material);
+				#pragma endregion
 
-		#pragma region Tile_map(Stage1_Boss)
-						texture = Resources::Load<Texture>(L"Stage1_boss", L"..\\Resources\\Tile\\S1_tile1.png");
-						material = std::make_shared<Material>();
-						material->SetShader(tile_shader);
-						material->SetTexture(texture);
-						material->SetRenderingMode(eRenderingMode::Transparent);
-						Resources::Insert(L"Stage1_Boss", material);
-		#pragma endregion
+				#pragma region Tile_map(Stage1_Boss)
+								texture = Resources::Load<Texture>(L"Stage1_boss", L"..\\Resources\\Tile\\S1_tile1.png");
+								material = std::make_shared<Material>();
+								material->SetShader(tile_shader);
+								material->SetTexture(texture);
+								material->SetRenderingMode(eRenderingMode::Transparent);
+								Resources::Insert(L"Stage1_Boss", material);
+				#pragma endregion
 
-
-
-
-
-		#pragma endregion
-		#pragma endregion
+		#pragma endregion		
 
 		#pragma region Stage2(Back)
+			{
 				texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
 				material = std::make_shared<Material>();
 				material->SetShader(spriteShader);
 				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"Stage_king2", material);
+			}
+			{
+				texture = Resources::Load<Texture>(L"Layana_Sisters_Place", L"..\\Resources\\Texture\\Stage2\\Layana_Sisters_Map.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Layana_Sisters_Map", material);
+			}
+			{
+				texture = Resources::Load<Texture>(L"Stage2_BOSS_Stairs", L"..\\Resources\\Texture\\Stage2\\Layana_Sisters_stairs.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Layana_Sisters_Stairs", material);
+			}
+			{
+				texture = Resources::Load<Texture>(L"Stage2_BOSS_Steps", L"..\\Resources\\Texture\\Stage2\\Layana_Sisters_Steps.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Layana_Sisters_Steps", material);
+			}
+
+			#pragma region Tile_map(Stage2_Boss)
+						texture = Resources::Load<Texture>(L"Stage2_boss", L"..\\Resources\\Tile\\Stage2_Tile.png");
+						material = std::make_shared<Material>();
+						material->SetShader(tile_shader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage2_Boss", material);
+			#pragma endregion
 		#pragma endregion
 
-		#pragma region DebugShader
-				std::shared_ptr<Shader> debugShader
-					= Resources::Find<Shader>(L"DebugShader");
+		#pragma region DebugShader_Collider
+				//std::shared_ptr<Shader> debugShader
+				//	= Resources::Find<Shader>(L"DebugShader");
 
 				material = std::make_shared<Material>();
 				material->SetShader(debugShader);
 				Resources::Insert(L"DebugMaterial", material);
-	#pragma endregion
+		#pragma endregion
 	}
 
 
