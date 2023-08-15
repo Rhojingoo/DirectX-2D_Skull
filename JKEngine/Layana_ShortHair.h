@@ -27,6 +27,17 @@ namespace jk
 
 		void idle();
 
+		void Sisters_Attack_A_Ready();
+		void Sisters_Attack_FlyDash();
+		void Sisters_Attack_Fall();
+		void Sisters_Attack_A_LandingDash();
+		void Sisters_Attack_A();
+		void Sisters_Attack_A_End();
+		void Sisters_Attack_B();
+		void Sisters_Attack_C();
+		void Sisters_Attack_D();
+
+
 		void Rushready();
 		void Rush_A();
 		void Rush_B();
@@ -113,6 +124,7 @@ namespace jk
 		void Skill_C_Combo();
 		void Intro_Combo();
 		void Awaken_Combo();
+		void BackGround_Combo();
 
 
 	public:
@@ -163,11 +175,19 @@ namespace jk
 		float	_time = 0.f;						// 공격패턴시 사용중	
 		float	_Attacktime = 0.f;					// 공격패턴시 보조사용중
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
-		bool	_BackGround_check = true;
+		bool	_BackGround_check = true;			// 백그라운드 아이들시 사용되는 변수
 		int		_Rushnumber = 0;					// 러쉬 공격시 1번 = a, 2번 = b, 3번 =c , 0 = 대기상태
 
+	public:
+		static bool _AttackStageON;				// FLyDash의 경우 나가있는지 안에 있는지 확인할수 있는변 나가있는상태라면 위치 셋팅하여 안으로 들어오게 도와주는 역할의 변수 
 
 	private:
+	
+		bool	_Sisters_Attack_A_Switch = false;
+		bool	_Sisters_Attack_B_Switch = false;
+		bool	_Sisters_Attack_C_Switch = false;
+		bool	_Sisters_Attack_D_Switch = false;
+
 		bool	_RushSwitch = false;
 
 		bool	_CrossMeteorSwitch = false;

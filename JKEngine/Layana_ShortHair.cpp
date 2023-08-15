@@ -2,6 +2,8 @@
 
 namespace jk
 {
+	bool Layana_ShortHair::_AttackStageON = true;
+
 	Layana_ShortHair::Layana_ShortHair()
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
@@ -63,7 +65,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Skill_B_RisingPierce_S", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Skill_B_RisingPierce_End_S", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Skill_C_DimensionPierce_S", this);
-
+		
 
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Awaken_S", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\AwakenJump_S", this, 1);
@@ -112,7 +114,7 @@ namespace jk
 		at->CompleteEvent(L"Short_hairRush_End_S") = std::bind(&Layana_ShortHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Short_hairMeteor_Cross01_Ready_S") = std::bind(&Layana_ShortHair::Complete_CrossJump, this);
 		at->CompleteEvent(L"Short_hairMeteor_Cross03_End_S") = std::bind(&Layana_ShortHair::Complete_CrossEnd, this);
-		at->CompleteEvent(L"Short_hairMeteor_Ground01_Ready_S") = std::bind(&Layana_ShortHair::Complete_GroundLanding, this);
+		//at->CompleteEvent(L"Short_hairMeteor_Ground01_Ready_S") = std::bind(&Layana_ShortHair::Complete_GroundLanding, this);
 		at->CompleteEvent(L"Short_hairMeteor_Ground04_End_S") = std::bind(&Layana_ShortHair::Complete_GroundEnd, this);
 		at->CompleteEvent(L"Short_hairMeteor_Vertical00_Jump_S") = std::bind(&Layana_ShortHair::Complete_VerticalJump, this);
 		at->CompleteEvent(L"Short_hairMeteor_Vertical01_Ready_S") = std::bind(&Layana_ShortHair::Complete_VerticalReady, this);
@@ -131,7 +133,7 @@ namespace jk
 		at->CompleteEvent(L"Short_hairRush_End_SR") = std::bind(&Layana_ShortHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Short_hairMeteor_Cross01_Ready_SR") = std::bind(&Layana_ShortHair::Complete_CrossJump, this);
 		at->CompleteEvent(L"Short_hairMeteor_Cross03_End_SR") = std::bind(&Layana_ShortHair::Complete_CrossEnd, this);
-		at->CompleteEvent(L"Short_hairMeteor_Ground01_Ready_SR") = std::bind(&Layana_ShortHair::Complete_GroundLanding, this);
+		//at->CompleteEvent(L"Short_hairMeteor_Ground01_Ready_SR") = std::bind(&Layana_ShortHair::Complete_GroundLanding, this);
 		at->CompleteEvent(L"Short_hairMeteor_Ground04_End_SR") = std::bind(&Layana_ShortHair::Complete_GroundEnd, this);
 		at->CompleteEvent(L"Short_hairMeteor_Vertical00_Jump_SR") = std::bind(&Layana_ShortHair::Complete_VerticalJump, this);
 		at->CompleteEvent(L"Short_hairMeteor_Vertical01_Ready_SR") = std::bind(&Layana_ShortHair::Complete_VerticalReady, this);
@@ -216,15 +218,51 @@ namespace jk
 		_Playerdistance.x = _Playerpos.x - _pos.x;
 		_Playerdistance.y = _Playerpos.y - _pos.y;
 		if (_Playerdistance.x >= 0)
-			mDir = 1;
+			_Dir = 1;
 		else
-			mDir = -1;
+			_Dir = -1;
 		_pos = tr->GetPosition();
 
 		switch (_state)
 		{
 		case jk::Layana_Sisters::Layana_Sisters_State::Idle:
 			Layana_ShortHair::idle();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Dash:
+			Layana_ShortHair::Intro_Dash();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Fall:
+			Layana_ShortHair::Intro_Fall();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Landing:
+			Layana_ShortHair::Intro_Landing();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_A_Ready:
+			Layana_ShortHair::Sisters_Attack_A_Ready();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_FlyDash:
+			Layana_ShortHair::Sisters_Attack_FlyDash();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_Fall:
+			Layana_ShortHair::Sisters_Attack_Fall();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_A_LandingDash:
+			Layana_ShortHair::Sisters_Attack_A_LandingDash();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_A:
+			Layana_ShortHair::Sisters_Attack_A();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_A_End:
+			Layana_ShortHair::Sisters_Attack_A_End();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Rush_Ready:
@@ -341,19 +379,7 @@ namespace jk
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Skill_C_DimensionPierce:
 			Layana_ShortHair::Skill_C();
-			break;
-
-		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Dash:
-			Layana_ShortHair::Intro_Dash();
-			break;
-
-		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Fall:
-			Layana_ShortHair::Intro_Fall();
-			break;
-
-		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Landing:
-			Layana_ShortHair::Intro_Landing();
-			break;
+			break;	
 
 		case jk::Layana_Sisters::Layana_Sisters_State::AwakenJump:
 			Layana_ShortHair::AwakenJump();
@@ -413,7 +439,7 @@ namespace jk
 			{
 				if (_state == Layana_Sisters_State::Meteor_Cross_Landing)
 				{
-					if (mDir == 1)
+					if (_Dir == 1)
 						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_S", true);
 					else
 						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_SR", true);
@@ -422,7 +448,7 @@ namespace jk
 				}
 				if (_state == Layana_Sisters_State::LandingDash)
 				{
-					if (mDir == 1)
+					if (_Dir == 1)
 						at->PlayAnimation(L"Short_hairMeteor_Ground01_Ready_S", true);
 					else
 						at->PlayAnimation(L"Short_hairMeteor_Ground01_Ready_SR", true);
@@ -430,7 +456,7 @@ namespace jk
 				}
 				if (_state == Layana_Sisters_State::Meteor_Vertical_Landing)
 				{
-					if (mDir == 1)
+					if (_Dir == 1)
 						at->PlayAnimation(L"Short_hairMeteor_Vertical03_Landing_S", true);
 					else
 						at->PlayAnimation(L"Short_hairMeteor_Vertical03_LandingR_S", true);
@@ -438,7 +464,7 @@ namespace jk
 				}
 				//if (_state == Layana_Sisters_State::Skill_A_Bullet_Ready)
 				//{
-				//	if (mDir == 1)
+				//	if (_Dir == 1)
 				//		at->PlayAnimation(L"Long_hairSkill_A_Bullet_Ready", true);
 				//	else
 				//		at->PlayAnimation(L"Long_hairSkill_A_Bullet_ReadyR", true);					
@@ -446,13 +472,23 @@ namespace jk
 				//}
 				if (_state == Layana_Sisters_State::Intro_Fall)
 				{
-					at->PlayAnimation(L"Short_hairIntro_Landing_S", false);
+					//at->PlayAnimation(L"Short_hairIntro_Landing_S", true);
 					_Intro_Landing = true;
 				}
 				if (_state == Layana_Sisters_State::AwakenJump)
 					_Awaken_Ready = true;
-
-
+				if (_state == Layana_Sisters_State::Sisters_Attack_Fall)
+				{
+					if (_SistersAttack_A_IntroReadyShortHair == true)
+					{
+						if (_pos.x < _ShortHairCreatepos.x)
+							at->PlayAnimation(L"Short_hairMeteor_Ground01_Ready_S", false);
+						else
+							at->PlayAnimation(L"Short_hairMeteor_Ground01_Ready_SR", false);
+						_SistersAttack_A_Ready_ShortHair = true;
+					}
+			
+				}
 			}
 		}
 
@@ -481,9 +517,16 @@ namespace jk
 
 	void Layana_ShortHair::idle()
 	{
-		_time += Time::DeltaTime();
+		//_time += Time::DeltaTime();
 		//_SelectAttack = random(0, 2);
-		_SelectAttack = 0;
+		//_SelectAttack = 0;
+
+		if (_Intro_On == true)
+			Intro_Combo();
+		else
+		{
+
+		}
 
 		if (_time >= 3.0)
 		{
@@ -506,23 +549,175 @@ namespace jk
 			if (_SelectAttack == 8)
 				Awaken_Combo();
 			if (_SelectAttack == 9)
-			{
-				_BackGround_Switch = true;
-				_state = Layana_Sisters_State::FlyDash;
-				if (mDir == -1)
-					at->PlayAnimation(L"Short_hairDash_S", true);
-				else
-					at->PlayAnimation(L"Short_hairDash_SR", true);
-			}
+				BackGround_Combo();
 		}
 	}
+
+
+
+	void Layana_ShortHair::Intro_Dash()
+	{
+		_Attacktime += Time::DeltaTime();
+		if (_Attacktime > 1.5 && _Attacktime < 2)
+		{
+			_rigidbody->ClearVelocity();
+			_rigidbody->SetGround(false);
+			_pos = Vector3(_ShortHairCreatepos.x - 200, _ShortHairCreatepos.y - 50, _ShortHairCreatepos.z);
+
+			at->PlayAnimation(L"Short_hairIntro_Fall_SR", false);
+			_Intro_Fall_ShortHair = true;
+			_Ground_check = false;
+		}
+	}
+	void Layana_ShortHair::Intro_Fall()
+	{
+		if (_Intro_Landing == true)
+		{
+			at->PlayAnimation(L"Short_hairIntro_Landing_S", true);
+			_Intro_Land_ShortHair = true;
+		}
+	}
+	void Layana_ShortHair::Intro_Landing()
+	{
+	}
+
+
+
+	void Layana_ShortHair::Sisters_Attack_A_Ready()
+	{
+		_Sisters_Attack_A_Switch = true;
+		_SistersAttack_A_IntroReadyShortHair = true;		
+		at->PlayAnimation(L"Short_hairDash_SR", true);
+	}
+	void Layana_ShortHair::Sisters_Attack_FlyDash()
+	{
+		if (_AttackStageON == true)
+		{
+			if (_pos.x < _ShortHairCreatepos.x)
+			{
+				if (_pos.x > _ShortHairCreatepos.x - 700)
+					_pos.x -= 750.f * Time::DeltaTime();
+				if (_pos.y < _ShortHairCreatepos.y + 150)
+					_pos.y += 150.f * Time::DeltaTime();
+			}
+			else
+			{
+				if (_pos.x < _ShortHairCreatepos.x + 700)
+					_pos.x += 750.f * Time::DeltaTime();
+				if (_pos.y < _ShortHairCreatepos.y + 155)
+					_pos.y += 150.f * Time::DeltaTime();
+			}
+			if (_pos.y >= _ShortHairCreatepos.y + 150.f)
+				_AttackStageON = false;
+		}
+		else
+		{
+			if (_Sisters_Attack_A_Switch == true)
+			{
+				_SistersAttack_A_FlyDash_ShortHair = true;
+				_Ground_check = false;
+				_rigidbody->SetGround(false);
+				if (_pos.x < _ShortHairCreatepos.x)
+				{
+					_rigidbody->SetVelocity(Vector2(650.f, -150.f));
+					at->PlayAnimation(L"Short_hairDash_S", true);
+				}
+				else
+				{
+					_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
+					at->PlayAnimation(L"Short_hairDash_SR", true);
+				}
+			}
+		}		
+	}
+	void Layana_ShortHair::Sisters_Attack_Fall()
+	{
+	}
+	void Layana_ShortHair::Sisters_Attack_A_LandingDash()
+	{
+		if (_SistersAttack_A_DashOn == true)
+		{	
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime >= 1.f)
+			{
+				if (_pos.x < _ShortHairCreatepos.x)
+				{
+					at->PlayAnimation(L"Short_hairMeteor_Ground02_Attack_S", false);
+					_rigidbody->SetVelocity(Vector2(700.f, 0.f));
+					_GroundMeteorAttack_Right = true;
+				}
+				else
+				{
+					at->PlayAnimation(L"Short_hairMeteor_Ground02_Attack_SR", false);
+					_rigidbody->SetVelocity(Vector2(-700.f, 0.f));
+					_GroundMeteorAttack_Left = true;
+				}
+				_Attacktime = 0;
+				_SistersAttack_A_DashOn_ShortHair = true;
+				_SistersAttack_A_IntroReadyShortHair = false;
+			}			
+		}
+	}
+	void Layana_ShortHair::Sisters_Attack_A()
+	{
+		if (_GroundMeteorAttack_Right == true)
+		{
+			if (_pos.x >= _ShortHairCreatepos.x + 312)
+			{
+				_rigidbody->ClearVelocity();
+				_GroundMeteorAttack_Right = false;
+				if (_pos.x > _ShortHairCreatepos.x)
+					at->PlayAnimation(L"Short_hairMeteor_Ground03_Landing_S", false);
+				else
+					at->PlayAnimation(L"Short_hairMeteor_Ground03_Landing_SR", false);		
+				_SistersAttack_ShortHair_END = true;
+			}
+			
+		}
+		if (_GroundMeteorAttack_Left == true)
+		{
+			if (_pos.x <= _ShortHairCreatepos.x - 312)
+			{
+				_rigidbody->ClearVelocity();
+				_GroundMeteorAttack_Left = false;
+				if (_pos.x > _ShortHairCreatepos.x)
+					at->PlayAnimation(L"Short_hairMeteor_Ground03_Landing_S", false);
+				else
+					at->PlayAnimation(L"Short_hairMeteor_Ground03_Landing_SR", false);		
+				_SistersAttack_ShortHair_END = true;
+			}			
+		}
+	}
+	void Layana_ShortHair::Sisters_Attack_A_End()
+	{
+		if (_SistersAttack_ShortHair_END == true)
+		{
+			if (_pos.x > _ShortHairCreatepos.x)
+				at->PlayAnimation(L"Short_hairMeteor_Ground04_End_S", false);
+			else
+				at->PlayAnimation(L"Short_hairMeteor_Ground04_End_SR", false);
+			_SistersAttack_ShortHair_END = false;
+		}
+	}
+
+
+	void Layana_ShortHair::Sisters_Attack_B()
+	{
+	}
+	void Layana_ShortHair::Sisters_Attack_C()
+	{
+	}
+	void Layana_ShortHair::Sisters_Attack_D()
+	{
+	}
+
 
 
 	void Layana_ShortHair::Dash()
 	{
 		if (!(_Playerdistance.x <= 30 && _Playerdistance.x >= -30))
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				_pos.x += 250.f * Time::DeltaTime();
 			else
 				_pos.x -= 250.f * Time::DeltaTime();
@@ -532,7 +727,7 @@ namespace jk
 			if (_RushSwitch == true)
 			{
 				_state = Layana_Sisters_State::Rush_Ready;
-				if (mDir == 1)
+				if (_Dir == 1)
 					at->PlayAnimation(L"Short_hairRush_Ready_S", true);
 				else
 					at->PlayAnimation(L"Short_hairRush_Ready_SR", true);
@@ -540,7 +735,7 @@ namespace jk
 			if (_CrossMeteorSwitch == true)
 			{
 				_state = Layana_Sisters_State::Meteor_Cross_Jump;
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"Short_hairMeteor_Cross00_Jump_SR", false);
 					_rigidbody->SetVelocity(Vector2(250.f, 450.f));
@@ -557,29 +752,29 @@ namespace jk
 	}
 	void Layana_ShortHair::FlyDash()
 	{
-		GroundAttackpos_Right;
-		if (mDir == -1)
+		if (_Dir == 1)
 		{
-			if (_pos.x < _ShortHairCreatepos.x + 700)
+			if (_pos.x > _ShortHairCreatepos.x - 700)
 				_pos.x += 750.f * Time::DeltaTime();
 			if (_pos.y < _ShortHairCreatepos.y + 150)
 				_pos.y += 150.f * Time::DeltaTime();
 		}
 		else
 		{
-			if (_pos.x > _ShortHairCreatepos.x - 700)
+			if (_pos.x < _ShortHairCreatepos.x + 700)
 				_pos.x -= 750.f * Time::DeltaTime();
 			if (_pos.y < _ShortHairCreatepos.y + 150)
 				_pos.y += 150.f * Time::DeltaTime();
 		}
 		if (_pos.y >= _ShortHairCreatepos.y + 150.f)
 		{
+
 			if (_GroundMeteorSwitch == true)
 			{
 				_state = Layana_Sisters_State::LandingDash;
 				_Ground_check = false;
 				_rigidbody->SetGround(false);
-				if (mDir == -1)
+				if (_Dir == -1)
 				{
 					_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
 					at->PlayAnimation(L"Short_hairDash_SR", true);
@@ -624,7 +819,7 @@ namespace jk
 			{
 				_state = Layana_Sisters_State::Meteor_Ground_Attack;
 
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"Short_hairMeteor_Ground02_Attack_S", true);
 					_rigidbody->SetVelocity(Vector2(700.f, 0.f));
@@ -649,7 +844,7 @@ namespace jk
 		// 이부분이후로 아이들로 가져가면 진행됨
 		//	_state = Layana_Sisters_State::BackStep;
 		//	_rigidbody->SetGround(false);
-		//	if (mDir == -1)
+		//if (_Dir == 1)
 		//	{
 		//		at->PlayAnimation(L"Long_hairBackStepR", true);
 		//		_rigidbody->SetVelocity(Vector2(350.f, 250.f));					
@@ -689,7 +884,7 @@ namespace jk
 			_rigidbody->ClearVelocity();
 			_rigidbody->SetGround(true);
 
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairMeteor_Cross01_Ready_S", true);
 			else
 				at->PlayAnimation(L"Short_hairMeteor_Cross01_Ready_SR", true);
@@ -717,7 +912,7 @@ namespace jk
 		float angle = std::acos(dotProduct);
 		float angleInDegrees = angle * (180.0f / XM_PI);
 		//tr->SetRotation(Vector3(0.f,0.f, angleInDegrees));
-		if (mDir == 1)
+		if (_Dir == 1)
 			tr->AddRotationZ(45);
 		else
 			tr->AddRotationZ(-45);
@@ -749,7 +944,7 @@ namespace jk
 				_rigidbody->ClearVelocity();
 				_GroundMeteorAttack_Right = false;
 				_state = Layana_Sisters_State::Meteor_Ground_End;
-				if (mDir == 1)
+				if (_Dir == 1)
 					at->PlayAnimation(L"Short_hairMeteor_Ground04_End_S", true);
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Ground04_End_SR", true);
@@ -762,7 +957,7 @@ namespace jk
 				_rigidbody->ClearVelocity();
 				_GroundMeteorAttack_Left = false;
 				_state = Layana_Sisters_State::Meteor_Ground_End;
-				if (mDir == 1)
+				if (_Dir == 1)
 					at->PlayAnimation(L"Short_hairMeteor_Ground04_End_S", true);
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Ground04_End_SR", true);
@@ -795,7 +990,7 @@ namespace jk
 			{
 				_state = Layana_Sisters_State::Meteor_Vertical_End;
 
-				if (mDir == 1)
+				if (_Dir == 1)
 					at->PlayAnimation(L"Short_hairMeteor_Vertical04_End_S", true);
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Vertical04_End_SR", true);
@@ -817,7 +1012,7 @@ namespace jk
 			_Attacktime += Time::DeltaTime();
 			if (_SkillHomingFire == false)
 			{
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					bullet_tr1->SetPosition(Vector3(_pos.x + 85, _pos.y + -50, -255));
 					bullet_tr2->SetPosition(Vector3(_pos.x + 70, _pos.y, -255));
@@ -833,11 +1028,10 @@ namespace jk
 			if (_Attacktime > 1.f)
 			{
 				_state = Layana_Sisters_State::Skill_A_Bullet;
-				if (mDir == 1)
+				if (_Dir == 1)
 					at->PlayAnimation(L"Short_hairSkill_A_Bullet_S", false);
 				else
 					at->PlayAnimation(L"Short_hairSkill_A_Bullet_SR", false);
-
 			}
 		}
 	}
@@ -915,7 +1109,7 @@ namespace jk
 			}
 
 			_state = Layana_Sisters_State::Skill_A_Bullet_End;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairSkill_A_Bullet_End_S", true);
 			else
 				at->PlayAnimation(L"Short_hairSkill_A_Bullet_End_SR", true);			
@@ -962,7 +1156,7 @@ namespace jk
 			{
 				_SkillB_Switch = true;
 				_state = _state = Layana_Sisters_State::Skill_B_RisingPierce_End;
-				if (mDir == 1)
+				if (_Dir == 1)
 					at->PlayAnimation(L"Short_hairSkill_B_RisingPierce_End_S", true);
 				else
 					at->PlayAnimation(L"Short_hairSkill_B_RisingPierce_End_SR", true);
@@ -986,7 +1180,7 @@ namespace jk
 				boss_effect->SetPosition(Vector3(_pos.x, _pos.y - 10, -250));
 				Dimension_boss_effect->SetState(eState::Active);
 				Dimension_boss_effect->_SwitchOn = true;
-				if (mDir == 1)
+				if (_Dir == 1)
 					Dimension_boss_effect->SetDirection(1);
 				else
 					Dimension_boss_effect->SetDirection(-1);
@@ -995,7 +1189,7 @@ namespace jk
 				Transform* boss_bullet = Dimension_Bullet->GetComponent<Transform>();
 				Dimension_Bullet->_effect_switch = true;
 				int Setrotation = random(1, 2);
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					Dimension_Bullet->SetDirection(1);
 					float anglew = 0.f;
@@ -1051,7 +1245,7 @@ namespace jk
 				Dimension_BulletEffect->SetState(eState::Active);
 
 				Dimension_BulletEffect->_SwitchOn = true;
-				if (mDir == 1)
+				if (_Dir == 1)
 					Dimension_BulletEffect->SetDirection(1);
 				else
 					Dimension_BulletEffect->SetDirection(-1);
@@ -1062,7 +1256,7 @@ namespace jk
 				Dimension_BulletEffect->_SwitchOff = false;
 
 
-				if (mDir == 1)
+				if (_Dir == 1)
 					at->PlayAnimation(L"Short_hairIdle_S", true);
 				else
 					at->PlayAnimation(L"Short_hairIdle_SR", true);
@@ -1071,32 +1265,6 @@ namespace jk
 				_SkillC_Switch = false;
 			}
 		}
-	}
-
-
-	void Layana_ShortHair::Intro_Dash()
-	{
-		_Attacktime += Time::DeltaTime();
-		if (_Attacktime > 1.5 && _Attacktime < 2)
-		{
-			_rigidbody->ClearVelocity();
-			_rigidbody->SetGround(false);
-			_pos = Vector3(_ShortHairCreatepos.x + 200, _ShortHairCreatepos.y - 50, _ShortHairCreatepos.z);
-
-			_state = Layana_Sisters_State::Intro_Fall;
-			at->PlayAnimation(L"Short_hairIntro_Fall_S", false);
-		}
-	}
-	void Layana_ShortHair::Intro_Fall()
-	{
-		if (_Intro_Landing == true)
-		{
-			_state = Layana_Sisters_State::Intro_Landing;
-			at->PlayAnimation(L"Short_hairIntro_Landing_SR", true);
-		}
-	}
-	void Layana_ShortHair::Intro_Landing()
-	{
 	}
 
 
@@ -1138,7 +1306,7 @@ namespace jk
 		if (_Playerdistance.x <= 30 && _Playerdistance.x >= -30)
 		{
 			_state = Layana_Sisters_State::Rush_Ready;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairRush_Ready_S", true);
 			else
 				at->PlayAnimation(L"Short_hairRush_Ready_SR", true);
@@ -1146,7 +1314,7 @@ namespace jk
 		else
 		{
 			_state = Layana_Sisters_State::Dash;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairDash_S", true);
 			else
 				at->PlayAnimation(L"Short_hairDash_SR", true);
@@ -1159,7 +1327,7 @@ namespace jk
 		if (_Rushnumber >= 3)
 		{
 			_state = Layana_Sisters_State::Rush_End;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairRush_End_S", true);
 			else
 				at->PlayAnimation(L"Short_hairRush_End_SR", true);
@@ -1167,7 +1335,7 @@ namespace jk
 		else
 		{
 			_state = Layana_Sisters_State::Rush_Ready;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairRush_Ready_S", true);
 			else
 				at->PlayAnimation(L"Short_hairRush_Ready_SR", true);
@@ -1178,7 +1346,7 @@ namespace jk
 		if (_Rushnumber == 0)
 		{
 			_state = Layana_Sisters_State::RushA;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairRushA_S", true);
 			else
 				at->PlayAnimation(L"Short_hairRushA_SR", true);
@@ -1186,7 +1354,7 @@ namespace jk
 		if (_Rushnumber == 1)
 		{
 			_state = Layana_Sisters_State::RushB;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairRushB_S", true);
 			else
 				at->PlayAnimation(L"Short_hairRushB_SR", true);
@@ -1194,7 +1362,7 @@ namespace jk
 		if (_Rushnumber == 2)
 		{
 			_state = Layana_Sisters_State::RushC;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairRushC_S", true);
 			else
 				at->PlayAnimation(L"Short_hairRushC_SR", true);
@@ -1202,7 +1370,7 @@ namespace jk
 		if (_Rushnumber >= 3)
 		{
 			_state = Layana_Sisters_State::Idle;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairIdle_S", true);
 			else
 				at->PlayAnimation(L"Short_hairIdle_SR", true);
@@ -1218,7 +1386,7 @@ namespace jk
 		if (_Playerdistance.x <= 30 && _Playerdistance.x >= -30)
 		{
 			_state = Layana_Sisters_State::Meteor_Cross_Jump;
-			if (mDir == 1)
+			if (_Dir == 1)
 			{
 				at->PlayAnimation(L"Short_hairMeteor_Cross00_Jump_SR", false);
 				_rigidbody->SetVelocity(Vector2(250.f, 300.f));
@@ -1234,7 +1402,7 @@ namespace jk
 		else
 		{
 			_state = Layana_Sisters_State::Dash;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairDash_S", true);
 			else
 				at->PlayAnimation(L"Short_hairDash_SR", true);
@@ -1243,14 +1411,14 @@ namespace jk
 	void Layana_ShortHair::Complete_CrossJump()
 	{
 		_state = Layana_Sisters_State::Meteor_Cross_Attack;
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairMeteor_Cross04_Attack_SR", false);
 		else
 			at->PlayAnimation(L"Short_hairMeteor_Cross04_Attack_S", false);
 	}
 	void Layana_ShortHair::Complete_CrossLanding()
 	{
-		if (mDir)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairMeteor_Cross03_End_S", true);
 		else
 			at->PlayAnimation(L"Short_hairMeteor_Cross03_End_SR", true);
@@ -1258,7 +1426,7 @@ namespace jk
 	}
 	void Layana_ShortHair::Complete_CrossEnd()
 	{
-		if (mDir)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairIdle_S", true);
 		else
 			at->PlayAnimation(L"Short_hairIdle_SR", true);
@@ -1273,17 +1441,18 @@ namespace jk
 	{
 		_GroundMeteorSwitch = true; // 이동이 되었을때 공격하는 모션 온
 		_state = Layana_Sisters_State::FlyDash;
-		if (mDir == -1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairDash_S", true);
 		else
 			at->PlayAnimation(L"Short_hairDash_SR", true);
 	}
 	void Layana_ShortHair::Complete_GroundLanding()
 	{
+		
 	}
 	void Layana_ShortHair::Complete_GroundEnd()
 	{
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairIdle_S", true);
 		else
 			at->PlayAnimation(L"Short_hairIdle_SR", true);
@@ -1301,7 +1470,7 @@ namespace jk
 	{
 		_VerticalMeteorSwitch = true;
 		_state = Layana_Sisters_State::FlyDash;
-		if (mDir == -1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairDash_S", true);
 		else
 			at->PlayAnimation(L"Short_hairDash_SR", true);
@@ -1321,14 +1490,14 @@ namespace jk
 		at->PlayAnimation(L"Short_hairMeteor_Vertical02_Attack_S", false);
 		_rigidbody->SetGround(false);
 		_rigidbody->SetVelocity(Vector2(0.f, -350.f));
-		//if (mDir == 1)
+		//if (_Dir == 1)
 		//	at->PlayAnimation(L"Long_hairMeteor_Vertical02_Attack", false);
 		//else
 		//	at->PlayAnimation(L"Long_hairMeteor_Vertical02_AttackR", false);
 	}
 	void Layana_ShortHair::Complete_VerticalEnd()
 	{
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairIdle_S", true);
 		else
 			at->PlayAnimation(L"Short_hairIdle_SR", true);
@@ -1346,7 +1515,7 @@ namespace jk
 		if (_SkillA_Switch == true)
 		{
 			_state = Layana_Sisters_State::Skill_A_Bullet_Ready;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairSkill_A_Bullet_Ready_S", true);
 			else
 				at->PlayAnimation(L"Short_hairSkill_A_Bullet_Ready_SR", true);
@@ -1355,7 +1524,7 @@ namespace jk
 	}
 	void Layana_ShortHair::Complete_Skill_A()
 	{
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairIdle_S", true);
 		else
 			at->PlayAnimation(L"Short_hairIdle_SR", true);
@@ -1374,14 +1543,14 @@ namespace jk
 	void Layana_ShortHair::Skill_B_Combo()
 	{
 		_state = Layana_Sisters_State::Skill_B_RisingPierce;
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairSkill_B_RisingPierce_S", false);
 		else
 			at->PlayAnimation(L"Short_hairSkill_B_RisingPierce_SR", false);
 	}
 	void Layana_ShortHair::Complete_Skill_B()
 	{
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairIdle_S", true);
 		else
 			at->PlayAnimation(L"Short_hairIdle_SR", true);
@@ -1395,7 +1564,7 @@ namespace jk
 	void Layana_ShortHair::Skill_C_Combo()
 	{
 		_state = Layana_Sisters_State::Skill_C_DimensionPierce;
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairSkill_C_DimensionPierce_S", false);
 		else
 			at->PlayAnimation(L"Short_hairSkill_C_DimensionPierce_SR", false);
@@ -1406,28 +1575,27 @@ namespace jk
 	{
 		if (_Intro_Switch == false)
 		{
-			_pos = Vector3(_ShortHairCreatepos.x + 150, _ShortHairCreatepos.y + 200, _ShortHairCreatepos.z);
+			_pos = Vector3(_ShortHairCreatepos.x - 150, _ShortHairCreatepos.y + 200, _ShortHairCreatepos.z);
 			tr->SetPosition(_pos);
 			_Intro_Switch = true;
 		}
 		if (_Intro_Switch == true)
 		{
-			_state = Layana_Sisters_State::Intro_Dash;
-			at->PlayAnimation(L"Short_hairIntro_Dash_S", false);
+			at->PlayAnimation(L"Short_hairIntro_Dash_SR", false);
 			_rigidbody->SetGround(false);
-			_rigidbody->SetVelocity(Vector2(1050.f, 150.f));
+			_rigidbody->SetVelocity(Vector2(-1050.f, 150.f));
+			_Intro_Dash_ShortHair = true;
 			_Ground_check = false;
 			_Intro_Switch = false;
 		}
 	}
 	void Layana_ShortHair::Complete_IntroRanding()
 	{
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairIdle_S", true);
 		else
 			at->PlayAnimation(L"Short_hairIdle_SR", true);
-		_state = Layana_Sisters_State::Idle;
-
+		_Intro_ShortHair_END = true;
 		_time = 0.f;
 		_Attacktime = 0.f;
 		_Intro_Switch = false;
@@ -1455,7 +1623,7 @@ namespace jk
 	}
 	void Layana_ShortHair::Complete_Awaken()
 	{
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairIdle_S", true);
 		else
 			at->PlayAnimation(L"Short_hairIdle_SR", true);
@@ -1466,6 +1634,22 @@ namespace jk
 		_Attacktime = 0.f;
 		_Awaken_Switch = false;
 		_Awaken_Ready = false;
+	}
+
+
+	void Layana_ShortHair::BackGround_Combo()
+	{
+		_BackGround_Switch = true;
+		_state = Layana_Sisters_State::FlyDash;
+		if (_Dir == 1)
+			at->PlayAnimation(L"Short_hairDash_S", true);
+		else
+			at->PlayAnimation(L"Short_hairDash_SR", true);
+	}
+
+
+	void Layana_ShortHair::die()
+	{
 	}
 
 
@@ -1496,7 +1680,7 @@ namespace jk
 		}
 
 		Transform* bullet_tr = Homing[_HomingNumber]->GetComponent<Transform>();
-		if (mDir == 1)
+		if (_Dir == 1)
 		{
 			bullet_tr->SetRotationZ(0);
 			Homing[_HomingNumber]->SetDirection(-1);
@@ -1521,7 +1705,7 @@ namespace jk
 	{
 		Vector2 attackpoint;
 		Vector2 rotation;
-		if (mDir == -1)
+		if (_Dir == 1)
 		{
 			Homing[_HomingNumber]->SetDirection(-1);
 			attackpoint = Vector2(set->GetPositionX() + _Playerpos.x / 2, set->GetPositionY());
@@ -1561,9 +1745,6 @@ namespace jk
 	}
 
 
-	void Layana_ShortHair::die()
-	{
-	}
 }
 
 

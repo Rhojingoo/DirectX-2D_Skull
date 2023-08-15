@@ -21,18 +21,37 @@ namespace jk
 		enum class Layana_Sisters_State
 		{
 			Idle,
+			Intro_Dash,
+			Intro_Fall,
+			Intro_Landing,
+	
+			Sisters_Attack_FlyDash,
+			Sisters_Attack_Fall,
 
+			Sisters_Attack_A_Ready,
+			Sisters_Attack_A_LandingDash,
+			Sisters_Attack_A,
+			Sisters_Attack_A_End,
+	
+
+			Sisters_Attack_B,
+			Sisters_Attack_C,
+			Sisters_Attack_D,
+
+
+			BackGround_Idle,
+			BackGround_Move,
 
 			Rush_Ready,
 			RushA,
 			RushB,
 			RushC,
 			Rush_End,
+
 			Dash,
 			FlyDash,
 			LandingDash,
 			BackStep,
-
 
 			Meteor_Cross_Ready,
 			Meteor_Cross_Jump,
@@ -51,45 +70,52 @@ namespace jk
 			Meteor_Vertical_Landing,
 			Meteor_Vertical_End,
 
-
 			Skill_A_Bullet_Ready,
 			Skill_A_Bullet,
 			Skill_A_Bullet_End,
 
-
 			Skill_B_RisingPierce,
 			Skill_B_RisingPierce_End,
 
-
 			Skill_C_DimensionPierce,
 
-
-			Intro_Dash,
-			Intro_Fall,
-			Intro_Landing,
 
 
 			Awaken,
 			AwakenJump,
 			AwakenReady,
 
-
-			BackGround_Idle,
-			BackGround_Move,
-
 			Die,
 		};
 
 		void idle();
+
+		void Sisters_Attack_A_Ready();
+		void Sisters_Attack_FlyDash();
+		void Sisters_Attack_Fall();
+		void Sisters_Attack_A_LandingDash();
+		void Sisters_Attack_A();
+		void Sisters_Attack_A_End();
+
+
+		void Sisters_Attack_B();
+		void Sisters_Attack_C();
+		void Sisters_Attack_D();
+
+
+		void Dash();
+		void FlyDash();
+		void LandingDash();
+		void BackStep();
+
+
 		void Rushready();
 		void Rush_A();
 		void Rush_B();
 		void Rush_C();
 		void Rush_End();
-		void Dash();
-		void FlyDash();
-		void LandingDash();
-		void BackStep();
+
+
 
 		void CrossJump();
 		void CrossReady();
@@ -136,24 +162,41 @@ namespace jk
 		int random(int a, int b);
 
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
-		static Vector3 GetPlayerPos() { return _playerpos; }
-		static void SetPos(Vector3 set) { _pos = set; }
-		static Vector3 GetPos() { return _pos; }
-		static void SetRotation(Vector3 set) { _Rotation = set; }
-		static Vector3 GetRotations() { return _Rotation; }
-		
+		static Vector3 GetPlayerPos() { return _playerpos; }		
 		
 	public:
-		static Layana_Sisters_State _state;
-		static int	mDir;
-		static float _time;
-		static Vector3 GroundAttackpos_Right;
-		static Vector3 GroundAttackpos_Left;
+		static Layana_Sisters_State _state;	
 
 	private:
 		GameObject* _Gobjs[3];
-		static Vector3 _pos;
-		static Vector3 _Rotation;
-		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
+		float _time;
+
+
+	public:
+		static bool _Intro_On;
+		static bool _Intro_Dash_LongHair;
+		static bool _Intro_Dash_ShortHair;
+		static bool _Intro_Fall_LongHair;
+		static bool _Intro_Fall_ShortHair;
+		static bool _Intro_Land_LongHair;
+		static bool _Intro_Land_ShortHair;
+		static bool _Intro_LongHair_END;
+		static bool _Intro_ShortHair_END;
+
+	public:
+		bool _Sisters_Attack_On = false;
+		static bool _SistersAttack_A_IntroReady_LongHair;
+		static bool _SistersAttack_A_IntroReadyShortHair;
+		static bool _SistersAttack_A_FlyDash_LongHair;
+		static bool _SistersAttack_A_FlyDash_ShortHair;
+		static bool _SistersAttack_A_Ready_LongHair;
+		static bool _SistersAttack_A_Ready_ShortHair;
+		static bool _SistersAttack_A_DashOn;
+		static bool _SistersAttack_A_DashOn_LongHair;
+		static bool _SistersAttack_A_DashOn_ShortHair;
+
+		static bool _SistersAttack_LongHair_END;
+		static bool _SistersAttack_ShortHair_END;
+
 	};
 }
