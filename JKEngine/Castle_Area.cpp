@@ -74,8 +74,8 @@ namespace jk
 		
 			#pragma region Test
 
-						//Layana_Sisters* testboss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
-						//testboss->SetName(L"test_BOSS");
+						Layana_Sisters* testboss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
+						testboss->SetName(L"test_BOSS");
 
 		
 						//Yggdrasil* testboss = object::Instantiate<Yggdrasil>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);

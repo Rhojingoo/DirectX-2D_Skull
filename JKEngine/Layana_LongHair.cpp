@@ -243,7 +243,7 @@ namespace jk
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::RushB:
-			Layana_Sisters::Rush_B();
+			Layana_LongHair::Rush_B();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::RushC:
@@ -279,7 +279,7 @@ namespace jk
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Cross_Attack:
-			CrossAttack();
+			Layana_LongHair::CrossAttack();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Meteor_Cross_Landing:
@@ -375,11 +375,11 @@ namespace jk
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Idle:
-			BackGround_Idle();
+			Layana_LongHair::BackGround_Idle();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::BackGround_Move:
-			BackGround_Move();
+			Layana_LongHair::BackGround_Move();
 			break;
 
 		default:

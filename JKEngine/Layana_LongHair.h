@@ -144,6 +144,7 @@ namespace jk
 		Dimension_Pierce_BossEffect* Dimension_boss_effect = nullptr;
 		Dimension_Pierce* Dimension_Bullet = nullptr;
 		Dimension_Pierce_BulletEffect* Dimension_BulletEffect = nullptr;
+	
 
 	private:
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
@@ -153,6 +154,7 @@ namespace jk
 		Vector2 _velocity = Vector2(0.f, 0.f);
 		Vector3 _LongHairCreatepos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _HomingEditPOS = Vector2(0.f, 0.f);
+
 
 	private:
 		int		_Dir = 1;							// 방향설정

@@ -21,8 +21,11 @@ namespace jk
 
 	void Layana_Sisters::Initialize()
 	{
-		_Gobjs[0] = new Layana_LongHair;
+		_Gobjs[0] = new Layana_ShortHair;
 		_Gobjs[0]->Initialize();
+
+		//_Gobjs[0] = new Layana_LongHair;
+		//_Gobjs[0]->Initialize();
 
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[0]);
