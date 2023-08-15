@@ -33,7 +33,14 @@ namespace jk
 		void Sisters_Attack_A_LandingDash();
 		void Sisters_Attack_A();
 		void Sisters_Attack_A_End();
+
+
+		void Sisters_Attack_B_Ready();
+		void Sisters_Attack_B_LandingDash();
 		void Sisters_Attack_B();
+		void Sisters_Attack_B_End();
+
+
 		void Sisters_Attack_C();
 		void Sisters_Attack_D();
 

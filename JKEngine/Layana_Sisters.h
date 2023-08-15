@@ -24,7 +24,7 @@ namespace jk
 			Intro_Dash,
 			Intro_Fall,
 			Intro_Landing,
-	
+
 			Sisters_Attack_FlyDash,
 			Sisters_Attack_Fall,
 
@@ -32,9 +32,14 @@ namespace jk
 			Sisters_Attack_A_LandingDash,
 			Sisters_Attack_A,
 			Sisters_Attack_A_End,
-	
 
+
+			Sisters_Attack_B_Ready,
+			Sisters_Attack_B_LandingDash,
 			Sisters_Attack_B,
+			Sisters_Attack_B_End,
+
+	
 			Sisters_Attack_C,
 			Sisters_Attack_D,
 
@@ -98,7 +103,14 @@ namespace jk
 		void Sisters_Attack_A_End();
 
 
+		void Sisters_Attack_B_Ready();
+		void Sisters_Attack_B_LandingDash();
 		void Sisters_Attack_B();
+		void Sisters_Attack_B_End();
+
+
+
+
 		void Sisters_Attack_C();
 		void Sisters_Attack_D();
 
@@ -185,18 +197,33 @@ namespace jk
 
 	public:
 		bool _Sisters_Attack_On = false;
+		static int _Sisters_AttackType;
+
+	public:		
+		static bool _SistersAttack_FlyDash_LongHair;
+		static bool _SistersAttack_FlyDash_ShortHair;
+
+	public:
+		bool _Sisters_Attack_A_On = false;
 		static bool _SistersAttack_A_IntroReady_LongHair;
 		static bool _SistersAttack_A_IntroReadyShortHair;
-		static bool _SistersAttack_A_FlyDash_LongHair;
-		static bool _SistersAttack_A_FlyDash_ShortHair;
 		static bool _SistersAttack_A_Ready_LongHair;
 		static bool _SistersAttack_A_Ready_ShortHair;
 		static bool _SistersAttack_A_DashOn;
 		static bool _SistersAttack_A_DashOn_LongHair;
 		static bool _SistersAttack_A_DashOn_ShortHair;
+		static bool _SistersAttack_A_LongHair_END;
+		static bool _SistersAttack_A_ShortHair_END;
 
-		static bool _SistersAttack_LongHair_END;
-		static bool _SistersAttack_ShortHair_END;
+	public:
+		bool _Sisters_Attack_B_On = false;
+		static bool _SistersAttack_B_Ready_LongHair;
+		static bool _SistersAttack_B_Ready_ShortHair;
+		static bool _SistersAttack_B_DashOn;
+		static bool _SistersAttack_B_DashOn_LongHair;
+		static bool _SistersAttack_B_DashOn_ShortHair;
+		static bool _SistersAttack_B_LongHair_END;
+		static bool _SistersAttack_B_ShortHair_END;
 
 	};
 }

@@ -265,6 +265,29 @@ namespace jk
 			Layana_ShortHair::Sisters_Attack_A_End();
 			break;
 
+
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B_Ready:
+			Layana_ShortHair::Sisters_Attack_B_Ready();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B_LandingDash:
+			Layana_ShortHair::Sisters_Attack_B_LandingDash();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B:
+			Layana_ShortHair::Sisters_Attack_B();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B_End:
+			Layana_ShortHair::Sisters_Attack_B_End();
+			break;
+
+
+
+
+
+
 		case jk::Layana_Sisters::Layana_Sisters_State::Rush_Ready:
 			Layana_ShortHair::Rushready();
 			break;
@@ -479,13 +502,23 @@ namespace jk
 					_Awaken_Ready = true;
 				if (_state == Layana_Sisters_State::Sisters_Attack_Fall)
 				{
-					if (_SistersAttack_A_IntroReadyShortHair == true)
+					if (_Sisters_Attack_A_Switch == true)
 					{
 						if (_pos.x < _ShortHairCreatepos.x)
 							at->PlayAnimation(L"Short_hairMeteor_Ground01_Ready_S", false);
 						else
 							at->PlayAnimation(L"Short_hairMeteor_Ground01_Ready_SR", false);
+						_Sisters_Attack_A_Switch = true;
 						_SistersAttack_A_Ready_ShortHair = true;
+					}
+					if (_Sisters_Attack_B_Switch == true)
+					{
+						if (_pos.x < _ShortHairCreatepos.x)
+							at->PlayAnimation(L"Short_hairSkill_A_Bullet_Ready_S", false);
+						else
+							at->PlayAnimation(L"Short_hairSkill_A_Bullet_Ready_SR", false);
+						_Sisters_Attack_B_Switch = true;
+						_SistersAttack_B_Ready_ShortHair = true;
 					}
 			
 				}
@@ -583,12 +616,7 @@ namespace jk
 
 
 
-	void Layana_ShortHair::Sisters_Attack_A_Ready()
-	{
-		_Sisters_Attack_A_Switch = true;
-		_SistersAttack_A_IntroReadyShortHair = true;		
-		at->PlayAnimation(L"Short_hairDash_SR", true);
-	}
+
 	void Layana_ShortHair::Sisters_Attack_FlyDash()
 	{
 		if (_AttackStageON == true)
@@ -612,26 +640,33 @@ namespace jk
 		}
 		else
 		{
-			if (_Sisters_Attack_A_Switch == true)
+			_SistersAttack_FlyDash_ShortHair = true;
+			_Ground_check = false;
+			_rigidbody->SetGround(false);
+			if (_pos.x < _ShortHairCreatepos.x)
 			{
-				_SistersAttack_A_FlyDash_ShortHair = true;
-				_Ground_check = false;
-				_rigidbody->SetGround(false);
-				if (_pos.x < _ShortHairCreatepos.x)
-				{
-					_rigidbody->SetVelocity(Vector2(650.f, -150.f));
-					at->PlayAnimation(L"Short_hairDash_S", true);
-				}
-				else
-				{
-					_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
-					at->PlayAnimation(L"Short_hairDash_SR", true);
-				}
+				_rigidbody->SetVelocity(Vector2(650.f, -150.f));
+				at->PlayAnimation(L"Short_hairDash_S", true);
 			}
-		}		
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
+				at->PlayAnimation(L"Short_hairDash_SR", true);
+			}
+		}
+		
 	}
 	void Layana_ShortHair::Sisters_Attack_Fall()
 	{
+	}
+
+
+
+	void Layana_ShortHair::Sisters_Attack_A_Ready()
+	{
+		_Sisters_Attack_A_Switch = true;
+		_SistersAttack_A_IntroReadyShortHair = true;		
+		at->PlayAnimation(L"Short_hairDash_SR", true);
 	}
 	void Layana_ShortHair::Sisters_Attack_A_LandingDash()
 	{
@@ -670,7 +705,7 @@ namespace jk
 					at->PlayAnimation(L"Short_hairMeteor_Ground03_Landing_S", false);
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Ground03_Landing_SR", false);		
-				_SistersAttack_ShortHair_END = true;
+				_SistersAttack_A_ShortHair_END = true;
 			}
 			
 		}
@@ -684,24 +719,40 @@ namespace jk
 					at->PlayAnimation(L"Short_hairMeteor_Ground03_Landing_S", false);
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Ground03_Landing_SR", false);		
-				_SistersAttack_ShortHair_END = true;
+				_SistersAttack_A_ShortHair_END = true;
 			}			
 		}
 	}
 	void Layana_ShortHair::Sisters_Attack_A_End()
 	{
-		if (_SistersAttack_ShortHair_END == true)
+		if (_SistersAttack_A_ShortHair_END == true)
 		{
 			if (_pos.x > _ShortHairCreatepos.x)
 				at->PlayAnimation(L"Short_hairMeteor_Ground04_End_S", false);
 			else
 				at->PlayAnimation(L"Short_hairMeteor_Ground04_End_SR", false);
-			_SistersAttack_ShortHair_END = false;
+			_SistersAttack_A_ShortHair_END = false;
 		}
 	}
 
 
+	void Layana_ShortHair::Sisters_Attack_B_Ready()
+	{
+		_Sisters_Attack_B_Switch = true;	
+		if (_pos.x > _ShortHairCreatepos.x)		
+			at->PlayAnimation(L"Short_hairDash_S", true);		
+		else						
+			at->PlayAnimation(L"Short_hairDash_SR", true);		
+		_SistersAttack_B_Ready_ShortHair = true;
+		_AttackStageON = true;
+	}
+	void Layana_ShortHair::Sisters_Attack_B_LandingDash()
+	{
+	}
 	void Layana_ShortHair::Sisters_Attack_B()
+	{
+	}
+	void Layana_ShortHair::Sisters_Attack_B_End()
 	{
 	}
 	void Layana_ShortHair::Sisters_Attack_C()
