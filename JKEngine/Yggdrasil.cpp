@@ -132,7 +132,7 @@ namespace jk
 	}
 	void Yggdrasil::Update()
 	{
-		_playerpos;
+		_playerpos = Player::GetPlayer_Pos();
 		_Playerdistance.x = _playerpos.x - _pos.x;
 		if (_Playerdistance.x >= 0.f)
 			mDir = 1;
@@ -328,10 +328,10 @@ namespace jk
 		_NumberofAttack = 0;
 		_playerpos = Player::GetPlayer_Pos();
 
-		if (_Changeon == false)
-			Attack_Sellect = random(0, 2);
-		else
-			Attack_Sellect = random(0, 3);
+		//if (_Changeon == false)
+		//	Attack_Sellect = random(0, 2);
+		//else
+		//	Attack_Sellect = random(0, 3);
 		
 
 		if (_Intro == false)
@@ -341,11 +341,11 @@ namespace jk
 		if (_Intro == true)
 		{	
 			
-			//if (test == 0)
-			//	{
-			//		Attack_Sellect = 2;
-			//		test = 1;
-			//	}
+			if (test == 0)
+				{
+					Attack_Sellect = 2;
+					//test = 1;
+				}
 			_AttackA_FinishR = false;
 			_AttackA_FinishL = false;
 			_Groggy_Chin_Up = false;
@@ -536,6 +536,7 @@ namespace jk
 	}
 	void Yggdrasil::attack_c_finish()
 	{
+		_NumberofAttack = 0;
 		if (_AttackC_Finish == true)
 			_state = Yggdrasil_State::Groggy_Start;
 	}

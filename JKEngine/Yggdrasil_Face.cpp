@@ -329,7 +329,10 @@ namespace jk
 					Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
 				}
 				if (_NumberofAttack >= 3)
+				{
 					_state = Yggdrasil_State::Attack_C_Finish;
+					_NumberofAttack = 0;
+				}
 				else
 					_state = Yggdrasil_State::Attack_C_Ready;
 			}
@@ -343,24 +346,33 @@ namespace jk
 				{
 					for (int i = 0; i < 5; i++)
 					{
-						Energy_Corps[i]->SetState(eState::Active);
-						Energy_Corpsattack();
+						if (_time >= (1.0f + 0.5f * i))
+						{
+							Energy_Corps[i]->SetState(eState::Active);
+							Energy_Corpsattack();
+						}
 					}
 				}
 				if (_time >= 5.f)
 				{
 					for (int i = 5; i < 10; i++)
 					{
-						Energy_Corps[i]->SetState(eState::Active);
-						Energy_Corpsattack();
+						if (_time >= (5.0f + 0.5f * i))
+						{
+							Energy_Corps[i]->SetState(eState::Active);
+							Energy_Corpsattack();
+						}
 					}
 				}
 				if (_time >= 10.f)
 				{
 					for (int i = 10; i < 15; i++)
 					{
-						Energy_Corps[i]->SetState(eState::Active);
-						Energy_Corpsattack();
+						if (_time >= (10.0f + 0.5f * i))
+						{
+							Energy_Corps[i]->SetState(eState::Active);
+							Energy_Corpsattack();
+						}
 					}
 				}
 			}
@@ -516,13 +528,12 @@ namespace jk
 	{
 		Transform* bullet_tr = Energy_Bomb->GetComponent<Transform>();
 		RigidBody* bullet_Rb = Energy_Bomb->GetComponent<RigidBody>();
-
 		_playerpos.x;
 		_playerpos.y;		
 		Vector2 attack_pos = Vector2(_playerpos.x, _playerpos.y);
 		attack_pos.Normalize();
 		bullet_Rb->SetGround(false);
-		bullet_Rb->SetVelocity(Vector2(attack_pos.x * 300.f, attack_pos.y*200));
+		bullet_Rb->SetVelocity(Vector2(attack_pos.x * 300.f, attack_pos.y*300));
 	}
 	void Yggdrasil_Face::Energy_Corpsattack()
 	{
