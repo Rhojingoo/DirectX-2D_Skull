@@ -1,6 +1,12 @@
 #pragma once
 #include "Include_Common.h"
 #include "Layana_Sisters.h"
+#include "Homing_Pierce.h"
+#include "Rising_Pierce.h"
+#include "Dimension_Pierce.h"
+#include "Dimension_Pierce_BossEffect.h"
+#include "Dimension_Pierce_BulletEffect.h"
+
 
 namespace jk
 {
@@ -20,7 +26,98 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 		void idle();
+
+		void Rushready();
+		void Rush_A();
+		void Rush_B();
+		void Rush_C();
+		void Rush_End();
+		void Dash();
+		void FlyDash();
+		void LandingDash();
+		void BackStep();
+
+
+		void CrossJump();
+		void CrossReady();
+		void CrossAttack();
+		void CrossLanding();
+		void CrossEnd();
+
+		void GroundReady();
+		void GroundAttack();
+		void GroundLanding();
+		void GroundEnd();
+
+		void Vertical_Jump();
+		void Vertical_Ready();
+		void Vertical_Attack();
+		void Vertical_Landing();
+		void Vertical_End();
+
+
+		void Skill_A_Ready();
+		void Skill_A();
+		void Skill_A_End();
+
+		void Skill_B();
+		void Skill_B_End();
+
+		void Skill_C();
+
+
+		void Intro_Dash();
+		void Intro_Landing();
+		void Intro_Fall();
+
+
+		void Awaken();
+		void AwakenJump();
+		void AwakenReady();
+
+		void BackGround_Idle();
+		void BackGround_Move();
+
 		void die();
+
+	public:
+		void Complete_Rush();
+		void Complete_RushReady();
+
+		void Complete_CrossJump();
+		void Complete_CrossLanding();
+		void Complete_CrossEnd();
+
+		void Complete_GroundLanding();
+		void Complete_GroundEnd();
+
+		void Complete_VerticalJump();
+		void Complete_VerticalReady();
+		void Complete_VerticalEnd();
+
+		void Complete_Skill_A();
+		void Complete_Skill_B();
+
+		void Complete_IntroRanding();
+
+		void Complete_Awaken_Ready();
+		void Complete_Awaken();
+
+	public:
+		void Rush_Combo();
+		void Meteor_Cross_Combo();
+		void Meteor_Ground_Combo();
+		void Meteor_Vertical_Combo();
+		void Skill_A_Combo();
+		void Skill_B_Combo();
+		void Skill_C_Combo();
+		void Intro_Combo();
+		void Awaken_Combo();
+
+
+	public:
+		void CreateHoming();
+		void SettingHoming(Transform* set, int angle_of_number);
 
 
 

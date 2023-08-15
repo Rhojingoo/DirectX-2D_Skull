@@ -1327,7 +1327,7 @@ namespace jk
 		else
 			at->PlayAnimation(L"Long_hairDashR", true);
 	}	
-	void jk::Layana_LongHair::Complete_VerticalJump()
+	void Layana_LongHair::Complete_VerticalJump()
 	{
 		_Ground_check = false;
 		_pos.x = _Playerpos.x;
@@ -1538,7 +1538,7 @@ namespace jk
 			_Attacktime = 0;
 		}
 	}
-	void jk::Layana_LongHair::SettingHoming(Transform* set, int angle_of_number)
+	void Layana_LongHair::SettingHoming(Transform* set, int angle_of_number)
 	{
 		Vector2 attackpoint;
 		Vector2 rotation;
