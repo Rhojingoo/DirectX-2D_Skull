@@ -114,6 +114,9 @@
 // Layana_Sisters Effect
 #include "Dimension_Pierce_BossEffect.h"
 #include "Dimension_Pierce_BulletEffect.h"
+#include "TwinMeteor_Boss.h"
+#include "TwinMeteor_Effect.h"
+
 
 //UI
 #include "UI.h"

@@ -39,8 +39,14 @@ namespace jk
 			Sisters_Attack_B,
 			Sisters_Attack_B_End,
 
-	
+			Sisters_Attack_C_Ready,
 			Sisters_Attack_C,
+			Sisters_Attack_C_Landing,
+			Sisters_Attack_C_End,		
+
+
+
+
 			Sisters_Attack_D,
 
 
@@ -109,9 +115,11 @@ namespace jk
 		void Sisters_Attack_B_End();
 
 
-
-
+		void Sisters_Attack_C_Ready();
 		void Sisters_Attack_C();
+		void Sisters_Attack_C_Landing();
+		void Sisters_Attack_C_End();
+
 		void Sisters_Attack_D();
 
 
@@ -225,6 +233,17 @@ namespace jk
 		static bool _SistersAttack_B_BulletOn_ShortHair;
 		static bool _SistersAttack_B_LongHair_END;
 		static bool _SistersAttack_B_ShortHair_END;
+
+
+	public:
+		static bool _SistersAttack_C_IntroReady_LongHair;
+		static bool _SistersAttack_C_IntroReadyShortHair;
+		static bool _SistersAttack_C_Ready_LongHair;
+		static bool _SistersAttack_C_Ready_ShortHair;
+		static bool _SistersAttack_C_DashOn_LongHair;
+		static bool _SistersAttack_C_DashOn_ShortHair;
+		static bool _SistersAttack_C_LongHair_LAND;
+		static bool _SistersAttack_C_ShortHair_LAND;
 
 
 	};

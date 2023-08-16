@@ -206,6 +206,12 @@
     <ClInclude Include="Homing_Pierce_ShortHair.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="TwinMeteor_Effect.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClInclude>
+    <ClInclude Include="TwinMeteor_Boss.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -406,6 +412,12 @@
     </ClCompile>
     <ClCompile Include="Homing_Pierce_ShortHair.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="TwinMeteor_Boss.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClCompile>
+    <ClCompile Include="TwinMeteor_Effect.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

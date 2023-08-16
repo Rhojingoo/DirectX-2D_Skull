@@ -213,6 +213,8 @@
     <ClInclude Include="Skul_Spear.h" />
     <ClInclude Include="Skul_Sword.h" />
     <ClInclude Include="Skul_Wolf.h" />
+    <ClInclude Include="TwinMeteor_Boss.h" />
+    <ClInclude Include="TwinMeteor_Effect.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UI_Camera.h" />
     <ClInclude Include="Yggdrasil.h" />
@@ -282,6 +284,8 @@
     <ClCompile Include="Skul_Spear.cpp" />
     <ClCompile Include="Skul_Sword.cpp" />
     <ClCompile Include="Skul_Wolf.cpp" />
+    <ClCompile Include="TwinMeteor_Boss.cpp" />
+    <ClCompile Include="TwinMeteor_Effect.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UI_Camera.cpp" />
     <ClCompile Include="Yggdrasil.cpp" />

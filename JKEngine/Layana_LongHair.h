@@ -6,6 +6,8 @@
 #include "Dimension_Pierce.h"
 #include "Dimension_Pierce_BossEffect.h"
 #include "Dimension_Pierce_BulletEffect.h"
+#include "TwinMeteor_Boss.h"
+#include "TwinMeteor_Effect.h"
 
 namespace jk
 {
@@ -42,8 +44,13 @@ namespace jk
 
 
 
-
+		void Sisters_Attack_C_Ready();
 		void Sisters_Attack_C();
+		void Sisters_Attack_C_Landing();
+		void Sisters_Attack_C_End();
+
+
+
 		void Sisters_Attack_D();
 
 
@@ -162,11 +169,13 @@ namespace jk
 		Transform* Risingbullet_tr[19];
 		RigidBody* risingbullet_rb[19];
 
+
 	private:
 		Dimension_Pierce_BossEffect* Dimension_boss_effect = nullptr;
 		Dimension_Pierce* Dimension_Bullet = nullptr;
 		Dimension_Pierce_BulletEffect* Dimension_BulletEffect = nullptr;
-	
+		TwinMeteor_Effect* TwinMeteor_Impact = nullptr;
+		TwinMeteor_Boss* TwinMeteor_BossEffect = nullptr;
 
 	private:
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);

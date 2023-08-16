@@ -206,7 +206,24 @@ namespace jk
 			bullte_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
 			Dimension_BulletEffect->SetState(eState::Paused);
 		}
-
+		{
+			TwinMeteor_Impact = new TwinMeteor_Effect;
+			TwinMeteor_Impact->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, TwinMeteor_Impact);
+			Transform* bullte_effect = TwinMeteor_Impact->GetComponent<Transform>();
+			bullte_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			TwinMeteor_Impact->SetState(eState::Paused);
+		}
+		{
+			TwinMeteor_BossEffect = new TwinMeteor_Boss;
+			TwinMeteor_BossEffect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, TwinMeteor_BossEffect);
+			Transform* bullte_effect = TwinMeteor_BossEffect->GetComponent<Transform>();
+			bullte_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			TwinMeteor_BossEffect->SetState(eState::Paused);
+		}
 
 		at->PlayAnimation(L"Short_hairIdle_S", true);
 		GameObject::Initialize();
@@ -267,6 +284,7 @@ namespace jk
 
 
 
+
 		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B_Ready:
 			Layana_ShortHair::Sisters_Attack_B_Ready();
 			break;
@@ -283,6 +301,24 @@ namespace jk
 			Layana_ShortHair::Sisters_Attack_B_End();
 			break;
 
+
+
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_C_Ready:
+			Layana_ShortHair::Sisters_Attack_C_Ready();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_C:
+			Layana_ShortHair::Sisters_Attack_C();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_C_Landing:
+			Layana_ShortHair::Sisters_Attack_C_Landing();
+			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_C_End:
+			Layana_ShortHair::Sisters_Attack_C_End();
+			break;
 
 
 
@@ -519,8 +555,16 @@ namespace jk
 							at->PlayAnimation(L"Short_hairSkill_A_Bullet_Ready_SR", false);
 						_SistersAttack_B_Ready_ShortHair = true;
 						_Sisters_Attack_B_Switch = false;
-					}
-			
+					}			
+				}
+
+				if (_state == Layana_Sisters_State::Sisters_Attack_C)
+				{
+					if (_pos.x < _ShortHairCreatepos.x)
+						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_S", true);
+					else
+						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_SR", true);
+					tr->SetRotationZ(0.f);
 				}
 			}
 		}
@@ -640,18 +684,103 @@ namespace jk
 		}
 		else
 		{
-			_SistersAttack_FlyDash_ShortHair = true;
-			_Ground_check = false;
-			_rigidbody->SetGround(false);
-			if (_pos.x < _ShortHairCreatepos.x)
+			if (_Sisters_Attack_C_Switch == true)
 			{
-				_rigidbody->SetVelocity(Vector2(650.f, -150.f));
-				at->PlayAnimation(L"Short_hairDash_S", true);
+				if (_SistersAttack_C_Ready_ShortHair == false)
+				{
+					if (_pos.x >= 0)
+					{
+						Transform* bullte_effect = TwinMeteor_BossEffect->GetComponent<Transform>();
+						bullte_effect->SetPosition(Vector3(_ShortHairCreatepos.x + 250, _pos.y - 200, -205));
+						float angle = 30;
+						float angleInDegrees = angle * (180.0f / XM_PI);
+						bullte_effect->AddRotationZ(angleInDegrees);
+						//bullte_effect->SetRotationZ(angleInDegrees);
+						TwinMeteor_BossEffect->SetState(eState::Active);
+						_SistersAttack_C_Ready_ShortHair = true;
+					}
+					else
+					{
+						Transform* bullte_effect = TwinMeteor_BossEffect->GetComponent<Transform>();
+						bullte_effect->SetPosition(Vector3(_ShortHairCreatepos.x - 250, _pos.y - 200, -205));
+						float angle = -30;
+						float angleInDegrees = angle * (180.0f / XM_PI);
+						bullte_effect->AddRotationZ(angleInDegrees);
+						//bullte_effect->SetRotationZ(angleInDegrees);
+						TwinMeteor_BossEffect->SetState(eState::Active);
+						_SistersAttack_C_Ready_ShortHair = true;
+					}
+				}
+				else
+				{
+					_Attacktime += Time::DeltaTime();
+					if (_Attacktime > 1.5)
+					{
+						//TwinMeteor_BossEffect->SetState(eState::Paused);
+						if (_pos.x < _ShortHairCreatepos.x)
+						{
+							_pos = Vector3(-640.f, _pos.y, _pos.z);
+							tr->SetPosition(_pos);							
+							float angle = -210;
+							float angleInDegrees = angle * (180.0f / XM_PI);
+							//tr->SetRotationZ(angleInDegrees);
+							tr->AddRotationZ(angleInDegrees);
+							_rigidbody->SetVelocity(Vector2(800.f, -150.f));
+							_rigidbody->SetGround(false);
+							_Ground_check = false;
+							at->PlayAnimation(L"Short_hairMeteor_Ground02_Attack_S", true);							
+							{
+								Transform* bullte_effect = TwinMeteor_Impact->GetComponent<Transform>();
+								bullte_effect->SetPosition(Vector3(_ShortHairCreatepos.x - 250, _pos.y - 200, -205));
+								float angle = -30;
+								float angleInDegrees = angle * (180.0f / XM_PI);
+								//bullte_effect->SetRotationZ(angleInDegrees);
+								bullte_effect->AddRotationZ(angleInDegrees);
+								TwinMeteor_Impact->SetState(eState::Active);
+							}
+							_SistersAttack_C_DashOn_ShortHair = true;
+						}
+						else
+						{
+							_pos = Vector3(640.f, _pos.y, _pos.z);
+							tr->SetPosition(_pos);
+							float angle = -210;
+							float angleInDegrees = angle * (180.0f / XM_PI);
+							//tr->SetRotationZ(angleInDegrees);
+							tr->AddRotationZ(angleInDegrees);
+							_rigidbody->SetVelocity(Vector2(-800.f, -150.f));
+							_rigidbody->SetGround(false);
+							_Ground_check = false;
+							at->PlayAnimation(L"Short_hairMeteor_Ground02_Attack_SR", true);							
+							{
+								Transform* bullte_effect = TwinMeteor_Impact->GetComponent<Transform>();
+								bullte_effect->SetPosition(Vector3(_ShortHairCreatepos.x + 250, _pos.y - 200, -205));
+								float angle = 30;
+								float angleInDegrees = angle * (180.0f / XM_PI);
+								//bullte_effect->SetRotationZ(angleInDegrees);
+								bullte_effect->AddRotationZ(angleInDegrees);
+								TwinMeteor_Impact->SetState(eState::Active);
+							}
+							_SistersAttack_C_DashOn_ShortHair = true;
+						}
+					}
+				}
 			}
 			else
 			{
-				_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
-				at->PlayAnimation(L"Short_hairDash_SR", true);
+				_SistersAttack_FlyDash_ShortHair = true;
+				_Ground_check = false;
+				_rigidbody->SetGround(false);
+				if (_pos.x < _ShortHairCreatepos.x)
+				{
+					_rigidbody->SetVelocity(Vector2(650.f, -150.f));
+					at->PlayAnimation(L"Short_hairDash_S", true);
+				}
+				else
+				{
+					_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
+					at->PlayAnimation(L"Short_hairDash_SR", true);
+				}
 			}
 		}
 		
@@ -865,9 +994,28 @@ namespace jk
 	}
 
 
+	void Layana_ShortHair::Sisters_Attack_C_Ready()
+	{
+		_AttackStageON = true;
+		_Sisters_Attack_C_Switch = true;
+		if (_pos.x > _ShortHairCreatepos.x)
+			at->PlayAnimation(L"Short_hairDash_S", true);
+		else
+			at->PlayAnimation(L"Short_hairDash_SR", true);
+		_SistersAttack_C_IntroReadyShortHair = true;
+	}
 	void Layana_ShortHair::Sisters_Attack_C()
 	{
 	}
+	void Layana_ShortHair::Sisters_Attack_C_Landing()
+	{
+	}
+	void Layana_ShortHair::Sisters_Attack_C_End()
+	{
+	}
+
+
+
 	void Layana_ShortHair::Sisters_Attack_D()
 	{
 	}

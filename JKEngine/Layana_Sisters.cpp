@@ -42,6 +42,17 @@ namespace jk
 	bool Layana_Sisters::_SistersAttack_B_ShortHair_END = false;
 
 
+	bool Layana_Sisters::_SistersAttack_C_IntroReady_LongHair = false;
+	bool Layana_Sisters::_SistersAttack_C_IntroReadyShortHair = false;
+	bool Layana_Sisters::_SistersAttack_C_Ready_LongHair = false;
+	bool Layana_Sisters::_SistersAttack_C_Ready_ShortHair = false;
+	bool Layana_Sisters::_SistersAttack_C_DashOn_LongHair = false;
+	bool Layana_Sisters::_SistersAttack_C_DashOn_ShortHair = false;
+	bool Layana_Sisters::_SistersAttack_C_LongHair_LAND = false;
+	bool Layana_Sisters::_SistersAttack_C_ShortHair_LAND = false;
+
+
+
 
 	Layana_Sisters::Layana_Sisters()
 	{
@@ -130,16 +141,33 @@ namespace jk
 			break;
 
 
+			
 
-
-
+		
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_C_Ready:
+			Sisters_Attack_C_Ready();
+			break;		
+		
 		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_C:
 			Sisters_Attack_C();
+			break;		
+		
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_C_Landing:
+			Sisters_Attack_C_Landing();
 			break;
+
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_C_End:
+			Sisters_Attack_C_End();
+			break;
+
+
+
+
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_D:
 			Sisters_Attack_D();
 			break;
+
 
 
 
@@ -358,6 +386,8 @@ namespace jk
 				_state = Layana_Sisters_State::Sisters_Attack_A_Ready;
 				if (_Sisters_AttackType == 1)
 				_state = Layana_Sisters_State::Sisters_Attack_B_Ready;		
+				if (_Sisters_AttackType == 2)
+				_state = Layana_Sisters_State::Sisters_Attack_C_Ready;
 			}			
 		}
 	}
@@ -405,6 +435,12 @@ namespace jk
 	{
 		if (_SistersAttack_FlyDash_ShortHair == true && _SistersAttack_FlyDash_LongHair == true)
 			_state = Layana_Sisters_State::Sisters_Attack_Fall;		
+
+		if (_SistersAttack_C_DashOn_ShortHair == true && _SistersAttack_C_DashOn_LongHair == true)
+		{
+			int a = 0;
+			_state = Layana_Sisters_State::Sisters_Attack_C;
+		}
 	}
 	void Layana_Sisters::Sisters_Attack_Fall()
 	{
@@ -456,9 +492,12 @@ namespace jk
 			_state = Layana_Sisters_State::Idle;
 			_Attacktime = 0;
 			_Intro_On = false; 
-			_Sisters_AttackType++;
+			_Sisters_AttackType =2;
 		}		
 	}
+
+
+
 
 	void Layana_Sisters::Sisters_Attack_B_Ready()
 	{			
@@ -489,7 +528,20 @@ namespace jk
 
 
 
+	void Layana_Sisters::Sisters_Attack_C_Ready()
+	{
+		
+		if(_SistersAttack_C_IntroReadyShortHair == true && _SistersAttack_C_IntroReady_LongHair)
+			_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
+	}
+
 	void Layana_Sisters::Sisters_Attack_C()
+	{
+	}
+	void Layana_Sisters::Sisters_Attack_C_Landing()
+	{
+	}
+	void Layana_Sisters::Sisters_Attack_C_End()
 	{
 	}
 	void Layana_Sisters::Sisters_Attack_D()
