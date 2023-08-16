@@ -102,7 +102,8 @@
 #include "Yggdrasil_BasicBullet.h"
 #include "Yggdrasil_Energy_Bomb.h"
 #include "Yggdrsil_Energy_Corps.h"
-#include "Homing_Pierce.h"
+#include "Homing_Pierce_LongHair.h"
+#include "Homing_Pierce_ShortHair.h"
 #include "Rising_Pierce.h"
 #include "Dimension_Pierce.h"
 

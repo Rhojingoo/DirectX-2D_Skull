@@ -299,7 +299,7 @@ namespace jk
 	void Yggdrasil_Face::attack_c()
 	{
 		_time += Time::DeltaTime();
-		if (_Changeon == false)
+		if (_Changeon == true)
 		{
 			if (_time <= 7.f)
 			{
@@ -338,7 +338,7 @@ namespace jk
 			}
 		}
 		// 체인지한뒤 에너지볼변경
-		if (_Changeon == true)
+		if (_Changeon == false)
 		{
 			if (_time <= 15.f)
 			{

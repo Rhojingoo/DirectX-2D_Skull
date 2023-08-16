@@ -35,7 +35,7 @@ namespace jk
 
 
 			Sisters_Attack_B_Ready,
-			Sisters_Attack_B_LandingDash,
+			Sisters_Attack_B_BulletCreate,
 			Sisters_Attack_B,
 			Sisters_Attack_B_End,
 
@@ -104,7 +104,7 @@ namespace jk
 
 
 		void Sisters_Attack_B_Ready();
-		void Sisters_Attack_B_LandingDash();
+		void Sisters_Attack_B_BulletCreate();
 		void Sisters_Attack_B();
 		void Sisters_Attack_B_End();
 
@@ -181,8 +181,8 @@ namespace jk
 
 	private:
 		GameObject* _Gobjs[3];
-		float _time;
-
+		float _time = 0.f;
+		float _Attacktime = 0.f;
 
 	public:
 		static bool _Intro_On;
@@ -217,13 +217,15 @@ namespace jk
 
 	public:
 		bool _Sisters_Attack_B_On = false;
+		static bool _SistersAttack_B_IntroReady_LongHair;
+		static bool _SistersAttack_B_IntroReadyShortHair;
 		static bool _SistersAttack_B_Ready_LongHair;
 		static bool _SistersAttack_B_Ready_ShortHair;
-		static bool _SistersAttack_B_DashOn;
-		static bool _SistersAttack_B_DashOn_LongHair;
-		static bool _SistersAttack_B_DashOn_ShortHair;
+		static bool _SistersAttack_B_BulletOn_LongHair;
+		static bool _SistersAttack_B_BulletOn_ShortHair;
 		static bool _SistersAttack_B_LongHair_END;
 		static bool _SistersAttack_B_ShortHair_END;
+
 
 	};
 }

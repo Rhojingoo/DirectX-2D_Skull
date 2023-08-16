@@ -1,7 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "Layana_Sisters.h"
-#include "Homing_Pierce.h"
+#include "Homing_Pierce_ShortHair.h"
 #include "Rising_Pierce.h"
 #include "Dimension_Pierce.h"
 #include "Dimension_Pierce_BossEffect.h"
@@ -36,7 +36,7 @@ namespace jk
 
 
 		void Sisters_Attack_B_Ready();
-		void Sisters_Attack_B_LandingDash();
+		void Sisters_Attack_B_BulletCreate();
 		void Sisters_Attack_B();
 		void Sisters_Attack_B_End();
 
@@ -147,7 +147,7 @@ namespace jk
 		Transform* tr = nullptr;
 
 	private:
-		Homing_Pierce* Homing[3];
+		Homing_Pierce_ShortHair* Homing[3];
 		Transform* bullet_tr1 = nullptr;
 		Transform* bullet_tr2 = nullptr;
 		Transform* bullet_tr3 = nullptr;

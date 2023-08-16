@@ -155,7 +155,7 @@ namespace jk
 		
 		for (int i = 0; i < 3; i++)
 		{
-			Homing[i] = new Homing_Pierce;	
+			Homing[i] = new Homing_Pierce_LongHair;
 			Homing[i]->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, Homing[i]);
@@ -279,8 +279,8 @@ namespace jk
 			Layana_LongHair::Sisters_Attack_B_Ready();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B_LandingDash:
-			Layana_LongHair::Sisters_Attack_B_LandingDash();
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B_BulletCreate:
+			Layana_LongHair::Sisters_Attack_B_BulletCreate();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B:
@@ -525,8 +525,8 @@ namespace jk
 							at->PlayAnimation(L"Long_hairSkill_A_Bullet_Ready", false);
 						else
 							at->PlayAnimation(L"Long_hairSkill_A_Bullet_ReadyR", false);			
-						_Sisters_Attack_B_Switch = false;
 						_SistersAttack_B_Ready_LongHair = true;
+						_Sisters_Attack_B_Switch = false;
 					}
 				}				
 			}
@@ -738,6 +738,7 @@ namespace jk
 			else
 				at->PlayAnimation(L"Long_hairMeteor_Ground04_EndR", false);
 			_SistersAttack_A_LongHair_END = false;
+			_Sisters_Attack_A_Switch = false;
 		}
 	}
 
@@ -751,18 +752,124 @@ namespace jk
 			at->PlayAnimation(L"Long_hairDash", true);		
 		else		
 			at->PlayAnimation(L"Long_hairDashR", true);
-		_SistersAttack_B_Ready_LongHair = true;		
+		_SistersAttack_B_IntroReady_LongHair = true;
 		_AttackStageON = true;
 	}
-	void Layana_LongHair::Sisters_Attack_B_LandingDash()
+	void Layana_LongHair::Sisters_Attack_B_BulletCreate()
 	{
+		if (_SkillHomingON == false)
+			CreateHoming();
+		else
+		{
+			_Attacktime += Time::DeltaTime();
+			if (_SkillHomingFire == false)
+			{
+				if (_Dir == 1)
+				{
+					bullet_tr1->SetPosition(Vector3(_pos.x + 85, _pos.y + -50, -255));
+					bullet_tr2->SetPosition(Vector3(_pos.x + 70, _pos.y, -255));
+					bullet_tr3->SetPosition(Vector3(_pos.x + 55, _pos.y + 50, -255));
+				}
+				else
+				{
+					bullet_tr1->SetPosition(Vector3(_pos.x - 85, _pos.y + -50, -255));
+					bullet_tr2->SetPosition(Vector3(_pos.x - 70, _pos.y, -255));
+					bullet_tr3->SetPosition(Vector3(_pos.x - 55, _pos.y + 50, -255));
+				}
+			}
+			if (_Attacktime > 1.f)
+			{
+				_SistersAttack_B_BulletOn_LongHair = true;
+				if (_Dir == 1)
+					at->PlayAnimation(L"Long_hairSkill_A_Bullet", false);
+				else
+					at->PlayAnimation(L"Long_hairSkill_A_BulletR", false);
+
+			}
+		}
 	}
 	void Layana_LongHair::Sisters_Attack_B()
 	{
+		_Attacktime += Time::DeltaTime();
+
+		if (_Attacktime < 5)
+		{
+			_SkillHomingFire = true;
+			if (_Attacktime < 1.5)
+				SettingHoming(bullet_tr1, 0);
+			if (_Attacktime < 2)
+				SettingHoming(bullet_tr2, 1);
+			if (_Attacktime < 2.5)
+				SettingHoming(bullet_tr3, 2);
+
+			if (_Attacktime >= 1.5)
+			{
+				//레이아나 크로스공격시 참고용
+				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - _pos.x, _Playerpos.y - _pos.y);
+				attackrotation_PLAYER.Normalize();
+				bullet_rb1->SetGround(false);
+				bullet_rb1->SetVelocity(Vector2(attackrotation_PLAYER.x * 650.f, attackrotation_PLAYER.y * 350));
+				Vector2 vel = bullet_rb1->GetVelocity();
+				int a = 0;
+			}
+
+			if (_Attacktime >= 2)
+			{
+				//레이아나 크로스공격시 참고용
+				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - _pos.x, _Playerpos.y - _pos.y);
+				attackrotation_PLAYER.Normalize();
+				bullet_rb2->SetGround(false);
+				bullet_rb2->SetVelocity(Vector2(attackrotation_PLAYER.x * 650.f, attackrotation_PLAYER.y * 1250));
+				Vector2 vel = bullet_rb2->GetVelocity();
+				int a = 0;
+
+			}
+
+			if (_Attacktime >= 2.5)
+			{
+				//레이아나 크로스공격시 참고용
+				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - _pos.x, _Playerpos.y - _pos.y);
+				attackrotation_PLAYER.Normalize();
+				bullet_rb3->SetGround(false);
+				bullet_rb3->SetVelocity(Vector2(attackrotation_PLAYER.x * 650.f, attackrotation_PLAYER.y * 1400));
+				Vector2 vel = bullet_rb3->GetVelocity();
+				int a = 0;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				RigidBody* bullet_rb1 = Homing[0]->GetComponent<RigidBody>();
+				RigidBody* bullet_rb2 = Homing[1]->GetComponent<RigidBody>();
+				RigidBody* bullet_rb3 = Homing[2]->GetComponent<RigidBody>();
+				bullet_rb1->ClearVelocity();
+				bullet_rb2->ClearVelocity();
+				bullet_rb3->ClearVelocity();
+				bullet_rb1->SetGround(true);
+				bullet_rb2->SetGround(true);
+				bullet_rb3->SetGround(true);
+				_Attacktime = 0;
+				Homing[i]->SetState(eState::Paused);
+			}
+
+
+			_SistersAttack_B_LongHair_END = true;
+			if (_Dir == 1)
+				at->PlayAnimation(L"Long_hairSkill_A_Bullet_End", false);
+			else
+				at->PlayAnimation(L"Long_hairSkill_A_Bullet_EndR", false);
+			int a = 0;
+		}
 	}
 	void Layana_LongHair::Sisters_Attack_B_End()
 	{
+		_Sisters_Attack_B_Switch = false;
 	}
+
+
+
+
 	void Layana_LongHair::Sisters_Attack_C()
 	{
 	}
@@ -1090,7 +1197,6 @@ namespace jk
 					at->PlayAnimation(L"Long_hairSkill_A_Bullet", false);
 				else
 					at->PlayAnimation(L"Long_hairSkill_A_BulletR", false);
-
 			}			
 		}
 	}
@@ -1110,28 +1216,22 @@ namespace jk
 
 			if (_Attacktime >= 1.5)
 			{
-				//bullet_tr1->SetRotationZ(0);
-				//bullet_tr1->AddRotationZ(_HomingAngle[0]);
-
 				//레이아나 크로스공격시 참고용
-				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x, _Playerpos.y);
+				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x-_pos.x, _Playerpos.y-_pos.y);
 				attackrotation_PLAYER.Normalize();
 				bullet_rb1->SetGround(false);
-				bullet_rb1->SetVelocity(Vector2(attackrotation_PLAYER.x * 300.f, attackrotation_PLAYER.y * 200));
+				bullet_rb1->SetVelocity(Vector2(attackrotation_PLAYER.x * 650.f, attackrotation_PLAYER.y * 350));
 				Vector2 vel = bullet_rb1->GetVelocity();
 				int a = 0;
 			}
 
 			if (_Attacktime >= 2)
 			{
-				//bullet_tr2->SetRotationZ(0);
-				//bullet_tr2->AddRotationZ(_HomingAngle[1]);
-
 				//레이아나 크로스공격시 참고용
-				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x, _Playerpos.y);
+				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - _pos.x, _Playerpos.y - _pos.y);
 				attackrotation_PLAYER.Normalize();
 				bullet_rb2->SetGround(false);
-				bullet_rb2->SetVelocity(Vector2(attackrotation_PLAYER.x * 300.f, attackrotation_PLAYER.y * 200));	
+				bullet_rb2->SetVelocity(Vector2(attackrotation_PLAYER.x * 650.f, attackrotation_PLAYER.y * 1250));
 				Vector2 vel = bullet_rb2->GetVelocity();
 				int a = 0;
 
@@ -1139,14 +1239,11 @@ namespace jk
 
 			if (_Attacktime >= 2.5)
 			{
-				//bullet_tr3->SetRotationZ(0);
-				//bullet_tr3->AddRotationZ(_HomingAngle[2]);
-
 				//레이아나 크로스공격시 참고용
-				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x, _Playerpos.y);
+				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - _pos.x, _Playerpos.y - _pos.y);
 				attackrotation_PLAYER.Normalize();
 				bullet_rb3->SetGround(false);
-				bullet_rb3->SetVelocity(Vector2(attackrotation_PLAYER.x * 300, attackrotation_PLAYER.y * 200));		
+				bullet_rb3->SetVelocity(Vector2(attackrotation_PLAYER.x * 650.f, attackrotation_PLAYER.y * 1400));
 				Vector2 vel = bullet_rb3->GetVelocity();
 				int a = 0;
 			}
@@ -1516,9 +1613,9 @@ namespace jk
 			at->PlayAnimation(L"Long_hairIdle", true);
 		else
 			at->PlayAnimation(L"Long_hairIdleR", true);
-		_state = Layana_Sisters_State::Idle;
-		_time = 0;
+			_state = Layana_Sisters_State::Idle;
 
+			_time = 0;
 		_GroundMeteorSwitch = false;
 		_GroundMeteorLanding = false;
 		_GroundMeteorAttack_Right = false;
@@ -1765,43 +1862,51 @@ namespace jk
 	{
 		Vector2 attackpoint;
 		Vector2 rotation;
-		if (_Dir == 1)
+
+		if (_LongHairCreatepos.x >= _pos.x)
 		{
+			//_LongHairCreatepos
 			Homing[_HomingNumber]->SetDirection(-1);
-			attackpoint = Vector2(set->GetPositionX() + _Playerpos.x/2 , set->GetPositionY());
-			rotation = Vector2(-_Playerpos.x, -_Playerpos.y);
+			if (_Playerpos.x > 0)			
+				Homing[_HomingNumber]->SetDirection(1);			
+			attackpoint = Vector2(set->GetPositionX() - _Playerpos.x, set->GetPositionY() + _Playerpos.y);
+			rotation = Vector2(_Playerpos.x, _Playerpos.y);
 		}
 		else
 		{
-			Homing[_HomingNumber]->SetDirection(-1);
-			 attackpoint = Vector2(set->GetPositionX() + _Playerpos.x / 2, set->GetPositionY());
+			Homing[_HomingNumber]->SetDirection(1);
+			if (_Playerpos.x > 0)
+				Homing[_HomingNumber]->SetDirection(-1);
+			attackpoint = Vector2(set->GetPositionX() - _Playerpos.x, set->GetPositionY() + _Playerpos.y);
 			rotation = Vector2(_Playerpos.x, _Playerpos.y);
 		}
 
 		attackpoint.Normalize();
 		rotation.Normalize();
 
-		float dotProduct = attackpoint.Dot(rotation);
-		dotProduct = std::clamp(dotProduct, -1.0f, 1.0f);
-		float angle = std::acos(dotProduct);
-		float angleInDegrees = angle * (180.0f / XM_PI);
+		Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
+		float angle = std::atan2(direction.y, direction.x);
+		set->SetRotationZ(angle);
 
-		// 각도방향 결정을 위해 외적사용.
-		float crossProduct = attackpoint.x * rotation.y - attackpoint.y * rotation.x;
-		if (crossProduct < 0)
-			angleInDegrees = -angleInDegrees;
-
-		// 0~ 360도 범위로 조정.
-		angleInDegrees = fmod(angleInDegrees + 360.0f, 360.0f);
-		float anglew = angleInDegrees / (180.0f / XM_PI);
-		set->SetRotationZ(anglew);
+		//float dotProduct = attackpoint.Dot(rotation);
+		//dotProduct = std::clamp(dotProduct, -1.0f, 1.0f);
+		//float angle = std::acos(dotProduct);
+		//float angleInDegrees = angle * (180.0f / XM_PI);
+		//// 각도방향 결정을 위해 외적사용.
+		//float crossProduct = attackpoint.x * rotation.y - attackpoint.y * rotation.x;
+		//if (crossProduct < 0)
+		//	angleInDegrees = -angleInDegrees;
+		//// 0~ 360도 범위로 조정.
+		//angleInDegrees = fmod(angleInDegrees + 360.0f, 360.0f);
+		//float anglew = angleInDegrees / (180.0f / XM_PI);
+		//set->SetRotationZ(anglew);
 
 		if (angle_of_number == 0)
-			_HomingAngle[0] = anglew;
+			_HomingAngle[0] = angle;
 		if (angle_of_number == 1)
-			_HomingAngle[1] = anglew;
+			_HomingAngle[1] = angle;
 		if (angle_of_number == 2)
-			_HomingAngle[2] = anglew;
+			_HomingAngle[2] = angle;
 	}
 
 

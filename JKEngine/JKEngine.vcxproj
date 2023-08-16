@@ -168,7 +168,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Attack_HitBox.h" />
-    <ClInclude Include="Homing_Pierce.h" />
+    <ClInclude Include="Homing_Pierce_LongHair.h" />
+    <ClInclude Include="Homing_Pierce_ShortHair.h" />
     <ClInclude Include="Layana_LongHair.h" />
     <ClInclude Include="Layana_ShortHair.h" />
     <ClInclude Include="Layana_Sisters.h" />
@@ -239,7 +240,8 @@
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Attack_HitBox.cpp" />
-    <ClCompile Include="Homing_Pierce.cpp" />
+    <ClCompile Include="Homing_Pierce_LongHair.cpp" />
+    <ClCompile Include="Homing_Pierce_ShortHair.cpp" />
     <ClCompile Include="Layana_LongHair.cpp" />
     <ClCompile Include="Layana_ShortHair.cpp" />
     <ClCompile Include="Layana_Sisters.cpp" />

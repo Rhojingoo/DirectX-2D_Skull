@@ -30,11 +30,14 @@ namespace jk
 	bool Layana_Sisters::_SistersAttack_A_LongHair_END = false;
 	bool Layana_Sisters::_SistersAttack_A_ShortHair_END = false;
 
+
+
+	bool Layana_Sisters::_SistersAttack_B_IntroReady_LongHair = false;
+	bool Layana_Sisters::_SistersAttack_B_IntroReadyShortHair = false;
 	bool Layana_Sisters::_SistersAttack_B_Ready_LongHair = false;
 	bool Layana_Sisters::_SistersAttack_B_Ready_ShortHair = false;
-	bool Layana_Sisters::_SistersAttack_B_DashOn = false;
-	bool Layana_Sisters::_SistersAttack_B_DashOn_LongHair = false;
-	bool Layana_Sisters::_SistersAttack_B_DashOn_ShortHair = false;
+	bool Layana_Sisters::_SistersAttack_B_BulletOn_LongHair = false;
+	bool Layana_Sisters::_SistersAttack_B_BulletOn_ShortHair = false;
 	bool Layana_Sisters::_SistersAttack_B_LongHair_END = false;
 	bool Layana_Sisters::_SistersAttack_B_ShortHair_END = false;
 
@@ -66,7 +69,6 @@ namespace jk
 		case jk::Layana_Sisters::Layana_Sisters_State::Idle:
 			idle();
 			break;	
-
 
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Intro_Dash:
@@ -115,8 +117,8 @@ namespace jk
 			Sisters_Attack_B_Ready();
 			break;
 
-		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B_LandingDash:
-			Sisters_Attack_B_LandingDash();
+		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B_BulletCreate:
+			Sisters_Attack_B_BulletCreate();
 			break;
 
 		case jk::Layana_Sisters::Layana_Sisters_State::Sisters_Attack_B:
@@ -411,8 +413,16 @@ namespace jk
 			_SistersAttack_A_DashOn = true;
 			_state = Layana_Sisters_State::Sisters_Attack_A_LandingDash;
 		}
-	}	void Layana_Sisters::Sisters_Attack_A_Ready()
+
+		if (_SistersAttack_B_Ready_ShortHair == true && _SistersAttack_B_Ready_LongHair == true)
+			_state = Layana_Sisters_State::Sisters_Attack_B_BulletCreate;
+	}
+
+
+
+	void Layana_Sisters::Sisters_Attack_A_Ready()
 	{
+		
 		if (_SistersAttack_A_IntroReadyShortHair == true && _SistersAttack_A_IntroReady_LongHair == true)
 			_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
 	}
@@ -439,25 +449,42 @@ namespace jk
 		_SistersAttack_A_DashOn_ShortHair = false;
 		_SistersAttack_A_LongHair_END = false;
 		_SistersAttack_A_ShortHair_END = false;
-		_state = Layana_Sisters_State::Idle;
-		_Intro_On = false;
-		_Sisters_AttackType++;
+		
+		_Attacktime += Time::DeltaTime();
+		if (_Attacktime > 1.5)
+		{
+			_state = Layana_Sisters_State::Idle;
+			_Attacktime = 0;
+			_Intro_On = false; 
+			_Sisters_AttackType++;
+		}		
 	}
-
 
 	void Layana_Sisters::Sisters_Attack_B_Ready()
-	{	
-		if(_SistersAttack_B_Ready_LongHair == true && _SistersAttack_B_Ready_ShortHair == true)
+	{			
+		if(_SistersAttack_B_IntroReady_LongHair == true && _SistersAttack_B_IntroReadyShortHair == true)
 		_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
 	}
-	void Layana_Sisters::Sisters_Attack_B_LandingDash()
+	void Layana_Sisters::Sisters_Attack_B_BulletCreate()
 	{
+		if(_SistersAttack_B_BulletOn_LongHair = true && _SistersAttack_B_BulletOn_ShortHair ==true)
+		_state = Layana_Sisters_State::Sisters_Attack_B;
 	}
 	void Layana_Sisters::Sisters_Attack_B()
 	{
+		if(_SistersAttack_B_LongHair_END ==true && _SistersAttack_B_ShortHair_END)
+		_state = Layana_Sisters_State::Sisters_Attack_B_End;
 	}
 	void Layana_Sisters::Sisters_Attack_B_End()
 	{
+		_SistersAttack_B_IntroReady_LongHair = false;
+		_SistersAttack_B_IntroReadyShortHair = false;
+		_SistersAttack_B_Ready_LongHair = false;
+		_SistersAttack_B_Ready_ShortHair = false;
+		_SistersAttack_B_BulletOn_LongHair = false;
+		_SistersAttack_B_BulletOn_ShortHair = false;
+		_SistersAttack_B_LongHair_END = false;
+		_SistersAttack_B_ShortHair_END = false;
 	}
 
 
@@ -564,6 +591,8 @@ namespace jk
 	void Layana_Sisters::Skill_A_End()
 	{
 	}
+
+
 	void Layana_Sisters::Skill_B()
 	{
 	}
