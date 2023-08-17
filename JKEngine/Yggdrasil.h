@@ -34,7 +34,9 @@ namespace jk
 			Attack_B_Finish,
 			Attack_C_Set,
 			Attack_C_Ready,
+			Attack_C_UP,
 			Attack_C,
+			Attack_C_Down,
 			Attack_C_Finish,
 			Groggy_Start,
 			Groggy_End,
@@ -72,7 +74,9 @@ namespace jk
 		void attack_b_finish();
 		void attack_c_set();
 		void attack_c_ready();
+		void attack_c_up();
 		void attack_c();
+		void attack_c_down();
 		void attack_c_finish();
 
 		void groggy_start();
@@ -143,6 +147,8 @@ namespace jk
 
 		static bool _SetattackC_r;
 		static bool _SetattackC_l;
+		static bool _SetattackC_face;
+		static bool _SetattackC_chin;
 		static bool _AttackC_Readyr;
 		static bool _AttackC_Readyl;
 		static bool _AttackC_Finish;

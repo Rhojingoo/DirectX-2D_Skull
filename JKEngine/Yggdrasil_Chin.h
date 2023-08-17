@@ -32,7 +32,9 @@ namespace jk
 		void attack_b_finish();
 		void attack_c_set();
 		void attack_c_ready();
+		void attack_c_up();
 		void attack_c();
+		void attack_c_down();
 		void attack_c_finish();
 		void groggy_start();
 		void groggy_end();
@@ -76,12 +78,14 @@ namespace jk
 		float	_time = 0.f;						// 공격시 사용중
 		float	_distance = 0.f;					// 플레이어와의 거리 체크
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
+		bool	_Firstbullet = false;
 
 	private:
 		Vector3 mCenterpos = Vector3(0.f, 0.f, 0.f);
 		float fDist = 0.f;
 		float _maxdistance = 5.f;
 		float _chinspeed = 1.f;
+
 	public:
 		static bool _introchin;
 		static bool _introchinup;

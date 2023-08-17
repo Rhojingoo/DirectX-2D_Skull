@@ -33,7 +33,7 @@ namespace jk
 		YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
 		_pos.x = YggdrasilFace_pos.x + 12.5f;
 		_pos.y = YggdrasilFace_pos.y - 65.f;
-		_pos.z = -202.f;
+		_pos.z = -198.f;
 		mCenterpos = _pos;
 		tr = GetComponent<Transform>();
 		tr->SetPosition(Vector3(_pos));
@@ -64,6 +64,8 @@ namespace jk
 		YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
 		Yggdrasil_rotation = GetRotations();
 		Intro_chinplay();
+		if (_state != Yggdrasil_State::Intro_End && _state != Yggdrasil_State::Intro && _state != Yggdrasil_State::Attack_C && _state != Yggdrasil_State::Attack_C_Ready && _state != Yggdrasil_State::Attack_C_UP && _state != Yggdrasil_State::Attack_C_Down && _state != Yggdrasil_State::Attack_C_Finish)
+			_pos.y = YggdrasilFace_pos.y - 65.f;
 
 		switch (_state)
 		{
@@ -119,8 +121,16 @@ namespace jk
 			Yggdrasil_Chin::attack_c_ready();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_UP:
+			Yggdrasil_Chin::attack_c_up();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
 			Yggdrasil_Chin::attack_c();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Down:
+			Yggdrasil_Chin::attack_c_down();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Finish:
@@ -264,15 +274,26 @@ namespace jk
 
 	void Yggdrasil_Chin::attack_c_set()
 	{
+		_pos.y = YggdrasilFace_pos.y - 65.f;
 	}
 	void Yggdrasil_Chin::attack_c_ready()
+	{		
+		_pos.y = YggdrasilFace_pos.y - 65.f;
+	}
+	void Yggdrasil_Chin::attack_c_up()
 	{
+		if(_pos.y<-15)
+			_pos.y = YggdrasilFace_pos.y - 65.f;
 	}
 	void Yggdrasil_Chin::attack_c()
 	{
 	}
+	void Yggdrasil_Chin::attack_c_down()
+	{
+	}
 	void Yggdrasil_Chin::attack_c_finish()
 	{
+		_pos.y = YggdrasilFace_pos.y - 65.f;
 	}
 
 
@@ -403,10 +424,11 @@ namespace jk
 			{
 				YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
 				_pos.x = YggdrasilFace_pos.x + 12.5f;
-				_pos.z = -202.f;
+				_pos.z = -199.5f;
 
 				if (_introchinup == true)
 				{
+					_pos.z = -203.f;
 					if (_pos.y < YggdrasilFace_pos.y - 65.f)
 					{
 						_pos.y += 80 * Time::DeltaTime();

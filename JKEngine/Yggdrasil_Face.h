@@ -3,6 +3,13 @@
 #include "Yggdrasil_BasicBullet.h"
 #include "Yggdrasil_Energy_Bomb.h"
 #include "Yggdrsil_Energy_Corps.h"
+#include "Yggdrasil_Effect.h"
+#include "Yggdrasil_EnergeBall_GrogyyEffect.h"
+#include "Yggdrasil_Groggy_GroundEffect.h"
+#include "Yggdrasil_EnergyCorps_Charging.h"
+#include "Yggdrasil_EnergyCorps_Spark.h"
+
+
 namespace jk
 {
 	class Yggdrasil_Face : public Yggdrasil
@@ -36,7 +43,9 @@ namespace jk
 		void attack_b_finish();
 		void attack_c_set();
 		void attack_c_ready();
+		void attack_c_up();
 		void attack_c();
+		void attack_c_down();
 		void attack_c_finish();
 		void groggy_start();
 		void groggy_end();
@@ -88,9 +97,21 @@ namespace jk
 		Yggdrasil_BasicBullet* Bullet[8];
 		Yggdrasil_Energy_Bomb* Energy_Bomb;
 		Yggdrsil_Energy_Corps* Energy_Corps[15];
+		Yggdrasil_Effect* Yggdrasil_effect = nullptr;
+		Yggdrasil_EnergeBall_GrogyyEffect* Groggy_Begin_Efeect = nullptr;
+		Yggdrasil_Groggy_GroundEffect* Groggy_impact = nullptr;
+		Yggdrasil_EnergyCorps_Charging* EnergyCorps_Charging = nullptr;
+		Yggdrasil_EnergyCorps_Spark* EnergyCorps_Spark[15];
+
+
 		GameObject::eState check_state;
 		float	_activetime = 0.f;
 		float   _introtime =  0.f;
 		bool	_FaceSet_of_Change = false;
+
+	public:
+		static bool	_Firstbullet;
+		static bool	_BulletReady;
+	
 	};
 }

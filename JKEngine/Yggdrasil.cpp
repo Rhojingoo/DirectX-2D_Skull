@@ -13,6 +13,7 @@ namespace jk
 
 	int Yggdrasil::_Diecheck = 0;  //Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
 	bool Yggdrasil::_DieON = false;
+	
 
 
 	bool Yggdrasil::_Intro = false;
@@ -44,6 +45,8 @@ namespace jk
 
 	bool Yggdrasil::_SetattackC_r = false;
 	bool Yggdrasil::_SetattackC_l = false;
+	bool Yggdrasil::_SetattackC_face = false;
+	bool Yggdrasil::_SetattackC_chin = false;
 	bool Yggdrasil::_AttackC_Readyr = false;
 	bool Yggdrasil::_AttackC_Readyl = false;
 	bool Yggdrasil::_AttackC_Finish = false;
@@ -213,8 +216,16 @@ namespace jk
 			attack_c_ready();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_UP:
+			attack_c_up();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
 			attack_c();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Down:
+			attack_c_down();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Finish:
@@ -343,7 +354,7 @@ namespace jk
 			
 			if (test == 0)
 				{
-					Attack_Sellect = 1;
+					Attack_Sellect = 2;
 					//test = 1;
 				}
 			_AttackA_FinishR = false;
@@ -386,8 +397,8 @@ namespace jk
 
 				if (Attack_Sellect == 2)
 				{
-					Yggdrasil_Hand_Right::_Attackswitch = true;
-					Yggdrasil_Hand_Left::_Attackswitch = true;
+					Yggdrasil_Hand_Right::_Attackswitch = false;
+					Yggdrasil_Hand_Left::_Attackswitch = false;
 					_state = Yggdrasil_State::Attack_C_Set;
 				}
 
@@ -520,38 +531,47 @@ namespace jk
 
 	void Yggdrasil::attack_c_set()
 	{
-		if ((_SetattackC_r == true) && (_SetattackC_l == true))
+		if ((_SetattackC_r == true) && (_SetattackC_l == true)&&(_SetattackC_face == true)&&(_SetattackC_chin ==true))
 			_state = Yggdrasil_State::Attack_C_Ready;		
 	}
 	void Yggdrasil::attack_c_ready()
 	{
-		if (Yggdrasil_Effect::_effect_switch == true)
-		{
-			Yggdrasil_Effect::_effect_switch = false;
+		if (Yggdrasil_Face::_Firstbullet == true)
+			_state = Yggdrasil_State::Attack_C_UP;
+	}
+	void Yggdrasil::attack_c_up()
+	{
+		if (Yggdrasil_Face::_BulletReady == true)
 			_state = Yggdrasil_State::Attack_C;
-		}
 	}
 	void Yggdrasil::attack_c()
 	{
 	}
+	void Yggdrasil::attack_c_down()
+	{
+	}
 	void Yggdrasil::attack_c_finish()
 	{
-		_NumberofAttack = 0;
-		if (_AttackC_Finish == true)
-			_state = Yggdrasil_State::Groggy_Start;
 	}
 
 
 	void Yggdrasil::groggy_start()
 	{
 		if ((_Groggy_Chin_Down == true) && (_Groggy_Body_Down == true) && (_Groggy_Face_Down == true))
-			_state = Yggdrasil_State::Groggy_End;		
+		{
+			_attackatime += Time::DeltaTime();
+			if (_attackatime > 3)
+			{
+				_state = Yggdrasil_State::Groggy_End;
+				_attackatime = 0;
+			}
+		}
 	}
 	void Yggdrasil::groggy_end()
 	{
 		_Groggy_Chin_Down = false; _Groggy_Body_Down = false; _Groggy_Face_Down = false; _time = 0;
-		if ((_Groggy_Chin_Up == true) && (_Groggy_Body_Up == true) && (_Groggy_Face_Up == true)&&(_Groggy_RightHand_Up == true)&&(_Groggy_LeftHand_Up == true))
-			_state = Yggdrasil_State::Idle;
+		if ((_Groggy_Chin_Up == true) && (_Groggy_Body_Up == true) && (_Groggy_Face_Up == true) && (_Groggy_RightHand_Up == true) && (_Groggy_LeftHand_Up == true))
+			_state = Yggdrasil_State::Idle;		
 	}
 
 

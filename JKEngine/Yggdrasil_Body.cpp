@@ -21,8 +21,8 @@ namespace jk
 		
 
 		tr = GetComponent<Transform>();
-		_pos = Vector3(0.f, -350.f, -200.f);		
-		_savepos = Vector3(0.f, 0.f, -200.f);
+		_pos = Vector3(0.f, -380.f, -199.f);		
+		_savepos = Vector3(0.f, -20.f, -200.f);
 		tr->SetPosition(_pos);
 
 		at = AddComponent<Animator>();
@@ -364,7 +364,7 @@ namespace jk
 	{
 		if (_Groggy_Body_Up == false)
 		{
-			if (_pos.y < -50.f)
+			if (_pos.y < -20.f)
 				_pos.y += 25 * Time::DeltaTime();
 			if (_BodyRotation.z >= 0.f)
 				_BodyRotation.z -= 20 * Time::DeltaTime();
@@ -372,7 +372,7 @@ namespace jk
 			if ((_pos.y >= -50.f) && (_BodyRotation.z <= 0.f))
 			{
 				_BodyRotation.z = 0.f;
-				_pos.y = -50.f;
+				_pos.y = -20.f;
 				_Groggy_Body_Up = true;
 				_groggy_body = false;
 			}

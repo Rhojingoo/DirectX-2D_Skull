@@ -19,7 +19,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\EnergyBullet_Effect", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\EnergyBullet_Effect", this,0,0.05);
 		at->CompleteEvent(L"EffectEnergyBullet_Effect") = std::bind(&Yggdrasil_EnergyBullet_Effect::Compelete, this);
 
 		at->PlayAnimation(L"EffectEnergyBullet_Effect", true);

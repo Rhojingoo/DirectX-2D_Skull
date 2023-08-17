@@ -21,8 +21,8 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
 
-		_Savepointpos =  Vector3(150.f, -150.f, -203.f);
-		_pos = Vector3(150.f, -300, -203.f);
+		_Savepointpos =  Vector3(150.f, -120.f, -203.f);
+		_pos = Vector3(150.f, -300, -199.f);
 
 		tr = GetComponent<Transform>();
 		tr->SetPosition(Vector3(_pos));
@@ -776,6 +776,7 @@ namespace jk
 		if (_pos.y >= _Savepointpos.y)
 		{
 			_pos.y = _Savepointpos.y;
+			_pos.z = _Savepointpos.z;
 			_Intro_SetR = true;
 			at->PlayAnimation(L"Hand1_HandAntlionR", false);
 		}
