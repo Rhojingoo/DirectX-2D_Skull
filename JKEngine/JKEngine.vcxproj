@@ -228,6 +228,7 @@
     <ClInclude Include="Yggdrasil_FistSlam_Effect.h" />
     <ClInclude Include="Yggdrasil_Hand_Left.h" />
     <ClInclude Include="Yggdrasil_Hand_Right.h" />
+    <ClInclude Include="Yggdrasil_Sweeping.h" />
     <ClInclude Include="Yggdrsil_Energy_Corps.h" />
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +302,7 @@
     <ClCompile Include="Yggdrasil_FistSlam_Effect.cpp" />
     <ClCompile Include="Yggdrasil_Hand_Left.cpp" />
     <ClCompile Include="Yggdrasil_Hand_Right.cpp" />
+    <ClCompile Include="Yggdrasil_Sweeping.cpp" />
     <ClCompile Include="Yggdrsil_Energy_Corps.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,8 @@
 namespace jk
 {
 	bool Yggdrasil_Hand_Right::_Attackswitch = false;
+
+
 	Yggdrasil_Hand_Right::Yggdrasil_Hand_Right()
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
@@ -56,6 +58,18 @@ namespace jk
 			effect_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
 			FistSlam_Smoke->SetState(eState::Paused);
 		}
+		{
+			_Sweeping = new Yggdrasil_Sweeping;
+			_Sweeping->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, _Sweeping);
+			Transform* effect_tr = _Sweeping->GetComponent<Transform>();
+			effect_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			_Sweeping->SetState(eState::Paused);
+		}
+
+
+
 
 
 		at->PlayAnimation(L"Hand1_HandintroR", true);
@@ -411,11 +425,18 @@ namespace jk
 	{		
 		{
 			if (_attackon == true)
+			{
 				_rigidbody->SetVelocity(Vector2(-350.f, 0.f));
+				_Sweeping->SetState(eState::Active);
+				_Sweeping->SetDirection(-1);
+				Transform* _SweepingTR = _Sweeping->GetComponent<Transform>();
+				_SweepingTR->SetPosition(Vector3(_pos.x + 150.f, _pos.y - 15, _pos.z - 1));
+			}
 			else
 			{
 				_NumberofAttack++;
 				_state = Yggdrasil_State::Attack_B_Set;
+				_Sweeping->SetState(eState::Paused);
 				if (_NumberofAttack >= 2)
 				{
 					at->PlayAnimation(L"Hand1_HandIdleR", true);
@@ -426,9 +447,9 @@ namespace jk
 					_pos.y = _Savepointpos.y - 300;
 				}
 			}
-
 			if (_Yggdrasildistance.x >= 1000)
 			{
+				_Sweeping->SetState(eState::Paused);
 				_rigidbody->ClearVelocityX();
 				_pos.x = _AttackB_SavePos.x;
 				_pos.y = _AttackB_SavePos.y;				

@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "Yggdrasil_FistSlam_Effect.h"
+#include "Yggdrasil_Sweeping.h"
 
 namespace jk
 {
@@ -66,6 +67,7 @@ namespace jk
 
 	private:
 		Yggdrasil_FistSlam_Effect* FistSlam_Smoke = nullptr;
+		Yggdrasil_Sweeping* _Sweeping = nullptr;
 
 	private:
 		Animator* at = nullptr;

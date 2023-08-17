@@ -218,6 +218,9 @@
     <ClInclude Include="Yggdrasil_FistSlam_Effect.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Yggdrasil_Sweeping.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -429,6 +432,9 @@
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_FistSlam_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Sweeping.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
   </ItemGroup>

@@ -25,6 +25,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkComputeShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)JKEngine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h" />
@@ -38,6 +39,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkPaintShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkParticleShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkParticleSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkRigidBody.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTile_Mouse.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkUI_Mouse.h" />
@@ -70,6 +74,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkComputeShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkGameObject.cpp" />
@@ -80,6 +85,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMeshRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkPaintShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkParticleShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkParticleSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkRigidBody.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTile_Mouse.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkUI_Mouse.cpp" />

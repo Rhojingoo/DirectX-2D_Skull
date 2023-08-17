@@ -343,7 +343,7 @@ namespace jk
 			
 			if (test == 0)
 				{
-					Attack_Sellect = 3;
+					Attack_Sellect = 1;
 					//test = 1;
 				}
 			_AttackA_FinishR = false;
