@@ -2,6 +2,7 @@
 #include "jkApplication.h"
 #include "jkRenderer.h"
 
+
 extern jk::Application application;
 
 namespace jk::graphics
@@ -44,14 +45,24 @@ namespace jk::graphics
 		if (!CreateSwapChain(&swapChainDesc, hWnd))
 			return;
 
+
+		mRenderTarget = std::make_shared<Texture>();
+		mDepthStencil = std::make_shared<Texture>();
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> renderTarget = nullptr;
+
 		// get rendertarget by swapchain
 		if (FAILED(mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D)
-			, (void**)mRenderTarget.GetAddressOf())))
+			, (void**)renderTarget.GetAddressOf())))
 			return;
 
 		// create rendertarget view
-		mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget.Get()
-			, nullptr, mRenderTargetView.GetAddressOf());
+		mRenderTarget->SetTexture(renderTarget);
+
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> renderTargetView = nullptr;
+		mDevice->CreateRenderTargetView((ID3D11Resource*)mRenderTarget->GetTexture().Get()
+			, nullptr, renderTargetView.GetAddressOf());
+		mRenderTarget->SetRTV(renderTargetView);
+
 
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 		depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
@@ -69,9 +80,16 @@ namespace jk::graphics
 		depthStencilDesc.MipLevels = 0;
 		depthStencilDesc.MiscFlags = 0;
 
-		D3D11_SUBRESOURCE_DATA data;
-		if (!CreateTexture(&depthStencilDesc, &data))
+
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> depthStencilBuffer = nullptr;
+		if (!CreateTexture2D(&depthStencilDesc, nullptr, depthStencilBuffer.GetAddressOf()))
 			return;
+		mDepthStencil->SetTexture(depthStencilBuffer);
+
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> mDepthStencilView = nullptr;
+		if (!CraeteDepthStencilView(depthStencilBuffer.Get(), nullptr, mDepthStencilView.GetAddressOf()))
+			return;
+		mDepthStencil->SetDSV(mDepthStencilView);
 
 		RECT winRect = {};
 		GetClientRect(hWnd, &winRect);
@@ -84,13 +102,15 @@ namespace jk::graphics
 		};
 
 		BindViewPort(&mViewPort);
-		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+		mContext->OMSetRenderTargets(1, mRenderTarget->GetRTV().GetAddressOf(), mDepthStencil->GetDSV().Get());
+		mContext->OMSetRenderTargets(1, mRenderTarget->GetRTV().GetAddressOf(), mDepthStencil->GetDSV().Get());
 	}
 
 	GraphicDevice_Dx11::~GraphicDevice_Dx11()
 	{
 
 	}
+
 	bool GraphicDevice_Dx11::CreateSwapChain(const DXGI_SWAP_CHAIN_DESC* desc, HWND hWnd)
 	{
 		DXGI_SWAP_CHAIN_DESC dxgiDesc = {};
@@ -133,28 +153,22 @@ namespace jk::graphics
 
 	bool GraphicDevice_Dx11::CreateTexture(const D3D11_TEXTURE2D_DESC* desc, void* data)
 	{
-		D3D11_TEXTURE2D_DESC dxgiDesc = {};
-		dxgiDesc.BindFlags = desc->BindFlags;
-		dxgiDesc.Usage = desc->Usage;
-		dxgiDesc.CPUAccessFlags = 0;
-
-		dxgiDesc.Format = desc->Format;
-		dxgiDesc.Width = desc->Width;
-		dxgiDesc.Height = desc->Height;
-		dxgiDesc.ArraySize = desc->ArraySize;
-
-		dxgiDesc.SampleDesc.Count = desc->SampleDesc.Count;
-		dxgiDesc.SampleDesc.Quality = 0;
-
-		dxgiDesc.MipLevels = desc->MipLevels;
-		dxgiDesc.MiscFlags = desc->MiscFlags;
-
-		if (FAILED(mDevice->CreateTexture2D(&dxgiDesc, nullptr, mDepthStencilBuffer.ReleaseAndGetAddressOf())))
-			return false;
-
-		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBuffer.Get(), nullptr, mDepthStencilView.GetAddressOf())))
-			return false;
-
+		//D3D11_TEXTURE2D_DESC dxgiDesc = {};
+		//dxgiDesc.BindFlags = desc->BindFlags;
+		//dxgiDesc.Usage = desc->Usage;
+		//dxgiDesc.CPUAccessFlags = 0;
+		//dxgiDesc.Format = desc->Format;
+		//dxgiDesc.Width = desc->Width;
+		//dxgiDesc.Height = desc->Height;
+		//dxgiDesc.ArraySize = desc->ArraySize;
+		//dxgiDesc.SampleDesc.Count = desc->SampleDesc.Count;
+		//dxgiDesc.SampleDesc.Quality = 0;
+		//dxgiDesc.MipLevels = desc->MipLevels;
+		//dxgiDesc.MiscFlags = desc->MiscFlags;
+		//if (FAILED(mDevice->CreateTexture2D(&dxgiDesc, nullptr, mDepthStencilBuffer.ReleaseAndGetAddressOf())))
+		//	return false;
+		//if (FAILED(mDevice->CreateDepthStencilView(mDepthStencilBuffer.Get(), nullptr, mDepthStencilView.GetAddressOf())))
+		//	return false;
 		return true;
 	}
 	
@@ -195,6 +209,7 @@ namespace jk::graphics
 
 		return false;
 	}
+
 	bool GraphicDevice_Dx11::CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11VertexShader** ppVertexShader)
 	{
 		if (FAILED(mDevice->CreateVertexShader(pShaderBytecode, BytecodeLength, nullptr, ppVertexShader)))
@@ -202,6 +217,16 @@ namespace jk::graphics
 
 		return true;
 	}
+
+	bool GraphicDevice_Dx11::CreateGeometryShader(const void* pShaderBytecode, SIZE_T BytecodeLength
+		, ID3D11GeometryShader** ppGeometryShader)
+	{
+		if (FAILED(mDevice->CreateGeometryShader(pShaderBytecode, BytecodeLength, nullptr, ppGeometryShader)))
+			return false;
+
+		return true;
+	}
+
 	bool GraphicDevice_Dx11::CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11PixelShader** ppPixelShader)
 	{
 		if (FAILED(mDevice->CreatePixelShader(pShaderBytecode, BytecodeLength, nullptr, ppPixelShader)))
@@ -209,6 +234,15 @@ namespace jk::graphics
 
 		return true;
 	}
+
+	bool GraphicDevice_Dx11::CreateComputeShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ComputeShader** ppComputeShader)
+	{
+		if (FAILED(mDevice->CreateComputeShader(pShaderBytecode, BytecodeLength, nullptr, ppComputeShader)))
+			return false;
+
+		return true;
+	}
+
 
 	bool GraphicDevice_Dx11::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
 	{
@@ -234,7 +268,6 @@ namespace jk::graphics
 		return true;
 	}
 
-
 	bool GraphicDevice_Dx11::CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView)
 	{
 		if (FAILED(mDevice->CreateShaderResourceView(pResource, pDesc, ppSRView)))
@@ -249,8 +282,7 @@ namespace jk::graphics
 			return false;
 
 		return true;
-	}
-	
+	}	
 
 	void GraphicDevice_Dx11::BindViewPort(D3D11_VIEWPORT* viewPort)
 	{
@@ -264,6 +296,41 @@ namespace jk::graphics
 		memcpy(sub.pData, data, size);
 		mContext->Unmap(buffer, 0);
 	}
+
+	bool GraphicDevice_Dx11::CraeteDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView)
+	{
+		if (FAILED(mDevice->CreateDepthStencilView(pResource, pDesc, ppDepthStencilView)))
+			return false;
+
+		return true;
+	}
+
+	bool GraphicDevice_Dx11::CreateRenderTargetView(ID3D11Resource* pResource, const D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11RenderTargetView** ppRTView)
+	{
+		if (FAILED(mDevice->CreateRenderTargetView(pResource, pDesc, ppRTView)))
+			return false;
+
+		return true;
+	}
+
+	bool GraphicDevice_Dx11::CreateUnordedAccessView(ID3D11Resource* pResource, const D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc, ID3D11UnorderedAccessView** ppUAView)
+	{
+		if (FAILED(mDevice->CreateUnorderedAccessView(pResource, pDesc, ppUAView)))
+			return false;
+
+		return true;
+	}
+
+	bool GraphicDevice_Dx11::CreateTexture2D(const D3D11_TEXTURE2D_DESC* desc, void* data, ID3D11Texture2D** ppTexture2D)
+	{
+		if (FAILED(mDevice->CreateTexture2D(desc, nullptr, ppTexture2D)))
+			return false;
+
+		return true;
+	}
+
+
+
 
 
 	void GraphicDevice_Dx11::BindRasterizeState(ID3D11RasterizerState* pRasterizerState)
@@ -281,10 +348,22 @@ namespace jk::graphics
 		mContext->OMSetBlendState(pBlendState, nullptr, 0xffffffff);
 	}
 
+	void GraphicDevice_Dx11::CopyResource(ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource)
+	{
+		mContext->CopyResource(pDstResource, pSrcResource);
+	}
+
 	void GraphicDevice_Dx11::DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation)
 	{
 		mContext->DrawIndexed(IndexCount, StartIndexLocation, BaseVertexLocation);
 	}
+
+	void GraphicDevice_Dx11::DrawIndexedInstanced(UINT IndexCountPerInstance, UINT InstanceCount
+		, UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation)
+	{
+		mContext->DrawIndexedInstanced(IndexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
+	}
+
 
 	void GraphicDevice_Dx11::BindInputLayout(ID3D11InputLayout* pInputLayout)
 	{
@@ -295,7 +374,6 @@ namespace jk::graphics
 	{
 		mContext->IASetPrimitiveTopology(Topology);
 	}
-
 
 	void GraphicDevice_Dx11::BindVertexBuffer(UINT StartSlot, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets)
 	{
@@ -312,9 +390,24 @@ namespace jk::graphics
 		mContext->VSSetShader(pVetexShader, 0, 0);
 	}
 
+	void GraphicDevice_Dx11::BindGeometryShader(ID3D11GeometryShader* pGeometryShader)
+	{
+		mContext->GSSetShader(pGeometryShader, 0, 0);
+	}
+
 	void GraphicDevice_Dx11::BindPixelShader(ID3D11PixelShader* pPixelShader)
 	{
 		mContext->PSSetShader(pPixelShader, 0, 0);
+	}
+
+	void GraphicDevice_Dx11::BindComputeShader(ID3D11ComputeShader* pComputeShader)
+	{
+		mContext->CSSetShader(pComputeShader, 0, 0);
+	}
+
+	void GraphicDevice_Dx11::Dispatch(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ)
+	{
+		mContext->Dispatch(ThreadGroupCountX, ThreadGroupCountY, ThreadGroupCountZ);
 	}
 
 	void GraphicDevice_Dx11::SetConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size)
@@ -394,6 +487,11 @@ namespace jk::graphics
 		}
 	}
 
+	void GraphicDevice_Dx11::BindUnorderedAccess(UINT slot, ID3D11UnorderedAccessView** ppUnorderedAccessViews, const UINT* pUAVInitialCounts)
+	{
+		mContext->CSSetUnorderedAccessViews(slot, 1, ppUnorderedAccessViews, pUAVInitialCounts);
+	}
+
 	void GraphicDevice_Dx11::BindSampler(eShaderStage stage, UINT StartSlot, ID3D11SamplerState** ppSamplers)
 	{
 		switch (stage)
@@ -426,9 +524,9 @@ namespace jk::graphics
 	void GraphicDevice_Dx11::ClearTarget()
 	{		// render target clear
 		FLOAT bgColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
-		mContext->ClearRenderTargetView(mRenderTargetView.Get(), bgColor);
-		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, (UINT8)0.0f);
-		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+		mContext->ClearRenderTargetView(mRenderTarget->GetRTV().Get(), bgColor);
+		mContext->ClearDepthStencilView(mDepthStencil->GetDSV().Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0.0f);
+		mContext->OMSetRenderTargets(1, mRenderTarget->GetRTV().GetAddressOf(), mDepthStencil->GetDSV().Get());
 	}
 
 	void GraphicDevice_Dx11::UpdateViewPort()
@@ -450,6 +548,7 @@ namespace jk::graphics
 	void GraphicDevice_Dx11::Draw()
 	{
 	}
+
 	void GraphicDevice_Dx11::Present()
 	{
 		mSwapChain->Present(0, 0);

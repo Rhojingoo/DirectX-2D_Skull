@@ -1,5 +1,6 @@
 #include "Castle_Area.h"
 #include "jkAnimator.h"
+#include "jkParticleSystem.h"
 
 namespace jk
 {
@@ -72,10 +73,10 @@ namespace jk
 						Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 						_player->SetName(L"player_select");
 		
-			#pragma region Test
+			#pragma region Test_monster
 
-						Layana_Sisters* testboss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
-						testboss->SetName(L"test_BOSS");
+						//Layana_Sisters* testboss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
+						//testboss->SetName(L"test_BOSS");
 
 		
 						//Yggdrasil* testboss = object::Instantiate<Yggdrasil>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
@@ -91,6 +92,8 @@ namespace jk
 						//Monster::SetPlayer(_player);	
 			#pragma endregion
 		
+
+
 
 			#pragma endregion
 

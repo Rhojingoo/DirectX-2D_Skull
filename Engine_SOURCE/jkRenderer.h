@@ -86,6 +86,7 @@ namespace jk::renderer
 		UINT animationType;
 	};
 
+
 	CBUFFER(MoveCB, CBSLOT_MOVE)
 	{
 		Vector4 mTime;
@@ -96,6 +97,22 @@ namespace jk::renderer
 	{
 		Vector4 LeftTop;
 	};
+
+
+	CBUFFER(ParticleCB, CBSLOT_PARTICLE)
+	{
+		UINT elementCount;
+		float elpasedTime;
+		float deltaTime;
+		int padd2;
+	};
+
+
+	CBUFFER(NoiseCB, CBSLOT_NOISE)
+	{
+		Vector4 size;
+	};
+
 
 	extern jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 

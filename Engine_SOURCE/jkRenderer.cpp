@@ -4,6 +4,9 @@
 #include "jkMaterial.h"
 #include "jkCollider2D.h"
 #include "jkCollisionManager.h"
+#include "jkStructuredBuffer.h"
+#include "jkParticleShader.h"
+#include "jkPaintShader.h"
 
 namespace jk::renderer
 {	
@@ -85,6 +88,11 @@ namespace jk::renderer
 
 
 		shader = jk::Resources::Find<Shader>(L"Move_Shader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = jk::Resources::Find<Shader>(L"ParticleShader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
@@ -212,6 +220,22 @@ namespace jk::renderer
 	{
 		std::vector<Vertex> vertexes = {};
 		std::vector<UINT> indexes = {};
+
+	#pragma region PointMesh
+		{Vertex v = {};
+		v.pos = Vector3(0.0f, 0.0f, 0.0f);
+		vertexes.push_back(v);
+		indexes.push_back(0);
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
+		mesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
+		Resources::Insert(L"PointMesh", mesh);
+
+
+		vertexes.clear();
+		indexes.clear(); }
+	#pragma endregion
+
 	#pragma region RECT
 
 		//RECT
@@ -329,6 +353,14 @@ namespace jk::renderer
 		// UV ConBuffer
 		constantBuffer[(UINT)eCBType::UV] = new ConstantBuffer(eCBType::UV);
 		constantBuffer[(UINT)eCBType::UV]->Create(sizeof(TileMap_CB));
+
+		//ParticleCB
+		constantBuffer[(UINT)eCBType::Particle] = new ConstantBuffer(eCBType::Particle);
+		constantBuffer[(UINT)eCBType::Particle]->Create(sizeof(ParticleCB));
+
+		//NoiseCB
+		constantBuffer[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
+		constantBuffer[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
 	}
 
 	void LoadShader()
@@ -361,6 +393,28 @@ namespace jk::renderer
 		debugShader->SetRSState(eRSType::WireframeNone);
 		jk::Resources::Insert(L"DebugShader", debugShader);
 
+		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
+		paintShader->Create(L"PaintCS.hlsl", "main");
+		jk::Resources::Insert(L"PaintShader", paintShader);
+
+		// Compute Shader		
+		//std::shared_ptr<ParticleShader> psSystemShader = std::make_shared<ParticleShader>();
+		//psSystemShader->Create(L"ParticleCS.hlsl", "main");
+		//jk::Resources::Insert(L"ParticleSystemShader", psSystemShader);
+		
+
+		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
+		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
+		paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
+		paritcleShader->SetRSState(eRSType::SolidNone);
+		paritcleShader->SetBSState(eBSType::AlphaBlend);
+		paritcleShader->SetDSState(eDSType::NoWrite);
+		paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+		jk::Resources::Insert(L"ParticleShader", paritcleShader);
+
+
+
 		//구름
 		std::shared_ptr<Shader> moveShader = std::make_shared<Shader>();
 		moveShader->Create(eShaderStage::VS, L"MoveVS.hlsl", "main");
@@ -373,6 +427,22 @@ namespace jk::renderer
 		tile_shader->Create(eShaderStage::PS, L"TileMapPS.hlsl", "main");
 		jk::Resources::Insert(L"Tile_Shader", tile_shader);
 #pragma endregion	
+	}
+
+	void LoadTexture()
+	{
+		//paint texture
+		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
+		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+		jk::Resources::Insert(L"PaintTexuture", uavTexture);
+
+
+		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
+		Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
+
+		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
+		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
+		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
 	}
 
 	void LoadMaterial()
@@ -389,6 +459,8 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"Animation_Shader"); 
 		std::shared_ptr<Shader> debugShader
 			= Resources::Find<Shader>(L"DebugShader");
+		std::shared_ptr<Shader> particleShader
+			= Resources::Find<Shader>(L"ParticleShader");
 
 		#pragma region Public
 		#pragma region Mouse
@@ -468,7 +540,7 @@ namespace jk::renderer
 		#pragma endregion
 
 
-		#pragma region Test
+		#pragma region Test & Compute_PaintShader
 				texture	= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
 				material = std::make_shared<Material>();
 				material->SetShader(spriteShader);
@@ -476,7 +548,7 @@ namespace jk::renderer
 				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"SpriteMaterial", material);
 
-				texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
+				texture = Resources::Find<Texture>(L"PaintTexuture");
 				material = std::make_shared<Material>();
 				material->SetShader(spriteShader);
 				material->SetTexture(texture);
@@ -486,6 +558,13 @@ namespace jk::renderer
 
 
 		#pragma endregion
+
+				std::shared_ptr<Texture> particleTexx
+					= Resources::Find<Texture>(L"CartoonSmoke");
+				material->SetTexture(particleTexx);
+				Resources::Insert(L"ParticleMaterial", material);
+
+
 
 		////애니메이션 만들때 사용
 		//material = std::make_shared<Material>();
@@ -821,6 +900,7 @@ namespace jk::renderer
 		LoadShader();
 		LoadBuffer();
 		SetupState();
+		LoadTexture();
 		LoadMaterial();	
 	}
 
@@ -829,8 +909,34 @@ namespace jk::renderer
 		debugMeshs.push_back(mesh);
 	}
 
+	void BindNoiseTexture()
+	{
+		std::shared_ptr<Texture> texture
+			= Resources::Find<Texture>(L"Noise01");
+
+		texture->BindShaderResource(eShaderStage::VS, 15);
+		texture->BindShaderResource(eShaderStage::HS, 15);
+		texture->BindShaderResource(eShaderStage::DS, 15);
+		texture->BindShaderResource(eShaderStage::GS, 15);
+		texture->BindShaderResource(eShaderStage::PS, 15);
+		texture->BindShaderResource(eShaderStage::CS, 15);
+
+		ConstantBuffer* cb = constantBuffer[(UINT)eCBType::Noise];
+		NoiseCB data = {};
+		data.size.x = texture->GetWidth();
+		data.size.y = texture->GetHeight();
+
+		cb->SetData(&data);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::GS);
+		cb->Bind(eShaderStage::PS);
+		cb->Bind(eShaderStage::CS);
+	}
+
 	void Render()
 	{
+		BindNoiseTexture();
+
 		for (Camera* cam : cameras)
 		{
 			if (cam == nullptr)

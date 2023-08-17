@@ -116,6 +116,7 @@
 #include "Dimension_Pierce_BulletEffect.h"
 #include "TwinMeteor_Boss.h"
 #include "TwinMeteor_Effect.h"
+#include "Yggdrasil_EnergyBullet_Effect.h"
 
 
 //UI

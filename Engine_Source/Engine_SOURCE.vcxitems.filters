@@ -115,6 +115,12 @@
     <Filter Include="GameObject\Component\Rigidbody">
       <UniqueIdentifier>{ab8e05a6-452c-4c51-b3ea-450c934fafe9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Shader\CS">
+      <UniqueIdentifier>{f06bbff2-3456-41bd-9ee8-b663bbe82265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\ParticleSystem">
+      <UniqueIdentifier>{81b7e588-f9df-44c9-a348-1162c0869f3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -249,6 +255,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkRigidBody.h">
       <Filter>GameObject\Component\Rigidbody</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkComputeShader.h">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkParticleShader.h">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkParticleSystem.h">
+      <Filter>GameObject\Component\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkPaintShader.h">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -367,6 +385,18 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkRigidBody.cpp">
       <Filter>GameObject\Component\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkComputeShader.cpp">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkParticleShader.cpp">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkParticleSystem.cpp">
+      <Filter>GameObject\Component\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkPaintShader.cpp">
+      <Filter>Resource\Shader\CS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

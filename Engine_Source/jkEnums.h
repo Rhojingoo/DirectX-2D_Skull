@@ -46,6 +46,7 @@ namespace jk::enums
 		Mesh,
 		Animation,
 		Image,
+		ComputeShader,
 		End,
 	};
 

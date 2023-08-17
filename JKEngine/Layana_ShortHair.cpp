@@ -695,7 +695,6 @@ namespace jk
 						float angle = 30;
 						float angleInDegrees = angle * (180.0f / XM_PI);
 						bullte_effect->AddRotationZ(angleInDegrees);
-						//bullte_effect->SetRotationZ(angleInDegrees);
 						TwinMeteor_BossEffect->SetState(eState::Active);
 						_SistersAttack_C_Ready_ShortHair = true;
 					}
@@ -706,7 +705,6 @@ namespace jk
 						float angle = -30;
 						float angleInDegrees = angle * (180.0f / XM_PI);
 						bullte_effect->AddRotationZ(angleInDegrees);
-						//bullte_effect->SetRotationZ(angleInDegrees);
 						TwinMeteor_BossEffect->SetState(eState::Active);
 						_SistersAttack_C_Ready_ShortHair = true;
 					}
@@ -716,14 +714,13 @@ namespace jk
 					_Attacktime += Time::DeltaTime();
 					if (_Attacktime > 1.5)
 					{
-						//TwinMeteor_BossEffect->SetState(eState::Paused);
+						TwinMeteor_BossEffect->SetState(eState::Paused);
 						if (_pos.x < _ShortHairCreatepos.x)
 						{
 							_pos = Vector3(-640.f, _pos.y, _pos.z);
 							tr->SetPosition(_pos);							
 							float angle = -210;
 							float angleInDegrees = angle * (180.0f / XM_PI);
-							//tr->SetRotationZ(angleInDegrees);
 							tr->AddRotationZ(angleInDegrees);
 							_rigidbody->SetVelocity(Vector2(800.f, -150.f));
 							_rigidbody->SetGround(false);
@@ -733,8 +730,7 @@ namespace jk
 								Transform* bullte_effect = TwinMeteor_Impact->GetComponent<Transform>();
 								bullte_effect->SetPosition(Vector3(_ShortHairCreatepos.x - 250, _pos.y - 200, -205));
 								float angle = -30;
-								float angleInDegrees = angle * (180.0f / XM_PI);
-								//bullte_effect->SetRotationZ(angleInDegrees);
+								float angleInDegrees = angle * (180.0f / XM_PI);								
 								bullte_effect->AddRotationZ(angleInDegrees);
 								TwinMeteor_Impact->SetState(eState::Active);
 							}
@@ -746,7 +742,6 @@ namespace jk
 							tr->SetPosition(_pos);
 							float angle = -210;
 							float angleInDegrees = angle * (180.0f / XM_PI);
-							//tr->SetRotationZ(angleInDegrees);
 							tr->AddRotationZ(angleInDegrees);
 							_rigidbody->SetVelocity(Vector2(-800.f, -150.f));
 							_rigidbody->SetGround(false);
@@ -756,8 +751,7 @@ namespace jk
 								Transform* bullte_effect = TwinMeteor_Impact->GetComponent<Transform>();
 								bullte_effect->SetPosition(Vector3(_ShortHairCreatepos.x + 250, _pos.y - 200, -205));
 								float angle = 30;
-								float angleInDegrees = angle * (180.0f / XM_PI);
-								//bullte_effect->SetRotationZ(angleInDegrees);
+								float angleInDegrees = angle * (180.0f / XM_PI);								
 								bullte_effect->AddRotationZ(angleInDegrees);
 								TwinMeteor_Impact->SetState(eState::Active);
 							}

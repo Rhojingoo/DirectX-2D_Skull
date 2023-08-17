@@ -18,6 +18,8 @@
 #define CBSLOT_ANIMATION2D			3
 #define CBSLOT_MOVE					4	
 #define CBSLOT_TILEM				5
+#define CBSLOT_PARTICLE				6
+#define CBSLOT_NOISE				7
 
 namespace jk::graphics
 {
@@ -40,6 +42,8 @@ namespace jk::graphics
 		Animator,
 		Move,
 		UV,
+		Particle,
+		Noise,
 		End,
 	};
 
@@ -119,6 +123,14 @@ namespace jk::graphics
 		End,
 	};
 
+	enum class eViewType
+	{
+		None,
+		SRV,
+		UAV,
+		End,
+	};
+
 	struct GpuBuffer
 	{
 		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
@@ -143,5 +155,21 @@ namespace jk::graphics
 		float radius;
 		float duration;
 		float time;
+	};
+
+	struct Particle
+	{
+		math::Vector4 position;
+		math::Vector4 direction;
+
+		float endTime;
+		float time;
+		float speed;
+		UINT active;
+	};
+
+	struct ParticleShared
+	{
+		UINT sharedActiveCount;
 	};
 }

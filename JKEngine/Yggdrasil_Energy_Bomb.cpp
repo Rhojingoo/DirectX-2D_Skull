@@ -17,15 +17,28 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
+		tr = this->GetComponent<Transform>();
+
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Bullet\\Energy_Bomb", this);
+
+
+		BulletEffect = new Yggdrasil_EnergyBullet_Effect;
+		BulletEffect->Initialize();
+		Scene* scene = SceneManager::GetActiveScene();
+		scene->AddGameObject(eLayerType::Bullet, BulletEffect);
+		Transform* EffectTR = BulletEffect->GetComponent<Transform>();
+		EffectTR->SetPosition(tr->GetPosition());
+		BulletEffect->SetState(eState::Paused);
 
 		at->PlayAnimation(L"BulletEnergy_Bomb", true);
 		GameObject::Initialize();
 	}
 	void Yggdrasil_Energy_Bomb::Update()
 	{
+		if (_effect_switch == true)
+			_EffectSwitch = true;
 		GameObject::Update();
 	}
 	void Yggdrasil_Energy_Bomb::LateUpdate()
@@ -48,6 +61,15 @@ namespace jk
 		{
 			_rigidbody->SetGround(true);
 			_rigidbody->ClearVelocity();
+
+			if (_EffectSwitch == true)
+			{
+				Transform* EffectTR = BulletEffect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				BulletEffect->SetState(eState::Active);
+				_EffectSwitch = false;
+				_effect_switch = false;
+			}
 		}
 	}
 	void Yggdrasil_Energy_Bomb::OnCollisionExit(Collider2D* other)

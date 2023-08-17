@@ -6,6 +6,11 @@ cbuffer Transform : register(b0)
     row_major matrix WorldMatrix;
     row_major matrix ViewMatrix;
     row_major matrix ProjectionMatrix;
+    row_major matrix g_matWorld;
+    row_major matrix g_matView;
+    row_major matrix g_matProjection;
+    row_major matrix g_matWV;
+    row_major matrix g_matWVP;
 }
 
 cbuffer MaterialData : register(b1)
@@ -43,6 +48,32 @@ cbuffer MaterialData : register(b1)
     matrix cbmat2;
     matrix cbmat3;
     matrix cbmat4;
+
+
+    int     g_int_0;
+    int     g_int_1;
+    int     g_int_2;
+    int     g_int_3;
+
+    float   g_float_0;
+    float   g_float_1;
+    float   g_float_2;
+    float   g_float_3;
+
+    int     g_tex_on_0;
+    int     g_tex_on_1;
+    int     g_tex_on_2;
+    int     g_tex_on_3;
+
+    float2  g_vec2_0;
+    float2  g_vec2_1;
+    float2  g_vec2_2;
+    float2  g_vec2_3;
+
+    float4  g_vec4_0;
+    float4  g_vec4_1;
+    float4  g_vec4_2;
+    float4  g_vec4_3;
 }
 
 cbuffer Grid : register(b2)
@@ -74,3 +105,37 @@ cbuffer Tile : register(b5)
 {
     float4 Index_map;
 }
+
+
+cbuffer ParticleSystem : register(b6)
+{
+    uint elementCount;
+    float elapsedTime;
+    float deltaTime;
+    int padd2;
+}
+
+cbuffer Noise : register(b7)
+{
+    float4 noiseTextureSize;
+}
+
+
+struct Particle
+{
+    float4 position;
+    float4 direction;
+
+    float endTime;
+    float time;
+    float speed;
+    uint active;
+};
+
+StructuredBuffer<Particle> particles : register(t14);
+Texture2D noiseTexture : register(t15);
+
+struct ParticleShared
+{
+    uint ActiveSharedCount;
+};

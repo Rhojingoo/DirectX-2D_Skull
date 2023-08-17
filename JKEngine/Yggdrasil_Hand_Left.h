@@ -1,5 +1,6 @@
 #pragma once
 #include "Include_Common.h"
+#include "Yggdrasil_FistSlam_Effect.h"
 
 namespace jk
 {
@@ -61,6 +62,10 @@ namespace jk
 	public:
 		static bool			_Attackswitch;
 		static int			mDir;
+
+	private:
+		Yggdrasil_FistSlam_Effect* FistSlam_Smoke = nullptr;
+
 
 	private:
 		Animator* at = nullptr;

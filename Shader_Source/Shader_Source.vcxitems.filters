@@ -52,6 +52,11 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)ani2.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticlePS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleCS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleGS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)PaintCS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HLSL">
@@ -97,6 +102,9 @@
     </None>
     <None Include="$(MSBuildThisFileDirectory)Texture.hlsli">
       <Filter>HLSLI</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Compute.hlsli">
+      <Filter>HLSL</Filter>
     </None>
   </ItemGroup>
 </Project>

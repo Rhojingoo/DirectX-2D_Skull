@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)COLOR.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)Compute.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)Constant.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)Sampler.hlsli" />
@@ -32,6 +33,11 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)GridVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)MovePS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)MoveVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)PaintCS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleCS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleGS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticlePS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)SpritePS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TileMapPS.hlsl" />

@@ -2,6 +2,7 @@
 
 namespace jk
 {
+
 	Vector3 Yggdrasil_Face::_pos = Vector3(0.f, 0.f, 0.f);;
 	Yggdrasil_Face::Yggdrasil_Face()
 	{
@@ -299,15 +300,17 @@ namespace jk
 	void Yggdrasil_Face::attack_c()
 	{
 		_time += Time::DeltaTime();
-		if (_Changeon == true)
+		if (_Changeon == false)
 		{
 			if (_time <= 7.f)
 			{
 				for (int i = 0; i < 8; i++)
 				{
-					Bullet[i]->SetState(eState::Active);
+					Bullet[i]->SetState(eState::Active);		
 				}
 				Energy_Bomb->SetState(eState::Active);
+				if (Energy_Bomb->_effect_switch == false)
+					Energy_Bomb->SetState(eState::Paused);
 				basicattack();
 				Energy_Bombattack();
 			}
@@ -317,18 +320,13 @@ namespace jk
 				{
 					Bullet[i]->SetState(eState::Paused);
 					Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
-
 				}
 				{
+					Energy_Bomb->_effect_switch = true;
 					Energy_Bomb->SetState(eState::Paused);
 					Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
 				}
-				for (int i = 0; i < 15; i++)
-				{
-					Energy_Corps[i]->SetState(eState::Paused);
-					Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
-				}
-				if (_NumberofAttack >= 3)
+				if (_NumberofAttack >= 2)
 				{
 					_state = Yggdrasil_State::Attack_C_Finish;
 					_NumberofAttack = 0;
@@ -337,8 +335,9 @@ namespace jk
 					_state = Yggdrasil_State::Attack_C_Ready;
 			}
 		}
+
 		// 체인지한뒤 에너지볼변경
-		if (_Changeon == false)
+		if (_Changeon == true)
 		{
 			if (_time <= 15.f)
 			{
@@ -347,9 +346,11 @@ namespace jk
 					for (int i = 0; i < 5; i++)
 					{
 						if (_time >= (1.0f + 0.5f * i))
-						{
+						{						
 							Energy_Corps[i]->SetState(eState::Active);
 							Energy_Corpsattack();
+							if(Energy_Corps[i]->_effect_switch == false)
+								Energy_Corps[i]->SetState(eState::Paused);
 						}
 					}
 				}
@@ -358,9 +359,11 @@ namespace jk
 					for (int i = 5; i < 10; i++)
 					{
 						if (_time >= (5.0f + 0.5f * i))
-						{
+						{							
 							Energy_Corps[i]->SetState(eState::Active);
 							Energy_Corpsattack();
+							if (Energy_Corps[i]->_effect_switch == false)
+								Energy_Corps[i]->SetState(eState::Paused);
 						}
 					}
 				}
@@ -369,31 +372,23 @@ namespace jk
 					for (int i = 10; i < 15; i++)
 					{
 						if (_time >= (10.0f + 0.5f * i))
-						{
+						{							
 							Energy_Corps[i]->SetState(eState::Active);
 							Energy_Corpsattack();
+							if (Energy_Corps[i]->_effect_switch == false)
+								Energy_Corps[i]->SetState(eState::Paused);
 						}
 					}
 				}
 			}
 			else
 			{
-				for (int i = 0; i < 8; i++)
-				{
-					Bullet[i]->SetState(eState::Paused);
-					Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
-
-				}
-				{
-					Energy_Bomb->SetState(eState::Paused);
-					Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
-				}
 				for (int i = 0; i < 15; i++)
-				{
-					Energy_Corps[i]->SetState(eState::Paused);
+				{			
+					Energy_Corps[i]->_effect_switch = true;
 					Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
 				}
-				if (_NumberofAttack >= 3)
+				if (_NumberofAttack >= 2)
 					_state = Yggdrasil_State::Attack_C_Finish;
 				else
 					_state = Yggdrasil_State::Attack_C_Ready;

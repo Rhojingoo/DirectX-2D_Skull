@@ -5,8 +5,7 @@
 
 namespace jk
 {
-	class BaseRenderer :
-		public Component
+	class BaseRenderer :	public Component
 	{
 	public:
 		BaseRenderer(eComponentType type);

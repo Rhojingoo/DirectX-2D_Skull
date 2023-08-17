@@ -212,6 +212,12 @@
     <ClInclude Include="TwinMeteor_Boss.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
     </ClInclude>
+    <ClInclude Include="Yggdrasil_EnergyBullet_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_FistSlam_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -418,6 +424,12 @@
     </ClCompile>
     <ClCompile Include="TwinMeteor_Effect.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_EnergyBullet_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_FistSlam_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

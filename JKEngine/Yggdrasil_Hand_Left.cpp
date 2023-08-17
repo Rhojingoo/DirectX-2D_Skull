@@ -44,10 +44,23 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandBullet_Change", this);
 					
 
+
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
+
+
+		{
+			FistSlam_Smoke = new Yggdrasil_FistSlam_Effect;
+			FistSlam_Smoke->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, FistSlam_Smoke);
+			Transform* effect_tr = FistSlam_Smoke->GetComponent<Transform>();
+			effect_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));	
+			FistSlam_Smoke->SetState(eState::Paused);
+		}
+
 
 		at->PlayAnimation(L"Hand1_HandIdle", true);
 		at->PlayAnimation(L"Hand1_Handintro", true);		
@@ -232,13 +245,30 @@ namespace jk
 				_rigidbody->SetGround(true);
 				_rigidbody->ClearVelocity();
 				_Ground_check = true;
-
 				_time += Time::DeltaTime();
 				_Attackswitch = true;
 				_NumberofAttack++;
+
+				if (_state == Yggdrasil_State::Attack_A_Left)
+				{
+					FistSlam_Smoke->SetState(eState::Active);
+					FistSlam_Smoke->_EffectOn = true;
+					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 120, _pos.z));
+				}				
+				if (_state == Yggdrasil_State::Attack_D)
+				{
+					FistSlam_Smoke->SetState(eState::Active);
+					FistSlam_Smoke->_EffectOn = true;
+					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 100, _pos.z-1));
+				}
+
 			}
 			else
-			{
+			{			
+				if(FistSlam_Smoke->_EffectOn == false)
+					FistSlam_Smoke->SetState(eState::Paused);
 
 			}
 		}

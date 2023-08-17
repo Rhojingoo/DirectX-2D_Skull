@@ -701,7 +701,6 @@ namespace jk
 						bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x + 250, _pos.y - 200, -205));
 						float angle = 30;
 						float angleInDegrees = angle * (180.0f / XM_PI);
-						//bullte_effect->SetRotationZ(angleInDegrees);
 						bullte_effect->AddRotationZ(angleInDegrees);
 						TwinMeteor_BossEffect->SetState(eState::Active);
 						_SistersAttack_C_Ready_LongHair = true;
@@ -712,7 +711,6 @@ namespace jk
 						bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x - 250, _pos.y - 200, -205));
 						float angle = -30;
 						float angleInDegrees = angle * (180.0f / XM_PI);
-						//bullte_effect->SetRotationZ(angleInDegrees);
 						bullte_effect->AddRotationZ(angleInDegrees);
 						TwinMeteor_BossEffect->SetState(eState::Active);
 						_SistersAttack_C_Ready_LongHair = true;
@@ -723,14 +721,13 @@ namespace jk
 					_Attacktime += Time::DeltaTime();
 					if (_Attacktime > 1.5)
 					{
-						//TwinMeteor_BossEffect->SetState(eState::Paused);
+						TwinMeteor_BossEffect->SetState(eState::Paused);
 						if (_pos.x < _LongHairCreatepos.x)
 						{							
 							_pos = Vector3(-640.f, _pos.y, _pos.z);
 							tr->SetPosition(_pos);
 							float angle = -210;
 							float angleInDegrees = angle * (180.0f / XM_PI);
-							//tr->SetRotationZ(-angleInDegrees);
 							at->PlayAnimation(L"Long_hairMeteor_Ground02_Attack", true);
 							tr->AddRotationZ(angleInDegrees);
 							_rigidbody->SetVelocity(Vector2(800.f, -150.f));
@@ -741,7 +738,6 @@ namespace jk
 								bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x - 250, _pos.y - 200, -205));
 								float angle = -30;
 								float angleInDegrees = angle * (180.0f / XM_PI);
-								//bullte_effect->SetRotationZ(angleInDegrees);
 								bullte_effect->AddRotationZ(angleInDegrees);
 								TwinMeteor_Impact->SetState(eState::Active);							
 							}
@@ -753,7 +749,6 @@ namespace jk
 							tr->SetPosition(_pos);
 							float angle = -210;
 							float angleInDegrees = angle * (180.0f / XM_PI);
-						   //tr->SetRotationZ(angleInDegrees);
 							at->PlayAnimation(L"Long_hairMeteor_Ground02_AttackR", true);
 							tr->AddRotationZ(angleInDegrees);
 							_rigidbody->SetVelocity(Vector2(-800.f, -150.f));
@@ -764,7 +759,6 @@ namespace jk
 								bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x + 250, _pos.y - 200, -205));
 								float angle = 30;
 								float angleInDegrees = angle * (180.0f / XM_PI);
-								//bullte_effect->SetRotationZ(angleInDegrees);
 								bullte_effect->AddRotationZ(angleInDegrees);
 								TwinMeteor_Impact->SetState(eState::Active);
 							}
@@ -772,8 +766,6 @@ namespace jk
 						}
 					}
 				}
-
-
 			}
 			else
 			{

@@ -105,7 +105,8 @@ namespace jk::graphics
 	void Material::Binds()
 	{
 		if (mTexture)
-			mTexture->BindShader(eShaderStage::PS, 0);
+			mTexture->BindShaderResource(eShaderStage::PS, 0);
+			//mTexture->BindShader(eShaderStage::PS, 0);
 
 		ConstantBuffer* pCB = constantBuffer[(UINT)eCBType::Material];
 		pCB->SetData(&mCB);
