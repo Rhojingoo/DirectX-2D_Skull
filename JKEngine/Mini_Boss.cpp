@@ -97,4 +97,12 @@ namespace jk
 	void Mini_Boss::OnCollisionExit(Collider2D* other)
 	{
 	}
+	int Mini_Boss::random(int a, int b)
+	{
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<int> distribution(a, b);
+		int answer_random = distribution(gen);
+		return answer_random;
+	}
 }

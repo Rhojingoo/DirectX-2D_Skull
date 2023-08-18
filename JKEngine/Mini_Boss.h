@@ -31,6 +31,8 @@ namespace jk
 		static Vector3 GetPlayerPos() { return _playerpos; }
 		static Vector3 _playerpos; //= Vector3(0.f, 0.f, 0.f);
 
+		int random(int a, int b);
+
 	private : 
 		static GameObject* _player;	
 		static MinibossList miniboss_select;

@@ -1,6 +1,6 @@
 #include "Knight_male.h"
 #include <iostream>
-#include <random>
+
 
 namespace jk
 {
@@ -97,6 +97,16 @@ namespace jk
 		//at->CompleteEvent(L"Skul_BasicSkillR") = std::bind(&Skul_Basic::attack_choice, this);
 		//at->CompleteEvent(L"Skul_BasicSwitch") = std::bind(&Skul_Basic::switch_on_off, this);
 		//at->CompleteEvent(L"Skul_BasicSwitchR") = std::bind(&Skul_Basic::switch_on_off, this);
+		;
+		{
+			Bullet = new Knight_male_EnergeBall;
+			Bullet->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Bullet);
+			Transform* bullet_tr = Bullet->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Bullet->SetState(eState::Paused);
+		}
 
 
 		at->PlayAnimation(L"Knight_maleIdle", true);
@@ -183,8 +193,8 @@ namespace jk
 	}
 	void Knight_male::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
-		_collider->SetCenter(Vector2(0.0f, -0.05f));
+		_collider->SetSize(Vector2(0.35f, 0.4f));
+		_collider->SetCenter(Vector2(0.0f, -30.5f));
 		GameObject::LateUpdate();
 	}
 	void Knight_male::Render()
@@ -219,11 +229,9 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<int> distribution(0, 2);
-		_choicecombo = distribution(gen);
+		//_choicecombo = random(0, 2);
 
+		_choicecombo = 1;
 
 			if (_number_of_attack >= 3)
 			{
@@ -363,8 +371,36 @@ namespace jk
 
 	void Knight_male::energeball()
 	{
-		_attackorder = 0;
-		_attack = false;
+		_Attacktime += Time::DeltaTime();
+		if (_Attacktime < 5)
+		{
+			Transform* bullet_tr = Bullet->GetComponent<Transform>();
+			RigidBody* bullet_gr = Bullet->GetComponent<RigidBody>();
+			Vector3 attack = bullet_tr->GetPosition();			
+			Vector2 attackrotation_PLAYER = Vector2(_playerpos.x - attack.x, _playerpos.y - attack.y);
+
+			float dis = abs(_playerpos.x - attack.x);
+			if (dis < 70)
+				attackrotation_PLAYER.x = 60;
+
+			attackrotation_PLAYER.Normalize();
+			bullet_gr->SetGround(false);
+			bullet_gr->SetVelocity(Vector2(attackrotation_PLAYER.x * 100.f, attackrotation_PLAYER.y * 150));
+			Vector2 vel = bullet_gr->GetVelocity();
+		}
+		else
+		{
+			Bullet->SetState(eState::Paused);
+			_Attacktime = 0;
+			_attackorder = 0;
+			_attack = false;
+			_state = Knight_State::Idle;
+			if (mDir == 1)
+				at->PlayAnimation(L"Knight_maleIdle", true);
+			else
+				at->PlayAnimation(L"Knight_maleIdleR", true);
+		}
+
 	}
 
 	void Knight_male::explosion_loop()
@@ -483,9 +519,15 @@ namespace jk
 		{
 			_state = Knight_State::EnergeBall;
 			if (mDir == 1)
-			at->PlayAnimation(L"Knight_maleEnergeBall", true);
+			at->PlayAnimation(L"Knight_maleEnergeBall", false);
 			else
-			at->PlayAnimation(L"Knight_maleEnergeBallR", true);
+			at->PlayAnimation(L"Knight_maleEnergeBallR", false);
+
+			Transform* bullet_tr = Bullet->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Bullet->_EffectSwitch = true;
+			Bullet->SetState(eState::Active);	
+			_attack = false;
 		}
 	}
 

@@ -236,6 +236,12 @@
     <ClInclude Include="Yggdraisl_Groggy_StartImpact.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Knight_male_EnergeBall.h">
+      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Kngiht_EnergyBall_Impact.h">
+      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -467,6 +473,12 @@
     <ClCompile Include="Yggdraisl_Groggy_StartImpact.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Knight_male_EnergeBall.cpp">
+      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Kngiht_EnergyBall_Impact.cpp">
+      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -597,6 +609,12 @@
     </Filter>
     <Filter Include="Game_ob\Boss\Layana_Sisters\Layana_Bullet">
       <UniqueIdentifier>{2e3c30ec-81b4-430f-a41a-8d6e0d286d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Knight_male\Bullet">
+      <UniqueIdentifier>{4567e8d3-d9f2-4f57-aa52-c34cc16f7962}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Knight_male\Effect">
+      <UniqueIdentifier>{f443e932-1191-44a6-91de-3335025eb2f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

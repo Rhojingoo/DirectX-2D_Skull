@@ -1,5 +1,7 @@
 #pragma once
 #include "Include_Common.h"
+#include "Knight_male_EnergeBall.h"
+
 
 namespace jk
 {
@@ -88,8 +90,13 @@ namespace jk
 		int		_number_of_attack = 0;		// 공격횟수에 따라 idle로 보내는데, 공격횟수를 체크하는 변수
 		int		_attackorder = 0;			// 콤보공격의 경우 순서가 정해져 있어 해당 순서에 진행하도록 설정하는 변수 
 		int		_choicecombo = 0;			// 공격종류의 선택을 할수 있도록 설정하는 변수
-		//bool _jump = 0;
+		float	_Attacktime = 0.f;
 		//int _fallcheck = 0;
+
+	private:
+		Knight_male_EnergeBall* Bullet = nullptr;
+
+
 
 	private:
 		void choicecombo();
