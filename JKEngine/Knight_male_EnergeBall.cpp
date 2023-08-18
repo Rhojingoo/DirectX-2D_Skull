@@ -38,6 +38,8 @@ namespace jk
 	}
 	void Knight_male_EnergeBall::Update()
 	{
+		if (_BoomSwitch == true)
+			EnergeBall_Boomb();
 		GameObject::Update();
 	}
 	void Knight_male_EnergeBall::LateUpdate()
@@ -77,5 +79,14 @@ namespace jk
 	}
 	void Knight_male_EnergeBall::OnCollisionExit(Collider2D* other)
 	{
+	}
+	void Knight_male_EnergeBall::EnergeBall_Boomb()
+	{
+		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+		EffectTR->SetPosition(tr->GetPosition());
+		Bullet_Effect->SetState(eState::Active);
+		_EffectSwitch = false;
+		_BoomSwitch = false;
+		this->SetState(eState::Paused);
 	}
 }

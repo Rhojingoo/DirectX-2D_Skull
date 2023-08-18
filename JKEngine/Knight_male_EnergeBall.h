@@ -20,8 +20,11 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		void EnergeBall_Boomb();
+
 	public:
 		bool _EffectSwitch = true;
+		bool _BoomSwitch = false;
 
 	private:
 		Animator* at = nullptr;

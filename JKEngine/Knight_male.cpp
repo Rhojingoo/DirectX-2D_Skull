@@ -107,7 +107,15 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
 			Bullet->SetState(eState::Paused);
 		}
-
+		{
+			Bullet_effect = new Knight_EnergyBall_StartEffect;
+			Bullet_effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Bullet_effect);
+			Transform* bullet_tr = Bullet_effect->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Bullet_effect->SetState(eState::Paused);
+		}
 
 		at->PlayAnimation(L"Knight_maleIdle", true);
 		GameObject::Initialize();
@@ -371,36 +379,59 @@ namespace jk
 
 	void Knight_male::energeball()
 	{
-		_Attacktime += Time::DeltaTime();
-		if (_Attacktime < 5)
+
+		if (Bullet_effect->_effect_switch== false)
 		{
 			Transform* bullet_tr = Bullet->GetComponent<Transform>();
-			RigidBody* bullet_gr = Bullet->GetComponent<RigidBody>();
-			Vector3 attack = bullet_tr->GetPosition();			
-			Vector2 attackrotation_PLAYER = Vector2(_playerpos.x - attack.x, _playerpos.y - attack.y);
-
-			float dis = abs(_playerpos.x - attack.x);
-			if (dis < 70)
-				attackrotation_PLAYER.x = 60;
-
-			attackrotation_PLAYER.Normalize();
-			bullet_gr->SetGround(false);
-			bullet_gr->SetVelocity(Vector2(attackrotation_PLAYER.x * 100.f, attackrotation_PLAYER.y * 150));
-			Vector2 vel = bullet_gr->GetVelocity();
-		}
-		else
-		{
-			Bullet->SetState(eState::Paused);
-			_Attacktime = 0;
-			_attackorder = 0;
-			_attack = false;
-			_state = Knight_State::Idle;
-			if (mDir == 1)
-				at->PlayAnimation(L"Knight_maleIdle", true);
+			if(mDir == 1)
+				bullet_tr->SetPosition(Vector3(pos.x+20, pos.y-20, -205));
 			else
-				at->PlayAnimation(L"Knight_maleIdleR", true);
-		}
+				bullet_tr->SetPosition(Vector3(pos.x - 20, pos.y - 20, -205));
 
+			Bullet->_EffectSwitch = true;
+			Bullet->SetState(eState::Active);
+			_attack = false;
+			_state = Knight_State::EnergeBall;
+			Bullet_effect->_effect_switch = true;
+		}
+		if (Bullet_effect->_effect_switch == true)
+		{
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime < 5)
+			{
+				Transform* bullet_tr = Bullet->GetComponent<Transform>();
+				RigidBody* bullet_gr = Bullet->GetComponent<RigidBody>();
+				Vector3 attack = bullet_tr->GetPosition();
+				Vector2 attackrotation_PLAYER = Vector2(_playerpos.x - attack.x, _playerpos.y - attack.y);
+
+				float dis = abs(_playerpos.x - attack.x);
+				if (dis < 70)
+				{
+					if(mDir ==1)
+					attackrotation_PLAYER.x = 60;
+					else
+					attackrotation_PLAYER.x = -60;
+				}
+
+				attackrotation_PLAYER.Normalize();
+				bullet_gr->SetGround(false);
+				bullet_gr->SetVelocity(Vector2(attackrotation_PLAYER.x * 100.f, attackrotation_PLAYER.y * 150));
+				Vector2 vel = bullet_gr->GetVelocity();
+			}
+			else
+			{
+				//Bullet->SetState(eState::Paused);
+				_Attacktime = 0;
+				_attackorder = 0;
+				_attack = false;
+				Bullet->_BoomSwitch = true;
+				_state = Knight_State::Idle;
+				if (mDir == 1)
+					at->PlayAnimation(L"Knight_maleIdle", true);
+				else
+					at->PlayAnimation(L"Knight_maleIdleR", true);
+			}
+		}
 	}
 
 	void Knight_male::explosion_loop()
@@ -517,18 +548,29 @@ namespace jk
 	{
 		if (_attackorder == 1)
 		{
-			_state = Knight_State::EnergeBall;
 			if (mDir == 1)
-			at->PlayAnimation(L"Knight_maleEnergeBall", false);
+				at->PlayAnimation(L"Knight_maleEnergeBall", false);
 			else
-			at->PlayAnimation(L"Knight_maleEnergeBallR", false);
+				at->PlayAnimation(L"Knight_maleEnergeBallR", false);
 
-			Transform* bullet_tr = Bullet->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
-			Bullet->_EffectSwitch = true;
-			Bullet->SetState(eState::Active);	
-			_attack = false;
-		}
+		
+			Bullet_effect->_effect_switch = true;
+			Transform* bullet_tr = Bullet_effect->GetComponent<Transform>();
+			if (mDir == 1)
+			{
+				Bullet_effect->_effect_animation = true;
+				Bullet_effect->SetDirection(1);
+				bullet_tr->SetPosition(Vector3(pos.x + 40, pos.y - 20, -205));
+			}
+			else
+			{
+				Bullet_effect->_effect_animation = true;
+				Bullet_effect->SetDirection(-1);
+				bullet_tr->SetPosition(Vector3(pos.x - 40, pos.y - 20, -205));
+			}
+			Bullet_effect->SetState(eState::Active);
+			_state = Knight_State::EnergeBall;
+		}		
 	}
 
 	void Knight_male::explosionloop()

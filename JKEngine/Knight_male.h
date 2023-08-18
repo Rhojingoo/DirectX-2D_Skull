@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "Knight_male_EnergeBall.h"
+#include "Knight_EnergyBall_StartEffect.h"
 
 
 namespace jk
@@ -95,7 +96,7 @@ namespace jk
 
 	private:
 		Knight_male_EnergeBall* Bullet = nullptr;
-
+		Knight_EnergyBall_StartEffect* Bullet_effect = nullptr;
 
 
 	private:

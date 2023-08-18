@@ -171,6 +171,7 @@
     <ClInclude Include="Homing_Pierce_LongHair.h" />
     <ClInclude Include="Homing_Pierce_ShortHair.h" />
     <ClInclude Include="Kngiht_EnergyBall_Impact.h" />
+    <ClInclude Include="Knight_EnergyBall_StartEffect.h" />
     <ClInclude Include="Knight_male_EnergeBall.h" />
     <ClInclude Include="Layana_LongHair.h" />
     <ClInclude Include="Layana_ShortHair.h" />
@@ -255,6 +256,7 @@
     <ClCompile Include="Homing_Pierce_LongHair.cpp" />
     <ClCompile Include="Homing_Pierce_ShortHair.cpp" />
     <ClCompile Include="Kngiht_EnergyBall_Impact.cpp" />
+    <ClCompile Include="Knight_EnergyBall_StartEffect.cpp" />
     <ClCompile Include="Knight_male_EnergeBall.cpp" />
     <ClCompile Include="Layana_LongHair.cpp" />
     <ClCompile Include="Layana_ShortHair.cpp" />
