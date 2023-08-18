@@ -245,6 +245,9 @@
     <ClInclude Include="Knight_EnergyBall_StartEffect.h">
       <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Knight_Energe_Blast.h">
+      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -484,6 +487,9 @@
     </ClCompile>
     <ClCompile Include="Knight_EnergyBall_StartEffect.cpp">
       <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight_Energe_Blast.cpp">
+      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

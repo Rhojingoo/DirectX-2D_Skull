@@ -2,6 +2,7 @@
 #include "Include_Common.h"
 #include "Knight_male_EnergeBall.h"
 #include "Knight_EnergyBall_StartEffect.h"
+#include "Knight_Energe_Blast.h"
 
 
 namespace jk
@@ -97,6 +98,7 @@ namespace jk
 	private:
 		Knight_male_EnergeBall* Bullet = nullptr;
 		Knight_EnergyBall_StartEffect* Bullet_effect = nullptr;
+		Knight_Energe_Blast* Energe_Blast = nullptr;
 
 
 	private:

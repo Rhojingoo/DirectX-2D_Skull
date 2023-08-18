@@ -116,7 +116,17 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
 			Bullet_effect->SetState(eState::Paused);
 		}
+		{
+			Energe_Blast = new Knight_Energe_Blast;
+			Energe_Blast->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Energe_Blast);
+			Transform* bullet_tr = Energe_Blast->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Energe_Blast->SetState(eState::Paused);
+		}
 
+		
 		at->PlayAnimation(L"Knight_maleIdle", true);
 		GameObject::Initialize();
 	}
@@ -239,7 +249,7 @@ namespace jk
 
 		//_choicecombo = random(0, 2);
 
-		_choicecombo = 1;
+		_choicecombo = 2;
 
 			if (_number_of_attack >= 3)
 			{
@@ -250,7 +260,7 @@ namespace jk
 			{
 				if (_time > 3.f)
 				{
-					if ((_distance >= 250 || _distance <= -250))
+					if ((_distance >= 100 || _distance <= -100))
 					{
 						if (_choicecombo == 1)
 						{
@@ -412,7 +422,6 @@ namespace jk
 					else
 					attackrotation_PLAYER.x = -60;
 				}
-
 				attackrotation_PLAYER.Normalize();
 				bullet_gr->SetGround(false);
 				bullet_gr->SetVelocity(Vector2(attackrotation_PLAYER.x * 100.f, attackrotation_PLAYER.y * 150));
@@ -437,6 +446,9 @@ namespace jk
 	void Knight_male::explosion_loop()
 	{
 		_attackorder = 0;
+		//Transform* bullet_tr = Energe_Blast->GetComponent<Transform>();
+		//bullet_tr->SetPosition(Vector3(pos.x, pos.y, pos.z-1));
+		//Energe_Blast->SetState(eState::Active);
 		_attack = false;
 	}
 
@@ -580,6 +592,10 @@ namespace jk
 			_state = Knight_State::Explosion_Loop;
 			at->PlayAnimation(L"Knight_maleExplosion_Loop", true);
 		}
+		Transform* bullet_tr = Energe_Blast->GetComponent<Transform>();
+		bullet_tr->SetPosition(Vector3(pos.x, pos.y-10, pos.z - 1));
+		Energe_Blast->SetState(eState::Active);
+
 	}
 
 }
