@@ -50,6 +50,7 @@ namespace jk
 	}
 	void Yggdrasil_EnergyCorps_Charging::Compelete()
 	{
+		Yggdrasil_Face::_Firstbullet = true;
 		this->SetState(eState::Paused);
 	}
 }

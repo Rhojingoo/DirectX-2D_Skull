@@ -221,7 +221,7 @@
     <ClInclude Include="Yggdrasil_Sweeping.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="Yggdrasil_EnergeBall_GrogyyEffect.h">
+    <ClInclude Include="Yggdrasil_EnergeBall_CreateEffect.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrasil_Groggy_GroundEffect.h">
@@ -231,6 +231,9 @@
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrasil_EnergyCorps_Spark.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdraisl_Groggy_StartImpact.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
   </ItemGroup>
@@ -449,7 +452,7 @@
     <ClCompile Include="Yggdrasil_Sweeping.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="Yggdrasil_EnergeBall_GrogyyEffect.cpp">
+    <ClCompile Include="Yggdrasil_EnergeBall_CreateEffect.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_Groggy_GroundEffect.cpp">
@@ -459,6 +462,9 @@
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_EnergyCorps_Spark.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdraisl_Groggy_StartImpact.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
   </ItemGroup>

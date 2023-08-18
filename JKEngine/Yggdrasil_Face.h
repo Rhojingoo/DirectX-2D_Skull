@@ -4,11 +4,11 @@
 #include "Yggdrasil_Energy_Bomb.h"
 #include "Yggdrsil_Energy_Corps.h"
 #include "Yggdrasil_Effect.h"
-#include "Yggdrasil_EnergeBall_GrogyyEffect.h"
+#include "Yggdrasil_EnergeBall_CreateEffect.h"
 #include "Yggdrasil_Groggy_GroundEffect.h"
 #include "Yggdrasil_EnergyCorps_Charging.h"
 #include "Yggdrasil_EnergyCorps_Spark.h"
-
+#include "Yggdraisl_Groggy_StartImpact.h"
 
 namespace jk
 {
@@ -98,16 +98,18 @@ namespace jk
 		Yggdrasil_Energy_Bomb* Energy_Bomb;
 		Yggdrsil_Energy_Corps* Energy_Corps[15];
 		Yggdrasil_Effect* Yggdrasil_effect = nullptr;
-		Yggdrasil_EnergeBall_GrogyyEffect* Groggy_Begin_Efeect = nullptr;
+		Yggdrasil_EnergeBall_CreateEffect* Groggy_Begin_Efeect[15];
 		Yggdrasil_Groggy_GroundEffect* Groggy_impact = nullptr;
 		Yggdrasil_EnergyCorps_Charging* EnergyCorps_Charging = nullptr;
-		Yggdrasil_EnergyCorps_Spark* EnergyCorps_Spark[15];
+		Yggdrasil_EnergyCorps_Spark* EnergyCorps_Spark = nullptr;
+		Yggdraisl_Groggy_StartImpact* Groggy_Start = nullptr;
 
 
 		GameObject::eState check_state;
 		float	_activetime = 0.f;
 		float   _introtime =  0.f;
 		bool	_FaceSet_of_Change = false;
+		bool	_EnergyCorps_Spark_off = true;
 
 	public:
 		static bool	_Firstbullet;

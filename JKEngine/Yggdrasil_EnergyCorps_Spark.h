@@ -22,8 +22,7 @@ namespace jk
 		void Compelete();
 
 	public:
-		bool _EffectOn = true;
-
+		bool _EffectOn = true; 
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;

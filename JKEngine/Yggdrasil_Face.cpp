@@ -84,13 +84,13 @@ namespace jk
 		}
 		{
 			
-			Groggy_Begin_Efeect = new Yggdrasil_EnergeBall_GrogyyEffect;
-			Groggy_Begin_Efeect->Initialize();
+			EnergyCorps_Spark = new Yggdrasil_EnergyCorps_Spark;
+			EnergyCorps_Spark->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Effect, Groggy_Begin_Efeect);
-			Transform* bullet_tr = Groggy_Begin_Efeect->GetComponent<Transform>();
+			scene->AddGameObject(eLayerType::Effect, EnergyCorps_Spark);
+			Transform* bullet_tr = EnergyCorps_Spark->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
-			Groggy_Begin_Efeect->SetState(eState::Paused);
+			EnergyCorps_Spark->SetState(eState::Paused);
 		}
 		{
 			Groggy_impact = new Yggdrasil_Groggy_GroundEffect;
@@ -101,7 +101,6 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
 			Groggy_impact->SetState(eState::Paused);
 		}
-
 		{
 			EnergyCorps_Charging = new Yggdrasil_EnergyCorps_Charging;
 			EnergyCorps_Charging->Initialize();
@@ -111,23 +110,27 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
 			EnergyCorps_Charging->SetState(eState::Paused);
 		}
-
-
 		for (int i = 0; i < 15; i++)
 		{
-			EnergyCorps_Spark[i] = new Yggdrasil_EnergyCorps_Spark;
-			EnergyCorps_Spark[i]->Initialize();
+			Groggy_Begin_Efeect[i] = new Yggdrasil_EnergeBall_CreateEffect;
+			Groggy_Begin_Efeect[i]->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Bullet, EnergyCorps_Spark[i]);
-			Transform* bullet_tr = EnergyCorps_Spark[i]->GetComponent<Transform>();
+			scene->AddGameObject(eLayerType::Bullet, Groggy_Begin_Efeect[i]);
+			Transform* bullet_tr = Groggy_Begin_Efeect[i]->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -206.f));
-			EnergyCorps_Spark[i]->SetState(eState::Paused);
+			Groggy_Begin_Efeect[i]->SetState(eState::Paused);
+		}
+		{
+			Groggy_Start = new Yggdraisl_Groggy_StartImpact;
+			Groggy_Start->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Groggy_Start);
+			Transform* bullet_tr = Groggy_Start->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
+			Groggy_Start->SetState(eState::Paused);
 		}
 
-
-
-
-
+		
 
 		at->PlayAnimation(L"FaceYggdrasilFace_Idle", true);
 		if (_Changeon == true)
@@ -378,7 +381,7 @@ namespace jk
 	{		
 		if (_Firstbullet == false)
 		{
-			if (_Changeon == false)
+			if (_Changeon == true)
 			{
 				Transform* bullet_tr = Yggdrasil_effect->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(_pos.x + 5, _pos.y + 15, _pos.z - 1));
@@ -391,7 +394,6 @@ namespace jk
 				bullet_tr->SetPosition(Vector3(_pos.x+5, _pos.y + 15, _pos.z - 1));
 				EnergyCorps_Charging->SetState(eState::Active);
 			}
-
 		}
 	}
 	void Yggdrasil_Face::attack_c_up()
@@ -399,8 +401,7 @@ namespace jk
 		if (_pos.y <= 70.f)
 			_pos.y += 250 * Time::DeltaTime();
 		else
-			_BulletReady = true;
-		
+			_BulletReady = true;		
 	}
 	void Yggdrasil_Face::attack_c()
 	{		
@@ -427,9 +428,15 @@ namespace jk
 		// 체인지한뒤 에너지볼변경
 		if (_Changeon == false)
 		{
+			static bool sparkPositionSet[15] = { false };
 			_time += Time::DeltaTime();
 			if (_time <= 15.f)
 			{
+				Transform* bullet_tr = EnergyCorps_Spark->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
+				EnergyCorps_Spark->SetState(eState::Active);
+
+
 				if (_time >= 1.f)
 				{
 					for (int i = 0; i < 5; i++)
@@ -437,9 +444,16 @@ namespace jk
 						if (_time >= (1.0f + 0.5f * i))
 						{						
 							Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
-							Transform* effect_tr = EnergyCorps_Spark[i]->GetComponent<Transform>();
-							effect_tr->SetPosition(Vector3(bullet_tr->GetPosition().x, bullet_tr->GetPosition().y, bullet_tr->GetPosition().z-2));
-							EnergyCorps_Spark[i]->SetState(eState::Active);
+							Transform* effect_tr = Groggy_Begin_Efeect[i]->GetComponent<Transform>();
+
+							if (!sparkPositionSet[i]) // 위치가 설정되지 않았으면 설정
+							{
+								effect_tr->SetPosition(Vector3(bullet_tr->GetPosition().x, bullet_tr->GetPosition().y, bullet_tr->GetPosition().z - 2));
+								sparkPositionSet[i] = true; // 위치 설정 완료								
+							}
+							Groggy_Begin_Efeect[i]->SetState(eState::Active);
+							if (Groggy_Begin_Efeect[i]->_EffectOn == false)
+								Groggy_Begin_Efeect[i]->SetState(eState::Paused);
 
 							Energy_Corps[i]->SetState(eState::Active);
 							Energy_Corpsattack();
@@ -455,9 +469,17 @@ namespace jk
 						if (_time >= (5.0f + 0.5f * i))
 						{							
 							Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
-							Transform* effect_tr = EnergyCorps_Spark[i]->GetComponent<Transform>();
-							effect_tr->SetPosition(Vector3(bullet_tr->GetPosition().x, bullet_tr->GetPosition().y, bullet_tr->GetPosition().z - 2));
-							EnergyCorps_Spark[i]->SetState(eState::Active);
+							Transform* effect_tr = Groggy_Begin_Efeect[i]->GetComponent<Transform>();
+
+							if (!sparkPositionSet[i])
+							{
+								effect_tr->SetPosition(Vector3(bullet_tr->GetPosition().x, bullet_tr->GetPosition().y, bullet_tr->GetPosition().z - 2));
+								sparkPositionSet[i] = true; 
+							}
+
+							Groggy_Begin_Efeect[i]->SetState(eState::Active);
+							if (Groggy_Begin_Efeect[i]->_EffectOn == false)
+								Groggy_Begin_Efeect[i]->SetState(eState::Paused);
 
 							Energy_Corps[i]->SetState(eState::Active);
 							Energy_Corpsattack();
@@ -473,9 +495,17 @@ namespace jk
 						if (_time >= (10.0f + 0.5f * i))
 						{							
 							Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
-							Transform* effect_tr = EnergyCorps_Spark[i]->GetComponent<Transform>();
-							effect_tr->SetPosition(Vector3(bullet_tr->GetPosition().x, bullet_tr->GetPosition().y, bullet_tr->GetPosition().z - 2));
-							EnergyCorps_Spark[i]->SetState(eState::Active);
+							Transform* effect_tr = Groggy_Begin_Efeect[i]->GetComponent<Transform>();
+
+							if (!sparkPositionSet[i]) 
+							{
+								effect_tr->SetPosition(Vector3(bullet_tr->GetPosition().x, bullet_tr->GetPosition().y, bullet_tr->GetPosition().z - 2));
+								sparkPositionSet[i] = true; 
+							}
+
+							Groggy_Begin_Efeect[i]->SetState(eState::Active);
+							if (Groggy_Begin_Efeect[i]->_EffectOn == false)
+								Groggy_Begin_Efeect[i]->SetState(eState::Paused);
 
 							Energy_Corps[i]->SetState(eState::Active);
 							Energy_Corpsattack();
@@ -485,8 +515,12 @@ namespace jk
 					}
 				}
 			}
-			else		
-				_state = Yggdrasil_State::Attack_C_Down;			
+			else
+			{
+				_state = Yggdrasil_State::Attack_C_Down;
+				EnergyCorps_Spark->SetState(eState::Paused);
+				_EnergyCorps_Spark_off = false;
+			}
 		}
 	}
 	void Yggdrasil_Face::attack_c_down()
@@ -511,21 +545,24 @@ namespace jk
 				}
 				if (_NumberofAttack >= 2)
 				{
-					Transform* bullet_tr = Groggy_Begin_Efeect->GetComponent<Transform>();
-					bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
-					Groggy_Begin_Efeect->SetState(eState::Active);
-
-					if (Yggdrasil_EnergeBall_GrogyyEffect::Groggy_Strat == true)
+					if (Groggy_Start->_groggystartefeect_switch == true)
+					{
+						Transform* bullet_tr = Groggy_Start->GetComponent<Transform>();
+						bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
+						Groggy_Start->SetState(eState::Active);
+					}
+					else
 					{
 						_state = Yggdrasil_State::Attack_C_Finish;
 						_NumberofAttack = 0;
-						Yggdrasil_EnergeBall_GrogyyEffect::Groggy_Strat = false;
+						Energy_Bomb->_effect_switch = true;
 					}
 				}
 				else
 				{
 					_time = 0;
-					_Firstbullet = true;
+					_Firstbullet = true;		
+					_BulletReady = false;
 					Energy_Bomb->_effect_switch = true;
 					_state = Yggdrasil_State::Attack_C_Ready;
 					_NumberofAttack++;
@@ -545,17 +582,26 @@ namespace jk
 				{
 					Energy_Corps[i]->_effect_switch = true;
 					Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
+					if (Groggy_Begin_Efeect[i]->_EffectOn == false)
+						Groggy_Begin_Efeect[i]->_EffectOn=true;
 				}
-
-				Transform* bullet_tr = Groggy_Begin_Efeect->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
-				Groggy_Begin_Efeect->SetState(eState::Active);
-
-				if (Yggdrasil_EnergeBall_GrogyyEffect::Groggy_Strat == true)
+				//if (_EnergyCorps_Spark_off == false)
+				//{
+				//	_state = Yggdrasil_State::Attack_C_Finish;
+				//	_NumberofAttack = 0;
+				//	_EnergyCorps_Spark_off = true;
+				//}
+				if (Groggy_Start->_groggystartefeect_switch == true)
+				{
+					Transform* bullet_tr = Groggy_Start->GetComponent<Transform>();
+					bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
+					Groggy_Start->SetState(eState::Active);
+				}
+				else
 				{
 					_state = Yggdrasil_State::Attack_C_Finish;
 					_NumberofAttack = 0;
-					Yggdrasil_EnergeBall_GrogyyEffect::Groggy_Strat = false;
+					_EnergyCorps_Spark_off = true;
 				}
 			}
 		}
@@ -747,6 +793,7 @@ namespace jk
 			}
 		}
 	}
+
 
 	void Yggdrasil_Face::Die_DOWN()
 	{

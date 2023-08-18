@@ -2,6 +2,7 @@
 
 namespace jk
 {
+	
 	Yggdrasil_EnergyCorps_Spark::Yggdrasil_EnergyCorps_Spark()
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
@@ -19,7 +20,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\EnergyCorps_Spark", this, 0, 0.03);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\EnergyCorps_Spark", this, 0,0.02);
 		at->CompleteEvent(L"EffectEnergyCorps_Spark") = std::bind(&Yggdrasil_EnergyCorps_Spark::Compelete, this);
 
 		at->PlayAnimation(L"EffectEnergyCorps_Spark", true);
@@ -50,6 +51,7 @@ namespace jk
 	}
 	void Yggdrasil_EnergyCorps_Spark::Compelete()
 	{
-		this->SetState(eState::Paused);
+		//_EffectOn = false;
+		//this->SetState(eState::Paused);
 	}
 }

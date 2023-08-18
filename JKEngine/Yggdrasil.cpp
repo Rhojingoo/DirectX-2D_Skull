@@ -130,7 +130,7 @@ namespace jk
 			//	_Gobjs[i]->SetState(eState::Paused);
 		}
 	
-		//_Change = true;
+	//	_Change = true;
 		GameObject::Initialize();
 	}
 	void Yggdrasil::Update()
