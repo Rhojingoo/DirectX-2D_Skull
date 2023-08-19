@@ -3,6 +3,14 @@
 #include "Knight_male_EnergeBall.h"
 #include "Knight_EnergyBall_StartEffect.h"
 #include "Knight_Energe_Blast.h"
+#include "Kngiht_EnergyBall_Impact.h"
+#include "Kngiht_Ultimate_Aura.h"
+#include "Kngiht_Ultimate_AuraSmoke.h"
+#include "Kngiht_UltimateSkill_Effect_Complete.h"
+#include "Knight_UltimateSkill_Effect_Fail.h"
+#include "Knight_UltimateSkill_Projectile.h"
+
+
 
 
 namespace jk
@@ -40,6 +48,14 @@ namespace jk
 			Attack_E,
 			EnergeBall,
 			Explosion_Loop,
+
+
+			Finishing_Move_Ready,
+			Finishing_Move_Succes,
+			Finishing_Move_Fail,
+			Finishing_Move,
+
+
 			Glorggy,
 			Hit, 
 			Intro,
@@ -61,6 +77,10 @@ namespace jk
 		void attack_e();
 		void energeball();
 		void explosion_loop();
+		void Finishing_Move_Ready();
+		void Finishing_Move_Succes();
+		void Finishing_Move_Fail();
+		void Finishing_Move();
 		void glorggy();
 		void hit();
 		void intro();
@@ -90,15 +110,28 @@ namespace jk
 		float	_time = 0.f;				// 공격시 사용중
 		bool	_attack = false;			// 공격에서 idle로 보내는 스위치 변수
 		int		_number_of_attack = 0;		// 공격횟수에 따라 idle로 보내는데, 공격횟수를 체크하는 변수
+		int		_number_of_hit = 0;			// 타격횟수에 따라 행동을 설정(그로기, 백대쉬, ultimate아우라취소등)하기위한 변수
 		int		_attackorder = 0;			// 콤보공격의 경우 순서가 정해져 있어 해당 순서에 진행하도록 설정하는 변수 
 		int		_choicecombo = 0;			// 공격종류의 선택을 할수 있도록 설정하는 변수
+
+
 		float	_Attacktime = 0.f;
+		bool	_Ultimate = false;
+		bool	_Ultimate_Skill = false;
+
 		//int _fallcheck = 0;
 
 	private:
 		Knight_male_EnergeBall* Bullet = nullptr;
 		Knight_EnergyBall_StartEffect* Bullet_effect = nullptr;
 		Knight_Energe_Blast* Energe_Blast = nullptr;
+		Kngiht_Ultimate_Aura* Ultimate_Aura = nullptr;
+		Kngiht_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
+		Kngiht_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
+		Knight_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
+		Knight_UltimateSkill_Projectile* UltimateSkill_Projectile = nullptr;
+
+	private:
 
 
 	private:
@@ -106,6 +139,8 @@ namespace jk
 		void combo();
 		void energyball();
 		void explosionloop();
-
+		void finishingmove_set();
+		void complete_ultimate();
+		void complete_gloggy();
 	};
 }

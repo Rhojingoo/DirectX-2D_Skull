@@ -248,6 +248,21 @@
     <ClInclude Include="Knight_Energe_Blast.h">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Kngiht_Ultimate_Aura.h">
+      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Kngiht_Ultimate_AuraSmoke.h">
+      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Kngiht_UltimateSkill_Effect_Complete.h">
+      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight_UltimateSkill_Effect_Fail.h">
+      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight_UltimateSkill_Projectile.h">
+      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -489,6 +504,21 @@
       <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Knight_Energe_Blast.cpp">
+      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Kngiht_Ultimate_Aura.cpp">
+      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Kngiht_Ultimate_AuraSmoke.cpp">
+      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Kngiht_UltimateSkill_Effect_Complete.cpp">
+      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight_UltimateSkill_Effect_Fail.cpp">
+      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight_UltimateSkill_Projectile.cpp">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
     </ClCompile>
   </ItemGroup>

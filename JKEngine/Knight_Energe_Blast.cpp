@@ -34,8 +34,8 @@ namespace jk
 	}
 	void Knight_Energe_Blast::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
-		_collider->SetCenter(Vector2(0.0f, -0.05f));
+		_collider->SetSize(Vector2(0.75f, 0.55f));
+		_collider->SetCenter(Vector2(0.0f, -10.05f));
 		GameObject::LateUpdate();
 	}
 	void Knight_Energe_Blast::Render()

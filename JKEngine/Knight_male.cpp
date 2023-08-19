@@ -54,6 +54,11 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Potion", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Stinger", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Stinger_Ready", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Finish_Move", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\UltimateSkill_Motion", this);
+
+		
+		
 
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_A", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_B", this, 1);
@@ -73,7 +78,9 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Potion", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Stinger", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Stinger_Ready", this, 1);
-
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Finish_Move", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\UltimateSkill_Motion", this,1);
+		
 
 		//bind 부분
 		at->CompleteEvent(L"Knight_maleAttack_A") = std::bind(&Knight_male::choicecombo, this);
@@ -87,9 +94,16 @@ namespace jk
 		at->CompleteEvent(L"Knight_maleEnergeBall") = std::bind(&Knight_male::choicecombo, this);
 		at->CompleteEvent(L"Knight_maleEnergeBallR") = std::bind(&Knight_male::choicecombo, this);
 		at->CompleteEvent(L"Knight_maleExplosion_Loop") = std::bind(&Knight_male::choicecombo, this);
-		at->CompleteEvent(L"Knight_maleExplosion_LoopR") = std::bind(&Knight_male::choicecombo, this);
+		at->CompleteEvent(L"Knight_maleExplosion_LoopR") = std::bind(&Knight_male::choicecombo, this); 
 
+		at->CompleteEvent(L"Knight_maleUltimateSkill_Motion") = std::bind(&Knight_male::complete_ultimate, this);
+		at->CompleteEvent(L"Knight_maleUltimateSkill_MotionR") = std::bind(&Knight_male::complete_ultimate, this);
 
+		at->CompleteEvent(L"Knight_maleGlorggy") = std::bind(&Knight_male::complete_gloggy, this);
+		at->CompleteEvent(L"Knight_maleGlorggyR") = std::bind(&Knight_male::complete_gloggy, this);
+		
+		
+		
 		//at->CompleteEvent(L"Skul_BasicAttackBR") = std::bind(&Skul_Basic::attack_choice, this);
 		//at->CompleteEvent(L"Skul_BasicJumpAttack") = std::bind(&Skul_Basic::attack_choice, this);
 		//at->CompleteEvent(L"Skul_BasicJumpAttackR") = std::bind(&Skul_Basic::attack_choice, this);
@@ -111,7 +125,7 @@ namespace jk
 			Bullet_effect = new Knight_EnergyBall_StartEffect;
 			Bullet_effect->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Bullet, Bullet_effect);
+			scene->AddGameObject(eLayerType::Effect, Bullet_effect);
 			Transform* bullet_tr = Bullet_effect->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
 			Bullet_effect->SetState(eState::Paused);
@@ -126,7 +140,54 @@ namespace jk
 			Energe_Blast->SetState(eState::Paused);
 		}
 
-		
+		{
+			Ultimate_Aura = new Kngiht_Ultimate_Aura;
+			Ultimate_Aura->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Ultimate_Aura);
+			Transform* bullet_tr = Ultimate_Aura->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Ultimate_Aura->SetState(eState::Paused);
+		}
+
+		{
+			Ultimate_AuraSmoke = new Kngiht_Ultimate_AuraSmoke;
+			Ultimate_AuraSmoke->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Ultimate_AuraSmoke);
+			Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Ultimate_AuraSmoke->SetState(eState::Paused);
+		}
+		{
+			UltimateSkill_Effect_Complete = new Kngiht_UltimateSkill_Effect_Complete;
+			UltimateSkill_Effect_Complete->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Complete);
+			Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			UltimateSkill_Effect_Complete->SetState(eState::Paused);
+		}
+		{
+			UltimateSkill_Effect_Fail = new Knight_UltimateSkill_Effect_Fail;
+			UltimateSkill_Effect_Fail->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Fail);
+			Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			UltimateSkill_Effect_Fail->SetState(eState::Paused);
+		}
+
+		{
+			UltimateSkill_Projectile = new Knight_UltimateSkill_Projectile;
+			UltimateSkill_Projectile->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, UltimateSkill_Projectile);
+			Transform* bullet_tr = UltimateSkill_Projectile->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			UltimateSkill_Projectile->SetState(eState::Paused);
+		}
+	
 		at->PlayAnimation(L"Knight_maleIdle", true);
 		GameObject::Initialize();
 	}
@@ -146,61 +207,95 @@ namespace jk
 
 		switch (_state)
 		{
-		case jk::Knight_male::Knight_State::Idle:idle();
+		case jk::Knight_male::Knight_State::Idle:
+			idle();
 			break;
 
-		case jk::Knight_male::Knight_State::Dash:dash();
+		case jk::Knight_male::Knight_State::Dash:
+			dash();
 			break;
 
-		case jk::Knight_male::Knight_State::BackDash:backdash();
+		case jk::Knight_male::Knight_State::BackDash:
+			backdash();
 			break;
 
-		case jk::Knight_male::Knight_State::Jump:jump();
+		case jk::Knight_male::Knight_State::Jump:
+			jump();
 			break;
 
-		case jk::Knight_male::Knight_State::JumpAttack:jumpattack();
+		case jk::Knight_male::Knight_State::JumpAttack:
+			jumpattack();
 			break;
 
 		case jk::Knight_male::Knight_State::Die:die();
 			break;
 
-		case jk::Knight_male::Knight_State::Attack_A:attack_a();
+		case jk::Knight_male::Knight_State::Attack_A:
+			attack_a();
 			break;
 
-		case jk::Knight_male::Knight_State::Attack_B:attack_b();
+		case jk::Knight_male::Knight_State::Attack_B:
+			attack_b();
 			break;
 
-		case jk::Knight_male::Knight_State::Attack_C:attack_c();
+		case jk::Knight_male::Knight_State::Attack_C:
+			attack_c();
 			break;
 
-		case jk::Knight_male::Knight_State::Attack_D:attack_d();
+		case jk::Knight_male::Knight_State::Attack_D:
+			attack_d();
 			break;
 
-		case jk::Knight_male::Knight_State::Attack_E:attack_e();
+		case jk::Knight_male::Knight_State::Attack_E:
+			attack_e();
 			break;
 
-		case jk::Knight_male::Knight_State::EnergeBall:energeball();
+		case jk::Knight_male::Knight_State::EnergeBall:
+			energeball();
 			break;
 
-		case jk::Knight_male::Knight_State::Explosion_Loop:explosion_loop();
+		case jk::Knight_male::Knight_State::Explosion_Loop:
+			explosion_loop();
 			break;
 
-		case jk::Knight_male::Knight_State::Glorggy:glorggy();
+		case jk::Knight_male::Knight_State::Finishing_Move_Ready:
+			Finishing_Move_Ready();
 			break;
 
-		case jk::Knight_male::Knight_State::Hit:hit();
+		case jk::Knight_male::Knight_State::Finishing_Move_Succes:
+			Finishing_Move_Succes();
 			break;
 
-		case jk::Knight_male::Knight_State::Intro:intro();
+		case jk::Knight_male::Knight_State::Finishing_Move_Fail:
+			Finishing_Move_Fail();
 			break;
 
-		case jk::Knight_male::Knight_State::Potion:potion();
+		case jk::Knight_male::Knight_State::Finishing_Move:
+			Finishing_Move();
 			break;
 
-		case jk::Knight_male::Knight_State::Stinger:stinger();
+		case jk::Knight_male::Knight_State::Glorggy:
+			glorggy();
 			break;
 
-		case jk::Knight_male::Knight_State::Stinger_Ready:stinger_Ready();
+		case jk::Knight_male::Knight_State::Hit:
+			hit();
+			break;
+
+		case jk::Knight_male::Knight_State::Intro:
+			intro();
+			break;
+
+		case jk::Knight_male::Knight_State::Potion:
+			potion();
+			break;
+
+		case jk::Knight_male::Knight_State::Stinger:
+			stinger();
+			break;
+
+		case jk::Knight_male::Knight_State::Stinger_Ready:
+			stinger_Ready();
 			break;
 
 		default:
@@ -249,7 +344,7 @@ namespace jk
 
 		//_choicecombo = random(0, 2);
 
-		_choicecombo = 2;
+		_choicecombo = 3;
 
 			if (_number_of_attack >= 3)
 			{
@@ -260,7 +355,7 @@ namespace jk
 			{
 				if (_time > 3.f)
 				{
-					if ((_distance >= 100 || _distance <= -100))
+					if ((_distance >= 150 || _distance <= -150))
 					{
 						if (_choicecombo == 1)
 						{
@@ -446,14 +541,145 @@ namespace jk
 	void Knight_male::explosion_loop()
 	{
 		_attackorder = 0;
-		//Transform* bullet_tr = Energe_Blast->GetComponent<Transform>();
-		//bullet_tr->SetPosition(Vector3(pos.x, pos.y, pos.z-1));
-		//Energe_Blast->SetState(eState::Active);
 		_attack = false;
+	}
+
+	void Knight_male::Finishing_Move_Ready()
+	{		
+		if (_Ultimate == true)
+		{
+			{
+				Transform* bullet_tr = Ultimate_Aura->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30, pos.z - 1));
+				Ultimate_Aura->_effect_animation = true;
+				if (mDir == 1)
+					Ultimate_Aura->SetDirection(1);
+				else
+					Ultimate_Aura->SetDirection(-1);
+				Ultimate_Aura->SetState(eState::Active); 
+			}
+
+			{
+				Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y-55, pos.z - 1.1));
+				if (mDir == 1)
+					Ultimate_AuraSmoke->SetDirection(1);
+				else
+					Ultimate_AuraSmoke->SetDirection(-1);
+				Ultimate_AuraSmoke->SetState(eState::Active);
+			}
+
+			_Ultimate = false;
+		}
+
+		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
+		_Attacktime += Time::DeltaTime();
+		if (_Attacktime >= 7.5)
+		{
+			Ultimate_Aura->SetState(eState::Paused);
+			Ultimate_AuraSmoke->SetState(eState::Paused);
+			if (_number_of_hit > 8)
+			{				
+				// 이펙트 설정시 9번 hit가 된다면 깨지는 이미지로 넘어간뒤 그로기 상태로넘겨줘야한다.
+				Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				if (mDir == 1)
+					UltimateSkill_Effect_Fail->SetDirection(1);
+				else
+					UltimateSkill_Effect_Fail->SetDirection(-1);
+				UltimateSkill_Effect_Fail->SetState(eState::Active);
+
+				_state = Knight_State::Finishing_Move_Fail;
+				_Attacktime = 0.f;				
+			}
+			else
+			{
+				// 이펙트 설정시 5초가 10번이상의 타격이 없다면 석세스로 넘어간뒤 검격공격을 날려야한다.
+				Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				if (mDir == 1)
+					UltimateSkill_Effect_Complete->SetDirection(1);
+				else
+					UltimateSkill_Effect_Complete->SetDirection(-1);
+				UltimateSkill_Effect_Complete->SetState(eState::Active);	
+				
+				if(mDir ==1)
+					at->PlayAnimation(L"Knight_maleUltimateSkill_Motion", false);
+				else
+					at->PlayAnimation(L"Knight_maleUltimateSkill_MotionR", false);
+				_state = Knight_State::Finishing_Move_Succes;	
+				_Attacktime = 0.f;
+			}
+		}	
+	}
+
+	void Knight_male::Finishing_Move_Succes()
+	{		
+		if (_Ultimate_Skill == false)
+		{
+			Transform* bullet_tr = UltimateSkill_Projectile->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+			UltimateSkill_Projectile->_effect_animation = true;
+			if (mDir == 1)
+				UltimateSkill_Projectile->SetDirection(1);
+			else
+				UltimateSkill_Projectile->SetDirection(-1);
+			UltimateSkill_Projectile->SetState(eState::Active);
+			_Ultimate_Skill = true;
+		}
+		else
+		{
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime <= 3.0)
+			{
+				Transform* bullet_tr = UltimateSkill_Projectile->GetComponent<Transform>();
+				float BulletX = bullet_tr->GetPosition().x;
+				if(mDir ==1)
+					BulletX  += 350 * Time::DeltaTime();
+				else
+					BulletX -= 350 * Time::DeltaTime();
+				bullet_tr->SetPosition(Vector3(BulletX, pos.y - 25, pos.z - 1.1));
+			}
+			else
+			{
+				UltimateSkill_Projectile->SetState(eState::Paused);
+				_state = Knight_State::Finishing_Move;
+				_Ultimate_Skill = false;
+				_Attacktime = 0;
+			}
+		}
+	}
+
+	void Knight_male::Finishing_Move_Fail()
+	{
+		_state = Knight_State::Glorggy;
+		if (mDir == 1)
+			at->PlayAnimation(L"Knight_maleGlorggy", false);
+		else
+			at->PlayAnimation(L"Knight_maleGlorggyR", false);
+	}
+
+	void Knight_male::Finishing_Move()
+	{		
+		_state = Knight_State::Idle;
+		if (mDir == 1)
+			at->PlayAnimation(L"Knight_maleIdle", true);
+		else
+			at->PlayAnimation(L"Knight_maleIdleR", true);
 	}
 
 	void Knight_male::glorggy()
 	{
+		_Attacktime += Time::DeltaTime();
+		if (_Attacktime >= 3.5)
+		{
+			_state = Knight_State::Idle;
+			if (mDir == 1)
+				at->PlayAnimation(L"Knight_maleIdle", true);
+			else
+				at->PlayAnimation(L"Knight_maleIdleR", true);
+			_Attacktime = 0;
+		}
 	}
 
 	void Knight_male::hit()
@@ -498,6 +724,12 @@ namespace jk
 					explosionloop();
 				_attackorder++;						
 			}		
+			if (_choicecombo == 3)
+			{
+				if (_dash == false)
+					finishingmove_set();
+				_attackorder++;
+			}
 		}
 		else
 		{	
@@ -595,7 +827,42 @@ namespace jk
 		Transform* bullet_tr = Energe_Blast->GetComponent<Transform>();
 		bullet_tr->SetPosition(Vector3(pos.x, pos.y-10, pos.z - 1));
 		Energe_Blast->SetState(eState::Active);
+	}
 
+	void Knight_male::finishingmove_set()
+	{
+		if (_attackorder == 1)
+		{
+			_state = Knight_State::Finishing_Move_Ready;
+			at->PlayAnimation(L"Knight_maleFinish_Move", true);
+			_Ultimate = true;
+
+			_number_of_hit = 9;
+		}
+	}
+
+	void Knight_male::complete_ultimate()
+	{
+		if (_Ultimate_Skill == false)
+		{
+			Transform* bullet_tr = UltimateSkill_Projectile->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+			if (mDir == 1)
+				UltimateSkill_Projectile->SetDirection(1);
+			else
+				UltimateSkill_Projectile->SetDirection(-1);
+			UltimateSkill_Projectile->SetState(eState::Active);
+			_Ultimate_Skill = true;
+		}
+	}
+
+	void Knight_male::complete_gloggy()
+	{
+		//_state = Knight_State::Idle;
+		//if (mDir == 1)
+		//	at->PlayAnimation(L"Knight_maleIdle", true);
+		//else
+		//	at->PlayAnimation(L"Knight_maleIdleR", true);
 	}
 
 }
