@@ -115,9 +115,11 @@ namespace jk
 		int		_choicecombo = 0;			// 공격종류의 선택을 할수 있도록 설정하는 변수
 
 
-		float	_Attacktime = 0.f;
+		float	_Attacktime = 0.f;				
+		bool    _hit_switch = false;
 		bool	_Ultimate = false;
 		bool	_Ultimate_Skill = false;
+		bool	_BackDash = false;
 
 		//int _fallcheck = 0;
 
@@ -142,5 +144,6 @@ namespace jk
 		void finishingmove_set();
 		void complete_ultimate();
 		void complete_gloggy();
+		void complete_hit();
 	};
 }

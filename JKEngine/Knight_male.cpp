@@ -56,7 +56,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Stinger_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Finish_Move", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\UltimateSkill_Motion", this);
-
+		
 		
 		
 
@@ -102,7 +102,8 @@ namespace jk
 		at->CompleteEvent(L"Knight_maleGlorggy") = std::bind(&Knight_male::complete_gloggy, this);
 		at->CompleteEvent(L"Knight_maleGlorggyR") = std::bind(&Knight_male::complete_gloggy, this);
 		
-		
+		at->CompleteEvent(L"Knight_maleHit") = std::bind(&Knight_male::complete_hit, this);
+		at->CompleteEvent(L"Knight_maleHitR") = std::bind(&Knight_male::complete_hit, this);
 		
 		//at->CompleteEvent(L"Skul_BasicAttackBR") = std::bind(&Skul_Basic::attack_choice, this);
 		//at->CompleteEvent(L"Skul_BasicJumpAttack") = std::bind(&Skul_Basic::attack_choice, this);
@@ -111,7 +112,7 @@ namespace jk
 		//at->CompleteEvent(L"Skul_BasicSkillR") = std::bind(&Skul_Basic::attack_choice, this);
 		//at->CompleteEvent(L"Skul_BasicSwitch") = std::bind(&Skul_Basic::switch_on_off, this);
 		//at->CompleteEvent(L"Skul_BasicSwitchR") = std::bind(&Skul_Basic::switch_on_off, this);
-		;
+	
 		{
 			Bullet = new Knight_male_EnergeBall;
 			Bullet->Initialize();
@@ -316,23 +317,53 @@ namespace jk
 	}
 	void Knight_male::OnCollisionEnter(Collider2D* other)
 	{
-		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		if (Attack_HitBox* player = dynamic_cast<Attack_HitBox*>(other->GetOwner()))
 		{
-
-			if (_Ground_check == false)
-			{				
-				_rigidbody->SetGround(true);
-				_Ground_check = true;
-				_Ground_check = _rigidbody->GetGround();
-			}
-			else
+			if (!(_state == Knight_State::Idle))
+				return;
+			
+			if (_state == Knight_State::Idle)
 			{
-
+				_state = Knight_State::Hit;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"Knight_maleHit", true);
+					_hit_switch = true;	_number_of_attack++;
+					pos.x -= 50.0f * Time::DeltaTime();
+					tr->SetPosition(pos);
+				}
+				if (mDir == -1)
+				{
+					at->PlayAnimation(L"Knight_maleHitR", true);
+					_hit_switch = true;	_number_of_attack++;
+					pos.x += 50.0f * Time::DeltaTime();
+					tr->SetPosition(pos);
+				}
+				if (_number_of_attack >= 2)
+					int a = 0;
 			}
 		}
+
+
+		
 	}
 	void Knight_male::OnCollisionStay(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_rigidbody->ClearVelocity();
+			}
+			if (_state == Knight_State::BackDash)
+			{
+				if (_Ground_check == true)				
+				_BackDash = false;
+			}
+
+		}
 	}
 	void Knight_male::OnCollisionExit(Collider2D* other)
 	{
@@ -348,8 +379,26 @@ namespace jk
 
 			if (_number_of_attack >= 3)
 			{
-				_time = 0;
-				_number_of_attack = 0;
+				_time = 0;							
+				if (mDir == -1)
+				{
+					at->PlayAnimation(L"Knight_maleBackDashR", true);
+					_rigidbody->SetVelocity(Vector2(250.f, 250.f));
+					_rigidbody->SetGround(false);	
+					_Ground_check = false;
+					_BackDash = true;
+					_state = Knight_State::BackDash;
+				}
+				else
+				{
+					at->PlayAnimation(L"Knight_maleBackDash", true);
+					_rigidbody->SetVelocity(Vector2(-250.f, 250.f));
+					_rigidbody->SetGround(false);	
+					_Ground_check = false;
+					_BackDash = true;
+					_state = Knight_State::BackDash;
+				}
+				_number_of_attack = 0;			
 			}
 			else
 			{
@@ -385,7 +434,7 @@ namespace jk
 					{
 						_attack = true;
 						choicecombo();
-					}
+					}					
 				}
 			}
 		
@@ -446,6 +495,18 @@ namespace jk
 
 	void Knight_male::backdash()
 	{
+
+		if (_BackDash == false)
+		{
+			_state = Knight_State::Idle;
+			if (mDir == 1)
+				at->PlayAnimation(L"Knight_maleIdle", true);
+			else
+				at->PlayAnimation(L"Knight_maleIdleR", true);
+			_Attacktime = 0;
+		}
+		/*else
+			_Ground_check = false;*/
 	}
 
 	void Knight_male::jump()
@@ -684,6 +745,7 @@ namespace jk
 
 	void Knight_male::hit()
 	{
+
 	}
 
 	void Knight_male::intro()
@@ -863,6 +925,15 @@ namespace jk
 		//	at->PlayAnimation(L"Knight_maleIdle", true);
 		//else
 		//	at->PlayAnimation(L"Knight_maleIdleR", true);
+	}
+
+	void Knight_male::complete_hit()
+	{
+		_state = Knight_State::Idle;
+		if (mDir == 1)
+			at->PlayAnimation(L"Knight_maleIdle", true);
+		else
+			at->PlayAnimation(L"Knight_maleIdleR", true);
 	}
 
 }
