@@ -68,7 +68,10 @@ namespace jk
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;	
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+		Vector3 _skulheadtemp = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
+		
+		
 		int ColID = 0;
 
 	private:

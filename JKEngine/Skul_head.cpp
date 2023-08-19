@@ -91,6 +91,7 @@ namespace jk
 			{
 				_attack = false;
 				_rigidbody->SetGround(true);
+				_rigidbody->ClearVelocity();
 				_Ground_check = true;
 			}
 			else

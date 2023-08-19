@@ -329,7 +329,8 @@ namespace jk
 					mDir = 1; _Skulhead = true;			
 					Skul_Head->Setattack(true);
 					Skul_Head->GetComponent<Transform>()->SetPositionXY(Vector2{ tr->GetPosition().x+35, tr->GetPosition().y +10 });
-					Skul_Head->GetComponent<RigidBody>()->SetVelocity(Vector2{ 350.f, 0.0f });
+					Skul_Head->GetComponent<RigidBody>()->SetVelocity(Vector2{ 450.f, 0.0f });
+					_skulheadtemp = pos;
 				}
 				else if (mDir == -1)
 				{
@@ -337,7 +338,8 @@ namespace jk
 					mDir = -1; _Skulhead = true;		
 					Skul_Head->Setattack(true);
 					Skul_Head->GetComponent<Transform>()->SetPositionXY(Vector2{ tr->GetPosition().x-35, tr->GetPosition().y + 10 });
-					Skul_Head->GetComponent<RigidBody>()->SetVelocity(Vector2{ -350.f, 0.0f });
+					Skul_Head->GetComponent<RigidBody>()->SetVelocity(Vector2{ -450.f, 0.0f });
+					_skulheadtemp = pos;
 				}					
 			}
 			else
@@ -360,10 +362,13 @@ namespace jk
 					at->PlayAnimation(L"NoHeadFallR", false);
 					mDir = -1; 
 				}
-				pos.x = Skul_Head->GetPosition().x;
-				pos.y = Skul_Head->GetPosition().y+100;
+				Transform* tr_head = Skul_Head->GetComponent<Transform>();
+				Vector3 headbullet = tr_head->GetPosition();
+				pos = Vector3(headbullet.x, headbullet.y+30, headbullet.z);
 				Skul_Head->Setattack(true);
 				Skul_Head->SetDirection(mDir);
+				_rigidbody->SetGround(false);
+				_Ground_check = false;
 			}
 			else
 			{
@@ -715,18 +720,25 @@ namespace jk
 
 	void Skul_Basic::skill_a()
 	{
+		Transform* tr_head = Skul_Head->GetComponent<Transform>();
+		Vector3 currenthead = tr_head->GetPosition();
+
+
 		RigidBody* head_rjg = Skul_Head->Getrigidbody();
 		head_rjg->ClearVelocityY();
 		Vector2 _velocity_head = head_rjg->GetVelocity();
 		Skul_Head->Setgroundcheck(false);
 		
-		if (mDir == 1 && _velocity_head.x <= 220.0)
-		{
+		float Headdis =_skulheadtemp.x - currenthead.x;
+		//if (mDir == 1 && _velocity_head.x <= 220.0)
+		if (mDir == 1 && Headdis <= -500)
+		{			
 			head_rjg->SetGround(false);
 			head_rjg->ClearVelocityX();
 			mDir = 1;
 		}
-		else if (mDir == -1 && _velocity_head.x >= -220.0)
+		//else if (mDir == -1 && _velocity_head.x >= -220.0)
+		else if (mDir == -1 && Headdis >= 500.0)
 		{
 			head_rjg->SetGround(false);
 			head_rjg->ClearVelocityX();
