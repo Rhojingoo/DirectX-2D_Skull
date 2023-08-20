@@ -39,9 +39,9 @@ namespace jk
 	{
 		if (_bullet_animation == true)
 		{
-			if(_dir)
+			if(_dir==1)
 				at->PlayAnimation(L"BulletArcher_Arrow", true);
-			else
+			if (_dir == -1)
 				at->PlayAnimation(L"BulletArcher_ArrowR", true);
 			_bullet_animation = false;
 		}

@@ -1,6 +1,11 @@
 #pragma once
 #include "Include_Common.h"
 #include "Archer_Arrow.h"
+#include "Archer_Arrow_Upward_Sign.h"
+#include "Archer_Upward_Impact_Bullet.h"
+#include "Archer_Arrow_Bye.h"
+#include "Archer_Trap.h"
+
 
 namespace jk
 {
@@ -28,7 +33,10 @@ namespace jk
 			Attack_A_Ready,
 			Attack_A,
 			Attack_A_End,
+			Attack_B_Ready,
 			Attack_B,
+			Attack_B_End,
+			
 			Attack_C,
 			Groggy,
 			Hit,
@@ -42,7 +50,13 @@ namespace jk
 		void attack_a_ready();
 		void attack_a();
 		void attack_a_end();
+
+
+		void attack_b_ready();
 		void attack_b();
+		void attack_b_end();
+
+
 		void attack_c();
 		void groggy();
 		void hit();
@@ -62,7 +76,10 @@ namespace jk
 
 	private:
 		Archer_Arrow* _archer_arrow = nullptr;
-
+		Archer_Arrow_Upward_Sign* Upward_Sign = nullptr;
+		Archer_Upward_Impact_Bullet* Upward_Impact_Bullet = nullptr;
+		Archer_Arrow_Bye* Arrow_Bye_effect = nullptr;
+		Archer_Trap* Bullet_Trap[6];
 
 	private:
 		static int			mDir;
@@ -76,9 +93,15 @@ namespace jk
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		int		_hit = 0;							// 공격받은 후 회피하기 위한 변수
 		bool    _hit_switch = false;
+		int		_Numberof_BackDash = 0;
+		
 
+		
+		bool    _BackDash = true;
 		bool	_player_attack_check = false;		// 플레이어가 공격시 콜라이더 처리를 확실하게 하는것.
 		bool	_attack_a = false;
+		bool	_attack_b_sign = false;
+		bool	_attack_b = false;
 
 	private:
 		Skul_Basic::Skul_Basic_State Skul_BasicState;

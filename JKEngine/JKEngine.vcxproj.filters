@@ -266,6 +266,18 @@
     <ClInclude Include="Archer_Arrow.h">
       <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Archer_Arrow_Upward_Sign.h">
+      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Archer_Upward_Impact_Bullet.h">
+      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Archer_Arrow_Bye.h">
+      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Archer_Trap.h">
+      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -527,6 +539,18 @@
     <ClCompile Include="Archer_Arrow.cpp">
       <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Archer_Arrow_Upward_Sign.cpp">
+      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Archer_Upward_Impact_Bullet.cpp">
+      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Archer_Arrow_Bye.cpp">
+      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Archer_Trap.cpp">
+      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -666,6 +690,9 @@
     </Filter>
     <Filter Include="Game_ob\MiniBoss\Archer\Bullet">
       <UniqueIdentifier>{da09b292-bda9-46e6-ba68-edc253ad459a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Archer\Effect">
+      <UniqueIdentifier>{0658b3d4-bad5-46bc-835a-e19982f10abf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
