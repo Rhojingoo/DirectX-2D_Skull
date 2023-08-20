@@ -73,6 +73,16 @@ namespace jk
 		//at->CompleteEvent(L"Knight_maleExplosion_Loop") = std::bind(&Knight_male::choicecombo, this);
 		//at->CompleteEvent(L"Knight_maleExplosion_LoopR") = std::bind(&Knight_male::choicecombo, this);
 
+		
+		_archer_arrow = new Archer_Arrow;
+		_archer_arrow->Initialize();
+		Scene* scene = SceneManager::GetActiveScene();
+		scene->AddGameObject(eLayerType::Bullet, _archer_arrow);
+		Transform* EffectTR = _archer_arrow->GetComponent<Transform>();
+		EffectTR->SetPosition(tr->GetPosition());
+		_archer_arrow->SetState(eState::Paused);
+
+
 		at->PlayAnimation(L"ArcherIdle", true);
 		GameObject::Initialize();
 	}

@@ -11,8 +11,6 @@
 #include "Knight_UltimateSkill_Projectile.h"
 
 
-
-
 namespace jk
 {
 	class Knight_male : public Mini_Boss
@@ -47,6 +45,7 @@ namespace jk
 			Attack_D,
 			Attack_E,
 			EnergeBall,
+			Explosion_Loop_Ready,
 			Explosion_Loop,
 
 
@@ -76,6 +75,7 @@ namespace jk
 		void attack_d();
 		void attack_e();
 		void energeball();
+		void explosion_loop_ready();
 		void explosion_loop();
 		void Finishing_Move_Ready();
 		void Finishing_Move_Succes();

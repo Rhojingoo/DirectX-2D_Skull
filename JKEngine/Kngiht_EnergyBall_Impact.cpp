@@ -19,10 +19,10 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Effect\\UltimateSkill_Aura", this);
-		//at->CompleteEvent(L"EffectEnergyBall_Impact") = std::bind(&Kngiht_EnergyBall_Impact::Compelete, this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Effect\\EnergyBall_Impact", this);
+		at->CompleteEvent(L"EffectEnergyBall_Impact") = std::bind(&Kngiht_EnergyBall_Impact::Compelete, this);
 
-		at->PlayAnimation(L"EffectUltimateSkill_Aura", true);
+		at->PlayAnimation(L"EffectEnergyBall_Impact", true);
 
 		GameObject::Initialize();
 	}
@@ -51,6 +51,6 @@ namespace jk
 	}
 	void Kngiht_EnergyBall_Impact::Compelete()
 	{
-		//this->SetState(eState::Paused);
+		this->SetState(eState::Paused);
 	}
 }

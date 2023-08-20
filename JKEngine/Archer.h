@@ -1,5 +1,6 @@
 #pragma once
 #include "Include_Common.h"
+#include "Archer_Arrow.h"
 
 namespace jk
 {
@@ -56,6 +57,8 @@ namespace jk
 		//Vector3 _playerpos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
+	private:
+		Archer_Arrow* _archer_arrow = nullptr;
 	private:
 		static int			mDir;
 		static bool			_switch;

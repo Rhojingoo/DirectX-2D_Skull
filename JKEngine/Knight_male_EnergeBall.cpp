@@ -65,6 +65,7 @@ namespace jk
 				EffectTR->SetPosition(tr->GetPosition());
 				Bullet_Effect->SetState(eState::Active);
 				_EffectSwitch = false;
+				_BoomSwitch = false;
 				this->SetState(eState::Paused);
 			}
 			else
@@ -85,7 +86,7 @@ namespace jk
 		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
 		EffectTR->SetPosition(tr->GetPosition());
 		Bullet_Effect->SetState(eState::Active);
-		_EffectSwitch = false;
+		//_EffectSwitch = false;
 		_BoomSwitch = false;
 		this->SetState(eState::Paused);
 	}

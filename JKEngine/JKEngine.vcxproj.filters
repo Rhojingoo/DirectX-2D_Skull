@@ -263,6 +263,9 @@
     <ClInclude Include="Knight_UltimateSkill_Projectile.h">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Archer_Arrow.h">
+      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -521,6 +524,9 @@
     <ClCompile Include="Knight_UltimateSkill_Projectile.cpp">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Archer_Arrow.cpp">
+      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -657,6 +663,9 @@
     </Filter>
     <Filter Include="Game_ob\MiniBoss\Knight_male\Effect">
       <UniqueIdentifier>{f443e932-1191-44a6-91de-3335025eb2f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Archer\Bullet">
+      <UniqueIdentifier>{da09b292-bda9-46e6-ba68-edc253ad459a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

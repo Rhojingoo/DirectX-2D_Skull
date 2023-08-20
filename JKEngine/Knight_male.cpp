@@ -93,8 +93,9 @@ namespace jk
 
 		at->CompleteEvent(L"Knight_maleEnergeBall") = std::bind(&Knight_male::choicecombo, this);
 		at->CompleteEvent(L"Knight_maleEnergeBallR") = std::bind(&Knight_male::choicecombo, this);
-		at->CompleteEvent(L"Knight_maleExplosion_Loop") = std::bind(&Knight_male::choicecombo, this);
-		at->CompleteEvent(L"Knight_maleExplosion_LoopR") = std::bind(&Knight_male::choicecombo, this); 
+	
+		//at->CompleteEvent(L"Knight_maleExplosion_Loop") = std::bind(&Knight_male::choicecombo, this);
+		//at->CompleteEvent(L"Knight_maleExplosion_LoopR") = std::bind(&Knight_male::choicecombo, this); 
 
 		at->CompleteEvent(L"Knight_maleUltimateSkill_Motion") = std::bind(&Knight_male::complete_ultimate, this);
 		at->CompleteEvent(L"Knight_maleUltimateSkill_MotionR") = std::bind(&Knight_male::complete_ultimate, this);
@@ -255,6 +256,10 @@ namespace jk
 			energeball();
 			break;
 
+		case jk::Knight_male::Knight_State::Explosion_Loop_Ready:
+			explosion_loop_ready();
+			break;
+
 		case jk::Knight_male::Knight_State::Explosion_Loop:
 			explosion_loop();
 			break;
@@ -328,18 +333,18 @@ namespace jk
 				if (mDir == 1)
 				{
 					at->PlayAnimation(L"Knight_maleHit", true);
-					_hit_switch = true;	_number_of_attack++;
+					_hit_switch = true;	_number_of_hit++;
 					pos.x -= 50.0f * Time::DeltaTime();
 					tr->SetPosition(pos);
 				}
 				if (mDir == -1)
 				{
 					at->PlayAnimation(L"Knight_maleHitR", true);
-					_hit_switch = true;	_number_of_attack++;
+					_hit_switch = true;	_number_of_hit++;
 					pos.x += 50.0f * Time::DeltaTime();
 					tr->SetPosition(pos);
 				}
-				if (_number_of_attack >= 2)
+				if (_number_of_hit >= 2)
 					int a = 0;
 			}
 		}
@@ -372,12 +377,12 @@ namespace jk
 	void Knight_male::idle()
 	{
 		_time += Time::DeltaTime();
+		_Attacktime = 0;
+		_choicecombo = random(0, 3);
 
-		//_choicecombo = random(0, 2);
+		//_choicecombo = 2;
 
-		_choicecombo = 3;
-
-			if (_number_of_attack >= 3)
+			if (_number_of_hit >= 3)
 			{
 				_time = 0;							
 				if (mDir == -1)
@@ -398,7 +403,7 @@ namespace jk
 					_BackDash = true;
 					_state = Knight_State::BackDash;
 				}
-				_number_of_attack = 0;			
+				_number_of_hit = 0;
 			}
 			else
 			{
@@ -545,7 +550,6 @@ namespace jk
 
 	void Knight_male::energeball()
 	{
-
 		if (Bullet_effect->_effect_switch== false)
 		{
 			Transform* bullet_tr = Bullet->GetComponent<Transform>();
@@ -555,6 +559,7 @@ namespace jk
 				bullet_tr->SetPosition(Vector3(pos.x - 20, pos.y - 20, -205));
 
 			Bullet->_EffectSwitch = true;
+			Bullet->_BoomSwitch = false;
 			Bullet->SetState(eState::Active);
 			_attack = false;
 			_state = Knight_State::EnergeBall;
@@ -590,6 +595,7 @@ namespace jk
 				_attackorder = 0;
 				_attack = false;
 				Bullet->_BoomSwitch = true;
+				//Bullet_effect->_effect_switch = false;
 				_state = Knight_State::Idle;
 				if (mDir == 1)
 					at->PlayAnimation(L"Knight_maleIdle", true);
@@ -599,10 +605,29 @@ namespace jk
 		}
 	}
 
+	void Knight_male::explosion_loop_ready()
+	{
+		_Attacktime += Time::DeltaTime();
+		if (_Attacktime >= 1.5)
+		{
+			_state = Knight_State::Explosion_Loop;
+			Transform* bullet_tr = Energe_Blast->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y - 10, pos.z - 1));
+			Energe_Blast->SetState(eState::Active);
+			_Attacktime = 0;
+		}
+	}
+
 	void Knight_male::explosion_loop()
 	{
-		_attackorder = 0;
-		_attack = false;
+		_Attacktime += Time::DeltaTime();
+		if (_Attacktime >= 1.5)
+		{
+			_attackorder = 0;
+			_attack = false;
+			_Attacktime = 0;
+			choicecombo();
+		}			
 	}
 
 	void Knight_male::Finishing_Move_Ready()
@@ -722,11 +747,15 @@ namespace jk
 
 	void Knight_male::Finishing_Move()
 	{		
-		_state = Knight_State::Idle;
-		if (mDir == 1)
-			at->PlayAnimation(L"Knight_maleIdle", true);
-		else
-			at->PlayAnimation(L"Knight_maleIdleR", true);
+		//_state = Knight_State::Idle;
+		//if (mDir == 1)
+		//	at->PlayAnimation(L"Knight_maleIdle", true);
+		//else
+		//	at->PlayAnimation(L"Knight_maleIdleR", true);
+		//_time = 0;
+		_attackorder = 0;
+		_attack = false;
+		choicecombo();
 	}
 
 	void Knight_male::glorggy()
@@ -734,12 +763,16 @@ namespace jk
 		_Attacktime += Time::DeltaTime();
 		if (_Attacktime >= 3.5)
 		{
-			_state = Knight_State::Idle;
-			if (mDir == 1)
-				at->PlayAnimation(L"Knight_maleIdle", true);
-			else
-				at->PlayAnimation(L"Knight_maleIdleR", true);
 			_Attacktime = 0;
+			_attackorder = 0;
+			_attack = false;
+			choicecombo();
+			//_state = Knight_State::Idle;
+			//if (mDir == 1)
+			//	at->PlayAnimation(L"Knight_maleIdle", true);
+			//else
+			//	at->PlayAnimation(L"Knight_maleIdleR", true);
+			//_time = 0;
 		}
 	}
 
@@ -766,6 +799,7 @@ namespace jk
 
 	void Knight_male::choicecombo()
 	{
+		_Attacktime = 0;
 		if (_attack == true)
 		{			
 			if (_choicecombo == 0)
@@ -796,17 +830,18 @@ namespace jk
 		else
 		{	
 			_number_of_attack++;
-			//if (_number_of_attack >= 3)
-			//{
-			//	_time = 0;
-			//	_number_of_attack = 0;
-			//}
-
-			_state = Knight_State::Idle;
-			if (mDir == 1)
-				at->PlayAnimation(L"Knight_maleIdle", true);
-			else
-				at->PlayAnimation(L"Knight_maleIdleR", true);
+			if (_number_of_attack >= 3)
+			{
+				_time = 0;
+				_number_of_attack = 0;
+			}
+			{
+				_state = Knight_State::Idle;
+				if (mDir == 1)
+					at->PlayAnimation(L"Knight_maleIdle", true);
+				else
+					at->PlayAnimation(L"Knight_maleIdleR", true);
+			}
 		}	
 	}
 
@@ -852,6 +887,7 @@ namespace jk
 
 	void Knight_male::energyball()
 	{
+		_Attacktime = 0;
 		if (_attackorder == 1)
 		{
 			if (mDir == 1)
@@ -883,12 +919,12 @@ namespace jk
 	{
 		if (_attackorder == 1)
 		{
-			_state = Knight_State::Explosion_Loop;
-			at->PlayAnimation(L"Knight_maleExplosion_Loop", true);
+			_state = Knight_State::Explosion_Loop_Ready;
+			if(mDir==1)
+				at->PlayAnimation(L"Knight_maleExplosion_Loop", true);
+			else
+				at->PlayAnimation(L"Knight_maleExplosion_LoopR", true);
 		}
-		Transform* bullet_tr = Energe_Blast->GetComponent<Transform>();
-		bullet_tr->SetPosition(Vector3(pos.x, pos.y-10, pos.z - 1));
-		Energe_Blast->SetState(eState::Active);
 	}
 
 	void Knight_male::finishingmove_set()
@@ -899,7 +935,7 @@ namespace jk
 			at->PlayAnimation(L"Knight_maleFinish_Move", true);
 			_Ultimate = true;
 
-			_number_of_hit = 9;
+			//_number_of_hit = 9;
 		}
 	}
 
