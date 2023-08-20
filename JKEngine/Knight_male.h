@@ -4,10 +4,10 @@
 #include "Knight_EnergyBall_StartEffect.h"
 #include "Knight_Energe_Blast.h"
 #include "Kngiht_EnergyBall_Impact.h"
-#include "Kngiht_Ultimate_Aura.h"
-#include "Kngiht_Ultimate_AuraSmoke.h"
-#include "Kngiht_UltimateSkill_Effect_Complete.h"
-#include "Knight_UltimateSkill_Effect_Fail.h"
+#include "Public_Ultimate_Aura.h"
+#include "Public_Ultimate_AuraSmoke.h"
+#include "Public_UltimateSkill_Effect_Complete.h"
+#include "Public_UltimateSkill_Effect_Fail.h"
 #include "Knight_UltimateSkill_Projectile.h"
 
 
@@ -127,10 +127,10 @@ namespace jk
 		Knight_male_EnergeBall* Bullet = nullptr;
 		Knight_EnergyBall_StartEffect* Bullet_effect = nullptr;
 		Knight_Energe_Blast* Energe_Blast = nullptr;
-		Kngiht_Ultimate_Aura* Ultimate_Aura = nullptr;
-		Kngiht_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
-		Kngiht_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
-		Knight_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
+		Public_Ultimate_Aura* Ultimate_Aura = nullptr;
+		Public_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
+		Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
+		Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
 		Knight_UltimateSkill_Projectile* UltimateSkill_Projectile = nullptr;
 
 	private:

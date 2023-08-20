@@ -5,6 +5,11 @@
 #include "Archer_Upward_Impact_Bullet.h"
 #include "Archer_Arrow_Bye.h"
 #include "Archer_Trap.h"
+#include "Public_Ultimate_Aura.h"
+#include "Public_Ultimate_AuraSmoke.h"
+#include "Public_UltimateSkill_Effect_Complete.h"
+#include "Public_UltimateSkill_Effect_Fail.h"
+#include "Archer_Utimate_Sign.h"
 
 
 namespace jk
@@ -35,9 +40,14 @@ namespace jk
 			Attack_A_End,
 			Attack_B_Ready,
 			Attack_B,
-			Attack_B_End,
-			
+			Attack_B_End,			
 			Attack_C,
+
+			Finishing_Move_Ready,
+			Finishing_Move_Succes,
+			Finishing_Move_Fail,
+			Finishing_Move,
+
 			Groggy,
 			Hit,
 			Intro,
@@ -56,8 +66,16 @@ namespace jk
 		void attack_b();
 		void attack_b_end();
 
-
 		void attack_c();
+		
+		
+		void Finishing_Move_Ready();
+		void Finishing_Move_Succes();
+		void Finishing_Move_Fail();
+		void Finishing_Move();
+
+
+		
 		void groggy();
 		void hit();
 		void intro();
@@ -73,6 +91,7 @@ namespace jk
 		Transform* _tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);	
 		Vector2 _velocity = Vector2(0.f, 0.f);
+		Vector3 Ultimate_Skill_pos = Vector3(0.f, 0.f, 0.f);
 
 	private:
 		Archer_Arrow* _archer_arrow = nullptr;
@@ -80,6 +99,16 @@ namespace jk
 		Archer_Upward_Impact_Bullet* Upward_Impact_Bullet = nullptr;
 		Archer_Arrow_Bye* Arrow_Bye_effect = nullptr;
 		Archer_Trap* Bullet_Trap[6];
+
+
+	private:
+		Public_Ultimate_Aura* Ultimate_Aura = nullptr;
+		Public_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
+		Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
+		Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
+		Archer_Utimate_Sign* Utimate_Sign = nullptr;
+		Archer_Upward_Impact_Bullet* Ultimate_Upward_ImpactBullet[20];
+		Archer_Arrow_Bye* Ultimate_ArrowBye_effect[20];
 
 	private:
 		static int			mDir;
@@ -96,12 +125,14 @@ namespace jk
 		int		_Numberof_BackDash = 0;
 		
 
-		
+	private:
 		bool    _BackDash = true;
 		bool	_player_attack_check = false;		// 플레이어가 공격시 콜라이더 처리를 확실하게 하는것.
 		bool	_attack_a = false;
 		bool	_attack_b_sign = false;
 		bool	_attack_b = false;
+		bool	_Ultimate = false;
+		bool	_Ultimate_Skill = false;
 
 	private:
 		Skul_Basic::Skul_Basic_State Skul_BasicState;
@@ -111,6 +142,7 @@ namespace jk
 		void shootbow_forward();
 		void shootbow_upward();
 		void pushaway();
+		void ultimate();
 		void complete_hit();
 		void complete_attackA();
 	};

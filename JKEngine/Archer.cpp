@@ -47,6 +47,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Intro", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Potion", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Ultimate", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Ultimate_Ready", this);
 		
 
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Attack_A", this, 1);
@@ -60,8 +62,9 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Idle", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Intro", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Potion", this, 1);
-
-
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Ultimate", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Ultimate_Ready", this, 1);
+		
 
 		//bind 부분
 		at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
@@ -127,6 +130,83 @@ namespace jk
 				Bullet_Trap[i]->SetState(eState::Paused);
 			}
 		}
+
+		{
+			Ultimate_Aura = new Public_Ultimate_Aura;
+			Ultimate_Aura->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Ultimate_Aura);
+			Transform* bullet_tr = Ultimate_Aura->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Ultimate_Aura->SetState(eState::Paused);
+		}
+
+		{
+			Ultimate_AuraSmoke = new Public_Ultimate_AuraSmoke;
+			Ultimate_AuraSmoke->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Ultimate_AuraSmoke);
+			Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Ultimate_AuraSmoke->SetState(eState::Paused);
+		}
+		{
+			UltimateSkill_Effect_Complete = new Public_UltimateSkill_Effect_Complete;
+			UltimateSkill_Effect_Complete->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Complete);
+			Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			UltimateSkill_Effect_Complete->SetState(eState::Paused);
+		}
+		{
+			UltimateSkill_Effect_Fail = new Public_UltimateSkill_Effect_Fail;
+			UltimateSkill_Effect_Fail->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Fail);
+			Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			UltimateSkill_Effect_Fail->SetState(eState::Paused);
+		}
+
+		{
+			Utimate_Sign = new Archer_Utimate_Sign;
+			Utimate_Sign->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Utimate_Sign);
+			Transform* bullet_tr = Utimate_Sign->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Utimate_Sign->SetState(eState::Paused);
+		}
+
+		{
+			for (int i = 0; i < 20; i++)
+			{
+				Ultimate_Upward_ImpactBullet[i] = new Archer_Upward_Impact_Bullet;
+				Ultimate_Upward_ImpactBullet[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Bullet, Ultimate_Upward_ImpactBullet[i]);
+				Transform* EffectTR = Ultimate_Upward_ImpactBullet[i]->GetComponent<Transform>();
+				EffectTR->SetPosition(_tr->GetPosition());
+				Ultimate_Upward_ImpactBullet[i]->SetState(eState::Paused);
+			}
+		}
+			
+		{
+			for (int i = 0; i < 20; i++)
+			{
+				Ultimate_ArrowBye_effect[i] = new Archer_Arrow_Bye;
+				Ultimate_ArrowBye_effect[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, Ultimate_ArrowBye_effect[i]);
+				Transform* EffectTR = Ultimate_ArrowBye_effect[i]->GetComponent<Transform>();
+				EffectTR->SetPosition(_tr->GetPosition());
+				Ultimate_ArrowBye_effect[i]->SetState(eState::Paused);
+			}
+		}
+
+
+
 
 		at->PlayAnimation(L"ArcherIdle", true);
 		GameObject::Initialize();
@@ -195,6 +275,22 @@ namespace jk
 
 		case jk::Archer::Archer_State::Attack_C:
 			attack_c();
+			break;
+
+		case jk::Archer::Archer_State::Finishing_Move_Ready:
+			Finishing_Move_Ready();
+			break;
+
+		case jk::Archer::Archer_State::Finishing_Move_Succes:
+			Finishing_Move_Succes();
+			break;
+
+		case jk::Archer::Archer_State::Finishing_Move_Fail:
+			Finishing_Move_Fail();
+			break;
+
+		case jk::Archer::Archer_State::Finishing_Move:
+			Finishing_Move();
 			break;
 
 		case jk::Archer::Archer_State::Groggy:
@@ -348,7 +444,8 @@ namespace jk
 				}
 				else
 				{
-					_choicecombo = distribution(gen);
+					//_choicecombo = distribution(gen);
+					_choicecombo = 3;
 					_attack = true;
 					choicecombo();
 				}		
@@ -442,6 +539,149 @@ namespace jk
 		_attack_a = false;
 		_attack = false;
 		choicecombo();
+	}
+
+	void Archer::Finishing_Move_Ready()
+	{
+		if (_Ultimate == true)
+		{
+			{
+				Transform* bullet_tr = Ultimate_Aura->GetComponent<Transform>();				
+				Ultimate_Aura->_effect_animation = true;
+				if (mDir == 1)
+				{
+					Ultimate_Aura->SetDirection(1);
+					bullet_tr->SetPosition(Vector3(pos.x-25, pos.y - 30, pos.z - 1));
+				}
+				else
+				{
+					Ultimate_Aura->SetDirection(-1);
+					bullet_tr->SetPosition(Vector3(pos.x+25, pos.y - 30, pos.z - 1));
+				}
+				Ultimate_Aura->SetState(eState::Active);
+			}
+
+			{
+				Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 55, pos.z - 1.1));
+				if (mDir == 1)
+				{
+					Ultimate_AuraSmoke->SetDirection(1);
+					bullet_tr->SetPosition(Vector3(pos.x-25, pos.y - 50, pos.z - 1));
+				}					
+				else
+				{
+					Ultimate_AuraSmoke->SetDirection(-1);
+					bullet_tr->SetPosition(Vector3(pos.x+25, pos.y - 50, pos.z - 1));
+				}					
+				Ultimate_AuraSmoke->SetState(eState::Active);
+			}
+
+			_Ultimate = false;
+		}
+
+		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
+		_attack_time += Time::DeltaTime();
+		if (_attack_time >= 7.5)
+		{
+			Ultimate_Aura->SetState(eState::Paused);
+			Ultimate_AuraSmoke->SetState(eState::Paused);
+			if (_hit > 8)
+			{
+				// 이펙트 설정시 9번 hit가 된다면 깨지는 이미지로 넘어간뒤 그로기 상태로넘겨줘야한다.
+				Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				if (mDir == 1)
+					UltimateSkill_Effect_Fail->SetDirection(1);
+				else
+					UltimateSkill_Effect_Fail->SetDirection(-1);
+				UltimateSkill_Effect_Fail->SetState(eState::Active);
+
+				_state = Archer_State::Finishing_Move_Fail;
+				_attack_time = 0.f;
+			}
+			else
+			{
+				// 이펙트 설정시 5초가 10번이상의 타격이 없다면 석세스로 넘어간뒤 검격공격을 날려야한다.
+				Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				if (mDir == 1)
+					UltimateSkill_Effect_Complete->SetDirection(1);
+				else
+					UltimateSkill_Effect_Complete->SetDirection(-1);
+				UltimateSkill_Effect_Complete->SetState(eState::Active);
+
+				if (mDir == 1)
+					at->PlayAnimation(L"ArcherUltimate", false);
+				else
+					at->PlayAnimation(L"ArcherUltimateR", false);
+				_state = Archer_State::Finishing_Move_Succes;
+				_attack_time = 0.f;
+			}
+		}
+	}
+
+	void Archer::Finishing_Move_Succes()
+	{
+		if (_Ultimate_Skill == false)
+		{
+			Transform* bullet_tr = Utimate_Sign->GetComponent<Transform>();
+			Ultimate_Skill_pos = Vector3(_playerpos.x, _playerpos.y-20, _playerpos.z-1);
+			bullet_tr->SetPosition(Ultimate_Skill_pos);
+			Utimate_Sign->_effect_On = true;
+			Utimate_Sign->SetState(eState::Active);
+
+
+			for (int i = 0; i < 20; i++)
+			{
+				int Ultimate_skill = random(_playerpos.x - 75, _playerpos.x +75);
+				Ultimate_Skill_pos.x = Ultimate_skill;
+
+				Transform* BulletTR = Ultimate_Upward_ImpactBullet[i]->GetComponent<Transform>();	
+				BulletTR->SetPosition(Vector3(Ultimate_skill, Ultimate_Skill_pos.y+150, Ultimate_Skill_pos.z));
+
+				Transform* EffectTR = Ultimate_ArrowBye_effect[i]->GetComponent<Transform>();
+				EffectTR->SetPosition(Vector3(Ultimate_skill, Ultimate_Skill_pos.y + 150, Ultimate_Skill_pos.z));
+				
+				if(i == 19)
+					_Ultimate_Skill = true;
+			}			
+		}
+		else
+		{
+			if (Utimate_Sign->_effect_On == false)
+			{
+
+				_attack_time += Time::DeltaTime();
+				if (_attack_time <= 15.f)
+				{
+					for (int i = 0; i < 20; i++)
+					{
+						Ultimate_Upward_ImpactBullet[i]->_bullet_On = true;
+						//Transform* BulletTR = Ultimate_Upward_ImpactBullet[i]->GetComponent<Transform>();
+						//Transform* EffectTR = Ultimate_ArrowBye_effect[i]->GetComponent<Transform>();
+						if (_attack_time >= (1.0f + 0.5f * i))
+						{
+							Ultimate_Upward_ImpactBullet[i]->SetState(eState::Active);
+							if (Ultimate_Upward_ImpactBullet[i]->_bullet_On == false)
+							{
+								Ultimate_Upward_ImpactBullet[i] -> SetState(eState::Paused);
+			/*					Ultimate_ArrowBye_effect[i]->SetState(eState::Active);
+								continue;*/
+							}
+						}
+					}
+				}				
+			}
+		}
+	}
+
+	void Archer::Finishing_Move_Fail()
+	{
+	}
+
+	void Archer::Finishing_Move()
+	{
 	}
 
 
@@ -561,7 +801,7 @@ namespace jk
 			if (_choicecombo == 3)
 			{
 				_number_of_attack++;
-			//	pushaway();
+				ultimate();
 			}
 		}
 		else
@@ -605,6 +845,17 @@ namespace jk
 		else
 			at->PlayAnimation(L"ArcherAttack_CR", true);
 	}
+
+	void Archer::ultimate()
+	{
+		_state = Archer_State::Finishing_Move_Ready;
+		if (mDir == 1)
+			at->PlayAnimation(L"ArcherUltimate_Ready", false);
+		else
+			at->PlayAnimation(L"ArcherUltimate_ReadyR", false);
+		_Ultimate = true;
+	}
+
 	void Archer::complete_hit()
 	{
 		if (mDir == 1)

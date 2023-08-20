@@ -143,7 +143,7 @@ namespace jk
 		}
 
 		{
-			Ultimate_Aura = new Kngiht_Ultimate_Aura;
+			Ultimate_Aura = new Public_Ultimate_Aura;
 			Ultimate_Aura->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Ultimate_Aura);
@@ -153,7 +153,7 @@ namespace jk
 		}
 
 		{
-			Ultimate_AuraSmoke = new Kngiht_Ultimate_AuraSmoke;
+			Ultimate_AuraSmoke = new Public_Ultimate_AuraSmoke;
 			Ultimate_AuraSmoke->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Ultimate_AuraSmoke);
@@ -162,7 +162,7 @@ namespace jk
 			Ultimate_AuraSmoke->SetState(eState::Paused);
 		}
 		{
-			UltimateSkill_Effect_Complete = new Kngiht_UltimateSkill_Effect_Complete;
+			UltimateSkill_Effect_Complete = new Public_UltimateSkill_Effect_Complete;
 			UltimateSkill_Effect_Complete->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Complete);
@@ -171,7 +171,7 @@ namespace jk
 			UltimateSkill_Effect_Complete->SetState(eState::Paused);
 		}
 		{
-			UltimateSkill_Effect_Fail = new Knight_UltimateSkill_Effect_Fail;
+			UltimateSkill_Effect_Fail = new Public_UltimateSkill_Effect_Fail;
 			UltimateSkill_Effect_Fail->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Fail);

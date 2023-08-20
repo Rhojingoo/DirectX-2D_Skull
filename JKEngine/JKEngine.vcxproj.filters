@@ -248,18 +248,6 @@
     <ClInclude Include="Knight_Energe_Blast.h">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Kngiht_Ultimate_Aura.h">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Kngiht_Ultimate_AuraSmoke.h">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Kngiht_UltimateSkill_Effect_Complete.h">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Knight_UltimateSkill_Effect_Fail.h">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="Knight_UltimateSkill_Projectile.h">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
     </ClInclude>
@@ -277,6 +265,21 @@
     </ClInclude>
     <ClInclude Include="Archer_Trap.h">
       <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Public_Ultimate_Aura.h">
+      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Public_Ultimate_AuraSmoke.h">
+      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Public_UltimateSkill_Effect_Complete.h">
+      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Public_UltimateSkill_Effect_Fail.h">
+      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Archer_Utimate_Sign.h">
+      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -521,18 +524,6 @@
     <ClCompile Include="Knight_Energe_Blast.cpp">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Kngiht_Ultimate_Aura.cpp">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Kngiht_Ultimate_AuraSmoke.cpp">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Kngiht_UltimateSkill_Effect_Complete.cpp">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Knight_UltimateSkill_Effect_Fail.cpp">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="Knight_UltimateSkill_Projectile.cpp">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
     </ClCompile>
@@ -550,6 +541,21 @@
     </ClCompile>
     <ClCompile Include="Archer_Trap.cpp">
       <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Public_Ultimate_Aura.cpp">
+      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Public_Ultimate_AuraSmoke.cpp">
+      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Public_UltimateSkill_Effect_Complete.cpp">
+      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Public_UltimateSkill_Effect_Fail.cpp">
+      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Archer_Utimate_Sign.cpp">
+      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -693,6 +699,12 @@
     </Filter>
     <Filter Include="Game_ob\MiniBoss\Archer\Effect">
       <UniqueIdentifier>{0658b3d4-bad5-46bc-835a-e19982f10abf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Public">
+      <UniqueIdentifier>{436d56e6-85fa-48c0-839e-426a68427188}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Public\Effect">
+      <UniqueIdentifier>{0cb0aa98-d67a-4d3b-8040-7341ad994671}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
