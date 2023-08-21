@@ -1,5 +1,10 @@
 #pragma once
 #include "Include_Common.h"
+#include "Ultimate_OnFire_Ready.h"
+#include "Ultimate_OnFire.h"
+#include "Ultimate_On_Fire_Projectile.h"
+#include "Ultimate_OnFire_Fire.h"
+
 
 namespace jk
 {
@@ -98,6 +103,12 @@ namespace jk
 		Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
 		Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
 
+	private:
+		Ultimate_OnFire_Ready* _OnFire_Ready[3];
+		Ultimate_OnFire* _OnFire[3];
+		Ultimate_On_Fire_Projectile* On_Fire_Projectile[9];
+		Ultimate_OnFire_Fire* OnFire_Fire[9];
+
 
 	private:
 		int		mDir = 1;
@@ -140,6 +151,10 @@ namespace jk
 
 	private:
 		Skul_Basic::Skul_Basic_State Skul_BasicState;
+
+	private:
+		void Fire_Projectile(int i);
+		void Fire_Projectile_Rotation(Transform* tr, Vector3 bulletpos, int i);
 
 	private:
 		void attack_a_complete();

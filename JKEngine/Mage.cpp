@@ -150,6 +150,54 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
 			UltimateSkill_Effect_Fail->SetState(eState::Paused);
 		}
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				_OnFire_Ready[i] = new Ultimate_OnFire_Ready;
+				_OnFire_Ready[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, _OnFire_Ready[i]);
+				Transform* bullet_tr = _OnFire_Ready[i]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+				_OnFire_Ready[i]->SetState(eState::Paused);
+			}
+		}
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				_OnFire[i] = new Ultimate_OnFire;
+				_OnFire[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, _OnFire[i]);
+				Transform* bullet_tr = _OnFire[i]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+				_OnFire[i]->SetState(eState::Paused);
+			}
+		}
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				On_Fire_Projectile[i] = new Ultimate_On_Fire_Projectile;
+				On_Fire_Projectile[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Bullet, On_Fire_Projectile[i]);
+				Transform* bullet_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+				On_Fire_Projectile[i]->SetState(eState::Paused);
+			}
+		}
+		{
+			for(int i =0; i<9;i++)
+			{
+				OnFire_Fire[i] = new Ultimate_OnFire_Fire;
+				OnFire_Fire[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, OnFire_Fire[i]);
+				Transform* bullet_tr = OnFire_Fire[i]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+				OnFire_Fire[i]->SetState(eState::Paused);
+			}
+		}
 
 		_first_place = pos;
 		at->PlayAnimation(L"MageIdle", true);
@@ -614,6 +662,20 @@ namespace jk
 					UltimateSkill_Effect_Complete->SetDirection(-1);
 				UltimateSkill_Effect_Complete->SetState(eState::Active);
 
+				//ultimate 미사일 좌표설정
+				for (int i = 0; i < 3; i++)
+				{
+					float randomposX = random(pos.x - 100, pos.x + 100);
+					float randomposY = random(pos.y - 50, pos.x + 50);
+
+					Transform* _OnFire_Ready_tr = _OnFire_Ready[i]->GetComponent<Transform>();
+					_OnFire_Ready_tr->SetPosition(Vector3(randomposX, randomposY, pos.z + 1));
+
+					Transform* _OnFire_tr = _OnFire[i]->GetComponent<Transform>();
+					_OnFire[i]->_effect_On = false;
+					_OnFire_tr->SetPosition(Vector3(randomposX, randomposY, pos.z + 1));
+				}
+
 				if (mDir == 1)
 					at->PlayAnimation(L"MageUltimate_Skill_Fire", true);
 				else
@@ -625,13 +687,134 @@ namespace jk
 	}
 	void Mage::Finishing_Move_Succes()
 	{
+		if (_Ultimate_Skill == false)
+		{
+			_attack_time += Time::DeltaTime();
+			if (_attack_time <= 3.5f)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					if (_attack_time >= (1.0f + 0.5f * i))
+					{
+						if (_OnFire[i]->_effect_On == false)
+						{
+							Transform* _OnFire_Ready_tr = _OnFire_Ready[i]->GetComponent<Transform>();
+							_OnFire_Ready[i]->SetState(eState::Active);
+
+							Transform* _OnFire_tr = _OnFire[i]->GetComponent<Transform>();
+							_OnFire[i]->_effect_On = true;
+							_OnFire[i]->SetState(eState::Active);
+						}
+					}
+				}
+			}
+			else
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					Transform* _OnFire_tr = _OnFire[i]->GetComponent<Transform>();
+					Vector3  BulletPos = _OnFire_tr->GetPosition();
+					Transform* bullet_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
+					On_Fire_Projectile[i]->_rotationswitch = false;
+					bullet_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y,BulletPos.z-1));
+
+					Transform* firefire_tr = OnFire_Fire[i]->GetComponent<Transform>();
+					OnFire_Fire[i]->_effect_On = false;
+					firefire_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z-1.1));
+				}
+				for (int i = 3; i < 6; i++)
+				{
+					Transform* _OnFire_tr = _OnFire[i-3]->GetComponent<Transform>();
+					Vector3  BulletPos = _OnFire_tr->GetPosition();
+					Transform* bullet_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
+					On_Fire_Projectile[i]->_rotationswitch = false;
+					bullet_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1));
+
+					Transform* firefire_tr = OnFire_Fire[i]->GetComponent<Transform>();
+					OnFire_Fire[i]->_effect_On = false;
+					firefire_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1.1));
+				}
+				for (int i = 6; i < 9; i++)
+				{
+					Transform* _OnFire_tr = _OnFire[i-6]->GetComponent<Transform>();
+					Vector3  BulletPos = _OnFire_tr->GetPosition();
+					Transform* bullet_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
+					On_Fire_Projectile[i]->_rotationswitch = false;
+					bullet_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1));
+
+					Transform* firefire_tr = OnFire_Fire[i]->GetComponent<Transform>();
+					OnFire_Fire[i]->_effect_On = false;
+					firefire_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1.1));
+				}
+				//On_Fire_Projectile[i]->SetState(eState::Paused);
+				_Ultimate_Skill = true;
+				_attack_time = 0;
+				_state = Mage_State::Finishing_Move;
+			}
+		
+		}
 	}
 	void Mage::Finishing_Move_Fail()
 	{
 	}
 	void Mage::Finishing_Move()
 	{
+		_attack_time += Time::DeltaTime();
+
+		if (_attack_time <= 8.f)
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				if (_attack_time >= (1.0f + 0.5f * i))
+				{
+					if (_OnFire[0]->_effect_On == true)
+					{
+						Transform* _OnFire_Projectile_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
+						Vector3 bulletpos = _OnFire_Projectile_tr->GetPosition();
+						On_Fire_Projectile[i]->_bullet_On = true;
+						On_Fire_Projectile[i]->_bullet_animation = true;
+
+						Fire_Projectile_Rotation(_OnFire_Projectile_tr, bulletpos, i);
+						
+
+					
+
+						if(OnFire_Fire[i]->_effect_On == false)
+							OnFire_Fire[i]->SetState(eState::Active);
+						On_Fire_Projectile[i]->SetState(eState::Active);
+
+
+						Fire_Projectile(i);
+
+						if (i == 8)
+						{
+							_OnFire[0]->_effect_On == false;
+							_OnFire[1]->_effect_On == false;
+							_OnFire[2]->_effect_On == false;
+						}
+					}
+				}
+			}				
+		}
+		else
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				_OnFire[i]->SetState(eState::Paused);
+				_OnFire_Ready[i]->SetState(eState::Active);
+			}
+
+			_state = Mage_State::Idle;
+			if (mDir == 1)
+				at->PlayAnimation(L"MageIdle", true);
+			else
+				at->PlayAnimation(L"MageIdleR", true);
+			_attackA = 0;
+			_time = 0;
+			_attack_time = 0;
+		}
 	}
+
 	void Mage::casting()
 	{
 	}
@@ -776,6 +959,54 @@ namespace jk
 		tr->SetPosition(Vector3(pos));
 	}	
 
+	int a = 0;
+
+
+	void Mage::Fire_Projectile(int i)
+	{
+		Transform* _OnFire_Projectile_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
+		RigidBody* bullet_Rb = On_Fire_Projectile[i]->GetComponent<RigidBody>();
+		_playerpos.x;
+		_playerpos.y;
+		Vector2 attack_pos = Vector2(_playerpos.x, _playerpos.y);
+		attack_pos.Normalize();
+		bullet_Rb->SetGround(false);
+		bullet_Rb->SetVelocity(Vector2(attack_pos.x * 250.f, attack_pos.y * 250));		
+	}
+
+	void Mage::Fire_Projectile_Rotation(Transform* tr, Vector3 bulletpos, int i)
+	{
+
+		if (On_Fire_Projectile[i]->_rotationswitch ==false)
+		{
+			if (_playerpos.x >= bulletpos.x)
+			{
+				On_Fire_Projectile[i]->SetDirection(-1);
+				Vector2 attackpoint = Vector2(tr->GetPositionX() - _playerpos.x, tr->GetPositionY() - _playerpos.y);
+				Vector2 rotation = Vector2(_playerpos.x, _playerpos.y);
+				attackpoint.Normalize();
+				rotation.Normalize();
+
+				Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
+				float angle = std::atan2(direction.y, direction.x);
+				tr->AddRotationZ(angle);
+			}
+			else
+			{
+				On_Fire_Projectile[i]->SetDirection(-1);
+				Vector2 attackpoint = Vector2(tr->GetPositionX() - _playerpos.x, tr->GetPositionY() - _playerpos.y);
+				Vector2 rotation = Vector2(_playerpos.x, _playerpos.y);
+				attackpoint.Normalize();
+				rotation.Normalize();
+
+				Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
+				float angle = std::atan2(direction.y, direction.x);
+				tr->AddRotationZ(angle);
+			}
+			On_Fire_Projectile[i]->_rotationswitch = true;
+		}		
+	}
+
 
 
 	void Mage::complete_hit()
@@ -873,7 +1104,6 @@ namespace jk
 	}
 
 
-
 	void Mage::attack_d_complete()
 	{
 		_state = Mage_State::Idle;
@@ -889,6 +1119,8 @@ namespace jk
 		if (_sky == true)
 			_landingswich++;
 	}
+
+
 	void Mage::attack_d_ready_complete()
 	{
 		_state = Mage_State::Attack_D;
