@@ -281,6 +281,9 @@
     <ClInclude Include="Archer_Utimate_Sign.h">
       <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Archer_Ultimate_Bye.h">
+      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -555,6 +558,9 @@
       <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Archer_Utimate_Sign.cpp">
+      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Archer_Ultimate_Bye.cpp">
       <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
     </ClCompile>
   </ItemGroup>

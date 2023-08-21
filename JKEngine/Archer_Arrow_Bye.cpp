@@ -28,14 +28,17 @@ namespace jk
 		GameObject::Initialize();
 	}
 	void Archer_Arrow_Bye::Update()
-	{
-		_Lifetime += Time::DeltaTime();
-		if (_Lifetime > 5)
+	{		
+		if (_effect_On == true)
 		{
-			at->PlayAnimation(L"ByeEND", true);
-			_Lifetime = 0;
-		}
-
+			_Lifetime += Time::DeltaTime();
+			if (_Lifetime >= 7)
+			{
+				at->PlayAnimation(L"ByeEND", true);				
+				_effect_On = false;
+				_Lifetime = 0;
+			}
+		}		
 		GameObject::Update();
 	}
 	void Archer_Arrow_Bye::LateUpdate()
@@ -60,5 +63,8 @@ namespace jk
 	void Archer_Arrow_Bye::Compelete()
 	{
 		this->SetState(eState::Paused);
+		_Lifetime = 0;
+		_effect_On = false;
+		at->PlayAnimation(L"ByeBASIC", false);
 	}
 }

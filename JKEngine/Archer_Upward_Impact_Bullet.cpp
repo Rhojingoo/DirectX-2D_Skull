@@ -34,8 +34,8 @@ namespace jk
 	}
 	void Archer_Upward_Impact_Bullet::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
-		_collider->SetCenter(Vector2(0.0f, -0.05f));
+		_collider->SetSize(Vector2(0.05f, 0.9f));
+		_collider->SetCenter(Vector2(0.0f, -0.07f));
 		GameObject::LateUpdate();
 	}
 	void Archer_Upward_Impact_Bullet::Render()

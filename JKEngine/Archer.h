@@ -107,8 +107,8 @@ namespace jk
 		Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
 		Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
 		Archer_Utimate_Sign* Utimate_Sign = nullptr;
-		Archer_Upward_Impact_Bullet* Ultimate_Upward_ImpactBullet[20];
-		Archer_Arrow_Bye* Ultimate_ArrowBye_effect[20];
+		Archer_Upward_Impact_Bullet* Ultimate_Upward_ImpactBullet[40];
+		Archer_Arrow_Bye* Ultimate_ArrowBye_effect[40];
 
 	private:
 		static int			mDir;

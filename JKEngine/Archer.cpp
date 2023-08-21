@@ -180,7 +180,7 @@ namespace jk
 		}
 
 		{
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 40; i++)
 			{
 				Ultimate_Upward_ImpactBullet[i] = new Archer_Upward_Impact_Bullet;
 				Ultimate_Upward_ImpactBullet[i]->Initialize();
@@ -193,7 +193,7 @@ namespace jk
 		}
 			
 		{
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 40; i++)
 			{
 				Ultimate_ArrowBye_effect[i] = new Archer_Arrow_Bye;
 				Ultimate_ArrowBye_effect[i]->Initialize();
@@ -632,18 +632,19 @@ namespace jk
 			Utimate_Sign->SetState(eState::Active);
 
 
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 40; i++)
 			{
 				int Ultimate_skill = random(_playerpos.x - 75, _playerpos.x +75);
 				Ultimate_Skill_pos.x = Ultimate_skill;
 
 				Transform* BulletTR = Ultimate_Upward_ImpactBullet[i]->GetComponent<Transform>();	
+				Ultimate_Upward_ImpactBullet[i]->_bullet_On = true;
 				BulletTR->SetPosition(Vector3(Ultimate_skill, Ultimate_Skill_pos.y+150, Ultimate_Skill_pos.z));
 
-				Transform* EffectTR = Ultimate_ArrowBye_effect[i]->GetComponent<Transform>();
-				EffectTR->SetPosition(Vector3(Ultimate_skill, Ultimate_Skill_pos.y + 150, Ultimate_Skill_pos.z));
+				Transform* EffectTR = Ultimate_ArrowBye_effect[i]->GetComponent<Transform>();			
+				EffectTR->SetPosition(Vector3(Ultimate_skill, Ultimate_Skill_pos.y+40, Ultimate_Skill_pos.z));
 				
-				if(i == 19)
+				if(i == 39)
 					_Ultimate_Skill = true;
 			}			
 		}
@@ -653,25 +654,30 @@ namespace jk
 			{
 
 				_attack_time += Time::DeltaTime();
-				if (_attack_time <= 15.f)
+				if (_attack_time < 7.f)
 				{
-					for (int i = 0; i < 20; i++)
+					for (int i = 0; i < 40; i++)
 					{
-						Ultimate_Upward_ImpactBullet[i]->_bullet_On = true;
-						//Transform* BulletTR = Ultimate_Upward_ImpactBullet[i]->GetComponent<Transform>();
-						//Transform* EffectTR = Ultimate_ArrowBye_effect[i]->GetComponent<Transform>();
-						if (_attack_time >= (1.0f + 0.5f * i))
+						Ultimate_ArrowBye_effect[i]->_effect_On = true;
+						if (_attack_time >= (1.0f + 0.2f * i))
 						{
-							Ultimate_Upward_ImpactBullet[i]->SetState(eState::Active);
+							if (Ultimate_Upward_ImpactBullet[i]->_bullet_On == true)
+								Ultimate_Upward_ImpactBullet[i]->SetState(eState::Active);
 							if (Ultimate_Upward_ImpactBullet[i]->_bullet_On == false)
 							{
-								Ultimate_Upward_ImpactBullet[i] -> SetState(eState::Paused);
-			/*					Ultimate_ArrowBye_effect[i]->SetState(eState::Active);
-								continue;*/
-							}
-						}
+								Ultimate_Upward_ImpactBullet[i]->SetState(eState::Paused);
+								if (Ultimate_ArrowBye_effect[i]->_effect_On == true)
+									Ultimate_ArrowBye_effect[i]->SetState(eState::Active);
+							}			
+						}	
 					}
-				}				
+				}
+				else
+				{
+					_state = Archer_State::Finishing_Move;
+					_attack_time = 0;
+					_Ultimate_Skill = false;
+				}
 			}
 		}
 	}
@@ -682,6 +688,8 @@ namespace jk
 
 	void Archer::Finishing_Move()
 	{
+		_attack = false;
+		choicecombo();
 	}
 
 

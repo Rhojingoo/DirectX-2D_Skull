@@ -159,6 +159,7 @@
     <ClInclude Include="Archer_Arrow_Bye.h" />
     <ClInclude Include="Archer_Arrow_Upward_Sign.h" />
     <ClInclude Include="Archer_Trap.h" />
+    <ClInclude Include="Archer_Ultimate_Bye.h" />
     <ClInclude Include="Archer_Upward_Impact_Bullet.h" />
     <ClInclude Include="Archer_Utimate_Sign.h" />
     <ClInclude Include="BG.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="Archer_Arrow_Bye.cpp" />
     <ClCompile Include="Archer_Arrow_Upward_Sign.cpp" />
     <ClCompile Include="Archer_Trap.cpp" />
+    <ClCompile Include="Archer_Ultimate_Bye.cpp" />
     <ClCompile Include="Archer_Upward_Impact_Bullet.cpp" />
     <ClCompile Include="Archer_Utimate_Sign.cpp" />
     <ClCompile Include="BG.cpp" />
