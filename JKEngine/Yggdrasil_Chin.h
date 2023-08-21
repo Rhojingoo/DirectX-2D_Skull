@@ -60,6 +60,7 @@ namespace jk
 		void Lmove_down();
 		void Intro_chinplay();
 		void change_chinplay();
+		void change_chinplay_end();
 		void groggy_down();
 		void groggy_up();
 		void Die_Down();

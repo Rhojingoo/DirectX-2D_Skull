@@ -42,8 +42,9 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandAttack_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandAntlion_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandBullet_Change", this);
-					
-
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Bullet_off_Change", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Bullet_on_Change", this);
+		
 
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
@@ -271,7 +272,6 @@ namespace jk
 					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
 					Effect->SetPosition(Vector3(_pos.x, _pos.y + 100, _pos.z-1));
 				}
-
 			}
 			else
 			{			
@@ -509,7 +509,7 @@ namespace jk
 		{
 			at->PlayAnimation(L"Hand1_Bullet_on", false);
 			if (_Changeon == true)
-				at->PlayAnimation(L"HandBullet_on_Change", true);
+			at->PlayAnimation(L"HandBullet_on_Change", false);
 			_SetattackC_l = true;
 		}
 	}

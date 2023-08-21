@@ -42,7 +42,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandAttack_Change", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandAntlion_Change", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandBullet_Change", this, 1);
-
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Bullet_off_Change", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Bullet_on_Change", this,1);
 		
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"Hand1_HandAttackR") = std::bind(&Yggdrasil_Hand_Right::attackbstart, this);
@@ -514,7 +515,7 @@ namespace jk
 		{
 			at->PlayAnimation(L"Hand1_Bullet_onR", false);
 			if (_Changeon == true)
-				at->PlayAnimation(L"HandBullet_on_ChangeR", true);
+				at->PlayAnimation(L"HandBullet_on_ChangeR", false);
 			_SetattackC_r = true;
 		}
 	}

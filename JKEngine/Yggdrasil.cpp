@@ -69,8 +69,9 @@ namespace jk
 
 	bool  Yggdrasil::_Change_Chin = false;
 	bool  Yggdrasil::_Change_Face = false;
+	bool  Yggdrasil::_Change_Body = false;
 	bool  Yggdrasil::_Change_HandR = false;
-	bool  Yggdrasil::_Change_HandL = false;
+	bool  Yggdrasil::_Change_HandL = false;	
 	bool  Yggdrasil::_Changeon = false;
 
 	bool  Yggdrasil::_Change_FinishR = false; 
@@ -130,7 +131,7 @@ namespace jk
 			//	_Gobjs[i]->SetState(eState::Paused);
 		}
 	
-	//	_Change = true;
+		_Change = true;
 		GameObject::Initialize();
 	}
 	void Yggdrasil::Update()
@@ -678,7 +679,7 @@ namespace jk
 	}
 	void Yggdrasil::change()
 	{
-		if (_Change_Chin == true && _Change_Face == true && _Change_HandR == true && _Change_HandL == true)
+		if (_Change_Chin == true && _Change_Face == true && _Change_HandR == true && _Change_HandL == true && _Change_Body ==true)
 		{
 			_state = Yggdrasil_State::Change_End;
 		}
@@ -686,12 +687,12 @@ namespace jk
 	void Yggdrasil::change_end()
 	{
 		_Change_HandL = false;	_Change_HandR = false;	_Change_Face = false; _Change_Chin = false; 
-		_Change_Readyl = false; _Change_Readyr = false; _SetChange_l = false; _SetChange_r = false;
+		_Change_Body = false; _Change_Readyl = false; _Change_Readyr = false; _SetChange_l = false; _SetChange_r = false;
 		if (_Change_FinishR == true && _Change_FinishL == true && _Change_Finish == true )
 		{
 			_Change = false;
 			_state = Yggdrasil_State::Idle;
-			_Diecheck = 3;
+			//_Diecheck = 3;
 		}
 	}
 

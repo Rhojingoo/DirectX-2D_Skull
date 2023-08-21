@@ -145,6 +145,7 @@ namespace jk
 		Yggdrasil_pos = Yggdrasil::GetPos();
 		Facepos_Setting();
 
+
 			
 		_distance = _playerpos.x - _pos.x;
 		if (_distance >= 0.f)
@@ -405,7 +406,7 @@ namespace jk
 	}
 	void Yggdrasil_Face::attack_c()
 	{		
-		if (_Changeon == true)
+		if (_Changeon == false)
 		{
 			_time += Time::DeltaTime();
 			if (_time <= 3.f)
@@ -426,7 +427,7 @@ namespace jk
 		}
 
 		// 체인지한뒤 에너지볼변경
-		if (_Changeon == false)
+		if (_Changeon == true)
 		{
 			static bool sparkPositionSet[15] = { false };
 			_time += Time::DeltaTime();
@@ -816,6 +817,8 @@ namespace jk
 		if (_Intro == false)
 			_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -199.3f);
 		if (_state == Yggdrasil_State::Idle)
+			_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
+		if (_state == Yggdrasil_State::Change)
 			_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
 	}
 		

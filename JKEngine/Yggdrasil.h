@@ -171,6 +171,7 @@ namespace jk
 		static bool _Change_Readyl;
 		static bool _Change_Chin;
 		static bool _Change_Face;
+		static bool _Change_Body;
 		static bool _Change_HandR;
 		static bool _Change_HandL;
 		static bool _Changeon;

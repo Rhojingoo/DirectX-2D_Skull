@@ -317,8 +317,11 @@ namespace jk
 	}
 	void Yggdrasil_Body::change()
 	{
-		if(_Changeon == true)
+		if (_Changeon == true)
+		{
 			at->PlayAnimation(L"BodyYggdrasilBody_Change", true);
+			_Change_Body = true;
+		}
 	}
 	void Yggdrasil_Body::change_end()
 	{

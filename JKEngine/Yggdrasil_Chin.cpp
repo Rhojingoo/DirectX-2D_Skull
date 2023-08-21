@@ -64,7 +64,7 @@ namespace jk
 		YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
 		Yggdrasil_rotation = GetRotations();
 		Intro_chinplay();
-		if (_state != Yggdrasil_State::Intro_End && _state != Yggdrasil_State::Intro && _state != Yggdrasil_State::Attack_C && _state != Yggdrasil_State::Attack_C_Ready && _state != Yggdrasil_State::Attack_C_UP && _state != Yggdrasil_State::Attack_C_Down && _state != Yggdrasil_State::Attack_C_Finish)
+		if (_state != Yggdrasil_State::Intro_End && _state != Yggdrasil_State::Intro && _state != Yggdrasil_State::Attack_C && _state != Yggdrasil_State::Attack_C_Ready && _state != Yggdrasil_State::Attack_C_UP && _state != Yggdrasil_State::Attack_C_Down && _state != Yggdrasil_State::Attack_C_Finish && _state != Yggdrasil_State::Change && _state != Yggdrasil_State::Change_End)
 			_pos.y = YggdrasilFace_pos.y - 65.f;
 
 		switch (_state)
@@ -356,13 +356,8 @@ namespace jk
 					_Change_HandR = false;
 				}
 			}
-			//else
-			//{
-			//	if (_Change_Face == true)
-			//	{
-			//		change_chinplay();
-			//	}
-			//}
+			else
+				_pos.x = YggdrasilFace_pos.x + 12.5f;
 		}
 		if (_Changeon == true)
 		{
@@ -374,7 +369,7 @@ namespace jk
 	{
 		if (_Change_Finish == false)
 		{
-			change_chinplay();
+			change_chinplay_end();
 		}		
 	}
 
@@ -445,6 +440,34 @@ namespace jk
 		}
 	}
 	void Yggdrasil_Chin::change_chinplay()
+	{
+		if (_Change_Finish == false)
+		{
+			if (_introchin == false)
+			{
+				YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
+				_pos.x = YggdrasilFace_pos.x + 12.5f;
+				_pos.z = -199.5f;
+
+				if (_introchinup == true)
+				{
+					_pos.z = -203.f;
+					if (_pos.y < YggdrasilFace_pos.y - 65.f)
+					{
+						_pos.y += 80 * Time::DeltaTime();
+						if (_pos.y >= YggdrasilFace_pos.y - 65.f)
+						{
+							_pos.y = YggdrasilFace_pos.y - 65.f;
+							_Intro_StartCHIN = true;
+						}
+					}
+				}
+				else
+					_pos.y = YggdrasilFace_pos.y - 65.f;
+			}
+		}
+	}
+	void Yggdrasil_Chin::change_chinplay_end()
 	{
 		if (_pos.y < YggdrasilFace_pos.y - 65.f)
 		{
