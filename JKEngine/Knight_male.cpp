@@ -105,6 +105,10 @@ namespace jk
 		
 		at->CompleteEvent(L"Knight_maleHit") = std::bind(&Knight_male::complete_hit, this);
 		at->CompleteEvent(L"Knight_maleHitR") = std::bind(&Knight_male::complete_hit, this);
+
+		at->CompleteEvent(L"Knight_maleIntro") = std::bind(&Knight_male::complete_Intro, this);
+		at->CompleteEvent(L"Knight_maleIntroR") = std::bind(&Knight_male::complete_Intro, this);
+		
 		
 		//at->CompleteEvent(L"Skul_BasicAttackBR") = std::bind(&Skul_Basic::attack_choice, this);
 		//at->CompleteEvent(L"Skul_BasicJumpAttack") = std::bind(&Skul_Basic::attack_choice, this);
@@ -189,7 +193,7 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
 			UltimateSkill_Projectile->SetState(eState::Paused);
 		}
-	
+		
 		at->PlayAnimation(L"Knight_maleIdle", true);
 		GameObject::Initialize();
 	}
@@ -381,15 +385,21 @@ namespace jk
 		_choicecombo = random(0, 3);
 
 		//_choicecombo = 2;
-
+		if (_Intro == false)
+		{
+			_state = Knight_State::Intro;
+			at->PlayAnimation(L"Knight_maleIntro", true);
+		}
+		else
+		{
 			if (_number_of_hit >= 3)
 			{
-				_time = 0;							
+				_time = 0;
 				if (mDir == -1)
 				{
 					at->PlayAnimation(L"Knight_maleBackDashR", true);
 					_rigidbody->SetVelocity(Vector2(250.f, 250.f));
-					_rigidbody->SetGround(false);	
+					_rigidbody->SetGround(false);
 					_Ground_check = false;
 					_BackDash = true;
 					_state = Knight_State::BackDash;
@@ -398,7 +408,7 @@ namespace jk
 				{
 					at->PlayAnimation(L"Knight_maleBackDash", true);
 					_rigidbody->SetVelocity(Vector2(-250.f, 250.f));
-					_rigidbody->SetGround(false);	
+					_rigidbody->SetGround(false);
 					_Ground_check = false;
 					_BackDash = true;
 					_state = Knight_State::BackDash;
@@ -439,9 +449,10 @@ namespace jk
 					{
 						_attack = true;
 						choicecombo();
-					}					
+					}
 				}
 			}
+		}
 		
 		//else
 		//{
@@ -783,6 +794,14 @@ namespace jk
 
 	void Knight_male::intro()
 	{
+		if (_Intro == true)
+		{
+			_state = Knight_State::Idle;
+			if (mDir == 1)
+				at->PlayAnimation(L"Knight_maleIdle", true);
+			else
+				at->PlayAnimation(L"Knight_maleIdleR", true);
+		}
 	}
 
 	void Knight_male::potion()
@@ -970,6 +989,11 @@ namespace jk
 			at->PlayAnimation(L"Knight_maleIdle", true);
 		else
 			at->PlayAnimation(L"Knight_maleIdleR", true);
+	}
+
+	void Knight_male::complete_Intro()
+	{
+		_Intro = true;
 	}
 
 }

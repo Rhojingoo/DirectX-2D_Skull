@@ -118,7 +118,7 @@ namespace jk
 		bool	_Ultimate = false;
 		bool	_Ultimate_Skill = false;
 		bool	_BackDash = false;
-
+		bool	_Intro = false;
 		//int _fallcheck = 0;
 
 	private:
@@ -143,5 +143,6 @@ namespace jk
 		void complete_ultimate();
 		void complete_gloggy();
 		void complete_hit();
-	};
+		void complete_Intro();
+};
 }
