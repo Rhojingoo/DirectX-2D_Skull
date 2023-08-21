@@ -207,9 +207,6 @@ namespace jk
 			}
 		}
 
-
-
-
 		at->PlayAnimation(L"ArcherIdle", true);
 		GameObject::Initialize();
 	}
@@ -224,18 +221,6 @@ namespace jk
 			mDir = 1;
 		else
 			mDir = -1;		
-
-
-		{
-			bool test =	Bullet_Trap[0]->_Bullet_Life;
-			bool test1 =	Bullet_Trap[1]->_Bullet_Life;
-			bool test2 =	Bullet_Trap[2]->_Bullet_Life;
-			bool test3 = 	Bullet_Trap[3]->_Bullet_Life;
-			bool test4 = 	Bullet_Trap[4]->_Bullet_Life;
-			bool test5 = 	Bullet_Trap[5]->_Bullet_Life;
-			int a = 0;
-		}
-
 
 		switch (_state)
 		{
@@ -646,10 +631,8 @@ namespace jk
 				}					
 				Ultimate_AuraSmoke->SetState(eState::Active);
 			}
-
 			_Ultimate = false;
 		}
-
 		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
 		_attack_time += Time::DeltaTime();
 		if (_attack_time >= 7.5)
@@ -754,9 +737,9 @@ namespace jk
 	{
 		_state = Archer_State::Groggy;
 		if (mDir == 1)
-			at->PlayAnimation(L"ArcherGroggy", false);
+			at->PlayAnimation(L"ArcherGroggy", true);
 		else
-			at->PlayAnimation(L"ArcherGroggyR", false);
+			at->PlayAnimation(L"ArcherGroggyR", true);
 	}
 	void Archer::Finishing_Move()
 	{

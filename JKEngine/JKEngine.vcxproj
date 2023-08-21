@@ -167,6 +167,10 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Castle_Area.h" />
     <ClInclude Include="Cleric.h" />
+    <ClInclude Include="Cleric_Attack_Sign.h" />
+    <ClInclude Include="Cleric_HolyThunder.h" />
+    <ClInclude Include="Cleric_Ultimate_SkillEffect.h" />
+    <ClInclude Include="Cleric_Veteran_Sanctuary.h" />
     <ClInclude Include="Dimension_Pierce_BossEffect.h" />
     <ClInclude Include="Dimension_Pierce.h" />
     <ClInclude Include="Dimension_Pierce_BulletEffect.h" />
@@ -178,6 +182,7 @@
     <ClInclude Include="Homing_Pierce_LongHair.h" />
     <ClInclude Include="Homing_Pierce_ShortHair.h" />
     <ClInclude Include="Kngiht_EnergyBall_Impact.h" />
+    <ClInclude Include="Public_Heal_Effect.h" />
     <ClInclude Include="Public_UltimateSkill_Effect_Complete.h" />
     <ClInclude Include="Public_Ultimate_Aura.h" />
     <ClInclude Include="Public_Ultimate_AuraSmoke.h" />
@@ -266,6 +271,10 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Castle_Area.cpp" />
     <ClCompile Include="Cleric.cpp" />
+    <ClCompile Include="Cleric_Attack_Sign.cpp" />
+    <ClCompile Include="Cleric_HolyThunder.cpp" />
+    <ClCompile Include="Cleric_Ultimate_SkillEffect.cpp" />
+    <ClCompile Include="Cleric_Veteran_Sanctuary.cpp" />
     <ClCompile Include="Dimension_Pierce_BossEffect.cpp" />
     <ClCompile Include="Dimension_Pierce.cpp" />
     <ClCompile Include="Dimension_Pierce_BulletEffect.cpp" />
@@ -276,6 +285,7 @@
     <ClCompile Include="Homing_Pierce_LongHair.cpp" />
     <ClCompile Include="Homing_Pierce_ShortHair.cpp" />
     <ClCompile Include="Kngiht_EnergyBall_Impact.cpp" />
+    <ClCompile Include="Public_Heal_Effect.cpp" />
     <ClCompile Include="Public_UltimateSkill_Effect_Complete.cpp" />
     <ClCompile Include="Public_Ultimate_Aura.cpp" />
     <ClCompile Include="Public_Ultimate_AuraSmoke.cpp" />

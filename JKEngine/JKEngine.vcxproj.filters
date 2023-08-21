@@ -284,6 +284,21 @@
     <ClInclude Include="Archer_Ultimate_Bye.h">
       <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Cleric_Attack_Sign.h">
+      <Filter>Game_ob\MiniBoss\Cleric\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Cleric_HolyThunder.h">
+      <Filter>Game_ob\MiniBoss\Cleric\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Cleric_Veteran_Sanctuary.h">
+      <Filter>Game_ob\MiniBoss\Cleric\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Public_Heal_Effect.h">
+      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Cleric_Ultimate_SkillEffect.h">
+      <Filter>Game_ob\MiniBoss\Cleric\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -563,6 +578,21 @@
     <ClCompile Include="Archer_Ultimate_Bye.cpp">
       <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Cleric_Attack_Sign.cpp">
+      <Filter>Game_ob\MiniBoss\Cleric\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Cleric_HolyThunder.cpp">
+      <Filter>Game_ob\MiniBoss\Cleric\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Cleric_Veteran_Sanctuary.cpp">
+      <Filter>Game_ob\MiniBoss\Cleric\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Public_Heal_Effect.cpp">
+      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Cleric_Ultimate_SkillEffect.cpp">
+      <Filter>Game_ob\MiniBoss\Cleric\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -711,6 +741,12 @@
     </Filter>
     <Filter Include="Game_ob\MiniBoss\Public\Effect">
       <UniqueIdentifier>{0cb0aa98-d67a-4d3b-8040-7341ad994671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Cleric\Effect">
+      <UniqueIdentifier>{541072c2-f077-4829-a573-38c90eb80ca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Cleric\Bullet">
+      <UniqueIdentifier>{387a76c1-0840-4ae4-8abe-f8b1c84abf24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

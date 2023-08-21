@@ -100,8 +100,8 @@ namespace jk
 		at->CompleteEvent(L"Knight_maleUltimateSkill_Motion") = std::bind(&Knight_male::complete_ultimate, this);
 		at->CompleteEvent(L"Knight_maleUltimateSkill_MotionR") = std::bind(&Knight_male::complete_ultimate, this);
 
-		at->CompleteEvent(L"Knight_maleGlorggy") = std::bind(&Knight_male::complete_gloggy, this);
-		at->CompleteEvent(L"Knight_maleGlorggyR") = std::bind(&Knight_male::complete_gloggy, this);
+		//at->CompleteEvent(L"Knight_maleGlorggy") = std::bind(&Knight_male::complete_gloggy, this);
+		//at->CompleteEvent(L"Knight_maleGlorggyR") = std::bind(&Knight_male::complete_gloggy, this);
 		
 		at->CompleteEvent(L"Knight_maleHit") = std::bind(&Knight_male::complete_hit, this);
 		at->CompleteEvent(L"Knight_maleHitR") = std::bind(&Knight_male::complete_hit, this);
@@ -751,9 +751,9 @@ namespace jk
 	{
 		_state = Knight_State::Groggy;
 		if (mDir == 1)
-			at->PlayAnimation(L"Knight_maleGlorggy", false);
+			at->PlayAnimation(L"Knight_maleGlorggy", true);
 		else
-			at->PlayAnimation(L"Knight_maleGlorggyR", false);
+			at->PlayAnimation(L"Knight_maleGlorggyR", true);
 	}
 
 	void Knight_male::Finishing_Move()
@@ -778,12 +778,6 @@ namespace jk
 			_attackorder = 0;
 			_attack = false;
 			choicecombo();
-			//_state = Knight_State::Idle;
-			//if (mDir == 1)
-			//	at->PlayAnimation(L"Knight_maleIdle", true);
-			//else
-			//	at->PlayAnimation(L"Knight_maleIdleR", true);
-			//_time = 0;
 		}
 	}
 
