@@ -748,6 +748,12 @@
     <Filter Include="Game_ob\MiniBoss\Cleric\Bullet">
       <UniqueIdentifier>{387a76c1-0840-4ae4-8abe-f8b1c84abf24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game_ob\MiniBoss\Mage\Bullet">
+      <UniqueIdentifier>{976eb503-033e-42c8-8d15-a170d88cebf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\MiniBoss\Mage\Effect">
+      <UniqueIdentifier>{edf25464-8075-423b-b62d-aab2070a5343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="JKEngine.rc" />

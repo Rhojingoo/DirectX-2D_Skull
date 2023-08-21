@@ -449,7 +449,6 @@ namespace jk
 			_time = 0.f;
 		}
 	}
-
 	void Cleric::attack_c_ready()
 	{
 		Transform* bullet_tr = Ultimate_Heal_Effect->GetComponent<Transform>();

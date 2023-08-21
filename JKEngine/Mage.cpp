@@ -50,6 +50,13 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\WalkBack", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\WalkFront", this);
 
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Ultimate_Set", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Ultimate_Castimg", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Ultimate_Skill_Fire", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Utimate_Skill_Action", this);
+		
+
+
 
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_Ready", this, 1);
@@ -69,7 +76,12 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\WalkBack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\WalkFront", this, 1);
 
-
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Ultimate_Set", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Ultimate_Castimg", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Ultimate_Skill_Fire", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Utimate_Skill_Action", this, 1);
+		
+		
 		//bind 부분
 		at->CompleteEvent(L"MageAttack_A") = std::bind(&Mage::attack_a_complete, this);
 		at->CompleteEvent(L"MageAttack_A_Ready") = std::bind(&Mage::attack_a_ready_complete, this);
@@ -91,6 +103,53 @@ namespace jk
 
 		at->CompleteEvent(L"MageHit") = std::bind(&Mage::complete_hit, this);
 		at->CompleteEvent(L"MageHitR") = std::bind(&Mage::complete_hit, this);
+
+
+		at->CompleteEvent(L"MageUltimate_Set") = std::bind(&Mage::complete_ultimate_set, this);
+		at->CompleteEvent(L"MageUltimate_SetR") = std::bind(&Mage::complete_ultimate_set, this);
+
+		at->CompleteEvent(L"MageUltimate_Skill_Fire") = std::bind(&Mage::complete_ultimate_fire, this);
+		at->CompleteEvent(L"MageUltimate_Skill_FireR") = std::bind(&Mage::complete_ultimate_fire, this);
+
+
+
+
+		{
+			Ultimate_Aura = new Public_Ultimate_Aura;
+			Ultimate_Aura->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Ultimate_Aura);
+			Transform* bullet_tr = Ultimate_Aura->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Ultimate_Aura->SetState(eState::Paused);
+		}
+		{
+			Ultimate_AuraSmoke = new Public_Ultimate_AuraSmoke;
+			Ultimate_AuraSmoke->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Ultimate_AuraSmoke);
+			Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			Ultimate_AuraSmoke->SetState(eState::Paused);
+		}
+		{
+			UltimateSkill_Effect_Complete = new Public_UltimateSkill_Effect_Complete;
+			UltimateSkill_Effect_Complete->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Complete);
+			Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			UltimateSkill_Effect_Complete->SetState(eState::Paused);
+		}
+		{
+			UltimateSkill_Effect_Fail = new Public_UltimateSkill_Effect_Fail;
+			UltimateSkill_Effect_Fail->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Fail);
+			Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			UltimateSkill_Effect_Fail->SetState(eState::Paused);
+		}
 
 		_first_place = pos;
 		at->PlayAnimation(L"MageIdle", true);
@@ -158,6 +217,30 @@ namespace jk
 		case jk::Mage::Mage_State::Fly:
 			fly();
 			break;			
+
+
+
+		case jk::Mage::Mage_State::Finishing_Move_Ready:
+			Finishing_Move_Ready();
+			break;
+
+		case jk::Mage::Mage_State::Finishing_Move_Succes:
+			Finishing_Move_Succes();
+			break;
+
+		case jk::Mage::Mage_State::Finishing_Move_Fail:
+			Finishing_Move_Fail();
+			break;
+
+		case jk::Mage::Mage_State::Finishing_Move:
+			Finishing_Move();
+			break;
+
+		case jk::Mage::Mage_State::Casting:
+			casting();
+			break;
+
+
 
 		case jk::Mage::Mage_State::Groggy:
 			groggy();
@@ -267,9 +350,9 @@ namespace jk
 			_sky = true;
 			_ground = false;
 		}
-		if (_landingswich >= 4)
+		if (_landingswich >= 5)
 		{
-			if (_Ground_check == true)		// 랜딩시 그라운드가 트루라면 랜딩 빠져나가기
+			if (_Ground_check == true)// 랜딩시 그라운드가 트루라면 랜딩 빠져나가기
 				return;
 
 			_state = Mage_State::Attack_C_Run;
@@ -283,8 +366,8 @@ namespace jk
 			_ground = true;
 		}
 
-		_swich_checkpoint = randomcount(0, 3);
-		//_swich_checkpoint = 3;
+		//_swich_checkpoint = randomcount(0, 3);
+		_swich_checkpoint = 4;
 
 		_time += Time::DeltaTime();
 		if (_time >= 2.f)
@@ -323,7 +406,7 @@ namespace jk
 					at->PlayAnimation(L"MageAttack_B_ReadyR", true);
 			}
 
-			if (_swich_checkpoint == 3)
+			if (_swich_checkpoint == 3)// 각성 공격
 			{
 				if (_sky == false)
 					return;
@@ -333,6 +416,19 @@ namespace jk
 					at->PlayAnimation(L"MageAttack_D_Ready", true);
 				if (mDir == -1)
 					at->PlayAnimation(L"MageAttack_D_ReadyR", true);
+			}
+
+			if (_swich_checkpoint == 4)
+			{
+				if (_sky == false)
+					return;
+
+				_state = Mage_State::Finishing_Move_Ready;
+				if (mDir == 1)
+					at->PlayAnimation(L"MageUltimate_Set", true);
+				if (mDir == -1)
+					at->PlayAnimation(L"MageUltimate_SetR", true);
+				_UltimateSet = false; 
 			}
 		}
 	}	
@@ -446,6 +542,98 @@ namespace jk
 			_time = 0;			
 		}
 
+	}
+
+
+	void Mage::Finishing_Move_Ready()
+	{
+		if (_UltimateSet == true)
+		{
+			{
+				Transform* bullet_tr = Ultimate_Aura->GetComponent<Transform>();
+				Ultimate_Aura->_effect_animation = true;
+				if (mDir == 1)
+				{
+					Ultimate_Aura->SetDirection(1);
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30, pos.z - 1));
+				}
+				else
+				{
+					Ultimate_Aura->SetDirection(-1);
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30, pos.z - 1));
+				}
+				Ultimate_Aura->SetState(eState::Active);
+			}
+
+			{
+				Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 55, pos.z - 1.1));
+				if (mDir == 1)
+				{
+					Ultimate_AuraSmoke->SetDirection(1);
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50, pos.z - 1));
+				}
+				else
+				{
+					Ultimate_AuraSmoke->SetDirection(-1);
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50, pos.z - 1));
+				}
+				Ultimate_AuraSmoke->SetState(eState::Active);
+			}
+			_UltimateSet = false;
+		}
+
+		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
+		_attack_time += Time::DeltaTime();
+		if (_attack_time >= 7.5)
+		{
+			Ultimate_Aura->SetState(eState::Paused);
+			Ultimate_AuraSmoke->SetState(eState::Paused);
+			if (_hit > 8)
+			{
+				// 이펙트 설정시 9번 hit가 된다면 깨지는 이미지로 넘어간뒤 그로기 상태로넘겨줘야한다.
+				Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				if (mDir == 1)
+					UltimateSkill_Effect_Fail->SetDirection(1);
+				else
+					UltimateSkill_Effect_Fail->SetDirection(-1);
+				UltimateSkill_Effect_Fail->SetState(eState::Active);
+
+				_state = Mage_State::Finishing_Move_Fail;
+				_attack_time = 0.f;
+			}
+			else
+			{
+				// 이펙트 설정시 5초가 10번이상의 타격이 없다면 석세스로 넘어간뒤 Effect 날려야한다.
+				Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				if (mDir == 1)
+					UltimateSkill_Effect_Complete->SetDirection(1);
+				else
+					UltimateSkill_Effect_Complete->SetDirection(-1);
+				UltimateSkill_Effect_Complete->SetState(eState::Active);
+
+				if (mDir == 1)
+					at->PlayAnimation(L"MageUltimate_Skill_Fire", true);
+				else
+					at->PlayAnimation(L"MageUltimate_Skill_FireR", true);
+				_Ultimate_Skill = false;
+				_attack_time = 0.f;
+			}
+		}
+	}
+	void Mage::Finishing_Move_Succes()
+	{
+	}
+	void Mage::Finishing_Move_Fail()
+	{
+	}
+	void Mage::Finishing_Move()
+	{
+	}
+	void Mage::casting()
+	{
 	}
 	void Mage::groggy()
 	{
@@ -588,18 +776,32 @@ namespace jk
 		tr->SetPosition(Vector3(pos));
 	}	
 
+
+
 	void Mage::complete_hit()
 	{
 	}
-	int Mage::randomcount(int a, int b)
+
+
+
+	void Mage::complete_ultimate_set()
 	{
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<int> distribution(a, b);
-		_swich_checkpoint = distribution(gen);
-		
-		return _swich_checkpoint;
+		if (mDir == 1)
+			at->PlayAnimation(L"MageUltimate_Castimg", true);
+		if (mDir == -1)
+			at->PlayAnimation(L"MageUltimate_CastimgR", true);
+		_UltimateSet = true; 
 	}
+
+	void Mage::complete_ultimate_fire()
+	{
+		if (mDir == 1)
+			at->PlayAnimation(L"MageUtimate_Skill_Action", true);
+		else
+			at->PlayAnimation(L"MageUtimate_Skill_ActionR", true);
+		_state = Mage_State::Finishing_Move_Succes;
+	}
+
 
 
 	void Mage::attack_a_complete()
@@ -640,6 +842,7 @@ namespace jk
 	}
 
 
+
 	void Mage::attack_b_complete()
 	{
 	}
@@ -651,6 +854,7 @@ namespace jk
 		if (mDir == -1)
 			at->PlayAnimation(L"MageAttack_BR", false);
 	}
+
 
 
 	void Mage::attack_c_complete()
@@ -692,5 +896,16 @@ namespace jk
 			at->PlayAnimation(L"MageAttack_D", true);
 		if (mDir == -1)
 			at->PlayAnimation(L"MageAttack_DR", true);
+	}
+
+
+	int Mage::randomcount(int a, int b)
+	{
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<int> distribution(a, b);
+		_swich_checkpoint = distribution(gen);
+		
+		return _swich_checkpoint;
 	}
 }

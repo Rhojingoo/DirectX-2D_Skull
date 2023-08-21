@@ -38,8 +38,8 @@ namespace jk
 			Finishing_Move_Succes,
 			Finishing_Move_Fail,
 			Finishing_Move,
-
 			Casting,
+
 			Die,
 			Groggy,
 			Hit,
