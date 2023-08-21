@@ -46,7 +46,7 @@ namespace jk
 			, Vector2 offset = Vector2::Zero
 			, float duration = 0.1f);
 
-		Animation* CreateAnimations(const std::wstring& path, GameObject* OBJ, int reverse_check = 0, float duration = 0.1f);
+		Animation* CreateAnimations(const std::wstring& path, GameObject* OBJ, int reverse_check = 0, float duration = 0.1f, Vector2 offset = Vector2::Zero );
 
 
 		Animation* FindAnimation(const std::wstring& name);

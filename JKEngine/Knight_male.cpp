@@ -280,8 +280,8 @@ namespace jk
 			Finishing_Move();
 			break;
 
-		case jk::Knight_male::Knight_State::Glorggy:
-			glorggy();
+		case jk::Knight_male::Knight_State::Groggy:
+			Groggy();
 			break;
 
 		case jk::Knight_male::Knight_State::Hit:
@@ -738,7 +738,7 @@ namespace jk
 
 	void Knight_male::Finishing_Move_Fail()
 	{
-		_state = Knight_State::Glorggy;
+		_state = Knight_State::Groggy;
 		if (mDir == 1)
 			at->PlayAnimation(L"Knight_maleGlorggy", false);
 		else
@@ -758,7 +758,7 @@ namespace jk
 		choicecombo();
 	}
 
-	void Knight_male::glorggy()
+	void Knight_male::Groggy()
 	{
 		_Attacktime += Time::DeltaTime();
 		if (_Attacktime >= 3.5)

@@ -1,6 +1,4 @@
 #include "Archer.h"
-#include <iostream>
-#include <random>
 
 namespace jk
 {
@@ -50,7 +48,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Ultimate", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Ultimate_Ready", this);
 		
-
+		
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Attack_A", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Attack_B", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Attack_C", this, 1);
@@ -77,6 +75,10 @@ namespace jk
 
 		at->CompleteEvent(L"ArcherHit") = std::bind(&Archer::complete_hit, this);
 		at->CompleteEvent(L"ArcherHitR") = std::bind(&Archer::complete_hit, this);
+
+		at->CompleteEvent(L"ArcherIntro") = std::bind(&Archer::CompleteArcherIntro, this);
+		at->CompleteEvent(L"ArcherIntroR") = std::bind(&Archer::CompleteArcherIntro, this);
+		
 		//at->CompleteEvent(L"Knight_maleExplosion_Loop") = std::bind(&Knight_male::choicecombo, this);
 		//at->CompleteEvent(L"Knight_maleExplosion_LoopR") = std::bind(&Knight_male::choicecombo, this);
 
@@ -392,63 +394,66 @@ namespace jk
 
 	void Archer::idle()
 	{
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_int_distribution<int> distribution(0, 1);
-	
-
 		_time += Time::DeltaTime();
 	
 		_hit_switch = false;
 
-		if (_hit >= 3)
+		if (_Intro == false)
 		{
-			int a = 0;			
-			if (_Numberof_BackDash <= 2)
+			_state = Archer_State::Intro;
+			at->PlayAnimation(L"ArcherIntroR", true);
+		}
+		else
+		{
+			if (_hit >= 3)
 			{
-				if (mDir == 1)
+				int a = 0;
+				if (_Numberof_BackDash <= 2)
 				{
-					at->PlayAnimation(L"ArcherBackStep", false);
-					_rigidbody->SetVelocity(Vector2(-200.f, 200.f));
-					_rigidbody->AddForce(Vector2(-10, 10));
-					_Ground_check = false;
-					_rigidbody->SetGround(false);
-					_BackDash = true;
-					_state = Archer_State::BackDash;
-					_Numberof_BackDash++;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"ArcherBackStep", false);
+						_rigidbody->SetVelocity(Vector2(-200.f, 200.f));
+						_rigidbody->AddForce(Vector2(-10, 10));
+						_Ground_check = false;
+						_rigidbody->SetGround(false);
+						_BackDash = true;
+						_state = Archer_State::BackDash;
+						_Numberof_BackDash++;
+					}
+					else
+					{
+						at->PlayAnimation(L"ArcherBackStepR", false);
+						_rigidbody->SetVelocity(Vector2(200.f, 200.f));
+						_rigidbody->AddForce(Vector2(10, 10));
+						_Ground_check = false;
+						_rigidbody->SetGround(false);
+						_BackDash = true;
+						_state = Archer_State::BackDash;
+						_Numberof_BackDash++;
+					}
 				}
 				else
 				{
-					at->PlayAnimation(L"ArcherBackStepR", false);
-					_rigidbody->SetVelocity(Vector2(200.f, 200.f));
-					_rigidbody->AddForce(Vector2(10, 10));
-					_Ground_check = false;
-					_rigidbody->SetGround(false);
-					_BackDash = true;
-					_state = Archer_State::BackDash;
-					_Numberof_BackDash++;
+					_hit = 0; _Numberof_BackDash = 0;
 				}
 			}
 			else
 			{
-				_hit = 0; _Numberof_BackDash = 0;
-			}
-		}
-		else
-		{
-			if (_time > 3.f)
-			{
-				if ((_distance <= 80 && _distance >= -80))
+				if (_time > 3.f)
 				{
-					_choicecombo = 2;
+					if ((_distance <= 80 && _distance >= -80))
+					{
+						_choicecombo = 2;
+					}
+					else
+					{
+						_choicecombo = random(0, 2);
+						//_choicecombo = 3;
+						_attack = true;
+						choicecombo();
+					}
 				}
-				else
-				{
-					//_choicecombo = distribution(gen);
-					_choicecombo = 3;
-					_attack = true;
-					choicecombo();
-				}		
 			}
 		}
 	}
@@ -541,6 +546,71 @@ namespace jk
 		choicecombo();
 	}
 
+
+	void Archer::attack_b_ready()
+	{		
+		_attack_time += Time::DeltaTime();
+		if (_attack_time > 1)
+		{
+			Transform* EffectTR = Upward_Sign->GetComponent<Transform>();
+			EffectTR->SetPosition(_playerpos.x, _playerpos.y, _playerpos.z - 1);
+			Upward_Sign->_effect_On = true;
+			Upward_Sign->SetState(eState::Active);
+
+			if (mDir == 1)
+				at->PlayAnimation(L"ArcherIdle", true);
+			if(mDir ==-1)
+				at->PlayAnimation(L"ArchereIdleR", false);
+
+			_attack_b_sign = true;
+			_state = Archer_State::Attack_B;
+			_attack_time = 0;
+		}		
+	}
+	void Archer::attack_b()
+	{
+		if (_attack_b_sign == true)
+		{
+			_attack_time += Time::DeltaTime();
+			if (_attack_time > 1)
+			{
+				Transform* EffectTR = Upward_Sign->GetComponent<Transform>();
+				Vector3 effect = EffectTR->GetPosition();
+				Transform* BullettTR = Upward_Impact_Bullet->GetComponent<Transform>();
+				BullettTR->SetPosition(effect.x, effect.y+145, effect.z - 1);
+				Upward_Impact_Bullet->_bullet_On = true;
+				Upward_Impact_Bullet->SetState(eState::Active);				
+				_state = Archer_State::Attack_B_End;
+				_attack_time = 0;
+			}			
+		}	
+	}
+	void Archer::attack_b_end()
+	{
+		if (Upward_Impact_Bullet->_bullet_On == false)
+		{
+			Transform* BullettTR = Upward_Impact_Bullet->GetComponent<Transform>();
+			Vector3 bullet = BullettTR -> GetPosition();		
+
+			Upward_Sign->SetState(eState::Paused);
+			Transform* EffectTR = Arrow_Bye_effect->GetComponent<Transform>();
+			EffectTR->SetPosition(bullet.x, bullet.y-125, bullet.z);
+			Arrow_Bye_effect->_effect_On = true;
+			Arrow_Bye_effect->SetState(eState::Active);
+
+			_attack = false;
+			_attack_b_sign = false;
+			choicecombo();
+		}
+	}
+
+	void Archer::attack_c()
+	{
+		//_attackorder = 0;
+		_attack = false;
+	}
+
+
 	void Archer::Finishing_Move_Ready()
 	{
 		if (_Ultimate == true)
@@ -602,7 +672,7 @@ namespace jk
 			}
 			else
 			{
-				// 이펙트 설정시 5초가 10번이상의 타격이 없다면 석세스로 넘어간뒤 검격공격을 날려야한다.
+				// 이펙트 설정시 5초가 10번이상의 타격이 없다면 석세스로 넘어간뒤 활공격을 날려야한다.
 				Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
 				if (mDir == 1)
@@ -620,7 +690,6 @@ namespace jk
 			}
 		}
 	}
-
 	void Archer::Finishing_Move_Succes()
 	{
 		if (_Ultimate_Skill == false)
@@ -681,11 +750,14 @@ namespace jk
 			}
 		}
 	}
-
 	void Archer::Finishing_Move_Fail()
 	{
+		_state = Archer_State::Groggy;
+		if (mDir == 1)
+			at->PlayAnimation(L"ArcherGroggy", false);
+		else
+			at->PlayAnimation(L"ArcherGroggyR", false);
 	}
-
 	void Archer::Finishing_Move()
 	{
 		_attack = false;
@@ -693,72 +765,15 @@ namespace jk
 	}
 
 
-	void Archer::attack_b_ready()
-	{		
-		_attack_time += Time::DeltaTime();
-		if (_attack_time > 1)
-		{
-			Transform* EffectTR = Upward_Sign->GetComponent<Transform>();
-			EffectTR->SetPosition(_playerpos.x, _playerpos.y, _playerpos.z - 1);
-			Upward_Sign->_effect_On = true;
-			Upward_Sign->SetState(eState::Active);
-
-			if (mDir == 1)
-				at->PlayAnimation(L"ArcherIdle", true);
-			if(mDir ==-1)
-				at->PlayAnimation(L"ArchereIdleR", false);
-
-			_attack_b_sign = true;
-			_state = Archer_State::Attack_B;
-			_attack_time = 0;
-		}		
-	}
-	void Archer::attack_b()
-	{
-		if (_attack_b_sign == true)
-		{
-			_attack_time += Time::DeltaTime();
-			if (_attack_time > 1)
-			{
-				Transform* EffectTR = Upward_Sign->GetComponent<Transform>();
-				Vector3 effect = EffectTR->GetPosition();
-				Transform* BullettTR = Upward_Impact_Bullet->GetComponent<Transform>();
-				BullettTR->SetPosition(effect.x, effect.y+145, effect.z - 1);
-				Upward_Impact_Bullet->_bullet_On = true;
-				Upward_Impact_Bullet->SetState(eState::Active);				
-				_state = Archer_State::Attack_B_End;
-				_attack_time = 0;
-			}
-			
-		}	
-	}
-	void Archer::attack_b_end()
-	{
-		if (Upward_Impact_Bullet->_bullet_On == false)
-		{
-			Transform* BullettTR = Upward_Impact_Bullet->GetComponent<Transform>();
-			Vector3 bullet = BullettTR -> GetPosition();		
-
-			Upward_Sign->SetState(eState::Paused);
-			Transform* EffectTR = Arrow_Bye_effect->GetComponent<Transform>();
-			EffectTR->SetPosition(bullet.x, bullet.y-125, bullet.z);
-			Arrow_Bye_effect->SetState(eState::Active);
-
-			_attack = false;
-			_attack_b_sign = false;
-			choicecombo();
-		}
-	}
-
-
-	void Archer::attack_c()
-	{
-		//_attackorder = 0;
-		_attack = false;
-	}
-
 	void Archer::groggy()
 	{
+		_attack_time += Time::DeltaTime();
+		if (_attack_time >= 3.5)
+		{
+			_attack_time = 0;	
+			_attack = false;
+			choicecombo();
+		}
 	}
 
 	void Archer::hit()
@@ -781,6 +796,7 @@ namespace jk
 
 	void Archer::intro()
 	{
+		_Intro = true;
 	}
 
 	void Archer::potion()
@@ -804,12 +820,12 @@ namespace jk
 			if (_choicecombo == 2)
 			{
 				_number_of_attack++;
-				pushaway();
+				ultimate();
 			}
-			if (_choicecombo == 3)
+			if (_choicecombo == 10)
 			{
 				_number_of_attack++;
-				ultimate();
+				pushaway();
 			}
 		}
 		else
@@ -861,7 +877,16 @@ namespace jk
 			at->PlayAnimation(L"ArcherUltimate_Ready", false);
 		else
 			at->PlayAnimation(L"ArcherUltimate_ReadyR", false);
-		_Ultimate = true;
+		_Ultimate = true;		
+	}
+
+	void Archer::CompleteArcherIntro()
+	{
+		_state = Archer_State::Idle;
+		if (mDir == 1)
+			at->PlayAnimation(L"ArcherIdle", true);
+		else
+			at->PlayAnimation(L"ArcherIdleR", true);
 	}
 
 	void Archer::complete_hit()

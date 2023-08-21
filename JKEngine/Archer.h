@@ -133,6 +133,7 @@ namespace jk
 		bool	_attack_b = false;
 		bool	_Ultimate = false;
 		bool	_Ultimate_Skill = false;
+		bool	_Intro = false;
 
 	private:
 		Skul_Basic::Skul_Basic_State Skul_BasicState;
@@ -145,5 +146,6 @@ namespace jk
 		void ultimate();
 		void complete_hit();
 		void complete_attackA();
+		void CompleteArcherIntro();
 	};
 }

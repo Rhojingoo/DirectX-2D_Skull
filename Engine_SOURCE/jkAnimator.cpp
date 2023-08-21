@@ -95,7 +95,7 @@ namespace jk
 		mEvents.insert(std::make_pair(name, events));
 	}
 
-	Animation* Animator::CreateAnimations(const std::wstring& path, GameObject* OBJ, int reverse_check, float duration)
+	Animation* Animator::CreateAnimations(const std::wstring& path, GameObject* OBJ, int reverse_check, float duration, Vector2 offset)
 	{
 		UINT width = 0;
 		UINT height = 0;
@@ -147,7 +147,7 @@ namespace jk
 		mImageAtlas = std::make_shared<graphics::Texture>();
 		mImageAtlas->CreateTex(path, width, height, fileCount, reverse);
 
-		Create(key, mImageAtlas, Vector2(0.0), Vector2(width, height), fileCount, Vector2(0.0), duration);
+		Create(key, mImageAtlas, Vector2(0.0), Vector2(width, height), fileCount, offset, duration);
 
 		return nullptr;
 	}

@@ -48,14 +48,12 @@ namespace jk
 			Explosion_Loop_Ready,
 			Explosion_Loop,
 
-
 			Finishing_Move_Ready,
 			Finishing_Move_Succes,
 			Finishing_Move_Fail,
 			Finishing_Move,
 
-
-			Glorggy,
+			Groggy,
 			Hit, 
 			Intro,
 			Potion,
@@ -81,7 +79,7 @@ namespace jk
 		void Finishing_Move_Succes();
 		void Finishing_Move_Fail();
 		void Finishing_Move();
-		void glorggy();
+		void Groggy();
 		void hit();
 		void intro();
 		void potion();
