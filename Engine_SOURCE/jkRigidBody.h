@@ -26,6 +26,8 @@ namespace jk
 		void ClearVelocityY() { mVelocity.y = 0.f; }
 		void ClearVelocity() { mVelocity = Vector2(0.f,0.f); }
 		void SetFriction(float fl) { mFriction = fl; }
+		void SetGravity(bool set) { _Setgravity = set; }
+		void SetFriction(bool set) { _SetFriction = set; }
 
 	/*	void OnFriction(bool isOn) { mbOnFriction = isOn; }
 		void OnHorizonAccelMove(bool isOn) { mbHorizonAccelMove = isOn; }*/
@@ -43,7 +45,8 @@ namespace jk
 		Vector2 mGravity;
 		float mFriction;
 		bool mbGround;
-
+		bool _Setgravity = false;;
+		bool _SetFriction = false;;
 		// 중력 이용한 점프
 
 		eMoveDir mMoveDir;

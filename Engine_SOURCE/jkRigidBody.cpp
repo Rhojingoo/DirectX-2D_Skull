@@ -35,18 +35,21 @@ namespace jk
 		// 속도에 가속도를 더해준다.
 		mVelocity += mAccelation * Time::DeltaTime();
 
-		if (mbGround)
+		if (_Setgravity == false)
 		{
-			// 땅위에 있을때
-			Vector2 gravity = mGravity;
-			gravity.Normalize();
+			if (mbGround)
+			{
+				// 땅위에 있을때
+				Vector2 gravity = mGravity;
+				gravity.Normalize();
 
-			float dot = mVelocity.Dot(gravity);
-			mVelocity -= gravity * dot;
-		}
-		else
-		{
-			mVelocity += mGravity * Time::DeltaTime();
+				float dot = mVelocity.Dot(gravity);
+				mVelocity -= gravity * dot;
+			}
+			else
+			{
+				mVelocity += mGravity * Time::DeltaTime();
+			}
 		}
 
 		// 중력가속도 최대 속도 제한
@@ -68,23 +71,25 @@ namespace jk
 			sideVelocity *= mLimitedVelocity.x;
 		}
 
-		// 마찰력 조건 ( 적용된 힘이 없고, 속도가 0이 아님)
-		if (!(mVelocity == Vector2::Zero))
-		{
-			//속도에 반대방향으로 마찰력이 적용된다.
-			Vector2 friction = -mVelocity;
-			friction.Normalize();
-			friction = friction * mFriction * mMass * Time::DeltaTime();
-
-			//마찰력으로 인한 속도 감소는 현재 속도보다 큰 경우
-
-			if (mVelocity.Length() < friction.Length())
+		if (_SetFriction == false)
+		{// 마찰력 조건 ( 적용된 힘이 없고, 속도가 0이 아님)
+			if (!(mVelocity == Vector2::Zero))
 			{
-				mVelocity = Vector2::Zero;
-			}
-			else
-			{
-				mVelocity += friction;
+				//속도에 반대방향으로 마찰력이 적용된다.
+				Vector2 friction = -mVelocity;
+				friction.Normalize();
+				friction = friction * mFriction * mMass * Time::DeltaTime();
+
+				//마찰력으로 인한 속도 감소는 현재 속도보다 큰 경우
+
+				if (mVelocity.Length() < friction.Length())
+				{
+					mVelocity = Vector2::Zero;
+				}
+				else
+				{
+					mVelocity += friction;
+				}
 			}
 		}
 

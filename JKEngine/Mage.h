@@ -4,7 +4,7 @@
 #include "Ultimate_OnFire.h"
 #include "Ultimate_On_Fire_Projectile.h"
 #include "Ultimate_OnFire_Fire.h"
-
+#include "Mage_FireBall.h"
 
 namespace jk
 {
@@ -26,10 +26,15 @@ namespace jk
 
 		enum class Mage_State
 		{
-			Idle,			
+			Idle,
 			Die,
-			Attack_A,
 			Attack_A_Ready,
+			Attack_A_First,
+			Attack_A_Second,
+			Attack_A_End,
+
+
+
 			Attack_B,
 			Attack_B_Ready,
 			Attack_C,
@@ -59,8 +64,14 @@ namespace jk
 
 		void idle();
 		void die();
-		void attack_a();
+
+
 		void attack_a_ready();
+		void attack_a_first();
+		void attack_a_second();
+		void attack_a_end();
+
+
 		void attack_b();
 		void attack_b_ready();
 		void attack_c();
@@ -108,6 +119,7 @@ namespace jk
 		Ultimate_OnFire* _OnFire[3];
 		Ultimate_On_Fire_Projectile* On_Fire_Projectile[9];
 		Ultimate_OnFire_Fire* OnFire_Fire[9];
+		Mage_FireBall* FireBall[6];
 
 
 	private:
@@ -139,6 +151,15 @@ namespace jk
 
 	private:		
 		int		_attackA = 0;						// 어택 A 여러번 진행(어택A 변수)	
+		int		_attackA_Second = 0;
+		bool	_attackA_firstSet[3] = { false,false,false};
+		bool	_attackA_secondSet[3] = { false,false,false };
+		bool	_fireballswitch = false;
+		bool	_firstcomplete = false;
+		bool	_scondcomplete = false;
+
+
+
 		float   _attacktB_time = 0;					// 어택 B 공격시간 체크	(어택B 변수)		
 		int		_attackC = 0;						// 어택 B 여러번 진행(어택C 변수)
 
@@ -155,13 +176,23 @@ namespace jk
 	private:
 		void Fire_Projectile(int i);
 		void Fire_Projectile_Rotation(Transform* tr, Vector3 bulletpos, int i);
+		void Fire_Ball(int i);
+		void Fire_Ball_Rotation(Transform* tr, Vector3 bulletpos, int i);
+		void fireball_manager();
 
 	private:
+		
+		void attack_a_ready_complete();
+		void attack_a_firts_complete();
+		void attack_a_second_complete();
 		void attack_a_complete();
+
+
+
+
 		void attack_b_complete();
 		void attack_c_complete();
 		void attack_d_complete();
-		void attack_a_ready_complete();
 		void attack_b_ready_complete();
 		void attack_c_ready_complete();
 		void attack_d_ready_complete();

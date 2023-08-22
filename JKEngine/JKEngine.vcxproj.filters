@@ -311,6 +311,9 @@
     <ClInclude Include="Ultimate_OnFire_Fire.h">
       <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Mage_FireBall.h">
+      <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -616,6 +619,9 @@
     </ClCompile>
     <ClCompile Include="Ultimate_OnFire_Fire.cpp">
       <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Mage_FireBall.cpp">
+      <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

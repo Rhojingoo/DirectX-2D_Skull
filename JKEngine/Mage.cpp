@@ -32,8 +32,14 @@ namespace jk
 
 		at = AddComponent<Animator>();
 
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_Ready", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_First", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_Second", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_End", this);
+
+
+
+
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_B", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_B_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_C", this);
@@ -58,8 +64,12 @@ namespace jk
 
 
 
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A", this, 1);
+
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_Ready", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_First", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_Second", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_End", this, 1);
+
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_B", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_B_Ready", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_C", this, 1);
@@ -83,8 +93,21 @@ namespace jk
 		
 		
 		//bind 부분
-		at->CompleteEvent(L"MageAttack_A") = std::bind(&Mage::attack_a_complete, this);
+
 		at->CompleteEvent(L"MageAttack_A_Ready") = std::bind(&Mage::attack_a_ready_complete, this);
+		at->CompleteEvent(L"MageAttack_A_ReadyR") = std::bind(&Mage::attack_a_ready_complete, this);
+
+		at->CompleteEvent(L"MageAttack_A_First") = std::bind(&Mage::attack_a_firts_complete, this);
+		at->CompleteEvent(L"MageAttack_A_FirstR") = std::bind(&Mage::attack_a_firts_complete, this);
+
+		at->CompleteEvent(L"MageAttack_A_Second") = std::bind(&Mage::attack_a_second_complete, this);
+		at->CompleteEvent(L"MageAttack_A_SecondR") = std::bind(&Mage::attack_a_second_complete, this);
+
+		at->CompleteEvent(L"MageAttack_A_End") = std::bind(&Mage::attack_a_complete, this);
+		at->CompleteEvent(L"MageAttack_A_EndR") = std::bind(&Mage::attack_a_complete, this);
+
+
+
 		at->CompleteEvent(L"MageAttack_B") = std::bind(&Mage::attack_b_complete, this);
 		at->CompleteEvent(L"MageAttack_B_Ready") = std::bind(&Mage::attack_b_ready_complete, this);
 		//at->CompleteEvent(L"MageAttack_C") = std::bind(&Mage::attack_c_complete, this);
@@ -92,8 +115,7 @@ namespace jk
 		at->CompleteEvent(L"MageAttack_D") = std::bind(&Mage::attack_d_complete, this);
 		at->CompleteEvent(L"MageAttack_D_Ready") = std::bind(&Mage::attack_d_ready_complete, this);
 
-		at->CompleteEvent(L"MageAttack_AR") = std::bind(&Mage::attack_a_complete, this);
-		at->CompleteEvent(L"MageAttack_A_ReadyR") = std::bind(&Mage::attack_a_ready_complete, this);
+
 		at->CompleteEvent(L"MageAttack_BR") = std::bind(&Mage::attack_b_complete, this);
 		at->CompleteEvent(L"MageAttack_B_ReadyR") = std::bind(&Mage::attack_b_ready_complete, this);
 		//at->CompleteEvent(L"MageAttack_CR") = std::bind(&Mage::attack_c_complete, this);
@@ -198,6 +220,18 @@ namespace jk
 				OnFire_Fire[i]->SetState(eState::Paused);
 			}
 		}
+		{
+			for (int i = 0; i < 6; i++)
+			{
+				FireBall[i] = new Mage_FireBall;
+				FireBall[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Bullet, FireBall[i]);
+				Transform* bullet_tr = FireBall[i]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+				FireBall[i]->SetState(eState::Paused);
+			}		
+		}
 
 		_first_place = pos;
 		at->PlayAnimation(L"MageIdle", true);
@@ -215,6 +249,8 @@ namespace jk
 		else
 			mDir = -1;
 
+		//fireball_manager();
+
 
 		switch (_state)
 		{
@@ -226,13 +262,25 @@ namespace jk
 			die();
 			break;
 
-		case jk::Mage::Mage_State::Attack_A:
-			attack_a();
-			break;
 
 		case jk::Mage::Mage_State::Attack_A_Ready:
 			attack_a_ready();
 			break;
+
+		case jk::Mage::Mage_State::Attack_A_First:
+			attack_a_first();
+			break;
+
+		case jk::Mage::Mage_State::Attack_A_Second:
+			attack_a_second();
+			break;
+
+		case jk::Mage::Mage_State::Attack_A_End:
+			attack_a_end();
+			break;
+
+
+
 
 		case jk::Mage::Mage_State::Attack_B:
 			attack_b();
@@ -332,7 +380,7 @@ namespace jk
 	void Mage::LateUpdate()
 	{
 		_collider->SetSize(Vector2(0.1f, 0.5f));
-		_collider->SetCenter(Vector2(0.0f, -5.55f));	
+		_collider->SetCenter(Vector2(0.0f, -25.f));	
 		GameObject::LateUpdate();
 	}
 	void Mage::Render()
@@ -415,7 +463,7 @@ namespace jk
 		}
 
 		//_swich_checkpoint = randomcount(0, 3);
-		_swich_checkpoint = 4;
+		_swich_checkpoint = 1;
 
 		_time += Time::DeltaTime();
 		if (_time >= 2.f)
@@ -485,12 +533,89 @@ namespace jk
 	{
 	}
 
-	void Mage::attack_a()
-	{
-	}
+
 	void Mage::attack_a_ready()
 	{
+		for (int i = 0; i < 6; i++)
+		{
+			Transform* bullet_tr = FireBall[i]->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));		
+			FireBall[i]->_rotationswitch = false;
+			FireBall[i]->SetState(eState::Paused);
+		
+			bullet_tr->SetRotationZ(0);
+		}
+		_fireballswitch = true;
 	}
+	void Mage::attack_a_first()
+	{
+		Transform* bullet_tr = FireBall[_attackA]->GetComponent<Transform>();
+		RigidBody* bullet_Rb = FireBall[_attackA]->GetComponent<RigidBody>();
+		Vector3 bulletpos = bullet_tr->GetPosition();
+		if (_firstcomplete == true)
+		{
+			//if(mDir == 1)
+			//	bullet_tr->SetPosition(Vector3(pos.x+20, pos.y-20, -205));
+			//else
+			//	bullet_tr->SetPosition(Vector3(pos.x-20, pos.y-20, -205));
+
+			FireBall[_attackA]->_bullet_animation = true;
+			Fire_Ball_Rotation(bullet_tr, bulletpos, _attackA);
+			FireBall[_attackA]->_bullet_On = true;
+			FireBall[_attackA]->SetState(eState::Active);
+			_attackA_firstSet[_attackA] = true;
+			bullet_Rb->SetGravity(true);
+			bullet_Rb->SetFriction(true);
+			Fire_Ball(_attackA);
+			_firstcomplete = false;
+			if (_firstcomplete == false)
+			{
+				_state = Mage_State::Attack_A_Second;
+				if (mDir == 1)
+					at->PlayAnimation(L"MageAttack_A_Second", true);
+				if (mDir == -1)
+					at->PlayAnimation(L"MageAttack_A_SecondR", true);
+			}
+		}
+	}
+	void Mage::attack_a_second()
+	{
+		_attackA_Second = 3 + _attackA;
+		Transform* bullet_tr = FireBall[_attackA_Second]->GetComponent<Transform>();
+		RigidBody* bullet_Rb = FireBall[_attackA_Second]->GetComponent<RigidBody>();
+		Vector3 bulletpos = bullet_tr->GetPosition();
+		if (_scondcomplete == true)
+		{
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			FireBall[_attackA_Second]->_bullet_animation = true;
+			Fire_Ball_Rotation(bullet_tr, bulletpos, _attackA_Second);
+			FireBall[_attackA_Second]->_bullet_On = true;
+			FireBall[_attackA_Second]->SetState(eState::Active);	
+			_attackA_secondSet[_attackA_Second] = true;
+			bullet_Rb->SetGravity(true);
+			bullet_Rb->SetFriction(true);
+			Fire_Ball(_attackA_Second);
+			_scondcomplete = false;
+
+			if (_scondcomplete == false)
+			{
+				_state = Mage_State::Attack_A_End;
+				if (mDir == 1)
+					at->PlayAnimation(L"MageAttack_A_End", true);
+				if (mDir == -1)
+					at->PlayAnimation(L"MageAttack_A_EndR", true);
+			}
+		}
+	}
+	void Mage::attack_a_end()
+	{
+		//_firstcomplete = false;
+		//_scondcomplete = false;
+	}
+
+
+
+
 
 	void Mage::attack_b()
 	{
@@ -815,6 +940,7 @@ namespace jk
 		}
 	}
 
+
 	void Mage::casting()
 	{
 	}
@@ -959,7 +1085,7 @@ namespace jk
 		tr->SetPosition(Vector3(pos));
 	}	
 
-	int a = 0;
+	
 
 
 	void Mage::Fire_Projectile(int i)
@@ -973,10 +1099,8 @@ namespace jk
 		bullet_Rb->SetGround(false);
 		bullet_Rb->SetVelocity(Vector2(attack_pos.x * 250.f, attack_pos.y * 250));		
 	}
-
 	void Mage::Fire_Projectile_Rotation(Transform* tr, Vector3 bulletpos, int i)
 	{
-
 		if (On_Fire_Projectile[i]->_rotationswitch ==false)
 		{
 			if (_playerpos.x >= bulletpos.x)
@@ -1007,12 +1131,64 @@ namespace jk
 		}		
 	}
 
+	void Mage::Fire_Ball(int i)
+	{
+		Transform* _FireBall_tr = FireBall[i]->GetComponent<Transform>();
+		Vector3 _FireBall_pos = _FireBall_tr->GetPosition();
+		RigidBody* bullet_Rb = FireBall[i]->GetComponent<RigidBody>();
+		Vector2 attack_pos = Vector2(_playerpos.x -_FireBall_pos.x , _playerpos.y- _FireBall_pos.y);
+		attack_pos.Normalize();
+		//bullet_Rb->SetGround(false);
+		bullet_Rb->SetVelocity(Vector2(attack_pos.x * 250.f, attack_pos.y * 250));
+		int a = 0;
+
+	}
+	void Mage::Fire_Ball_Rotation(Transform* tr, Vector3 bulletpos, int i)
+	{
+		if (FireBall[i]->_rotationswitch == false)
+		{
+			if (_playerpos.x >= bulletpos.x)
+			{
+				FireBall[i]->SetDirection(-1);
+				Vector2 attackpoint = Vector2(tr->GetPositionX() - _playerpos.x, tr->GetPositionY() - _playerpos.y);
+				Vector2 rotation = Vector2(_playerpos.x, _playerpos.y);
+				attackpoint.Normalize();
+				rotation.Normalize();
+
+				Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
+				float angle = std::atan2(direction.y, direction.x);
+				tr->AddRotationZ(angle);
+			}
+			else
+			{
+				FireBall[i]->SetDirection(-1);
+				Vector2 attackpoint = Vector2(tr->GetPositionX() - _playerpos.x, tr->GetPositionY() - _playerpos.y);
+				Vector2 rotation = Vector2(_playerpos.x, _playerpos.y);
+				attackpoint.Normalize();
+				rotation.Normalize();
+
+				Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
+				float angle = std::atan2(direction.y, direction.x);
+				tr->AddRotationZ(angle);
+			}
+			FireBall[i]->_rotationswitch = true;
+		}
+	}
+
+	void Mage::fireball_manager()
+	{
+		if (_fireballswitch == true)
+		{
+			for (int i = 0; i < 6; i++)							
+				Fire_Ball(i);
+		}
+	}
+
 
 
 	void Mage::complete_hit()
 	{
 	}
-
 
 
 	void Mage::complete_ultimate_set()
@@ -1023,7 +1199,6 @@ namespace jk
 			at->PlayAnimation(L"MageUltimate_CastimgR", true);
 		_UltimateSet = true; 
 	}
-
 	void Mage::complete_ultimate_fire()
 	{
 		if (mDir == 1)
@@ -1035,41 +1210,56 @@ namespace jk
 
 
 
+	void Mage::attack_a_ready_complete()
+	{
+		if (mDir == 1)
+			at->PlayAnimation(L"MageAttack_A_First", true);
+		if (mDir == -1)
+			at->PlayAnimation(L"MageAttack_A_FirstR", true);
+		_state = Mage_State::Attack_A_First;
+	}
+	void Mage::attack_a_firts_complete()
+	{
+		_firstcomplete = true;
+	}
+	void Mage::attack_a_second_complete()
+	{
+		_scondcomplete = true;
+	}
 	void Mage::attack_a_complete()
 	{
 		_attackA++;
 
-		if (_attackA >= 5)
+		if (_attackA >= 3)
 		{
 			_state = Mage_State::Idle;
 			if (mDir == 1)
 				at->PlayAnimation(L"MageIdle", true);
 			else
 				at->PlayAnimation(L"MageIdleR", true);
+			
 			_attackA = 0;
 			_time = 0;
+			//_fireballswitch = false;
+			for (int i = 0; i < 3; i++)
+			{
+				_attackA_firstSet[i] = false;
+				_attackA_secondSet[i] = false;
+			}
 
 			if (_ground == true)
 				_flyswich++;
 			if (_sky == true)
-				_landingswich++;
+				_landingswich++; 
 		}
 		else
 		{
-			_state = Mage_State::Attack_A;
+			_state = Mage_State::Attack_A_First;
 			if (mDir == 1)
-				at->PlayAnimation(L"MageAttack_A", true);
+				at->PlayAnimation(L"MageAttack_A_First", true);
 			if (mDir == -1)
-				at->PlayAnimation(L"MageAttack_AR", true);			
+				at->PlayAnimation(L"MageAttack_A_FirstR", true);
 		}
-	}
-	void Mage::attack_a_ready_complete()
-	{
-		_state = Mage_State::Attack_A;
-		if (mDir == 1)
-			at->PlayAnimation(L"MageAttack_A", true);
-		if (mDir == -1)
-			at->PlayAnimation(L"MageAttack_AR", true);
 	}
 
 
