@@ -185,6 +185,9 @@
     <ClInclude Include="Mage_BoomSign.h" />
     <ClInclude Include="Mage_FireBall.h" />
     <ClInclude Include="Mage_FireBoom.h" />
+    <ClInclude Include="Mage_Landing_Ready.h" />
+    <ClInclude Include="Mage_Phoenix_Landing.h" />
+    <ClInclude Include="Mage_Phoenix_Landing_Land.h" />
     <ClInclude Include="Ultimate_OnFire_Fire.h" />
     <ClInclude Include="Ultimate_On_Fire_Projectile.h" />
     <ClInclude Include="Public_Heal_Effect.h" />
@@ -295,6 +298,9 @@
     <ClCompile Include="Mage_BoomSign.cpp" />
     <ClCompile Include="Mage_FireBall.cpp" />
     <ClCompile Include="Mage_FireBoom.cpp" />
+    <ClCompile Include="Mage_Landing_Ready.cpp" />
+    <ClCompile Include="Mage_Phoenix_Landing.cpp" />
+    <ClCompile Include="Mage_Phoenix_Landing_Land.cpp" />
     <ClCompile Include="Ultimate_OnFire_Fire.cpp" />
     <ClCompile Include="Ultimate_On_Fire_Projectile.cpp" />
     <ClCompile Include="Public_Heal_Effect.cpp" />

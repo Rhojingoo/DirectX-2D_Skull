@@ -7,6 +7,10 @@
 #include "Mage_FireBall.h"
 #include "Mage_BoomSign.h"
 #include "Mage_FireBoom.h"
+#include "Mage_Landing_Ready.h"
+#include "Mage_Phoenix_Landing.h"
+#include "Mage_Phoenix_Landing_Land.h"
+
 
 namespace jk
 {
@@ -124,6 +128,9 @@ namespace jk
 		Mage_FireBall* FireBall[6] = {};
 		Mage_BoomSign* BoomSign[3] = {};
 		Mage_FireBoom* FireBoom[3] = {};
+		Mage_Landing_Ready* Landing_Ready = nullptr;
+		Mage_Phoenix_Landing* Phoenix_Landing = nullptr;
+		Mage_Phoenix_Landing_Land* Phoenix_Landing_Land = nullptr;
 
 
 	private:
@@ -156,17 +163,17 @@ namespace jk
 	private:		
 		int		_attackA = 0;						// 어택 A 여러번 진행(어택A 변수)	
 		int		_attackA_Second = 0;
-		bool	_attackA_firstSet[3] = { false,false,false};
-		bool	_attackA_secondSet[3] = { false,false,false };
-		bool	_fireballswitch = false;
+		bool	_attackA_firstSet[3] = {};
+		bool	_attackA_secondSet[3] = {};	
 		bool	_firstcomplete = false;
 		bool	_scondcomplete = false;
-
-
-
-		float   _attacktB_time = 0;					// 어택 B 공격시간 체크	(어택B 변수)	
 		int		_Number_of_attackB = 0;
+
+
+	
 		int		_attackC = 0;						// 어택 B 여러번 진행(어택C 변수)
+		bool	_LandingOn = false;
+		bool	_GroundLanding = false;
 
 
 	private:
@@ -183,7 +190,7 @@ namespace jk
 		void Fire_Projectile_Rotation(Transform* tr, Vector3 bulletpos, int i);
 		void Fire_Ball(int i);
 		void Fire_Ball_Rotation(Transform* tr, Vector3 bulletpos, int i);
-		void fireball_manager();
+	
 
 	private:
 		
@@ -191,18 +198,16 @@ namespace jk
 		void attack_a_firts_complete();
 		void attack_a_second_complete();
 		void attack_a_complete();
-
-
-
-
-		void attack_b_complete();
-		void attack_c_complete();
-		void attack_d_complete();
 		void attack_b_ready_complete();
-		void attack_c_ready_complete();
-		void attack_d_ready_complete();
-		void complete_hit();
+		void attack_b_complete();
 
+		void attack_c_ready_complete();
+		void attack_c_complete();
+
+		void attack_d_complete();
+		void attack_d_ready_complete();
+
+		void complete_hit();
 		void complete_ultimate_set();
 		void complete_ultimate_fire();
 
