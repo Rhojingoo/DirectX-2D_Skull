@@ -452,43 +452,7 @@ namespace jk
 					}
 				}
 			}
-		}
-		
-		//else
-		//{
-		//	if (_time > 3.f)
-		//	{
-		//		if ((_distance >= 250 || _distance <= -250))
-		//		{
-		//			if (_choicecombo == 1)
-		//			{
-		//				if (_dash == false || _dash == true)
-		//					energyball();
-		//				_attackorder++;
-		//			}
-		//			else
-		//			{
-		//				_state = Knight_State::Dash;
-		//				if (mDir == 1)
-		//				{
-		//					at->PlayAnimation(L"Knight_maleDash", true);
-		//					_rigidbody->SetVelocity(Vector2(250.f, 0.f));
-		//				}
-		//				else
-		//				{
-		//					at->PlayAnimation(L"Knight_maleDashR", true);
-		//					_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
-		//				}
-		//				_dash = true;
-		//			}
-		//		}
-		//		else
-		//		{
-		//			_attack = true;
-		//			choicecombo();
-		//		}
-		//	}
-		//}
+		}		
 	}
 
 	void Knight_male::dash()

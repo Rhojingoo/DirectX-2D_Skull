@@ -19,7 +19,7 @@ namespace jk
 
 	void Mini_Boss::Initialize()
 	{
-		_Gobjs[0] = new Mage;
+		_Gobjs[0] = new Cleric;
 		_Gobjs[0]->Initialize();
 
 		//_Gobjs[0] = new Knight_male;

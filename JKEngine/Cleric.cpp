@@ -294,9 +294,8 @@ namespace jk
 
 	void Cleric::idle()
 	{
-		//_lotationplay = random(0, 3);
-		_lotationplay = 3;
-		_time += Time::DeltaTime();
+		_lotationplay = random(0, 3);
+		//_lotationplay = 3;
 
 		if (_Intro == false)
 		{
@@ -319,6 +318,7 @@ namespace jk
 			}
 			else
 			{
+				_time += Time::DeltaTime();
 				if (_time >= 3.f)
 				{
 					//if ((_distance >= -50) && (_distance <= 50))

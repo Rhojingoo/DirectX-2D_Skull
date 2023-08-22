@@ -18,7 +18,7 @@ namespace jk
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
-		_rigidbody->SetGround(true);
+		_rigidbody->SetGround(false);
 	
 
 		//Skul_Head = new Skul_head();
@@ -37,7 +37,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_Second", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_End", this);
 
-
+		
 
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_B", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_B_Ready", this);
@@ -309,7 +309,6 @@ namespace jk
 			die();
 			break;
 
-
 		case jk::Mage::Mage_State::Attack_A_Ready:
 			attack_a_ready();
 			break;
@@ -325,9 +324,6 @@ namespace jk
 		case jk::Mage::Mage_State::Attack_A_End:
 			attack_a_end();
 			break;
-
-
-
 
 		case jk::Mage::Mage_State::Attack_B:
 			attack_b();
@@ -382,8 +378,6 @@ namespace jk
 		case jk::Mage::Mage_State::Casting:
 			casting();
 			break;
-
-
 
 		case jk::Mage::Mage_State::Groggy:
 			groggy();
@@ -470,8 +464,8 @@ namespace jk
 
 		Fly_or_Landing();;
 
-		//_swich_checkpoint = randomcount(0, 3);
-		_swich_checkpoint = 4;
+		_swich_checkpoint = randomcount(0, 3);
+		//_swich_checkpoint = 4;
 	
 
 		if (_Intro == false)
@@ -521,7 +515,22 @@ namespace jk
 						at->PlayAnimation(L"MageAttack_B_ReadyR", true);
 				}
 
-				if (_swich_checkpoint == 3)// 각성 공격
+				if (_swich_checkpoint == 3)
+				{
+					if (_sky == false)
+						return;
+
+					_state = Mage_State::Finishing_Move_Ready;
+					if (mDir == 1)
+						at->PlayAnimation(L"MageUltimate_Set", true);
+					if (mDir == -1)
+						at->PlayAnimation(L"MageUltimate_SetR", true);
+					_UltimateSet = false;
+					//_hit = 9;
+				}
+
+
+				if (_swich_checkpoint ==4)// 각성 공격
 				{
 					if (_sky == false)
 						return;
@@ -533,21 +542,10 @@ namespace jk
 						at->PlayAnimation(L"MageAttack_D_ReadyR", true);
 				}
 
-				if (_swich_checkpoint == 4)
-				{
-					if (_sky == false)
-						return;
-
-					_state = Mage_State::Finishing_Move_Ready;
-					if (mDir == 1)
-						at->PlayAnimation(L"MageUltimate_Set", true);
-					if (mDir == -1)
-						at->PlayAnimation(L"MageUltimate_SetR", true);
-					_UltimateSet = false;
-				}
 			}
 		}
 	}	
+
 
 	void Mage::die()
 	{
@@ -900,8 +898,8 @@ namespace jk
 				//ultimate 미사일 좌표설정
 				for (int i = 0; i < 3; i++)
 				{
-					float randomposX = random(pos.x - 100, pos.x + 100);
-					float randomposY = random(pos.y - 50, pos.x + 50);
+					int randomposX = random(pos.x - 100, pos.x + 100);
+					int randomposY = random(pos.y - 50, pos.y + 50);
 
 					Transform* _OnFire_Ready_tr = _OnFire_Ready[i]->GetComponent<Transform>();
 					_OnFire_Ready_tr->SetPosition(Vector3(randomposX, randomposY, pos.z + 1));
@@ -994,6 +992,11 @@ namespace jk
 	}
 	void Mage::Finishing_Move_Fail()
 	{
+		_state = Mage_State::Groggy;
+		if (mDir == 1)
+			at->PlayAnimation(L"MageGroggy", true);
+		else
+			at->PlayAnimation(L"MageGroggyR", true);
 	}
 	void Mage::Finishing_Move()
 	{
@@ -1059,6 +1062,18 @@ namespace jk
 	}
 	void Mage::groggy()
 	{
+		_attack_time += Time::DeltaTime();
+		if (_attack_time >= 3.5)
+		{
+			_attack_time = 0;
+			_attack = false;
+
+			_state = Mage_State::Idle;
+			if (mDir == 1)
+				at->PlayAnimation(L"MageIdle", true);
+			else
+				at->PlayAnimation(L"MageIdleR", true);
+		}
 	}
 
 
@@ -1455,7 +1470,7 @@ namespace jk
 
 	void Mage::Fly_or_Landing()
 	{
-		if (_flyswich >= 1)
+		if (_flyswich >= 3)
 		{
 			_state = Mage_State::Fly;
 			if (mDir == 1)
@@ -1467,7 +1482,7 @@ namespace jk
 			_sky = true;
 			_ground = false;
 		}
-		if (_landingswich >= 1)
+		if (_landingswich >= 5)
 		{
 			if (_Ground_check == true)// 랜딩시 그라운드가 트루라면 랜딩 빠져나가기
 				return;

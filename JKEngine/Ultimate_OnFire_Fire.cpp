@@ -19,10 +19,10 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Effect\\World_On_Fire_Fire_v", this);
-		at->CompleteEvent(L"EffectWorld_On_Fire_Fire_v") = std::bind(&Ultimate_OnFire_Fire::Compelete, this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Effect\\World_On_Fire_Fire", this);
+		at->CompleteEvent(L"EffectWorld_On_Fire_Fire") = std::bind(&Ultimate_OnFire_Fire::Compelete, this);
 
-		at->PlayAnimation(L"EffectWorld_On_Fire_Fire_v", true);
+		at->PlayAnimation(L"EffectWorld_On_Fire_Fire", true);
 
 		GameObject::Initialize();
 	}

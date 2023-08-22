@@ -860,7 +860,8 @@ namespace jk
 			at->PlayAnimation(L"ArcherUltimate_Ready", false);
 		else
 			at->PlayAnimation(L"ArcherUltimate_ReadyR", false);
-		_Ultimate = true;		
+		_Ultimate = true;	
+		//_hit = 9;
 	}
 
 	void Archer::CompleteArcherIntro()

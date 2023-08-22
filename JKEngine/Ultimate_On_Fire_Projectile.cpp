@@ -21,12 +21,12 @@ namespace jk
 		tr = this->GetComponent<Transform>();
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\World_On_Fire_Projectile_v", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\World_On_Fire_Projectile_v", this,1);
-		//at->CompleteEvent(L"BulletWorld_On_Fire_Projectile_v") = std::bind(&Ultimate_On_Fire_Projectile::complete, this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\World_On_Fire_Projectile", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\World_On_Fire_Projectile", this,1);
+		//at->CompleteEvent(L"BulletWorld_On_Fire_Projectile") = std::bind(&Ultimate_On_Fire_Projectile::complete, this);
 
 
-		at->PlayAnimation(L"BulletWorld_On_Fire_Projectile_v", true);
+		at->PlayAnimation(L"BulletWorld_On_Fire_Projectile", true);
 		GameObject::Initialize();
 	}
 	void Ultimate_On_Fire_Projectile::Update()
@@ -34,9 +34,9 @@ namespace jk
 		if (_bullet_animation == true)
 		{
 			if (_dir == 1)
-				at->PlayAnimation(L"BulletWorld_On_Fire_Projectile_v", true);
+				at->PlayAnimation(L"BulletWorld_On_Fire_Projectile", true);
 			if (_dir == -1)
-				at->PlayAnimation(L"BulletWorld_On_Fire_Projectile_vR", true);
+				at->PlayAnimation(L"BulletWorld_On_Fire_ProjectileR", true);
 			_bullet_animation = false;
 		}
 
