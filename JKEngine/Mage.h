@@ -39,8 +39,6 @@ namespace jk
 			Attack_A_Second,
 			Attack_A_End,
 
-
-
 			Attack_B,
 			Attack_B_Ready,
 			Attack_C,
@@ -61,6 +59,7 @@ namespace jk
 			Groggy,
 			Hit,
 			Intro,
+			Intro_End,
 			Potion,
 			WalkBack_R,
 			WalkBack_L,
@@ -96,6 +95,7 @@ namespace jk
 		void groggy();
 		void hit();
 		void intro();
+		void intro_end();
 		void potion();
 		void walkBack_R();
 		void walkBack_L();
@@ -161,6 +161,7 @@ namespace jk
 
 
 	private:		
+		bool	_Intro = false;
 		int		_attackA = 0;						// 어택 A 여러번 진행(어택A 변수)	
 		int		_attackA_Second = 0;
 		bool	_attackA_firstSet[3] = {};
@@ -211,6 +212,10 @@ namespace jk
 		void complete_ultimate_set();
 		void complete_ultimate_fire();
 
+		void complete_intro();
+		void complete_intro_end();
+
+		void Fly_or_Landing();
 		int randomcount(int a, int b);
 
 

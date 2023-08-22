@@ -25,6 +25,7 @@ namespace jk
 		bool _bullet_animation = false;
 		bool _bullet_On = false;
 		bool _rotationswitch = false;
+		bool _missile = false;
 
 	private:
 		Animator* at = nullptr;

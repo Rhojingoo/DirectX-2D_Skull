@@ -54,7 +54,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Potion", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\WalkBack", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\WalkFront", this);
-
+	
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Ultimate_Set", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Ultimate_Castimg", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Ultimate_Skill_Fire", this);
@@ -92,7 +92,6 @@ namespace jk
 		
 		
 		//bind 부분
-
 		at->CompleteEvent(L"MageAttack_A_Ready") = std::bind(&Mage::attack_a_ready_complete, this);
 		at->CompleteEvent(L"MageAttack_A_ReadyR") = std::bind(&Mage::attack_a_ready_complete, this);
 
@@ -105,15 +104,12 @@ namespace jk
 		at->CompleteEvent(L"MageAttack_A_End") = std::bind(&Mage::attack_a_complete, this);
 		at->CompleteEvent(L"MageAttack_A_EndR") = std::bind(&Mage::attack_a_complete, this);
 
-
-
 		at->CompleteEvent(L"MageAttack_B") = std::bind(&Mage::attack_b_complete, this);
 		at->CompleteEvent(L"MageAttack_B_Ready") = std::bind(&Mage::attack_b_ready_complete, this);
 		//at->CompleteEvent(L"MageAttack_C") = std::bind(&Mage::attack_c_complete, this);
 		at->CompleteEvent(L"MageAttack_C_Ready") = std::bind(&Mage::attack_c_ready_complete, this);
 		at->CompleteEvent(L"MageAttack_D") = std::bind(&Mage::attack_d_complete, this);
 		at->CompleteEvent(L"MageAttack_D_Ready") = std::bind(&Mage::attack_d_ready_complete, this);
-
 
 		at->CompleteEvent(L"MageAttack_BR") = std::bind(&Mage::attack_b_complete, this);
 		at->CompleteEvent(L"MageAttack_B_ReadyR") = std::bind(&Mage::attack_b_ready_complete, this);
@@ -125,14 +121,16 @@ namespace jk
 		at->CompleteEvent(L"MageHit") = std::bind(&Mage::complete_hit, this);
 		at->CompleteEvent(L"MageHitR") = std::bind(&Mage::complete_hit, this);
 
-
 		at->CompleteEvent(L"MageUltimate_Set") = std::bind(&Mage::complete_ultimate_set, this);
 		at->CompleteEvent(L"MageUltimate_SetR") = std::bind(&Mage::complete_ultimate_set, this);
 
 		at->CompleteEvent(L"MageUltimate_Skill_Fire") = std::bind(&Mage::complete_ultimate_fire, this);
 		at->CompleteEvent(L"MageUltimate_Skill_FireR") = std::bind(&Mage::complete_ultimate_fire, this);
 
-
+		at->CompleteEvent(L"MageIntro") = std::bind(&Mage::complete_intro, this);
+		at->CompleteEvent(L"MageIntroR") = std::bind(&Mage::complete_intro, this);
+		at->CompleteEvent(L"MageIntro2") = std::bind(&Mage::complete_intro_end, this);
+		at->CompleteEvent(L"MageIntro2R") = std::bind(&Mage::complete_intro_end, this);
 
 
 		{
@@ -284,8 +282,6 @@ namespace jk
 			Phoenix_Landing_Land->SetState(eState::Paused);		
 		}
 
-
-
 		_first_place = pos;
 		at->PlayAnimation(L"MageIdle", true);
 		GameObject::Initialize();
@@ -401,6 +397,10 @@ namespace jk
 			intro();
 			break;
 
+		case jk::Mage::Mage_State::Intro_End:
+			intro_end();
+			break;			
+
 		case jk::Mage::Mage_State::Potion:
 			potion();
 			break;
@@ -468,97 +468,83 @@ namespace jk
 		else
 			_Ground_check = false;
 
-		if (_flyswich >= 1)
-		{
-			_state = Mage_State::Fly;
-			if (mDir == 1)
-				at->PlayAnimation(L"MageWalkFront", true);
-			if (mDir == -1)
-				at->PlayAnimation(L"MageWalkFrontR", true);
-
-			_flyswich = 0;
-			_sky = true;
-			_ground = false;
-		}
-		if (_landingswich >= 1)
-		{
-			if (_Ground_check == true)// 랜딩시 그라운드가 트루라면 랜딩 빠져나가기
-				return;
-
-			_state = Mage_State::Attack_C_Run;
-			if (mDir == 1)
-				at->PlayAnimation(L"MageWalkFront", true);
-			if (mDir == -1)
-				at->PlayAnimation(L"MageWalkFrontR", true);
-
-			_landingswich = 0;
-			_sky = false;
-			_ground = true;
-		}
+		Fly_or_Landing();;
 
 		//_swich_checkpoint = randomcount(0, 3);
 		_swich_checkpoint = 4;
+	
 
-		_time += Time::DeltaTime();
-		if (_time >= 2.f)
+		if (_Intro == false)
 		{
-			if (_swich_checkpoint == 0)
+			_state = Mage_State::Intro;
+			if(mDir==1)				
+				at->PlayAnimation(L"MageIntro", true);			
+			else		
+				at->PlayAnimation(L"MageIntroR", true);			
+		}
+		else
+		{ 
+			_time += Time::DeltaTime();
+			if (_time >= 2.f)
 			{
-				_movechoice = randomcount(1, 2);
-
-				if (_movechoice == 1)
+				if (_swich_checkpoint == 0)
 				{
-					at->PlayAnimation(L"MageWalkFront", true);
-					_state = Mage_State::WalkFront_R;
+					_movechoice = randomcount(1, 2);
+
+					if (_movechoice == 1)
+					{
+						at->PlayAnimation(L"MageWalkFront", true);
+						_state = Mage_State::WalkFront_R;
+					}
+					if (_movechoice == 2)
+					{
+						at->PlayAnimation(L"MageWalkFrontR", true);
+						_state = Mage_State::WalkFront_L;
+					}
 				}
-				if (_movechoice == 2)
+
+				if (_swich_checkpoint == 1)
 				{
-					at->PlayAnimation(L"MageWalkFrontR", true);
-					_state = Mage_State::WalkFront_L;
+					_state = Mage_State::Attack_A_Ready;
+					if (mDir == 1)
+						at->PlayAnimation(L"MageAttack_A_Ready", true);
+					if (mDir == -1)
+						at->PlayAnimation(L"MageAttack_A_ReadyR", true);
 				}
-			}
 
-			if (_swich_checkpoint == 1)
-			{
-				_state = Mage_State::Attack_A_Ready;
-				if (mDir == 1)
-					at->PlayAnimation(L"MageAttack_A_Ready", true);
-				if (mDir == -1)					
-					at->PlayAnimation(L"MageAttack_A_ReadyR", true);
-			}
+				if (_swich_checkpoint == 2)
+				{
+					_state = Mage_State::Attack_B_Ready;
+					if (mDir == 1)
+						at->PlayAnimation(L"MageAttack_B_Ready", true);
+					if (mDir == -1)
+						at->PlayAnimation(L"MageAttack_B_ReadyR", true);
+				}
 
-			if (_swich_checkpoint == 2)
-			{
-				_state = Mage_State::Attack_B_Ready;
-				if (mDir == 1)
-					at->PlayAnimation(L"MageAttack_B_Ready", true);
-				if (mDir == -1)
-					at->PlayAnimation(L"MageAttack_B_ReadyR", true);
-			}
+				if (_swich_checkpoint == 3)// 각성 공격
+				{
+					if (_sky == false)
+						return;
 
-			if (_swich_checkpoint == 3)// 각성 공격
-			{
-				if (_sky == false)
-					return;
+					_state = Mage_State::Attack_D_Ready;
+					if (mDir == 1)
+						at->PlayAnimation(L"MageAttack_D_Ready", true);
+					if (mDir == -1)
+						at->PlayAnimation(L"MageAttack_D_ReadyR", true);
+				}
 
-				_state = Mage_State::Attack_D_Ready;
-				if (mDir == 1)
-					at->PlayAnimation(L"MageAttack_D_Ready", true);
-				if (mDir == -1)
-					at->PlayAnimation(L"MageAttack_D_ReadyR", true);
-			}
+				if (_swich_checkpoint == 4)
+				{
+					if (_sky == false)
+						return;
 
-			if (_swich_checkpoint == 4)
-			{
-				if (_sky == false)
-					return;
-
-				_state = Mage_State::Finishing_Move_Ready;
-				if (mDir == 1)
-					at->PlayAnimation(L"MageUltimate_Set", true);
-				if (mDir == -1)
-					at->PlayAnimation(L"MageUltimate_SetR", true);
-				_UltimateSet = false; 
+					_state = Mage_State::Finishing_Move_Ready;
+					if (mDir == 1)
+						at->PlayAnimation(L"MageUltimate_Set", true);
+					if (mDir == -1)
+						at->PlayAnimation(L"MageUltimate_SetR", true);
+					_UltimateSet = false;
+				}
 			}
 		}
 	}	
@@ -965,6 +951,7 @@ namespace jk
 					Vector3  BulletPos = _OnFire_tr->GetPosition();
 					Transform* bullet_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
 					On_Fire_Projectile[i]->_rotationswitch = false;
+					On_Fire_Projectile[i]->_missile = false;
 					bullet_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y,BulletPos.z-1));
 					bullet_tr->SetRotationZ(0);
 					Transform* firefire_tr = OnFire_Fire[i]->GetComponent<Transform>();
@@ -977,6 +964,7 @@ namespace jk
 					Vector3  BulletPos = _OnFire_tr->GetPosition();
 					Transform* bullet_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
 					On_Fire_Projectile[i]->_rotationswitch = false;
+					On_Fire_Projectile[i]->_missile = false;
 					bullet_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1));
 					bullet_tr->SetRotationZ(0);
 					Transform* firefire_tr = OnFire_Fire[i]->GetComponent<Transform>();
@@ -989,6 +977,7 @@ namespace jk
 					Vector3  BulletPos = _OnFire_tr->GetPosition();
 					Transform* bullet_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
 					On_Fire_Projectile[i]->_rotationswitch = false;
+					On_Fire_Projectile[i]->_missile = false;
 					bullet_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1));
 					bullet_tr->SetRotationZ(0);
 					Transform* firefire_tr = OnFire_Fire[i]->GetComponent<Transform>();
@@ -1016,9 +1005,10 @@ namespace jk
 			{
 				if (_attack_time >= (1.0f + 0.5f * i))
 				{
-					if (_OnFire[0]->_effect_On == true)
+					if (On_Fire_Projectile[i]->_missile == false)
 					{
 						Transform* _OnFire_Projectile_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
+						RigidBody* _OnFire_Projectile_rg = On_Fire_Projectile[i]->GetComponent<RigidBody>();
 						Vector3 bulletpos = _OnFire_Projectile_tr->GetPosition();
 						On_Fire_Projectile[i]->_bullet_On = true;
 						On_Fire_Projectile[i]->_bullet_animation = true;
@@ -1029,8 +1019,11 @@ namespace jk
 							OnFire_Fire[i]->SetState(eState::Active);
 						On_Fire_Projectile[i]->SetState(eState::Active);
 
+						_OnFire_Projectile_rg->SetGravity(true);
+						_OnFire_Projectile_rg->SetFriction(true);
 						Fire_Projectile(i);
 
+						On_Fire_Projectile[i]->_missile = true;
 						if (i == 8)
 						{
 							_OnFire[0]->_effect_On == false;
@@ -1067,13 +1060,20 @@ namespace jk
 	void Mage::groggy()
 	{
 	}
+
+
 	void Mage::hit()
 	{
 	}
+	void Mage::potion()
+	{
+	}
+
+
 	void Mage::intro()
 	{
 	}
-	void Mage::potion()
+	void Mage::intro_end()
 	{
 	}
 
@@ -1318,6 +1318,34 @@ namespace jk
 	}
 
 
+	void Mage::complete_intro()
+	{
+		int randomposX = random(_playerpos.x - 100, _playerpos.x + 100);
+		Vector3 TeleportPos = Vector3(randomposX, _playerpos.y + 150, pos.z);
+		tr->SetPosition(TeleportPos);	
+		_rigidbody->SetGround(true);
+		_flyswich = 0;
+		_sky = true;
+		_ground = false;
+
+		if(mDir==1)
+			at->PlayAnimation(L"MageIntro2", true);
+		else
+			at->PlayAnimation(L"MageIntro2R", true);
+		_state = Mage_State::Intro_End;	
+	}
+	void Mage::complete_intro_end()
+	{
+		_state = Mage_State::Idle;
+		if (mDir == 1)
+			at->PlayAnimation(L"MageIdle", true);
+		else
+			at->PlayAnimation(L"MageIdleR", true);
+
+		_Intro = true;
+	}
+
+
 	void Mage::attack_a_ready_complete()
 	{
 		if (mDir == 1)
@@ -1424,6 +1452,37 @@ namespace jk
 			at->PlayAnimation(L"MageAttack_DR", true);
 	}
 
+
+	void Mage::Fly_or_Landing()
+	{
+		if (_flyswich >= 1)
+		{
+			_state = Mage_State::Fly;
+			if (mDir == 1)
+				at->PlayAnimation(L"MageWalkFront", true);
+			if (mDir == -1)
+				at->PlayAnimation(L"MageWalkFrontR", true);
+
+			_flyswich = 0;
+			_sky = true;
+			_ground = false;
+		}
+		if (_landingswich >= 1)
+		{
+			if (_Ground_check == true)// 랜딩시 그라운드가 트루라면 랜딩 빠져나가기
+				return;
+
+			_state = Mage_State::Attack_C_Run;
+			if (mDir == 1)
+				at->PlayAnimation(L"MageWalkFront", true);
+			if (mDir == -1)
+				at->PlayAnimation(L"MageWalkFrontR", true);
+
+			_landingswich = 0;
+			_sky = false;
+			_ground = true;
+		}
+	}
 
 	int Mage::randomcount(int a, int b)
 	{
