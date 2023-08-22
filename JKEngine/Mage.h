@@ -5,6 +5,8 @@
 #include "Ultimate_On_Fire_Projectile.h"
 #include "Ultimate_OnFire_Fire.h"
 #include "Mage_FireBall.h"
+#include "Mage_BoomSign.h"
+#include "Mage_FireBoom.h"
 
 namespace jk
 {
@@ -115,11 +117,13 @@ namespace jk
 		Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
 
 	private:
-		Ultimate_OnFire_Ready* _OnFire_Ready[3];
-		Ultimate_OnFire* _OnFire[3];
-		Ultimate_On_Fire_Projectile* On_Fire_Projectile[9];
-		Ultimate_OnFire_Fire* OnFire_Fire[9];
-		Mage_FireBall* FireBall[6];
+		Ultimate_OnFire_Ready* _OnFire_Ready[3] = {};
+		Ultimate_OnFire* _OnFire[3] = {};
+		Ultimate_On_Fire_Projectile* On_Fire_Projectile[9] = {};
+		Ultimate_OnFire_Fire* OnFire_Fire[9] = {};
+		Mage_FireBall* FireBall[6] = {};
+		Mage_BoomSign* BoomSign[3] = {};
+		Mage_FireBoom* FireBoom[3] = {};
 
 
 	private:
@@ -160,7 +164,8 @@ namespace jk
 
 
 
-		float   _attacktB_time = 0;					// 어택 B 공격시간 체크	(어택B 변수)		
+		float   _attacktB_time = 0;					// 어택 B 공격시간 체크	(어택B 변수)	
+		int		_Number_of_attackB = 0;
 		int		_attackC = 0;						// 어택 B 여러번 진행(어택C 변수)
 
 

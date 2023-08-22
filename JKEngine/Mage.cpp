@@ -39,7 +39,6 @@ namespace jk
 
 
 
-
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_B", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_B_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_C", this);
@@ -232,6 +231,32 @@ namespace jk
 				FireBall[i]->SetState(eState::Paused);
 			}		
 		}
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				BoomSign[i] = new Mage_BoomSign;
+				BoomSign[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, BoomSign[i]);
+				Transform* bullet_tr = BoomSign[i]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+				BoomSign[i]->SetState(eState::Paused);
+			}
+		}
+
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				FireBoom[i] = new Mage_FireBoom;
+				FireBoom[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, FireBoom[i]);
+				Transform* bullet_tr = FireBoom[i]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+				FireBoom[i]->SetState(eState::Paused);
+			}
+		}
+
 
 		_first_place = pos;
 		at->PlayAnimation(L"MageIdle", true);
@@ -463,7 +488,7 @@ namespace jk
 		}
 
 		//_swich_checkpoint = randomcount(0, 3);
-		_swich_checkpoint = 1;
+		_swich_checkpoint = 2;
 
 		_time += Time::DeltaTime();
 		if (_time >= 2.f)
@@ -613,15 +638,42 @@ namespace jk
 		//_scondcomplete = false;
 	}
 
-
-
-
-
+	void Mage::attack_b_ready()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			Transform* bullet_tr = BoomSign[i]->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_playerpos.x, _playerpos.y, _playerpos.z-1));
+			BoomSign[i]->SetState(eState::Paused);
+			BoomSign[i]->_effect_On = true;			
+			BoomSign[i]->_effect_check = true;
+		}	
+		_Number_of_attackB = 0;
+	}
 	void Mage::attack_b()
 	{
-		_attacktB_time += Time::DeltaTime();
+		//_attacktB_time += Time::DeltaTime();
+	
+		if(_Number_of_attackB<3)
+		{
+			Transform* Effect_tr = BoomSign[_Number_of_attackB]->GetComponent<Transform>();
+			Transform* bullet_tr = FireBoom[_Number_of_attackB]->GetComponent<Transform>();
 
-		if (_attacktB_time >= 5)
+			if (BoomSign[_Number_of_attackB]->_effect_check == true)
+			{
+				Effect_tr->SetPosition(Vector3(_playerpos.x, _playerpos.y, _playerpos.z - 1));
+				BoomSign[_Number_of_attackB]->SetState(eState::Active);
+				BoomSign[_Number_of_attackB]->_effect_check = false;
+			}
+			if (BoomSign[_Number_of_attackB]->_effect_On == false)
+			{
+				Vector3 effectpos = Effect_tr->GetPosition();
+				bullet_tr->SetPosition(effectpos);
+				FireBoom[_Number_of_attackB]->SetState(eState::Active);
+				_Number_of_attackB++;
+			}
+		}
+		else
 		{
 			_state = Mage_State::Idle;
 			if (mDir == 1)
@@ -637,9 +689,6 @@ namespace jk
 			if (_sky == true)
 				_landingswich++;
 		}
-	}
-	void Mage::attack_b_ready()
-	{
 	}
 
 	void Mage::attack_c_run()

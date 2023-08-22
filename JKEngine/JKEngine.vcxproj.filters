@@ -314,6 +314,12 @@
     <ClInclude Include="Mage_FireBall.h">
       <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Mage_BoomSign.h">
+      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Mage_FireBoom.h">
+      <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -621,6 +627,12 @@
       <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Mage_FireBall.cpp">
+      <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Mage_BoomSign.cpp">
+      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Mage_FireBoom.cpp">
       <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
