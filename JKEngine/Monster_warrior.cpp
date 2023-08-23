@@ -4,7 +4,6 @@
 namespace jk
 {
 	int Monster_warrior::mDir = 1;
-	bool Monster_warrior::_switch = false;
 
 	Monster_warrior::Monster_warrior()
 	{
@@ -12,16 +11,17 @@ namespace jk
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"Knight_male"));
 	}
-
 	Monster_warrior::~Monster_warrior()
 	{
 	}
+
 
 	void Monster_warrior::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
+		_tr = GetComponent<Transform>();
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Attack", this);
@@ -37,19 +37,31 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Walk", this, 1);
 
 		//bind ºÎºÐ
-		at->CompleteEvent(L"WarriorAttack") = std::bind(&Monster_warrior::attack_idle, this);
-		at->CompleteEvent(L"WarriorAttackR") = std::bind(&Monster_warrior::attack_idle, this);
+		at->CompleteEvent(L"WarriorAttack") = std::bind(&Monster_warrior::complete_attack, this);
+		at->CompleteEvent(L"WarriorAttackR") = std::bind(&Monster_warrior::complete_attack, this);
 
 		at->PlayAnimation(L"WarriorIdle", true);
+
+
+		{
+			Hit_Box = new HitBox_Monster();
+			Hit_Box->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetState(eState::Active);
+		}
+
+
+
 		GameObject::Initialize();
 	}
-
 	void Monster_warrior::Update()
 	{
-		tr = GetComponent<Transform>();
-		pos = tr->GetPosition();
+		_tr = GetComponent<Transform>();
+		_pos = _tr->GetPosition();
 		_velocity = _rigidbody->GetVelocity();
-		_distance = _playerpos.x - pos.x;
+		_distance = _playerpos.x - _pos.x;
 		if (_distance >= 0.f)
 			mDir = 1;
 		else
@@ -81,25 +93,45 @@ namespace jk
 		default:
 			break;
 		}
+
+
+		_tr->SetPosition(_pos);
 		GameObject::Update();
 	}
-
 	void Monster_warrior::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.03f, 0.08f));
-		_collider->SetCenter(Vector2(1.f, 0.05f));
+		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
+		if (_attack_Col == true)
+		{
+			Hit_Box->SetSize(Vector2(30.f, 60.f));
+			Hit_Box->SetCenter(Vector3(100.f, 100.f, -250.f));
+
+			Hit_Box->SetState(eState::Active);
+			if (mDir == 1)
+				HitBox_TR->SetPosition(Vector3(_pos.x + 30, _pos.y-5, _pos.z));
+			else
+				HitBox_TR->SetPosition(Vector3(_pos.x - 30, _pos.y-5, _pos.z));
+		}
+		else
+		{
+			Hit_Box->SetState(eState::Paused);
+		}
+
+		_collider->SetSize(Vector2(0.35f, 0.75f));
+		_collider->SetCenter(Vector2(1.f, -6.5f));
+
+
 		GameObject::LateUpdate();
 	}
-
 	void Monster_warrior::Render()
 	{
 		GameObject::Render();
 	}
 
+
 	void Monster_warrior::OnCollisionEnter(Collider2D* other)
 	{	
 	}
-
 	void Monster_warrior::OnCollisionStay(Collider2D* other)
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
@@ -116,18 +148,18 @@ namespace jk
 			}
 		}
 	}
-
 	void Monster_warrior::OnCollisionExit(Collider2D* other)
 	{
 	}
+
 
 	void Monster_warrior::idle()
 	{
 		_time += Time::DeltaTime();
 
-		if (_time > 1.f)
+		if (_time > 2.f)
 		{
-			if ((_distance >= 60 || _distance <= -60))
+			if ((_distance >= 75 || _distance <= -75))
 			{					
 				{
 					_state = Monster_warrior_State::Walk;
@@ -141,7 +173,7 @@ namespace jk
 					}					
 				}
 			}
-			if (_distance > -50 && _distance < 50)
+			if (_distance > -60 && _distance < 60)
 			{
 				_state = Monster_warrior_State::Attack;
 				if (mDir == 1)
@@ -155,28 +187,19 @@ namespace jk
 
 	void Monster_warrior::attack()
 	{
-		//_rigidbody->ClearVelocityY();
-		//if (mDir == 1 && _velocity.x >= -100.0)
-		//{
-		//	_state = Monster_warrior_State::Idle;
-		//	at->PlayAnimation(L"ArcherIdle", true);
-		//	_rigidbody->ClearVelocityX();
-		//}
-		//else if (mDir == -1 && _velocity.x <= 100.0)
-		//{
-		//	_state = Monster_warrior_State::Idle;
-		//	at->PlayAnimation(L"ArchereIdleR", true);
-		//	_rigidbody->ClearVelocityX();
-		//}		
+		_attack_Col = true;
 	}
+
 
 	void Monster_warrior::dead()
 	{
 	}
 
+
 	void Monster_warrior::hit()
 	{
 	}
+
 
 	void Monster_warrior::walk()
 	{
@@ -191,14 +214,17 @@ namespace jk
 		else
 		{
 			if (_distance >= 0.f)			
-				pos.x += 150.f * Time::DeltaTime();			
+				_pos.x += 150.f * Time::DeltaTime();			
 			else			
-				pos.x -= 150.f * Time::DeltaTime();			
-			tr->SetPosition(pos);
+				_pos.x -= 150.f * Time::DeltaTime();			
+			_tr->SetPosition(_pos);
 		}
 	}
-	void Monster_warrior::attack_idle()
+
+
+	void Monster_warrior::complete_attack()
 	{
+		_attack_Col = false;
 		_state = Monster_warrior_State::Idle;
 		if (mDir == 1)
 			at->PlayAnimation(L"WarriorIdle", true);
