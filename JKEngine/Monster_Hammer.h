@@ -1,5 +1,7 @@
 #pragma once
 #include "Include_Common.h"
+#include "HitBox_Monster.h"
+#include "Monster_Tackle_Flash_Effect.h"
 
 namespace jk
 {
@@ -25,26 +27,37 @@ namespace jk
 		{
 			Idle,
 			Attack,
+			Tackle_Ready,
 			Tackle,
+			Tackle_End,
 			Walk,
 			Dead,
 		};
 
 		void idle();
 		void attack();
+		void tackle_ready();
 		void tackle();
+		void tackle_end();
 		void walk();
 		void dead();
 
 
 	private:
-		Monster_Hammer_State _state;
+		Monster_Hammer_State _state = {};
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
-		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+		Transform* Effect_tr = nullptr;
+		Vector3 _pos = Vector3(0.f, 0.f, 0.f);
+		Vector3 _Effect_pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
+
+	private:
+		HitBox_Monster* Hit_Box = nullptr;
+		Monster_Tackle_Flash_Effect* Tackle_Flash = nullptr;
+
 
 	private:
 		static int			mDir;
@@ -53,9 +66,13 @@ namespace jk
 		float	_distance = 0.f;			// 플레이어와의 거리 체크
 		bool	_Ground_check = false;		// 땅체크시에 쓰이고 있는 변수
 		float	_time = 0.f;				// 공격시 사용중
+		float	_attacktime = 0.f;
 		int		_AttackCheck = 0;			// 공격종류의 선택을 할수 있도록 설정하는 변수
+		bool	_attack_Col= false;
 
 	private:
-		void attack_idle();
+		void Complete_attack();
+		void SetDirection();
+		void SetEffect_pos();
 	};
 }

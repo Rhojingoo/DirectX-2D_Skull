@@ -15,7 +15,7 @@ namespace jk
 	}
 	void Monster::Initialize()
 	{
-		_Gobjs[0] = new Monster_BlossomEnt;
+		_Gobjs[0] = new Monster_Hammer;
 		_Gobjs[0]->Initialize();
 
 		//_Gobjs[0] = new Monster_warrior;

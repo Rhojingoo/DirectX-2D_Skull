@@ -142,7 +142,6 @@
     <ClInclude Include="Yggdrasil_Hand_Left.h">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
     </ClInclude>
-    <ClInclude Include="Attack_HitBox.h" />
     <ClInclude Include="Skul_Thief.h">
       <Filter>Game_ob\PLAYER</Filter>
     </ClInclude>
@@ -329,6 +328,18 @@
     <ClInclude Include="Mage_Phoenix_Landing_Land.h">
       <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Attack_HitBox.h">
+      <Filter>Game_ob\HitBox\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="HitBox_Player.h">
+      <Filter>Game_ob\HitBox\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="HitBox_Monster.h">
+      <Filter>Game_ob\HitBox\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_Tackle_Flash_Effect.h">
+      <Filter>Game_ob\Monster\Public\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -466,7 +477,6 @@
     <ClCompile Include="Yggdrasil_Hand_Left.cpp">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
     </ClCompile>
-    <ClCompile Include="Attack_HitBox.cpp" />
     <ClCompile Include="Skul_Thief.cpp">
       <Filter>Game_ob\PLAYER</Filter>
     </ClCompile>
@@ -653,6 +663,18 @@
     <ClCompile Include="Mage_Phoenix_Landing_Land.cpp">
       <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Attack_HitBox.cpp">
+      <Filter>Game_ob\HitBox\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="HitBox_Player.cpp">
+      <Filter>Game_ob\HitBox\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="HitBox_Monster.cpp">
+      <Filter>Game_ob\HitBox\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_Tackle_Flash_Effect.cpp">
+      <Filter>Game_ob\Monster\Public\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -813,6 +835,24 @@
     </Filter>
     <Filter Include="Game_ob\MiniBoss\Mage\Effect">
       <UniqueIdentifier>{edf25464-8075-423b-b62d-aab2070a5343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\HitBox">
+      <UniqueIdentifier>{8f10eb03-3a2e-4487-b072-cf659e2fb54c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\HitBox\Base">
+      <UniqueIdentifier>{af4414e5-f266-4afc-be96-388213f9bd2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\HitBox\Player">
+      <UniqueIdentifier>{f41293ea-dfa2-4050-a258-ad1698f0503b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\HitBox\Monster">
+      <UniqueIdentifier>{696cb574-6bcd-4226-9c33-fc1eb15daa3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Public">
+      <UniqueIdentifier>{9f84f9cd-30e0-4280-aef0-13318bc4d40b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Public\Effect">
+      <UniqueIdentifier>{56689061-2850-45f8-8701-33250a23fb9e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

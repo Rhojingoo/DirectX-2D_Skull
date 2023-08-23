@@ -179,6 +179,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Attack_HitBox.h" />
+    <ClInclude Include="HitBox_Monster.h" />
+    <ClInclude Include="HitBox_Player.h" />
     <ClInclude Include="Homing_Pierce_LongHair.h" />
     <ClInclude Include="Homing_Pierce_ShortHair.h" />
     <ClInclude Include="Kngiht_EnergyBall_Impact.h" />
@@ -188,6 +190,7 @@
     <ClInclude Include="Mage_Landing_Ready.h" />
     <ClInclude Include="Mage_Phoenix_Landing.h" />
     <ClInclude Include="Mage_Phoenix_Landing_Land.h" />
+    <ClInclude Include="Monster_Tackle_Flash_Effect.h" />
     <ClInclude Include="Ultimate_OnFire_Fire.h" />
     <ClInclude Include="Ultimate_On_Fire_Projectile.h" />
     <ClInclude Include="Public_Heal_Effect.h" />
@@ -292,6 +295,8 @@
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Attack_HitBox.cpp" />
+    <ClCompile Include="HitBox_Monster.cpp" />
+    <ClCompile Include="HitBox_Player.cpp" />
     <ClCompile Include="Homing_Pierce_LongHair.cpp" />
     <ClCompile Include="Homing_Pierce_ShortHair.cpp" />
     <ClCompile Include="Kngiht_EnergyBall_Impact.cpp" />
@@ -301,6 +306,7 @@
     <ClCompile Include="Mage_Landing_Ready.cpp" />
     <ClCompile Include="Mage_Phoenix_Landing.cpp" />
     <ClCompile Include="Mage_Phoenix_Landing_Land.cpp" />
+    <ClCompile Include="Monster_Tackle_Flash_Effect.cpp" />
     <ClCompile Include="Ultimate_OnFire_Fire.cpp" />
     <ClCompile Include="Ultimate_On_Fire_Projectile.cpp" />
     <ClCompile Include="Public_Heal_Effect.cpp" />

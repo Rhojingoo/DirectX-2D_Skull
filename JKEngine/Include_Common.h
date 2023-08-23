@@ -57,6 +57,12 @@
 #include "jkCloud.h"
 #include "jkTile_Ground.h"
 
+//타격관련
+#include "Attack_HitBox.h"
+#include "HitBox_Player.h"
+#include "HitBox_Monster.h"
+
+
 //PLAYER
 #include "Player.h"
 #include "Skul_Basic.h"
@@ -66,7 +72,7 @@
 #include "Skul_Sword.h"
 #include "Skul_Thief.h"
 #include "Skul_head.h"
-#include "Attack_HitBox.h"
+
 
 //보스
 #include "Boss.h"
@@ -107,11 +113,14 @@
 #include "Rising_Pierce.h"
 #include "Dimension_Pierce.h"
 
+
 //이펙트
 #include "Effect.h"
 //Yggdrasil Effect
 #include "Yggdrasil_Effect.h"
 // Layana_Sisters Effect
+
+
 #include "Dimension_Pierce_BossEffect.h"
 #include "Dimension_Pierce_BulletEffect.h"
 #include "TwinMeteor_Boss.h"

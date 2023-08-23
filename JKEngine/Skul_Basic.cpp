@@ -42,7 +42,7 @@ namespace jk
 		Skul_Head->SetState(eState::Paused);
 
 
-		Hit_Box = new Attack_HitBox();
+		Hit_Box = new HitBox_Player();
 		Hit_Box->Initialize();
 		scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
@@ -189,7 +189,6 @@ namespace jk
 		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
 		if (_attack_Acheck==true/*_State == Skul_Basic_State::Attack_A*/)
 		{	
-
 			Hit_Box->SetState(eState::Active);
 			if (mDir == 1)			
 				HitBox_TR->SetPosition(Vector3(pos.x + 50, pos.y, pos.z));			

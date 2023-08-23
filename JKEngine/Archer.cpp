@@ -321,7 +321,7 @@ namespace jk
 
 	void Archer::OnCollisionEnter(Collider2D* other)
 	{	
-		if (Attack_HitBox* player = dynamic_cast<Attack_HitBox*>(other->GetOwner()))
+		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{
 			if (!(_state == Archer_State::Idle))
 				return;
