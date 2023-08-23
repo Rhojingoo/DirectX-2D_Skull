@@ -190,6 +190,8 @@
     <ClInclude Include="Mage_Landing_Ready.h" />
     <ClInclude Include="Mage_Phoenix_Landing.h" />
     <ClInclude Include="Mage_Phoenix_Landing_Land.h" />
+    <ClInclude Include="Monster_BigEnt_EnergeBall.h" />
+    <ClInclude Include="Monster_GiganticEnt_Stamp.h" />
     <ClInclude Include="Monster_StoneWizard_Icicle_Effect.h" />
     <ClInclude Include="Monster_StoneWizard_Teleport.h" />
     <ClInclude Include="Monster_Tackle_Flash_Effect.h" />
@@ -309,6 +311,8 @@
     <ClCompile Include="Mage_Landing_Ready.cpp" />
     <ClCompile Include="Mage_Phoenix_Landing.cpp" />
     <ClCompile Include="Mage_Phoenix_Landing_Land.cpp" />
+    <ClCompile Include="Monster_BigEnt_EnergeBall.cpp" />
+    <ClCompile Include="Monster_GiganticEnt_Stamp.cpp" />
     <ClCompile Include="Monster_StoneWizard_Icicle_Effect.cpp" />
     <ClCompile Include="Monster_StoneWizard_Teleport.cpp" />
     <ClCompile Include="Monster_Tackle_Flash_Effect.cpp" />

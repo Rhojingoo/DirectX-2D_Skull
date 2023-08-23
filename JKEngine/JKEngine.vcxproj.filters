@@ -349,6 +349,12 @@
     <ClInclude Include="Monster_Stone_wizard_IcicleBullet.h">
       <Filter>Game_ob\Monster\Monster_Stone_wizard\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_BigEnt_EnergeBall.h">
+      <Filter>Game_ob\Monster\Monster_BigEnt\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_GiganticEnt_Stamp.h">
+      <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -693,6 +699,12 @@
     <ClCompile Include="Monster_Stone_wizard_IcicleBullet.cpp">
       <Filter>Game_ob\Monster\Monster_Stone_wizard\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_BigEnt_EnergeBall.cpp">
+      <Filter>Game_ob\Monster\Monster_BigEnt\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_GiganticEnt_Stamp.cpp">
+      <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -877,6 +889,12 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Monster_Stone_wizard\Bullet">
       <UniqueIdentifier>{5c29a7ce-b6bc-4cde-9542-bd31453f6eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_BigEnt\Bullet">
+      <UniqueIdentifier>{5cffc078-e3da-4766-9617-5a0765f81ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_BigEnt\Effect">
+      <UniqueIdentifier>{1f92947f-dd7d-4ad1-a41d-211de61a1f78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
