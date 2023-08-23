@@ -1,11 +1,8 @@
 #include "Monster_BigEnt.h"
-#include <iostream>
-#include <random>
 
 namespace jk
 {
 	int Monster_BigEnt::mDir = 1;
-	bool Monster_BigEnt::_switch = false;
 
 	Monster_BigEnt::Monster_BigEnt()
 	{

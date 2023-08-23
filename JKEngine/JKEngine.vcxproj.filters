@@ -355,6 +355,12 @@
     <ClInclude Include="Monster_GiganticEnt_Stamp.h">
       <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_GroundAttack_Sign.h">
+      <Filter>Game_ob\Monster\Public\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_Ent_GroundAttack.h">
+      <Filter>Game_ob\Monster\Monster_GreenTree\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -705,6 +711,12 @@
     <ClCompile Include="Monster_GiganticEnt_Stamp.cpp">
       <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_GroundAttack_Sign.cpp">
+      <Filter>Game_ob\Monster\Public\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_Ent_GroundAttack.cpp">
+      <Filter>Game_ob\Monster\Monster_GreenTree\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -895,6 +907,9 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Monster_BigEnt\Effect">
       <UniqueIdentifier>{1f92947f-dd7d-4ad1-a41d-211de61a1f78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_GreenTree\Bullet">
+      <UniqueIdentifier>{528ea950-ff5b-4ab0-a598-fab8d797a06d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

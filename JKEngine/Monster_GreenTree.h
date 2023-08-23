@@ -1,5 +1,8 @@
 #pragma once
 #include "Include_Common.h"
+#include "Monster_GroundAttack_Sign.h"
+#include "Monster_Ent_GroundAttack.h"
+
 
 namespace jk
 {
@@ -22,7 +25,9 @@ namespace jk
 		enum class Monster_GreenTree_State
 		{
 			Idle,
+			Attack_Ready,
 			Attack,
+			Attack_End,
 			Dead,
 			Hit,
 			WalkR,
@@ -30,7 +35,9 @@ namespace jk
 		};
 
 		void idle();
+		void attack_ready();
 		void attack();
+		void attack_end();
 		void dead();
 		void hit();
 		void walk_R();
@@ -47,6 +54,12 @@ namespace jk
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:
+		Monster_GroundAttack_Sign* GroundAttack_Sign = nullptr;
+		Monster_Ent_GroundAttack* GroundAttack = nullptr;
+		Vector3 _Attack_place = Vector3(0.f, 0.f, 0.f);
+
+
+	private:
 		static int			mDir;
 		static bool			_switch;
 		int _walkdir = 1;
@@ -55,10 +68,11 @@ namespace jk
 		float   _walkdistance = 0.f;		// 자신의 첫위치와 의 거리 체크
 		bool	_Ground_check = false;		// 땅체크시에 쓰이고 있는 변수
 		float	_time = 0.f;				// 공격시 사용중
+		float	_attacktime = 0.f;
 		int		_choiceattack = 0;			
 		bool	_attackcheck = false;
 
 	private:
-		void attack_idle();
+		void Complete_Attack();
 	};
 }

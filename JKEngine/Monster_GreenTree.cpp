@@ -21,22 +21,45 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 
 		at = AddComponent<Animator>();
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Attack_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Attack", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Hit", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Walk", this);
 
 
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Attack_Ready", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Attack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Hit", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Idle", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Walk", this, 1);
 
-		at->CompleteEvent(L"GreenTreeAttack") = std::bind(&Monster_GreenTree::attack_idle, this);
-		at->CompleteEvent(L"GreenTreeAttackR") = std::bind(&Monster_GreenTree::attack_idle, this);
-
+		at->CompleteEvent(L"GreenTreeAttack") = std::bind(&Monster_GreenTree::Complete_Attack, this);
+		at->CompleteEvent(L"GreenTreeAttackR") = std::bind(&Monster_GreenTree::Complete_Attack, this);
+				
 		_first_place = _pos;
 		at->PlayAnimation(L"GreenTreeIdle", true);
+
+
+		{
+			GroundAttack_Sign = new Monster_GroundAttack_Sign;
+			GroundAttack_Sign->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, GroundAttack_Sign);
+			Transform* bullet_tr = GroundAttack_Sign->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			GroundAttack_Sign->SetState(eState::Paused);
+		}
+		{
+			GroundAttack = new Monster_Ent_GroundAttack;
+			GroundAttack->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, GroundAttack);
+			Transform* bullet_tr = GroundAttack->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			GroundAttack->SetState(eState::Paused);
+		}
+		
 		GameObject::Initialize();
 	}
 	
@@ -63,8 +86,16 @@ namespace jk
 			idle();
 			break;
 
+		case jk::Monster_GreenTree::Monster_GreenTree_State::Attack_Ready:
+			attack_ready();
+			break;
+
 		case jk::Monster_GreenTree::Monster_GreenTree_State::Attack:
 			attack();
+			break;
+
+		case jk::Monster_GreenTree::Monster_GreenTree_State::Attack_End:
+			attack_end();
 			break;
 
 		case jk::Monster_GreenTree::Monster_GreenTree_State::Dead:
@@ -91,8 +122,8 @@ namespace jk
 	}
 	void Monster_GreenTree::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.03f, 0.08f));
-		_collider->SetCenter(Vector2(1.f, 0.05f));
+		_collider->SetSize(Vector2(0.5f, 0.8f));
+		_collider->SetCenter(Vector2(1.f, -5.5f));
 		GameObject::LateUpdate();
 	}
 	void Monster_GreenTree::Render()
@@ -142,13 +173,18 @@ namespace jk
 
 		if ((_choiceattack == 0)&& (_attackcheck ==true))
 		{
-			_state = Monster_GreenTree_State::Attack;
+			_state = Monster_GreenTree_State::Attack_Ready;
 			if (mDir == 1)
-				at->PlayAnimation(L"GreenTreeAttack", true);
+				at->PlayAnimation(L"GreenTreeAttack_Ready", false);
 			else
-				at->PlayAnimation(L"GreenTreeAttackR", true);
-		}
+				at->PlayAnimation(L"GreenTreeAttack_ReadyR", false);
 
+			_Attack_place = Vector3(_playerpos.x, _playerpos.y - 20, _playerpos.z - 1);
+			Transform* bullet_tr = GroundAttack_Sign->GetComponent<Transform>();
+			bullet_tr->SetPosition(_Attack_place);
+			GroundAttack_Sign->_effect_end = true;
+			GroundAttack_Sign->SetState(eState::Active);
+		}
 
 		if (_time > 5.f)
 		{
@@ -164,15 +200,44 @@ namespace jk
 			}
 		}
 	}
+
+	void Monster_GreenTree::attack_ready()
+	{
+	
+		if (GroundAttack_Sign->_effect_end == false)
+		{
+			_attacktime += Time::DeltaTime();
+			if (_attacktime > 0.5)
+			{
+				Transform* bullet_tr = GroundAttack->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(_Attack_place.x, _Attack_place.y, _Attack_place.z));
+				GroundAttack->SetState(eState::Active);
+
+
+				_state = Monster_GreenTree_State::Attack;
+				if (mDir == 1)
+					at->PlayAnimation(L"GreenTreeAttack", true);
+				else
+					at->PlayAnimation(L"GreenTreeAttackR", true);
+				_attacktime = 0;
+			}
+		}
+	}
 	void Monster_GreenTree::attack()
 	{
 	}
+	void Monster_GreenTree::attack_end()
+	{
+	}
+
 	void Monster_GreenTree::dead()
 	{
 	}
+
 	void Monster_GreenTree::hit()
 	{
 	}
+
 	void Monster_GreenTree::walk_R()
 	{
 		if (_walkdistance > -50)
@@ -196,7 +261,7 @@ namespace jk
 		}
 	}
 
-	void Monster_GreenTree::attack_idle()
+	void Monster_GreenTree::Complete_Attack()
 	{
 		_state = Monster_GreenTree_State::Idle;
 		if (mDir == 1)
