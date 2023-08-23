@@ -340,6 +340,15 @@
     <ClInclude Include="Monster_Tackle_Flash_Effect.h">
       <Filter>Game_ob\Monster\Public\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_StoneWizard_Teleport.h">
+      <Filter>Game_ob\Monster\Monster_Stone_wizard\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_StoneWizard_Icicle_Effect.h">
+      <Filter>Game_ob\Monster\Monster_Stone_wizard\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_Stone_wizard_IcicleBullet.h">
+      <Filter>Game_ob\Monster\Monster_Stone_wizard\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -675,6 +684,15 @@
     <ClCompile Include="Monster_Tackle_Flash_Effect.cpp">
       <Filter>Game_ob\Monster\Public\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_StoneWizard_Teleport.cpp">
+      <Filter>Game_ob\Monster\Monster_Stone_wizard\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_StoneWizard_Icicle_Effect.cpp">
+      <Filter>Game_ob\Monster\Monster_Stone_wizard\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_Stone_wizard_IcicleBullet.cpp">
+      <Filter>Game_ob\Monster\Monster_Stone_wizard\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -853,6 +871,12 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Public\Effect">
       <UniqueIdentifier>{56689061-2850-45f8-8701-33250a23fb9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_Stone_wizard\Effect">
+      <UniqueIdentifier>{ac628dbc-7d97-4359-a248-a785828e52b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_Stone_wizard\Bullet">
+      <UniqueIdentifier>{5c29a7ce-b6bc-4cde-9542-bd31453f6eab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
