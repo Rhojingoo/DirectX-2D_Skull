@@ -83,12 +83,12 @@ namespace jk
 						//testboss->SetName(L"test_BOSS");
 
 
-						//Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
-						//testmboss->SetName(L"test_mboss");
+						Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
+						testmboss->SetName(L"test_mboss");
 
 
-						Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
-						testmonster->SetName(L"test_monster"); 
+/*						Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
+						testmonster->SetName(L"test_monster")*/; 
 						//Monster::SetPlayer(_player);	
 			#pragma endregion
 		

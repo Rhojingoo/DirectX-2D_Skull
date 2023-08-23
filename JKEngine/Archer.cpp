@@ -307,9 +307,9 @@ namespace jk
 	{
 		_collider->SetSize(Vector2(0.5f, 0.5f));
 		if(mDir ==1)
-			_collider->SetCenter(Vector2(-20.0f, -25.f));
+			_collider->SetCenter(Vector2(0.0f, -25.f));
 		else
-			_collider->SetCenter(Vector2(20.0f, -25.f));
+			_collider->SetCenter(Vector2(0.0f, -25.f));
 
 		GameObject::LateUpdate();
 	}
@@ -606,12 +606,12 @@ namespace jk
 				if (mDir == 1)
 				{
 					Ultimate_Aura->SetDirection(1);
-					bullet_tr->SetPosition(Vector3(pos.x-25, pos.y - 30, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30, pos.z - 1));
 				}
 				else
 				{
 					Ultimate_Aura->SetDirection(-1);
-					bullet_tr->SetPosition(Vector3(pos.x+25, pos.y - 30, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30, pos.z - 1));
 				}
 				Ultimate_Aura->SetState(eState::Active);
 			}
@@ -622,12 +622,12 @@ namespace jk
 				if (mDir == 1)
 				{
 					Ultimate_AuraSmoke->SetDirection(1);
-					bullet_tr->SetPosition(Vector3(pos.x-25, pos.y - 50, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50, pos.z - 1));
 				}					
 				else
 				{
 					Ultimate_AuraSmoke->SetDirection(-1);
-					bullet_tr->SetPosition(Vector3(pos.x+25, pos.y - 50, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50, pos.z - 1));
 				}					
 				Ultimate_AuraSmoke->SetState(eState::Active);
 			}
