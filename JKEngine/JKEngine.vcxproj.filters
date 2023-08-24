@@ -361,6 +361,9 @@
     <ClInclude Include="Monster_Ent_GroundAttack.h">
       <Filter>Game_ob\Monster\Monster_GreenTree\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_Blossomeenct_Attack.h">
+      <Filter>Game_ob\Monster\Monster_Blossom\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -717,6 +720,9 @@
     <ClCompile Include="Monster_Ent_GroundAttack.cpp">
       <Filter>Game_ob\Monster\Monster_GreenTree\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_Blossomeenct_Attack.cpp">
+      <Filter>Game_ob\Monster\Monster_Blossom\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -910,6 +916,9 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Monster_GreenTree\Bullet">
       <UniqueIdentifier>{528ea950-ff5b-4ab0-a598-fab8d797a06d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_Blossom\Bullet">
+      <UniqueIdentifier>{786a06a5-ccec-4fc1-ae1d-d4c0005a307c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

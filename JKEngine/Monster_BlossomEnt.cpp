@@ -46,6 +46,18 @@ namespace jk
 
 		_first_place = _pos;
 		at->PlayAnimation(L"BlossomEntIdle", true);
+
+
+		{
+			Blossomeenct_Attack = new Monster_Blossomeenct_Attack;
+			Blossomeenct_Attack->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Blossomeenct_Attack);
+			Transform* bullet_tr = Blossomeenct_Attack->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			Blossomeenct_Attack->SetState(eState::Paused);
+		}
+
 		GameObject::Initialize();
 	}
 
@@ -105,8 +117,8 @@ namespace jk
 
 	void Monster_BlossomEnt::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.03f, 0.08f));
-		_collider->SetCenter(Vector2(1.f, 0.05f));
+		_collider->SetSize(Vector2(0.35f, 0.8f));
+		_collider->SetCenter(Vector2(1.f, -5.5f));
 		GameObject::LateUpdate();
 	}
 
@@ -173,17 +185,27 @@ namespace jk
 
 	void Monster_BlossomEnt::attack()
 	{
-		_Attackset = 0;
+		if (Blossomeenct_Attack->_bullet_Life == false)
+		{
+			_Attackset += Time::DeltaTime();
+			if (_Attackset > 1.5)
+			{
+				_state = Monster_BlossomEnt_State::Idle;
+				if (mDir == 1)
+					at->PlayAnimation(L"BlossomEntIdle", true);
+				else
+					at->PlayAnimation(L"BlossomEntIdleR", true);
+				_Attackset = 0;
+			}
+		}
 	}
 
 	void Monster_BlossomEnt::dead()
 	{
 	}
-
 	void Monster_BlossomEnt::hit()
 	{
 	}
-
 	void Monster_BlossomEnt::walk_R()
 	{
 		if (_walkdistance > -100)
@@ -210,31 +232,26 @@ namespace jk
 
 	void Monster_BlossomEnt::attack_setting()
 	{
-		_Attackset += Time::DeltaTime();
-		
-
-		//if (_Attackset >= 3)
-		//{
-			if (mDir == 1)
-			{
-				_state = Monster_BlossomEnt_State::Attack;
-				at->PlayAnimation(L"BlossomEntAttack", true);
-			}
-			else if (mDir == -1)
-			{
-				_state = Monster_BlossomEnt_State::Attack;
-				at->PlayAnimation(L"BlossomEntAttackR", true);
-			}
-		//}
+		Blossomeenct_Attack->_bullet_animation = true;
+		if (mDir == 1)
+		{
+			at->PlayAnimation(L"BlossomEntAttack", false);
+			Blossomeenct_Attack->SetDirection(1);
+		}
+		else if (mDir == -1)
+		{
+			at->PlayAnimation(L"BlossomEntAttackR", false);
+			Blossomeenct_Attack->SetDirection(-1);
+		}
+		Transform* bullet_tr = Blossomeenct_Attack->GetComponent<Transform>();
+		bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		Blossomeenct_Attack->_bullet_Life = true;
+		Blossomeenct_Attack->SetState(eState::Active);
+		_state = Monster_BlossomEnt_State::Attack;		
 	}
 
 	void Monster_BlossomEnt::attack_idle()
 	{
-		_state = Monster_BlossomEnt_State::Idle;
-		if (mDir == 1)
-			at->PlayAnimation(L"BlossomEntIdle", true);
-		else
-			at->PlayAnimation(L"BlossomEntIdleR", true);
-		_Attackset = 0;
+
 	}
 }

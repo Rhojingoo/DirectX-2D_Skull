@@ -1,5 +1,6 @@
 #pragma once
 #include "Include_Common.h"
+#include "Monster_Blossomeenct_Attack.h"
 
 namespace jk
 {
@@ -48,6 +49,9 @@ namespace jk
 		Vector3 _pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 _first_place = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
+
+	private:
+		Monster_Blossomeenct_Attack* Blossomeenct_Attack = nullptr;
 
 	private:
 		static int			mDir;
