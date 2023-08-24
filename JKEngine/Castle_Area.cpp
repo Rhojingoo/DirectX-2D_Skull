@@ -75,8 +75,8 @@ namespace jk
 		
 			#pragma region Test_monster
 
-						//Layana_Sisters* testboss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
-						//testboss->SetName(L"test_BOSS");
+						Layana_Sisters* testboss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
+						testboss->SetName(L"test_BOSS");
 
 		
 						//Yggdrasil* testboss = object::Instantiate<Yggdrasil>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
@@ -87,8 +87,8 @@ namespace jk
 						//testmboss->SetName(L"test_mboss");
 
 						
-						Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
-						testmonster->SetName(L"test_monster"); 
+						//Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
+						//testmonster->SetName(L"test_monster"); 
 						//Monster::SetPlayer(_player);	
 			#pragma endregion
 		

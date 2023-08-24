@@ -561,10 +561,11 @@ namespace jk
 				if (_state == Layana_Sisters_State::Sisters_Attack_C)
 				{
 					if (_pos.x < _ShortHairCreatepos.x)
-						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_S", true);
+						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_S", false);
 					else
-						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_SR", true);
+						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_SR", false);
 					tr->SetRotationZ(0.f);
+					_SistersAttack_C_ShortHair_LAND = true;
 				}
 			}
 		}
@@ -869,6 +870,7 @@ namespace jk
 			at->PlayAnimation(L"Short_hairDash_SR", true);		
 		_SistersAttack_B_IntroReadyShortHair = true;
 		_AttackStageON = true;
+		_SkillHomingON = false;
 	}
 	void Layana_ShortHair::Sisters_Attack_B_BulletCreate()
 	{
@@ -925,9 +927,10 @@ namespace jk
 				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - _pos.x, _Playerpos.y - _pos.y);
 				attackrotation_PLAYER.Normalize();
 				bullet_rb1->SetGround(false);
+				bullet_rb1->SetGravity(true);
+				bullet_rb1->SetFriction(true);
 				bullet_rb1->SetVelocity(Vector2(attackrotation_PLAYER.x * 650.f, attackrotation_PLAYER.y * 350));
-				Vector2 vel = bullet_rb1->GetVelocity();
-				int a = 0;
+				Vector2 vel = bullet_rb1->GetVelocity();		
 			}
 
 			if (_Attacktime >= 2)
@@ -939,6 +942,8 @@ namespace jk
 				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - _pos.x, _Playerpos.y - _pos.y);
 				attackrotation_PLAYER.Normalize();
 				bullet_rb2->SetGround(false);
+				bullet_rb2->SetGravity(true);
+				bullet_rb2->SetFriction(true);
 				bullet_rb2->SetVelocity(Vector2(attackrotation_PLAYER.x * 650.f, attackrotation_PLAYER.y * 1250));
 				Vector2 vel = bullet_rb2->GetVelocity();
 				int a = 0;
@@ -954,6 +959,8 @@ namespace jk
 				Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - _pos.x, _Playerpos.y - _pos.y);
 				attackrotation_PLAYER.Normalize();
 				bullet_rb3->SetGround(false);
+				bullet_rb3->SetGravity(true);
+				bullet_rb3->SetFriction(true);
 				bullet_rb3->SetVelocity(Vector2(attackrotation_PLAYER.x * 650, attackrotation_PLAYER.y * 1400));
 				Vector2 vel = bullet_rb3->GetVelocity();
 			}
@@ -966,10 +973,18 @@ namespace jk
 				RigidBody* bullet_rb2 = Homing[1]->GetComponent<RigidBody>();
 				RigidBody* bullet_rb3 = Homing[2]->GetComponent<RigidBody>();
 				bullet_rb1->ClearVelocity();
-				bullet_rb2->ClearVelocity();
-				bullet_rb3->ClearVelocity();
+				bullet_rb1->SetGravity(false);
+				bullet_rb1->SetFriction(false);
 				bullet_rb1->SetGround(true);
+
+				bullet_rb2->ClearVelocity();
+				bullet_rb1->SetGravity(false);
+				bullet_rb2->SetFriction(false);
 				bullet_rb2->SetGround(true);
+
+				bullet_rb3->ClearVelocity();
+				bullet_rb3->SetGravity(false);
+				bullet_rb3->SetFriction(false);
 				bullet_rb3->SetGround(true);
 				_Attacktime = 0;
 				Homing[i]->SetState(eState::Paused);
@@ -984,6 +999,10 @@ namespace jk
 	}
 	void Layana_ShortHair::Sisters_Attack_B_End()
 	{
+		//if (_Dir == 1)
+		//	at->PlayAnimation(L"Short_hairIdle_S", true);
+		//else
+		//	at->PlayAnimation(L"Short_hairIdle_SR", true);
 		_Sisters_Attack_B_Switch = false;
 	}
 
@@ -1003,11 +1022,34 @@ namespace jk
 	}
 	void Layana_ShortHair::Sisters_Attack_C_Landing()
 	{
+		if (_SistersAttack_C_ShortHair_LAND == true)
+		{
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime > 1.5)
+			{
+				if (_Dir == 1)
+					at->PlayAnimation(L"Short_hairMeteor_Cross03_End_S", false);
+				else
+					at->PlayAnimation(L"Short_hairMeteor_Cross03_End_SR", false);
+
+				_Attacktime = 0;
+				_SistersAttack_C_ShortHair_LAND = false;
+			}
+		}
 	}
 	void Layana_ShortHair::Sisters_Attack_C_End()
 	{
+		Transform* bullte_effect = TwinMeteor_BossEffect->GetComponent<Transform>();
+		Transform* bullte_imffect = TwinMeteor_Impact->GetComponent<Transform>();
+		bullte_effect->SetRotationZ(0);
+		bullte_imffect->SetRotationZ(0);
+		//if (_Dir == 1)
+		//	at->PlayAnimation(L"Short_hairIdle_S", true);
+		//else
+		//	at->PlayAnimation(L"Short_hairIdle_SR", true);
+		_AttackStageON = false;
+		_Sisters_Attack_C_Switch = false;
 	}
-
 
 
 	void Layana_ShortHair::Sisters_Attack_D()
@@ -1101,6 +1143,7 @@ namespace jk
 				//else
 				//	at->PlayAnimation(L"Short_hairMeteor_Vertical00_Jump_SR", true);
 			}
+
 			if (_BackGround_Switch == true)
 			{
 				_pos = Vector3(_ShortHairCreatepos.x + 50, _ShortHairCreatepos.y + 100, -150.f);
@@ -2009,20 +2052,15 @@ namespace jk
 		Vector2 attackpoint;
 		Vector2 rotation;
 
-
 		if (_ShortHairCreatepos.x >= _pos.x)
 		{
-			Homing[_HomingNumber]->SetDirection(-1);
-			if (_Playerpos.x > 0)
-				Homing[_HomingNumber]->SetDirection(1);
+			Homing[_HomingNumber]->SetDirection(1);
 			attackpoint = Vector2(set->GetPositionX() - _Playerpos.x, set->GetPositionY() + _Playerpos.y);
 			rotation = Vector2(_Playerpos.x, _Playerpos.y);
 		}
 		else
 		{
-			Homing[_HomingNumber]->SetDirection(1);	
-			if(_Playerpos.x>0)
-				Homing[_HomingNumber]->SetDirection(-1);
+			Homing[_HomingNumber]->SetDirection(1);
 			attackpoint = Vector2(set->GetPositionX() - _Playerpos.x, set->GetPositionY() + _Playerpos.y);
 			rotation = Vector2(_Playerpos.x,_Playerpos.y);
 		}
@@ -2032,13 +2070,6 @@ namespace jk
 		Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
 		float angle = std::atan2(direction.y, direction.x);
 		set->SetRotationZ(angle);
-
-		//float dotProduct = rotation.Dot(attackpoint);
-		//dotProduct = std::clamp(dotProduct, -1.0f, 1.0f);
-		//float angle = std::acos(dotProduct);
-		//float angleInDegrees = angle * (180.0f / XM_PI);
-		//float anglew = angleInDegrees / (180.0f / XM_PI);
-		//set->SetRotationZ(anglew);
 
 		if (angle_of_number == 0)
 			_HomingAngle[0] = angle;

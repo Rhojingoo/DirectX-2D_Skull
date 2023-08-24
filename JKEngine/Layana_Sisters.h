@@ -183,6 +183,7 @@ namespace jk
 
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
 		static Vector3 GetPlayerPos() { return _playerpos; }		
+		float CalculateVelocity(float distance, float time) {return distance / time;}
 		
 	public:
 		static Layana_Sisters_State _state;	
