@@ -4,6 +4,9 @@ namespace jk
 {
 	bool Layana_ShortHair::_AttackStageON = true;
 	Layana_ShortHair::Layana_ShortHair_State Layana_ShortHair::_ShortHair_state = Layana_ShortHair_State();
+	Layana_ShortHair::Layana_Short_Background Layana_ShortHair::Background_state = Layana_Short_Background();
+
+
 
 	Layana_ShortHair::Layana_ShortHair()
 	{
@@ -240,6 +243,7 @@ namespace jk
 		else
 			_Dir = -1;
 		_pos = tr->GetPosition();
+		ShortHairPos = _pos;
 
 		if (Joint_Operation == true)
 		{
@@ -479,7 +483,6 @@ namespace jk
 		{
 			switch (Background_state)
 			{
-
 				case jk::Layana_ShortHair::Layana_Short_Background::Idle:
 					Layana_ShortHair::idle();
 					break;
@@ -492,14 +495,18 @@ namespace jk
 					Layana_ShortHair::BackGround_Idle();
 					break;
 
-				case jk::Layana_ShortHair::Layana_Short_Background::BackGround_Move:
-					Layana_ShortHair::BackGround_Move();
+				case jk::Layana_ShortHair::Layana_Short_Background::BackGround_Enter:
+					Layana_ShortHair::BackGround_Enter();
 					break;
+
+				case jk::Layana_ShortHair::Layana_Short_Background::BackGround_Exit:
+					Layana_ShortHair::BackGround_Exit();
+					break;
+
 
 				default:
 					break;
-			}
-			
+			}			
 		}
 
 		tr->SetPosition(_pos);
@@ -619,7 +626,7 @@ namespace jk
 			}
 			else
 			{
-				if (Background_state == Layana_Short_Background::BackGround_Move)
+				if (Background_state == Layana_Short_Background::BackGround_Enter)
 				{
 					_BackGround_Idle = true;
 				}
@@ -634,7 +641,7 @@ namespace jk
 	void Layana_ShortHair::idle()
 	{
 		_time += Time::DeltaTime();
-		//_SelectAttack = random(0, 2);
+		_SelectAttack = random(0, 6);
 		//_SelectAttack = 0;
 
 		if (_Intro_On == true)
@@ -646,31 +653,57 @@ namespace jk
 			_time = 0;
 		}
 		
-		if (_time >= 3.0)
+
+		if (ShortHair_Operation == true)
 		{
-			if (_SelectAttack == 0)
-				Rush_Combo();
-			if (_SelectAttack == 1)
-				Meteor_Cross_Combo();
-			if (_SelectAttack == 2)
-				Meteor_Ground_Combo();
-			if (_SelectAttack == 3)
+
+			if (ShortHair_First_moving == true)
+			{
 				Meteor_Vertical_Combo();
-			if (_SelectAttack == 4)
-				Skill_A_Combo();
-			if (_SelectAttack == 5)
-				Skill_B_Combo();
-			if (_SelectAttack == 6)
-				Skill_C_Combo();
-			if (_SelectAttack == 7)
-				BackGround_Combo();
+				ShortHair_First_moving = false;
+			}
+			else
+			{
+				if (_SistersAttack_Number >= 2)
+				{
+					_Joint_Attack = true;
+					_ShortHair_state = Layana_ShortHair_State::FlyDash;
+					if (_pos.x > _ShortHairCreatepos.x)
+						at->PlayAnimation(L"Short_hairDash_S", true);
+					else
+						at->PlayAnimation(L"Short_hairDash_SR", true);					
+				}
+				else
+				{
+					if (_time >= 3.0)
+					{
+						if (_SelectAttack == 0)
+							Rush_Combo();
+						if (_SelectAttack == 1)
+							Meteor_Cross_Combo();
+						if (_SelectAttack == 2)
+							Meteor_Ground_Combo();
+						if (_SelectAttack == 3)
+							Meteor_Vertical_Combo();
+						if (_SelectAttack == 4)
+							Skill_A_Combo();
+						if (_SelectAttack == 5)
+							Skill_B_Combo();
+						if (_SelectAttack == 6)
+							Skill_C_Combo();
+						if (_SelectAttack == 7)
+							BackGround_Combo();
 
 
-			if (_SelectAttack == 9)
-				Awaken_Combo();
+						if (_SelectAttack == 9)
+							Awaken_Combo();
 
-			if (_SelectAttack == 10)
-				Intro_Combo();
+						if (_SelectAttack == 10)
+							Intro_Combo();
+						_SistersAttack_Number++;
+					}
+				}
+			}
 		}
 	}
 
@@ -1199,10 +1232,19 @@ namespace jk
 				_pos = Vector3(_ShortHairCreatepos.x - 50, _ShortHairCreatepos.y + 100, -150.f);
 				tr->SetPosition(_pos);
 				at->PlayAnimation(L"Short_hairBackGround_Move_S", false);
-				Background_state = Layana_Short_Background::BackGround_Move;
+				Background_state = Layana_Short_Background::BackGround_Enter;
 				_rigidbody->SetGround(false);
 				_Ground_check = false;
 				_BackGround_check = false;
+			}
+
+			if (_Joint_Attack == true)
+			{
+				_rigidbody->SetGround(true);
+				_Ground_check = false;
+				_BackGround_check = true;
+				ShortHair_First_moving = true;
+				_Joint_Attack = false;
 			}
 		}
 	}
@@ -1681,17 +1723,49 @@ namespace jk
 	}
 
 
-	void Layana_ShortHair::BackGround_Move()
+	void Layana_ShortHair::BackGround_Idle()
+	{
+		if (_SistersAttack_Number >= 2)
+		{
+			Background_state = Layana_Short_Background::BackGround_Exit;
+			at->PlayAnimation(L"Short_hairBackGround_Move_S", false);
+			_rigidbody->SetVelocity(Vector2(0.f, 1050.f));
+			_rigidbody->SetGround(false);
+			_BackGround_check = true;
+			_Ground_check = false;
+		}
+		else
+		_pos.z = -100;
+	}
+	void Layana_ShortHair::BackGround_Enter()
 	{
 		if (_BackGround_Idle == true)
 		{
 			Background_state = Layana_Short_Background::BackGround_Idle;
 			at->PlayAnimation(L"Short_hairBackGround_Idle_S", false);
+			_BackGround_Idle = false;
 		}
 	}
-	void Layana_ShortHair::BackGround_Idle()
+	void Layana_ShortHair::BackGround_Exit()
 	{
-		_pos.z = -100;
+		if (_pos.y >= _ShortHairCreatepos.y + 150)
+		{
+			_rigidbody->SetGround(true);
+			if (LongHairPos.x >= _ShortHairCreatepos.x)
+			{
+				_pos.x = -700;
+				_pos.y = 150;
+				_pos.z = -200;
+			}
+			else
+			{
+				_pos.x = 700;
+				_pos.y = 150;
+				_pos.z = -200;
+			}
+			ShortHair_First_moving = true;
+			Background_state = Layana_Short_Background::BackGround_Idle;
+		}
 	}
 
 
@@ -1798,7 +1872,7 @@ namespace jk
 		else
 		{
 			_ShortHair_state = Layana_ShortHair_State::Dash;
-			if (_Dir == 1)
+			if (_pos.x > _ShortHairCreatepos.x)
 				at->PlayAnimation(L"Short_hairDash_S", true);
 			else
 				at->PlayAnimation(L"Short_hairDash_SR", true);
@@ -1837,7 +1911,7 @@ namespace jk
 	{
 		_GroundMeteorSwitch = true; // 이동이 되었을때 공격하는 모션 온
 		_ShortHair_state = Layana_ShortHair_State::FlyDash;
-		if (_Dir == 1)
+		if (_pos.x > _ShortHairCreatepos.x)
 			at->PlayAnimation(L"Short_hairDash_S", true);
 		else
 			at->PlayAnimation(L"Short_hairDash_SR", true);
@@ -1866,7 +1940,7 @@ namespace jk
 	{
 		_VerticalMeteorSwitch = true;
 		_ShortHair_state = Layana_ShortHair_State::FlyDash;
-		if (_Dir == 1)
+		if (_pos.x > _ShortHairCreatepos.x)
 			at->PlayAnimation(L"Short_hairDash_S", true);
 		else
 			at->PlayAnimation(L"Short_hairDash_SR", true);

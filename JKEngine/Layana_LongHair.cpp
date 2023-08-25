@@ -5,6 +5,9 @@ namespace jk
 {
 	bool Layana_LongHair:: _AttackStageON = true;
 	Layana_LongHair::Layana_LongHair_State Layana_LongHair::_LongHair_state = Layana_LongHair_State();
+	Layana_LongHair::Layana_Long_Background Layana_LongHair::Background_state = Layana_Long_Background();
+
+
 
 	Layana_LongHair::Layana_LongHair()
 	{
@@ -248,6 +251,7 @@ namespace jk
 		else
 			_Dir = -1;
 		_pos = tr->GetPosition();
+		LongHairPos = _pos;
 
 		if (Joint_Operation == true)
 		{
@@ -481,14 +485,13 @@ namespace jk
 				break;
 
 			case jk::Layana_LongHair::Layana_LongHair_State::BackGround_Move:
-				Layana_LongHair::BackGround_Move();
+				Layana_LongHair::BackGround_Enter();
 				break;
 
 			default:
 				break;
 			}
 		}
-
 
 		if (ShortHair_Operation == true)
 		{
@@ -507,9 +510,15 @@ namespace jk
 				Layana_LongHair::BackGround_Idle();
 				break;
 
-			case jk::Layana_LongHair::Layana_Long_Background::BackGround_Move:
-				Layana_LongHair::BackGround_Move();
+			case jk::Layana_LongHair::Layana_Long_Background::BackGround_Enter:
+				Layana_LongHair::BackGround_Enter();
 				break;
+
+			case jk::Layana_LongHair::Layana_Long_Background::BackGround_Exit:
+				Layana_LongHair::BackGround_Exit();
+				break;
+
+				//int a = 0;
 
 			default:
 				break;
@@ -630,14 +639,14 @@ namespace jk
 			if (_BackGround_check == false)
 			{
 				_rigidbody->SetGround(true);
-				_BackGround_check = true;
-				_BackGround_check = _rigidbody->GetGround();
+				_BackGround_check = true;		
 				_rigidbody->ClearVelocity();
 			}
 			else
 			{
-				if (_LongHair_state == Layana_LongHair_State::BackGround_Move)
+				if (Background_state == Layana_Long_Background::BackGround_Enter)
 				{					
+					if(_BackGround_Idle == false)
 					_BackGround_Idle = true;
 				}
 			}
@@ -657,32 +666,62 @@ namespace jk
 		if (_Intro_On == true)
 			Intro_Combo();
 
-
-		if (_time >= 3.0)
+		if (ShortHair_Operation == true)
 		{
-			if(_SelectAttack == 0)
-				Rush_Combo();
-			if (_SelectAttack == 1)
-				Meteor_Cross_Combo();
-			if (_SelectAttack == 2)
-				Meteor_Ground_Combo();
-			if (_SelectAttack == 3)
+			if(LongHair_First_moving==false)
+			BackGround_Combo();
+			_time = 0;			
+		}
+
+		if (LongHair_Operation == true)
+		{			
+			if (LongHair_First_moving == true)
+			{
 				Meteor_Vertical_Combo();
-			if (_SelectAttack == 4)
-				Skill_A_Combo();
-			if (_SelectAttack == 5)			
-				Skill_B_Combo();		
-			if (_SelectAttack == 6)			
-				Skill_C_Combo();	
-			if (_SelectAttack == 7)
-				BackGround_Combo();
+				LongHair_First_moving = false;
+			}
+			else
+			{
+				if (_SistersAttack_Number >= 2)
+				{
+					_Joint_Attack = true;
+					_LongHair_state = Layana_LongHair_State::FlyDash;
+					if (_pos.x > _LongHairCreatepos.x)
+						at->PlayAnimation(L"Long_hairDash", true);
+					else
+						at->PlayAnimation(L"Long_hairDashR", true);
+				}
+				else
+				{
+					if (_time >= 3.0)
+					{
+						if (_SelectAttack == 0)
+							Rush_Combo();
+						if (_SelectAttack == 1)
+							Meteor_Cross_Combo();
+						if (_SelectAttack == 2)
+							Meteor_Ground_Combo();
+						if (_SelectAttack == 3)
+							Meteor_Vertical_Combo();
+						if (_SelectAttack == 4)
+							Skill_A_Combo();
+						if (_SelectAttack == 5)
+							Skill_B_Combo();
+						if (_SelectAttack == 6)
+							Skill_C_Combo();
+						if (_SelectAttack == 7)
+							BackGround_Combo();
 
 
-			if (_SelectAttack == 9)
-				Awaken_Combo();
+						if (_SelectAttack == 9)
+							Awaken_Combo();
 
-			if (_SelectAttack == 10)
-				Intro_Combo();
+						if (_SelectAttack == 10)
+							Intro_Combo();
+						_SistersAttack_Number++;
+					}
+				}
+			}
 		}
 	}
 
@@ -756,6 +795,7 @@ namespace jk
 		}
 		else
 		{
+			//if (LongHair_First_moving == true && ShortHair_First_moving == true)			
 			if (_Sisters_Attack_C_Switch == true)
 			{
 				if (_SistersAttack_C_Ready_LongHair == false)
@@ -1186,7 +1226,7 @@ namespace jk
 				_LongHair_state = Layana_LongHair_State::LandingDash;
 				_Ground_check = false;
 				_rigidbody->SetGround(false);
-				if (_Dir == 1)
+				if (_pos.x < _LongHairCreatepos.x)
 				{
 					_rigidbody->SetVelocity(Vector2(650.f, -150.f));
 					at->PlayAnimation(L"Long_hairDashR", true);
@@ -1214,11 +1254,18 @@ namespace jk
 				_pos = Vector3(_LongHairCreatepos.x + 50, _LongHairCreatepos.y + 100, -150.f);
 				tr->SetPosition(_pos);
 				at->PlayAnimation(L"Long_hairBackGround_Move", false);
-				_LongHair_state = Layana_LongHair_State::BackGround_Move;
+				Background_state = Layana_Long_Background::BackGround_Enter;
 				_rigidbody->SetGround(false);
 				_Ground_check = false;
 				_BackGround_check = false;
 			}		
+			if (_Joint_Attack == true)
+			{
+				_rigidbody->SetGround(true);
+				_Ground_check = false;			
+				LongHair_First_moving = true;
+				_Joint_Attack = false;
+			}
 		}
 	}
 	void Layana_LongHair::LandingDash()
@@ -1288,8 +1335,7 @@ namespace jk
 
 
 	void Layana_LongHair::CrossJump()
-	{
-	
+	{	
 		if (_velocity.y <= -0.1f)
 		{
 			_rigidbody->ClearVelocity();
@@ -1688,18 +1734,51 @@ namespace jk
 	}
 
 
-	void Layana_LongHair::BackGround_Move()
+	void Layana_LongHair::BackGround_Idle()
+	{		
+		if (_SistersAttack_Number >= 2)
+		{
+			Background_state = Layana_Long_Background::BackGround_Exit;
+			at->PlayAnimation(L"Long_hairBackGround_Move", false);
+			_rigidbody->SetVelocity(Vector2(0.f, 1050.f));
+			_rigidbody->SetGround(false);
+			_BackGround_check = true;
+			_Ground_check = false;			
+		}
+		else
+			_pos.z = -100;
+	}
+	void Layana_LongHair::BackGround_Enter()
 	{
 		if (_BackGround_Idle == true)
 		{
-			_LongHair_state = Layana_LongHair_State::BackGround_Idle;
-			at->PlayAnimation(L"Long_hairBackGround_Idle", false);
+			Background_state = Layana_Long_Background::BackGround_Idle;
+			at->PlayAnimation(L"Long_hairBackGround_Idle", true);	
+			_BackGround_Idle = false;
 		}
 	}
-	void Layana_LongHair::BackGround_Idle()
+	void Layana_LongHair::BackGround_Exit()
 	{
-		_pos.z = -100;		
+		if (_pos.y >= _LongHairCreatepos.y + 150)
+		{
+			_rigidbody->SetGround(true);
+			if (ShortHairPos.x >= _LongHairCreatepos.x)
+			{
+				_pos.x = -700;
+				_pos.y = 150;
+				_pos.z = -200;
+			}
+			else
+			{
+				_pos.x = 700;
+				_pos.y = 150;
+				_pos.z = -200;
+			}
+			LongHair_First_moving = true;
+			Background_state = Layana_Long_Background::BackGround_Idle;
+		}
 	}
+
 
 
 	void Layana_LongHair::Rush_Combo()
@@ -1843,7 +1922,7 @@ namespace jk
 	{
 		_GroundMeteorSwitch = true; // 이동이 되었을때 공격하는 모션 온
 		_LongHair_state = Layana_LongHair_State::FlyDash;
-		if (_Dir == 1)
+		if (_pos.x > _LongHairCreatepos.x)
 			at->PlayAnimation(L"Long_hairDash", true);
 		else
 			at->PlayAnimation(L"Long_hairDashR", true);
@@ -1872,7 +1951,7 @@ namespace jk
 	{
 		_VerticalMeteorSwitch = true;
 		_LongHair_state = Layana_LongHair_State::FlyDash;
-		if (_Dir == 1)
+		if (_pos.x > _LongHairCreatepos.x)
 			at->PlayAnimation(L"Long_hairDash", true);
 		else
 			at->PlayAnimation(L"Long_hairDashR", true);
@@ -2042,8 +2121,8 @@ namespace jk
 	void Layana_LongHair::BackGround_Combo()
 	{
 		_BackGround_Switch = true;
-		_LongHair_state = Layana_LongHair_State::FlyDash;
-		if (_Dir == 1)
+		Background_state = Layana_Long_Background::FlyDash;
+		if (_pos.x > _LongHairCreatepos.x)
 			at->PlayAnimation(L"Long_hairDash", true);
 		else
 			at->PlayAnimation(L"Long_hairDashR", true);

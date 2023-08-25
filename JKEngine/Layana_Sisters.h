@@ -83,7 +83,8 @@ namespace jk
 		void Sisters_Attack_D();
 
 	
-
+		void longhair_change();
+		void shorthair_change();
 		int random(int a, int b);
 
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
@@ -94,7 +95,14 @@ namespace jk
 		static Layana_Sisters_State _state;	
 		static bool Joint_Operation;
 		static bool LongHair_Operation;
+		static bool LongHair_First_moving;
 		static bool ShortHair_Operation;
+		static bool ShortHair_First_moving;
+
+	public:
+		static Vector3 LongHairPos;
+		static Vector3 ShortHairPos;
+
 
 	private:
 		GameObject* _Gobjs[3];
@@ -117,7 +125,7 @@ namespace jk
 		static int _Sisters_AttackType;
 
 	public:		
-		static int _SisteesAttack_Number;
+		static int _SistersAttack_Number;
 		static bool _SistersAttack_Set_LongHair;
 		static bool _SistersAttack_Set_ShortHair;
 		static bool _SistersAttack_FlyDash_LongHair;

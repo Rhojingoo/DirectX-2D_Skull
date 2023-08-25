@@ -83,14 +83,16 @@ namespace jk
 			Idle,
 			FlyDash,
 			BackGround_Idle,
-			BackGround_Move,
+			BackGround_Enter,	
+			BackGround_Exit,
 		};
 
 
 		void idle();
 
 		void BackGround_Idle();
-		void BackGround_Move();
+		void BackGround_Enter();
+		void BackGround_Exit();
 
 		void Intro_Dash();
 		void Intro_Landing();
@@ -202,12 +204,14 @@ namespace jk
 	public:
 		void CreateHoming();
 		void SettingHoming(Transform* set, int angle_of_number);
-
+		float Getposition_X() { return _pos.x; }
 		
+	public:
+		static Layana_ShortHair_State _ShortHair_state;		
+		static Layana_Short_Background Background_state;
+
 
 	private:
-		static Layana_ShortHair_State _ShortHair_state;		
-		Layana_Short_Background Background_state;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
@@ -297,7 +301,10 @@ namespace jk
 		bool	_BackGround_Switch = false;
 		bool	_BackGround_Idle = false;
 
+		bool	_Joint_Attack = false;
+
 		int		_SelectAttack = 0;
+
 
 
 

@@ -5,12 +5,15 @@
 namespace jk
 {
 	Layana_Sisters::Layana_Sisters_State Layana_Sisters::_state = Layana_Sisters_State();
+	Vector3 Layana_Sisters::LongHairPos = Vector3();;
+	Vector3 Layana_Sisters::ShortHairPos = Vector3();
 
-
-	int Layana_Sisters::_SisteesAttack_Number = 0;
+	int Layana_Sisters::_SistersAttack_Number = 0;
 	bool Layana_Sisters::Joint_Operation = true;
 	bool Layana_Sisters::LongHair_Operation = false;
 	bool Layana_Sisters::ShortHair_Operation = false;
+	bool Layana_Sisters::LongHair_First_moving = false;
+	bool Layana_Sisters::ShortHair_First_moving = false;
 
 	bool Layana_Sisters::_Sisters_Attack_A_Switch = false;
 	bool Layana_Sisters::_Sisters_Attack_B_Switch = false;
@@ -197,6 +200,19 @@ namespace jk
 			}
 		}
 
+		if (ShortHair_Operation == true)
+		{
+			if (LongHair_First_moving == true && ShortHair_First_moving == true)
+			{
+				_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
+				ShortHair_Operation = false;
+				LongHair_Operation = false;				
+				Joint_Operation = true;
+				LongHair_First_moving = false;
+				ShortHair_First_moving = false;
+			}
+		}
+		
 		GameObject::Update();
 	}
 	void Layana_Sisters::LateUpdate()
@@ -224,7 +240,8 @@ namespace jk
 		if(_Intro_On == true)
 		{
 			if (_Intro_Dash_ShortHair == true && _Intro_Dash_LongHair == true)
-				_state = Layana_Sisters_State::Intro_Dash;		
+				_state = Layana_Sisters_State::Intro_Dash;
+			_SistersAttack_Number = 0;
 		}
 		else
 		{
@@ -277,7 +294,7 @@ namespace jk
 
 	void Layana_Sisters::Sisters_Attack_Set()
 	{	
-			//_Sisters_AttackType = random(0, 2);
+			_Sisters_AttackType = random(0, 2);
 			if (_Sisters_AttackType == 0)
 			{
 				_Sisters_Attack_A_Switch = true;
@@ -292,19 +309,12 @@ namespace jk
 			}
 			if (_SistersAttack_Set_LongHair == true && _SistersAttack_Set_ShortHair == true)
 				_state = Layana_Sisters_State::Sisters_Attack_FlyDash;			
-			_SisteesAttack_Number++;
-	}	void Layana_Sisters::Sisters_Attack_FlyDash()
+			_SistersAttack_Number++;
+	}	
+	void Layana_Sisters::Sisters_Attack_FlyDash()
 	{		
 		if (_SistersAttack_FlyDash_ShortHair == true && _SistersAttack_FlyDash_LongHair == true)
 		{
-			//if (_SisteesAttack_Number > 2)
-			//{
-			//	//_SisteesAttack_Number = 0;
-			//	_Sisters_Attack_On = false;
-			//	Joint_Operation = false;
-			//	LongHair_Operation = true;
-			//}
-			//else
 			_state = Layana_Sisters_State::Sisters_Attack_Fall;
 		}
 
@@ -356,21 +366,23 @@ namespace jk
 		_SistersAttack_A_ShortHair_END = false;		
 
 		_Attacktime += Time::DeltaTime();
-		if (_Attacktime > 1.5)
+		if (_Attacktime > 1)
 		{
-			if (_SisteesAttack_Number > 2)
-			{
-				//_SisteesAttack_Number = 0;
+			if (_SistersAttack_Number >= 1)
+			{				
 				_Sisters_Attack_On = false;
-				Joint_Operation = false;
-				LongHair_Operation = true;
-				_Attacktime = 0;
+				Joint_Operation = false;		
+				int select = random(0, 1);
+
+				if (select == 0)
+					longhair_change();
+				if (select == 1)
+					shorthair_change();
 			}
 			else
 			{
 				_state = Layana_Sisters_State::Sisters_Attack_Set;
 				_Attacktime = 0;
-				_Sisters_AttackType = 0;
 			}
 		}
 	}
@@ -412,21 +424,23 @@ namespace jk
 
 
 		_Attacktime += Time::DeltaTime();
-		if (_Attacktime > 1.5)
+		if (_Attacktime > 1)
 		{
-			if (_SisteesAttack_Number > 2)
-			{
-				//_SisteesAttack_Number = 0;
+			if (_SistersAttack_Number > 1)
+			{				
 				_Sisters_Attack_On = false;
-				Joint_Operation = false;
-				LongHair_Operation = true;
-				_Attacktime = 0;
+				Joint_Operation = false;		
+				int select = random(0, 1);
+
+				if (select == 0)
+					longhair_change();				
+				if (select == 1)
+					shorthair_change();
 			}
 			else
 			{
 				_state = Layana_Sisters_State::Sisters_Attack_Set;
 				_Attacktime = 0;
-				_Sisters_AttackType = 0;
 			}
 		}
 	}
@@ -466,21 +480,23 @@ namespace jk
 		_SistersAttack_C_ShortHair_LAND = false;
 
 		_Attacktime += Time::DeltaTime();
-		if (_Attacktime > 1.5)
+		if (_Attacktime > 1)
 		{
-			if (_SisteesAttack_Number > 2)
+			if (_SistersAttack_Number > 1)
 			{
-				//_SisteesAttack_Number = 0;
 				_Sisters_Attack_On = false;
 				Joint_Operation = false;
-				LongHair_Operation = true;
-				_Attacktime = 0;
+				int select = random(0, 1);
+
+				if (select == 0)
+					longhair_change();
+				if (select == 1)
+					shorthair_change();
 			}
 			else
 			{
 				_state = Layana_Sisters_State::Sisters_Attack_Set;
-				_Attacktime = 0;
-				_Sisters_AttackType = 0;
+				_Attacktime = 0;				
 			}
 		}		
 	}
@@ -492,6 +508,26 @@ namespace jk
 	}
 
 
+
+	void Layana_Sisters::longhair_change()
+	{
+		LongHair_Operation = true;
+		LongHair_First_moving = true;
+		_Attacktime = 0;
+		_SistersAttack_Number = 0;
+		Layana_ShortHair::Background_state = Layana_ShortHair::Layana_Short_Background::Idle;
+		Layana_LongHair::_LongHair_state = Layana_LongHair::Layana_LongHair_State::Idle;
+	}
+
+	void Layana_Sisters::shorthair_change()
+	{
+		ShortHair_Operation = true;
+		ShortHair_First_moving = true;
+		_Attacktime = 0;
+		_SistersAttack_Number = 0;
+		Layana_LongHair::Background_state = Layana_LongHair::Layana_Long_Background::Idle;
+		Layana_ShortHair::_ShortHair_state = Layana_ShortHair::Layana_ShortHair_State::Idle;
+	}
 
 	int Layana_Sisters::random(int a, int b)
 	{

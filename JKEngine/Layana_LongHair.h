@@ -84,7 +84,8 @@ namespace jk
 			Idle,
 			FlyDash,
 			BackGround_Idle,
-			BackGround_Move,
+			BackGround_Enter,
+			BackGround_Exit,
 		};
 
 
@@ -110,7 +111,11 @@ namespace jk
 
 		void Sisters_Attack_D();
 
-		void idle();		
+		void idle();	
+
+		void BackGround_Idle();
+		void BackGround_Enter();
+		void BackGround_Exit();
 
 		void Rushready();
 		void Rush_A();
@@ -156,8 +161,6 @@ namespace jk
 		void AwakenJump();
 		void AwakenReady();
 
-		void BackGround_Idle();
-		void BackGround_Move();
 
 		void die();
 
@@ -200,15 +203,15 @@ namespace jk
 	public:
 		void CreateHoming();
 		void SettingHoming(Transform* set,int angle_of_number);
+		static Layana_Long_Background Background_state;
+		static Layana_LongHair_State _LongHair_state;
 
 	private:
-		static Layana_LongHair_State _LongHair_state;
-		Layana_Short_Background Background_state;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
-
+	
 		
 	private:
 		Homing_Pierce_LongHair* Homing[3];
@@ -294,6 +297,8 @@ namespace jk
 
 		bool	_BackGround_Switch = false;
 		bool	_BackGround_Idle = false;
+
+		bool	_Joint_Attack = false;
 
 		int		_SelectAttack = 0;
 	};
