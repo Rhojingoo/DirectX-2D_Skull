@@ -27,31 +27,96 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		enum class Layana_ShortHair_State
+		{
+			Idle,
+
+			BackGround_Idle,
+			BackGround_Move,
+
+			Rush_Ready,
+			RushA,
+			RushB,
+			RushC,
+			Rush_End,
+
+			Dash,
+			FlyDash,
+			LandingDash,
+			BackStep,
+
+			Meteor_Cross_Ready,
+			Meteor_Cross_Jump,
+			Meteor_Cross_Attack,
+			Meteor_Cross_Landing,
+			Meteor_Cross_End,
+
+			Meteor_Ground_Ready,
+			Meteor_Ground_Attack,
+			Meteor_Ground_Landing,
+			Meteor_Ground_End,
+
+			Meteor_Vertical_Jump,
+			Meteor_Vertical_Ready,
+			Meteor_Vertical_Attack,
+			Meteor_Vertical_Landing,
+			Meteor_Vertical_End,
+
+			Skill_A_Bullet_Ready,
+			Skill_A_Bullet,
+			Skill_A_Bullet_End,
+
+			Skill_B_RisingPierce,
+			Skill_B_RisingPierce_End,
+
+			Skill_C_DimensionPierce,
+
+			Awaken,
+			AwakenJump,
+			AwakenReady,
+
+			Die,
+		};
+
+		enum class Layana_Short_Background
+		{
+			Idle,
+			FlyDash,
+			BackGround_Idle,
+			BackGround_Move,
+		};
+
+
 		void idle();
 
-		void Sisters_Attack_A_Ready();
+		void BackGround_Idle();
+		void BackGround_Move();
+
+		void Intro_Dash();
+		void Intro_Landing();
+		void Intro_Fall();
+
+		void Sisters_Attack_Set();
 		void Sisters_Attack_FlyDash();
 		void Sisters_Attack_Fall();
+
+		void Sisters_Attack_A_Ready();
 		void Sisters_Attack_A_LandingDash();
 		void Sisters_Attack_A();
 		void Sisters_Attack_A_End();
-
 
 		void Sisters_Attack_B_Ready();
 		void Sisters_Attack_B_BulletCreate();
 		void Sisters_Attack_B();
 		void Sisters_Attack_B_End();
 
-
-
 		void Sisters_Attack_C_Ready();
 		void Sisters_Attack_C();
 		void Sisters_Attack_C_Landing();
 		void Sisters_Attack_C_End();
 
-
-
 		void Sisters_Attack_D();
+
 
 
 		void Rushready();
@@ -92,18 +157,9 @@ namespace jk
 
 		void Skill_C();
 
-
-		void Intro_Dash();
-		void Intro_Landing();
-		void Intro_Fall();
-
-
 		void Awaken();
 		void AwakenJump();
 		void AwakenReady();
-
-		void BackGround_Idle();
-		void BackGround_Move();
 
 		void die();
 
@@ -147,9 +203,11 @@ namespace jk
 		void CreateHoming();
 		void SettingHoming(Transform* set, int angle_of_number);
 
-
+		
 
 	private:
+		static Layana_ShortHair_State _ShortHair_state;		
+		Layana_Short_Background Background_state;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
@@ -200,10 +258,11 @@ namespace jk
 
 	private:
 	
-		bool	_Sisters_Attack_A_Switch = false;
-		bool	_Sisters_Attack_B_Switch = false;
-		bool	_Sisters_Attack_C_Switch = false;
-		bool	_Sisters_Attack_D_Switch = false;
+		bool	_Sisters_Attack_A = false;
+		bool	_Sisters_Attack_B = false;
+		//bool	_Sisters_Attack_C_Switch = false;
+		//bool	_Sisters_Attack_D_Switch = false;
+		bool	_Bullet_Switch[3] = {};
 
 		bool	_RushSwitch = false;
 
