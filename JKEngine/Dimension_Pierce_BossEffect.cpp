@@ -23,8 +23,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Boss", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Boss", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Boss", this,0,0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Boss", this,1,0.05);
 		at->CompleteEvent(L"EffectDimensionPierce_Boss") = std::bind(&Dimension_Pierce_BossEffect::Compelete_Pierce, this);
 		at->CompleteEvent(L"EffectDimensionPierce_BossR") = std::bind(&Dimension_Pierce_BossEffect::Compelete_Pierce, this);
 

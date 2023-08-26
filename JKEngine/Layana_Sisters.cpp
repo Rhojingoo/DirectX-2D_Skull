@@ -213,6 +213,22 @@ namespace jk
 			}
 		}
 		
+		if (LongHair_Operation == true)
+		{
+			if (LongHair_First_moving == true && ShortHair_First_moving == true)
+			{
+				_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
+				ShortHair_Operation = false;
+				LongHair_Operation = false;
+				Joint_Operation = true;
+				LongHair_First_moving = false;
+				ShortHair_First_moving = false;
+			}
+		}
+
+
+
+
 		GameObject::Update();
 	}
 	void Layana_Sisters::LateUpdate()
@@ -294,7 +310,8 @@ namespace jk
 
 	void Layana_Sisters::Sisters_Attack_Set()
 	{	
-			_Sisters_AttackType = random(0, 2);
+			//_Sisters_AttackType = random(0, 2);
+		_Sisters_AttackType = 0;
 			if (_Sisters_AttackType == 0)
 			{
 				_Sisters_Attack_A_Switch = true;
@@ -348,7 +365,7 @@ namespace jk
 	}
 	void Layana_Sisters::Sisters_Attack_A()
 	{
-		if(_SistersAttack_A_ShortHair_END ==true && _SistersAttack_A_ShortHair_END ==true)
+		if(_SistersAttack_A_LongHair_END ==true && _SistersAttack_A_ShortHair_END ==true)
 			_state = Layana_Sisters_State::Sisters_Attack_A_End;
 	}
 	void Layana_Sisters::Sisters_Attack_A_End()
@@ -366,7 +383,7 @@ namespace jk
 		_SistersAttack_A_ShortHair_END = false;		
 
 		_Attacktime += Time::DeltaTime();
-		if (_Attacktime > 1)
+		if (_Attacktime > 1.5)
 		{
 			if (_SistersAttack_Number >= 1)
 			{				
@@ -374,10 +391,12 @@ namespace jk
 				Joint_Operation = false;		
 				int select = random(0, 1);
 
+				select = 0;
 				if (select == 0)
 					longhair_change();
 				if (select == 1)
 					shorthair_change();
+				_Attacktime = 0;
 			}
 			else
 			{
@@ -513,7 +532,7 @@ namespace jk
 	{
 		LongHair_Operation = true;
 		LongHair_First_moving = true;
-		_Attacktime = 0;
+
 		_SistersAttack_Number = 0;
 		Layana_ShortHair::Background_state = Layana_ShortHair::Layana_Short_Background::Idle;
 		Layana_LongHair::_LongHair_state = Layana_LongHair::Layana_LongHair_State::Idle;
@@ -523,7 +542,7 @@ namespace jk
 	{
 		ShortHair_Operation = true;
 		ShortHair_First_moving = true;
-		_Attacktime = 0;
+
 		_SistersAttack_Number = 0;
 		Layana_LongHair::Background_state = Layana_LongHair::Layana_Long_Background::Idle;
 		Layana_ShortHair::_ShortHair_state = Layana_ShortHair::Layana_ShortHair_State::Idle;

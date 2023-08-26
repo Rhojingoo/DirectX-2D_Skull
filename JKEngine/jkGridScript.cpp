@@ -51,7 +51,6 @@ namespace jk
 			if (mMeshScale + adjustVal > 2.9f)
 			{
 				mMeshScale = 2.9f;
-				newCameraScale = 0.1f;
 			}
 			else
 			{

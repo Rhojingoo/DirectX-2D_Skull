@@ -13,17 +13,17 @@ namespace jk
 	void Stage2_1::Initialize()
 	{
 
-		//#pragma region CollisionManager
-		//		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
-		//		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
-		//		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
-		//		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
-		//		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
-		//		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
-		//		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
-		//		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
-		//		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
-		//#pragma endregion 
+		#pragma region CollisionManager
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+				CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
+				CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
+		#pragma endregion 
 
 
 		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
@@ -94,12 +94,12 @@ namespace jk
 			cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
 			cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
 			cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+			//renderer::cameras.push_back(cameraComp_ui);
 
-
-			Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
-			grid->SetName(L"Catle_Grid");
-			GridScript* gridSc = grid->AddComponent<GridScript>();
-			gridSc->SetCamera(cameraComp);
+			//Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+			//grid->SetName(L"Catle_Grid");
+			//GridScript* gridSc = grid->AddComponent<GridScript>();
+			//gridSc->SetCamera(cameraComp);
 	}
 
 	void Stage2_1::Update()
