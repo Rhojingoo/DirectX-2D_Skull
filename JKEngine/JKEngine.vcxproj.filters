@@ -104,16 +104,16 @@
       <Filter>Game_ob\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Mini_Boss.h">
-      <Filter>Game_ob\MiniBoss</Filter>
+      <Filter>Game_ob\Monster\MiniBoss</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Game_ob\Boss</Filter>
     </ClInclude>
     <ClInclude Include="Knight_male.h">
-      <Filter>Game_ob\MiniBoss\Knight_male</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male</Filter>
     </ClInclude>
     <ClInclude Include="Archer.h">
-      <Filter>Game_ob\MiniBoss\Archer</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer</Filter>
     </ClInclude>
     <ClInclude Include="Monster_Hammer.h">
       <Filter>Game_ob\Monster\Monster_Hammer</Filter>
@@ -155,10 +155,10 @@
       <Filter>Game_ob\Monster\Monster_Blossom</Filter>
     </ClInclude>
     <ClInclude Include="Mage.h">
-      <Filter>Game_ob\MiniBoss\Mage</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage</Filter>
     </ClInclude>
     <ClInclude Include="Cleric.h">
-      <Filter>Game_ob\MiniBoss\Cleric</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Cleric</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Game_ob\Bullet</Filter>
@@ -236,97 +236,97 @@
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Knight_male_EnergeBall.h">
-      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Kngiht_EnergyBall_Impact.h">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Knight_EnergyBall_StartEffect.h">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Knight_Energe_Blast.h">
-      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Knight_UltimateSkill_Projectile.h">
-      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Archer_Arrow.h">
-      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Archer_Arrow_Upward_Sign.h">
-      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Archer_Upward_Impact_Bullet.h">
-      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Archer_Arrow_Bye.h">
-      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Archer_Trap.h">
-      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Public_Ultimate_Aura.h">
-      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Public\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Public_Ultimate_AuraSmoke.h">
-      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Public\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Public_UltimateSkill_Effect_Complete.h">
-      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Public\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Public_UltimateSkill_Effect_Fail.h">
-      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Public\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Archer_Utimate_Sign.h">
-      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Archer_Ultimate_Bye.h">
-      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Cleric_Attack_Sign.h">
-      <Filter>Game_ob\MiniBoss\Cleric\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Cleric\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Cleric_HolyThunder.h">
-      <Filter>Game_ob\MiniBoss\Cleric\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Cleric\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Cleric_Veteran_Sanctuary.h">
-      <Filter>Game_ob\MiniBoss\Cleric\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Cleric\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Public_Heal_Effect.h">
-      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Public\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Cleric_Ultimate_SkillEffect.h">
-      <Filter>Game_ob\MiniBoss\Cleric\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Cleric\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Ultimate_OnFire_Ready.h">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Ultimate_OnFire.h">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Ultimate_On_Fire_Projectile.h">
-      <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Ultimate_OnFire_Fire.h">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Mage_FireBall.h">
-      <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Mage_BoomSign.h">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Mage_FireBoom.h">
-      <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Mage_Landing_Ready.h">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Mage_Phoenix_Landing.h">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Mage_Phoenix_Landing_Land.h">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Attack_HitBox.h">
       <Filter>Game_ob\HitBox\Base</Filter>
@@ -466,16 +466,16 @@
       <Filter>Game_ob\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Mini_Boss.cpp">
-      <Filter>Game_ob\MiniBoss</Filter>
+      <Filter>Game_ob\Monster\MiniBoss</Filter>
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>Game_ob\Boss</Filter>
     </ClCompile>
     <ClCompile Include="Knight_male.cpp">
-      <Filter>Game_ob\MiniBoss\Knight_male</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male</Filter>
     </ClCompile>
     <ClCompile Include="Archer.cpp">
-      <Filter>Game_ob\MiniBoss\Archer</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer</Filter>
     </ClCompile>
     <ClCompile Include="Monster_Hammer.cpp">
       <Filter>Game_ob\Monster\Monster_Hammer</Filter>
@@ -517,10 +517,10 @@
       <Filter>Game_ob\Monster\Monster_Blossom</Filter>
     </ClCompile>
     <ClCompile Include="Mage.cpp">
-      <Filter>Game_ob\MiniBoss\Mage</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage</Filter>
     </ClCompile>
     <ClCompile Include="Cleric.cpp">
-      <Filter>Game_ob\MiniBoss\Cleric</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Cleric</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Game_ob\Bullet</Filter>
@@ -598,97 +598,97 @@
       <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Knight_male_EnergeBall.cpp">
-      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Kngiht_EnergyBall_Impact.cpp">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Knight_EnergyBall_StartEffect.cpp">
-      <Filter>Game_ob\MiniBoss\Knight_male\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Knight_Energe_Blast.cpp">
-      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Knight_UltimateSkill_Projectile.cpp">
-      <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Knight_male\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Archer_Arrow.cpp">
-      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Archer_Arrow_Upward_Sign.cpp">
-      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Archer_Upward_Impact_Bullet.cpp">
-      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Archer_Arrow_Bye.cpp">
-      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Archer_Trap.cpp">
-      <Filter>Game_ob\MiniBoss\Archer\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Public_Ultimate_Aura.cpp">
-      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Public\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Public_Ultimate_AuraSmoke.cpp">
-      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Public\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Public_UltimateSkill_Effect_Complete.cpp">
-      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Public\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Public_UltimateSkill_Effect_Fail.cpp">
-      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Public\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Archer_Utimate_Sign.cpp">
-      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Archer_Ultimate_Bye.cpp">
-      <Filter>Game_ob\MiniBoss\Archer\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Archer\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Cleric_Attack_Sign.cpp">
-      <Filter>Game_ob\MiniBoss\Cleric\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Cleric\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Cleric_HolyThunder.cpp">
-      <Filter>Game_ob\MiniBoss\Cleric\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Cleric\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Cleric_Veteran_Sanctuary.cpp">
-      <Filter>Game_ob\MiniBoss\Cleric\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Cleric\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Public_Heal_Effect.cpp">
-      <Filter>Game_ob\MiniBoss\Public\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Public\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Cleric_Ultimate_SkillEffect.cpp">
-      <Filter>Game_ob\MiniBoss\Cleric\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Cleric\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Ultimate_OnFire_Ready.cpp">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Ultimate_OnFire.cpp">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Ultimate_On_Fire_Projectile.cpp">
-      <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Ultimate_OnFire_Fire.cpp">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Mage_FireBall.cpp">
-      <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Mage_BoomSign.cpp">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Mage_FireBoom.cpp">
-      <Filter>Game_ob\MiniBoss\Mage\Bullet</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Mage_Landing_Ready.cpp">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Mage_Phoenix_Landing.cpp">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Mage_Phoenix_Landing_Land.cpp">
-      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+      <Filter>Game_ob\Monster\MiniBoss\Mage\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Attack_HitBox.cpp">
       <Filter>Game_ob\HitBox\Base</Filter>
@@ -800,17 +800,8 @@
     <Filter Include="Game_ob\Boss">
       <UniqueIdentifier>{6e0f6987-c336-4a37-9ca2-f5e4cad9a21e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\MiniBoss">
-      <UniqueIdentifier>{c049cc07-0953-4771-8738-4749be3d6a7a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game_ob\Monster">
       <UniqueIdentifier>{55f18709-efce-4720-87ef-a948fa68e4f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Knight_male">
-      <UniqueIdentifier>{8b8edcfe-698b-4cbf-9f59-9fa1e0ca9615}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Archer">
-      <UniqueIdentifier>{3143cc7d-479e-4908-a45e-84e9dc1c6eed}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game_ob\Monster\Monster_Hammer">
       <UniqueIdentifier>{9d583fd2-8c1a-43c7-8372-ae8327d385f5}</UniqueIdentifier>
@@ -833,12 +824,6 @@
     <Filter Include="Game_ob\Monster\Monster_Blossom">
       <UniqueIdentifier>{798f4644-0aa9-4be0-a3b6-1f37d1717f63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\MiniBoss\Mage">
-      <UniqueIdentifier>{d585cef5-d2db-4392-8245-3f8fd9d55179}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Cleric">
-      <UniqueIdentifier>{964437c2-3cc2-4bb6-85c2-24958a9025c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game_ob\Bullet">
       <UniqueIdentifier>{d10b068c-df2b-4522-a283-c5efb2811418}</UniqueIdentifier>
     </Filter>
@@ -859,36 +844,6 @@
     </Filter>
     <Filter Include="Game_ob\Boss\Layana_Sisters\Layana_Bullet">
       <UniqueIdentifier>{2e3c30ec-81b4-430f-a41a-8d6e0d286d94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Knight_male\Bullet">
-      <UniqueIdentifier>{4567e8d3-d9f2-4f57-aa52-c34cc16f7962}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Knight_male\Effect">
-      <UniqueIdentifier>{f443e932-1191-44a6-91de-3335025eb2f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Archer\Bullet">
-      <UniqueIdentifier>{da09b292-bda9-46e6-ba68-edc253ad459a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Archer\Effect">
-      <UniqueIdentifier>{0658b3d4-bad5-46bc-835a-e19982f10abf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Public">
-      <UniqueIdentifier>{436d56e6-85fa-48c0-839e-426a68427188}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Public\Effect">
-      <UniqueIdentifier>{0cb0aa98-d67a-4d3b-8040-7341ad994671}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Cleric\Effect">
-      <UniqueIdentifier>{541072c2-f077-4829-a573-38c90eb80ca7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Cleric\Bullet">
-      <UniqueIdentifier>{387a76c1-0840-4ae4-8abe-f8b1c84abf24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Mage\Bullet">
-      <UniqueIdentifier>{976eb503-033e-42c8-8d15-a170d88cebf6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\MiniBoss\Mage\Effect">
-      <UniqueIdentifier>{edf25464-8075-423b-b62d-aab2070a5343}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game_ob\HitBox">
       <UniqueIdentifier>{8f10eb03-3a2e-4487-b072-cf659e2fb54c}</UniqueIdentifier>
@@ -925,6 +880,51 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Monster_Blossom\Bullet">
       <UniqueIdentifier>{786a06a5-ccec-4fc1-ae1d-d4c0005a307c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss">
+      <UniqueIdentifier>{c049cc07-0953-4771-8738-4749be3d6a7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Knight_male">
+      <UniqueIdentifier>{8b8edcfe-698b-4cbf-9f59-9fa1e0ca9615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Knight_male\Bullet">
+      <UniqueIdentifier>{4567e8d3-d9f2-4f57-aa52-c34cc16f7962}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Knight_male\Effect">
+      <UniqueIdentifier>{f443e932-1191-44a6-91de-3335025eb2f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Archer">
+      <UniqueIdentifier>{3143cc7d-479e-4908-a45e-84e9dc1c6eed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Archer\Bullet">
+      <UniqueIdentifier>{da09b292-bda9-46e6-ba68-edc253ad459a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Archer\Effect">
+      <UniqueIdentifier>{0658b3d4-bad5-46bc-835a-e19982f10abf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Mage">
+      <UniqueIdentifier>{d585cef5-d2db-4392-8245-3f8fd9d55179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Mage\Bullet">
+      <UniqueIdentifier>{976eb503-033e-42c8-8d15-a170d88cebf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Mage\Effect">
+      <UniqueIdentifier>{edf25464-8075-423b-b62d-aab2070a5343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Cleric">
+      <UniqueIdentifier>{964437c2-3cc2-4bb6-85c2-24958a9025c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Cleric\Effect">
+      <UniqueIdentifier>{541072c2-f077-4829-a573-38c90eb80ca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Cleric\Bullet">
+      <UniqueIdentifier>{387a76c1-0840-4ae4-8abe-f8b1c84abf24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Public">
+      <UniqueIdentifier>{436d56e6-85fa-48c0-839e-426a68427188}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\MiniBoss\Public\Effect">
+      <UniqueIdentifier>{0cb0aa98-d67a-4d3b-8040-7341ad994671}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

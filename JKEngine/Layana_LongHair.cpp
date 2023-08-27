@@ -1957,8 +1957,7 @@ namespace jk
 			at->PlayAnimation(L"Long_hairDashR", true);
 	}
 	void Layana_LongHair::Complete_GroundLanding()
-	{		
-		
+	{				
 	}
 	void Layana_LongHair::Complete_GroundEnd()
 	{
