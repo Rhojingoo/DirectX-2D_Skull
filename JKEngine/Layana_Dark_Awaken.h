@@ -2,13 +2,8 @@
 #pragma once
 #include "Include_Common.h"
 #include "Layana_Sisters.h"
-//#include "Homing_Pierce_ShortHair.h"
-//#include "Rising_Pierce.h"
-//#include "Dimension_Pierce.h"
-//#include "Dimension_Pierce_BossEffect.h"
-//#include "Dimension_Pierce_BulletEffect.h"
-//#include "TwinMeteor_Boss.h"
-//#include "TwinMeteor_Effect.h"
+#include "Layana_Awken_Rush_Sign.h"
+#include "Latana_Awake_Rush_Bullet.h"
 
 
 namespace jk
@@ -34,6 +29,9 @@ namespace jk
 
 			Awaken_End,
 
+			Telleport_In,
+			Telleport_Out,
+
 			Dash,
 			FlyDash,
 			LandingDash,
@@ -42,7 +40,14 @@ namespace jk
 			Rush_Ready,
 			RushA,
 			RushB,
-			RushC,
+			RushC_1,
+			RushC_2,
+			RushC_3,
+			RushC_4,
+			RushC_5,
+			RushC_6,
+			RushC_7,
+			RushC_8,
 			Rush_End,
 
 			Meteor_Cross_Ready,
@@ -78,6 +83,9 @@ namespace jk
 
 		void Awaken_End();
 
+		void Telleport_In();
+		void Telleport_Out();
+
 		void Dash();
 		void FlyDash();
 		void LandingDash();
@@ -87,7 +95,15 @@ namespace jk
 		void Rushready();
 		void Rush_A();
 		void Rush_B();
-		void Rush_C();
+		void Rush_C_1();
+		void Rush_C_2();
+		void Rush_C_3();
+		void Rush_C_4();
+		void Rush_C_5();
+		void Rush_C_6();
+		void Rush_C_7();
+		void Rush_C_8();
+
 		void Rush_End();
 
 
@@ -127,8 +143,18 @@ namespace jk
 		void death();
 
 	public:
-		void Complete_Rush();
+		void Complete_Telleport_In();
+		void Complete_Telleport_Out();
+
 		void Complete_RushReady();
+		void Complete_Rush_C1();
+		void Complete_Rush_C2();
+		void Complete_Rush_C3();
+		void Complete_Rush_C4();
+		void Complete_Rush_C5();
+		void Complete_Rush_C6();
+		void Complete_Rush_C7();
+
 
 		void Complete_CrossJump();
 		void Complete_CrossLanding();
@@ -158,6 +184,7 @@ namespace jk
 
 		void BackGround_Combo();
 
+
 	public:
 		void CreateHoming();
 		void SettingHoming(Transform* set, int angle_of_number);
@@ -173,13 +200,9 @@ namespace jk
 		Transform* tr = nullptr;
 
 	private:
-		//Homing_Pierce_ShortHair* Homing[3];
-		//Transform* bullet_tr1 = nullptr;
-		//Transform* bullet_tr2 = nullptr;
-		//Transform* bullet_tr3 = nullptr;
-		//RigidBody* bullet_rb1 = nullptr;
-		//RigidBody* bullet_rb2 = nullptr;
-		//RigidBody* bullet_rb3 = nullptr;
+		Layana_Awken_Rush_Sign* Rush_Sign[7] = {};
+		Latana_Awake_Rush_Bullet* Rush_Bullet[7] = {};
+
 
 
 	private:
@@ -211,6 +234,7 @@ namespace jk
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		bool	_BackGround_check = true;			// 백그라운드 아이들시 사용되는 변수
 		int		_Rushnumber = 0;					// 러쉬 공격시 1번 = a, 2번 = b, 3번 =c , 0 = 대기상태
+		bool	_teleportCheck = false;			// 텔레포드 인아웃을 할수 있도록 설정하는 변수
 
 	public:
 		static bool _AttackStageON;				// FLyDash의 경우 나가있는지 안에 있는지 확인할수 있는변 나가있는상태라면 위치 셋팅하여 안으로 들어오게 도와주는 역할의 변수 
@@ -219,6 +243,7 @@ namespace jk
 		bool	_Bullet_Switch[3] = {};
 
 		bool	_RushSwitch = false;
+		int		_Rush_C_Number = 0;
 
 		bool	_CrossMeteorSwitch = false;
 		bool	_CrossMeteorLanding = false;

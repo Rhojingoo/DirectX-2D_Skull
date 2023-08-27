@@ -367,6 +367,12 @@
     <ClInclude Include="Layana_Dark_Awaken.h">
       <Filter>Game_ob\Boss\Layana_Sisters</Filter>
     </ClInclude>
+    <ClInclude Include="Layana_Awken_Rush_Sign.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\AWAKEN_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Latana_Awake_Rush_Bullet.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -729,6 +735,12 @@
     <ClCompile Include="Layana_Dark_Awaken.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters</Filter>
     </ClCompile>
+    <ClCompile Include="Layana_Awken_Rush_Sign.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\AWAKEN_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Latana_Awake_Rush_Bullet.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -925,6 +937,12 @@
     </Filter>
     <Filter Include="Game_ob\Monster\MiniBoss\Public\Effect">
       <UniqueIdentifier>{0cb0aa98-d67a-4d3b-8040-7341ad994671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Awaken_Bullet">
+      <UniqueIdentifier>{fcc2ff5e-345c-4880-b700-b0cc24f1f24d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\AWAKEN_Effect">
+      <UniqueIdentifier>{b0c21f3d-63ad-40ab-bb76-4ca54f3971d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

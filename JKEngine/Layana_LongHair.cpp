@@ -1602,7 +1602,7 @@ namespace jk
 
 	void Layana_LongHair::Skill_B()
 	{
-		static float edidpos = 20;
+		static float editpos = 20;
 		static int lastActivatedIndex = 0;
 		if (_SkillB_Switch == false)
 		{
@@ -1619,13 +1619,13 @@ namespace jk
 					// 0.5초마다 하나씩 처리
 					if (_Attacktime >= (1.0f + 0.2f * i))
 					{
-						Risingbullet_tr[i + 1]->SetPosition(Vector3(_pos.x + edidpos, _pos.y + 35, -255));
+						Risingbullet_tr[i + 1]->SetPosition(Vector3(_pos.x + editpos, _pos.y + 35, -255));
 						Rising[i + 1]->SetState(eState::Active);
 
-						Risingbullet_tr[i + 10]->SetPosition(Vector3(_pos.x - edidpos, _pos.y + 35, -255));
+						Risingbullet_tr[i + 10]->SetPosition(Vector3(_pos.x - editpos, _pos.y + 35, -255));
 						Rising[i + 10]->SetState(eState::Active);
 
-						edidpos += 25;
+						editpos += 25;
 						lastActivatedIndex = i + 1; 
 						continue; 
 					}
@@ -1640,7 +1640,7 @@ namespace jk
 				else
 					at->PlayAnimation(L"Long_hairSkill_B_RisingPierce_EndR", true);
 				_Attacktime = 0;
-				edidpos = 20;
+				editpos = 20;
 				lastActivatedIndex = 0;
 			}
 		}				
