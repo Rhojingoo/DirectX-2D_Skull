@@ -85,6 +85,7 @@
 #include "Layana_Sisters.h"
 #include "Layana_LongHair.h"
 #include "Layana_ShortHair.h"
+#include "Layana_Dark_Awaken.h"
 
 
 //미니보스

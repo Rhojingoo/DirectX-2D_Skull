@@ -1146,9 +1146,9 @@ namespace jk
 		if (!(_Playerdistance.x <= 30 && _Playerdistance.x >= -30))
 		{
 			if (_Dir == 1)
-				_pos.x += 250.f * Time::DeltaTime();
+				_pos.x += 350.f * Time::DeltaTime();
 			else
-				_pos.x -= 250.f * Time::DeltaTime();
+				_pos.x -= 350.f * Time::DeltaTime();
 		}
 		else
 		{
@@ -1813,11 +1813,11 @@ namespace jk
 		}
 		else
 		{
-			_ShortHair_state = Layana_ShortHair_State::Rush_Ready;
+			_ShortHair_state = Layana_ShortHair_State::Dash;
 			if (_Dir == 1)
-				at->PlayAnimation(L"Short_hairRush_Ready_S", true);
+				at->PlayAnimation(L"Short_hairDash_S", true);
 			else
-				at->PlayAnimation(L"Short_hairRush_Ready_SR", true);
+				at->PlayAnimation(L"Short_hairDash_SR", true);
 		}
 	}
 	void Layana_ShortHair::Complete_RushReady()

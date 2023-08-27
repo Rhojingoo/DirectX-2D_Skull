@@ -364,6 +364,9 @@
     <ClInclude Include="Monster_Blossomeenct_Attack.h">
       <Filter>Game_ob\Monster\Monster_Blossom\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Layana_Dark_Awaken.h">
+      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -722,6 +725,9 @@
     </ClCompile>
     <ClCompile Include="Monster_Blossomeenct_Attack.cpp">
       <Filter>Game_ob\Monster\Monster_Blossom\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Dark_Awaken.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

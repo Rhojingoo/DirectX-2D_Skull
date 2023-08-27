@@ -660,7 +660,12 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_SelectAttack = random(0, 6);
-		_SelectAttack = 6;
+		//_SelectAttack = 9;
+
+		//if (Input::GetKeyDown(eKeyCode::K))
+		//{
+		//	_SelectAttack = 9;
+		//}
 
 		if (_Intro_On == true)
 			Intro_Combo();
@@ -1167,9 +1172,9 @@ namespace jk
 		if (!(_Playerdistance.x <= 30 && _Playerdistance.x >= -30))
 		{
 			if (_Dir == 1)
-				_pos.x += 250.f * Time::DeltaTime();
+				_pos.x += 350.f * Time::DeltaTime();
 			else
-				_pos.x -= 250.f * Time::DeltaTime();
+				_pos.x -= 350.f * Time::DeltaTime();
 		}
 		else
 		{
@@ -1353,7 +1358,6 @@ namespace jk
 	}
 	void Layana_LongHair::CrossAttack()
 	{
-
 		//¸ö¶×ÀÌ È¸Àü
 		{		
 			if (_Playerpos.x >= _pos.x)
@@ -1829,8 +1833,7 @@ namespace jk
 		}	
 	}
 	void Layana_LongHair::Complete_Rush()
-	{
-		
+	{		
 		if (_Rushnumber >= 3)
 		{
 			_LongHair_state = Layana_LongHair_State::Rush_End;
@@ -1841,11 +1844,11 @@ namespace jk
 		}
 		else
 		{		
-			_LongHair_state = Layana_LongHair_State::Rush_Ready;
+			_LongHair_state = Layana_LongHair_State::Dash;
 			if (_Dir == 1)
-				at->PlayAnimation(L"Long_hairRush_Ready", true);
+				at->PlayAnimation(L"Long_hairDash", true);
 			else
-				at->PlayAnimation(L"Long_hairRush_ReadyR", true);
+				at->PlayAnimation(L"Long_hairDashR", true);
 		}
 	}
 	void Layana_LongHair::Complete_RushReady()

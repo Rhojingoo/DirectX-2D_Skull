@@ -87,9 +87,14 @@ namespace jk
 		_Gobjs[0]->Initialize();
 		_Gobjs[1] = new Layana_ShortHair;
 		_Gobjs[1]->Initialize();
+		_Gobjs[2] = new Layana_Dark_Awaken;
+		_Gobjs[2]->Initialize();
+
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[0]);
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[1]);
+		scene->AddGameObject(eLayerType::Boss, _Gobjs[2]);
+
 
 		GameObject::Initialize();
 	}

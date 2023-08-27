@@ -31,9 +31,6 @@ namespace jk
 		{
 			Idle,
 
-			BackGround_Idle,
-			BackGround_Move,
-
 			Rush_Ready,
 			RushA,
 			RushB,
