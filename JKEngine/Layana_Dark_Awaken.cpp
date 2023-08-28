@@ -69,6 +69,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_A_Bullet", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_A_Bullet_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce_End", this);
+
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_C_DimensionPierce", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce_End", this);
 
@@ -108,10 +110,11 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_A_Bullet", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_A_Bullet_End", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce_End", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_C_DimensionPierce", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce_End", this,1);
 
-
+		
 		
 		//bind 부분
 		//at->CompleteEvent(L"Awaken_PowerAwakenEnd") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
@@ -132,6 +135,7 @@ namespace jk
 		at->CompleteEvent(L"Awaken_PowerMeteor_Vertical04_End") = std::bind(&Layana_Dark_Awaken::Complete_VerticalEnd, this);
 		at->CompleteEvent(L"Awaken_PowerSkill_A_Bullet_End") = std::bind(&Layana_Dark_Awaken::Complete_Skill_A, this);
 		at->CompleteEvent(L"Awaken_PowerSkill_B_RisingPierce") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
+		at->CompleteEvent(L"Awaken_PowerSkill_B_RisingPierce_End") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
 
 
 		//at->CompleteEvent(L"Awaken_PowerAwakenEndR") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
@@ -152,6 +156,7 @@ namespace jk
 		at->CompleteEvent(L"Awaken_PowerMeteor_Vertical04_EndR") = std::bind(&Layana_Dark_Awaken::Complete_VerticalEnd, this);
 		at->CompleteEvent(L"Awaken_PowerSkill_A_Bullet_EndR") = std::bind(&Layana_Dark_Awaken::Complete_Skill_A, this);
 		at->CompleteEvent(L"Awaken_PowerSkill_B_RisingPierceR") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
+		at->CompleteEvent(L"Awaken_PowerSkill_B_RisingPierce_EndR") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
 
 
 
@@ -171,7 +176,7 @@ namespace jk
 			Rush_Bullet[i] = new Latana_Awake_Rush_Bullet;
 			Rush_Bullet[i]->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Effect, Rush_Bullet[i]);
+			scene->AddGameObject(eLayerType::Bullet, Rush_Bullet[i]);
 			Transform* bullet_tr = Rush_Bullet[i]->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
 			Rush_Bullet[i]->SetState(eState::Paused);
@@ -185,6 +190,197 @@ namespace jk
 			Transform* boss_effect = _Meteoreffect->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z-1));
 			_Meteoreffect->SetState(eState::Paused);
+		}
+
+		{
+			_Ground_Sign = new Layana_Awaken_Ground_Sign;
+			_Ground_Sign->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Ground_Sign);
+			Transform* boss_effect = _Ground_Sign->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_Ground_Sign->SetState(eState::Paused);
+		}
+		
+		{
+			_Ground_Attack = new Latana_Awake_Rush_Bullet;
+			_Ground_Attack->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, _Ground_Attack);
+			Transform* boss_effect = _Ground_Attack->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_Ground_Attack->SetState(eState::Paused);
+		}
+
+		{
+			for (int i = 0; i < 7; i++)
+			{
+				_Ground_Thunder_Sign[i] = new Layana_Awaken_Ground_Thunder_Sign;
+				_Ground_Thunder_Sign[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, _Ground_Thunder_Sign[i]);
+				_Ground_Thunder_Sign[i]->SetState(eState::Paused);
+			}
+			{
+				Transform* effect0 = _Ground_Thunder_Sign[0]->GetComponent<Transform>();
+				effect0->SetPosition(Vector3(_Createpos.x + 325, -115, _pos.z - 1));
+				Transform* effect1 = _Ground_Thunder_Sign[1]->GetComponent<Transform>();
+				effect1->SetPosition(Vector3(_Createpos.x + 217, -115, _pos.z - 1));
+				Transform* effect2 = _Ground_Thunder_Sign[2]->GetComponent<Transform>();
+				effect2->SetPosition(Vector3(_Createpos.x + 109, -115, _pos.z - 1));
+				Transform* effect3 = _Ground_Thunder_Sign[3]->GetComponent<Transform>();
+				effect3->SetPosition(Vector3(_Createpos.x, -115, _pos.z - 1));
+				Transform* effect4 = _Ground_Thunder_Sign[4]->GetComponent<Transform>();
+				effect4->SetPosition(Vector3(_Createpos.x - 109, -115, _pos.z - 1));
+				Transform* effect5 = _Ground_Thunder_Sign[5]->GetComponent<Transform>();
+				effect5->SetPosition(Vector3(_Createpos.x - 217, -115, _pos.z - 1));
+				Transform* effect6 = _Ground_Thunder_Sign[6]->GetComponent<Transform>();
+				effect6->SetPosition(Vector3(_Createpos.x - 325, -115, _pos.z - 1));
+			}
+		}
+
+		
+		{
+			for (int i = 0; i < 7; i++)
+			{
+				_Ground_Thunder[i] = new Layana_Ground_Thunder;
+				_Ground_Thunder[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Bullet, _Ground_Thunder[i]);
+				_Ground_Thunder[i]->SetState(eState::Paused);
+			}
+			{
+				Transform* bullet0 = _Ground_Thunder[0]->GetComponent<Transform>();
+				bullet0->SetPosition(Vector3(_Createpos.x + 325, -40, _pos.z - 1));
+				Transform* bullet1 = _Ground_Thunder[1]->GetComponent<Transform>();
+				bullet1->SetPosition(Vector3(_Createpos.x + 217, -40, _pos.z - 1));
+				Transform* bullet2 = _Ground_Thunder[2]->GetComponent<Transform>();
+				bullet2->SetPosition(Vector3(_Createpos.x + 109, -40, _pos.z - 1));
+				Transform* bullet3 = _Ground_Thunder[3]->GetComponent<Transform>();
+				bullet3->SetPosition(Vector3(_Createpos.x, -40, _pos.z - 1));
+				Transform* bullet4 = _Ground_Thunder[4]->GetComponent<Transform>();
+				bullet4->SetPosition(Vector3(_Createpos.x - 109, -40, _pos.z - 1));
+				Transform* bullet5 = _Ground_Thunder[5]->GetComponent<Transform>();
+				bullet5->SetPosition(Vector3(_Createpos.x - 217, -40, _pos.z - 1));
+				Transform* bullet6 = _Ground_Thunder[6]->GetComponent<Transform>();
+				bullet6->SetPosition(Vector3(_Createpos.x - 325, -40, _pos.z - 1));
+			}
+		}
+
+
+		{
+			_Ground_DashSmoke= new  Layana_Awake_Ground_DashSmoke;
+			_Ground_DashSmoke->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Ground_DashSmoke);
+			Transform* boss_effect = _Ground_DashSmoke->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_Ground_DashSmoke->SetState(eState::Paused);
+		}
+
+
+		{
+			_GoldenMeteor_Effect = new  Layana_Awaken_GoldenMeteor_Effect;
+			_GoldenMeteor_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _GoldenMeteor_Effect);
+			Transform* boss_effect = _GoldenMeteor_Effect->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_GoldenMeteor_Effect->SetState(eState::Paused);
+		}
+
+		
+		{
+			_Meteor_Electric = new  Layana_Awaken_Meteor_Electric;
+			_Meteor_Electric->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Meteor_Electric);
+			Transform* boss_effect = _Meteor_Electric->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_Meteor_Electric->SetState(eState::Paused);
+		}
+
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				_Meteor_Projectile[i] = new  Layana_Awaken_Meteor_Projectile;
+				_Meteor_Projectile[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Bullet, _Meteor_Projectile[i]);
+				Transform* boss_effect = _Meteor_Projectile[i]->GetComponent<Transform>();
+				boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+				_Meteor_Projectile[i]->SetState(eState::Paused);
+			}
+		}
+
+
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				_Dark_HomingPierce[i] = new  Layana_Dark_HomingPierce;
+				_Dark_HomingPierce[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, _Dark_HomingPierce[i]);
+				_Dark_HomingPierce[i]->SetState(eState::Paused);
+			}
+			{
+				Transform* bullet0 = _Dark_HomingPierce[0]->GetComponent<Transform>();
+				bullet0->SetPosition(Vector3(_Createpos.x + 250, 50, _pos.z - 1));
+				Transform* bullet1 = _Dark_HomingPierce[1]->GetComponent<Transform>();
+				bullet1->SetPosition(Vector3(_Createpos.x + 100, -50, _pos.z - 1));
+				Transform* bullet2 = _Dark_HomingPierce[2]->GetComponent<Transform>();
+				bullet2->SetPosition(Vector3(_Createpos.x , -25, _pos.z - 1));
+				Transform* bullet3 = _Dark_HomingPierce[3]->GetComponent<Transform>();
+				bullet3->SetPosition(Vector3(_Createpos.x-100, -50, _pos.z - 1));
+				Transform* bullet4 = _Dark_HomingPierce[4]->GetComponent<Transform>();
+				bullet4->SetPosition(Vector3(_Createpos.x -250, 50, _pos.z - 1));
+			}
+		}
+
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				_HomingPierce_Effect[i] = new  Layana_Dark_HomingPierce_Effect;
+				_HomingPierce_Effect[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, _HomingPierce_Effect[i]);
+				_HomingPierce_Effect[i]->SetState(eState::Paused);
+			}
+			{
+				Transform* bullet0 = _HomingPierce_Effect[0]->GetComponent<Transform>();
+				bullet0->SetPosition(Vector3(_Createpos.x + 250, 50, _pos.z - 1));
+				Transform* bullet1 = _HomingPierce_Effect[1]->GetComponent<Transform>();
+				bullet1->SetPosition(Vector3(_Createpos.x + 100, -50, _pos.z - 1));
+				Transform* bullet2 = _HomingPierce_Effect[2]->GetComponent<Transform>();
+				bullet2->SetPosition(Vector3(_Createpos.x, -25, _pos.z - 1));
+				Transform* bullet3 = _HomingPierce_Effect[3]->GetComponent<Transform>();
+				bullet3->SetPosition(Vector3(_Createpos.x - 100, -50, _pos.z - 1));
+				Transform* bullet4 = _HomingPierce_Effect[4]->GetComponent<Transform>();
+				bullet4->SetPosition(Vector3(_Createpos.x - 250, 50, _pos.z - 1));
+			}	
+		}
+
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				_HomingPierce_Attack[i] = new  Latana_Awake_Rush_Bullet;
+				_HomingPierce_Attack[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Bullet, _HomingPierce_Attack[i]);
+				_HomingPierce_Attack[i]->SetState(eState::Paused);
+			}
+			{
+				Transform* bullet0 = _HomingPierce_Attack[0]->GetComponent<Transform>();
+				bullet0->SetPosition(Vector3(_Createpos.x + 250, 50, _pos.z - 1));
+				Transform* bullet1 = _HomingPierce_Attack[1]->GetComponent<Transform>();
+				bullet1->SetPosition(Vector3(_Createpos.x + 100, -50, _pos.z - 1));
+				Transform* bullet2 = _HomingPierce_Attack[2]->GetComponent<Transform>();
+				bullet2->SetPosition(Vector3(_Createpos.x, -25, _pos.z - 1));
+				Transform* bullet3 = _HomingPierce_Attack[3]->GetComponent<Transform>();
+				bullet3->SetPosition(Vector3(_Createpos.x - 100, -50, _pos.z - 1));
+				Transform* bullet4 = _HomingPierce_Attack[4]->GetComponent<Transform>();
+				bullet4->SetPosition(Vector3(_Createpos.x - 250, 50, _pos.z - 1));			
+			}			
 		}
 
 		//{
@@ -226,7 +422,6 @@ namespace jk
 		//	bullte_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
 		//	TwinMeteor_BossEffect->SetState(eState::Paused);
 		//}
-
 		at->PlayAnimation(L"Awaken_PowerIdle", true);
 		GameObject::Initialize();
 	}
@@ -376,8 +571,6 @@ namespace jk
 
 
 
-
-
 		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Meteor_Vertical_Jump:
 			Layana_Dark_Awaken::Vertical_Jump();
 			break;
@@ -397,8 +590,6 @@ namespace jk
 		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Meteor_Vertical_End:
 			Layana_Dark_Awaken::Vertical_End();
 			break;
-
-
 
 
 		case Layana_Dark_Awaken::Layana_Dark_Awaken_State::Skill_A_Bullet_Ready:
@@ -456,6 +647,49 @@ namespace jk
 				boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 				_Meteoreffect->SetState(eState::Active);
 			}
+
+
+			if (_DarkMode_state == Layana_Dark_Awaken_State::Meteor_Vertical_Landing)
+			{
+				{
+					Transform* boss_effect = _Meteoreffect->GetComponent<Transform>();
+					boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 5));
+					_Meteoreffect->SetState(eState::Active);
+				}
+				{
+					Transform* boss_effect = _GoldenMeteor_Effect->GetComponent<Transform>();
+					boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 6));
+					_GoldenMeteor_Effect->SetState(eState::Active);
+				}
+				{
+					Transform* boss_effect = _Meteor_Electric->GetComponent<Transform>();
+					boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 7));
+					_Meteor_Electric->SetState(eState::Active);
+				}
+				{
+					Transform* boss_bullet1 = _Meteor_Projectile[0]->GetComponent<Transform>();
+					RigidBody* bullet_RG = _Meteor_Projectile[0]->GetComponent<RigidBody>();
+					boss_bullet1->SetPosition(Vector3(_pos.x, _pos.y-25, _pos.z - 1));					
+					_Meteor_Projectile[0]-> SetState(eState::Active);
+					bullet_RG->SetFriction(true);
+					bullet_RG->SetGravity(true);
+					bullet_RG->SetVelocity(Vector2(550, 0));
+				}				
+				{
+					Transform* boss_bullet2 = _Meteor_Projectile[1]->GetComponent<Transform>();
+					RigidBody* bullet_RG = _Meteor_Projectile[1]->GetComponent<RigidBody>();
+					_Meteor_Projectile[1]->_effect_switch = true;
+					_Meteor_Projectile[1]->SetDirection(-1);
+					boss_bullet2->SetPosition(Vector3(_pos.x, _pos.y-25, _pos.z - 1));
+					_Meteor_Projectile[1]->SetState(eState::Active);
+					bullet_RG->SetFriction(true);
+					bullet_RG->SetGravity(true);
+					bullet_RG->SetVelocity(Vector2(-550, 0));
+				}
+			}
+
+
+
 		}
 	}
 	void Layana_Dark_Awaken::OnCollisionStay(Collider2D* other)
@@ -508,7 +742,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		//_SelectAttack = random(0, 6);
-		_SelectAttack = 1;
+		_SelectAttack = 4;
 
 		//if (Input::GetKeyDown(eKeyCode::K))
 		//{
@@ -530,16 +764,11 @@ namespace jk
 				if (_SelectAttack == 3)
 					Meteor_Vertical_Combo();
 				if (_SelectAttack == 4)
-					Skill_A_Combo();
-				if (_SelectAttack == 5)
 					Skill_B_Combo();
-				if (_SelectAttack == 6)
+				if (_SelectAttack == 5)
 					Skill_C_Combo();
-
-
-				if (_SelectAttack == 7)  //지울것
-					BackGround_Combo();
-
+			/*	if (_SelectAttack == 6)
+					Skill_C_Combo();*/
 
 				_SistersAttack_Number++;
 			}
@@ -582,18 +811,49 @@ namespace jk
 				{
 					_pos.x = _Playerpos.x - 15;
 					_pos.y = _Createpos.y + 150;
-					_teleport_Rush = false;
+					_teleport_Cross = false;
 				}
 				else
 				{
 					_pos.x = _Playerpos.x + 15;
 					_pos.y = _Createpos.y + 150;
-					_teleport_Rush = false;
+					_teleport_Cross = false;
 				}
 				_DarkMode_state = Layana_Dark_Awaken_State::Telleport_Out;
 				_Attacktime = 0;
 			}
 		}
+		if (_teleport_Ground == true)
+		{
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime > 0.35f)
+			{
+				if (_pos.x >= _Createpos.x)
+				{
+					_pos.x = _Createpos.x + 325;					
+					_teleport_Ground = false;
+				}
+				else
+				{
+					_pos.x = _Createpos.x - 325;
+					_teleport_Ground = false;
+				}
+				_DarkMode_state = Layana_Dark_Awaken_State::Telleport_Out;
+				_Attacktime = 0;
+			}
+		}
+		if (_teleport_Vertical == true)
+		{
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime > 0.35f)
+			{				
+				_pos.x = _Playerpos.x;
+				_pos.y = _Createpos.y + 150;
+				_teleport_Cross = false;					
+				_DarkMode_state = Layana_Dark_Awaken_State::Telleport_Out;
+				_Attacktime = 0;
+			}
+		}	
 	}
 	void Layana_Dark_Awaken::Telleport_Out()
 	{
@@ -612,6 +872,21 @@ namespace jk
 				at->PlayAnimation(L"Awaken_PowerMeteor_Cross00_JumpR", false);			
 			else			
 				at->PlayAnimation(L"Awaken_PowerMeteor_Cross00_Jump", false);			
+		}
+		if(_GroundMeteorSwitch == true)
+		{
+			_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_Ready;
+			if (_pos.x < _Createpos.x)
+				at->PlayAnimation(L"Awaken_PowerMeteor_Ground01_Ready", false);
+			else
+				at->PlayAnimation(L"Awaken_PowerMeteor_Ground01_ReadyR", false);
+			_GroundMeteorLanding = true;
+		}
+		if (_VerticalMeteorSwitch == true)
+		{
+			_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Vertical_Jump;
+			_Ground_check = false;
+			at->PlayAnimation(L"Awaken_PowerMeteor_Vertical00_Jump", true);		
 		}
 	}
 
@@ -691,9 +966,8 @@ namespace jk
 			{
 				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Vertical_Jump;
 				_Ground_check = false;
-				_pos.x = _Playerpos.x;
+				
 				at->PlayAnimation(L"Awaken_PowerMeteor_Vertical00_Jump", true);
-
 				//if (_Dir == 1)
 				//	at->PlayAnimation(L"Long_hairMeteor_Vertical00_Jump", true);	
 				//else
@@ -703,28 +977,6 @@ namespace jk
 	}
 	void Layana_Dark_Awaken::LandingDash()
 	{
-		_Attacktime += Time::DeltaTime();
-		if (_GroundMeteorLanding == true)
-		{
-			if (_Attacktime >= 1.f)
-			{
-				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_Attack;
-
-				if (_Dir == 1)
-				{
-					at->PlayAnimation(L"Awaken_PowerMeteor_Ground02_Attack", true);
-					_rigidbody->SetVelocity(Vector2(700.f, 0.f));
-					_GroundMeteorAttack_Right = true;
-				}
-				else
-				{
-					at->PlayAnimation(L"Awaken_PowerMeteor_Ground02_AttackR", true);
-					_rigidbody->SetVelocity(Vector2(-700.f, 0.f));
-					_GroundMeteorAttack_Left = true;
-				}
-				_Attacktime = 0;
-			}
-		}
 	}
 	void Layana_Dark_Awaken::BackStep()
 	{
@@ -1001,6 +1253,57 @@ namespace jk
 
 	void Layana_Dark_Awaken::GroundReady()
 	{
+		if (_GroundMeteorLanding == true)
+		{
+			Transform* boss_effect = _Ground_Sign->GetComponent<Transform>();			
+			_Ground_Sign->_SwitchOn = true;
+			if (_Dir == 1)
+			{
+				_Ground_Sign->SetDirection(1);
+				boss_effect->SetPosition(Vector3(_Createpos.x, _pos.y-35, _pos.z - 1));
+			}
+			else
+			{
+				_Ground_Sign->SetDirection(-1);
+				boss_effect->SetPosition(Vector3(_Createpos.x, _pos.y - 35, _pos.z - 1));
+			}
+			_Ground_Sign->SetState(eState::Active);
+			_GroundMeteorLanding = false;
+
+		}
+		else
+		{
+			_Attacktime += Time::DeltaTime();		
+			if (_Attacktime >= 0.5f)
+			{
+			 if(_Ground_Sign->_SwitchOff ==true)
+				{
+					_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_Attack;
+					if (_Dir == 1)
+					{
+						at->PlayAnimation(L"Awaken_PowerMeteor_Ground02_Attack", true);
+						_rigidbody->SetVelocity(Vector2(700.f, 0.f));
+						_GroundMeteorAttack_Right = true;
+					}
+					else
+					{
+						at->PlayAnimation(L"Awaken_PowerMeteor_Ground02_AttackR", true);
+						_rigidbody->SetVelocity(Vector2(-700.f, 0.f));
+						_GroundMeteorAttack_Left = true;
+					}
+
+					Transform* boss_effect = _Ground_Attack->GetComponent<Transform>();
+					boss_effect->SetPosition(Vector3(_Createpos.x, _pos.y - 35, _pos.z - 1));
+					_Ground_Attack->SetState(eState::Active);
+
+					for (int i = 0; i < 7; i++)
+						_Ground_Thunder_Sign[i]->SetState(eState::Active);			
+
+					_Attacktime = 0;
+					_Ground_Sign->_SwitchOff = false;
+				}
+			}
+		}
 	}
 	void Layana_Dark_Awaken::GroundAttack()
 	{
@@ -1010,11 +1313,14 @@ namespace jk
 			{
 				_rigidbody->ClearVelocity();
 				_GroundMeteorAttack_Right = false;
-				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_End;
-				if (_Dir == 1)
-					at->PlayAnimation(L"Awaken_PowerMeteor_Ground04_End", true);
-				else
-					at->PlayAnimation(L"Awaken_PowerMeteor_Ground04_EndR", true);
+				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_Landing;
+				at->PlayAnimation(L"Awaken_PowerMeteor_Ground03_Landing", false);	
+
+				Transform* boss_effect = _Ground_DashSmoke->GetComponent<Transform>();
+				_Ground_DashSmoke->_SwitchOn = true;
+				_Ground_DashSmoke->SetDirection(-1);
+				boss_effect->SetPosition(Vector3(_pos.x-65, _pos.y, _pos.z - 1));
+				_Ground_DashSmoke->SetState(eState::Active);
 			}
 		}
 		if (_GroundMeteorAttack_Left == true)
@@ -1023,16 +1329,54 @@ namespace jk
 			{
 				_rigidbody->ClearVelocity();
 				_GroundMeteorAttack_Left = false;
-				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_End;
-				if (_Dir == 1)
-					at->PlayAnimation(L"Awaken_PowerMeteor_Ground04_End", true);
-				else
-					at->PlayAnimation(L"Awaken_PowerMeteor_Ground04_EndR", true);
+				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_Landing;
+				at->PlayAnimation(L"Awaken_PowerMeteor_Ground03_LandingR", false);
+
+				Transform* boss_effect = _Ground_DashSmoke->GetComponent<Transform>();
+				_Ground_DashSmoke->_SwitchOn = true;
+				_Ground_DashSmoke->SetDirection(1);
+				boss_effect->SetPosition(Vector3(_pos.x+65, _pos.y, _pos.z - 1));
+				_Ground_DashSmoke->SetState(eState::Active);
 			}
 		}
 	}
 	void Layana_Dark_Awaken::GroundLanding()
 	{
+		if (_pos.x >= _Createpos.x)
+		{
+			_Attacktime += Time::DeltaTime();
+			int index = 6 - (_Attacktime / 0.5f);
+
+			if (index >= 0)
+			{
+				_Ground_Thunder[index]->SetState(eState::Active);
+			
+				if (index == 0)
+				{
+					at->PlayAnimation(L"Awaken_PowerMeteor_Cross03_End", true);
+					_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_End;
+					_Attacktime = 0;
+				}
+			}	
+		}
+		if (_pos.x < _Createpos.x)
+		{
+			_Attacktime += Time::DeltaTime();		
+			int index = _Attacktime / 0.5f;
+
+			if (index < 7)
+			{
+				_Ground_Thunder[index]->SetState(eState::Active);
+			
+				if (index == 6)
+				{
+					at->PlayAnimation(L"Awaken_PowerMeteor_Cross03_EndR", true);
+					_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_End;
+					_Attacktime = 0;
+				}			
+			}
+		}
+	
 	}
 	void Layana_Dark_Awaken::GroundEnd()
 	{
@@ -1079,22 +1423,125 @@ namespace jk
 	void Layana_Dark_Awaken::Skill_A_End()
 	{
 	}
+
+
 	void Layana_Dark_Awaken::Skill_B()
 	{
+		_Attacktime += Time::DeltaTime();
+		if (_Attacktime <= 3.5f)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				if (_Attacktime >= (1.0f + 0.5f * i))
+				{
+					if (_Dark_HomingPierce[i]->_bulletoff == false)
+					{
+						int randomposX = random(_Createpos.x - 150, _Createpos.x + 150);
+						int randomposY = random(_Createpos.y - 25, _Createpos.y + 70);
+						Transform* boss_effect = _Dark_HomingPierce[i]->GetComponent<Transform>();
+						boss_effect->SetPosition(Vector3(randomposX, randomposY, _pos.z - 1));		
+						_Dark_HomingPierce[i]->SetState(eState::Active);
+						_Dark_HomingPierce[i]->_bulletoff = true;
+
+						Transform* _effect_Line = _HomingPierce_Effect[i]->GetComponent<Transform>();
+						_effect_Line->SetPosition(Vector3(randomposX, randomposY, _pos.z - 2));
+
+						Transform* bullet = _HomingPierce_Attack[i]->GetComponent<Transform>();
+						bullet->SetPosition(Vector3(randomposX, randomposY, _pos.z - 3));
+					}
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				_HomingPierce_Effect[i]->SetState(eState::Active);
+				Transform* _effect_Line = _HomingPierce_Effect[i]->GetComponent<Transform>();
+				Transform* bullet = _HomingPierce_Attack[i]->GetComponent<Transform>();
+				Vector3 bulletpos = _effect_Line->GetPosition();
+				if (_Playerpos.x >= bulletpos.x)
+				{
+					{
+						Vector2 attackpoint = Vector2(_Playerpos.x - _effect_Line->GetPositionX(), _Playerpos.y - _effect_Line->GetPositionY());
+						Vector2 rotation = Vector2(_Playerpos.x, _Playerpos.y);
+						attackpoint.Normalize();
+						rotation.Normalize();
+
+						Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
+						float angle = std::atan2(direction.y, direction.x);
+						_effect_Line->SetRotationZ(angle); 
+					}
+
+					{//미사일 발사시 문제 있음
+						//Vector2 attackpoint = Vector2(_Playerpos.x - bullet->GetPositionX(), _Playerpos.y - bullet->GetPositionY());
+						//Vector2 rotation = Vector2(_Playerpos.x, _Playerpos.y);
+						//attackpoint.Normalize();
+						//rotation.Normalize();
+
+						//Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
+						//float angle = std::atan2(direction.y, direction.x);
+						//bullet->SetRotationZ(angle); 
+					}
+				}
+				else
+				{				
+					{
+						Vector2 attackpoint = Vector2(_Playerpos.x - _effect_Line->GetPositionX(), _Playerpos.y - _effect_Line->GetPositionY());
+						Vector2 rotation = Vector2(_Playerpos.x, _Playerpos.y);
+						attackpoint.Normalize();
+						rotation.Normalize();
+
+						Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
+						float angle = std::atan2(direction.y, direction.x);
+						_effect_Line->SetRotationZ(angle);
+					}
+					
+
+					{//  미사일 발사 문제 있음
+						//Vector2 attackpoint = Vector2(_Playerpos.x - bullet->GetPositionX(), _Playerpos.y - bullet->GetPositionY());
+						//Vector2 rotation = Vector2(_Playerpos.x, _Playerpos.y);
+						//attackpoint.Normalize();
+						//rotation.Normalize();
+
+						//Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
+						//float angle = std::atan2(direction.y, direction.x);
+						//bullet->SetRotationZ(angle);
+					}
+				}
+			}
+			_DarkMode_state = Layana_Dark_Awaken_State::Skill_B_RisingPierce_End;
+			_Attacktime = 0;
+		}
 	}
+
 	void Layana_Dark_Awaken::Skill_B_End()
 	{
+		//_Attacktime += Time::DeltaTime();
+		//if (_Attacktime <= 3.5f)
+		//{
+		//	for (int i = 0; i < 5; i++)
+		//	{
+		//		_HomingPierce_Attack[i]->SetState(eState::Active);
+		//		if (_Dir == 1)
+		//			at->PlayAnimation(L"Awaken_PowerSkill_B_RisingPierce_End", true);
+		//		else
+		//			at->PlayAnimation(L"Awaken_PowerSkill_B_RisingPierce_EndR", true);
+		//	}		
+		//}
 	}
+
 	void Layana_Dark_Awaken::Skill_C()
 	{
 	}
+
 	void Layana_Dark_Awaken::die()
 	{
 	}
+
 	void Layana_Dark_Awaken::death()
 	{
 	}
-
 
 	void Layana_Dark_Awaken::Complete_Telleport_In()
 	{
@@ -1102,15 +1549,6 @@ namespace jk
 	void Layana_Dark_Awaken::Complete_Telleport_Out()
 	{
 	}
-
-
-	void Layana_Dark_Awaken::Complete_Skill_A()
-	{
-	}
-	void Layana_Dark_Awaken::Complete_Skill_B()
-	{
-	}
-
 
 	void Layana_Dark_Awaken::Awaken_Combo()
 	{
@@ -1223,7 +1661,7 @@ namespace jk
 	void Layana_Dark_Awaken::Meteor_Cross_Combo()
 	{
 		_CrossMeteorSwitch = true;
-		_teleport_Cross = true;
+		_teleport_Ground = true;
 		_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
 	}
 	void Layana_Dark_Awaken::Complete_CrossJump()
@@ -1254,11 +1692,8 @@ namespace jk
 	void Layana_Dark_Awaken::Meteor_Ground_Combo()
 	{
 		_GroundMeteorSwitch = true; // 이동이 되었을때 공격하는 모션 온
-		_DarkMode_state = Layana_Dark_Awaken_State::FlyDash;
-		if (_pos.x > _Createpos.x)
-			at->PlayAnimation(L"Awaken_PowerDash", true);
-		else
-			at->PlayAnimation(L"Awaken_PowerDashR", true);
+		_teleport_Ground = true;
+		_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
 	}
 	void Layana_Dark_Awaken::Complete_GroundLanding()
 	{
@@ -1282,11 +1717,9 @@ namespace jk
 	void Layana_Dark_Awaken::Meteor_Vertical_Combo()
 	{
 		_VerticalMeteorSwitch = true;
-		_DarkMode_state = Layana_Dark_Awaken_State::FlyDash;
-		if (_pos.x > _Createpos.x)
-			at->PlayAnimation(L"Awaken_PowerDash", true);
-		else
-			at->PlayAnimation(L"Awaken_PowerDashR", true);
+		_teleport_Vertical = true;
+		_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
+
 	}
 	void Layana_Dark_Awaken::Complete_VerticalJump()
 	{
@@ -1302,7 +1735,7 @@ namespace jk
 		_pos.x = _Playerpos.x;
 		at->PlayAnimation(L"Awaken_PowerMeteor_Vertical02_Attack", false);
 		_rigidbody->SetGround(false);
-		_rigidbody->SetVelocity(Vector2(0.f, -450.f));
+		_rigidbody->SetVelocity(Vector2(0.f, -500.f));
 	}
 	void Layana_Dark_Awaken::Complete_VerticalEnd()
 	{
@@ -1321,17 +1754,39 @@ namespace jk
 	void Layana_Dark_Awaken::Skill_A_Combo()
 	{
 	}
-	void Layana_Dark_Awaken::Skill_B_Combo()
+	void Layana_Dark_Awaken::Complete_Skill_A()
 	{
 	}
+
+
+	void Layana_Dark_Awaken::Skill_B_Combo()
+	{
+		_DarkMode_state = Layana_Dark_Awaken_State::Skill_B_RisingPierce;
+		if (_Dir == 1)
+			at->PlayAnimation(L"Awaken_PowerSkill_B_RisingPierce", false);
+		else
+			at->PlayAnimation(L"Awaken_PowerSkill_B_RisingPierceR", false);
+
+		for (int i = 0; i < 5; i++)		
+			_Dark_HomingPierce[i]->_bulletoff = false;
+	}
+	void Layana_Dark_Awaken::Complete_Skill_B()
+	{
+		if (_Dir == 1)
+			at->PlayAnimation(L"Awaken_PowerIdle", true);
+		else
+			at->PlayAnimation(L"Awaken_PowerIdleR", true);
+		_DarkMode_state = Layana_Dark_Awaken_State::Idle;
+		_time = 0.f;
+		_SkillB_Switch = false;
+	}
+
+
+
 	void Layana_Dark_Awaken::Skill_C_Combo()
 	{
 	}
 
-
-	void Layana_Dark_Awaken::BackGround_Combo()
-	{
-	}
 
 
 	void Layana_Dark_Awaken::CreateHoming()

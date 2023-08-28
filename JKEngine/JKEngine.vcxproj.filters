@@ -376,6 +376,33 @@
     <ClInclude Include="Layana_Awaken_Meteoreffect.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Layana_Awaken_Ground_Sign.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Awaken_Ground_Thunder_Sign.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Awake_Ground_DashSmoke.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Ground_Thunder.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Awaken_GoldenMeteor_Effect.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Awaken_Meteor_Electric.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Awaken_Meteor_Projectile.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Dark_HomingPierce.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Dark_HomingPierce_Effect.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -745,6 +772,33 @@
       <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awaken_Meteoreffect.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Awaken_Ground_Sign.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Awaken_Ground_Thunder_Sign.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Awake_Ground_DashSmoke.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Ground_Thunder.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Awaken_GoldenMeteor_Effect.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Awaken_Meteor_Electric.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Awaken_Meteor_Projectile.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Dark_HomingPierce.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Dark_HomingPierce_Effect.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
     </ClCompile>
   </ItemGroup>

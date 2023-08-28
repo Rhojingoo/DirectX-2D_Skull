@@ -1,10 +1,18 @@
-
 #pragma once
 #include "Include_Common.h"
 #include "Layana_Sisters.h"
 #include "Layana_Awken_Rush_Sign.h"
 #include "Latana_Awake_Rush_Bullet.h"
 #include "Layana_Awaken_Meteoreffect.h"
+#include "Layana_Awaken_Ground_Sign.h"
+#include "Layana_Awaken_Ground_Thunder_Sign.h"
+#include "Layana_Awake_Ground_DashSmoke.h"
+#include "Layana_Ground_Thunder.h"
+#include "Layana_Awaken_GoldenMeteor_Effect.h"
+#include "Layana_Awaken_Meteor_Electric.h"
+#include "Layana_Awaken_Meteor_Projectile.h"
+#include "Layana_Dark_HomingPierce.h"
+#include "Layana_Dark_HomingPierce_Effect.h"
 
 namespace jk
 {
@@ -182,7 +190,7 @@ namespace jk
 		void Skill_C_Combo();
 		void Awaken_Combo();
 
-		void BackGround_Combo();
+
 
 
 	public:
@@ -190,8 +198,8 @@ namespace jk
 		void SettingHoming(Transform* set, int angle_of_number);
 
 	public:
-		static Layana_Dark_Awaken_State _DarkMode_state;	
-	
+		static Layana_Dark_Awaken_State _DarkMode_state;
+
 
 	private:
 		Animator* at = nullptr;
@@ -203,7 +211,17 @@ namespace jk
 		Layana_Awken_Rush_Sign* Rush_Sign[7] = {};
 		Latana_Awake_Rush_Bullet* Rush_Bullet[7] = {};
 		Layana_Awaken_Meteoreffect* _Meteoreffect = nullptr;
-
+		Layana_Awaken_Ground_Sign* _Ground_Sign = nullptr;
+		Latana_Awake_Rush_Bullet* _Ground_Attack = nullptr;	
+		Layana_Awaken_Ground_Thunder_Sign* _Ground_Thunder_Sign[7] = {};
+		Layana_Awake_Ground_DashSmoke* _Ground_DashSmoke = nullptr;
+		Layana_Ground_Thunder* _Ground_Thunder[7] = {};
+		Layana_Awaken_GoldenMeteor_Effect* _GoldenMeteor_Effect = nullptr;
+		Layana_Awaken_Meteor_Electric* _Meteor_Electric = nullptr;
+		Layana_Awaken_Meteor_Projectile* _Meteor_Projectile[2] = {};
+		Layana_Dark_HomingPierce* _Dark_HomingPierce[5] = {};
+		Layana_Dark_HomingPierce_Effect* _HomingPierce_Effect[5] = {};
+		Latana_Awake_Rush_Bullet* _HomingPierce_Attack[5] = {};
 
 
 	private:
@@ -238,6 +256,8 @@ namespace jk
 		int		_Rushnumber = 0;					// 러쉬 공격시 1번 = a, 2번 = b, 3번 =c , 0 = 대기상태
 		bool	_teleport_Rush = false;				// 텔레포드 인아웃을 할수 있도록 설정하는 변수
 		bool	_teleport_Cross = false;
+		bool	_teleport_Ground = false;
+		bool	_teleport_Vertical = false;
 
 	public:
 		static bool _AttackStageON;				// FLyDash의 경우 나가있는지 안에 있는지 확인할수 있는변 나가있는상태라면 위치 셋팅하여 안으로 들어오게 도와주는 역할의 변수 
