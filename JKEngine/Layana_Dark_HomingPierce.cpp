@@ -21,43 +21,37 @@ namespace jk
 
 		at = AddComponent<Animator>();
 		//미사일 생성
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce_Begin", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce_Begin", this,0, 0.03);
 		at->CompleteEvent(L"BulletDark_HomingPierce_Begin") = std::bind(&Layana_Dark_HomingPierce::Compelete_Begin, this);
 
 		
 		// 생성후 발사까지 진행 애니메이션
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce", this,0, 0.03);
 
 
 		//발사후 애니메이션
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce_End", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce_End", this,0,0.03);
 		at->CompleteEvent(L"BulletDark_HomingPierce_End") = std::bind(&Layana_Dark_HomingPierce::Compelete_Pierce, this);
-
-
 
 		at->PlayAnimation(L"BulletDark_HomingPierce_Begin", true);
 		GameObject::Initialize();
 	}
 	void Layana_Dark_HomingPierce::Update()
 	{
+
 		if (_effect_switch == true)
 		{
-			at->PlayAnimation(L"BulletDark_HomingPierce_End", true);
+			at->PlayAnimation(L"BulletDark_HomingPierce_Begin", true);
 			_effect_switch = false;
 		}
-		//if (_bulletoff == true)
-		//{
-		//	_attackatime += Time::DeltaTime();
-		//	if (_attackatime >= 5)
-		//	{
-		//		this->SetState(eState::Paused);
-		//		_bulletoff = false;
-		//		_attackatime = 0;
-		//		_rigidbody->ClearVelocity();
-		//		_rigidbody->SetFriction(false);
-		//		_rigidbody->SetGravity(false);
-		//	}
-		//}
+
+		if (_bulletoff == true)
+		{
+			at->PlayAnimation(L"BulletDark_HomingPierce_End", true);			
+			_bulletoff = false;
+		}
+
+
 		GameObject::Update();
 	}
 	void Layana_Dark_HomingPierce::LateUpdate()
@@ -85,6 +79,7 @@ namespace jk
 	}
 	void Layana_Dark_HomingPierce::Compelete_Pierce()
 	{
+		_effect_switch = false;
 		this->SetState(eState::Paused);
 	}
 }

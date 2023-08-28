@@ -403,6 +403,9 @@
     <ClInclude Include="Layana_Dark_HomingPierce_Effect.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Layana_Awaken_Homing_Attac.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -800,6 +803,9 @@
     </ClCompile>
     <ClCompile Include="Layana_Dark_HomingPierce_Effect.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Awaken_Homing_Attac.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

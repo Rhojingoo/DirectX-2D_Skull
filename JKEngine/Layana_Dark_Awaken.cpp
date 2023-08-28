@@ -363,7 +363,7 @@ namespace jk
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				_HomingPierce_Attack[i] = new  Latana_Awake_Rush_Bullet;
+				_HomingPierce_Attack[i] = new  Layana_Awaken_Homing_Attac;
 				_HomingPierce_Attack[i]->Initialize();
 				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Bullet, _HomingPierce_Attack[i]);
@@ -603,6 +603,12 @@ namespace jk
 		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Skill_A_Bullet_End:
 			Layana_Dark_Awaken::Skill_A_End();
 			break;
+			
+
+
+		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Skill_B_RisingPierce_Ready:
+			Layana_Dark_Awaken::Skill_B_Ready();
+			break;
 
 		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Skill_B_RisingPierce:
 			Layana_Dark_Awaken::Skill_B();
@@ -611,6 +617,9 @@ namespace jk
 		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Skill_B_RisingPierce_End:
 			Layana_Dark_Awaken::Skill_B_End();
 			break;
+
+
+
 
 		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Skill_C_DimensionPierce:
 			Layana_Dark_Awaken::Skill_C();
@@ -1425,7 +1434,7 @@ namespace jk
 	}
 
 
-	void Layana_Dark_Awaken::Skill_B()
+	void Layana_Dark_Awaken::Skill_B_Ready()
 	{
 		_Attacktime += Time::DeltaTime();
 		if (_Attacktime <= 3.5f)
@@ -1434,14 +1443,16 @@ namespace jk
 			{
 				if (_Attacktime >= (1.0f + 0.5f * i))
 				{
-					if (_Dark_HomingPierce[i]->_bulletoff == false)
+					if (_Dark_HomingPierce[i]->_Create_ball == false)
 					{
 						int randomposX = random(_Createpos.x - 150, _Createpos.x + 150);
 						int randomposY = random(_Createpos.y - 25, _Createpos.y + 70);
 						Transform* boss_effect = _Dark_HomingPierce[i]->GetComponent<Transform>();
-						boss_effect->SetPosition(Vector3(randomposX, randomposY, _pos.z - 1));		
+						boss_effect->SetPosition(Vector3(randomposX, randomposY, _pos.z - 1));
+						_Dark_HomingPierce[i]->_effect_switch = true;
 						_Dark_HomingPierce[i]->SetState(eState::Active);
-						_Dark_HomingPierce[i]->_bulletoff = true;
+						_Dark_HomingPierce[i]->_Create_ball = true;
+
 
 						Transform* _effect_Line = _HomingPierce_Effect[i]->GetComponent<Transform>();
 						_effect_Line->SetPosition(Vector3(randomposX, randomposY, _pos.z - 2));
@@ -1470,22 +1481,12 @@ namespace jk
 
 						Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
 						float angle = std::atan2(direction.y, direction.x);
-						_effect_Line->SetRotationZ(angle); 
-					}
-
-					{//미사일 발사시 문제 있음
-						//Vector2 attackpoint = Vector2(_Playerpos.x - bullet->GetPositionX(), _Playerpos.y - bullet->GetPositionY());
-						//Vector2 rotation = Vector2(_Playerpos.x, _Playerpos.y);
-						//attackpoint.Normalize();
-						//rotation.Normalize();
-
-						//Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
-						//float angle = std::atan2(direction.y, direction.x);
-						//bullet->SetRotationZ(angle); 
+						_effect_Line->SetRotationZ(angle);
+						bullet->SetRotationZ(angle);
 					}
 				}
 				else
-				{				
+				{
 					{
 						Vector2 attackpoint = Vector2(_Playerpos.x - _effect_Line->GetPositionX(), _Playerpos.y - _effect_Line->GetPositionY());
 						Vector2 rotation = Vector2(_Playerpos.x, _Playerpos.y);
@@ -1495,41 +1496,35 @@ namespace jk
 						Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
 						float angle = std::atan2(direction.y, direction.x);
 						_effect_Line->SetRotationZ(angle);
-					}
-					
-
-					{//  미사일 발사 문제 있음
-						//Vector2 attackpoint = Vector2(_Playerpos.x - bullet->GetPositionX(), _Playerpos.y - bullet->GetPositionY());
-						//Vector2 rotation = Vector2(_Playerpos.x, _Playerpos.y);
-						//attackpoint.Normalize();
-						//rotation.Normalize();
-
-						//Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
-						//float angle = std::atan2(direction.y, direction.x);
-						//bullet->SetRotationZ(angle);
+						bullet->SetRotationZ(angle);
 					}
 				}
 			}
-			_DarkMode_state = Layana_Dark_Awaken_State::Skill_B_RisingPierce_End;
+			_HomingPierce_Attack[0]->SetState(eState::Active);
+			_HomingPierce_Attack[1]->SetState(eState::Active);
+			_HomingPierce_Attack[2]->SetState(eState::Active);
+			_HomingPierce_Attack[3]->SetState(eState::Active);
+			_HomingPierce_Attack[4]->SetState(eState::Active);
+			_DarkMode_state = Layana_Dark_Awaken_State::Skill_B_RisingPierce;
 			_Attacktime = 0;
 		}
 	}
 
+	void Layana_Dark_Awaken::Skill_B()
+	{
+		if (_HomingPierce_Attack[4]->_bulletoff == true)
+		{
+			if (_Dir == 1)
+				at->PlayAnimation(L"Awaken_PowerSkill_B_RisingPierce_End", true);
+			else
+				at->PlayAnimation(L"Awaken_PowerSkill_B_RisingPierce_EndR", true);
+			_DarkMode_state = Layana_Dark_Awaken_State::Skill_B_RisingPierce_End;
+		}		
+	}
 	void Layana_Dark_Awaken::Skill_B_End()
 	{
-		//_Attacktime += Time::DeltaTime();
-		//if (_Attacktime <= 3.5f)
-		//{
-		//	for (int i = 0; i < 5; i++)
-		//	{
-		//		_HomingPierce_Attack[i]->SetState(eState::Active);
-		//		if (_Dir == 1)
-		//			at->PlayAnimation(L"Awaken_PowerSkill_B_RisingPierce_End", true);
-		//		else
-		//			at->PlayAnimation(L"Awaken_PowerSkill_B_RisingPierce_EndR", true);
-		//	}		
-		//}
 	}
+
 
 	void Layana_Dark_Awaken::Skill_C()
 	{
@@ -1761,7 +1756,7 @@ namespace jk
 
 	void Layana_Dark_Awaken::Skill_B_Combo()
 	{
-		_DarkMode_state = Layana_Dark_Awaken_State::Skill_B_RisingPierce;
+		_DarkMode_state = Layana_Dark_Awaken_State::Skill_B_RisingPierce_Ready;
 		if (_Dir == 1)
 			at->PlayAnimation(L"Awaken_PowerSkill_B_RisingPierce", false);
 		else
@@ -1771,7 +1766,15 @@ namespace jk
 			_Dark_HomingPierce[i]->_bulletoff = false;
 	}
 	void Layana_Dark_Awaken::Complete_Skill_B()
-	{
+	{		
+		for (int i = 0; i < 5; i++)
+		{
+			_HomingPierce_Attack[i]->SetState(eState::Paused);
+			_HomingPierce_Effect[i]->SetState(eState::Paused);
+			_HomingPierce_Attack[i]->_bulletoff = false;
+			_Dark_HomingPierce[i]->_bulletoff = true;
+			_Dark_HomingPierce[i]->_Create_ball = false;
+		}
 		if (_Dir == 1)
 			at->PlayAnimation(L"Awaken_PowerIdle", true);
 		else

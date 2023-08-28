@@ -188,6 +188,7 @@
     <ClInclude Include="Layana_Awaken_GoldenMeteor_Effect.h" />
     <ClInclude Include="Layana_Awaken_Ground_Sign.h" />
     <ClInclude Include="Layana_Awaken_Ground_Thunder_Sign.h" />
+    <ClInclude Include="Layana_Awaken_Homing_Attac.h" />
     <ClInclude Include="Layana_Awaken_Meteoreffect.h" />
     <ClInclude Include="Layana_Awaken_Meteor_Electric.h" />
     <ClInclude Include="Layana_Awaken_Meteor_Projectile.h" />
@@ -325,6 +326,7 @@
     <ClCompile Include="Layana_Awaken_GoldenMeteor_Effect.cpp" />
     <ClCompile Include="Layana_Awaken_Ground_Sign.cpp" />
     <ClCompile Include="Layana_Awaken_Ground_Thunder_Sign.cpp" />
+    <ClCompile Include="Layana_Awaken_Homing_Attac.cpp" />
     <ClCompile Include="Layana_Awaken_Meteoreffect.cpp" />
     <ClCompile Include="Layana_Awaken_Meteor_Electric.cpp" />
     <ClCompile Include="Layana_Awaken_Meteor_Projectile.cpp" />

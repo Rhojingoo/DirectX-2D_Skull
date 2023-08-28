@@ -13,6 +13,8 @@
 #include "Layana_Awaken_Meteor_Projectile.h"
 #include "Layana_Dark_HomingPierce.h"
 #include "Layana_Dark_HomingPierce_Effect.h"
+#include "Layana_Awaken_Homing_Attac.h"
+
 
 namespace jk
 {
@@ -79,6 +81,8 @@ namespace jk
 			Skill_A_Bullet,
 			Skill_A_Bullet_End,
 
+
+			Skill_B_RisingPierce_Ready,
 			Skill_B_RisingPierce,
 			Skill_B_RisingPierce_End,
 
@@ -140,6 +144,7 @@ namespace jk
 		void Skill_A_End();
 
 
+		void Skill_B_Ready();
 		void Skill_B();
 		void Skill_B_End();
 
@@ -221,7 +226,7 @@ namespace jk
 		Layana_Awaken_Meteor_Projectile* _Meteor_Projectile[2] = {};
 		Layana_Dark_HomingPierce* _Dark_HomingPierce[5] = {};
 		Layana_Dark_HomingPierce_Effect* _HomingPierce_Effect[5] = {};
-		Latana_Awake_Rush_Bullet* _HomingPierce_Attack[5] = {};
+		Layana_Awaken_Homing_Attac* _HomingPierce_Attack[5] = {};
 
 
 	private:

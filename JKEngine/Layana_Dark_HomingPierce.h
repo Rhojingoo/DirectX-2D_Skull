@@ -23,6 +23,7 @@ namespace jk
 		void SetDirection(int set) { mDir = set; }
 		int	mDir = 1;
 		bool _effect_switch = false;
+		bool _Create_ball = false;
 		bool _bulletoff = false;
 		void Compelete_Begin();
 		void Compelete_Pierce();
