@@ -21,7 +21,7 @@ namespace jk
 
 		static void SetDirection(int set) { mDir = set; }
 		static int	mDir;
-		static bool	_SwitchOn;
+		bool _SwitchOn =false;
 
 		void Compelete_Pierce();
 

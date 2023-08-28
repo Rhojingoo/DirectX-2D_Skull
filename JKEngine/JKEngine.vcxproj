@@ -185,6 +185,7 @@
     <ClInclude Include="Homing_Pierce_ShortHair.h" />
     <ClInclude Include="Kngiht_EnergyBall_Impact.h" />
     <ClInclude Include="Latana_Awake_Rush_Bullet.h" />
+    <ClInclude Include="Layana_Awaken_Meteoreffect.h" />
     <ClInclude Include="Layana_Awken_Rush_Sign.h" />
     <ClInclude Include="Layana_Dark_Awaken.h" />
     <ClInclude Include="Mage_BoomSign.h" />
@@ -312,6 +313,7 @@
     <ClCompile Include="Homing_Pierce_ShortHair.cpp" />
     <ClCompile Include="Kngiht_EnergyBall_Impact.cpp" />
     <ClCompile Include="Latana_Awake_Rush_Bullet.cpp" />
+    <ClCompile Include="Layana_Awaken_Meteoreffect.cpp" />
     <ClCompile Include="Layana_Awken_Rush_Sign.cpp" />
     <ClCompile Include="Layana_Dark_Awaken.cpp" />
     <ClCompile Include="Mage_BoomSign.cpp" />

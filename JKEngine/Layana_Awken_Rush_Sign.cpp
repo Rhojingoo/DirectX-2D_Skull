@@ -4,8 +4,6 @@
 namespace jk
 {
 	int Layana_Awken_Rush_Sign::mDir = 1;
-	bool Layana_Awken_Rush_Sign::_SwitchOn = false;
-
 
 	Layana_Awken_Rush_Sign::Layana_Awken_Rush_Sign()
 	{

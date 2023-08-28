@@ -136,6 +136,13 @@ namespace jk
 
 		//at->CompleteEvent(L"Awaken_PowerAwakenEndR") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
 		at->CompleteEvent(L"Awaken_PowerRush_ReadyR") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
+		at->CompleteEvent(L"Awaken_PowerRushC_1R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C1, this);
+		at->CompleteEvent(L"Awaken_PowerRushC_2R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C2, this);
+		at->CompleteEvent(L"Awaken_PowerRushC_3R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C3, this);
+		at->CompleteEvent(L"Awaken_PowerRushC_4R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C4, this);
+		at->CompleteEvent(L"Awaken_PowerRushC_5R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C5, this);
+		at->CompleteEvent(L"Awaken_PowerRushC_6R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C6, this);
+		at->CompleteEvent(L"Awaken_PowerRushC_7R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C7, this);
 		at->CompleteEvent(L"Awaken_PowerRush_EndR") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
 		at->CompleteEvent(L"Awaken_PowerMeteor_Cross01_ReadyR") = std::bind(&Layana_Dark_Awaken::Complete_CrossJump, this);
 		at->CompleteEvent(L"Awaken_PowerMeteor_Cross03_EndR") = std::bind(&Layana_Dark_Awaken::Complete_CrossEnd, this);
@@ -170,27 +177,15 @@ namespace jk
 			Rush_Bullet[i]->SetState(eState::Paused);
 		}
 
-		
-		//for (int a = 0; a < 19; a++)
-		//{
-		//	Rising[a] = new Rising_Pierce;
-		//	Rising[a]->Initialize();
-		//	Scene* scene = SceneManager::GetActiveScene();
-		//	scene->AddGameObject(eLayerType::Bullet, Rising[a]);
-		//	Risingbullet_tr[a] = Rising[a]->GetComponent<Transform>();
-		//	Risingbullet_tr[a]->SetPosition(Vector3(_pos.x, _pos.y, -205));
-		//	Rising[a]->SetState(eState::Paused);
-		//}
-
-		//{
-		//	Dimension_boss_effect = new Dimension_Pierce_BossEffect;
-		//	Dimension_boss_effect->Initialize();
-		//	Scene* scene = SceneManager::GetActiveScene();
-		//	scene->AddGameObject(eLayerType::Effect, Dimension_boss_effect);
-		//	Transform* boss_effect = Dimension_boss_effect->GetComponent<Transform>();
-		//	boss_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
-		//	Dimension_boss_effect->SetState(eState::Paused);
-		//}
+		{
+			_Meteoreffect = new Layana_Awaken_Meteoreffect;
+			_Meteoreffect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Meteoreffect);
+			Transform* boss_effect = _Meteoreffect->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z-1));
+			_Meteoreffect->SetState(eState::Paused);
+		}
 
 		//{
 		//	Dimension_Bullet = new Dimension_Pierce;
@@ -453,6 +448,15 @@ namespace jk
 
 	void Layana_Dark_Awaken::OnCollisionEnter(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			if (_DarkMode_state == Layana_Dark_Awaken_State::Meteor_Cross_Landing)
+			{
+				Transform* boss_effect = _Meteoreffect->GetComponent<Transform>();
+				boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+				_Meteoreffect->SetState(eState::Active);
+			}
+		}
 	}
 	void Layana_Dark_Awaken::OnCollisionStay(Collider2D* other)
 	{
@@ -504,7 +508,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		//_SelectAttack = random(0, 6);
-		_SelectAttack = 0;
+		_SelectAttack = 1;
 
 		//if (Input::GetKeyDown(eKeyCode::K))
 		//{
@@ -550,7 +554,7 @@ namespace jk
 
 	void Layana_Dark_Awaken::Telleport_In()
 	{
-		if (_teleportCheck == false)
+		if (_teleport_Rush == true)
 		{
 			_Attacktime += Time::DeltaTime();
 			if (_Attacktime > 0.35f)
@@ -558,16 +562,35 @@ namespace jk
 				if (_Dir == 1)
 				{
 					_pos.x = _Playerpos.x - 15;
-					_teleportCheck = true;
-					_DarkMode_state = Layana_Dark_Awaken_State::Telleport_Out;					
-		
+					_teleport_Rush = false;
 				}
 				else
 				{
 					_pos.x = _Playerpos.x + 15;					
-					_teleportCheck = true;
-					_DarkMode_state = Layana_Dark_Awaken_State::Telleport_Out;		
+					_teleport_Rush = false;
 				}
+				_DarkMode_state = Layana_Dark_Awaken_State::Telleport_Out;
+				_Attacktime = 0;
+			}
+		}
+		if (_teleport_Cross == true)
+		{
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime > 0.35f)
+			{
+				if (_Dir == 1)
+				{
+					_pos.x = _Playerpos.x - 15;
+					_pos.y = _Createpos.y + 150;
+					_teleport_Rush = false;
+				}
+				else
+				{
+					_pos.x = _Playerpos.x + 15;
+					_pos.y = _Createpos.y + 150;
+					_teleport_Rush = false;
+				}
+				_DarkMode_state = Layana_Dark_Awaken_State::Telleport_Out;
 				_Attacktime = 0;
 			}
 		}
@@ -585,18 +608,10 @@ namespace jk
 		if (_CrossMeteorSwitch == true)
 		{
 			_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_Jump;
-			if (_Dir == 1)
-			{
-				at->PlayAnimation(L"Awaken_PowerMeteor_Cross00_JumpR", false);
-				_rigidbody->SetVelocity(Vector2(250.f, 450.f));
-				_rigidbody->SetGround(false);
-			}
-			else
-			{
-				at->PlayAnimation(L"Awaken_PowerMeteor_Cross00_Jump", false);
-				_rigidbody->SetVelocity(Vector2(-250.f, 450.f));
-				_rigidbody->SetGround(false);
-			}
+			if (_Dir == 1)			
+				at->PlayAnimation(L"Awaken_PowerMeteor_Cross00_JumpR", false);			
+			else			
+				at->PlayAnimation(L"Awaken_PowerMeteor_Cross00_Jump", false);			
 		}
 	}
 
@@ -614,7 +629,6 @@ namespace jk
 		{
 			if (_RushSwitch == true)
 			{
-
 				_DarkMode_state = Layana_Dark_Awaken_State::Rush_Ready;
 				if (_Dir == 1)
 					at->PlayAnimation(L"Awaken_PowerRush_Ready", true);
@@ -750,39 +764,15 @@ namespace jk
 	}
 	void Layana_Dark_Awaken::Rush_C_1()
 	{
-		at->PlayAnimation(L"Awaken_PowerRushC_2", true);
-		_DarkMode_state = Layana_Dark_Awaken_State::RushC_2;
-		Transform* boss_Effect = Rush_Sign[0]->GetComponent<Transform>();
-		Rush_Sign[0]->_SwitchOn = true;
-		Rush_Sign[0]->SetDirection(1);
-		boss_Effect->SetPosition(Vector3(_Createpos.x, _Createpos.y + 50, -250));
-		Rush_Sign[0]->SetState(eState::Active); 
-
-		Rush_Bullet[0]->_bulletoff = false;
-		Transform* bullet_tr = Rush_Bullet[0]->GetComponent<Transform>();
-		bullet_tr->SetPosition(Vector3(_Createpos.x, _Createpos.y + 50, -251));;
-
-		//if (_Rush_C_Number ==1)
-		//{
-		//	at->PlayAnimation(L"Awaken_PowerRushC_2", true);
-		//	_DarkMode_state = Layana_Dark_Awaken_State::RushC_2;
-		//	{
-		//		Transform* boss_Effect = Rush_Sign[0]->GetComponent<Transform>();
-		//		Rush_Sign[0]->_SwitchOn = true;
-		//		Rush_Sign[0]->SetDirection(1);
-		//		boss_Effect->SetPosition(Vector3(_Createpos.x, _Createpos.y + 50, -250));
-		//		Rush_Sign[0]->SetState(eState::Active); 
-		//		Rush_Bullet[0]->_bulletoff = false;
-		//		Transform* bullet_tr = Rush_Bullet[0]->GetComponent<Transform>();
-		//		bullet_tr->SetPosition(Vector3(_Createpos.x, _Createpos.y + 50, -251));;
-		//	}					
-		//}
 	}
 	void Layana_Dark_Awaken::Rush_C_2()
 	{
 		if (_Rush_C_Number == 2)
 		{
-			at->PlayAnimation(L"Awaken_PowerRushC_3", true);
+			if (_BulletDir == 1)
+				at->PlayAnimation(L"Awaken_PowerRushC_3", true);
+			else
+				at->PlayAnimation(L"Awaken_PowerRushC_3R", true);
 			_DarkMode_state = Layana_Dark_Awaken_State::RushC_3;
 			{
 				Transform* boss_bullet = Rush_Sign[1]->GetComponent<Transform>();
@@ -804,7 +794,10 @@ namespace jk
 	{
 		if (_Rush_C_Number == 3)
 		{
-			at->PlayAnimation(L"Awaken_PowerRushC_4", true);
+			if (_BulletDir == 1)
+				at->PlayAnimation(L"Awaken_PowerRushC_4", true);
+			else
+				at->PlayAnimation(L"Awaken_PowerRushC_4R", true);
 			_DarkMode_state = Layana_Dark_Awaken_State::RushC_4;
 			{
 				Transform* boss_bullet = Rush_Sign[2]->GetComponent<Transform>();
@@ -826,7 +819,10 @@ namespace jk
 	{
 		if (_Rush_C_Number == 4)
 		{
-			at->PlayAnimation(L"Awaken_PowerRushC_5", true);
+			if (_BulletDir == 1)
+				at->PlayAnimation(L"Awaken_PowerRushC_5", true);
+			else
+				at->PlayAnimation(L"Awaken_PowerRushC_5R", true);
 			_DarkMode_state = Layana_Dark_Awaken_State::RushC_5;
 			{
 				Transform* boss_bullet = Rush_Sign[3]->GetComponent<Transform>();
@@ -848,7 +844,10 @@ namespace jk
 	{
 		if (_Rush_C_Number == 5)
 		{
-			at->PlayAnimation(L"Awaken_PowerRushC_6", true);
+			if (_BulletDir == 1)
+				at->PlayAnimation(L"Awaken_PowerRushC_6", true);
+			else
+				at->PlayAnimation(L"Awaken_PowerRushC_6R", true);
 			_DarkMode_state = Layana_Dark_Awaken_State::RushC_6;
 			{
 				Transform* boss_bullet = Rush_Sign[4]->GetComponent<Transform>();
@@ -870,7 +869,10 @@ namespace jk
 	{
 		if (_Rush_C_Number == 6)
 		{
-			at->PlayAnimation(L"Awaken_PowerRushC_7", false);
+			if (_BulletDir == 1)
+				at->PlayAnimation(L"Awaken_PowerRushC_7", false);
+			else
+				at->PlayAnimation(L"Awaken_PowerRushC_7R", false);
 			_DarkMode_state = Layana_Dark_Awaken_State::RushC_7;
 			{
 				Transform* boss_bullet = Rush_Sign[5]->GetComponent<Transform>();
@@ -889,17 +891,25 @@ namespace jk
 	{
 		if (_Rush_C_Number == 6)
 		{
-			//임펙트 터트리기 작업 실시			
-			Transform* boss_bullet = Rush_Sign[6]->GetComponent<Transform>();
-			Rush_Sign[6]->_SwitchOn = true;
-			Rush_Sign[6]->SetDirection(1);
-			boss_bullet->SetPosition(Vector3(_Createpos.x, _Createpos.y, -250));
-			Rush_Sign[6]->SetState(eState::Active);
-			_Rush_C_Number = 7;				
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime > 0.5)
+			{
+				//임펙트 터트리기 작업 실시			
+				Transform* boss_bullet = Rush_Sign[6]->GetComponent<Transform>();
+				Rush_Sign[6]->_SwitchOn = true;
+				Rush_Sign[6]->SetDirection(1);
+				float anglew = 45 / (180.0f / XM_PI);
+				boss_bullet->SetRotationZ(anglew);
+				boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y, -250));
+				Rush_Sign[6]->SetState(eState::Active);
+				_Rush_C_Number = 7;
 
-			Rush_Bullet[6]->_bulletoff = false;
-			Transform* bullet_tr = Rush_Bullet[6]->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(_Createpos.x, _Createpos.y, -251));;
+				Rush_Bullet[6]->_bulletoff = false;
+				Transform* bullet_tr = Rush_Bullet[6]->GetComponent<Transform>();
+				bullet_tr->SetRotationZ(anglew);
+				bullet_tr->SetPosition(Vector3(boss_bullet->GetPosition().x, boss_bullet->GetPosition().y, -251));;
+				_Attacktime = 0;
+			}
 		}
 		else
 		{
@@ -943,18 +953,11 @@ namespace jk
 
 	void Layana_Dark_Awaken::CrossJump()
 	{
-		if (_velocity.y <= -0.1f)
-		{
-			_rigidbody->ClearVelocity();
-			_rigidbody->SetGround(true);
-
-			if (_Dir == 1)
-				at->PlayAnimation(L"Awaken_PowerMeteor_Cross01_Ready", true);
-			else
-				at->PlayAnimation(L"Awaken_PowerMeteor_Cross01_ReadyR", true);
-			_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_Ready;
-			_Ground_check = false;
-		}
+		if (_Dir == 1)
+			at->PlayAnimation(L"Awaken_PowerMeteor_Cross01_Ready", true);
+		else
+			at->PlayAnimation(L"Awaken_PowerMeteor_Cross01_ReadyR", true);
+		_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_Ready;		
 	}
 	void Layana_Dark_Awaken::CrossReady()
 	{		
@@ -966,23 +969,23 @@ namespace jk
 			if (_Playerpos.x >= _pos.x)
 			{
 				at->PlayAnimation(L"Awaken_PowerMeteor_Cross04_AttackR", false);
-				float angle = 45 / (180.0f / XM_PI);
+				float angle = 15 / (180.0f / XM_PI);
 				tr->SetRotationZ(angle);
 			}
 			else
 			{
 				at->PlayAnimation(L"Awaken_PowerMeteor_Cross04_AttackR", false);
-				float angle = -45 / (180.0f / XM_PI);
+				float angle = -15 / (180.0f / XM_PI);
 				tr->SetRotationZ(angle);
 			}
 		}
 		//몸땡이 발사
 		{
-
 			Vector2 attack_pos = Vector2(_Playerpos.x - _pos.x, _Playerpos.y - _pos.y);
 			attack_pos.Normalize();
 			_rigidbody->SetGround(false);
-			_rigidbody->SetVelocity(Vector2(attack_pos.x * 500.f, attack_pos.y * 500));
+			_Ground_check = false;
+			_rigidbody->SetVelocity(Vector2(attack_pos.x * 550.f, attack_pos.y * 650));
 			_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_Landing;
 		}
 	}
@@ -1093,14 +1096,12 @@ namespace jk
 	}
 
 
-
 	void Layana_Dark_Awaken::Complete_Telleport_In()
 	{
 	}
 	void Layana_Dark_Awaken::Complete_Telleport_Out()
 	{
 	}
-
 
 
 	void Layana_Dark_Awaken::Complete_Skill_A()
@@ -1130,7 +1131,7 @@ namespace jk
 		}
 		else
 		{
-			_teleportCheck = false;
+			_teleport_Rush = true;
 			_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
 		}
 	}
@@ -1148,18 +1149,23 @@ namespace jk
 		{
 			_DarkMode_state = Layana_Dark_Awaken_State::RushB;
 			if (_Dir == 1)
+			{
+				_BulletDir = 1;
 				at->PlayAnimation(L"Awaken_PowerRushB", false);
+			}
 			else
+			{
+				_BulletDir = -1;
 				at->PlayAnimation(L"Awaken_PowerRushBR", false);
+			}
 		}
 		if (_Rushnumber == 2)
 		{
-			_DarkMode_state = Layana_Dark_Awaken_State::RushC_1;
-			at->PlayAnimation(L"Awaken_PowerRushC_1", false);
-			//if (_Dir == 1)
-			//	at->PlayAnimation(L"Awaken_PowerRushC_1", false);
-			//else
-			//	at->PlayAnimation(L"Awaken_PowerRushCR", false);
+			_DarkMode_state = Layana_Dark_Awaken_State::RushC_1;			
+			if (_BulletDir == 1)
+				at->PlayAnimation(L"Awaken_PowerRushC_1", true);
+			else
+				at->PlayAnimation(L"Awaken_PowerRushC_1R", true);
 		}
 		if (_Rushnumber >= 3)
 		{
@@ -1174,6 +1180,19 @@ namespace jk
 	}
 	void Layana_Dark_Awaken::Complete_Rush_C1()
 	{
+		if (_BulletDir == 1)
+			at->PlayAnimation(L"Awaken_PowerRushC_2", true);
+		else
+			at->PlayAnimation(L"Awaken_PowerRushC_2R", true);
+		_DarkMode_state = Layana_Dark_Awaken_State::RushC_2;
+		Transform* boss_Effect = Rush_Sign[0]->GetComponent<Transform>();
+
+		boss_Effect->SetPosition(Vector3(_Createpos.x, _Createpos.y + 50, -250));
+		Rush_Sign[0]->SetState(eState::Active);
+
+		Rush_Bullet[0]->_bulletoff = false;
+		Transform* bullet_tr = Rush_Bullet[0]->GetComponent<Transform>();
+		bullet_tr->SetPosition(Vector3(_Createpos.x, _Createpos.y + 50, -251));;
 	}
 	void Layana_Dark_Awaken::Complete_Rush_C2()
 	{
@@ -1204,30 +1223,8 @@ namespace jk
 	void Layana_Dark_Awaken::Meteor_Cross_Combo()
 	{
 		_CrossMeteorSwitch = true;
-		if (_Playerdistance.x <= 30 && _Playerdistance.x >= -30)
-		{
-			_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_Jump;
-			if (_Dir == 1)
-			{
-				at->PlayAnimation(L"Awaken_PowerMeteor_Cross00_Jump", false);
-				_rigidbody->SetVelocity(Vector2(250.f, 450.f));
-				_rigidbody->SetGround(false);
-			}
-			else
-			{
-				at->PlayAnimation(L"Awaken_PowerMeteor_Cross00_JumpR", false);
-				_rigidbody->SetVelocity(Vector2(-250.f, 450.f));
-				_rigidbody->SetGround(false);
-			}
-		}
-		else
-		{
-			_DarkMode_state = Layana_Dark_Awaken_State::Dash;
-			if (_Dir == 1)
-				at->PlayAnimation(L"Awaken_PowerDash", true);
-			else
-				at->PlayAnimation(L"Awaken_PowerDashR", true);
-		}
+		_teleport_Cross = true;
+		_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
 	}
 	void Layana_Dark_Awaken::Complete_CrossJump()
 	{

@@ -4,7 +4,7 @@
 #include "Layana_Sisters.h"
 #include "Layana_Awken_Rush_Sign.h"
 #include "Latana_Awake_Rush_Bullet.h"
-
+#include "Layana_Awaken_Meteoreffect.h"
 
 namespace jk
 {
@@ -202,6 +202,7 @@ namespace jk
 	private:
 		Layana_Awken_Rush_Sign* Rush_Sign[7] = {};
 		Latana_Awake_Rush_Bullet* Rush_Bullet[7] = {};
+		Layana_Awaken_Meteoreffect* _Meteoreffect = nullptr;
 
 
 
@@ -229,12 +230,14 @@ namespace jk
 
 	private:
 		int		_Dir = 1;							// 방향설정
+		int		_BulletDir = 1;
 		float	_time = 0.f;						// 공격패턴시 사용중	
 		float	_Attacktime = 0.f;					// 공격패턴시 보조사용중
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		bool	_BackGround_check = true;			// 백그라운드 아이들시 사용되는 변수
 		int		_Rushnumber = 0;					// 러쉬 공격시 1번 = a, 2번 = b, 3번 =c , 0 = 대기상태
-		bool	_teleportCheck = false;			// 텔레포드 인아웃을 할수 있도록 설정하는 변수
+		bool	_teleport_Rush = false;				// 텔레포드 인아웃을 할수 있도록 설정하는 변수
+		bool	_teleport_Cross = false;
 
 	public:
 		static bool _AttackStageON;				// FLyDash의 경우 나가있는지 안에 있는지 확인할수 있는변 나가있는상태라면 위치 셋팅하여 안으로 들어오게 도와주는 역할의 변수 
@@ -255,13 +258,6 @@ namespace jk
 
 		bool	_VerticalMeteorSwitch = false;
 		bool	_VerticalMeteorLanding = false;
-
-		bool	_SkillA_Switch = false;
-		bool	_SkillA_Landing = false;
-		bool	_SkillHomingON = false;
-		bool    _SkillHomingFire = false;
-		int		_HomingNumber = 0;
-		float   _HomingAngle[3];
 
 		bool	_SkillB_Switch = false;
 

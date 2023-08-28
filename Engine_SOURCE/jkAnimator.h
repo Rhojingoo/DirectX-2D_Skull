@@ -59,13 +59,13 @@ namespace jk
 		std::function<void()>& EndEvent(const std::wstring key);
 
 	private:
-		std::map<std::wstring, Animation*> mAnimations;
-		std::map<std::wstring, Events*> mEvents;
-		Animation* mActiveAnimation;
-		std::shared_ptr<Texture> mSpriteSheet;
-		std::shared_ptr<Texture> mImageAtlas;
+		std::map<std::wstring, Animation*> mAnimations = {};
+		std::map<std::wstring, Events*> mEvents = {};
+		Animation* mActiveAnimation = {};
+		std::shared_ptr<Texture> mSpriteSheet = {};
+		std::shared_ptr<Texture> mImageAtlas = {};
 
-		bool mbLoop;
+		bool mbLoop = false;
 		int reverse;
 	};
 }

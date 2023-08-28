@@ -30,7 +30,7 @@ namespace jk
 		if (mbComplete)
 			return;
 
-		mTime += Time::DeltaTime();
+		mTime += static_cast<float>(Time::DeltaTime());
 
 		if (mSprites[mIndex].duration <= mTime)
 		{
