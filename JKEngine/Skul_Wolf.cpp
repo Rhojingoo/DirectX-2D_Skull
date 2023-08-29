@@ -141,7 +141,7 @@ namespace jk
 	}
 	void Skul_Wolf::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.07f, 0.05f));
+		_collider->SetSize(Vector2(0.35f, 0.65f));
 		_collider->SetCenter(Vector2(0.0f, -0.1f));
 
 
