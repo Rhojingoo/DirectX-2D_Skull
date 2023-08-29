@@ -526,7 +526,7 @@ namespace jk
 	}
 	void Yggdrasil_Face::attack_c_down()
 	{
-		if (_Changeon == true)
+		if (_Changeon == false)
 		{
 			if (_pos.y > 50)
 			{

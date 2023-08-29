@@ -326,11 +326,11 @@ namespace jk
 				Transform* bullet0 = _Dark_HomingPierce[0]->GetComponent<Transform>();
 				bullet0->SetPosition(Vector3(_Createpos.x + 250, 50, _pos.z - 1));
 				Transform* bullet1 = _Dark_HomingPierce[1]->GetComponent<Transform>();
-				bullet1->SetPosition(Vector3(_Createpos.x + 100, -50, _pos.z - 1));
+				bullet1->SetPosition(Vector3(_Createpos.x + 100, 100, _pos.z - 1));
 				Transform* bullet2 = _Dark_HomingPierce[2]->GetComponent<Transform>();
 				bullet2->SetPosition(Vector3(_Createpos.x , -25, _pos.z - 1));
 				Transform* bullet3 = _Dark_HomingPierce[3]->GetComponent<Transform>();
-				bullet3->SetPosition(Vector3(_Createpos.x-100, -50, _pos.z - 1));
+				bullet3->SetPosition(Vector3(_Createpos.x-100, 100, _pos.z - 1));
 				Transform* bullet4 = _Dark_HomingPierce[4]->GetComponent<Transform>();
 				bullet4->SetPosition(Vector3(_Createpos.x -250, 50, _pos.z - 1));
 			}
@@ -747,8 +747,8 @@ namespace jk
 	void Layana_Dark_Awaken::idle()
 	{
 		_time += Time::DeltaTime();
-		//_SelectAttack = random(0, 6);
-		_SelectAttack = 5;
+		_SelectAttack = random(0, 6);
+		//_SelectAttack = 4;
 
 		//if (Input::GetKeyDown(eKeyCode::K))
 		//{
@@ -1445,17 +1445,24 @@ namespace jk
 						int randomposX = random(_Createpos.x - 150, _Createpos.x + 150);
 						int randomposY = random(_Createpos.y - 25, _Createpos.y + 70);
 						Transform* boss_effect = _Dark_HomingPierce[i]->GetComponent<Transform>();
-						boss_effect->SetPosition(Vector3(randomposX, randomposY, _pos.z - 1));
+						//boss_effect->SetPosition(Vector3(randomposX, randomposY, _pos.z - 1));
 						_Dark_HomingPierce[i]->_effect_switch = true;
 						_Dark_HomingPierce[i]->SetState(eState::Active);
 						_Dark_HomingPierce[i]->_Create_ball = true;
 
 
 						Transform* _effect_Line = _HomingPierce_Effect[i]->GetComponent<Transform>();
-						_effect_Line->SetPosition(Vector3(randomposX, randomposY, _pos.z - 2));
+						_effect_Line->SetPosition(Vector3(boss_effect->GetPosition().x, boss_effect->GetPosition().y, _pos.z - 2));
 
 						Transform* bullet = _HomingPierce_Attack[i]->GetComponent<Transform>();
-						bullet->SetPosition(Vector3(randomposX, randomposY, _pos.z - 3));
+						bullet->SetPosition(Vector3(boss_effect->GetPosition().x, boss_effect->GetPosition().y, _pos.z - 3));
+
+
+						//Transform* _effect_Line = _HomingPierce_Effect[i]->GetComponent<Transform>();
+						//_effect_Line->SetPosition(Vector3(randomposX, randomposY, _pos.z - 2));
+
+						//Transform* bullet = _HomingPierce_Attack[i]->GetComponent<Transform>();
+						//bullet->SetPosition(Vector3(randomposX, randomposY, _pos.z - 3));
 					}
 				}
 			}
@@ -1523,7 +1530,6 @@ namespace jk
 
 
 
-
 	void Layana_Dark_Awaken::Skill_C_Ready()
 	{
 		if (_SkillC_Switch == false)
@@ -1586,7 +1592,6 @@ namespace jk
 			_DarkMode_state = Layana_Dark_Awaken_State::Skill_C_DimensionPierce;
 		}
 	}
-
 	void Layana_Dark_Awaken::Skill_C()
 	{
 		
@@ -1624,6 +1629,7 @@ namespace jk
 			}
 		}
 	}
+
 
 	void Layana_Dark_Awaken::die()
 	{

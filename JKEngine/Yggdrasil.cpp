@@ -131,7 +131,7 @@ namespace jk
 			//	_Gobjs[i]->SetState(eState::Paused);
 		}
 	
-		_Change = true;
+		//_Change = true;
 		GameObject::Initialize();
 	}
 	void Yggdrasil::Update()
@@ -340,10 +340,10 @@ namespace jk
 		_NumberofAttack = 0;
 		_playerpos = Player::GetPlayer_Pos();
 
-		//if (_Changeon == false)
-		//	Attack_Sellect = random(0, 2);
-		//else
-		//	Attack_Sellect = random(0, 3);
+		if (_Changeon == false)
+			Attack_Sellect = random(0, 2);
+		else
+			Attack_Sellect = random(0, 3);
 		
 
 		if (_Intro == false)
@@ -351,13 +351,12 @@ namespace jk
 			_state = Yggdrasil_State::Intro_Set_Left;
 		}
 		if (_Intro == true)
-		{	
-			
-			if (test == 0)
-				{
-					Attack_Sellect = 2;
-					//test = 1;
-				}
+		{				
+			//if (test == 0) ½ÃÇè¿ë
+			//	{
+			//		Attack_Sellect = 2;
+			//		//test = 1;
+			//	}
 			_AttackA_FinishR = false;
 			_AttackA_FinishL = false;
 			_Groggy_Chin_Up = false;
