@@ -449,6 +449,19 @@ namespace jk
 				}
 			}
 		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				if (_state == Mage_State::Attack_C)
+				{
+					_GroundLanding = true;
+				}
+			}
+		}
 	}
 	void Mage::OnCollisionExit(Collider2D* other)
 	{

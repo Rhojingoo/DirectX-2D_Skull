@@ -23,6 +23,10 @@ namespace jk
 		
 		
 		//Scene
+
+		SceneManager::CreateScene<Stage2_Boss>(L"Stage2_Boss");
+		SceneManager::CreateScene<Stage2_2>(L"Stage2_2");
+		SceneManager::CreateScene<Stage2_MiniBoss>(L"Stage2_mBoss");
 		SceneManager::CreateScene<Stage2_1>(L"Stage2_1");
 		SceneManager::CreateScene<Stage1_Boss>(L"Stage1_Boss");
 		SceneManager::CreateScene<Stage1_2>(L"Stage1_2");		

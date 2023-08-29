@@ -796,8 +796,6 @@ namespace jk::renderer
 									Resources::Insert(L"Miniboss_00", material); material->SetRenderingMode(eRenderingMode::Transparent);
 			#pragma endregion
 
-
-
 				#pragma region Stage1_Boss
 						texture = Resources::Load<Texture>(L"king1", L"..\\Resources\\Texture\\Stage1\\Stag1_Boss\\King1.png");
 						material = std::make_shared<Material>();
@@ -806,6 +804,97 @@ namespace jk::renderer
 						Resources::Insert(L"Stage_king1", material);
 				#pragma endregion
 		#pragma endregion
+
+
+		#pragma region Stage2
+
+			#pragma region Stage2_Boss
+			{
+				texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Stage_king2", material);
+			}
+			{
+				texture = Resources::Load<Texture>(L"Layana_Sisters_Place", L"..\\Resources\\Texture\\Stage2\\Layana_Sisters_Map.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Layana_Sisters_Map", material);
+			}
+			{
+				texture = Resources::Load<Texture>(L"Stage2_BOSS_Stairs", L"..\\Resources\\Texture\\Stage2\\Layana_Sisters_stairs.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Layana_Sisters_Stairs", material);
+			}
+			{
+				texture = Resources::Load<Texture>(L"Stage2_BOSS_Steps", L"..\\Resources\\Texture\\Stage2\\Layana_Sisters_Steps.png");
+				material = std::make_shared<Material>();
+				material->SetShader(spriteShader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Layana_Sisters_Steps", material);
+			}
+
+					#pragma region Tile_map(Stage2_Boss)
+								texture = Resources::Load<Texture>(L"Stage2_boss", L"..\\Resources\\Tile\\Stage2_Tile.png");
+								material = std::make_shared<Material>();
+								material->SetShader(tile_shader);
+								material->SetTexture(texture);
+								material->SetRenderingMode(eRenderingMode::Transparent);
+								Resources::Insert(L"Stage2_Boss", material);
+					#pragma endregion
+
+			#pragma endregion
+
+			#pragma region Stage2_Public
+				{
+					texture = Resources::Load<Texture>(L"backGround_stage2_00", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\BackGround_Stage2_00.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"BackGround_Stage2_00", material);
+				}
+
+				{
+					texture = Resources::Load<Texture>(L"backGround_stage2_01", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\BackGround_Stage2_01.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"BackGround_Stage2_01", material);
+				}
+
+				{
+					texture = Resources::Load<Texture>(L"foreGround_stage2_00", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\ForeGround_Stage2_00.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"ForeGround_Stage2_00", material);
+				}
+
+				#pragma region Cloud	
+				{		
+					texture = Resources::Load<Texture>(L"stage2_cloud", L"..\\Resources\\Texture\\Effect\\Stage2_Cloud.png");
+					material = std::make_shared<Material>();
+					material->SetShader(moveShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"Stage2_Cloud", material); 
+				}
+				#pragma endregion
+
+			#pragma endregion
+		#pragma endregion
+
 
 		#pragma region Tile	
 				#pragma region Tile_map(Stage1_1)
@@ -845,51 +934,17 @@ namespace jk::renderer
 								Resources::Insert(L"Stage1_Boss", material);
 				#pragma endregion
 
+				#pragma region Tile_map(Stage2_1)
+								texture = Resources::Load<Texture>(L"stage2_tile", L"..\\Resources\\Tile\\Stage2_Tile.png");
+								material = std::make_shared<Material>();
+								material->SetShader(tile_shader);
+								material->SetTexture(texture);
+								material->SetRenderingMode(eRenderingMode::Transparent);
+								Resources::Insert(L"Stage2_Tile", material);
+				#pragma endregion
+
 		#pragma endregion		
 
-		#pragma region Stage2(Back)
-			{
-				texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Stage_king2", material);
-			}
-			{
-				texture = Resources::Load<Texture>(L"Layana_Sisters_Place", L"..\\Resources\\Texture\\Stage2\\Layana_Sisters_Map.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Layana_Sisters_Map", material);
-			}
-			{
-				texture = Resources::Load<Texture>(L"Stage2_BOSS_Stairs", L"..\\Resources\\Texture\\Stage2\\Layana_Sisters_stairs.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Layana_Sisters_Stairs", material);
-			}
-			{
-				texture = Resources::Load<Texture>(L"Stage2_BOSS_Steps", L"..\\Resources\\Texture\\Stage2\\Layana_Sisters_Steps.png");
-				material = std::make_shared<Material>();
-				material->SetShader(spriteShader);
-				material->SetTexture(texture);
-				material->SetRenderingMode(eRenderingMode::Transparent);
-				Resources::Insert(L"Layana_Sisters_Steps", material);
-			}
-
-			#pragma region Tile_map(Stage2_Boss)
-						texture = Resources::Load<Texture>(L"Stage2_boss", L"..\\Resources\\Tile\\Stage2_Tile.png");
-						material = std::make_shared<Material>();
-						material->SetShader(tile_shader);
-						material->SetTexture(texture);
-						material->SetRenderingMode(eRenderingMode::Transparent);
-						Resources::Insert(L"Stage2_Boss", material);
-			#pragma endregion
-		#pragma endregion
 
 		#pragma region DebugShader_Collider
 				//std::shared_ptr<Shader> debugShader

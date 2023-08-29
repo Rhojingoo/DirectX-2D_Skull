@@ -11,6 +11,12 @@ namespace jk
 	}
 	void Stage1_1::Initialize()
 	{
+		Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
+		testmonster->SetName(L"test_monster"); 
+
+		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+		_player->SetName(L"player_select");
+
 		#pragma region BG	
 		{	
 			Back_ground* Fore_S1_1_color = object::Instantiate<Back_ground>(Vector3(-100.f, 50.f, 105.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Color");

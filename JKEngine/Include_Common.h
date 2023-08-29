@@ -146,11 +146,14 @@
 
 #include "jkTitleScene.h"
 #include "jkPlayScene.h"
+#include "Castle_Area.h"
 #include "jkStage1_1.h"
 #include "jkStage1_MiniBoss.h"
 #include "jkStage1_2.h"
 #include "jkStage1_Boss.h"
 #include "jkStage2_1.h"
-#include "Castle_Area.h"
+#include "jkStage2_MiniBoss.h"
+#include "jkStage2_2.h"
+#include "jkStage2_Boss.h"
 
 

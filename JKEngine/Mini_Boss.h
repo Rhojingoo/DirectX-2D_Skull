@@ -41,7 +41,7 @@ namespace jk
 		int _minibosschoice = 0;
 
 		static Vector3 _Pos;
-		GameObject* _Gobjs[1];
+		GameObject* _Gobjs[4];
 		//static bool _check_change;
 		//static int mDir;	
 

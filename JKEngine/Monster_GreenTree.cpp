@@ -149,6 +149,20 @@ namespace jk
 
 			}
 		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_Ground_check = _rigidbody->GetGround();
+				_rigidbody->ClearVelocity();
+			}
+			else
+			{
+			}
+		}
 	}
 	void Monster_GreenTree::OnCollisionExit(Collider2D* other)
 	{

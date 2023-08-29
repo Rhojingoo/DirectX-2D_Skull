@@ -424,6 +424,15 @@
     <ClInclude Include="Sky_Ground.h">
       <Filter>Game_ob\BG\Tile\Image_Ground</Filter>
     </ClInclude>
+    <ClInclude Include="jkStage2_2.h">
+      <Filter>Scene\Stage2</Filter>
+    </ClInclude>
+    <ClInclude Include="jkStage2_MiniBoss.h">
+      <Filter>Scene\Stage2</Filter>
+    </ClInclude>
+    <ClInclude Include="jkStage2_Boss.h">
+      <Filter>Scene\Stage2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -842,6 +851,15 @@
     </ClCompile>
     <ClCompile Include="Sky_Ground.cpp">
       <Filter>Game_ob\BG\Tile\Image_Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="jkStage2_2.cpp">
+      <Filter>Scene\Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="jkStage2_Boss.cpp">
+      <Filter>Scene\Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="jkStage2_MiniBoss.cpp">
+      <Filter>Scene\Stage2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

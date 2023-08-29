@@ -831,6 +831,50 @@ namespace jk
 				}
 			}
 		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_fallcheck = 0;	_jump = 0;
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_Ground_check = _rigidbody->GetGround();
+
+				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
+				{
+					_State = Skul_Basic_State::Idle;
+					if (mDir == 1)
+						at->PlayAnimation(L"Skul_BasicIdle", true);
+					else
+						at->PlayAnimation(L"Skul_BasicIdleR", true);
+				}
+			}
+			else
+			{
+				if (Input::GetKeyDown(eKeyCode::Z))
+				{
+					_State = Skul_Basic_State::Dash;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"Skul_BasicDash", true);
+						if (_Skulhead == true)
+							at->PlayAnimation(L"NoHeadDash", true);
+						_rigidbody->SetVelocity(Vector2(250.f, 0.f));
+						mDir = 1;
+					}
+					if (mDir == -1)
+					{
+						at->PlayAnimation(L"Skul_BasicDashR", true);
+						if (_Skulhead == true)
+							at->PlayAnimation(L"NoHeadDashR", true);
+						_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
+						mDir = -1;
+					}
+				}
+			}
+		}
+
 	}
 	void Skul_Basic::OnCollisionExit(Collider2D* other)
 	{
@@ -960,10 +1004,10 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
+			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::sowrd_Skul, PlayerList::basic_Skul, true, mDir);
-			SetPlay_List(PlayerList::thief_Skul, PlayerList::basic_Skul, true, mDir);
+			//SetPlay_List(PlayerList::thief_Skul, PlayerList::basic_Skul, true, mDir);
 			SetPlayer_Pos(pos);
 		}
 	}

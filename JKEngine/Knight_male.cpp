@@ -371,7 +371,21 @@ namespace jk
 				if (_Ground_check == true)				
 				_BackDash = false;
 			}
+		}
 
+		if (Ground_Map* Ground = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_rigidbody->ClearVelocity();
+			}
+			if (_state == Knight_State::BackDash)
+			{
+				if (_Ground_check == true)
+					_BackDash = false;
+			}
 		}
 	}
 	void Knight_male::OnCollisionExit(Collider2D* other)

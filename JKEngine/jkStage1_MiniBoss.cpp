@@ -18,12 +18,10 @@ namespace jk
 		//std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexuture");
 		//paintShader->SetTarget(paintTexture);
 		//paintShader->OnExcute();
-
 		//ComputeShader* cs = new ComputeShader();
 		//cs->Create(L"PaintCS.hlsl", "main");
 
-
-			#pragma region Test_particle
+		#pragma region Test_particle
 					//GameObject* player = new GameObject();
 					//player->SetName(L"Particle");
 					//AddGameObject(eLayerType::Monster, player);
@@ -31,6 +29,12 @@ namespace jk
 					//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -20.0f));
 					//player->GetComponent<Transform>()->SetScale(Vector3(100.2f, 100.2f, 0.2f));
 			#pragma endregion
+
+		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+		_player->SetName(L"player_select");
+
+		Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
+		testmboss->SetName(L"test_mboss");
 
 		#pragma region BG	
 				{

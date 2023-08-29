@@ -372,6 +372,23 @@ namespace jk
 				}
 			}
 		}		
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_rigidbody->ClearVelocity();
+			}
+			if (_state == Archer_State::BackDash)
+			{
+				if (_Ground_check == true)
+				{
+					_BackDash = false;
+				}
+			}
+		}
 	}
 	void Archer::OnCollisionExit(Collider2D* other)
 	{

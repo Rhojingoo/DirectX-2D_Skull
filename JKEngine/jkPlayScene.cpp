@@ -10,44 +10,6 @@ namespace jk
 	}
 	void PlayScene::Initialize()
 	{
-		//Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-		//_player->SetName(L"player_select");
-
-			#pragma region Cam & Mouse& Grid
-			//Main Camera			
-			Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-			Camera* cameraComp = camera->AddComponent<Camera>();
-			cameraComp->TurnLayerMask(eLayerType::UI, false);
-			camera->AddComponent<CameraScript>();
-			renderer::cameras.push_back(cameraComp);
-
-			//UI Camera		
-			UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-			Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
-			cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
-			cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
-			cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
-			cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
-			cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
-			cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
-
-			//UI_Mouse
-			UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
-			cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -10.f));
-			cursor->SetName(L"Mouse_UI");
-			cursor->SetCamera(UI_camera);
-
-			//Grid
-			Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
-			grid->SetName(L"Grid");
-			GridScript* gridSc = grid->AddComponent<GridScript>();
-			gridSc->SetCamera(cameraComp);
-			#pragma endregion	
-
-
-
-
-
 		Scene::Initialize();
 	}
 
