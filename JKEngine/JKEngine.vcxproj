@@ -171,6 +171,9 @@
     <ClInclude Include="Cleric_HolyThunder.h" />
     <ClInclude Include="Cleric_Ultimate_SkillEffect.h" />
     <ClInclude Include="Cleric_Veteran_Sanctuary.h" />
+    <ClInclude Include="Dark_DimensionPierce_Attack.h" />
+    <ClInclude Include="Dark_DimensionPierce_BulletEffect.h" />
+    <ClInclude Include="Dark_DimensionPierce_Sign.h" />
     <ClInclude Include="Dimension_Pierce_BossEffect.h" />
     <ClInclude Include="Dimension_Pierce.h" />
     <ClInclude Include="Dimension_Pierce_BulletEffect.h" />
@@ -310,6 +313,9 @@
     <ClCompile Include="Cleric_HolyThunder.cpp" />
     <ClCompile Include="Cleric_Ultimate_SkillEffect.cpp" />
     <ClCompile Include="Cleric_Veteran_Sanctuary.cpp" />
+    <ClCompile Include="Dark_DimensionPierce_Attack.cpp" />
+    <ClCompile Include="Dark_DimensionPierce_BulletEffect.cpp" />
+    <ClCompile Include="Dark_DimensionPierce_Sign.cpp" />
     <ClCompile Include="Dimension_Pierce_BossEffect.cpp" />
     <ClCompile Include="Dimension_Pierce.cpp" />
     <ClCompile Include="Dimension_Pierce_BulletEffect.cpp" />

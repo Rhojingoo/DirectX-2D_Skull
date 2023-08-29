@@ -70,9 +70,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_A_Bullet_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce_End", this);
-
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_C_DimensionPierce", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce_End", this);
 
 		
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\AwakenEnd", this,1);
@@ -112,8 +110,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce_End", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_C_DimensionPierce", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce_End", this,1);
-
+		
 		
 		
 		//bind ºÎºÐ
@@ -157,8 +154,10 @@ namespace jk
 		at->CompleteEvent(L"Awaken_PowerSkill_A_Bullet_EndR") = std::bind(&Layana_Dark_Awaken::Complete_Skill_A, this);
 		at->CompleteEvent(L"Awaken_PowerSkill_B_RisingPierceR") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
 		at->CompleteEvent(L"Awaken_PowerSkill_B_RisingPierce_EndR") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
+		at->CompleteEvent(L"Awaken_PowerSkill_C_DimensionPierce") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
+		at->CompleteEvent(L"Awaken_PowerSkill_C_DimensionPierceR") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
 
-
+		
 
 		for (int i = 0; i < 7; i++)
 		{
@@ -383,45 +382,39 @@ namespace jk
 			}			
 		}
 
-		//{
-		//	Dimension_Bullet = new Dimension_Pierce;
-		//	Dimension_Bullet->Initialize();
-		//	Scene* scene = SceneManager::GetActiveScene();
-		//	scene->AddGameObject(eLayerType::Bullet, Dimension_Bullet);
-		//	Transform* boss_effect = Dimension_Bullet->GetComponent<Transform>();
-		//	boss_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
-		//	Dimension_Bullet->SetState(eState::Paused);
-		//}
 
-		//{
-		//	Dimension_BulletEffect = new Dimension_Pierce_BulletEffect;
-		//	Dimension_BulletEffect->Initialize();
-		//	Scene* scene = SceneManager::GetActiveScene();
-		//	scene->AddGameObject(eLayerType::Bullet, Dimension_BulletEffect);
-		//	Transform* bullte_effect = Dimension_BulletEffect->GetComponent<Transform>();
-		//	bullte_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
-		//	Dimension_BulletEffect->SetState(eState::Paused);
-		//}
+		{
+			_DimensionPierce_Bosseffect = new  Dark_DimensionPierce_Attack;
+			_DimensionPierce_Bosseffect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _DimensionPierce_Bosseffect);
+			Transform* boss_effect = _DimensionPierce_Bosseffect->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_DimensionPierce_Bosseffect->SetState(eState::Paused);
+		}
+		
+		
+		{
+			_DimensionPierce_Sign = new  Dark_DimensionPierce_Sign;
+			_DimensionPierce_Sign->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _DimensionPierce_Sign);
+			Transform* boss_effect = _DimensionPierce_Sign->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_DimensionPierce_Sign->SetState(eState::Paused);
+		}
 
-		//{
-		//	TwinMeteor_Impact = new TwinMeteor_Effect;
-		//	TwinMeteor_Impact->Initialize();
-		//	Scene* scene = SceneManager::GetActiveScene();
-		//	scene->AddGameObject(eLayerType::Bullet, TwinMeteor_Impact);
-		//	Transform* bullte_effect = TwinMeteor_Impact->GetComponent<Transform>();
-		//	bullte_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
-		//	TwinMeteor_Impact->SetState(eState::Paused);
-		//}
+		{
+			_DimensionPierce_BulletEffect = new  Dark_DimensionPierce_BulletEffect;
+			_DimensionPierce_BulletEffect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, _DimensionPierce_BulletEffect);
+			Transform* boss_effect = _DimensionPierce_BulletEffect->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_DimensionPierce_BulletEffect->SetState(eState::Paused);
+		}
 
-		//{
-		//	TwinMeteor_BossEffect = new TwinMeteor_Boss;
-		//	TwinMeteor_BossEffect->Initialize();
-		//	Scene* scene = SceneManager::GetActiveScene();
-		//	scene->AddGameObject(eLayerType::Bullet, TwinMeteor_BossEffect);
-		//	Transform* bullte_effect = TwinMeteor_BossEffect->GetComponent<Transform>();
-		//	bullte_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
-		//	TwinMeteor_BossEffect->SetState(eState::Paused);
-		//}
+
 		at->PlayAnimation(L"Awaken_PowerIdle", true);
 		GameObject::Initialize();
 	}
@@ -620,6 +613,10 @@ namespace jk
 
 
 
+		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Skill_C_DimensionPierce_Ready:
+			Layana_Dark_Awaken::Skill_C_Ready();
+			break;
+
 
 		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Skill_C_DimensionPierce:
 			Layana_Dark_Awaken::Skill_C();
@@ -751,7 +748,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		//_SelectAttack = random(0, 6);
-		_SelectAttack = 4;
+		_SelectAttack = 5;
 
 		//if (Input::GetKeyDown(eKeyCode::K))
 		//{
@@ -1509,7 +1506,6 @@ namespace jk
 			_Attacktime = 0;
 		}
 	}
-
 	void Layana_Dark_Awaken::Skill_B()
 	{
 		if (_HomingPierce_Attack[4]->_bulletoff == true)
@@ -1526,17 +1522,116 @@ namespace jk
 	}
 
 
+
+
+	void Layana_Dark_Awaken::Skill_C_Ready()
+	{
+		if (_SkillC_Switch == false)
+		{
+			{
+				Transform* boss_effect = _DimensionPierce_Bosseffect->GetComponent<Transform>();
+				boss_effect->SetPosition(Vector3(_pos.x, _pos.y - 10, -250));
+				_DimensionPierce_Bosseffect->SetState(eState::Active);
+				_DimensionPierce_Bosseffect->_SwitchOn = true;
+				if (_Dir == 1)
+					_DimensionPierce_Bosseffect->SetDirection(1);
+				else
+					_DimensionPierce_Bosseffect->SetDirection(-1);
+			}
+			{
+				Transform* boss_bullet = _DimensionPierce_Sign->GetComponent<Transform>();
+				_DimensionPierce_Sign->_SwitchOn = true;
+				int Setrotation = random(1, 2);
+				if (_Dir == 1)
+				{
+					_DimensionPierce_Sign->SetDirection(1);
+					float anglew = 0.f;
+					if (Setrotation == 1)
+					{
+						int setangle = random(295, 335);
+						float anglew = setangle / (180.0f / XM_PI);
+						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y + 25, -250));
+					}
+					else
+					{
+						int setangle = random(25, 65);
+						float anglew = setangle / (180.0f / XM_PI);
+						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y - 25, -250));
+					}
+					_DimensionPierce_Sign->SetState(eState::Active);
+				}
+				else
+				{
+					_DimensionPierce_Sign->SetDirection(-1);
+					if (Setrotation == 1)
+					{
+						int setangle = random(-335, -295);
+						float anglew = setangle / (180.0f / XM_PI);
+						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y + 25, -250));
+					}
+					else
+					{
+						int setangle = random(-65, -25);
+						float anglew = setangle / (180.0f / XM_PI);
+						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y - 25, -250));
+					}
+					_DimensionPierce_Sign->SetState(eState::Active);
+				}
+			}
+			_SkillC_Switch = true;
+			_DarkMode_state = Layana_Dark_Awaken_State::Skill_C_DimensionPierce;
+		}
+	}
+
 	void Layana_Dark_Awaken::Skill_C()
 	{
+		
+		if (_SkillC_Switch == true)
+		{
+			_Attacktime += Time::DeltaTime();
+
+			if (_Attacktime >= 1.0 && _Attacktime < 1.5)
+			{
+				Transform* boss_bullet = _DimensionPierce_Sign->GetComponent<Transform>();
+				Transform* boss_effect = _DimensionPierce_BulletEffect->GetComponent<Transform>();
+				boss_effect->SetPosition(Vector3(boss_bullet->GetPositionX(), boss_bullet->GetPositionY(), -250));
+				boss_effect->SetRotationZ(boss_bullet->GetRotationZ());
+				_DimensionPierce_BulletEffect->_effect_switch = true;
+				_DimensionPierce_BulletEffect->_bulletoff = true;
+				_DimensionPierce_BulletEffect->SetState(eState::Active);		
+				if (_Dir == 1)
+					_DimensionPierce_BulletEffect->SetDirection(1);
+				else
+					_DimensionPierce_BulletEffect->SetDirection(-1);
+			}
+
+			if (_DimensionPierce_BulletEffect->_bulletoff == true)
+			{
+				_DimensionPierce_Sign->SetState(eState::Paused);
+				_DimensionPierce_BulletEffect->_bulletoff = false;
+
+				if (_Dir == 1)
+					at->PlayAnimation(L"Awaken_PowerIdle", true);
+				else
+					at->PlayAnimation(L"Awaken_PowerIdleR", true);
+				_DarkMode_state = Layana_Dark_Awaken_State::Idle;
+				_Attacktime = 0;
+				_time = 0;
+			}
+		}
 	}
 
 	void Layana_Dark_Awaken::die()
 	{
 	}
-
 	void Layana_Dark_Awaken::death()
 	{
 	}
+
 
 	void Layana_Dark_Awaken::Complete_Telleport_In()
 	{
@@ -1544,10 +1639,10 @@ namespace jk
 	void Layana_Dark_Awaken::Complete_Telleport_Out()
 	{
 	}
-
 	void Layana_Dark_Awaken::Awaken_Combo()
 	{
 	}
+
 
 
 	void Layana_Dark_Awaken::Rush_Combo()
@@ -1788,8 +1883,13 @@ namespace jk
 
 	void Layana_Dark_Awaken::Skill_C_Combo()
 	{
+		if (_Dir == 1)
+			at->PlayAnimation(L"Awaken_PowerSkill_C_DimensionPierce", false);
+		else
+			at->PlayAnimation(L"Awaken_PowerSkill_C_DimensionPierceR", false);
+		_DarkMode_state = Layana_Dark_Awaken_State::Skill_C_DimensionPierce_Ready;
+		_SkillC_Switch = false;
 	}
-
 
 
 	void Layana_Dark_Awaken::CreateHoming()

@@ -14,6 +14,9 @@
 #include "Layana_Dark_HomingPierce.h"
 #include "Layana_Dark_HomingPierce_Effect.h"
 #include "Layana_Awaken_Homing_Attac.h"
+#include "Dark_DimensionPierce_Attack.h"
+#include "Dark_DimensionPierce_Sign.h"
+#include "Dark_DimensionPierce_BulletEffect.h"
 
 
 namespace jk
@@ -86,6 +89,7 @@ namespace jk
 			Skill_B_RisingPierce,
 			Skill_B_RisingPierce_End,
 
+			Skill_C_DimensionPierce_Ready,
 			Skill_C_DimensionPierce,
 
 			Die,
@@ -148,7 +152,7 @@ namespace jk
 		void Skill_B();
 		void Skill_B_End();
 
-
+		void Skill_C_Ready();
 		void Skill_C();
 
 
@@ -227,6 +231,10 @@ namespace jk
 		Layana_Dark_HomingPierce* _Dark_HomingPierce[5] = {};
 		Layana_Dark_HomingPierce_Effect* _HomingPierce_Effect[5] = {};
 		Layana_Awaken_Homing_Attac* _HomingPierce_Attack[5] = {};
+		Dark_DimensionPierce_Attack* _DimensionPierce_Bosseffect = nullptr;
+		Dark_DimensionPierce_Sign* _DimensionPierce_Sign = nullptr;
+		Dark_DimensionPierce_BulletEffect* _DimensionPierce_BulletEffect = nullptr;
+
 
 
 	private:

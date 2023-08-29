@@ -406,6 +406,15 @@
     <ClInclude Include="Layana_Awaken_Homing_Attac.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Dark_DimensionPierce_Attack.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Dark_DimensionPierce_Sign.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Dark_DimensionPierce_BulletEffect.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -805,6 +814,15 @@
       <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awaken_Homing_Attac.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Dark_DimensionPierce_Attack.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Dark_DimensionPierce_Sign.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Dark_DimensionPierce_BulletEffect.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
     </ClCompile>
   </ItemGroup>
