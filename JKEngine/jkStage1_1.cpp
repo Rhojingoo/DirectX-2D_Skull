@@ -11,10 +11,6 @@ namespace jk
 	}
 	void Stage1_1::Initialize()
 	{
-			
-
-
-
 		#pragma region BG	
 		{	
 			Back_ground* Fore_S1_1_color = object::Instantiate<Back_ground>(Vector3(-100.f, 50.f, 105.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Color");
@@ -39,14 +35,35 @@ namespace jk
 
 		#pragma region tile_map		
 		{
+			Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(-80.f, -485.f, -205.f), eLayerType::BACK_GROUND);
+			MinibossMap->GetComponent<Transform>()->SetScale(Vector3(1000, 320.f, 0.f));	MinibossMap->SetName(L"Miniboss_ground00");
+
+			Ground_Map* MinibossMap1 = object::Instantiate<Ground_Map>(Vector3(-450.f, -215.f, -205.f), eLayerType::BACK_GROUND);
+			MinibossMap1->GetComponent<Transform>()->SetScale(Vector3(315, 35.f, 0.f));	MinibossMap1->SetName(L"Miniboss_ground01");
+
+			Ground_and_Wall* MinibossWall = object::Instantiate<Ground_and_Wall>(Vector3(-310.f, -265.f, -205.f), eLayerType::BACK_GROUND);
+			MinibossWall->GetComponent<Transform>()->SetScale(Vector3(30, 130.f, 0.f));	MinibossWall->SetName(L"Miniboss_Wall00");
+
+			Ground_and_Wall* MinibossWall1 = object::Instantiate<Ground_and_Wall>(Vector3(-50.f, 175, -205.f), eLayerType::BACK_GROUND);
+			MinibossWall1->GetComponent<Transform>()->SetScale(Vector3(470, 80.f, 0.f));	MinibossWall1->SetName(L"SkyGround00");
+
+			Sky_Ground* SkyGround = object::Instantiate<Sky_Ground>(Vector3(-38.f, 235, -205.f), eLayerType::BACK_GROUND);
+			SkyGround->GetComponent<Transform>()->SetScale(Vector3(510, 30.f, 0.f));	SkyGround->SetName(L"SkyGround00");
+
+			Sky_Ground* SkyGround1 = object::Instantiate<Sky_Ground>(Vector3(315.f, -105, -205.f), eLayerType::BACK_GROUND);
+			SkyGround1->GetComponent<Transform>()->SetScale(Vector3(125, 15.f, 0.f));	SkyGround1->SetName(L"SkyGround00");
+
+			Sky_Ground* SkyGround2 = object::Instantiate<Sky_Ground>(Vector3(285.f, -200, -205.f), eLayerType::BACK_GROUND);
+			SkyGround2->GetComponent<Transform>()->SetScale(Vector3(190, 15.f, 0.f));	SkyGround2->SetName(L"SkyGround00");
+
+
 			static Vector2 TileSize = Vector2(32.f, 32.f);
 			static int Tile_Colum = 30;
 			static int Tile_Row = 30;
 
 			static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
 			Tile_map->SetName(L"tile_stage1");
-			Transform* tr = Tile_map->GetComponent<Transform>();
-			//Collider2D* cd = Tile_map->AddComponent<Collider2D>();
+			Transform* tr = Tile_map->GetComponent<Transform>();			
 			tr->AddPositionY(0.f);
 			tr->SetPositionX(-100.f);
 			tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
@@ -65,21 +82,21 @@ namespace jk
 		renderer::mainCamera = cameraComp;
 
 		//UI Camera		
-		//UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-		//Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
-		//cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
-		//cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
-		//renderer::cameras.push_back(cameraComp_ui);
+		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+		Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
+		cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+		renderer::cameras.push_back(cameraComp_ui);
 
 		//UI_Mouse
 		//UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);

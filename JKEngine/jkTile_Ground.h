@@ -20,6 +20,8 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		void CreateAnimation() {};
+
 	private:
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

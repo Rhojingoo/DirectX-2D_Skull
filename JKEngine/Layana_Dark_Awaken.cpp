@@ -747,7 +747,7 @@ namespace jk
 	void Layana_Dark_Awaken::idle()
 	{
 		_time += Time::DeltaTime();
-		_SelectAttack = random(0, 6);
+		_SelectAttack = random(0, 5);
 		//_SelectAttack = 4;
 
 		//if (Input::GetKeyDown(eKeyCode::K))

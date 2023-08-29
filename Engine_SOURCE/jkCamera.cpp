@@ -274,4 +274,19 @@ namespace jk
 
 		return Vector3(translatePos.x, translatePos.y, translatePos.z);
 	}
+
+
+	Vector3 Camera::GetWorldpos_Camera(Vector3 pos)
+	{
+		RECT rt = {};
+		GetClientRect(application.GetHwnd(), &rt);
+
+		Viewport viewport(rt);
+		Vector3 translatePos = viewport.Unproject(pos, Projection, View, Matrix::Identity);
+
+		return Vector3(translatePos);	
+	}
+
+
+
 }

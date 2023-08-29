@@ -182,6 +182,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Attack_HitBox.h" />
+    <ClInclude Include="Ground_and_Wall.h" />
+    <ClInclude Include="Ground_Map.h" />
     <ClInclude Include="HitBox_Monster.h" />
     <ClInclude Include="HitBox_Player.h" />
     <ClInclude Include="Homing_Pierce_LongHair.h" />
@@ -216,6 +218,7 @@
     <ClInclude Include="Monster_StoneWizard_Teleport.h" />
     <ClInclude Include="Monster_Tackle_Flash_Effect.h" />
     <ClInclude Include="Monster_Stone_wizard_IcicleBullet.h" />
+    <ClInclude Include="Sky_Ground.h" />
     <ClInclude Include="Ultimate_OnFire_Fire.h" />
     <ClInclude Include="Ultimate_On_Fire_Projectile.h" />
     <ClInclude Include="Public_Heal_Effect.h" />
@@ -323,6 +326,8 @@
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Attack_HitBox.cpp" />
+    <ClCompile Include="Ground_and_Wall.cpp" />
+    <ClCompile Include="Ground_Map.cpp" />
     <ClCompile Include="HitBox_Monster.cpp" />
     <ClCompile Include="HitBox_Player.cpp" />
     <ClCompile Include="Homing_Pierce_LongHair.cpp" />
@@ -357,6 +362,7 @@
     <ClCompile Include="Monster_StoneWizard_Teleport.cpp" />
     <ClCompile Include="Monster_Tackle_Flash_Effect.cpp" />
     <ClCompile Include="Monster_Stone_wizard_IcicleBullet.cpp" />
+    <ClCompile Include="Sky_Ground.cpp" />
     <ClCompile Include="Ultimate_OnFire_Fire.cpp" />
     <ClCompile Include="Ultimate_On_Fire_Projectile.cpp" />
     <ClCompile Include="Public_Heal_Effect.cpp" />

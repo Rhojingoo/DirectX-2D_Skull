@@ -42,12 +42,12 @@ namespace jk
 		{
 			HWND hWnd = application.GetHwnd();
 			Vector2 _MousePos = jk::Input::GetMousePos();
+			Vector3 tPos = Camera::GetWorldpos_Camera(Vector3(_MousePos.x, _MousePos.y, 0.0f));
 			wchar_t szFloat[50] = {};
 			float FPS = 1.0f / (float)mDeltaTime;
-			swprintf_s(szFloat, 50, L"FPS : %d Mouse : %d, %d", (UINT)FPS, (UINT)_MousePos.x, (UINT)_MousePos.y);
+			swprintf_s(szFloat, 50, L"FPS : %d Mouse : %d, %d", (UINT)FPS, (UINT)tPos.x, (UINT)tPos.y);
 			//int iLen = wcsnlen_s(szFloat, 50);
 			SetWindowText(hWnd, szFloat);
-
 			//TextOut(hdc, 0, 0, szFloat, 20);
 			mSecond = 0.0f;
 		}

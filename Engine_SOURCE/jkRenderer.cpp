@@ -721,7 +721,6 @@ namespace jk::renderer
 
 
 
-
 						//백그라운드 나무00
 						texture = Resources::Load<Texture>(L"back_gr00_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR00.png");
 						material = std::make_shared<Material>();
@@ -789,6 +788,15 @@ namespace jk::renderer
 						material->SetRenderingMode(eRenderingMode::Transparent);
 						Resources::Insert(L"Stage1_Back_GR16", material);
 				#pragma endregion
+
+
+			#pragma region Stage1_MiniBoss
+									texture = Resources::Load<Texture>(L"miniboss_00", L"..\\Resources\\Texture\\Ground\\Stage_1\\MiniBoss\\Miniboss_00.png");
+									material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+									Resources::Insert(L"Miniboss_00", material); material->SetRenderingMode(eRenderingMode::Transparent);
+			#pragma endregion
+
+
 
 				#pragma region Stage1_Boss
 						texture = Resources::Load<Texture>(L"king1", L"..\\Resources\\Texture\\Stage1\\Stag1_Boss\\King1.png");

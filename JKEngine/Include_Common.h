@@ -56,6 +56,11 @@
 #include "jkBack_ground.h"
 #include "jkCloud.h"
 #include "jkTile_Ground.h"
+#include "Ground_Map.h"
+#include "Sky_Ground.h"
+#include "Ground_and_Wall.h"
+
+
 
 //타격관련
 #include "Attack_HitBox.h"

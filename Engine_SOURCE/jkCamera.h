@@ -51,6 +51,8 @@ namespace jk
 		Matrix& GetViewMatrix() { return mView; }
 		Matrix& GetProjectionMatrix() { return mProjection; }
 
+		static Vector3 GetWorldpos_Camera(Vector3 pos);
+
 		Vector3 GetWorldTransform(Vector3 pos);
 
 	private:

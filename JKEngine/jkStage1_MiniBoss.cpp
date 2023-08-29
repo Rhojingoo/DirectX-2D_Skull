@@ -54,17 +54,31 @@ namespace jk
 				}
 		#pragma endregion
 
-		#pragma region tile_map		
+		#pragma region tile_map & Ground_COL
 				{
+					Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(0.f, -450.f, -205.f), eLayerType::BACK_GROUND);
+					MinibossMap->GetComponent<Transform>()->SetScale(Vector3(1000, 320.f, 0.f));	MinibossMap->SetName(L"Miniboss_ground00");
+
+					Ground_Map* MinibossMap1 = object::Instantiate<Ground_Map>(Vector3(-480.f, -180.f, -205.f), eLayerType::BACK_GROUND);
+					MinibossMap1->GetComponent<Transform>()->SetScale(Vector3(315, 35.f, 0.f));	MinibossMap1->SetName(L"Miniboss_ground01");
+
+					Ground_Map* MinibossMap2 = object::Instantiate<Ground_Map>(Vector3(480.f, -180.f, -205.f), eLayerType::BACK_GROUND);
+					MinibossMap2->GetComponent<Transform>()->SetScale(Vector3(315, 35.f, 0.f));	MinibossMap2->SetName(L"Miniboss_ground02");
+
+					Ground_and_Wall* MinibossWall = object::Instantiate<Ground_and_Wall>(Vector3(-340.f, -235.f, -205.f), eLayerType::BACK_GROUND);
+					MinibossWall->GetComponent<Transform>()->SetScale(Vector3(30, 130.f, 0.f));	MinibossWall->SetName(L"Miniboss_Wall00");
+
+					Ground_and_Wall* MinibossWall1 = object::Instantiate<Ground_and_Wall>(Vector3(340.f, -235.f, -205.f), eLayerType::BACK_GROUND);
+					MinibossWall1->GetComponent<Transform>()->SetScale(Vector3(30, 130.f, 0.f));	MinibossWall1->SetName(L"Miniboss_Wall01");
+
+
+
 					static Vector2 TileSize = Vector2(32.f, 32.f);
 					static int Tile_Colum = 40;
 					static int Tile_Row = 30;
-
 					static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
-					Tile_map->SetName(L"tile_stage1_miniboss");
-					Collider2D* cd = Tile_map->AddComponent<Collider2D>();
-					Transform* tr = Tile_map->GetComponent<Transform>();
-					//tr->SetPositionZ(-200.f);
+					Tile_map->SetName(L"tile_stage1_miniboss");					
+					Transform* tr = Tile_map->GetComponent<Transform>();				
 					tr->AddPositionY(0.f);
 					tr->SetPositionX(0.f);
 					tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
