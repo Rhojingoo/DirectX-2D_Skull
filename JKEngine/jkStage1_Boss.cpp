@@ -62,14 +62,35 @@ namespace jk
 		}
 		#pragma endregion	
 
-		#pragma region Cam & Mouse& Grid
+	
+
+	}
+	void Stage1_Boss::Update()
+	{
+		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+		{
+			SceneManager::LoadScene(L"Stage2_1");
+		}
+		Scene::Update();
+	}
+	void Stage1_Boss::LateUpdate()
+	{
+		Scene::LateUpdate();
+	}
+	void Stage1_Boss::Render()
+	{
+		Scene::Render();
+	}
+	void Stage1_Boss::OnEnter()
+	{
+#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, true);
 		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(cameraComp);
-		//renderer::mainCamera = cameraComp;
+		renderer::mainCamera = cameraComp;
 
 		//UI Camera		
 		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -95,27 +116,13 @@ namespace jk
 		cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera); cursor->SetCamera(camera);
 
 		//Grid
-		//Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
-		//grid->SetName(L"Catle_Grid");
-		//GridScript* gridSc = grid->AddComponent<GridScript>();
-		//gridSc->SetCamera(cameraComp);
+		Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+		grid->SetName(L"Catle_Grid");
+		GridScript* gridSc = grid->AddComponent<GridScript>();
+		gridSc->SetCamera(cameraComp);
 #pragma endregion	
-
 	}
-	void Stage1_Boss::Update()
+	void Stage1_Boss::OnExit()
 	{
-		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
-		{
-			SceneManager::LoadScene(L"Stage2_1");
-		}
-		Scene::Update();
-	}
-	void Stage1_Boss::LateUpdate()
-	{
-		Scene::LateUpdate();
-	}
-	void Stage1_Boss::Render()
-	{
-		Scene::Render();
 	}
 }

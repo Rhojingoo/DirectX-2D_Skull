@@ -12,6 +12,7 @@ namespace jk
 	}
 	void Castle_Area::Initialize()
 	{
+		//PlayScene::Initialize();
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
@@ -40,60 +41,10 @@ namespace jk
 
 			#pragma endregion	
 
-			#pragma region Player	
-					{
-						//Skul_Basic* Basic_Skul = object::Instantiate<Skul_Basic>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-						//Basic_Skul->SetName(L"Basic_Skul");
-						////Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
-						//Collider2D* cd = Basic_Skul->AddComponent<Collider2D>();
-						//Basic_Skul->AddComponent<PlayerScript>();
-						//Basic_Skul->AddComponent<CameraScript>();
-					}
-					{
-						//Skul_Nohead* Nohead_Skul = object::Instantiate<Skul_Nohead>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-						//Nohead_Skul->SetName(L"Nohead_Skul");
-						////Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
-						//Collider2D* cd = Nohead_Skul->AddComponent<Collider2D>();
-						//Nohead_Skul->AddComponent<PlayerScript>();
-						//Nohead_Skul->AddComponent<CameraScript>();
-					}
-					{
-						//Skul_Spear* Spear_Skul = object::Instantiate<Skul_Spear>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-						//Spear_Skul->SetName(L"Spear_Skul");
-						////Basic_Skul->GetComponent<Transform>()->SetScale(Vector3(40.f, 30.f, 0.f));
-						//Collider2D* cd = Spear_Skul->AddComponent<Collider2D>();
-						//Spear_Skul->AddComponent<PlayerScript>();
-						//Spear_Skul->AddComponent<CameraScript>();
-					}
-					//{
-					//	Skul_Wolf* Wolf_Skul = object::Instantiate<Skul_Wolf>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-					//	Wolf_Skul->SetName(L"Wolf_Skul");	
-					//}
+			#pragma region Player		
 		
 						Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 						_player->SetName(L"player_select");
-		
-			#pragma region Test_monster
-
-						//Layana_Sisters* testboss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
-						//testboss->SetName(L"test_BOSS");
-
-		
-						//Yggdrasil* testboss = object::Instantiate<Yggdrasil>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
-						//testboss->SetName(L"test_BOSS");
-
-
-						//Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
-						//testmboss->SetName(L"test_mboss");
-
-						
-						//Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
-						//testmonster->SetName(L"test_monster"); 
-						//Monster::SetPlayer(_player);	
-			#pragma endregion
-		
-
-
 
 			#pragma endregion
 
@@ -124,73 +75,30 @@ namespace jk
 					Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 90.f), eLayerType::Map_Effect, L"Cloud_Devil");
 					cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f)); cloud->SetName(L"Castle_cloud");
 
-
-					//GameObject* front_obj = object::Instantiate<GameObject>(Vector3(-300.f, 0.f, -220.f), eLayerType::Monster);
-					//front_obj->SetName(L"front_obj"); MeshRenderer* mr = front_obj->AddComponent<MeshRenderer>();
-					//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh")); mr->SetMaterial(Resources::Find<Material>(L"Front_obj"));		
-					//front_obj->GetComponent<Transform>()->SetScale(Vector3(1266.f, 548.f, 0.f));
-
 			#pragma endregion				
 
-			#pragma region Cam & Mouse& Grid
-					//Main Camera			
-					Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-					Camera* cameraComp = camera->AddComponent<Camera>();
-					cameraComp->TurnLayerMask(eLayerType::UI, false);
-					camera->AddComponent<CameraScript>();
-					renderer::cameras.push_back(cameraComp);
-					renderer::mainCamera = cameraComp;
-
-					//UI Camera		
-					UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-					Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
-					cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::Effect, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
-					cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
-					//renderer::cameras.push_back(cameraComp_ui);
-
-					//UI_Mouse
-					UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
-					cursor->SetName(L"Catle_Cursor_UI");
-					cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
-					cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
-
-					//Grid
-					Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
-					grid->SetName(L"Catle_Grid");
-					GridScript* gridSc = grid->AddComponent<GridScript>();
-					gridSc->SetCamera(cameraComp);
-			#pragma endregion	
-
 			#pragma region tile_map		
-					{
-						static Vector2 TileSize = Vector2(32.f, 32.f);
-						static int Tile_Colum = 60;
-						static int Tile_Row = 8;
+								{
+									static Vector2 TileSize = Vector2(32.f, 32.f);
+									static int Tile_Colum = 60;
+									static int Tile_Row = 8;
 
-						static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
-						Tile_map->SetName(L"Tile_Map");
-						Transform* tr = Tile_map->GetComponent<Transform>();
-						Collider2D* cd = Tile_map->AddComponent<Collider2D>();
-						//tr->SetPositionZ(-200.f);
-						tr->SetPositionZ(-200.f);
-						tr->AddPositionY(-280.f);
-						tr->SetPositionX(-300.f);
-						tr->SetScale(Vector3(Tile_Colum* TileSize.x, Tile_Row* TileSize.y, 0.f));
+									static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
+									Tile_map->SetName(L"Tile_Map");
+									Transform* tr = Tile_map->GetComponent<Transform>();
+									Collider2D* cd = Tile_map->AddComponent<Collider2D>();
+									//tr->SetPositionZ(-200.f);
+									tr->SetPositionZ(-200.f);
+									tr->AddPositionY(-280.f);
+									tr->SetPositionX(-300.f);
+									tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
 
-						TileMap::TileMap_Setting(Tile_map, L"Devil_castle_tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Devil_castle_Tile.xml");			
-					}
+									TileMap::TileMap_Setting(Tile_map, L"Devil_castle_tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Devil_castle_Tile.xml");
+								}
 			#pragma endregion
+
+
+						
 	}
 
 	void Castle_Area::Update()
@@ -210,5 +118,50 @@ namespace jk
 	void Castle_Area::Render()
 	{
 		Scene::Render();
+	}
+	void Castle_Area::OnEnter()
+	{
+#pragma region Cam & Mouse& Grid
+		//Main Camera			
+		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
+		camera->AddComponent<CameraScript>();
+		renderer::cameras.push_back(cameraComp);
+		renderer::mainCamera = cameraComp;
+
+		//UI Camera		
+		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+		Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
+		cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Effect, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+		renderer::cameras.push_back(cameraComp_ui);
+
+		//UI_Mouse
+		UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
+		cursor->SetName(L"Catle_Cursor_UI");
+		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
+		cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
+
+		//Grid
+		Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+		grid->SetName(L"Catle_Grid");
+		GridScript* gridSc = grid->AddComponent<GridScript>();
+		gridSc->SetCamera(cameraComp);
+#pragma endregion		
+	}
+	void Castle_Area::OnExit()
+	{
 	}
 }

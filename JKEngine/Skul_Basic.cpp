@@ -31,6 +31,7 @@ namespace jk
 
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
+		//_rigidbody->SetFriction(true);
 
 		Skul_Head = new Skul_head();
 		Skul_Head->Initialize();
@@ -257,7 +258,7 @@ namespace jk
 				if (_Skulhead == true)
 					at->PlayAnimation(L"NoHeadJump", true);
 				
-				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetVelocity(Vector2(0.f, 350.f));
 				_rigidbody->SetGround(false);	mDir = 1;
 			}
 			else if (mDir == -1)
@@ -267,7 +268,7 @@ namespace jk
 				if (_Skulhead == true)
 					at->PlayAnimation(L"NoHeadJumpR", true);
 
-				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetVelocity(Vector2(0.f, 350.f));
 				_rigidbody->SetGround(false);	mDir = -1;
 			}
 			_jump++;
@@ -406,7 +407,7 @@ namespace jk
 				at->PlayAnimation(L"Skul_BasicJump", true);
 				if (_Skulhead == true)
 					at->PlayAnimation(L"NoHeadJump", true);
-				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetVelocity(Vector2(0.f, 350.f));
 				_rigidbody->SetGround(false);	mDir = 1;
 			}
 			else if (mDir == -1)
@@ -414,7 +415,7 @@ namespace jk
 				at->PlayAnimation(L"Skul_BasicJumpR", true);
 				if (_Skulhead == true)
 					at->PlayAnimation(L"NoHeadJumpR", true);
-				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetVelocity(Vector2(0.f, 350.f));
 				_rigidbody->SetGround(false);	mDir = -1;
 			}
 			_jump++;
@@ -491,13 +492,19 @@ namespace jk
 			{
 				if (mDir == 1)
 				{
-					_rigidbody->SetVelocity(Vector2(0.f, 250.f));
-					mDir = 1;
+					at->PlayAnimation(L"Skul_BasicJump", true);
+					if (_Skulhead == true)
+						at->PlayAnimation(L"NoHeadJump", true);
+					_rigidbody->SetVelocity(Vector2(0.f, 350.f));
+					_rigidbody->SetGround(false);	mDir = 1;
 				}
 				else if (mDir == -1)
 				{
-					_rigidbody->SetVelocity(Vector2(0.f, 250.f));
-					mDir = -1;
+					at->PlayAnimation(L"Skul_BasicJumpR", true);
+					if (_Skulhead == true)
+						at->PlayAnimation(L"NoHeadJumpR", true);
+					_rigidbody->SetVelocity(Vector2(0.f, 350.f));
+					_rigidbody->SetGround(false);	mDir = -1;
 				}
 				_jump++;
 			}
@@ -547,6 +554,32 @@ namespace jk
 	void Skul_Basic::fall()
 	{
 		_Ground_check = false;
+
+		if (_jump < 3)
+		{
+			if (Input::GetKeyDown(eKeyCode::C))
+			{
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"Skul_BasicJump", true);
+					if (_Skulhead == true)
+						at->PlayAnimation(L"NoHeadJump", true);
+					_rigidbody->SetVelocity(Vector2(0.f, 350.f));
+					_rigidbody->SetGround(false);	mDir = 1;
+				}
+				else if (mDir == -1)
+				{
+					at->PlayAnimation(L"Skul_BasicJumpR", true);
+					if (_Skulhead == true)
+						at->PlayAnimation(L"NoHeadJumpR", true);
+					_rigidbody->SetVelocity(Vector2(0.f, 350.f));
+					_rigidbody->SetGround(false);	mDir = -1;
+				}
+				_jump++;
+			}
+		}
+
+
 		_time += Time::DeltaTime();
 		if (_time > 2.f)
 		{
@@ -786,7 +819,89 @@ namespace jk
 				Skul_Head->SetState(eState::Paused);
 			}
 		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_Wall_check = true;
+			_rigidbody->ClearVelocity();
+			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+			Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
+			Vector3 Ground_pos = Ground_TR->GetPosition();
+			float Gr_Size = Ground_Col->GetScale().y / 2;
+			float Gr_Top_pos = Ground_pos.y + Gr_Size;
+			float Skul_halfsize = _collider->GetScale().y / 2;
+			float skul_footpos = pos.y - Skul_halfsize;
+
+			//if (skul_footpos > Gr_Top_pos)
+			//{
+			//	_Ground_check = false;
+			//}
+		}
+
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			_Wall_check = true;
+			_rigidbody->ClearVelocity();
+			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+			Vector3 wall_pos = Ground_TR->GetPosition();
+			if (_Wall_check == true)
+			{
+				if (pos.x < wall_pos.x)
+				{
+					_Rightmove_Lock = true;
+					at->PlayAnimation(L"Skul_BasicIdle", true);
+					if (_Skulhead == true)
+						at->PlayAnimation(L"NoHeadIdle", true);
+				}
+				else if (pos.x > wall_pos.x)
+				{
+					_Leftmove_Lock = true;
+					at->PlayAnimation(L"Skul_BasicIdleR", true);
+					if (_Skulhead == true)
+						at->PlayAnimation(L"NoHeadIdleR", true);
+				}				
+			}
+		}
+
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			//if (_Ground_check = false)
+			{
+				Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+				Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
+				Vector3 Ground_pos = Ground_TR->GetPosition();
+				float Gr_Size = Ground_Col->GetScale().y / 2;
+				float Gr_Top_pos = Ground_pos.y + Gr_Size;
+				float Skul_halfsize = _collider->GetScale().y / 2;
+				float skul_footpos = pos.y - Skul_halfsize;
+
+				if (skul_footpos > Gr_Top_pos)
+				{
+
+					_rigidbody->ClearVelocity();
+					_Ground_check = true;
+					_rigidbody->SetGround(true);
+
+					if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
+					{
+						_State = Skul_Basic_State::Idle;
+						if (mDir == 1)
+							at->PlayAnimation(L"Skul_BasicIdle", true);
+						else
+							at->PlayAnimation(L"Skul_BasicIdleR", true);
+					}	
+
+					//if (_State == Skul_Basic_State::Dash)
+					//{
+					//	_Ground_check = true;
+					//	_rigidbody->SetGround(true);
+					//}
+
+				}
+			}
+		}
 	}
+
 	void Skul_Basic::OnCollisionStay(Collider2D* other)
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
@@ -872,12 +987,78 @@ namespace jk
 						mDir = -1;
 					}
 				}
-			}
+			}			
 		}
 
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+			Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
+			Vector3 Ground_pos = Ground_TR->GetPosition();
+			float Gr_Size = Ground_Col->GetScale().y / 2;
+			float Gr_Top_pos = Ground_pos.y + Gr_Size;
+			float Skul_halfsize = _collider->GetScale().y / 2;
+			float skul_footpos = pos.y - Skul_halfsize;
+
+			if (_Ground_check == false)
+			{
+				if (skul_footpos > Gr_Top_pos)
+				{					
+						_Ground_check = true;
+					_rigidbody->SetGround(true);
+				}
+			}
+			else
+			{
+				if (Input::GetKey(eKeyCode::V))
+				{
+					_rigidbody->SetVelocity(Vector2(0.f, -150.f));
+					_Ground_check = false;
+					_rigidbody->SetGround(false);
+				}
+			}
+
+		}
 	}
+
 	void Skul_Basic::OnCollisionExit(Collider2D* other)
 	{
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			_Wall_check = false;
+			_Rightmove_Lock = false;
+			_Leftmove_Lock = false;
+		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_Ground_check = false;
+			_rigidbody->SetGround(false);
+
+			_State = Skul_Basic_State::Fall;
+			if (mDir == 1)
+			{
+				at->PlayAnimation(L"Skul_BasicFall", false);
+				if (_Skulhead == true)
+					at->PlayAnimation(L"NoHeadFall", false);
+				mDir = 1;
+			}
+			if (mDir == -1)
+			{
+				at->PlayAnimation(L"Skul_BasicFallR", false);
+				if (_Skulhead == true)
+					at->PlayAnimation(L"NoHeadFallR", false);
+				mDir = -1;
+			}			
+		}
+		 
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			_Ground_check = false;
+			_rigidbody->SetGround(false);
+		}
+
+
 	}
 
 	void Skul_Basic::attack_choice()
@@ -985,21 +1166,37 @@ namespace jk
 
 	void Skul_Basic::Input_move()
 	{
-		if (Input::GetKey(eKeyCode::LEFT))
+		if (_Leftmove_Lock == false)
 		{
-			mDir = -1;
-			pos.x -= 150.0f * Time::DeltaTime();
+			if (Input::GetKey(eKeyCode::LEFT))
+			{
+				mDir = -1;
+				pos.x -= 150.0f * Time::DeltaTime();
+				//_rigidbody->SetVelocity(Vector2(-150.f, 0.f));
+			}
 		}
-		if (Input::GetKey(eKeyCode::RIGHT))
+		if (_Rightmove_Lock == false)
 		{
-			mDir = 1;
-			pos.x += 150.0f * Time::DeltaTime();
+			if (Input::GetKey(eKeyCode::RIGHT))
+			{
+				mDir = 1;
+				pos.x += 150.0f * Time::DeltaTime();
+				//_rigidbody->SetVelocity(Vector2(150.f, 0.f));
+			}
 		}
 		if (Input::GetKey(eKeyCode::DOWN))
+		{
+			_rigidbody->SetGround(true);
+			_Ground_check = true;
 			pos.y -= 100.0f * Time::DeltaTime();
+		}
 		
-		if (Input::GetKey(eKeyCode::UP))		
+		if (Input::GetKey(eKeyCode::UP))
+		{
+			_rigidbody->SetGround(true);
+			_Ground_check = true;
 			pos.y += 100.0f * Time::DeltaTime();
+		}
 		
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))

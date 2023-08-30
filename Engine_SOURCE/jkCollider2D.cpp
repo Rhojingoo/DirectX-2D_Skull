@@ -9,6 +9,7 @@ namespace jk
 		: Component(eComponentType::Collider2D)
 		, mTransform(nullptr)
 		, mSize(Vector2::One)
+		, _Scale(Vector2::One)
 		, mCenter(Vector2::Zero)
 	{
 		mColliderNumber++;
@@ -32,9 +33,9 @@ namespace jk
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 rotation =  tr->GetRotation();
-		Vector3 scale = tr->GetScale();
-		scale.x *= mSize.x;
-		scale.y *= mSize.y;
+		_Scale = tr->GetScale();
+		_Scale.x *= mSize.x;
+		_Scale.y *= mSize.y;
 		Vector3 pos = tr->GetPosition();
 		pos.x += mCenter.x;
 		pos.y += mCenter.y;
@@ -55,7 +56,7 @@ namespace jk
 
 		graphics::DebugMesh mesh = {};
 		mesh.position = pos;
-		mesh.scale = scale;
+		mesh.scale = _Scale;
 		mesh.rotation = rotation;
 		mesh.type = eColliderType::Rect;
 

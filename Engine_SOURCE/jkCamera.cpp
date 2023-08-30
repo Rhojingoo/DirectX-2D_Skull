@@ -107,7 +107,6 @@ namespace jk
 		float height = (float)rect.bottom - (float)rect.top;
 		mAspectRatio = width / height;;
 
-
 		if (mType == eProjectionType::OrthoGraphic)
 		{
 			float OrthorGraphicRatio = mSize;
@@ -121,7 +120,6 @@ namespace jk
 		{
 			mProjection = Matrix::CreatePerspectiveFieldOfViewLH(XM_2PI / 6.0f, mAspectRatio, mNear, mFar);
 		}
-
 
 		return true;
 	}
@@ -275,7 +273,6 @@ namespace jk
 		return Vector3(translatePos.x, translatePos.y, translatePos.z);
 	}
 
-
 	Vector3 Camera::GetWorldpos_Camera(Vector3 pos)
 	{
 		RECT rt = {};
@@ -286,7 +283,4 @@ namespace jk
 
 		return Vector3(translatePos);	
 	}
-
-
-
 }

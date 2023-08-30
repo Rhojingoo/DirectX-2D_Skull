@@ -68,6 +68,26 @@ namespace jk
 #pragma endregion
 #pragma endregion 
 
+
+	}
+	void Stage2_Boss::Update()
+	{
+		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+		{
+			SceneManager::LoadScene(L"TitleScene");
+		}
+		Scene::Update();
+	}
+	void Stage2_Boss::LateUpdate()
+	{
+		Scene::LateUpdate();
+	}
+	void Stage2_Boss::Render()
+	{
+		Scene::Render();
+	}
+	void Stage2_Boss::OnEnter()
+	{
 #pragma region Camera & Grid
 
 		//Main Camera
@@ -96,26 +116,13 @@ namespace jk
 		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 		//renderer::cameras.push_back(cameraComp_ui);
 
-		//Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
-		//grid->SetName(L"Catle_Grid");
-		//GridScript* gridSc = grid->AddComponent<GridScript>();
-		//gridSc->SetCamera(cameraComp);
+		Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+		grid->SetName(L"Catle_Grid");
+		GridScript* gridSc = grid->AddComponent<GridScript>();
+		gridSc->SetCamera(cameraComp);
 #pragma endregion 
 	}
-	void Stage2_Boss::Update()
+	void Stage2_Boss::OnExit()
 	{
-		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
-		{
-			SceneManager::LoadScene(L"TitleScene");
-		}
-		Scene::Update();
-	}
-	void Stage2_Boss::LateUpdate()
-	{
-		Scene::LateUpdate();
-	}
-	void Stage2_Boss::Render()
-	{
-		Scene::Render();
 	}
 }

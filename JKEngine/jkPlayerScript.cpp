@@ -33,12 +33,12 @@ namespace jk
 		{
 			//_Rig->AddForce(Vector2(-1000.f, 0.f));
 				//-= 100.0f * Time::DeltaTime();
-			//tr->SetPosition(pos);
+			tr->SetPosition(pos);
 		}
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
-			pos.x += 100.0f * Time::DeltaTime();
-			//tr->SetPosition(pos);
+			//pos.x += 100.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
 		}
 		if (Input::GetKey(eKeyCode::DOWN))
 		{
@@ -58,7 +58,7 @@ namespace jk
 		//}
 
 
-		tr->SetPosition(pos);
+		//tr->SetPosition(pos);
 	}
 	void PlayerScript::Complete()
 	{

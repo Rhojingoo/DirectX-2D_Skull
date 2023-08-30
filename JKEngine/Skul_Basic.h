@@ -83,10 +83,15 @@ namespace jk
 		int _jump = 0;
 		int _fallcheck = 0;
 		bool _Ground_check = false;
+		bool _Wall_check = false;
 		bool _Skulhead = false;
+		bool _Rightmove_Lock = false;
+		bool _Leftmove_Lock = false;
 
 		bool _attack_Acheck = false;				//캐릭터의 어택상황을 체크하기 위해 필요한 변수
 		bool _attack_Bcheck = false;
+
+
 	private:
 		void attack_choice();
 		void Input_move();

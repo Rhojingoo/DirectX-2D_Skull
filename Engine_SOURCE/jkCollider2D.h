@@ -28,7 +28,8 @@ namespace jk
 		void SetPosition(Vector3 Set) {  mPosition = Set; }
 		Vector2 GetSize() { return mSize; }
 		Vector2 GetCenter() { return mCenter; }
-
+		Vector3 GetScale() { return _Scale; }
+		Vector2	GetScaleXY() { return Vector2(_Scale); }
 
 	private:
 		static UINT mColliderNumber;
@@ -37,6 +38,7 @@ namespace jk
 		Transform* mTransform;
 
 		Vector3 mPosition;
+		Vector3 _Scale;
 		Vector2 mSize;
 		Vector2 mCenter;
 		bool _Collider_attack = false;

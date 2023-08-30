@@ -27,8 +27,8 @@ namespace jk
 		_Gobjs[3]->Initialize();
 		_Gobjs[4] = new Skul_Thief;
 		_Gobjs[4]->Initialize();
-		CameraScript* cam = AddComponent<CameraScript>();
-		cam->SetTarget(this);
+		//CameraScript* cam = AddComponent<CameraScript>();
+		//cam->SetTarget(this);
 
 		for (int i = 0; i < 5; i++)
 		{
@@ -47,6 +47,7 @@ namespace jk
 		player_select;
 		player_check;
 		_Pos;
+
 		//Yggdrasil::SetPlayerPos(_Pos);
 		//Mini_Boss::SetPlayerPos(_Pos);
 		Monster::SetPlayerPos(_Pos);

@@ -11,8 +11,21 @@ namespace jk
 	}
 	void Stage1_1::Initialize()
 	{
-		Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
-		testmonster->SetName(L"test_monster"); 
+		//PlayScene::Initialize();
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
+		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
+
+
+
+		//Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
+		//testmonster->SetName(L"test_monster"); 
 
 		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
@@ -44,7 +57,7 @@ namespace jk
 			Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(-80.f, -485.f, -205.f), eLayerType::BACK_GROUND);
 			MinibossMap->GetComponent<Transform>()->SetScale(Vector3(1000, 320.f, 0.f));	MinibossMap->SetName(L"Miniboss_ground00");
 
-			Ground_Map* MinibossMap1 = object::Instantiate<Ground_Map>(Vector3(-450.f, -215.f, -205.f), eLayerType::BACK_GROUND);
+			Ground_Map* MinibossMap1 = object::Instantiate<Ground_Map>(Vector3(-460.f, -215.f, -205.f), eLayerType::BACK_GROUND);
 			MinibossMap1->GetComponent<Transform>()->SetScale(Vector3(315, 35.f, 0.f));	MinibossMap1->SetName(L"Miniboss_ground01");
 
 			Ground_and_Wall* MinibossWall = object::Instantiate<Ground_and_Wall>(Vector3(-310.f, -265.f, -205.f), eLayerType::BACK_GROUND);
@@ -78,7 +91,30 @@ namespace jk
 		}
 		#pragma endregion	
 
-		#pragma region Cam & Mouse& Grid
+		
+	}
+
+	void Stage1_1::Update()
+	{
+		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+		{
+			SceneManager::LoadScene(L"Stage1_mBoss");
+		}
+		Scene::Update();
+	}
+	
+	void Stage1_1::LateUpdate()
+	{
+		Scene::LateUpdate();
+	}
+
+	void Stage1_1::Render()
+	{
+		Scene::Render();
+	}
+	void Stage1_1::OnEnter()
+	{
+#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		Camera* cameraComp = camera->AddComponent<Camera>();
@@ -105,36 +141,21 @@ namespace jk
 		renderer::cameras.push_back(cameraComp_ui);
 
 		//UI_Mouse
-		//UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
-		//cursor->SetName(L"Catle_Cursor_UI");
-		//cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
-		//cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
+		UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
+		cursor->SetName(L"Catle_Cursor_UI");
+		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
+		cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
 
 		//Grid
-		//Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
-		//grid->SetName(L"Catle_Grid");
-		//GridScript* gridSc = grid->AddComponent<GridScript>();
-		//gridSc->SetCamera(cameraComp);
+		Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+		grid->SetName(L"Catle_Grid");
+		GridScript* gridSc = grid->AddComponent<GridScript>();
+		gridSc->SetCamera(cameraComp);
 #pragma endregion	
 
 
 	}
-
-	void Stage1_1::Update()
+	void Stage1_1::OnExit()
 	{
-		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
-		{
-			SceneManager::LoadScene(L"Stage1_mBoss");
-		}
-		Scene::Update();
-	}
-
-	void Stage1_1::LateUpdate()
-	{
-		Scene::LateUpdate();
-	}
-	void Stage1_1::Render()
-	{
-		Scene::Render();
 	}
 }

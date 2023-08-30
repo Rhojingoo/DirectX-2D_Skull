@@ -15,6 +15,10 @@ namespace jk
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+
+		virtual void OnEnter();
+		virtual void OnExit();
+
 	private:
 
 	};

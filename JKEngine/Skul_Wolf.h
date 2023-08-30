@@ -71,7 +71,9 @@ namespace jk
 		int _fallcheck = 0;
 		bool _dash = false;
 		bool _Ground_check = false;
-
+		bool _Wall_check = false;
+		bool _Rightmove_Lock = false;
+		bool _Leftmove_Lock = false;
 
 	private:
 		void attack_choice();

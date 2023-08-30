@@ -16,9 +16,9 @@ namespace jk
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
-		Vector2 _pos = mTarget->GetComponent<Transform>()->GetPositionXY();
+		//Vector2 _pos = mTarget->GetComponent<Transform>()->GetPositionXY();
 
-		#pragma region api카메라
+		//#pragma region api카메라
 		//mResolution.x = static_cast<float>(application.GetWidth());
 		//mResolution.y = static_cast<float>(application.GetHeight());
 		//mLookPosition = (mResolution / 2.0f);
@@ -37,15 +37,15 @@ namespace jk
 		//캐릭터를 중심으로 움직이게 설정
 		//if (camera == 0)
 		//{
-			//if (mTarget != nullptr)
-			//{
-			//	mLookPosition
-			//		= mTarget->GetComponent<Transform>()->GetPositionXY();
-			//	target_pos = mLookPosition;
-			//}
-			//mDistance.x = _pos.x - (mResolution.x / 2.0f);
-			//mDistance.y = _pos.y - (mResolution.y / 2.0f);
-			//tr->SetPositionXY(_pos);
+		//	if (mTarget != nullptr)
+		//	{
+		//		mLookPosition
+		//			= mTarget->GetComponent<Transform>()->GetPositionXY();
+		//		target_pos = mLookPosition;
+		//	}
+		//	mDistance.x = pos.x - (mResolution.x / 2.0f);
+		//	mDistance.y = pos.y - (mResolution.y / 2.0f);
+		//	tr->SetPosition(pos);
 		//}
 #pragma endregion		
 
@@ -60,14 +60,14 @@ namespace jk
 		//	pos.z -= 100.0f * (float)Time::DeltaTime();
 		//	tr->SetPosition(pos);
 		//}
-		//if (Input::GetKey(eKeyCode::LEFT))
+		//if (Input::GetKey(eKeyCode::E))
 		//{
-		//	pos.x -= 250.0f * (float)Time::DeltaTime();
+		//	pos.x += 100.0f * (float)Time::DeltaTime();
 		//	tr->SetPosition(pos);
 		//}
-		//else if (Input::GetKey(eKeyCode::RIGHT))
+		//else if (Input::GetKey(eKeyCode::Q))
 		//{
-		//	pos.x += 250.0f * (float)Time::DeltaTime();
+		//	pos.x -= 100.0f * (float)Time::DeltaTime();
 		//	tr->SetPosition(pos);
 		//}
 		//if (Input::GetKey(eKeyCode::UP))
