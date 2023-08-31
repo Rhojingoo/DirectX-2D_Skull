@@ -32,7 +32,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Stone_wizard\\Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Stone_wizard\\Teleport_In", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Stone_wizard\\Teleport_Out", this);
-
+		
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Stone_wizard\\Attack_Ready", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Stone_wizard\\Attack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Stone_wizard\\Hit", this, 1);
@@ -53,7 +53,7 @@ namespace jk
 
 		at->PlayAnimation(L"Stone_wizardIdle", true);
 		
-		
+
 		{
 			Wizard_Teleport = new Monster_StoneWizard_Teleport();
 			Wizard_Teleport->Initialize();
@@ -145,7 +145,28 @@ namespace jk
 
 	void Stone_wizard::OnCollisionEnter(Collider2D* other)
 	{
-	
+		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
+		{
+			if (!(_state == Stone_wizard_State::Idle))
+				return;
+
+			if (!(_state == Stone_wizard_State::Attack || _state == Stone_wizard_State::Attack_Ready))
+			{
+				_state = Stone_wizard_State::Hit;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"Stone_wizardHit", false);
+					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+					tr->SetPosition(pos);
+				}
+				if (mDir == -1)
+				{
+					at->PlayAnimation(L"Stone_wizardHitR", false);
+					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+					tr->SetPosition(pos);
+				}
+			}
+		}	
 	}
 	void Stone_wizard::OnCollisionStay(Collider2D* other)
 	{
@@ -222,7 +243,6 @@ namespace jk
 			}
 		}
 	}
-
 	void Stone_wizard::attack_ready()
 	{
 		if (_attack_ready == true)
@@ -278,6 +298,16 @@ namespace jk
 	}
 	void Stone_wizard::hit()
 	{
+		_attacktime += Time::DeltaTime();
+		if (_attacktime >= 0.5)
+		{
+			_state = Stone_wizard_State::Idle;
+			if (mDir == 1)
+				at->PlayAnimation(L"Stone_wizardIdle", true);
+			else
+				at->PlayAnimation(L"Stone_wizardIdleR", true);
+			_attacktime = 0;
+		}
 	}
 
 	void Stone_wizard::teleport_in()
@@ -400,5 +430,12 @@ namespace jk
 	}
 	void Stone_wizard::complete_attack()
 	{
+		//_state = Stone_wizard_State::Idle;
+		//if (mDir == 1)
+		//	at->PlayAnimation(L"WarriorIdle", true);
+		//else
+		//	at->PlayAnimation(L"WarriorIdleR", true);
+
+		//_time = 0;
 	}
 }

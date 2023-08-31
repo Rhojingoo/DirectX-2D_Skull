@@ -31,6 +31,8 @@ namespace jk
 			Tackle,
 			Tackle_End,
 			Walk,
+			WalkR,
+			WalkL,
 			Dead,
 		};
 
@@ -40,6 +42,8 @@ namespace jk
 		void tackle();
 		void tackle_end();
 		void walk();
+		void walk_R();
+		void walk_L();
 		void dead();
 
 
@@ -52,19 +56,25 @@ namespace jk
 		Transform* Effect_tr = nullptr;
 		Vector3 _pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 _Effect_pos = Vector3(0.f, 0.f, 0.f);
+		Vector3 _first_place = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:
 		HitBox_Monster* Hit_Box = nullptr;
 		Monster_Tackle_Flash_Effect* Tackle_Flash = nullptr;
-
+		bool _followskul = false;
 
 	private:
-		static int			mDir;
-		static bool			_switch;
+		int		mDir = 1;
+		int		_attackdir = 1;
+		int		_walkdir = 1;
 
 		float	_distance = 0.f;			// 플레이어와의 거리 체크
+		float   _walkdistance = 0.f;		// 자신의 첫위치와 의 거리 체크
+
 		bool	_Ground_check = false;		// 땅체크시에 쓰이고 있는 변수
+
+
 		float	_time = 0.f;				// 공격시 사용중
 		float	_attacktime = 0.f;
 		int		_AttackCheck = 0;			// 공격종류의 선택을 할수 있도록 설정하는 변수

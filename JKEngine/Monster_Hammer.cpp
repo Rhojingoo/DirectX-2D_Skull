@@ -2,10 +2,6 @@
 
 namespace jk
 {
-	int Monster_Hammer::mDir = 1;
-	bool Monster_Hammer::_switch = false;
-
-
 	Monster_Hammer::Monster_Hammer()
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
@@ -23,7 +19,12 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(false);
-		tr = GetComponent<Transform>();
+		tr = GetComponent<Transform>();		
+		_pos = tr->GetPosition();
+		_first_place = _pos;
+
+
+
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this);
@@ -67,8 +68,6 @@ namespace jk
 			Tackle_Flash->SetState(eState::Paused);			
 		}
 
-
-
 		GameObject::Initialize();
 	}
 	void Monster_Hammer::Update()
@@ -78,9 +77,6 @@ namespace jk
 		_velocity = _rigidbody->GetVelocity();
 		SetDirection();
 		SetEffect_pos();
-
-
-
 
 		switch (_state)
 		{
@@ -105,7 +101,16 @@ namespace jk
 			tackle_end();
 			break;
 
-		case jk::Monster_Hammer::Monster_Hammer_State::Walk:walk();
+		case jk::Monster_Hammer::Monster_Hammer_State::Walk:
+			walk();
+			break;
+
+		case jk::Monster_Hammer::Monster_Hammer_State::WalkR:
+			walk_R();
+			break;
+
+		case jk::Monster_Hammer::Monster_Hammer_State::WalkL:
+			walk_L();
 			break;
 
 		default:
@@ -125,7 +130,7 @@ namespace jk
 			Hit_Box->SetCenter(Vector3(100.f, 100.f,-250.f));
 
 			Hit_Box->SetState(eState::Active);
-			if (mDir == 1)
+			if (_attackdir == 1)
 				HitBox_TR->SetPosition(Vector3(_pos.x + 50, _pos.y, _pos.z));
 			else
 				HitBox_TR->SetPosition(Vector3(_pos.x - 50, _pos.y, _pos.z));
@@ -146,7 +151,6 @@ namespace jk
 	}
 
 
-
 	void Monster_Hammer::OnCollisionEnter(Collider2D* other)
 	{		
 	}
@@ -154,6 +158,11 @@ namespace jk
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
+			//if (mGround->_SkullOn == true)
+			//	_followskul = true;
+			//if (mGround->_SkullOn == false)
+			//	_followskul = false;
+
 			if (_Ground_check == false)
 			{
 				_rigidbody->SetGround(true);
@@ -168,6 +177,11 @@ namespace jk
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
+			if (mGround->_SkullOn == true)
+				_followskul = true;
+			if (mGround->_SkullOn == false)
+				_followskul = false;
+
 			if (_Ground_check == false)
 			{
 				_rigidbody->SetGround(true);
@@ -185,62 +199,79 @@ namespace jk
 	}
 
 
-
 	void Monster_Hammer::idle()
 	{
-		_time += Time::DeltaTime();
-		if (_time > 1.5f)
+		if (_followskul == true)
 		{
-			if (_AttackCheck == 0)
+			_time += Time::DeltaTime();
+			if (_time > 1.5f)
 			{
-				if ((_distance >= 90 || _distance <= -90))
+				if (_AttackCheck == 0)
 				{
-					_state = Monster_Hammer_State::Walk;
-					if (mDir == 1)
-						at->PlayAnimation(L"HammerWalk", true);
-					else
-						at->PlayAnimation(L"HammerWalkR", true);
-				}
-				if (_distance > -80 && _distance < 80)
-				{
+					if ((_distance >= 90 || _distance <= -90))
+					{
+						_state = Monster_Hammer_State::Walk;
+						if (mDir == 1)
+							at->PlayAnimation(L"HammerWalk", true);
+						else
+							at->PlayAnimation(L"HammerWalkR", true);
+					}
+					if (_distance > -80 && _distance < 80)
+					{
 
-					_state = Monster_Hammer_State::Attack;
-					if (mDir == 1)
-						at->PlayAnimation(L"HammerAttack", true);
+						_state = Monster_Hammer_State::Attack;
+						if (mDir == 1)
+							at->PlayAnimation(L"HammerAttack", true);
+						else
+							at->PlayAnimation(L"HammerAttackR", true);
+					}
+				}
+
+				if (_AttackCheck == 1)
+				{
+					if ((_distance >= 125 || _distance <= -125))
+					{
+						_state = Monster_Hammer_State::Walk;
+						if (mDir == 1)
+							at->PlayAnimation(L"HammerWalk", true);
+						else
+							at->PlayAnimation(L"HammerWalkR", true);
+					}
 					else
-						at->PlayAnimation(L"HammerAttackR", true);					
+					{
+						_state = Monster_Hammer_State::Tackle_Ready;
+						if (mDir == 1)
+							at->PlayAnimation(L"HammerTackle_Ready", true);
+						else
+							at->PlayAnimation(L"HammerTackle_ReadyR", true);
+
+					}
 				}
 			}
-
-			if (_AttackCheck == 1)
+		}
+		else
+		{
+			_time += Time::DeltaTime();
+			if (_time > 3.f)
 			{
-				if ((_distance >= 125 || _distance <= -125))
+				if (_walkdir == 1)
 				{
-					_state = Monster_Hammer_State::Walk;
-					if (mDir == 1)
-						at->PlayAnimation(L"HammerWalk", true);
-					else
-						at->PlayAnimation(L"HammerWalkR", true);
+					_state = Monster_Hammer_State::WalkR;
+					at->PlayAnimation(L"HammerWalk", true);
 				}
-				else
+				else if (_walkdir == -1)
 				{
-					_state = Monster_Hammer_State::Tackle_Ready;
-					if (mDir == 1)			
-						at->PlayAnimation(L"HammerTackle_Ready", true);				
-					else				
-						at->PlayAnimation(L"HammerTackle_ReadyR", true);				
-				
-				}			
-			}			
-		}		
+					_state = Monster_Hammer_State::WalkL;
+					at->PlayAnimation(L"HammerWalkR", true);
+				}
+			}
+		}
 	}
-
 
 	void Monster_Hammer::attack()
 	{
 		_attack_Col = true;
 	}
-
 
 	void Monster_Hammer::tackle_ready()
 	{
@@ -267,7 +298,6 @@ namespace jk
 		}
 	}
 
-
 	void Monster_Hammer::tackle()
 	{
 		_rigidbody->ClearVelocityY();
@@ -287,7 +317,6 @@ namespace jk
 		}		
 	}
 
-
 	void Monster_Hammer::tackle_end()
 	{
 		_attacktime += Time::DeltaTime();
@@ -304,7 +333,6 @@ namespace jk
 			_attacktime = 0;
 		}
 	}
-
 
 	void Monster_Hammer::walk()
 	{
@@ -338,11 +366,33 @@ namespace jk
 		tr->SetPosition(_pos);
 	}
 
+	void Monster_Hammer::walk_R()
+	{
+		if (_walkdistance > -100)
+			_pos.x += 100.f * Time::DeltaTime();
+		else
+		{
+			_state = Monster_Hammer_State::Idle;
+			at->PlayAnimation(L"HammerIdle", true);
+			_time = 0; _walkdir *= -1;
+		}
+	}
+
+	void Monster_Hammer::walk_L()
+	{
+		if (_walkdistance < 100)
+			_pos.x -= 100.f * Time::DeltaTime();
+		else
+		{
+			_state = Monster_Hammer_State::Idle;
+			at->PlayAnimation(L"HammerIdleR", true);
+			_time = 0; _walkdir *= -1;
+		}
+	}
 
 	void Monster_Hammer::dead()
 	{
 	}
-
 
 	void Monster_Hammer::Complete_attack()
 	{
@@ -356,6 +406,7 @@ namespace jk
 		_time = 0;
 		_AttackCheck++;
 	}
+
 	void Monster_Hammer::SetDirection()
 	{
 		_distance = _playerpos.x - _pos.x;
@@ -363,7 +414,14 @@ namespace jk
 			mDir = 1;
 		else
 			mDir = -1;
+
+		_walkdistance = _first_place.x - _pos.x;
+		if (_walkdistance >= 0.f)
+			_walkdir = 1;
+		else
+			_walkdir = -1;
 	}
+
 	void Monster_Hammer::SetEffect_pos()
 	{
 		if (mDir == 1)

@@ -161,20 +161,16 @@ namespace jk
 				_state = Monster_warrior_State::Hit;
 				if (mDir == 1)
 				{
-					at->PlayAnimation(L"WarriorHit", false);
-					//_hit_switch = true;	_hit++;
+					at->PlayAnimation(L"WarriorHit", false);					
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 					_tr->SetPosition(_pos);
 				}
 				if (mDir == -1)
 				{
-					at->PlayAnimation(L"WarriorHitR", false);
-					//_hit_switch = true;	_hit++;
+					at->PlayAnimation(L"WarriorHitR", false);					
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					_tr->SetPosition(_pos);
-				}
-				//if (_hit >= 2)
-				//	int a = 0;
+				}		
 			}
 		}
 	}
@@ -274,12 +270,10 @@ namespace jk
 		}
 	}
 
-
 	void Monster_warrior::attack()
 	{
 		_attack_Col = true;
 	}
-
 
 	void Monster_warrior::attack_ready()
 	{
