@@ -79,12 +79,14 @@ namespace jk
 		static bool _switch;
 		
 		float _time = 0.f;
+		float _attack_time = 0.f;
 		bool _attack = false;
 		int _jump = 0;
+		bool _Skulhead = false;
 		int _fallcheck = 0;
 		bool _Ground_check = false;
+		bool _SkyGround_check = false;
 		bool _Wall_check = false;
-		bool _Skulhead = false;
 		bool _Rightmove_Lock = false;
 		bool _Leftmove_Lock = false;
 

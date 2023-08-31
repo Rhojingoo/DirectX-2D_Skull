@@ -130,9 +130,13 @@ namespace jk
 		{
 			_State = Skul_Basic::Skul_Basic_State::Switch;
 			if (mDir == 1)
+			{
 				at->PlayAnimation(L"Skul_BasicSwitch", true);
+			}
 			else
+			{
 				at->PlayAnimation(L"Skul_BasicSwitchR", true);
+			}
 		}
 
 		switch (_State)
@@ -210,7 +214,7 @@ namespace jk
 		}		
 		
 		_collider->SetSize(Vector2(0.1f, 0.5f));
-		_collider->SetCenter(Vector2(0.0f, -0.1f));
+		_collider->SetCenter(Vector2(0.0f, -2.5f));
 
 		GameObject::LateUpdate();
 		
@@ -466,6 +470,7 @@ namespace jk
 	void Skul_Basic::jump()
 	{		
 		_Ground_check = false;
+		_SkyGround_check = false;
 		if((_velocity.y <= 0.f)||(_jump>=2))
 		{
 			_State = Skul_Basic_State::Fall;
@@ -554,7 +559,7 @@ namespace jk
 	void Skul_Basic::fall()
 	{
 		_Ground_check = false;
-
+		_SkyGround_check = false;
 		if (_jump < 3)
 		{
 			if (Input::GetKeyDown(eKeyCode::C))
@@ -644,6 +649,7 @@ namespace jk
 	void Skul_Basic::falling()
 	{
 		_Ground_check = false;
+		_SkyGround_check = false;
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
 			if (mDir == 1)
@@ -793,7 +799,7 @@ namespace jk
 			else
 			{
 				_rigidbody->SetVelocity(Vector2(-100.f, 0.f));				
-				_switch = false; _Ground_check = false;
+				_switch = false; _Ground_check = false; _rigidbody->SetGround(false);
 			}
 		}
 	}
@@ -864,8 +870,7 @@ namespace jk
 		}
 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
-		{
-			//if (_Ground_check = false)
+		{			
 			{
 				Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
 				Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
@@ -874,13 +879,13 @@ namespace jk
 				float Gr_Top_pos = Ground_pos.y + Gr_Size;
 				float Skul_halfsize = _collider->GetScale().y / 2;
 				float skul_footpos = pos.y - Skul_halfsize;
-
+		
 				if (skul_footpos > Gr_Top_pos)
 				{
-
 					_rigidbody->ClearVelocity();
 					_Ground_check = true;
-					_rigidbody->SetGround(true);
+					_SkyGround_check = true;
+			;		_rigidbody->SetGround(true);
 
 					if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
 					{
@@ -889,15 +894,8 @@ namespace jk
 							at->PlayAnimation(L"Skul_BasicIdle", true);
 						else
 							at->PlayAnimation(L"Skul_BasicIdleR", true);
-					}	
-
-					//if (_State == Skul_Basic_State::Dash)
-					//{
-					//	_Ground_check = true;
-					//	_rigidbody->SetGround(true);
-					//}
-
-				}
+					}
+				}				
 			}
 		}
 	}
@@ -953,7 +951,7 @@ namespace jk
 			{
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
-				_Ground_check = true;
+				_Ground_check = true;				
 				_Ground_check = _rigidbody->GetGround();
 
 				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
@@ -996,28 +994,33 @@ namespace jk
 			Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
 			Vector3 Ground_pos = Ground_TR->GetPosition();
 			float Gr_Size = Ground_Col->GetScale().y / 2;
-			float Gr_Top_pos = Ground_pos.y + Gr_Size;
+			float Gr_Top_pos = Ground_pos.y + Gr_Size +10;
 			float Skul_halfsize = _collider->GetScale().y / 2;
 			float skul_footpos = pos.y - Skul_halfsize;
 
-			if (_Ground_check == false)
+			if (_SkyGround_check == true)
 			{
-				if (skul_footpos > Gr_Top_pos)
-				{					
-						_Ground_check = true;
-					_rigidbody->SetGround(true);
+				_Ground_check = true;		
+				_rigidbody->SetGround(true);
+				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
+				{
+					_State = Skul_Basic_State::Idle;
+					if (mDir == 1)
+						at->PlayAnimation(L"Skul_BasicIdle", true);
+					else
+						at->PlayAnimation(L"Skul_BasicIdleR", true);
 				}
-			}
-			else
-			{
+
 				if (Input::GetKey(eKeyCode::V))
 				{
 					_rigidbody->SetVelocity(Vector2(0.f, -150.f));
 					_Ground_check = false;
 					_rigidbody->SetGround(false);
+					_SkyGround_check = false;
 				}
 			}
 
+			
 		}
 	}
 
@@ -1034,22 +1037,6 @@ namespace jk
 		{
 			_Ground_check = false;
 			_rigidbody->SetGround(false);
-
-			_State = Skul_Basic_State::Fall;
-			if (mDir == 1)
-			{
-				at->PlayAnimation(L"Skul_BasicFall", false);
-				if (_Skulhead == true)
-					at->PlayAnimation(L"NoHeadFall", false);
-				mDir = 1;
-			}
-			if (mDir == -1)
-			{
-				at->PlayAnimation(L"Skul_BasicFallR", false);
-				if (_Skulhead == true)
-					at->PlayAnimation(L"NoHeadFallR", false);
-				mDir = -1;
-			}			
 		}
 		 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
@@ -1201,10 +1188,11 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
-			//SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
+			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
+			SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::sowrd_Skul, PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::thief_Skul, PlayerList::basic_Skul, true, mDir);
+			pos.y = pos.y + 5;
 			SetPlayer_Pos(pos);
 		}
 	}

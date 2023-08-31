@@ -83,10 +83,22 @@ namespace jk
 		 if (_switch == true)
 		 {
 			 _State = Skul_Wolf::Skul_Wolf_State::Switch;
-			 if(mDir ==1)
-				at->PlayAnimation(L"WolfSwitch", false);
-			 else 
-				at->PlayAnimation(L"WolfSwitchR", false);			 
+			 if (mDir == 1)
+			 {
+				 _rigidbody->SetVelocity(Vector2(350.f, 250.f));
+				 _rigidbody->SetGround(false);
+				 at->PlayAnimation(L"WolfSwitch", false);
+				 _switch = false;
+				 _Ground_check = false;
+			 }
+			 else
+			 {
+				 at->PlayAnimation(L"WolfSwitchR", false);
+				 _rigidbody->SetVelocity(Vector2(-350.f, 250.f));
+				 _rigidbody->SetGround(false);
+				_switch = false;
+				_Ground_check = false;
+			 }
 		 }
 
 		switch (_State)
@@ -141,10 +153,8 @@ namespace jk
 	}
 	void Skul_Wolf::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.35f, 0.65f));
+		_collider->SetSize(Vector2(0.35f, 0.55f));
 		_collider->SetCenter(Vector2(0.0f, -0.1f));
-
-
 		GameObject::LateUpdate();
 	}
 
@@ -220,14 +230,14 @@ namespace jk
 			{
 				at->PlayAnimation(L"WolfJump", true);
 
-				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetVelocity(Vector2(0.f, 400.f));
 				_rigidbody->SetGround(false);	mDir = 1;
 			}
 			else if (mDir == -1)
 			{
 				at->PlayAnimation(L"WolfJumpR", true);	
 
-				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetVelocity(Vector2(0.f, 400.f));
 				_rigidbody->SetGround(false);	mDir = -1;
 			}
 			_jump++;
@@ -239,13 +249,13 @@ namespace jk
 			if (mDir == 1)
 			{
 				at->PlayAnimation(L"WolfDash", false);
-				_rigidbody->SetVelocity(Vector2(250.f, 150.f));
+				_rigidbody->SetVelocity(Vector2(350.f, 250.f));
 				_rigidbody->SetGround(false);	mDir = 1;
 			}
 			else if (mDir == -1)
 			{
 				at->PlayAnimation(L"WolfDashR", false);
-				_rigidbody->SetVelocity(Vector2(-250.f, 150.f));
+				_rigidbody->SetVelocity(Vector2(-350.f, 250.f));
 				_rigidbody->SetGround(false);	mDir = -1;
 			}
 		}
@@ -291,14 +301,14 @@ namespace jk
 			{
 				at->PlayAnimation(L"WolfJump", true);
 
-				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetVelocity(Vector2(0.f, 400.f));
 				_rigidbody->SetGround(false);	mDir = 1;
 			}
 			else if (mDir == -1)
 			{
 				at->PlayAnimation(L"WolfJumpR", true);
 
-				_rigidbody->SetVelocity(Vector2(0.f, 250.f));
+				_rigidbody->SetVelocity(Vector2(0.f, 400.f));
 				_rigidbody->SetGround(false);	mDir = -1;
 			}
 			_jump++;
@@ -310,13 +320,13 @@ namespace jk
 			if (mDir == 1)
 			{
 				at->PlayAnimation(L"WolfDash", false);
-				_rigidbody->SetVelocity(Vector2(250.f, 150.f));
+				_rigidbody->SetVelocity(Vector2(350.f, 250.f));
 				_rigidbody->SetGround(false);	mDir = 1;
 			}
 			else if (mDir == -1)
 			{
 				at->PlayAnimation(L"WolfDashR", false);
-				_rigidbody->SetVelocity(Vector2(-250.f, 150.f));
+				_rigidbody->SetVelocity(Vector2(-350.f, 250.f));
 				_rigidbody->SetGround(false);	mDir = -1;;
 			}
 		}
@@ -345,15 +355,20 @@ namespace jk
 		{
 			if (Input::GetKeyDown(eKeyCode::C))
 			{
+				_State = Skul_Wolf_State::Jump;
 				if (mDir == 1)
 				{
-					_rigidbody->SetVelocity(Vector2(0.f, 250.f));
-					mDir = 1;
+					at->PlayAnimation(L"WolfJump", true);
+
+					_rigidbody->SetVelocity(Vector2(0.f, 400.f));
+					_rigidbody->SetGround(false);	mDir = 1;
 				}
 				else if (mDir == -1)
 				{
-					_rigidbody->SetVelocity(Vector2(0.f, 250.f));
-					mDir = -1;
+					at->PlayAnimation(L"WolfJumpR", true);
+
+					_rigidbody->SetVelocity(Vector2(0.f, 400.f));
+					_rigidbody->SetGround(false);	mDir = -1;
 				}
 				_jump++;
 			}
@@ -366,12 +381,10 @@ namespace jk
 				_State = Skul_Wolf_State::JumpAttack;
 				at->PlayAnimation(L"WolfJumpAttack", true);
 			}
-
 			if (mDir == -1)
 			{
 				_State = Skul_Wolf_State::JumpAttack;
 				at->PlayAnimation(L"WolfJumpAttackR", true);
-
 			}			
 		}
 
@@ -414,6 +427,32 @@ namespace jk
 			_time = 0;
 		}
 
+		if (_jump < 3)
+		{
+			if (Input::GetKeyDown(eKeyCode::C))
+			{
+				if (Input::GetKeyDown(eKeyCode::C))
+				{
+					_State = Skul_Wolf_State::Jump;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"WolfJump", true);
+
+						_rigidbody->SetVelocity(Vector2(0.f, 400.f));
+						_rigidbody->SetGround(false);	mDir = 1;
+					}
+					else if (mDir == -1)
+					{
+						at->PlayAnimation(L"WolfJumpR", true);
+
+						_rigidbody->SetVelocity(Vector2(0.f, 400.f));
+						_rigidbody->SetGround(false);	mDir = -1;
+					}
+					_jump++;
+				}
+			}
+		}
+
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
 			_State = Skul_Wolf_State::JumpAttack;
@@ -430,13 +469,13 @@ namespace jk
 			if (mDir == 1)
 			{
 				at->PlayAnimation(L"WolfDash", false);
-				_rigidbody->SetVelocity(Vector2(250.f, 150.f));
+				_rigidbody->SetVelocity(Vector2(350.f, 250.f));
 				_rigidbody->SetGround(false);	mDir = 1;
 			}
 			else if (mDir == -1)
 			{
 				at->PlayAnimation(L"WolfDashR", false);
-				_rigidbody->SetVelocity(Vector2(-250.f, 150.f));
+				_rigidbody->SetVelocity(Vector2(-350.f, 250.f));
 				_rigidbody->SetGround(false);	mDir = -1;				
 			}
 		}
@@ -444,6 +483,30 @@ namespace jk
 
 	void Skul_Wolf::falling()
 	{
+
+		if (_jump < 3)
+		{
+			if (Input::GetKeyDown(eKeyCode::C))
+			{
+				_State = Skul_Wolf_State::Jump;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"WolfJump", true);
+
+					_rigidbody->SetVelocity(Vector2(0.f, 400.f));
+					_rigidbody->SetGround(false);	mDir = 1;
+				}
+				else if (mDir == -1)
+				{
+					at->PlayAnimation(L"WolfJumpR", true);
+
+					_rigidbody->SetVelocity(Vector2(0.f, 400.f));
+					_rigidbody->SetGround(false);	mDir = -1;
+				}
+				_jump++;
+			}
+		}
+
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
 			if (mDir == 1)
@@ -486,12 +549,12 @@ namespace jk
 		{			
 			if (mDir == 1)
 			{			
-				_rigidbody->SetVelocity(Vector2(250.f, 150.f));
+				_rigidbody->SetVelocity(Vector2(350.f, 250.f));
 				_rigidbody->SetGround(false);	mDir = 1;				
 			}
 			else if (mDir == -1)
 			{				
-				_rigidbody->SetVelocity(Vector2(-250.f, 150.f));
+				_rigidbody->SetVelocity(Vector2(-350.f, 250.f));
 				_rigidbody->SetGround(false);	mDir = -1;				
 			}
 		}
@@ -542,21 +605,21 @@ namespace jk
 	{
 		if (_switch == true)
 		{
-			if (mDir == 1)
-			{
-				_rigidbody->SetVelocity(Vector2(250.f, 125.f));
-				_rigidbody->SetGround(false);
-				_switch = false;
-				_Ground_check = false;
+			//if (mDir == 1)
+			//{
+			//	_rigidbody->SetVelocity(Vector2(350.f, 250.f));
+			//	_rigidbody->SetGround(false);
+			//	_switch = false;
+			//	_Ground_check = false;
 
-			}
-			else
-			{
-				_rigidbody->SetVelocity(Vector2(-250.f, 125.f));
-				_rigidbody->SetGround(false);
-				_switch = false;
-				_Ground_check = false;
-			}
+			//}
+			//else
+			//{
+			//	_rigidbody->SetVelocity(Vector2(-350.f, 250.f));
+			//	_rigidbody->SetGround(false);
+			//	_switch = false;
+			//	_Ground_check = false;
+			//}
 		}
 	}
 
@@ -565,6 +628,56 @@ namespace jk
 	}
 
 	void Skul_Wolf::OnCollisionEnter(Collider2D* other)
+	{
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			_Wall_check = true;
+			_rigidbody->ClearVelocity();
+			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+			Vector3 wall_pos = Ground_TR->GetPosition();
+			if (_Wall_check == true)
+			{
+				if (pos.x < wall_pos.x)
+				{
+					_Rightmove_Lock = true;
+					at->PlayAnimation(L"WolfIdle", true);
+				}
+				else if (pos.x > wall_pos.x)
+				{
+					_Leftmove_Lock = true;
+					at->PlayAnimation(L"WolfIdleR", true);
+				}
+			}
+		}
+
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{			
+			{
+				Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+				Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
+				Vector3 Ground_pos = Ground_TR->GetPosition();
+				float Gr_Size = Ground_Col->GetScale().y / 2;
+				float Gr_Top_pos = Ground_pos.y + Gr_Size;
+				float Skul_halfsize = _collider->GetScale().y / 2;
+				float skul_footpos = pos.y - Skul_halfsize;
+
+				if (skul_footpos > Gr_Top_pos)
+				{
+					_fallcheck = 0;	_jump = 0;
+					_rigidbody->SetGround(true);
+					_Ground_check = _rigidbody->GetGround();
+					_rigidbody->ClearVelocity();
+					_State = Skul_Wolf_State::Idle;
+					if (mDir == 1)
+						at->PlayAnimation(L"WolfIdle", true);
+					else
+						at->PlayAnimation(L"WolfIdleR", true);
+				}
+			}
+		}
+	}
+
+	void Skul_Wolf::OnCollisionStay(Collider2D* other)
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
@@ -581,18 +694,73 @@ namespace jk
 					at->PlayAnimation(L"WolfIdleR", true);
 			}
 			else
-			{
-				int a;
+			{			
 			}
 		}
-	}
+		
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_fallcheck = 0;	_jump = 0;
+				_rigidbody->SetGround(true);
+				_Ground_check = _rigidbody->GetGround();
+				_rigidbody->ClearVelocity();
+				_State = Skul_Wolf_State::Idle;
+				if (mDir == 1)
+					at->PlayAnimation(L"WolfIdle", true);
+				else
+					at->PlayAnimation(L"WolfIdleR", true);
+			}
+			else
+			{
+			}
+		}
+		
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+			Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
+			Vector3 Ground_pos = Ground_TR->GetPosition();
+			float Gr_Size = Ground_Col->GetScale().y / 2;
+			float Gr_Top_pos = Ground_pos.y + Gr_Size;
+			float Skul_halfsize = _collider->GetScale().y / 2;
+			float skul_footpos = pos.y - Skul_halfsize;
 
-	void Skul_Wolf::OnCollisionStay(Collider2D* other)
-	{
+			if (_Ground_check == false)
+			{
+				if (skul_footpos > Gr_Top_pos)
+				{
+					_Ground_check = true;
+					_rigidbody->SetGround(true);
+				}
+			}
+			else
+			{
+				if (Input::GetKey(eKeyCode::V))
+				{
+					_rigidbody->SetVelocity(Vector2(0.f, -150.f));
+					_Ground_check = false;
+					_rigidbody->SetGround(false);
+				}
+			}
+
+		}
 	}
 
 	void Skul_Wolf::OnCollisionExit(Collider2D* other)
 	{
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			_Wall_check = false;
+			_Rightmove_Lock = false;
+			_Leftmove_Lock = false;
+		}
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			_Ground_check = false;
+			_rigidbody->SetGround(false);
+		}
 	}
 
 	void Skul_Wolf::attack_choice()
@@ -666,12 +834,22 @@ namespace jk
 
 	void Skul_Wolf::Input_move()
 	{
-		if (Input::GetKey(eKeyCode::LEFT))
-			pos.x -= 150.0f * Time::DeltaTime();
-
-		if (Input::GetKey(eKeyCode::RIGHT))
-			pos.x += 150.0f * Time::DeltaTime();
-
+		if (_Leftmove_Lock == false)
+		{
+			if (Input::GetKey(eKeyCode::LEFT))
+			{
+				mDir = -1;
+				pos.x -= 150.0f * Time::DeltaTime();
+			}
+		}
+		if (_Rightmove_Lock == false)
+		{
+			if (Input::GetKey(eKeyCode::RIGHT))
+			{
+				mDir = 1;
+				pos.x += 150.0f * Time::DeltaTime();
+			}
+		}
 		if (Input::GetKey(eKeyCode::DOWN))
 			pos.y -= 100.0f * Time::DeltaTime();
 
