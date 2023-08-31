@@ -30,6 +30,8 @@ namespace jk
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
 		static Vector3 GetPlayerPos() { return _playerpos; }
 		static Vector3 _playerpos; 
+		static Vector3 _playerGRpos;
+		static bool _player_groundcheck;
 
 
 	private:

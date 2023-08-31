@@ -56,13 +56,14 @@ namespace jk
 	private:
 		Monster_GroundAttack_Sign* GroundAttack_Sign = nullptr;
 		Monster_Ent_GroundAttack* GroundAttack = nullptr;
+		Vector3 _AttackSign_place = Vector3(0.f, 0.f, 0.f);
 		Vector3 _Attack_place = Vector3(0.f, 0.f, 0.f);
 
 
 	private:
-		static int			mDir;
-		static bool			_switch;
+		int	mDir = 1;
 		int _walkdir = 1;
+		int _attackdir = 1;
 
 		float	_distance = 0.f;			// 플레이어와의 거리 체크
 		float   _walkdistance = 0.f;		// 자신의 첫위치와 의 거리 체크
@@ -71,6 +72,7 @@ namespace jk
 		float	_attacktime = 0.f;
 		int		_choiceattack = 0;			
 		bool	_attackcheck = false;
+		bool	_followskul = false;
 
 	private:
 		void Complete_Attack();

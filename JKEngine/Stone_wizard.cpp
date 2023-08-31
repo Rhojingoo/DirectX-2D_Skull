@@ -88,6 +88,7 @@ namespace jk
 
 		GameObject::Initialize();
 	}
+
 	void Stone_wizard::Update()
 	{
 		tr = GetComponent<Transform>();
@@ -140,7 +141,6 @@ namespace jk
 	{
 		GameObject::Render();
 	}
-
 
 
 	void Stone_wizard::OnCollisionEnter(Collider2D* other)
@@ -196,9 +196,38 @@ namespace jk
 			{
 			}
 		}
+
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_Ground_check = _rigidbody->GetGround();
+				_rigidbody->ClearVelocity();
+			}
+			else
+			{
+			}
+		}
 	}
 	void Stone_wizard::OnCollisionExit(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;				
+		}
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
 	}
 
 	void Stone_wizard::idle()

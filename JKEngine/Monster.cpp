@@ -6,6 +6,8 @@ namespace jk
 	Monster::MonsterList Monster::monster_select = MonsterList();
 	Vector3 Monster::_Pos = Vector3(0.f, 0.f, 0.f);
 	Vector3 Monster::_playerpos = Vector3(0.f, 0.f, 0.f);
+	Vector3 Monster::_playerGRpos = Vector3(0.f, 0.f, 0.f);	
+	bool Monster::_player_groundcheck = false;
 
 	Monster::Monster()
 	{
@@ -15,7 +17,7 @@ namespace jk
 	}
 	void Monster::Initialize()
 	{
-		_Gobjs[0] = new Stone_wizard;
+		_Gobjs[0] = new Monster_GreenTree;
 		_Gobjs[0]->Initialize();
 
 		//_Gobjs[0] = new Monster_warrior;
@@ -43,7 +45,9 @@ namespace jk
 	}
 	void Monster::Update()
 	{
-		_playerpos = Player::GetPlayer_Pos();;
+		_playerpos = Player::GetPlayer_Pos();
+		_player_groundcheck = Player::Get_Ground_On();
+		_playerGRpos = Player::GetPlayer_GRPos();
 
 		GameObject::Update();
 	}

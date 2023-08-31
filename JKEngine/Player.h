@@ -34,8 +34,15 @@ namespace jk
 		static void SetPlay_List(PlayerList change, PlayerList current, bool ckeck, int direction) 
 		{ player_select = change, player_check = current, _check_change = ckeck, mDir = direction; }
 		static void Setskillcheck(bool check_head) {_skulhead_check = check_head;}
+		static bool Get_Ground_On() { return _Ground_On; }
+		static Vector3 GetPlayer_GRPos() { return _Player_GRpos; }
+		
+		
+
 		static PlayerList player_select;
 		static Vector3 _Pos; 
+		static Vector3 _Player_GRpos;
+		static bool _Ground_On;
 
 	private:
 		static PlayerList player_check;
@@ -43,5 +50,6 @@ namespace jk
 		static bool _check_change;
 		static int mDir;
 		static bool _skulhead_check;
+	
 	};
 }

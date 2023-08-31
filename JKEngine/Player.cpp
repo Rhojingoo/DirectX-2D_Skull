@@ -5,8 +5,10 @@ namespace jk
 	Player:: PlayerList Player::player_select = PlayerList::basic_Skul;
 	Player:: PlayerList Player::player_check = PlayerList::basic_Skul;
 	Vector3 Player::_Pos = Vector3(0.f, 0.f, 0.f);
+	Vector3 Player::_Player_GRpos = Vector3(0.f, 0.f, 0.f);
 	bool Player:: _check_change = 0;
 	bool Player::_skulhead_check = false;
+	bool Player::_Ground_On = false;
 	int Player:: mDir = 1;
 
 	Player::Player() 	

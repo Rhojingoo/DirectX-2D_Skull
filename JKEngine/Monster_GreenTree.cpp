@@ -2,9 +2,6 @@
 
 namespace jk
 {
-	int Monster_GreenTree::mDir = 1;
-	bool Monster_GreenTree::_switch = false;
-
 	Monster_GreenTree::Monster_GreenTree()
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
@@ -14,6 +11,7 @@ namespace jk
 	Monster_GreenTree::~Monster_GreenTree()
 	{
 	}
+
 	void Monster_GreenTree::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
@@ -23,7 +21,7 @@ namespace jk
 		_pos = tr->GetPosition();
 		_first_place = _pos;
 
-
+		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Attack_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Attack", this);
@@ -31,7 +29,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Walk", this);
 
-
+		
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Attack_Ready", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Attack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Hit", this, 1);
@@ -65,8 +63,7 @@ namespace jk
 		}
 		
 		GameObject::Initialize();
-	}
-	
+	}	
 	void Monster_GreenTree::Update()
 	{
 		tr = GetComponent<Transform>();
@@ -83,6 +80,11 @@ namespace jk
 			mDir = 1;
 		else
 			mDir = -1;
+
+		if (_player_groundcheck == true)
+			_AttackSign_place = Vector3(_playerGRpos.x, _playerGRpos.y - 20, _playerGRpos.z - 1);
+
+
 
 		switch (_state)
 		{
@@ -134,8 +136,32 @@ namespace jk
 	{
 		GameObject::Render();
 	}
+
+
 	void Monster_GreenTree::OnCollisionEnter(Collider2D* other)
 	{
+		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
+		{
+			if (!(_state == Monster_GreenTree_State::Idle))
+				return;
+
+			if (!(_state == Monster_GreenTree_State::Attack || _state == Monster_GreenTree_State::Attack_Ready))
+			{
+				_state = Monster_GreenTree_State::Hit;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"GreenTreeHit", false);
+					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+					tr->SetPosition(_pos);
+				}
+				if (mDir == -1)
+				{
+					at->PlayAnimation(L"GreenTreeHitR", false);
+					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+					tr->SetPosition(_pos);
+				}
+			}
+		}
 	}
 	void Monster_GreenTree::OnCollisionStay(Collider2D* other)
 	{
@@ -148,10 +174,6 @@ namespace jk
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
 			}
-			else
-			{
-
-			}
 		}
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
@@ -163,8 +185,16 @@ namespace jk
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
 			}
-			else
+		}
+
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
 			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_Ground_check = _rigidbody->GetGround();
+				_rigidbody->ClearVelocity();
 			}
 		}
 	}
@@ -193,11 +223,16 @@ namespace jk
 		{
 			_state = Monster_GreenTree_State::Attack_Ready;
 			if (mDir == 1)
+			{
 				at->PlayAnimation(L"GreenTreeAttack_Ready", false);
+				_attackdir = 1;
+			}
 			else
+			{
 				at->PlayAnimation(L"GreenTreeAttack_ReadyR", false);
-
-			_Attack_place = Vector3(_playerpos.x, _playerpos.y - 20, _playerpos.z - 1);
+				_attackdir = -1;
+			}
+			_Attack_place = _AttackSign_place;
 			Transform* bullet_tr = GroundAttack_Sign->GetComponent<Transform>();
 			bullet_tr->SetPosition(_Attack_place);
 			GroundAttack_Sign->_effect_end = true;
@@ -218,22 +253,20 @@ namespace jk
 			}
 		}
 	}
-
 	void Monster_GreenTree::attack_ready()
 	{
 	
 		if (GroundAttack_Sign->_effect_end == false)
 		{
 			_attacktime += Time::DeltaTime();
-			if (_attacktime > 0.5)
+			if (_attacktime > 0.2)
 			{
 				Transform* bullet_tr = GroundAttack->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(_Attack_place.x, _Attack_place.y, _Attack_place.z));
+				bullet_tr->SetPosition(Vector3(_Attack_place));
 				GroundAttack->SetState(eState::Active);
 
-
 				_state = Monster_GreenTree_State::Attack;
-				if (mDir == 1)
+				if (_attackdir == 1)
 					at->PlayAnimation(L"GreenTreeAttack", true);
 				else
 					at->PlayAnimation(L"GreenTreeAttackR", true);
@@ -251,11 +284,19 @@ namespace jk
 	void Monster_GreenTree::dead()
 	{
 	}
-
 	void Monster_GreenTree::hit()
 	{
+		_attacktime += Time::DeltaTime();
+		if (_attacktime >= 0.5)
+		{
+			_state = Monster_GreenTree_State::Idle;
+			if (mDir == 1)
+				at->PlayAnimation(L"GreenTreeIdle", true);
+			else
+				at->PlayAnimation(L"GreenTreeIdleR", true);
+			_attacktime = 0;
+		}
 	}
-
 	void Monster_GreenTree::walk_R()
 	{
 		if (_walkdistance > -50)

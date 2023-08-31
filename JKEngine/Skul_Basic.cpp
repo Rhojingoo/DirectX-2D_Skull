@@ -125,6 +125,7 @@ namespace jk
 		pos = tr->GetPosition();
 		SetPlayer_Pos(pos);
 		_velocity = _rigidbody->GetVelocity();
+		_Ground_On = _Ground_check;
 
 		if (_switch == true)
 		{
@@ -945,6 +946,7 @@ namespace jk
 		{
 			if (_Ground_check == false)
 			{
+				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
 				_Ground_check = true;				
@@ -962,6 +964,7 @@ namespace jk
 			}
 			else
 			{
+				_Player_GRpos = pos;
 				if (Input::GetKeyDown(eKeyCode::Z))
 				{
 					_State = Skul_Basic_State::Dash;
@@ -997,6 +1000,8 @@ namespace jk
 
 			if (_SkyGround_check == true)
 			{
+				_Player_GRpos = pos;
+				mGround->_SkullOn = true;
 				_Ground_check = true;		
 				_rigidbody->SetGround(true);
 				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
@@ -1040,6 +1045,7 @@ namespace jk
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
 		{
 			_Ground_check = false;
+			mGround->_SkullOn = false;
 			_rigidbody->SetGround(false);
 		}
 
