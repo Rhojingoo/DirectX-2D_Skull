@@ -21,6 +21,7 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 		Collider2D* _collider = nullptr;
+		bool _SkullOn = false;
 
 	};
 

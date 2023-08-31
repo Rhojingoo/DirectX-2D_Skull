@@ -227,7 +227,6 @@ namespace jk
 
 	void Skul_Basic::idle()
 	{
-
 		if (Input::GetKey(eKeyCode::RIGHT)
 			|| Input::GetKey(eKeyCode::LEFT))
 		{
@@ -250,7 +249,6 @@ namespace jk
 				mDir = -1;
 			}
 		}
-
 
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
@@ -296,7 +294,6 @@ namespace jk
 				mDir = -1;
 			}
 		}
-
 
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
@@ -378,7 +375,6 @@ namespace jk
 			{
 			}
 		}
-
 	}
 
 	void Skul_Basic::move()
@@ -952,6 +948,7 @@ namespace jk
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
 				_Ground_check = true;				
+				mGround->_SkullOn = true;
 				_Ground_check = _rigidbody->GetGround();
 
 				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
@@ -1036,6 +1033,7 @@ namespace jk
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			_Ground_check = false;
+			mGround->_SkullOn = false;
 			_rigidbody->SetGround(false);
 		}
 		 

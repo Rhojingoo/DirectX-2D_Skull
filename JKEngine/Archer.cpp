@@ -303,6 +303,7 @@ namespace jk
 		GameObject::Update();
 	}
 
+
 	void Archer::LateUpdate()
 	{
 		_collider->SetSize(Vector2(0.5f, 0.5f));
@@ -314,10 +315,12 @@ namespace jk
 		GameObject::LateUpdate();
 	}
 
+
 	void Archer::Render()
 	{
 		GameObject::Render();
 	}
+
 
 	void Archer::OnCollisionEnter(Collider2D* other)
 	{	
@@ -372,7 +375,6 @@ namespace jk
 				}
 			}
 		}		
-
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			if (_Ground_check == false)
@@ -393,6 +395,7 @@ namespace jk
 	void Archer::OnCollisionExit(Collider2D* other)
 	{
 	}
+
 
 	void Archer::idle()
 	{
@@ -460,6 +463,7 @@ namespace jk
 		}
 	}
 
+
 	void Archer::backdash()
 	{
 		if (_BackDash == false)
@@ -488,9 +492,11 @@ namespace jk
 		}	
 	}
 
+
 	void Archer::die()
 	{
 	}
+
 
 	void Archer::attack_a_ready()
 	{

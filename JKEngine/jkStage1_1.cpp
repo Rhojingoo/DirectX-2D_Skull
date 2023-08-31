@@ -24,8 +24,8 @@ namespace jk
 
 
 
-		//Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
-		//testmonster->SetName(L"test_monster"); 
+		Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
+		testmonster->SetName(L"test_monster"); 
 
 		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");

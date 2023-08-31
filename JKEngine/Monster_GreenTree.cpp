@@ -19,6 +19,10 @@ namespace jk
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
+		tr = GetComponent<Transform>();
+		_pos = tr->GetPosition();
+		_first_place = _pos;
+
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Attack_Ready", this);
@@ -37,7 +41,7 @@ namespace jk
 		at->CompleteEvent(L"GreenTreeAttack") = std::bind(&Monster_GreenTree::Complete_Attack, this);
 		at->CompleteEvent(L"GreenTreeAttackR") = std::bind(&Monster_GreenTree::Complete_Attack, this);
 				
-		_first_place = _pos;
+
 		at->PlayAnimation(L"GreenTreeIdle", true);
 
 
@@ -174,10 +178,10 @@ namespace jk
 		_time += Time::DeltaTime();
 
 		if ((_distance <= 250) && (_distance >= -250))		
-			_choiceattack = 0;			
-		
+			_choiceattack = 0;				
 		else
 			_choiceattack = 1;
+
 
 		if (_choiceattack == 0)
 		{
