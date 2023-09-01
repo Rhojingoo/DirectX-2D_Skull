@@ -433,6 +433,21 @@
     <ClInclude Include="jkStage2_Boss.h">
       <Filter>Scene\Stage2</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_Goldwarrior.h">
+      <Filter>Game_ob\Monster\Monster_Goldwarrior</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_Hit_Effect.h">
+      <Filter>Game_ob\Monster\Public\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_Death_Effect.h">
+      <Filter>Game_ob\Monster\Public\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Player_Hit_Effect.h">
+      <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_Hammer_Effect.h">
+      <Filter>Game_ob\Monster\Public\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -861,6 +876,21 @@
     <ClCompile Include="jkStage2_MiniBoss.cpp">
       <Filter>Scene\Stage2</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_Goldwarrior.cpp">
+      <Filter>Game_ob\Monster\Monster_Goldwarrior</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_Hit_Effect.cpp">
+      <Filter>Game_ob\Monster\Public\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_Death_Effect.cpp">
+      <Filter>Game_ob\Monster\Public\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_Hit_Effect.cpp">
+      <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_Hammer_Effect.cpp">
+      <Filter>Game_ob\Monster\Public\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1066,6 +1096,12 @@
     </Filter>
     <Filter Include="Game_ob\BG\Tile\Image_Ground">
       <UniqueIdentifier>{4bf91cc4-5e00-444c-98f0-89badab69c93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_Goldwarrior">
+      <UniqueIdentifier>{89dcdaf9-766c-455b-a0f6-331f9ddbf8c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\PLAYER\Effect">
+      <UniqueIdentifier>{03066486-b7dc-41c1-842d-ebeedc091a57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

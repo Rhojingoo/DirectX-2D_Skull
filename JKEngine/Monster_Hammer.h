@@ -1,7 +1,11 @@
 #pragma once
 #include "Include_Common.h"
-#include "HitBox_Monster.h"
+#include "Monster.h"
+#include "Player_Hp_Bar.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
 #include "Monster_Tackle_Flash_Effect.h"
+#include "Monster_Hammer_Effect.h"
 
 namespace jk
 {
@@ -26,6 +30,7 @@ namespace jk
 		enum class Monster_Hammer_State
 		{
 			Idle,
+			Attack_Ready,
 			Attack,
 			Tackle_Ready,
 			Tackle,
@@ -37,6 +42,7 @@ namespace jk
 		};
 
 		void idle();
+		void attack_ready();
 		void attack();
 		void tackle_ready();
 		void tackle();
@@ -46,6 +52,11 @@ namespace jk
 		void walk_L();
 		void dead();
 
+		Monster_Hammer_State GetState() { return _state; }
+
+	private:
+		float _MaxHp = 100;
+		float _CurrenHp = 100;
 
 	private:
 		Monster_Hammer_State _state = {};
@@ -61,7 +72,11 @@ namespace jk
 
 	private:
 		HitBox_Monster* Hit_Box = nullptr;
+		Player_Hp_Bar* Player_Hp = nullptr;
+		Monster_Hit_Effect* _Hit_Effect = nullptr;
+		Monster_Death_Effect* _Death_Effect = nullptr;
 		Monster_Tackle_Flash_Effect* Tackle_Flash = nullptr;
+		Monster_Hammer_Effect* _Hammer_Effect = nullptr;
 		bool _followskul = false;
 
 	private:

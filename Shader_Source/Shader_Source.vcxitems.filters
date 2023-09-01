@@ -57,6 +57,12 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)ParticleCS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)ParticleGS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)PaintCS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)HP_Bar_PS.hlsl">
+      <Filter>HLSL\HP_Bar</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)HP_Bar_VS.hlsl">
+      <Filter>HLSL\HP_Bar</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HLSL">
@@ -85,6 +91,9 @@
     </Filter>
     <Filter Include="HLSL\Animation">
       <UniqueIdentifier>{b4534a7e-827a-428c-969a-580d451f0856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\HP_Bar">
+      <UniqueIdentifier>{105fd3b9-7cac-4bfc-bf7a-2f18a841f9e3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,7 @@
 #define CBSLOT_TILEM				5
 #define CBSLOT_PARTICLE				6
 #define CBSLOT_NOISE				7
+#define CBSLOT_HP_Bar				8	
 
 namespace jk::graphics
 {
@@ -44,6 +45,7 @@ namespace jk::graphics
 		UV,
 		Particle,
 		Noise,
+		HP_Bar,
 		End,
 	};
 

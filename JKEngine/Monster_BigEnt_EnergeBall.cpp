@@ -15,6 +15,7 @@ namespace jk
 	void Monster_BigEnt_EnergeBall::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
+		_collider->SetType(eColliderType::Circle);
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(false);
@@ -40,14 +41,18 @@ namespace jk
 	}
 	void Monster_BigEnt_EnergeBall::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(1.f, 1.f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
+	
 		GameObject::LateUpdate();
 	}
+
 	void Monster_BigEnt_EnergeBall::Render()
 	{
 		GameObject::Render();
 	}
+
+
 	void Monster_BigEnt_EnergeBall::OnCollisionEnter(Collider2D* other)
 	{
 	}

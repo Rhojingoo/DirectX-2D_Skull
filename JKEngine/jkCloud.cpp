@@ -33,8 +33,7 @@ namespace jk
 		GameObject::Initialize();
 	}
 	void Cloud::Update()
-	{
-		
+	{		
 		_Time +=  0.1* (float)Time::DeltaTime();
 		if(_Time>7.f)
 		{

@@ -184,27 +184,28 @@ namespace jk
 	void Monster_BigEnt::idle()
 	{
 		_time += Time::DeltaTime();
-
-
-		if ((_distance >= 200) || (_distance <= -200))
-		{
-			_state = Monster_BigEnt_State::AttackA_Ready;
-			at->PlayAnimation(L"GiganticEntAttack_Melee_Ready", false);
-		}
-
 		if (_time > 3.f)
 		{
-			if (_choiceattack == 0)
-			{				
-				_state = Monster_BigEnt_State::AttackA_Ready;
-				at->PlayAnimation(L"GiganticEntAttack_Melee_Ready", false);
-			}
-			else if (_choiceattack == 1)
-			{				
+			if ((_distance >= 200) || (_distance <= -200))
+			{
 				_state = Monster_BigEnt_State::AttackB_Ready;
-				at->PlayAnimation(L"GiganticEntAttack_Range_Ready", false);			
+				at->PlayAnimation(L"GiganticEntAttack_Range_Ready", false);
+			}
+			else
+			{
+				if (_choiceattack == 0)
+				{
+					_state = Monster_BigEnt_State::AttackA_Ready;
+					at->PlayAnimation(L"GiganticEntAttack_Melee_Ready", false);
+				}
+				else if (_choiceattack == 1)
+				{
+					_state = Monster_BigEnt_State::AttackB_Ready;
+					at->PlayAnimation(L"GiganticEntAttack_Range_Ready", false);
+				}
 			}
 		}
+		
 	}
 
 

@@ -92,6 +92,13 @@ namespace jk::renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+
+		shader = jk::Resources::Find<Shader>(L"HP_Bar_Shader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+
 		shader = jk::Resources::Find<Shader>(L"ParticleShader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -216,6 +223,7 @@ namespace jk::renderer
 #pragma endregion
 	}
 
+
 	void LoadMesh()
 	{
 		std::vector<Vertex> vertexes = {};
@@ -270,15 +278,16 @@ namespace jk::renderer
 		indexes.push_back(3);
 		mesh->CreateIndexBuffer(indexes.data(), (UINT)indexes.size());		
 
-		// Rect Debug Mesh
-		std::shared_ptr<Mesh> rectDebug = std::make_shared<Mesh>();
-		Resources::Insert(L"DebugRect", rectDebug);
-		rectDebug->CreateVertexBuffer(vertexes.data(), (UINT)vertexes.size());
-		rectDebug->CreateIndexBuffer(indexes.data(), (UINT)indexes.size());
-	#pragma endregion
+		#pragma region Rect Debug Mesh
+			std::shared_ptr<Mesh> rectDebug = std::make_shared<Mesh>();
+			Resources::Insert(L"DebugRect", rectDebug);
+			rectDebug->CreateVertexBuffer(vertexes.data(), (UINT)vertexes.size());
+			rectDebug->CreateIndexBuffer(indexes.data(), (UINT)indexes.size());
+		#pragma endregion
+#pragma endregion
 
-	#pragma region Circle
-		// Circle Debug Mesh
+	#pragma region Circle Debug Mesh
+		// 
 		vertexes.clear();
 		indexes.clear();
 
@@ -328,6 +337,7 @@ namespace jk::renderer
 
 	}
 
+
 	void LoadBuffer()
 	{
 		// Transform ConBuffer
@@ -361,7 +371,12 @@ namespace jk::renderer
 		//NoiseCB
 		constantBuffer[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
 		constantBuffer[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
+
+		// Move ConBuffer
+		constantBuffer[(UINT)eCBType::HP_Bar] = new ConstantBuffer(eCBType::HP_Bar);
+		constantBuffer[(UINT)eCBType::HP_Bar]->Create(sizeof(HP_BarCB));
 	}
+
 
 	void LoadShader()
 	{
@@ -374,7 +389,6 @@ namespace jk::renderer
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		jk::Resources::Insert(L"SpriteShader", spriteShader);
-
 
 		std::shared_ptr<Shader> spriteAniShader = std::make_shared<Shader>();
 		spriteAniShader->Create(eShaderStage::VS, L"AnimationVS.hlsl", "main");
@@ -414,12 +428,20 @@ namespace jk::renderer
 		jk::Resources::Insert(L"ParticleShader", paritcleShader);
 
 
-
 		//구름
 		std::shared_ptr<Shader> moveShader = std::make_shared<Shader>();
 		moveShader->Create(eShaderStage::VS, L"MoveVS.hlsl", "main");
 		moveShader->Create(eShaderStage::PS, L"MovePS.hlsl", "main");
 		jk::Resources::Insert(L"Move_Shader", moveShader);
+
+		//HP_Bar
+		std::shared_ptr<Shader> hp_bar_Shader = std::make_shared<Shader>();
+		hp_bar_Shader->Create(eShaderStage::VS, L"HP_Bar_VS.hlsl", "main");
+		hp_bar_Shader->Create(eShaderStage::PS, L"HP_Bar_PS.hlsl", "main");
+		jk::Resources::Insert(L"HP_Bar_Shader", hp_bar_Shader);
+
+
+
 		//타일
 #pragma region Tile_map_cmarkup
 		std::shared_ptr<Shader> tile_shader = std::make_shared<Shader>();
@@ -428,6 +450,7 @@ namespace jk::renderer
 		jk::Resources::Insert(L"Tile_Shader", tile_shader);
 #pragma endregion	
 	}
+
 
 	void LoadTexture()
 	{
@@ -445,6 +468,7 @@ namespace jk::renderer
 		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
 	}
 
+
 	void LoadMaterial()
 	{
 		std::shared_ptr<Shader> spriteShader
@@ -461,6 +485,9 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"DebugShader");
 		std::shared_ptr<Shader> particleShader
 			= Resources::Find<Shader>(L"ParticleShader");
+		std::shared_ptr<Shader> hp_bar_Shader
+			= Resources::Find<Shader>(L"HP_Bar_Shader");
+
 
 		#pragma region Public
 		#pragma region Mouse
@@ -493,7 +520,7 @@ namespace jk::renderer
 
 				#pragma region UI_Player_HP_Clean
 						texture = Resources::Load<Texture>(L"healthbar_ui", L"..\\Resources\\Texture\\UI\\Hp_Bar\\Player_HealthBar.png");
-						material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+						material = std::make_shared<Material>(); material->SetShader(hp_bar_Shader);	material->SetTexture(texture);
 						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"HealthUar_Ui", material);
 				#pragma endregion
 
@@ -967,10 +994,12 @@ namespace jk::renderer
 		LoadMaterial();	
 	}
 
+
 	void PushDebugMeshAttribute(DebugMesh mesh)
 	{
 		debugMeshs.push_back(mesh);
 	}
+
 
 	void BindNoiseTexture()
 	{
@@ -996,6 +1025,7 @@ namespace jk::renderer
 		cb->Bind(eShaderStage::CS);
 	}
 
+
 	void Render()
 	{
 		BindNoiseTexture();
@@ -1007,7 +1037,6 @@ namespace jk::renderer
 
 			cam->Render();
 		}
-
 		cameras.clear();
 	}
 

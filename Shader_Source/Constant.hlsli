@@ -120,6 +120,11 @@ cbuffer Noise : register(b7)
     float4 noiseTextureSize;
 }
 
+cbuffer HP_Bar : register(b8)
+{
+    float4 Damage;
+}
+
 
 struct Particle
 {

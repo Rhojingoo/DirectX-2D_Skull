@@ -61,7 +61,7 @@ namespace jk
 		float	_distance = 0.f;			// 플레이어와의 거리 체크
 		float   _walkdistance = 0.f;		// 자신의 첫위치와 의 거리 체크
 		bool	_Ground_check = false;		// 땅체크시에 쓰이고 있는 변수
-		float	_Attackset = 0.f;				// 공격시 사용중
+		float	_Attackset = 0.f;			// 공격시 사용중
 		float	_time = 0.f;				// 걷기시 사용중
 		bool	_attack = false;			// 공격에서 idle로 보내는 스위치 변수	
 

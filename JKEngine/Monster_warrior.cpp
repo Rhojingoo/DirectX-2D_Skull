@@ -32,7 +32,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Walk", this);
 		
-
+		
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Attack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Attack_Ready", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Dead", this, 1);
@@ -49,6 +49,38 @@ namespace jk
 		at->PlayAnimation(L"WarriorIdle", true);
 
 		{
+			Player_Hp = new Player_Hp_Bar;
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
+			Player_Hp->SetName(L"player_hp_bar");
+			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(_MaxHp, 10, 0);
+			Player_Hp->Set_Max_Hp(_MaxHp);
+			Player_Hp->Set_Current_Hp(_MaxHp);
+			Player_Hp->SetState(eState::Active);
+		}
+;
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);		
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
+		{		
+			_Death_Effect = new Monster_Death_Effect;
+			_Death_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
+			_Death_Effect->SetState(eState::Paused);
+		}
+
+		{
 			Hit_Box = new HitBox_Monster();
 			Hit_Box->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
@@ -61,6 +93,22 @@ namespace jk
 	}
 	void Monster_warrior::Update()
 	{
+		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(_pos.x-(_MaxHp - _CurrenHp), _pos.y + 50, _pos.z - 1));
+		hp_tr->SetScale(_CurrenHp, 10, 0);
+		
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 15, _pos.y, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 15, _pos.y, _pos.z - 1)); 
+		}
+		{	
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		}
+
 		_tr = GetComponent<Transform>();
 		_pos = _tr->GetPosition();
 		_velocity = _rigidbody->GetVelocity();
@@ -75,6 +123,7 @@ namespace jk
 			_walkdir = 1;
 		else
 			_walkdir = -1;
+
 
 
 		switch (_state)
@@ -163,14 +212,44 @@ namespace jk
 				{
 					at->PlayAnimation(L"WarriorHit", false);					
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
-					_tr->SetPosition(_pos);
+					_tr->SetPosition(_pos);					
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+					_CurrenHp = _CurrenHp - 10;
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
 				}
 				if (mDir == -1)
 				{
 					at->PlayAnimation(L"WarriorHitR", false);					
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					_tr->SetPosition(_pos);
+					_CurrenHp = _CurrenHp - 10;
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
 				}		
+				if (_CurrenHp <= 0)
+				{
+					_state = Monster_warrior_State::Dead;
+					_Hit_Effect->_effect_animation = true;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"WarriorDead", false);
+						_Hit_Effect->SetDirection(1);
+					}
+					else
+					{
+						at->PlayAnimation(L"WarriorDeadR", false);
+						_Hit_Effect->SetDirection(-1);
+					}	
+					_Death_Effect->SetState(eState::Active);
+				}
 			}
 		}
 	}
@@ -211,12 +290,26 @@ namespace jk
 	}
 	void Monster_warrior::OnCollisionExit(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
 	}
 
 
 	void Monster_warrior::idle()
 	{
-
 		if (_followskul == true)
 		{
 			_time += Time::DeltaTime();
@@ -268,11 +361,27 @@ namespace jk
 				}
 			}
 		}
+		if (_CurrenHp <= 0)
+		{
+			_state = Monster_warrior_State::Dead;
+			if (mDir == 1)
+				at->PlayAnimation(L"WarriorDead", false);
+			else
+				at->PlayAnimation(L"WarriorDeadR", false);
+		}
 	}
 
 	void Monster_warrior::attack()
 	{
 		_attack_Col = true;
+		if (_CurrenHp <= 0)
+		{
+			_state = Monster_warrior_State::Dead;
+			if (mDir == 1)
+				at->PlayAnimation(L"WarriorDead", false);
+			else
+				at->PlayAnimation(L"WarriorDeadR", false);
+		}
 	}
 
 	void Monster_warrior::attack_ready()
@@ -293,12 +402,19 @@ namespace jk
 			}
 			_attacktime = 0;
 		}
+		if (_CurrenHp <= 0)
+		{
+			_state = Monster_warrior_State::Dead;
+			if (mDir == 1)
+				at->PlayAnimation(L"WarriorDead", false);
+			else
+				at->PlayAnimation(L"WarriorDeadR", false);
+		}
 	}
 
 	void Monster_warrior::dead()
 	{
 	}
-
 
 	void Monster_warrior::hit()
 	{
@@ -311,6 +427,14 @@ namespace jk
 			else
 				at->PlayAnimation(L"WarriorIdleR", true);
 			_attacktime = 0;
+		}
+		if (_CurrenHp <= 0)
+		{
+			_state = Monster_warrior_State::Dead;
+			if (mDir == 1)
+				at->PlayAnimation(L"WarriorDead", false);
+			else
+				at->PlayAnimation(L"WarriorDeadR", false);
 		}
 	}
 

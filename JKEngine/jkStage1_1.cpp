@@ -20,9 +20,22 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Hitbox, true);
 		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
+		
+		//ui
+		{
+			//UI
+			//Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
+			//Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
+			//Player_State->SetName(L"playyer_state_inventory");
 
-
+			//Player_Hp_Bar* Player_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
+			////Player_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
+			//Player_Hp->SetName(L"player_hp_bar");
+			//Player_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+		}
 
 		Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
 		testmonster->SetName(L"test_monster"); 
@@ -91,7 +104,7 @@ namespace jk
 		}
 		#pragma endregion	
 
-		
+
 	}
 
 	void Stage1_1::Update()

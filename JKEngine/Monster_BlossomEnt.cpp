@@ -22,7 +22,7 @@ namespace jk
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
-
+		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\BlossomEnt\\Attack", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\BlossomEnt\\Attack_Ready", this);
@@ -46,7 +46,6 @@ namespace jk
 
 		_first_place = _pos;
 		at->PlayAnimation(L"BlossomEntIdle", true);
-
 
 		{
 			Blossomeenct_Attack = new Monster_Blossomeenct_Attack;
@@ -129,6 +128,30 @@ namespace jk
 
 	void Monster_BlossomEnt::OnCollisionEnter(Collider2D* other)
 	{
+		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
+		{
+			if (!(_state == Monster_BlossomEnt_State::Idle))
+				return;
+
+			if (!(_state == Monster_BlossomEnt_State::Attack || _state == Monster_BlossomEnt_State::Attack_Ready))
+			{
+				_state = Monster_BlossomEnt_State::Hit;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"BlossomEntHit", false);
+					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+					tr->SetPosition(_pos);
+				}
+				if (mDir == -1)
+				{
+					at->PlayAnimation(L"BlossomEntHitR", false);
+					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+					tr->SetPosition(_pos);
+				}
+			}
+		}
+
+		
 	}
 	void Monster_BlossomEnt::OnCollisionStay(Collider2D* other)
 	{
@@ -141,9 +164,6 @@ namespace jk
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
 			}
-			else
-			{
-			}
 		}
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
@@ -155,39 +175,65 @@ namespace jk
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
 			}
-			else
+		}
+
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
 			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_Ground_check = _rigidbody->GetGround();
+				_rigidbody->ClearVelocity();
 			}
 		}
 	}
 	void Monster_BlossomEnt::OnCollisionExit(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
 	}
+
 
 	void Monster_BlossomEnt::idle()
 	{
+
 		_time += Time::DeltaTime();
-
-		if (((_distance <= 50) && (_distance >= -50)))
+		if (_time >2.f)
 		{
-			_state = Monster_BlossomEnt_State::Attack_Ready;
-			if (mDir == 1)
-				at->PlayAnimation(L"BlossomEntAttack_Ready", true);
-			else
-				at->PlayAnimation(L"BlossomEntAttack_ReadyR", true);
-		}
-
-		if (_time > 3.f)
-		{
-			if (_walkdir == 1)
+			if (((_distance <= 100) && (_distance >= -100)))
 			{
-				_state = Monster_BlossomEnt_State::WalkR;
-				at->PlayAnimation(L"BlossomEntWalk", true);
+				_state = Monster_BlossomEnt_State::Attack_Ready;
+				if (mDir == 1)
+					at->PlayAnimation(L"BlossomEntAttack_Ready", true);
+				else
+					at->PlayAnimation(L"BlossomEntAttack_ReadyR", true);				
 			}
-			else if (_walkdir == -1)
-			{
-				_state = Monster_BlossomEnt_State::WalkL;
-				at->PlayAnimation(L"BlossomEntWalkR", true);
+			else
+			{				
+				if (_walkdir == 1)
+				{
+					_state = Monster_BlossomEnt_State::WalkR;
+					at->PlayAnimation(L"BlossomEntWalk", true);
+				}
+				else if (_walkdir == -1)
+				{
+					_state = Monster_BlossomEnt_State::WalkL;
+					at->PlayAnimation(L"BlossomEntWalkR", true);
+				}				
 			}
 		}
 	}
@@ -202,7 +248,7 @@ namespace jk
 		if (Blossomeenct_Attack->_bullet_Life == false)
 		{
 			_Attackset += Time::DeltaTime();
-			if (_Attackset > 1.5)
+			if (_Attackset > 1)
 			{
 				_state = Monster_BlossomEnt_State::Idle;
 				if (mDir == 1)
@@ -210,6 +256,7 @@ namespace jk
 				else
 					at->PlayAnimation(L"BlossomEntIdleR", true);
 				_Attackset = 0;
+				_time = 0;
 			}
 		}
 	}
@@ -219,6 +266,17 @@ namespace jk
 	}
 	void Monster_BlossomEnt::hit()
 	{
+		_Attackset += Time::DeltaTime();
+		if (_Attackset >= 0.5)
+		{
+			_state = Monster_BlossomEnt_State::Idle;
+			if (mDir == 1)
+				at->PlayAnimation(L"BlossomEntIdle", true);
+			else
+				at->PlayAnimation(L"BlossomEntIdleR", true);
+			_Attackset = 0;
+			_time = 0;
+		}
 	}
 	void Monster_BlossomEnt::walk_R()
 	{

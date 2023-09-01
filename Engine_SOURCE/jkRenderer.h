@@ -114,6 +114,12 @@ namespace jk::renderer
 	};
 
 
+	CBUFFER(HP_BarCB, CBSLOT_HP_Bar)
+	{
+		Vector4 _Damage;
+	};
+
+
 	extern jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 
 

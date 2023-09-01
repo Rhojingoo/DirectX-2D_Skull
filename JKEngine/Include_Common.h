@@ -108,6 +108,8 @@
 #include "Monster_BigEnt.h"
 #include "Monster_GreenTree.h"
 #include "Monster_BlossomEnt.h"
+#include "Monster_Goldwarrior.h"
+
 
 //πÃªÁ¿œ
 #include "Bullet.h"

@@ -21,13 +21,12 @@ namespace jk
 		_rigidbody->SetGround(false);
 		tr = GetComponent<Transform>();		
 		_pos = tr->GetPosition();
-		_first_place = _pos;
-
-
-
+		_first_place = _pos;		
+		
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Dead", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Tackle_Ready", this);
@@ -35,14 +34,16 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Tackle_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Walk", this);
 
+		
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack_Ready", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Dead", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Idle", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Tackle_Ready", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Tackle", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Tackle_End", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Walk", this, 1);
-
+		
 		//bind ºÎºÐ
 		at->CompleteEvent(L"HammerAttack") = std::bind(&Monster_Hammer::Complete_attack, this);
 		at->CompleteEvent(L"HammerAttackR") = std::bind(&Monster_Hammer::Complete_attack, this);
@@ -57,6 +58,39 @@ namespace jk
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetState(eState::Active); 
 		}
+
+		{
+			Player_Hp = new Player_Hp_Bar;
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
+			Player_Hp->SetName(L"player_hp_bar");
+			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(_MaxHp, 10, 0);
+			Player_Hp->Set_Max_Hp(_MaxHp);
+			Player_Hp->Set_Current_Hp(_MaxHp);
+			Player_Hp->SetState(eState::Active);
+		}
+
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
+		{
+			_Death_Effect = new Monster_Death_Effect;
+			_Death_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
+			_Death_Effect->SetState(eState::Paused);
+		}
+
 		{
 			Tackle_Flash = new Monster_Tackle_Flash_Effect();
 			Tackle_Flash->Initialize();
@@ -68,10 +102,36 @@ namespace jk
 			Tackle_Flash->SetState(eState::Paused);			
 		}
 
+		{
+			_Hammer_Effect = new Monster_Hammer_Effect();
+			_Hammer_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hammer_Effect);
+			Transform* Attack_Effect_Tr = _Hammer_Effect->GetComponent<Transform>();
+			Attack_Effect_Tr->SetPosition(tr->GetPosition());
+			_Hammer_Effect->SetState(eState::Paused);
+		}
+
 		GameObject::Initialize();
 	}
 	void Monster_Hammer::Update()
 	{
+		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp - _CurrenHp), _pos.y + 50, _pos.z - 1));
+		hp_tr->SetScale(_CurrenHp, 10, 0);
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 25, _pos.y, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 25, _pos.y, _pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		}
+
 		tr = GetComponent<Transform>();
 		_pos = tr->GetPosition();
 		_velocity = _rigidbody->GetVelocity();
@@ -80,13 +140,20 @@ namespace jk
 
 		switch (_state)
 		{
-		case jk::Monster_Hammer::Monster_Hammer_State::Idle:idle();
+		case jk::Monster_Hammer::Monster_Hammer_State::Idle:
+			idle();
 			break;
 
-		case jk::Monster_Hammer::Monster_Hammer_State::Attack:attack();
+		case jk::Monster_Hammer::Monster_Hammer_State::Attack_Ready:
+			attack_ready();
 			break;
 
-		case jk::Monster_Hammer::Monster_Hammer_State::Dead:dead();
+		case jk::Monster_Hammer::Monster_Hammer_State::Attack:
+			attack();
+			break;
+
+		case jk::Monster_Hammer::Monster_Hammer_State::Dead:
+			dead();
 			break;
 
 		case jk::Monster_Hammer::Monster_Hammer_State::Tackle_Ready:
@@ -153,6 +220,72 @@ namespace jk
 
 	void Monster_Hammer::OnCollisionEnter(Collider2D* other)
 	{		
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{			
+			_rigidbody->ClearVelocity();
+			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+			Vector3 wall_pos = Ground_TR->GetPosition();			
+
+			_attacktime += Time::DeltaTime();
+			if (_attacktime > 0.7f)
+			{
+				_state = Monster_Hammer_State::Idle;
+				if (mDir == 1)
+					at->PlayAnimation(L"HammerIdle", true);
+				else
+					at->PlayAnimation(L"HammerIdleR", true);
+
+				_time = 0;
+				_AttackCheck = 0;
+				_attacktime = 0;
+			}
+		}
+	
+		
+		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
+		{
+			if (!(_state == Monster_Hammer_State::Attack || _state == Monster_Hammer_State::Tackle))
+			{
+				if (mDir == 1)
+				{		
+					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (mDir == -1)
+				{
+					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+
+					_CurrenHp = _CurrenHp - 10;
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (_CurrenHp <= 0)
+				{
+					_state = Monster_Hammer_State::Dead;
+					_Hit_Effect->_effect_animation = true;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"HammerDead", false);
+						_Hit_Effect->SetDirection(1);
+					}
+					else
+					{
+						at->PlayAnimation(L"HammerDeadR", false);
+						_Hit_Effect->SetDirection(-1);
+					}
+					_Death_Effect->SetState(eState::Active);
+				}
+			}
+		}
+
+		//HammerDead
 	}
 	void Monster_Hammer::OnCollisionStay(Collider2D* other)
 	{
@@ -189,13 +322,41 @@ namespace jk
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
 			}
-			else
+		}
+
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			if (mGround->_SkullOn == true)
+				_followskul = true;
+			if (mGround->_SkullOn == false)
+				_followskul = false;
+
+			if (_Ground_check == false)
 			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_Ground_check = _rigidbody->GetGround();
+				_rigidbody->ClearVelocity();
 			}
 		}
 	}
 	void Monster_Hammer::OnCollisionExit(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
 	}
 
 
@@ -218,12 +379,17 @@ namespace jk
 					}
 					if (_distance > -80 && _distance < 80)
 					{
-
-						_state = Monster_Hammer_State::Attack;
+						_state = Monster_Hammer_State::Attack_Ready;
 						if (mDir == 1)
-							at->PlayAnimation(L"HammerAttack", true);
+						{
+							at->PlayAnimation(L"HammerAttack_Ready", false);
+							_attackdir = 1;
+						}
 						else
-							at->PlayAnimation(L"HammerAttackR", true);
+						{
+							at->PlayAnimation(L"HammerAttack_ReadyR", false);
+							_attackdir = -1;
+						}
 					}
 				}
 
@@ -241,9 +407,15 @@ namespace jk
 					{
 						_state = Monster_Hammer_State::Tackle_Ready;
 						if (mDir == 1)
+						{
 							at->PlayAnimation(L"HammerTackle_Ready", true);
+							_attackdir = 1;
+						}
 						else
+						{
 							at->PlayAnimation(L"HammerTackle_ReadyR", true);
+							_attackdir = -1;
+						}
 
 					}
 				}
@@ -268,9 +440,30 @@ namespace jk
 		}
 	}
 
-	void Monster_Hammer::attack()
+	void Monster_Hammer::attack_ready()
 	{
+		_attacktime += Time::DeltaTime();
+		if (_attacktime > 1)
+		{
+			_state = Monster_Hammer_State::Attack;
+			if (_attackdir == 1)			
+				at->PlayAnimation(L"HammerAttack", true);				
+			else			
+				at->PlayAnimation(L"HammerAttackR", true);				
+			_attacktime = 0;
+		}
+	}
+
+	void Monster_Hammer::attack()
+	{	
 		_attack_Col = true;
+
+		Transform* Attack_Effect_Tr = _Hammer_Effect->GetComponent<Transform>();
+		if (_attackdir == 1)
+			Attack_Effect_Tr->SetPosition(_pos.x + 30, _pos.y - 50, _pos.z - 1);
+		else
+			Attack_Effect_Tr->SetPosition(_pos.x - 30, _pos.y - 50, _pos.z - 1);
+		_Hammer_Effect->SetState(eState::Active);
 	}
 
 	void Monster_Hammer::tackle_ready()
@@ -279,19 +472,19 @@ namespace jk
 		if (_attacktime > 2.f)
 		{
 			_state = Monster_Hammer_State::Tackle;
-			if (mDir == 1)
+			if (_attackdir == 1)
 			{
 				at->PlayAnimation(L"HammerTackle", true);
 				_rigidbody->SetVelocity(Vector2(350.f, 0.f));
 				Tackle_Flash->_effect_animation = true;
-				Tackle_Flash->SetDirection(1);
+				Tackle_Flash->SetDirection(1);				
 			}
 			else
 			{
 				at->PlayAnimation(L"HammerTackleR", true);
 				_rigidbody->SetVelocity(Vector2(-350.f, 0.f));
 				Tackle_Flash->_effect_animation = true;
-				Tackle_Flash->SetDirection(-1);
+				Tackle_Flash->SetDirection(-1);				
 			}
 			_attacktime = 0;	
 			Tackle_Flash->SetState(eState::Active);
@@ -301,14 +494,14 @@ namespace jk
 	void Monster_Hammer::tackle()
 	{
 		_rigidbody->ClearVelocityY();
-		if (mDir == 1 && _velocity.x <= 285.0)
+		if (_attackdir == 1 && _velocity.x <= 285.0)
 		{
 			_state = Monster_Hammer_State::Tackle_End;
 			at->PlayAnimation(L"HammerTackle_End", false);
 			_rigidbody->ClearVelocityX();
 			Tackle_Flash->SetState(eState::Paused);
 		}
-		else if (mDir == -1 && _velocity.x >= -285.0)
+		else if (_attackdir == -1 && _velocity.x >= -285.0)
 		{
 			_state = Monster_Hammer_State::Tackle_End;
 			at->PlayAnimation(L"HammerTackle_EndR", false);
@@ -345,11 +538,17 @@ namespace jk
 		{
 			if (_distance > -80 && _distance < 80)
 			{
-				_state = Monster_Hammer_State::Attack;
+				_state = Monster_Hammer_State::Attack_Ready;
 				if (mDir == 1)
-					at->PlayAnimation(L"HammerAttack", true);
+				{
+					at->PlayAnimation(L"HammerAttack_Ready", false);
+					_attackdir = 1;
+				}
 				else
-					at->PlayAnimation(L"HammerAttackR", true);
+				{
+					at->PlayAnimation(L"HammerAttack_ReadyR", false);
+					_attackdir = -1;
+				}
 			}
 		}
 		if (_AttackCheck == 1)
@@ -358,9 +557,15 @@ namespace jk
 			{
 				_state = Monster_Hammer_State::Tackle_Ready;
 				if (mDir == 1)
+				{
 					at->PlayAnimation(L"HammerTackle_Ready", true);
+					_attackdir = 1;
+				}
 				else
+				{
 					at->PlayAnimation(L"HammerTackle_ReadyR", true);
+					_attackdir = -1;
+				}
 			}
 		}			
 		tr->SetPosition(_pos);
@@ -397,13 +602,15 @@ namespace jk
 	void Monster_Hammer::Complete_attack()
 	{
 		_attack_Col = false;
-		_state = Monster_Hammer_State::Idle;
+
+		if (_attack_Col == false)
+			_state = Monster_Hammer_State::Idle;
 		if (mDir == 1)
 			at->PlayAnimation(L"HammerIdle", true);
 		else
 			at->PlayAnimation(L"HammerIdleR", true);
-
 		_time = 0;
+
 		_AttackCheck++;
 	}
 
@@ -424,7 +631,7 @@ namespace jk
 
 	void Monster_Hammer::SetEffect_pos()
 	{
-		if (mDir == 1)
+		if (_attackdir == 1)
 		{
 			_Effect_pos.x = _pos.x - 50;
 			_Effect_pos.y = _pos.y;

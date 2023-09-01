@@ -42,23 +42,14 @@ namespace jk
 		mPosition = pos;
 
 
-		//if (_Collider_attack == false)
-		//{
-		//}
-		//else
-		//{
-		//	scale.x *= mSize.x;
-		//	scale.y *= mSize.y;
-		//	pos.x += mCenter.x;
-		//	pos.y += mCenter.y;
-		//	mPosition = pos;
-		//}
+
 
 		graphics::DebugMesh mesh = {};
 		mesh.position = pos;
 		mesh.scale = _Scale;
-		mesh.rotation = rotation;
-		mesh.type = eColliderType::Rect;
+		mesh.rotation = rotation; 
+		mesh.type = mType;
+		//mesh.type = eColliderType::Rect;
 
 		renderer::PushDebugMeshAttribute(mesh);
 	}

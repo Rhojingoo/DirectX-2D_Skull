@@ -12,6 +12,7 @@ namespace jk
 	{
 	}
 
+
 	void Monster_GreenTree::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
@@ -200,6 +201,21 @@ namespace jk
 	}
 	void Monster_GreenTree::OnCollisionExit(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(false);
+			_Ground_check = false;
+		}
 	}
 
 
@@ -281,6 +297,7 @@ namespace jk
 	{
 	}
 
+
 	void Monster_GreenTree::dead()
 	{
 	}
@@ -319,6 +336,7 @@ namespace jk
 			_time = 0; _walkdir *= -1;
 		}
 	}
+
 
 	void Monster_GreenTree::Complete_Attack()
 	{

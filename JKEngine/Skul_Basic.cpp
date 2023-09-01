@@ -116,6 +116,19 @@ namespace jk
 		at->CompleteEvent(L"NoHeadAttackAR") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NoHeadAttackB") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NoHeadAttackBR") = std::bind(&Skul_Basic::attack_choice, this);	
+
+
+		{
+			_Hit_Effect = new Player_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
+
+
 		GameObject::Initialize();
 	}
 
@@ -127,17 +140,22 @@ namespace jk
 		_velocity = _rigidbody->GetVelocity();
 		_Ground_On = _Ground_check;
 
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
+		}
+
+
 		if (_switch == true)
 		{
 			_State = Skul_Basic::Skul_Basic_State::Switch;
-			if (mDir == 1)
-			{
-				at->PlayAnimation(L"Skul_BasicSwitch", true);
-			}
+			if (mDir == 1)		
+				at->PlayAnimation(L"Skul_BasicSwitch", true);			
 			else
-			{
-				at->PlayAnimation(L"Skul_BasicSwitchR", true);
-			}
+				at->PlayAnimation(L"Skul_BasicSwitchR", true);			
 		}
 
 		switch (_State)
@@ -193,7 +211,7 @@ namespace jk
 	void Skul_Basic::LateUpdate()
 	{
 		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
-		if (_attack_Acheck==true/*_State == Skul_Basic_State::Attack_A*/)
+		if (_attack_Acheck==true)
 		{	
 			Hit_Box->SetState(eState::Active);
 			if (mDir == 1)			
@@ -201,7 +219,7 @@ namespace jk
 			else			
 				HitBox_TR->SetPosition(Vector3(pos.x - 50, pos.y, pos.z));			
 		}
-		else if (_attack_Bcheck==true/*_State == Skul_Basic_State::Attack_B*/)
+		else if (_attack_Bcheck==true)
 		{
 			Hit_Box->SetState(eState::Active);
 			if (mDir == 1)
@@ -323,29 +341,37 @@ namespace jk
 			{
 				_State = Skul_Basic_State::Skill_A;
 				RigidBody* head_rjg = Skul_Head->Getrigidbody();
-				head_rjg->SetGround(false);
-				Skul_Head->SetState(eState::Active);
+				head_rjg->SetGround(false);				
 				if (mDir == 1)
 				{
 					at->PlayAnimation(L"Skul_BasicSkill", true);
-					mDir = 1; _Skulhead = true;			
-					Skul_Head->Setattack(true);
-					Skul_Head->GetComponent<Transform>()->SetPositionXY(Vector2{ tr->GetPosition().x+35, tr->GetPosition().y +10 });
+					_Skulhead = true;
+					Skul_Head->Setattack(true);				
+					Skul_Head->SetHead = true;
+					Skul_Head->SetDirection(1);
+					Skul_Head->SetState(eState::Active);
+					Skul_Head->SetBeforeAttackPos(pos);
+					Skul_Head->GetComponent<Transform>()->SetPositionXY(Vector2{ tr->GetPosition().x+45, tr->GetPosition().y +10 });
 					Skul_Head->GetComponent<RigidBody>()->SetVelocity(Vector2{ 450.f, 0.0f });
+					Skul_Head->GetComponent<RigidBody>()->SetFriction(true);
+					Skul_Head->GetComponent<RigidBody>()->SetGravity(true);
 					_skulheadtemp = pos;
 				}
 				else if (mDir == -1)
 				{
 					at->PlayAnimation(L"Skul_BasicSkillR", true);
-					mDir = -1; _Skulhead = true;		
+					_Skulhead = true;		
+					Skul_Head->SetHead = true;
 					Skul_Head->Setattack(true);
-					Skul_Head->GetComponent<Transform>()->SetPositionXY(Vector2{ tr->GetPosition().x-35, tr->GetPosition().y + 10 });
+					Skul_Head->SetDirection(-1);
+					Skul_Head->SetState(eState::Active);
+					Skul_Head->SetBeforeAttackPos(pos);
+					Skul_Head->GetComponent<Transform>()->SetPositionXY(Vector2{ tr->GetPosition().x-45, tr->GetPosition().y + 10 });		
 					Skul_Head->GetComponent<RigidBody>()->SetVelocity(Vector2{ -450.f, 0.0f });
+					Skul_Head->GetComponent<RigidBody>()->SetFriction(true);
+					Skul_Head->GetComponent<RigidBody>()->SetGravity(true);
 					_skulheadtemp = pos;
 				}					
-			}
-			else
-			{
 			}
 		}
 
@@ -755,30 +781,26 @@ namespace jk
 
 	void Skul_Basic::skill_a()
 	{
-		Transform* tr_head = Skul_Head->GetComponent<Transform>();
-		Vector3 currenthead = tr_head->GetPosition();
-
-
-		RigidBody* head_rjg = Skul_Head->Getrigidbody();
-		head_rjg->ClearVelocityY();
-		Vector2 _velocity_head = head_rjg->GetVelocity();
-		Skul_Head->Setgroundcheck(false);
+		//Transform* tr_head = Skul_Head->GetComponent<Transform>();
+		//Vector3 currenthead = tr_head->GetPosition();
+		//RigidBody* head_rjg = Skul_Head->Getrigidbody();
+		//head_rjg->ClearVelocityY();
+		//Vector2 _velocity_head = head_rjg->GetVelocity();
+		//Skul_Head->Setgroundcheck(false);
 		
-		float Headdis =_skulheadtemp.x - currenthead.x;
-		//if (mDir == 1 && _velocity_head.x <= 220.0)
-		if (mDir == 1 && Headdis <= -500)
-		{			
-			head_rjg->SetGround(false);
-			head_rjg->ClearVelocityX();
-			mDir = 1;
-		}
-		//else if (mDir == -1 && _velocity_head.x >= -220.0)
-		else if (mDir == -1 && Headdis >= 500.0)
-		{
-			head_rjg->SetGround(false);
-			head_rjg->ClearVelocityX();
-			mDir = -1;
-		}
+		//float Headdis =_skulheadtemp.x - currenthead.x;		
+		//if (mDir == 1 && Headdis <= -500)
+		//{			
+		//	head_rjg->SetGround(false);
+		//	head_rjg->ClearVelocityX();
+		//	mDir = 1;
+		//}
+		//else if (mDir == -1 && Headdis >= 500.0)
+		//{
+		//	head_rjg->SetGround(false);
+		//	head_rjg->ClearVelocityX();
+		//	mDir = -1;
+		//}
 	}
 
 	void Skul_Basic::skill_b()
@@ -820,6 +842,50 @@ namespace jk
 				Setskillcheck(false);
 				_Skulhead = false;
 				Skul_Head->SetState(eState::Paused);
+			}
+		}
+
+		if (HitBox_Monster* _Monster = dynamic_cast<HitBox_Monster*>(other->GetOwner()))
+		{		
+			if (mDir == 1)
+			{			
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));	
+
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			if (mDir == -1)
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(-1);
+				_Hit_Effect->SetState(eState::Active);
+			}		
+		}
+
+		if (Monster_Hammer* Hammer = dynamic_cast<Monster_Hammer*>(other->GetOwner()))
+		{
+			hammer_st = Hammer->GetState();
+			if (hammer_st == Monster_Hammer::Monster_Hammer_State::Tackle)
+			{
+				if (mDir == 1)
+				{
+					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (mDir == -1)
+				{
+					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
+				}
 			}
 		}
 

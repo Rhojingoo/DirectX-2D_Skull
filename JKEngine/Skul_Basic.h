@@ -1,6 +1,9 @@
 #pragma once
 #include "Include_Common.h"
 #include "Skul_head.h"
+#include "Player_Hit_Effect.h"
+#include "HitBox_Monster.h"
+#include "Monster_Hammer.h"
 
 
 namespace jk
@@ -56,7 +59,9 @@ namespace jk
 		static int GetDirection() { return mDir; }
 		Skul_Basic_State Get_Skul_state() { return _State; }
 
-
+	private:
+		Player_Hit_Effect* _Hit_Effect = nullptr;
+		Monster_Hammer::Monster_Hammer_State hammer_st = {};
 
 	private:
 		Skul_Basic_State _State;
