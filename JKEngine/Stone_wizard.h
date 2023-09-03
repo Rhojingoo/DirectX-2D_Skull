@@ -3,6 +3,10 @@
 #include "Monster_StoneWizard_Teleport.h"
 #include "Monster_StoneWizard_Icicle_Effect.h"
 #include "Monster_Stone_wizard_IcicleBullet.h"
+#include "Player_Hp_Bar.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
+
 
 namespace jk
 {
@@ -42,6 +46,12 @@ namespace jk
 		void teleport_out();
 
 	private:
+		float _MaxHp = 100;
+		float _CurrenHp = 100;
+		int	_bulletcheck = 0;
+
+
+	private:
 		Stone_wizard_State _state;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
@@ -50,6 +60,13 @@ namespace jk
 		Transform* Effect_tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
+
+	private:
+		HitBox_Monster* Hit_Box = nullptr;
+		Player_Hp_Bar* Player_Hp = nullptr;
+		Monster_Hit_Effect* _Hit_Effect = nullptr;
+		Monster_Death_Effect* _Death_Effect = nullptr;
+
 
 	private:
 		Monster_StoneWizard_Teleport* Wizard_Teleport = nullptr;

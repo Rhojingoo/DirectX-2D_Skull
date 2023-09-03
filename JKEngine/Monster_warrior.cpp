@@ -264,13 +264,15 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 
+					_state = Monster_warrior_State::Hit;
 					if (mDir == 1)
 					{
+						at->PlayAnimation(L"WarriorHit", false);
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
-
-						_CurrenHp = _CurrenHp - 25;
+						_tr->SetPosition(_pos);
 						Player_Hp->_HitOn = true;
 						Player_Hp->SetHitDamage(25);
+						_CurrenHp = _CurrenHp - 25;
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(1);
@@ -278,8 +280,9 @@ namespace jk
 					}
 					if (mDir == -1)
 					{
+						at->PlayAnimation(L"WarriorHitR", false);
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
-
+						_tr->SetPosition(_pos);
 						_CurrenHp = _CurrenHp - 25;
 						Player_Hp->_HitOn = true;
 						Player_Hp->SetHitDamage(25);

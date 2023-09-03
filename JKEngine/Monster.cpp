@@ -17,7 +17,7 @@ namespace jk
 	}
 	void Monster::Initialize()
 	{
-		_Gobjs[0] = new Monster_warrior;
+		_Gobjs[0] = new Stone_wizard;
 		_Gobjs[0]->Initialize();
 
 		//_Gobjs[0] = new Monster_warrior;
