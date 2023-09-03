@@ -30,6 +30,23 @@ namespace jk
 					//player->GetComponent<Transform>()->SetScale(Vector3(100.2f, 100.2f, 0.2f));
 			#pragma endregion
 
+
+		#pragma region CollisionManager
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
+				CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Hitbox, true);
+				CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
+				CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
+		#pragma endregion 
+
+
 		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 

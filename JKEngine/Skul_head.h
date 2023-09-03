@@ -16,11 +16,6 @@ namespace jk
 		virtual void LateUpdate()	override;
 		virtual void Render()		override;
 
-		//enum class Skul_Head_State
-		//{
-		//	jump,
-		//	down,
-		//};
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
@@ -33,7 +28,11 @@ namespace jk
 		void SetBeforeAttackPos(Vector3 set) { _Before_Attack_Pos = set; }
 
 		bool SetHead = false;
+		bool _Head_Rotation = false;
+		bool _Head_Boom = false;
+		bool _Head_Attack = false;
 		bool Head_Life = false;
+		bool _Ground_check = false;
 
 	private:
 		Animator* at = nullptr;
@@ -49,6 +48,6 @@ namespace jk
 		int mDir = 1;
 		float _time = 0.f;
 		bool _attack = false;
-		bool _Ground_check = false;
+		//bool _Ground_check = false;
 	};
 }

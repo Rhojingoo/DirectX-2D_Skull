@@ -55,8 +55,8 @@ namespace jk
 		Monster_Hammer_State GetState() { return _state; }
 
 	private:
-		float _MaxHp = 100;
-		float _CurrenHp = 100;
+		float _MaxHp = 200;
+		float _CurrenHp = 200;
 
 	private:
 		Monster_Hammer_State _state = {};
@@ -83,6 +83,8 @@ namespace jk
 		int		mDir = 1;
 		int		_attackdir = 1;
 		int		_walkdir = 1;
+		int		_bulletcheck = 0;
+
 
 		float	_distance = 0.f;			// 플레이어와의 거리 체크
 		float   _walkdistance = 0.f;		// 자신의 첫위치와 의 거리 체크

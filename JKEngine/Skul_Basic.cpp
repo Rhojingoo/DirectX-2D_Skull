@@ -36,7 +36,7 @@ namespace jk
 		Skul_Head = new Skul_head();
 		Skul_Head->Initialize();
 		Scene* scene = SceneManager::GetActiveScene();
-		scene->AddGameObject(eLayerType::Item, Skul_Head);
+		scene->AddGameObject(eLayerType::Player, Skul_Head);
 		Transform* tr_head = Skul_Head->GetComponent<Transform>();
 		tr_head->SetPosition(Vector3(pos.x, pos.y, -250.f));
 		Skul_Head->GetComponent<Transform>()->SetScale(Vector3(15.f, 13.f, 0.f));
@@ -834,12 +834,19 @@ namespace jk
 		{
 			if (_Skulhead == true)
 			{
-				_State = Skul_Basic_State::Idle;
-				if (mDir == 1)
-					at->PlayAnimation(L"Skul_BasicIdle", true);
+				if (_State == Skul_Basic_State::Dash)
+				{
+
+				}
 				else
-					at->PlayAnimation(L"Skul_BasicIdleR", true);
-				Setskillcheck(false);
+				{
+					_State = Skul_Basic_State::Idle;
+					if (mDir == 1)
+						at->PlayAnimation(L"Skul_BasicIdle", true);
+					else
+						at->PlayAnimation(L"Skul_BasicIdleR", true);
+				}
+					Setskillcheck(false);
 				_Skulhead = false;
 				Skul_Head->SetState(eState::Paused);
 			}

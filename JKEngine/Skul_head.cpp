@@ -42,29 +42,81 @@ namespace jk
 			
 			Head_Life = true;
 			SetHead = false;
+			_Head_Rotation = true;
 		}
 		else
-		{		
-			if (mDir == 1)
-				tr->AddRotationZ(15);
-			else
-				tr->AddRotationZ(-15);
+		{	
+			if (_Head_Rotation == true)
+			{
+				if (mDir == 1)
+					tr->AddRotationZ(15);
+				else
+					tr->AddRotationZ(-15);
 
-			if (CurrentPos >= 550)
+				if (_Head_Attack == false)
+				{
+					if (CurrentPos >= 550)
+					{
+						_Head_Rotation = false;
+						_rigidbody->ClearVelocity();
+						_rigidbody->SetFriction(false);
+						_rigidbody->SetGravity(false);
+						_rigidbody->SetGround(false);
+						tr->SetRotationZ(tr->GetRotationZ());
+						_Head_Boom = true;
+					}
+					if (CurrentPos <= -550)
+					{
+						_Head_Rotation = false;
+						_rigidbody->ClearVelocity();
+						_rigidbody->SetFriction(false);
+						_rigidbody->SetGravity(false);
+						_rigidbody->SetGround(false);
+						tr->SetRotationZ(tr->GetRotationZ());
+						_Head_Boom = true;
+					}
+				}
+				else
+				{
+					_Head_Rotation = false;
+					_rigidbody->ClearVelocity();
+					_rigidbody->SetFriction(false);
+					_rigidbody->SetGravity(false);
+					_rigidbody->SetGround(false);
+					tr->SetRotationZ(tr->GetRotationZ());
+					_Head_Boom = true;		
+					//_Head_Attack = false;
+				}
+			}
+			else
 			{
-				_rigidbody->ClearVelocity();	
-				_rigidbody->SetFriction(false);
-				_rigidbody->SetGravity(false);
-				_rigidbody->SetGround(false);
-				tr->SetRotationZ(tr->GetRotationZ());				
-			}			
-			if (CurrentPos <= -550)
-			{
-				_rigidbody->ClearVelocity();
-				_rigidbody->SetFriction(false);
-				_rigidbody->SetGravity(false);
-				_rigidbody->SetGround(false);
-				tr->SetRotationZ(tr->GetRotationZ());				
+				if (_Head_Boom == true)
+				{
+					if (mDir == 1)
+						tr->AddRotationZ(5);
+					else
+						tr->AddRotationZ(-5);
+					_rigidbody->SetVelocity(Vector2(0.f, 150.f));
+					_Head_Boom = false;
+
+				}
+				else
+				{
+					_time += Time::DeltaTime();
+					if (_time < 0.5)
+					{
+						if (mDir == 1)
+							tr->AddRotationZ(5);
+						else
+							tr->AddRotationZ(-5);
+					}
+					else
+					{
+						_rigidbody->ClearVelocity();
+						//if (_Head_Attack == true)
+						//	_Head_Attack = false;
+					}
+				}
 			}
 			Head_Life = false;
 		}
@@ -109,6 +161,7 @@ namespace jk
 
 	void Skul_head::OnCollisionEnter(Collider2D* other)
 	{
+
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
 			if (_Ground_check == false)
@@ -117,13 +170,56 @@ namespace jk
 				_rigidbody->SetGround(true);
 				_rigidbody->ClearVelocity();
 				_Ground_check = true;
+				_Head_Attack = false;
 			}
 		}
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_attack = false;
+				_rigidbody->SetGround(true);
+				_rigidbody->ClearVelocity();
+				_Ground_check = true;
+				_Head_Attack = false;
+			}
+		}
+
+
+		if (Skul_Basic* player = dynamic_cast<Skul_Basic*>(other->GetOwner()))
+		{
+			_time = 0;
+			_Head_Attack = false;
+		}
+
+		if (Monster_Hammer* monster = dynamic_cast<Monster_Hammer*>(other->GetOwner()))
+		{
+			_Head_Attack = true;
+		}
+
+		if (Monster_warrior* monster = dynamic_cast<Monster_warrior*>(other->GetOwner()))
+		{
+			_Head_Attack = true;
+		}
+
+		if (Monster_BigEnt* monster = dynamic_cast<Monster_BigEnt*>(other->GetOwner()))
+		{
+			_Head_Attack = true;
+		}
+
+
 	}
 	void Skul_head::OnCollisionStay(Collider2D* other)
 	{
+
+
+
 	}
 	void Skul_head::OnCollisionExit(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_Ground_check = false;
+		}
 	}
 }

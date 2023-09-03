@@ -47,6 +47,7 @@ namespace jk
 	private:
 		float _MaxHp = 100;
 		float _CurrenHp = 100;
+		int	_bulletcheck = 0;
 
 
 	private:

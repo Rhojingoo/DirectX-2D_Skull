@@ -252,6 +252,61 @@ namespace jk
 				}
 			}
 		}
+
+
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			if (!(_state == Monster_warrior_State::Attack || _state == Monster_warrior_State::Attack_Ready))
+			{
+				if (player->_Head_Attack == false && _bulletcheck == 0)
+				{
+
+					if (player->_Ground_check == true)
+						return;
+
+					if (mDir == 1)
+					{
+						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+
+						_CurrenHp = _CurrenHp - 25;
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(25);
+
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetDirection(1);
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (mDir == -1)
+					{
+						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+
+						_CurrenHp = _CurrenHp - 25;
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(25);
+
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetDirection(-1);
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (_CurrenHp <= 0)
+					{
+						_state = Monster_warrior_State::Dead;
+						_Hit_Effect->_effect_animation = true;
+						if (mDir == 1)
+						{
+							at->PlayAnimation(L"WarriorDead", false);
+							_Hit_Effect->SetDirection(1);
+						}
+						else
+						{
+							at->PlayAnimation(L"WarriorDeadR", false);
+							_Hit_Effect->SetDirection(-1);
+						}
+					}
+					_bulletcheck++;
+				}
+			}
+		}
 	}
 	void Monster_warrior::OnCollisionStay(Collider2D* other)
 	{
@@ -304,6 +359,10 @@ namespace jk
 		{
 			_rigidbody->SetGround(false);
 			_Ground_check = false;
+		}
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			_bulletcheck = 0;
 		}
 	}
 

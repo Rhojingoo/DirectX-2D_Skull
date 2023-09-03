@@ -14,13 +14,16 @@ namespace jk
 #pragma region CollisionManager
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Hitbox, true);
 		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 #pragma endregion 
 
 
