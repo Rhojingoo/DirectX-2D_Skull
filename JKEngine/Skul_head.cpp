@@ -185,7 +185,6 @@ namespace jk
 			}
 		}
 
-
 		if (Skul_Basic* player = dynamic_cast<Skul_Basic*>(other->GetOwner()))
 		{
 			_time = 0;
@@ -196,8 +195,23 @@ namespace jk
 		{
 			_Head_Attack = true;
 		}
-
+		
 		if (Monster_warrior* monster = dynamic_cast<Monster_warrior*>(other->GetOwner()))
+		{
+			_Head_Attack = true;
+		}
+
+		if (Stone_wizard* monster = dynamic_cast<Stone_wizard*>(other->GetOwner()))
+		{
+			_Head_Attack = true;
+		}
+
+		if (Monster_GreenTree* monster = dynamic_cast<Monster_GreenTree*>(other->GetOwner()))
+		{
+			_Head_Attack = true;
+		}
+
+		if (Monster_BlossomEnt* monster = dynamic_cast<Monster_BlossomEnt*>(other->GetOwner()))
 		{
 			_Head_Attack = true;
 		}
@@ -207,7 +221,15 @@ namespace jk
 			_Head_Attack = true;
 		}
 
+		if (Monster_Goldwarrior* monster = dynamic_cast<Monster_Goldwarrior*>(other->GetOwner()))
+		{
+			_Head_Attack = true;
+		}
 
+		if (Monster_GoldHammer* monster = dynamic_cast<Monster_GoldHammer*>(other->GetOwner()))
+		{
+			_Head_Attack = true;
+		}
 	}
 	void Skul_head::OnCollisionStay(Collider2D* other)
 	{

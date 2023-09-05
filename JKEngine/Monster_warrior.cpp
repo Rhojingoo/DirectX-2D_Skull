@@ -223,15 +223,15 @@ namespace jk
 				}
 				if (mDir == -1)
 				{
-					at->PlayAnimation(L"WarriorHitR", false);					
+					at->PlayAnimation(L"WarriorHitR", false);				
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					_tr->SetPosition(_pos);
-					_CurrenHp = _CurrenHp - 10;
 					Player_Hp->_HitOn = true;
 					Player_Hp->SetHitDamage(10);
+					_CurrenHp = _CurrenHp - 10;
 
 					_Hit_Effect->_effect_animation = true;
-					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetDirection(1);
 					_Hit_Effect->SetState(eState::Active);
 				}		
 				if (_CurrenHp <= 0)
@@ -253,14 +253,12 @@ namespace jk
 			}
 		}
 
-
 		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
 		{
 			if (!(_state == Monster_warrior_State::Attack || _state == Monster_warrior_State::Attack_Ready))
 			{
 				if (player->_Head_Attack == false && _bulletcheck == 0)
 				{
-
 					if (player->_Ground_check == true)
 						return;
 
@@ -318,15 +316,11 @@ namespace jk
 			if (_Ground_check == false)
 			{
 				_rigidbody->SetGround(true);
-				_Ground_check = true;	
+				_Ground_check = true;
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
 			}
-			else
-			{
-			}
 		}
-
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			if (mGround->_SkullOn == true)
@@ -340,9 +334,6 @@ namespace jk
 				_Ground_check = true;
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
-			}
-			else
-			{
 			}
 		}
 	}

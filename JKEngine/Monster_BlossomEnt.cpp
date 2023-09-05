@@ -57,6 +57,38 @@ namespace jk
 			Blossomeenct_Attack->SetState(eState::Paused);
 		}
 
+		{
+			Player_Hp = new Player_Hp_Bar;
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
+			Player_Hp->SetName(L"player_hp_bar");
+			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(_MaxHp, 10, 0);
+			Player_Hp->Set_Max_Hp(_MaxHp);
+			Player_Hp->Set_Current_Hp(_MaxHp);
+			Player_Hp->SetState(eState::Active);
+		}
+		;
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
+		{
+			_Death_Effect = new Monster_Death_Effect;
+			_Death_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
+			_Death_Effect->SetState(eState::Paused);
+		}
+
 		GameObject::Initialize();
 	}
 
@@ -76,6 +108,27 @@ namespace jk
 			mDir = 1;
 		else
 			mDir = -1;
+
+		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp - _CurrenHp), _pos.y + 50, _pos.z - 1));
+		hp_tr->SetScale(_CurrenHp, 10, 0);
+
+		if (_CurrenHp <= 0)
+			this->SetState(eState::Paused);
+
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 15, _pos.y, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 15, _pos.y, _pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		}
+
+
 
 		switch (_state)
 		{
@@ -141,17 +194,80 @@ namespace jk
 					at->PlayAnimation(L"BlossomEntHit", false);
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 					tr->SetPosition(_pos);
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+					_CurrenHp = _CurrenHp - 10;
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
 				}
 				if (mDir == -1)
 				{
 					at->PlayAnimation(L"BlossomEntHitR", false);
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					tr->SetPosition(_pos);
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+					_CurrenHp = _CurrenHp - 10;
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (_CurrenHp <= 0)
+				{
+					_state = Monster_BlossomEnt_State::Dead;
+					_Hit_Effect->_effect_animation = true;
 				}
 			}
 		}
 
-		
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			if (!(_state == Monster_BlossomEnt_State::Attack || _state == Monster_BlossomEnt_State::Attack_Ready))
+			{
+				if (player->_Head_Attack == false && _bulletcheck == 0)
+				{
+					if (player->_Ground_check == true)
+						return;
+
+					_state = Monster_BlossomEnt_State::Hit;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"BlossomEntHit", false);
+						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+						tr->SetPosition(_pos);
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(25);
+						_CurrenHp = _CurrenHp - 25;
+
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetDirection(1);
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (mDir == -1)
+					{
+						at->PlayAnimation(L"BlossomEntHitR", false);
+						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+						tr->SetPosition(_pos);
+						_CurrenHp = _CurrenHp - 25;
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(25);
+
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetDirection(-1);
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (_CurrenHp <= 0)
+					{
+						_state = Monster_BlossomEnt_State::Dead;
+						_Hit_Effect->_effect_animation = true;
+					}
+					_bulletcheck++;
+				}
+			}
+		}
 	}
 	void Monster_BlossomEnt::OnCollisionStay(Collider2D* other)
 	{
@@ -204,6 +320,10 @@ namespace jk
 		{
 			_rigidbody->SetGround(false);
 			_Ground_check = false;
+		}
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			_bulletcheck = 0;
 		}
 	}
 

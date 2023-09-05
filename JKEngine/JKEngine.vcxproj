@@ -217,6 +217,7 @@
     <ClInclude Include="Monster_Death_Effect.h" />
     <ClInclude Include="Monster_Ent_GroundAttack.h" />
     <ClInclude Include="Monster_GiganticEnt_Stamp.h" />
+    <ClInclude Include="Monster_GoldHammer.h" />
     <ClInclude Include="Monster_Goldwarrior.h" />
     <ClInclude Include="Monster_GroundAttack_Sign.h" />
     <ClInclude Include="Monster_Hammer_Effect.h" />
@@ -369,6 +370,7 @@
     <ClCompile Include="Monster_Death_Effect.cpp" />
     <ClCompile Include="Monster_Ent_GroundAttack.cpp" />
     <ClCompile Include="Monster_GiganticEnt_Stamp.cpp" />
+    <ClCompile Include="Monster_GoldHammer.cpp" />
     <ClCompile Include="Monster_Goldwarrior.cpp" />
     <ClCompile Include="Monster_GroundAttack_Sign.cpp" />
     <ClCompile Include="Monster_Hammer_Effect.cpp" />

@@ -16,6 +16,7 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Bullet, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);

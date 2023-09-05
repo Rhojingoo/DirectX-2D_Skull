@@ -36,6 +36,7 @@ namespace jk
 			Hit,
 			Teleport_In,
 			Teleport_Out,
+			Dead,
 		};
 
 		void idle();

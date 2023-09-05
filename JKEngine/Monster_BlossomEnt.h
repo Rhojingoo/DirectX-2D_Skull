@@ -1,6 +1,8 @@
 #pragma once
 #include "Include_Common.h"
 #include "Monster_Blossomeenct_Attack.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
 
 namespace jk
 {
@@ -39,6 +41,17 @@ namespace jk
 		void walk_R();
 		void walk_L();
 		
+	private:
+		float _MaxHp = 100;
+		float _CurrenHp = 100;
+		int	_bulletcheck = 0;
+
+
+	private:
+		Player_Hp_Bar* Player_Hp = nullptr;
+		Monster_Hit_Effect* _Hit_Effect = nullptr;
+		Monster_Death_Effect* _Death_Effect = nullptr;
+
 
 	private:
 		Monster_BlossomEnt_State _state;

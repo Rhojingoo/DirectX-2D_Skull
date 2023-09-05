@@ -896,6 +896,50 @@ namespace jk
 			}
 		}
 
+		if (Monster_GoldHammer* Hammer = dynamic_cast<Monster_GoldHammer*>(other->GetOwner()))
+		{
+			Goldhammer_st = Hammer->GetState();
+			if (Goldhammer_st == Monster_GoldHammer::Monster_GoldHammer_State::Tackle)
+			{
+				if (mDir == 1)
+				{
+					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (mDir == -1)
+				{
+					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+			}
+		}
+
+		if (Bullet* Hammer = dynamic_cast<Bullet*>(other->GetOwner()))
+		{
+			if (mDir == 1)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			if (mDir == -1)
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(-1);
+				_Hit_Effect->SetState(eState::Active);
+			}			
+		}
+
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			_Wall_check = true;

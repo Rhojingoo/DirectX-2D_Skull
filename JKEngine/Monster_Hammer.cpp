@@ -274,7 +274,7 @@ namespace jk
 				{
 					_state = Monster_Hammer_State::Dead;
 					_Hit_Effect->_effect_animation = true;
-					if (mDir == 1)
+					if (_attackdir == 1)
 					{
 						at->PlayAnimation(L"HammerDead", false);
 						_Hit_Effect->SetDirection(1);
@@ -327,7 +327,7 @@ namespace jk
 					{
 						_state = Monster_Hammer_State::Dead;
 						_Hit_Effect->_effect_animation = true;
-						if (mDir == 1)
+						if (_attackdir == 1)
 						{
 							at->PlayAnimation(L"HammerDead", false);
 							_Hit_Effect->SetDirection(1);

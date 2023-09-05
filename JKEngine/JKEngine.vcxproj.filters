@@ -448,6 +448,9 @@
     <ClInclude Include="Monster_Hammer_Effect.h">
       <Filter>Game_ob\Monster\Public\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_GoldHammer.h">
+      <Filter>Game_ob\Monster\Monster_GoldHammer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -891,6 +894,9 @@
     <ClCompile Include="Monster_Hammer_Effect.cpp">
       <Filter>Game_ob\Monster\Public\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_GoldHammer.cpp">
+      <Filter>Game_ob\Monster\Monster_GoldHammer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1102,6 +1108,9 @@
     </Filter>
     <Filter Include="Game_ob\PLAYER\Effect">
       <UniqueIdentifier>{03066486-b7dc-41c1-842d-ebeedc091a57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_GoldHammer">
+      <UniqueIdentifier>{37ac02d8-13be-489c-87bc-e6d857ab7e4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

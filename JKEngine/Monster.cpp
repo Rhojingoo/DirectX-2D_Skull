@@ -17,8 +17,9 @@ namespace jk
 	}
 	void Monster::Initialize()
 	{
-		_Gobjs[0] = new Stone_wizard;
+		_Gobjs[0] = new Monster_GoldHammer;
 		_Gobjs[0]->Initialize();
+
 
 		//_Gobjs[0] = new Monster_warrior;
 		//_Gobjs[0]->Initialize();
@@ -34,12 +35,14 @@ namespace jk
 		//_Gobjs[5]->Initialize();
 		//_Gobjs[6] = new Monster_Goldwarrior;
 		//_Gobjs[6]->Initialize();
+		//_Gobjs[7] = new Monster_GoldHammer;
+		//_Gobjs[7]->Initialize();
 
 
 		for (int i = 0; i < 1; i++)
 		{
 			Scene* scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs[i]);
+			scene->AddGameObject(eLayerType::Monster, _Gobjs[i]);
 			Transform* tr = _Gobjs[i]->GetComponent<Transform>();
 			tr->SetPosition(Vector3(0.f, 0.f, -250.f));
 		}

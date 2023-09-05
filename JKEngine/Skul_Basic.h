@@ -4,7 +4,7 @@
 #include "Player_Hit_Effect.h"
 #include "HitBox_Monster.h"
 #include "Monster_Hammer.h"
-
+#include "Monster_GoldHammer.h"
 
 namespace jk
 {
@@ -62,6 +62,7 @@ namespace jk
 	private:
 		Player_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Hammer::Monster_Hammer_State hammer_st = {};
+		Monster_GoldHammer::Monster_GoldHammer_State Goldhammer_st = {};
 
 	private:
 		Skul_Basic_State _State;

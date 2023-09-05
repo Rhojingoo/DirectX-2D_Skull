@@ -22,7 +22,7 @@ namespace jk
 		_tr = GetComponent<Transform>();
 		_pos = _tr->GetPosition();
 		_first_place = _pos;
-
+		
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Gold_Warrior\\Attack", this);
@@ -52,15 +52,33 @@ namespace jk
 			Player_Hp = new Player_Hp_Bar;
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::UI, Player_Hp);
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
 			Player_Hp->SetName(L"player_hp_bar");
 			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y +50, _pos.z - 1));
-			hp_tr->SetScale(_Hp, 10, 0);
-			Player_Hp->Set_Max_Hp(_Hp);
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(_MaxHp, 10, 0);
+			Player_Hp->Set_Max_Hp(_MaxHp);
+			Player_Hp->Set_Current_Hp(_MaxHp);
 			Player_Hp->SetState(eState::Active);
 		}
+		;
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
 
+		{
+			_Death_Effect = new Monster_Death_Effect;
+			_Death_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
+			_Death_Effect->SetState(eState::Paused);
+		}
 
 		{
 			Hit_Box = new HitBox_Monster();
@@ -76,9 +94,20 @@ namespace jk
 	void Monster_Goldwarrior::Update()
 	{
 		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
-		hp_tr->SetScale(_Hp, 10, 0);
+		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp - _CurrenHp), _pos.y + 50, _pos.z - 1));
+		hp_tr->SetScale(_CurrenHp, 10, 0);
 
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 15, _pos.y, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 15, _pos.y, _pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		}
 
 		_tr = GetComponent<Transform>();
 		_pos = _tr->GetPosition();
@@ -183,17 +212,104 @@ namespace jk
 					at->PlayAnimation(L"Gold_WarriorHit", false);
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 					_tr->SetPosition(_pos);
-					_Hp = _Hp  - 10;
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+					_CurrenHp = _CurrenHp - 10;
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
 				}
 				if (mDir == -1)
 				{
 					at->PlayAnimation(L"Gold_WarriorHitR", false);
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					_tr->SetPosition(_pos);
-					_Hp = _Hp - 10;
-				}					
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+					_CurrenHp = _CurrenHp - 10;
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
+
+				}
+				if (_CurrenHp <= 0)
+				{
+					_state = Monster_Goldwarrior_State::Dead;
+					_Hit_Effect->_effect_animation = true;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"Gold_WarriorDead", false);
+						_Hit_Effect->SetDirection(1);
+					}
+					else
+					{
+						at->PlayAnimation(L"Gold_WarriorDeadR", false);
+						_Hit_Effect->SetDirection(-1);
+					}
+					_Death_Effect->SetState(eState::Active);
+				}
+			}							
+		}
+
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			if (!(_state == Monster_Goldwarrior_State::Attack || _state == Monster_Goldwarrior_State::Attack_Ready))
+			{
+				if (player->_Head_Attack == false && _bulletcheck == 0)
+				{
+					if (player->_Ground_check == true)
+						return;
+
+					_state = Monster_Goldwarrior_State::Hit;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"Gold_WarriorHit", false);
+						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+						_tr->SetPosition(_pos);
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(10);
+						_CurrenHp = _CurrenHp - 10;
+
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetDirection(1);
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (mDir == -1)
+					{
+						at->PlayAnimation(L"Gold_WarriorHitR", false);
+						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+						_tr->SetPosition(_pos);
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(10);
+						_CurrenHp = _CurrenHp - 10;
+
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetDirection(1);
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (_CurrenHp <= 0)
+					{
+						_state = Monster_Goldwarrior_State::Dead;
+						_Hit_Effect->_effect_animation = true;
+						if (mDir == 1)
+						{
+							at->PlayAnimation(L"Gold_WarriorDead", false);
+							_Hit_Effect->SetDirection(1);
+						}
+						else
+						{
+							at->PlayAnimation(L"Gold_WarriorDeadR", false);
+							_Hit_Effect->SetDirection(-1);
+						}
+						_Death_Effect->SetState(eState::Active);
+					}
+					_bulletcheck++;
+				}
 			}
 		}
+
 	}
 	void Monster_Goldwarrior::OnCollisionStay(Collider2D* other)
 	{
@@ -240,6 +356,10 @@ namespace jk
 		{
 			_rigidbody->SetGround(false);
 			_Ground_check = false;
+		}
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			_bulletcheck = 0;
 		}
 	}
 

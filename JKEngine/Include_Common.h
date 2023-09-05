@@ -109,6 +109,7 @@
 #include "Monster_GreenTree.h"
 #include "Monster_BlossomEnt.h"
 #include "Monster_Goldwarrior.h"
+#include "Monster_GoldHammer.h"
 
 
 //πÃªÁ¿œ

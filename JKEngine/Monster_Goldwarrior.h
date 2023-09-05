@@ -1,7 +1,8 @@
 #pragma once
 #include "Include_Common.h"
 #include "Player_Hp_Bar.h"
-
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
 
 namespace jk
 {
@@ -43,9 +44,9 @@ namespace jk
 		void walk_L();
 
 	private:
-		float _Hp = 100;
-
-
+		float _MaxHp = 100;
+		float _CurrenHp = 100;
+		int	_bulletcheck = 0;
 
 
 	private:
@@ -61,6 +62,8 @@ namespace jk
 	private:
 		HitBox_Monster* Hit_Box = nullptr;
 		Player_Hp_Bar* Player_Hp = nullptr;
+		Monster_Hit_Effect* _Hit_Effect = nullptr;
+		Monster_Death_Effect* _Death_Effect = nullptr;
 		bool _followskul = false;
 
 	private:
