@@ -5,6 +5,10 @@
 #include "HitBox_Monster.h"
 #include "Monster_Hammer.h"
 #include "Monster_GoldHammer.h"
+#include "Hit_Sword.h"
+#include "Hit_Critical_Middle.h"
+#include "Hit_Critical_High.h"
+
 
 namespace jk
 {
@@ -59,8 +63,16 @@ namespace jk
 		static int GetDirection() { return mDir; }
 		Skul_Basic_State Get_Skul_state() { return _State; }
 
+	public:
+		int _Attack_Basic = 10;
+		int _Attack_CriticalNomal = 15;
+		int _Attack_CriticalHigh = 20;
+
 	private:
 		Player_Hit_Effect* _Hit_Effect = nullptr;
+		Hit_Sword* _Hit_Sword = nullptr;
+		Hit_Critical_Middle* _Critical_Middle = nullptr;
+		Hit_Critical_High* _Critical_High = nullptr;
 		Monster_Hammer::Monster_Hammer_State hammer_st = {};
 		Monster_GoldHammer::Monster_GoldHammer_State Goldham_st = {};
 		

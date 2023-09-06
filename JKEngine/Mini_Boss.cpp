@@ -9,6 +9,10 @@ namespace jk
 	Vector3 Mini_Boss::_Pos = Vector3(0.f,0.f,0.f);
 	Vector3 Mini_Boss::_playerpos = Vector3(0.f, 0.f, 0.f);
 
+	Vector3 Mini_Boss::Left_Ground = Vector3(0.f, 0.f, 0.f);
+	Vector3 Mini_Boss::Right_Ground = Vector3(0.f, 0.f, 0.f);
+
+
 	Mini_Boss::Mini_Boss()
 		:_mboss()
 	{
@@ -19,18 +23,18 @@ namespace jk
 
 	void Mini_Boss::Initialize()
 	{
-		//_Gobjs[0] = new Archer;
-		//_Gobjs[0]->Initialize();
-
-
-		_Gobjs[0] = new Knight_male;
+		_Gobjs[0] = new Archer;
 		_Gobjs[0]->Initialize();
-		_Gobjs[1] = new Archer;
-		_Gobjs[1]->Initialize();
-		_Gobjs[2] = new Mage;
-		_Gobjs[2]->Initialize();
-		_Gobjs[3] = new Cleric;
-		_Gobjs[3]->Initialize();
+
+
+		//_Gobjs[0] = new Knight_male;
+		//_Gobjs[0]->Initialize();
+		//_Gobjs[1] = new Archer;
+		//_Gobjs[1]->Initialize();
+		//_Gobjs[2] = new Mage;
+		//_Gobjs[2]->Initialize();
+		//_Gobjs[3] = new Cleric;
+		//_Gobjs[3]->Initialize();
 
 		//std::random_device rd;
 		//std::mt19937 gen(rd());
@@ -38,7 +42,7 @@ namespace jk
 		//_minibosschoice = distribution(gen);
 
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs[i]);

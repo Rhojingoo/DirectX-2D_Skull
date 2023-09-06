@@ -51,6 +51,33 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
+		{
+			_Hit_Sword = new Hit_Sword;
+			_Hit_Sword->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
+			_Hit_Sword->SetState(eState::Paused);
+		}
+		 
+		{
+			_Critical_Middle = new Hit_Critical_Middle;
+			_Critical_Middle->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
+			_Critical_Middle->SetState(eState::Paused);
+		}
+		{
+			_Critical_High = new Hit_Critical_High;
+			_Critical_High->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_High);
+			_Critical_High->SetState(eState::Paused);
+		}
+
+
 
 
 		at = AddComponent<Animator>();
@@ -134,6 +161,13 @@ namespace jk
 
 		{
 			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Hit_Sword->GetComponent<Transform>();
 			if (mDir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
 			else
@@ -234,6 +268,8 @@ namespace jk
 	{
 		GameObject::Render();
 	}
+
+
 
 	void Skul_Basic::idle()
 	{
@@ -730,6 +766,7 @@ namespace jk
 		}				
 	}
 
+
 	void Skul_Basic::attack_a()
 	{		
 		_attack_Acheck = true;
@@ -746,7 +783,6 @@ namespace jk
 			mDir = -1;
 		}
 	}
-
 	void Skul_Basic::attack_b()
 	{	
 		_attack = false;
@@ -764,11 +800,11 @@ namespace jk
 			mDir = -1;
 		}
 	}
-
 	void Skul_Basic::jumpattack()
 	{
 		
 	}
+
 
 	void Skul_Basic::skill_a()
 	{
@@ -793,10 +829,10 @@ namespace jk
 		//	mDir = -1;
 		//}
 	}
-
 	void Skul_Basic::skill_b()
 	{
 	}
+
 
 	void Skul_Basic::change()
 	{
@@ -813,11 +849,11 @@ namespace jk
 			}
 		}
 	}
-
 	void Skul_Basic::death()
 	{
 
 	}
+
 
 	void Skul_Basic::OnCollisionEnter(Collider2D* other)
 	{		
@@ -909,7 +945,7 @@ namespace jk
 			}
 		}
 
-		if (Bullet* Hammer = dynamic_cast<Bullet*>(other->GetOwner()))
+		if (Monster_Bullet* Bullet = dynamic_cast<Monster_Bullet*>(other->GetOwner()))
 		{
 			if (mDir == 1)
 			{
@@ -927,6 +963,48 @@ namespace jk
 				_Hit_Effect->SetDirection(-1);
 				_Hit_Effect->SetState(eState::Active);
 			}			
+		}
+
+		if (Mini_Boss*  Boss = dynamic_cast<Mini_Boss*>(other->GetOwner()))
+		{
+			//Goldham_st = GoldHammer->GetState();
+			//if (Goldham_st == Monster_GoldHammer::Monster_GoldHammer_State::Tackle)
+			//{
+			//	if (mDir == 1)
+			//	{
+			//		_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+			//		_Hit_Effect->_effect_animation = true;
+			//		_Hit_Effect->SetDirection(1);
+			//		_Hit_Effect->SetState(eState::Active);
+			//	}
+			//	if (mDir == -1)
+			//	{
+			//		_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+			//		_Hit_Effect->_effect_animation = true;
+			//		_Hit_Effect->SetDirection(-1);
+			//		_Hit_Effect->SetState(eState::Active);
+			//	}
+			//}
+		}
+
+		if (MiniBoss_Bullet* Bullet = dynamic_cast<MiniBoss_Bullet*>(other->GetOwner()))
+		{
+			if (mDir == 1)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Hit_Sword->_effect_animation = true;
+				_Hit_Sword->SetDirection(-1);
+				_Hit_Sword->SetState(eState::Active);
+			}
+			if (mDir == -1)
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Hit_Sword->_effect_animation = true;
+				_Hit_Sword->SetDirection(1);
+				_Hit_Sword->SetState(eState::Active);
+			}
 		}
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
@@ -1002,7 +1080,6 @@ namespace jk
 			}
 		}
 	}
-
 	void Skul_Basic::OnCollisionStay(Collider2D* other)
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
@@ -1131,7 +1208,6 @@ namespace jk
 			
 		}
 	}
-
 	void Skul_Basic::OnCollisionExit(Collider2D* other)
 	{
 		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
@@ -1157,6 +1233,7 @@ namespace jk
 
 
 	}
+
 
 	void Skul_Basic::attack_choice()
 	{
@@ -1260,7 +1337,6 @@ namespace jk
 			}
 		}
 	}
-
 	void Skul_Basic::Input_move()
 	{
 		if (_Leftmove_Lock == false)
@@ -1306,7 +1382,6 @@ namespace jk
 			SetPlayer_Pos(pos);
 		}
 	}
-
 	void Skul_Basic::switch_on_off()
 	{	
 		if(_switch == false)

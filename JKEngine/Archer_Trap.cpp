@@ -58,6 +58,19 @@ namespace jk
 			_rigidbody->SetGround(true);		
 			_rigidbody->ClearVelocity();	
 		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+		}
+
+		if (Player* player = dynamic_cast<Player*>(other->GetOwner()))
+		{
+			this->SetState(eState::Paused);
+			_Bullet_Life = false;
+			_attackatime = 0;
+		}
 	}
 	void Archer_Trap::OnCollisionStay(Collider2D* other)
 	{

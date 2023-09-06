@@ -18,9 +18,6 @@
     <ClInclude Include="BG.h">
       <Filter>Game_ob\BG</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game_ob\PLAYER</Filter>
-    </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>Game_ob\UI</Filter>
     </ClInclude>
@@ -44,9 +41,6 @@
     </ClInclude>
     <ClInclude Include="Face_UI.h">
       <Filter>Game_ob\UI\Face</Filter>
-    </ClInclude>
-    <ClInclude Include="Skul_Basic.h">
-      <Filter>Game_ob\PLAYER</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="jkPlayerScript.h">
@@ -81,18 +75,6 @@
     </ClInclude>
     <ClInclude Include="jkPlayScene.h">
       <Filter>Scene\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Skul_Nohead.h">
-      <Filter>Game_ob\PLAYER</Filter>
-    </ClInclude>
-    <ClInclude Include="Skul_Wolf.h">
-      <Filter>Game_ob\PLAYER</Filter>
-    </ClInclude>
-    <ClInclude Include="Skul_Spear.h">
-      <Filter>Game_ob\PLAYER</Filter>
-    </ClInclude>
-    <ClInclude Include="Skul_Sword.h">
-      <Filter>Game_ob\PLAYER</Filter>
     </ClInclude>
     <ClInclude Include="jkTile_Ground.h">
       <Filter>Game_ob\BG\Tile</Filter>
@@ -141,9 +123,6 @@
     </ClInclude>
     <ClInclude Include="Yggdrasil_Hand_Left.h">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClInclude>
-    <ClInclude Include="Skul_Thief.h">
-      <Filter>Game_ob\PLAYER</Filter>
     </ClInclude>
     <ClInclude Include="Monster_BigEnt.h">
       <Filter>Game_ob\Monster\Monster_BigEnt</Filter>
@@ -451,6 +430,42 @@
     <ClInclude Include="Monster_GoldHammer.h">
       <Filter>Game_ob\Monster\Monster_GoldHammer</Filter>
     </ClInclude>
+    <ClInclude Include="Hit_Sword.h">
+      <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_Bullet.h">
+      <Filter>Game_ob\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniBoss_Bullet.h">
+      <Filter>Game_ob\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClInclude>
+    <ClInclude Include="Skul_Basic.h">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClInclude>
+    <ClInclude Include="Skul_Nohead.h">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClInclude>
+    <ClInclude Include="Skul_Spear.h">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClInclude>
+    <ClInclude Include="Skul_Sword.h">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClInclude>
+    <ClInclude Include="Skul_Thief.h">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClInclude>
+    <ClInclude Include="Skul_Wolf.h">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClInclude>
+    <ClInclude Include="Hit_Critical_Middle.h">
+      <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Hit_Critical_High.h">
+      <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -464,9 +479,6 @@
     </ClCompile>
     <ClCompile Include="BG.cpp">
       <Filter>Game_ob\BG</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game_ob\PLAYER</Filter>
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>Game_ob\UI</Filter>
@@ -491,9 +503,6 @@
     </ClCompile>
     <ClCompile Include="Face_UI.cpp">
       <Filter>Game_ob\UI\Face</Filter>
-    </ClCompile>
-    <ClCompile Include="Skul_Basic.cpp">
-      <Filter>Game_ob\PLAYER</Filter>
     </ClCompile>
     <ClCompile Include="jkPlayerScript.cpp">
       <Filter>Script</Filter>
@@ -527,18 +536,6 @@
     </ClCompile>
     <ClCompile Include="jkPlayScene.cpp">
       <Filter>Scene\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Skul_Nohead.cpp">
-      <Filter>Game_ob\PLAYER</Filter>
-    </ClCompile>
-    <ClCompile Include="Skul_Wolf.cpp">
-      <Filter>Game_ob\PLAYER</Filter>
-    </ClCompile>
-    <ClCompile Include="Skul_Spear.cpp">
-      <Filter>Game_ob\PLAYER</Filter>
-    </ClCompile>
-    <ClCompile Include="Skul_Sword.cpp">
-      <Filter>Game_ob\PLAYER</Filter>
     </ClCompile>
     <ClCompile Include="jkTile_Ground.cpp">
       <Filter>Game_ob\BG\Tile</Filter>
@@ -587,9 +584,6 @@
     </ClCompile>
     <ClCompile Include="Yggdrasil_Hand_Left.cpp">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClCompile>
-    <ClCompile Include="Skul_Thief.cpp">
-      <Filter>Game_ob\PLAYER</Filter>
     </ClCompile>
     <ClCompile Include="Monster_BigEnt.cpp">
       <Filter>Game_ob\Monster\Monster_BigEnt</Filter>
@@ -897,6 +891,42 @@
     <ClCompile Include="Monster_GoldHammer.cpp">
       <Filter>Game_ob\Monster\Monster_GoldHammer</Filter>
     </ClCompile>
+    <ClCompile Include="Hit_Sword.cpp">
+      <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniBoss_Bullet.cpp">
+      <Filter>Game_ob\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_Bullet.cpp">
+      <Filter>Game_ob\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Basic.cpp">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Nohead.cpp">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Spear.cpp">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Sword.cpp">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Thief.cpp">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClCompile>
+    <ClCompile Include="Skul_Wolf.cpp">
+      <Filter>Game_ob\PLAYER\Chatacter</Filter>
+    </ClCompile>
+    <ClCompile Include="Hit_Critical_High.cpp">
+      <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Hit_Critical_Middle.cpp">
+      <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1111,6 +1141,9 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Monster_GoldHammer">
       <UniqueIdentifier>{37ac02d8-13be-489c-87bc-e6d857ab7e4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\PLAYER\Chatacter">
+      <UniqueIdentifier>{a6c42fbf-1807-4e1a-b1f8-b59e7b7b390d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

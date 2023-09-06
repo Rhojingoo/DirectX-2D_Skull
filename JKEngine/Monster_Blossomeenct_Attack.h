@@ -1,10 +1,10 @@
 #pragma once
 #include "Include_Common.h"
-#include "Bullet.h"
+#include "Monster_Bullet.h"
 
 namespace jk
 {
-	class Monster_Blossomeenct_Attack : public Bullet
+	class Monster_Blossomeenct_Attack : public Monster_Bullet
 	{
 	public:
 		Monster_Blossomeenct_Attack();

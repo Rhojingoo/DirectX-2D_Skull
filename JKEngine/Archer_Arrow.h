@@ -1,10 +1,10 @@
 #pragma once
 #include "Include_Common.h"
-#include "Bullet.h"
+#include "MiniBoss_Bullet.h"
 
 namespace jk
 {
-	class Archer_Arrow : public Bullet
+	class Archer_Arrow : public MiniBoss_Bullet
 	{
 	public:
 		Archer_Arrow();

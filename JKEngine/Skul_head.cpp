@@ -171,6 +171,11 @@ namespace jk
 		{
 			_Head_Attack = true;
 		}		
+
+		if (Mini_Boss* monster = dynamic_cast<Mini_Boss*>(other->GetOwner()))
+		{
+			_Head_Attack = true;
+		}
 	}
 	void Skul_head::OnCollisionStay(Collider2D* other)
 	{

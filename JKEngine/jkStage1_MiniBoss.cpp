@@ -50,8 +50,9 @@ namespace jk
 		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 
-		Mini_Boss* testmboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
-		testmboss->SetName(L"test_mboss");
+		Mboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
+		Mboss->SetName(L"test_mboss");
+
 
 		#pragma region BG	
 				{
@@ -180,6 +181,10 @@ namespace jk
 		GridScript* gridSc = grid->AddComponent<GridScript>();
 		gridSc->SetCamera(cameraComp);
 #pragma endregion	
+
+		Mini_Boss::Left_Ground = (Vector3(-320.f, 0.f, 0.f));
+		Mini_Boss::Right_Ground = (Vector3(320.f, 0.f, 0.f));
+
 	}
 	void Stage1_MiniBoss::OnExit()
 	{

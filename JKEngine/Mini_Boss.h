@@ -33,6 +33,9 @@ namespace jk
 
 		int random(int a, int b);
 
+		static Vector3 Left_Ground;
+		static Vector3 Right_Ground;
+
 	private : 
 		static GameObject* _player;	
 		static MinibossList miniboss_select;
@@ -41,7 +44,11 @@ namespace jk
 		int _minibosschoice = 0;
 
 		static Vector3 _Pos;
-		GameObject* _Gobjs[4];
+
+		GameObject* _Gobjs[1];
+	
+	private:
+
 		//static bool _check_change;
 		//static int mDir;	
 

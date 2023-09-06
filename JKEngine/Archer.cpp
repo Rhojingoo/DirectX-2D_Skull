@@ -15,6 +15,8 @@ namespace jk
 	Archer::~Archer()
 	{
 	}
+
+
 	void Archer::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
@@ -32,7 +34,7 @@ namespace jk
 		//tr_head->SetPosition(Vector3(pos.x, pos.y, -250.f));
 		//Skul_Head->GetComponent<Transform>()->SetScale(Vector3(15.f, 13.f, 0.f));
 		//Skul_Head->SetState(eState::Paused);
-
+		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Attack_A", this,0);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Attack_B", this);
@@ -67,8 +69,7 @@ namespace jk
 		//bind 부분
 		at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		at->CompleteEvent(L"ArcherAttack_AR") = std::bind(&Archer::choicecombo, this);
-		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
-		//at->CompleteEvent(L"ArcherAttack_BR") = std::bind(&Archer::choicecombo, this);
+
 		at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
 		at->CompleteEvent(L"ArcherAttack_CR") = std::bind(&Archer::choicecombo, this);		
 
@@ -79,8 +80,7 @@ namespace jk
 		at->CompleteEvent(L"ArcherIntro") = std::bind(&Archer::CompleteArcherIntro, this);
 		at->CompleteEvent(L"ArcherIntroR") = std::bind(&Archer::CompleteArcherIntro, this);
 		
-		//at->CompleteEvent(L"Knight_maleExplosion_Loop") = std::bind(&Knight_male::choicecombo, this);
-		//at->CompleteEvent(L"Knight_maleExplosion_LoopR") = std::bind(&Knight_male::choicecombo, this);
+
 
 		
 		
@@ -207,6 +207,66 @@ namespace jk
 			}
 		}
 
+		{
+			Player_Hp = new Player_Hp_Bar;
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
+			Player_Hp->SetName(L"player_hp_bar");
+			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
+			hp_tr->SetScale(_MaxHp, 10, 0);
+			Player_Hp->Set_Max_Hp(_MaxHp);
+			Player_Hp->Set_Current_Hp(_MaxHp);
+			Player_Hp->SetState(eState::Active);
+		}
+		;
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
+		{
+			_Hit_Sword = new Hit_Sword;
+			_Hit_Sword->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
+			_Hit_Sword->SetState(eState::Paused);
+		}
+
+		{
+			_Critical_Middle = new Hit_Critical_Middle;
+			_Critical_Middle->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
+			_Critical_Middle->SetState(eState::Paused);
+		}
+		{
+			_Critical_High = new Hit_Critical_High;
+			_Critical_High->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_High);
+			_Critical_High->SetState(eState::Paused);
+		}
+
+		{
+			_Death_Effect = new Monster_Death_Effect;
+			_Death_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
+			_Death_Effect->SetState(eState::Paused);
+		}
+
+
+
 		at->PlayAnimation(L"ArcherIdle", true);
 		GameObject::Initialize();
 	}
@@ -221,6 +281,44 @@ namespace jk
 			mDir = 1;
 		else
 			mDir = -1;		
+
+
+		_MaxHp_scale = _MaxHp / 10;
+		_CurrenHp_scale = _CurrenHp / 10;
+		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(pos.x - (_MaxHp_scale - _CurrenHp_scale)/2, pos.y + 50, pos.z - 1));
+		hp_tr->SetScale(_CurrenHp_scale, 10, 0);
+
+		{
+			Transform* _Hit_Effect_TR = _Hit_Sword->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y-30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y-30, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
+		}
+
+		ground_distance_L = Left_Ground.x - pos.x;
+		ground_distance_R = Right_Ground.x - pos.x;
+
+
 
 		switch (_state)
 		{
@@ -302,8 +400,6 @@ namespace jk
 		_tr->SetPosition(Vector3(pos));
 		GameObject::Update();
 	}
-
-
 	void Archer::LateUpdate()
 	{
 		_collider->SetSize(Vector2(0.5f, 0.5f));
@@ -314,8 +410,6 @@ namespace jk
 
 		GameObject::LateUpdate();
 	}
-
-
 	void Archer::Render()
 	{
 		GameObject::Render();
@@ -326,36 +420,374 @@ namespace jk
 	{	
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{
-			if (!(_state == Archer_State::Idle))
+			if (_state == Archer_State::Die)
 				return;
 
+			bool attack = false;
+			bool attack_Cri_Mid = false;
+			bool attack_Cri_High = false;
+
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Dammege = 10;
+				attack = true;
+			}
+			if (_HitType >= 6 && _HitType < 9)
+			{
+				_Dammege = random(15, 25);
+				attack_Cri_Mid = true;
+			}
+			if (_HitType >= 9 && _HitType <= 10)
+			{
+				_Dammege = random(30, 45);
+				attack_Cri_High = true;
+			}
+
+			if ((_state == Archer_State::Finishing_Move_Ready)|| (_state == Archer_State::BackDash))
+			{
+				_hit++;
+				_Hit_Sword->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (mDir == 1)
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Sword->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High -> SetDirection(-1);
+				}
+				else
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Sword->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High -> SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Sword->_effect_animation = true;
+					_Hit_Sword->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}			
 			if (_state == Archer_State::Idle)
 			{
 				_state = Archer_State::Hit;
+				_Hit_Sword->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
 				if (mDir == 1)
 				{
 					at->PlayAnimation(L"ArcherHit", true);
+					if (_hit < 2)
+					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 					_hit_switch = true;	_hit++;
-					pos.x -= 50.0f * Time::DeltaTime();
-					_tr->SetPosition(pos);
+
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Sword->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+
 				}
 				if (mDir == -1)
 				{
 					at->PlayAnimation(L"ArcherHitR", true);
+					if (_hit < 2)
+					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 					_hit_switch = true;	_hit++;
-					pos.x += 50.0f * Time::DeltaTime();
-					_tr->SetPosition(pos);
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Sword->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
 				}
-				if (_hit >= 2)
-					int a = 0;
+				if (attack == true)
+				{
+					_Hit_Sword->_effect_animation = true;
+					_Hit_Sword->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
+			if (!((_state == Archer_State::Idle) || (_state == Archer_State::Finishing_Move_Ready) || (_state == Archer_State::BackDash)))
+			{
+				_hit++;
+				_Hit_Sword->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (mDir == 1)
+				{
+					_rigidbody->SetVelocity(Vector2(-20.f, 0.f));		
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Sword->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+				}
+				else
+				{
+					_rigidbody->SetVelocity(Vector2(20.f, 0.f));
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Sword->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Sword->_effect_animation = true;
+					_Hit_Sword->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
+			if (_CurrenHp <= 0)
+			{
+				_state = Archer_State::Die;
+				_Hit_Effect->_effect_animation = true;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"ArcherDie", false);
+					_Hit_Effect->SetDirection(-1);
+				}
+				else
+				{
+					at->PlayAnimation(L"ArcherDieR", false);
+					_Hit_Effect->SetDirection(1);
+				}
+				_Death_Effect->SetState(eState::Active);
 			}
 		}
-		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner())){}
+
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			if (_state == Archer_State::Die)
+				return;
+
+			bool attack = false;
+			bool attack_Cri_Mid = false;
+			bool attack_Cri_High = false;
+
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Dammege = 25;
+				attack = true;
+			}
+			if (_HitType >= 6 && _HitType < 9)
+			{
+				_Dammege = random(35, 40);
+				attack_Cri_Mid = true;
+			}
+			if (_HitType >= 9 && _HitType <= 10)
+			{
+				_Dammege = random(50, 70);
+				attack_Cri_High = true;
+			}
+
+
+			if (player->_Head_Attack == false && _bulletcheck == 0)
+			{
+				if (player->_Ground_check == true)
+					return;
+
+				if ((_state == Archer_State::Finishing_Move_Ready) || (_state == Archer_State::BackDash))
+				{
+					_hit++;
+					_Hit_Sword->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+
+					if (mDir == 1)
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Sword->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+					}
+					else
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Sword->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Sword->_effect_animation = true;
+						_Hit_Sword->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (_state == Archer_State::Idle)
+				{
+					_hit_switch = true;	_hit++;
+					_Hit_Sword->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+					_state = Archer_State::Hit;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"ArcherHit", true);
+						if (_hit < 2)
+							_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Sword->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+
+					}
+					if (mDir == -1)
+					{
+						at->PlayAnimation(L"ArcherHitR", true);
+						if (_hit < 2)
+							_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Sword->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Sword->_effect_animation = true;
+						_Hit_Sword->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (!((_state == Archer_State::Idle) || (_state == Archer_State::Finishing_Move_Ready) || (_state == Archer_State::BackDash)))
+				{
+					_hit++;
+					_Hit_Sword->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+
+					if (mDir == 1)
+					{
+						_rigidbody->SetVelocity(Vector2(-20.f, 0.f));						
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Sword->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+					}
+					else
+					{
+						_rigidbody->SetVelocity(Vector2(20.f, 0.f));					
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Sword->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Sword->_effect_animation = true;
+						_Hit_Sword->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (_CurrenHp <= 0)
+				{
+					_state = Archer_State::Die;
+					_Hit_Effect->_effect_animation = true;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"ArcherDie", false);
+						_Hit_Effect->SetDirection(-1);
+					}
+					else
+					{
+						at->PlayAnimation(L"ArcherDieR", false);
+						_Hit_Effect->SetDirection(1);
+					}
+					_Death_Effect->SetState(eState::Active);
+				}
+			}
+		}		
 
 		if (Skul_Spear* player = dynamic_cast<Skul_Spear*>(other->GetOwner())){}
 
 		if (Skul_Wolf* player = dynamic_cast<Skul_Wolf*>(other->GetOwner())){}
-
 	}
 	void Archer::OnCollisionStay(Collider2D* other)
 	{
@@ -375,6 +807,7 @@ namespace jk
 				}
 			}
 		}		
+
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			if (_Ground_check == false)
@@ -385,10 +818,9 @@ namespace jk
 			}
 			if (_state == Archer_State::BackDash)
 			{
-				if (_Ground_check == true)
-				{
+				if (_Ground_check == true)				
 					_BackDash = false;
-				}
+
 			}
 		}
 	}
@@ -412,30 +844,57 @@ namespace jk
 		{
 			if (_hit >= 3)
 			{
-				int a = 0;
 				if (_Numberof_BackDash <= 2)
 				{
 					if (mDir == 1)
 					{
-						at->PlayAnimation(L"ArcherBackStep", false);
-						_rigidbody->SetVelocity(Vector2(-200.f, 200.f));
-						_rigidbody->AddForce(Vector2(-10, 10));
-						_Ground_check = false;
-						_rigidbody->SetGround(false);
-						_BackDash = true;
-						_state = Archer_State::BackDash;
-						_Numberof_BackDash++;
+						if (ground_distance_L < -100)
+						{
+							at->PlayAnimation(L"ArcherBackStep", false);
+							_rigidbody->SetVelocity(Vector2(-200.f, 200.f));
+							_rigidbody->AddForce(Vector2(-10, 20));
+							_Ground_check = false;
+							_rigidbody->SetGround(false);
+							_BackDash = true;
+							_state = Archer_State::BackDash;
+							_Numberof_BackDash++;
+						}
+						else
+						{
+							at->PlayAnimation(L"ArcherBackStepR", false);
+							_rigidbody->SetVelocity(Vector2(350.f, 200.f));
+							_rigidbody->AddForce(Vector2(10, 20));
+							_Ground_check = false;
+							_rigidbody->SetGround(false);
+							_BackDash = true;
+							_state = Archer_State::BackDash;			
+							_Numberof_BackDash++;
+						}
 					}
 					else
 					{
-						at->PlayAnimation(L"ArcherBackStepR", false);
-						_rigidbody->SetVelocity(Vector2(200.f, 200.f));
-						_rigidbody->AddForce(Vector2(10, 10));
-						_Ground_check = false;
-						_rigidbody->SetGround(false);
-						_BackDash = true;
-						_state = Archer_State::BackDash;
-						_Numberof_BackDash++;
+						if (ground_distance_R > 100)
+						{
+							at->PlayAnimation(L"ArcherBackStepR", false);
+							_rigidbody->SetVelocity(Vector2(200.f, 200.f));
+							_rigidbody->AddForce(Vector2(10, 20));
+							_Ground_check = false;
+							_rigidbody->SetGround(false);
+							_BackDash = true;
+							_state = Archer_State::BackDash;
+							_Numberof_BackDash++;
+						}
+						else
+						{
+							at->PlayAnimation(L"ArcherBackStep", false);
+							_rigidbody->SetVelocity(Vector2(-350.f, 200.f));
+							_rigidbody->AddForce(Vector2(-10, 20));
+							_Ground_check = false;
+							_rigidbody->SetGround(false);
+							_BackDash = true;
+							_state = Archer_State::BackDash;
+							_Numberof_BackDash++;
+						}
 					}
 				}
 				else
@@ -453,8 +912,7 @@ namespace jk
 					}
 					else
 					{
-						_choicecombo = random(0, 2);
-						//_choicecombo = 3;
+						_choicecombo = random(0, 3);						
 						_attack = true;
 						choicecombo();
 					}
@@ -462,8 +920,6 @@ namespace jk
 			}
 		}
 	}
-
-
 	void Archer::backdash()
 	{
 		if (_BackDash == false)
@@ -488,13 +944,13 @@ namespace jk
 			if (mDir == 1)
 				at->PlayAnimation(L"ArcherIdle", true);
 			else
-				at->PlayAnimation(L"ArchereIdleR", true);
+				at->PlayAnimation(L"ArcherIdleR", true);
 		}	
 	}
-
-
 	void Archer::die()
 	{
+		Ultimate_Aura->SetState(eState::Paused);
+		Ultimate_AuraSmoke->SetState(eState::Paused);
 	}
 
 
@@ -510,16 +966,19 @@ namespace jk
 	void Archer::attack_a()
 	{
 		Transform* EffectTR = _archer_arrow->GetComponent<Transform>();
+		RigidBody* EffectRG = _archer_arrow->GetComponent<RigidBody>();
 		if (_attack_a == false)
 		{			
 			if (mDir == 1)
 			{
+				_attackDir = 1;
 				_archer_arrow->_bullet_animation= true;
 				_archer_arrow->SetDirection(1);
 				EffectTR->SetPosition(pos.x + 20, pos.y - 30, pos.z - 1);
 			}
 			if (mDir == -1)
 			{
+				_attackDir = -1;
 				_archer_arrow->_bullet_animation = true;
 				_archer_arrow->SetDirection(-1);
 				EffectTR->SetPosition(pos.x - 20, pos.y - 30, pos.z - 1);
@@ -533,14 +992,24 @@ namespace jk
 			_attack_time += Time::DeltaTime();
 			if (_attack_time < 2)
 			{		
-				if (mDir == 1)
-					arrowpos.x += 450 * Time::DeltaTime();
+				if (_attackDir == 1)
+				{
+					EffectRG->SetFriction(true);
+					EffectRG->SetGravity(true);
+					EffectRG->SetVelocity(Vector2(450.f, 0.f));
+				}
 				else
-					arrowpos.x -= 450 * Time::DeltaTime();
-				EffectTR->SetPosition(arrowpos);		
+				{
+					EffectRG->SetFriction(true);
+					EffectRG->SetGravity(true);
+					EffectRG->SetVelocity(Vector2(-450.f, 0.f));
+				}	
 			}		
 			else
 			{
+				EffectRG->ClearVelocity();
+				EffectRG->SetFriction(false);
+				EffectRG->SetGravity(false);
 				_archer_arrow->SetState(eState::Paused);
 				_state = Archer_State::Attack_A_End;
 				_attack_time = 0;				
@@ -612,6 +1081,7 @@ namespace jk
 		}
 	}
 
+
 	void Archer::attack_c()
 	{
 		//_attackorder = 0;
@@ -658,7 +1128,7 @@ namespace jk
 		}
 		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
 		_attack_time += Time::DeltaTime();
-		if (_attack_time >= 7.5)
+		if (_attack_time >= 4.5)
 		{
 			Ultimate_Aura->SetState(eState::Paused);
 			Ultimate_AuraSmoke->SetState(eState::Paused);
@@ -674,7 +1144,7 @@ namespace jk
 				UltimateSkill_Effect_Fail->SetState(eState::Active);
 
 				_state = Archer_State::Finishing_Move_Fail;
-				_attack_time = 0.f;
+				_attack_time = 0.f;				
 			}
 			else
 			{
@@ -763,6 +1233,7 @@ namespace jk
 			at->PlayAnimation(L"ArcherGroggy", true);
 		else
 			at->PlayAnimation(L"ArcherGroggyR", true);
+		_hit = 0;
 	}
 	void Archer::Finishing_Move()
 	{
@@ -781,34 +1252,16 @@ namespace jk
 			choicecombo();
 		}
 	}
-
 	void Archer::hit()
 	{	
-
-
-		//if ( /*&& _velocity.x >= -240.0 */)
-		//{
-		//	_state = Archer_State::Idle;
-		//	at->PlayAnimation(L"ArcherIdle", true);
-		//	_rigidbody->ClearVelocityX();
-		//}
-		//else if (mDir == -1 /*&& _velocity.x <= 240.0*/)
-		//{
-		//	_state = Archer_State::Idle;
-		//	at->PlayAnimation(L"ArchereIdleR", true);
-		//	_rigidbody->ClearVelocityX();
-		//}				
 	}
-
 	void Archer::intro()
 	{
 		_Intro = true;
 	}
-
 	void Archer::potion()
 	{
 	}
-
 	void Archer::choicecombo()
 	{
 		if (_attack == true)
@@ -828,6 +1281,11 @@ namespace jk
 				_number_of_attack++;
 				ultimate();
 			}
+			if (_choicecombo == 3)
+			{				
+				dash_combo();
+			}
+
 			if (_choicecombo == 10)
 			{
 				_number_of_attack++;
@@ -849,6 +1307,7 @@ namespace jk
 		}
 	}
 
+
 	void Archer::shootbow_forward()
 	{
 		_state = Archer_State::Attack_A_Ready;
@@ -857,7 +1316,6 @@ namespace jk
 		else
 			at->PlayAnimation(L"ArcherAttack_AR", false);
 	}
-
 	void Archer::shootbow_upward()
 	{
 		_state = Archer_State::Attack_B_Ready;
@@ -866,7 +1324,6 @@ namespace jk
 		if (mDir == -1)
 			at->PlayAnimation(L"ArcherAttack_BR", false);
 	}
-
 	void Archer::pushaway()
 	{
 		_state = Archer_State::Attack_C;
@@ -875,7 +1332,6 @@ namespace jk
 		else
 			at->PlayAnimation(L"ArcherAttack_CR", true);
 	}
-
 	void Archer::ultimate()
 	{
 		_state = Archer_State::Finishing_Move_Ready;
@@ -886,6 +1342,32 @@ namespace jk
 		_Ultimate = true;	
 		//_hit = 9;
 	}
+	void Archer::dash_combo()
+	{
+		if (mDir == 1)
+		{
+			at->PlayAnimation(L"ArcherBackStep", false);
+			_rigidbody->SetVelocity(Vector2(-200.f, 200.f));
+			_rigidbody->AddForce(Vector2(-10, 10));
+			_Ground_check = false;
+			_rigidbody->SetGround(false);
+			_BackDash = true;
+			_state = Archer_State::BackDash;
+			_Numberof_BackDash++;
+		}
+		else
+		{
+			at->PlayAnimation(L"ArcherBackStepR", false);
+			_rigidbody->SetVelocity(Vector2(200.f, 200.f));
+			_rigidbody->AddForce(Vector2(10, 10));
+			_Ground_check = false;
+			_rigidbody->SetGround(false);
+			_BackDash = true;
+			_state = Archer_State::BackDash;
+			_Numberof_BackDash++;
+		}
+	}
+
 
 	void Archer::CompleteArcherIntro()
 	{
@@ -895,19 +1377,14 @@ namespace jk
 		else
 			at->PlayAnimation(L"ArcherIdleR", true);
 	}
-
 	void Archer::complete_hit()
 	{
 		if (mDir == 1)
-		{
-			_state = Archer_State::Idle;
 			at->PlayAnimation(L"ArcherIdle", true);
-		}
-		else if (mDir == -1)
-		{
-			_state = Archer_State::Idle;
-			at->PlayAnimation(L"ArchereIdleR", true);
-		}
+		else
+			at->PlayAnimation(L"ArcherIdleR", true);
+		_state = Archer_State::Idle;
+
 	}
 	void Archer::complete_attackA()
 	{

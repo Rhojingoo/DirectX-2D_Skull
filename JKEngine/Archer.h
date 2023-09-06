@@ -11,6 +11,10 @@
 #include "Public_UltimateSkill_Effect_Fail.h"
 #include "Archer_Utimate_Sign.h"
 
+#include "Player_Hp_Bar.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
+
 
 namespace jk
 {
@@ -81,6 +85,13 @@ namespace jk
 		void intro();
 		void potion();
 
+	private:
+		float _MaxHp = 2000;
+		float _CurrenHp = 2000;
+		float _MaxHp_scale = 0;
+		float _CurrenHp_scale = 0;
+		int	_bulletcheck = 0;
+
 
 
 	private:
@@ -92,6 +103,18 @@ namespace jk
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);	
 		Vector2 _velocity = Vector2(0.f, 0.f);
 		Vector3 Ultimate_Skill_pos = Vector3(0.f, 0.f, 0.f);
+
+
+	private:
+		HitBox_Monster* Hit_Box = nullptr;
+		Player_Hp_Bar* Player_Hp = nullptr;
+		Monster_Hit_Effect* _Hit_Effect = nullptr;
+		Hit_Sword* _Hit_Sword = nullptr;
+		Hit_Critical_Middle* _Critical_Middle = nullptr;
+		Hit_Critical_High* _Critical_High = nullptr;
+		Monster_Death_Effect* _Death_Effect = nullptr;
+		bool _followskul = false;
+
 
 	private:
 		Archer_Arrow* _archer_arrow = nullptr;
@@ -110,9 +133,15 @@ namespace jk
 		Archer_Upward_Impact_Bullet* Ultimate_Upward_ImpactBullet[40];
 		Archer_Arrow_Bye* Ultimate_ArrowBye_effect[40];
 
+
+
 	private:
 		static int			mDir;
+		int _attackDir = 1;
 		static bool			_switch;
+
+
+	private:
 		float	_time = 0.f;						// 공격시 사용중
 		float	_attack_time = 0.f;
 		bool	_attack = false;					// 공격에서 idle로 보내는 스위치 변수
@@ -123,6 +152,8 @@ namespace jk
 		int		_hit = 0;							// 공격받은 후 회피하기 위한 변수
 		bool    _hit_switch = false;
 		int		_Numberof_BackDash = 0;
+		int		_HitType = 0;
+		int		_Dammege = 0;
 		
 
 	private:
@@ -134,14 +165,20 @@ namespace jk
 		bool	_Ultimate = false;
 		bool	_Ultimate_Skill = false;
 		bool	_Intro = false;
+		bool	_hitend = false;
 
 	private:
 		Skul_Basic::Skul_Basic_State Skul_BasicState;
 
 	private:
+		float ground_distance_L = 0.f;
+		float ground_distance_R = 0.f;
+
+	private:
 		void choicecombo();
 		void shootbow_forward();
 		void shootbow_upward();
+		void dash_combo();
 		void pushaway();
 		void ultimate();
 		void complete_hit();

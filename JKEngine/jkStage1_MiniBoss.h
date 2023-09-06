@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "jkPlayScene.h"
+#include "Mini_Boss.h"
 
 namespace jk
 {
@@ -19,6 +20,6 @@ namespace jk
 		virtual void OnExit();
 
 	private:
-
+		Mini_Boss* Mboss = nullptr;
 	};
 }
