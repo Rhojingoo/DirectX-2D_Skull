@@ -11,6 +11,11 @@
 #include "Knight_UltimateSkill_Projectile.h"
 
 
+#include "HitBox_Knight.h"
+#include "Player_Hp_Bar.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
+
 namespace jk
 {
 	class Knight_male : public Mini_Boss
@@ -87,6 +92,20 @@ namespace jk
 		void stinger_Ready();
 
 	private:
+		float _MaxHp = 2000;
+		float _CurrenHp = 2000;
+		float _MaxHp_scale = 0;
+		float _CurrenHp_scale = 0;
+		int	_bulletcheck = 0;
+
+
+	private:
+		float ground_distance_L = 0.f;
+		float ground_distance_R = 0.f;
+
+
+
+	private:
 		Knight_State _state;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
@@ -95,11 +114,22 @@ namespace jk
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);	
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
+
+	private:
+		HitBox_Knight* Hit_Box = nullptr;
+		Player_Hit_Effect* _Hit_Effect = nullptr;
+		Hit_Sword* _Hit_Sword = nullptr;
+		Hit_Critical_Middle* _Critical_Middle = nullptr;
+		Hit_Critical_High* _Critical_High = nullptr;
+		Monster_Hammer::Monster_Hammer_State hammer_st = {};
+		Monster_GoldHammer::Monster_GoldHammer_State Goldham_st = {};
+
+
 	private:
 		static int			mDir;
 		static bool			_switch;
-
-
+		int		_attackdir = 1;
+		bool	_attack_Col = false;
 
 		float	_distance = 0.f;			// 플레이어와의 거리 체크
 		bool	_Ground_check = false;		// 땅체크시에 쓰이고 있는 변수

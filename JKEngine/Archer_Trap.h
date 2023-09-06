@@ -1,10 +1,10 @@
 #pragma once
 #include "Include_Common.h"
-#include "MiniBoss_Bullet.h"
+#include "MiniBoss_Bullet_Archer.h"
 
 namespace jk
 {
-	class Archer_Trap : public MiniBoss_Bullet
+	class Archer_Trap : public MiniBoss_Bullet_Archer
 	{
 	public:
 		Archer_Trap();
@@ -29,8 +29,6 @@ namespace jk
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		float _attackatime = 0.f;
-
-
 
 	private:
 

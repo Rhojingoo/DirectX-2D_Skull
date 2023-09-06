@@ -436,7 +436,7 @@
     <ClInclude Include="Monster_Bullet.h">
       <Filter>Game_ob\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="MiniBoss_Bullet.h">
+    <ClInclude Include="MiniBoss_Bullet_Archer.h">
       <Filter>Game_ob\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -465,6 +465,15 @@
     </ClInclude>
     <ClInclude Include="Hit_Critical_High.h">
       <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Slash_Effect.h">
+      <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="HitBox_Archer.h">
+      <Filter>Game_ob\HitBox\MiniBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="HitBox_Knight.h">
+      <Filter>Game_ob\HitBox\MiniBoss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -894,7 +903,7 @@
     <ClCompile Include="Hit_Sword.cpp">
       <Filter>Game_ob\PLAYER\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="MiniBoss_Bullet.cpp">
+    <ClCompile Include="MiniBoss_Bullet_Archer.cpp">
       <Filter>Game_ob\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Monster_Bullet.cpp">
@@ -926,6 +935,15 @@
     </ClCompile>
     <ClCompile Include="Hit_Critical_Middle.cpp">
       <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Slash_Effect.cpp">
+      <Filter>Game_ob\PLAYER\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="HitBox_Archer.cpp">
+      <Filter>Game_ob\HitBox\MiniBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="HitBox_Knight.cpp">
+      <Filter>Game_ob\HitBox\MiniBoss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1144,6 +1162,9 @@
     </Filter>
     <Filter Include="Game_ob\PLAYER\Chatacter">
       <UniqueIdentifier>{a6c42fbf-1807-4e1a-b1f8-b59e7b7b390d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\HitBox\MiniBoss">
+      <UniqueIdentifier>{0e67c7a7-4fa4-42ea-8b0a-f690a1ee28d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

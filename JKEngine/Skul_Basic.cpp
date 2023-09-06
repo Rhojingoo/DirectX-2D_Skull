@@ -77,7 +77,14 @@ namespace jk
 			_Critical_High->SetState(eState::Paused);
 		}
 
-
+		{
+			_Knight_Slash = new Slash_Effect;
+			_Knight_Slash->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Knight_Slash);
+			_Knight_Slash->SetState(eState::Paused);
+		}
 
 
 		at = AddComponent<Animator>();
@@ -174,6 +181,15 @@ namespace jk
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
 		}
 
+		{
+			Transform * _Hit_Effect_TR = _Knight_Slash->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
+		}
+
+
 		if (_switch == true)
 		{
 			_State = Skul_Basic::Skul_Basic_State::Switch;
@@ -216,6 +232,9 @@ namespace jk
 			break;
 
 		case jk::Skul_Basic::Skul_Basic_State::Skill_B:skill_b();
+			break;
+
+		case jk::Skul_Basic::Skul_Basic_State::Stun:stun();
 			break;
 
 		case jk::Skul_Basic::Skul_Basic_State::Switch:change();
@@ -742,6 +761,8 @@ namespace jk
 
 	void Skul_Basic::dash()
 	{		 
+		_Leftmove_Lock = false;
+		_Rightmove_Lock = false;
 		_Ground_check = false;
 		_rigidbody->ClearVelocityY();
 		if (mDir == 1 && _velocity.x <= 220.0)
@@ -831,6 +852,18 @@ namespace jk
 	}
 	void Skul_Basic::skill_b()
 	{
+	}
+
+	void Skul_Basic::stun()
+	{
+		_attack_time += Time::DeltaTime();
+		if (_attack_time > 1.5)
+		{
+			_State = Skul_Basic_State::Idle;
+			_attack_time = 0;
+			_Leftmove_Lock = false;
+			_Rightmove_Lock = false;
+		}
 	}
 
 
@@ -987,7 +1020,7 @@ namespace jk
 			//}
 		}
 
-		if (MiniBoss_Bullet* Bullet = dynamic_cast<MiniBoss_Bullet*>(other->GetOwner()))
+		if (MiniBoss_Bullet_Archer* Bullet = dynamic_cast<MiniBoss_Bullet_Archer*>(other->GetOwner()))
 		{
 			if (mDir == 1)
 			{
@@ -1004,6 +1037,40 @@ namespace jk
 				_Hit_Sword->_effect_animation = true;
 				_Hit_Sword->SetDirection(1);
 				_Hit_Sword->SetState(eState::Active);
+			}
+		}
+
+		if (Archer_Trap* Bullet = dynamic_cast<Archer_Trap*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+			else
+			{
+				_State = Skul_Basic_State::Stun;
+				_Leftmove_Lock = true;
+				_Rightmove_Lock = true;
+				if (mDir == 1)
+					at->PlayAnimation(L"Skul_BasicIdle", true);
+				else
+					at->PlayAnimation(L"Skul_BasicIdleR", true);
+			}			
+		}
+
+		if (HitBox_Knight* HitBox = dynamic_cast<HitBox_Knight*>(other->GetOwner()))
+		{
+			if (mDir == 1)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Knight_Slash->SetDirection(1);
+				_Knight_Slash->SetState(eState::Active);
+			}
+			if (mDir == -1)
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Knight_Slash->_effect_animation = true;
+				_Knight_Slash->SetDirection(-1);
+				_Knight_Slash->SetState(eState::Active);
 			}
 		}
 

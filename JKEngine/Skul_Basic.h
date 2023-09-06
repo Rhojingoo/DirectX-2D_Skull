@@ -8,6 +8,7 @@
 #include "Hit_Sword.h"
 #include "Hit_Critical_Middle.h"
 #include "Hit_Critical_High.h"
+#include "Slash_Effect.h"
 
 
 namespace jk
@@ -37,6 +38,7 @@ namespace jk
 			JumpAttack,
 			Skill_A,
 			Skill_B,
+			Stun,
 			Switch,
 			Death,
 		};
@@ -52,6 +54,7 @@ namespace jk
 		void jumpattack();
 		void skill_a();
 		void skill_b();
+		void stun();
 		void change();
 		void death();
 
@@ -73,6 +76,9 @@ namespace jk
 		Hit_Sword* _Hit_Sword = nullptr;
 		Hit_Critical_Middle* _Critical_Middle = nullptr;
 		Hit_Critical_High* _Critical_High = nullptr;
+		Slash_Effect* _Knight_Slash = nullptr;
+
+
 		Monster_Hammer::Monster_Hammer_State hammer_st = {};
 		Monster_GoldHammer::Monster_GoldHammer_State Goldham_st = {};
 		

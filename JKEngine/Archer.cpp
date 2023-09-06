@@ -290,7 +290,7 @@ namespace jk
 		hp_tr->SetScale(_CurrenHp_scale, 10, 0);
 
 		{
-			Transform* _Hit_Effect_TR = _Hit_Sword->GetComponent<Transform>();
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
 			if (mDir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y-30, pos.z - 1));
 			else
@@ -447,7 +447,7 @@ namespace jk
 			if ((_state == Archer_State::Finishing_Move_Ready)|| (_state == Archer_State::BackDash))
 			{
 				_hit++;
-				_Hit_Sword->_effect_animation = true;
+				_Hit_Effect->_effect_animation = true;
 				_Critical_Middle->_effect_animation = true;
 				_Critical_High->_effect_animation = true;
 				if (mDir == 1)
@@ -455,7 +455,7 @@ namespace jk
 					Player_Hp->_HitOn = true;
 					Player_Hp->SetHitDamage(_Dammege);
 					_CurrenHp = _CurrenHp - _Dammege;
-					_Hit_Sword->SetDirection(-1);
+					_Hit_Effect->SetDirection(-1);
 					_Critical_Middle->SetDirection(-1);
 					_Critical_High -> SetDirection(-1);
 				}
@@ -470,8 +470,8 @@ namespace jk
 				}
 				if (attack == true)
 				{
-					_Hit_Sword->_effect_animation = true;
-					_Hit_Sword->SetState(eState::Active);
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
 				}
 				if (attack_Cri_Mid == true)
 				{
@@ -487,7 +487,7 @@ namespace jk
 			if (_state == Archer_State::Idle)
 			{
 				_state = Archer_State::Hit;
-				_Hit_Sword->_effect_animation = true;
+				_Hit_Effect->_effect_animation = true;
 				_Critical_Middle->_effect_animation = true;
 				_Critical_High->_effect_animation = true;
 				if (mDir == 1)
@@ -501,7 +501,7 @@ namespace jk
 					Player_Hp->_HitOn = true;
 					Player_Hp->SetHitDamage(_Dammege);
 					_CurrenHp = _CurrenHp - _Dammege;
-					_Hit_Sword->SetDirection(-1);
+					_Hit_Effect->SetDirection(-1);
 					_Critical_Middle->SetDirection(-1);
 					_Critical_High->SetDirection(-1);
 
@@ -516,14 +516,14 @@ namespace jk
 					Player_Hp->_HitOn = true;
 					Player_Hp->SetHitDamage(_Dammege);
 					_CurrenHp = _CurrenHp - _Dammege;
-					_Hit_Sword->SetDirection(1);
+					_Hit_Effect->SetDirection(1);
 					_Critical_Middle->SetDirection(1);
 					_Critical_High->SetDirection(1);
 				}
 				if (attack == true)
 				{
-					_Hit_Sword->_effect_animation = true;
-					_Hit_Sword->SetState(eState::Active);
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
 				}
 				if (attack_Cri_Mid == true)
 				{
@@ -539,7 +539,7 @@ namespace jk
 			if (!((_state == Archer_State::Idle) || (_state == Archer_State::Finishing_Move_Ready) || (_state == Archer_State::BackDash)))
 			{
 				_hit++;
-				_Hit_Sword->_effect_animation = true;
+				_Hit_Effect->_effect_animation = true;
 				_Critical_Middle->_effect_animation = true;
 				_Critical_High->_effect_animation = true;
 				if (mDir == 1)
@@ -549,7 +549,7 @@ namespace jk
 					Player_Hp->_HitOn = true;
 					Player_Hp->SetHitDamage(_Dammege);
 					_CurrenHp = _CurrenHp - _Dammege;
-					_Hit_Sword->SetDirection(-1);
+					_Hit_Effect->SetDirection(-1);
 					_Critical_Middle->SetDirection(-1);
 					_Critical_High->SetDirection(-1);
 				}
@@ -560,14 +560,14 @@ namespace jk
 					Player_Hp->_HitOn = true;
 					Player_Hp->SetHitDamage(_Dammege);
 					_CurrenHp = _CurrenHp - _Dammege;
-					_Hit_Sword->SetDirection(1);
+					_Hit_Effect->SetDirection(1);
 					_Critical_Middle->SetDirection(1);
 					_Critical_High->SetDirection(1);
 				}
 				if (attack == true)
 				{
-					_Hit_Sword->_effect_animation = true;
-					_Hit_Sword->SetState(eState::Active);
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
 				}
 				if (attack_Cri_Mid == true)
 				{
@@ -633,7 +633,7 @@ namespace jk
 				if ((_state == Archer_State::Finishing_Move_Ready) || (_state == Archer_State::BackDash))
 				{
 					_hit++;
-					_Hit_Sword->_effect_animation = true;
+					_Hit_Effect->_effect_animation = true;
 					_Critical_Middle->_effect_animation = true;
 					_Critical_High->_effect_animation = true;
 
@@ -642,7 +642,7 @@ namespace jk
 						Player_Hp->_HitOn = true;
 						Player_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
-						_Hit_Sword->SetDirection(-1);
+						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
 						_Critical_High->SetDirection(-1);
 					}
@@ -651,14 +651,14 @@ namespace jk
 						Player_Hp->_HitOn = true;
 						Player_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
-						_Hit_Sword->SetDirection(1);
+						_Hit_Effect->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
 						_Critical_High->SetDirection(1);
 					}
 					if (attack == true)
 					{
-						_Hit_Sword->_effect_animation = true;
-						_Hit_Sword->SetState(eState::Active);
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
 					}
 					if (attack_Cri_Mid == true)
 					{
@@ -674,7 +674,7 @@ namespace jk
 				if (_state == Archer_State::Idle)
 				{
 					_hit_switch = true;	_hit++;
-					_Hit_Sword->_effect_animation = true;
+					_Hit_Effect->_effect_animation = true;
 					_Critical_Middle->_effect_animation = true;
 					_Critical_High->_effect_animation = true;
 					_state = Archer_State::Hit;
@@ -687,7 +687,7 @@ namespace jk
 						Player_Hp->_HitOn = true;
 						Player_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
-						_Hit_Sword->SetDirection(-1);
+						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
 						_Critical_High->SetDirection(-1);
 
@@ -701,14 +701,14 @@ namespace jk
 						Player_Hp->_HitOn = true;
 						Player_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
-						_Hit_Sword->SetDirection(1);
+						_Hit_Effect->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
 						_Critical_High->SetDirection(1);
 					}
 					if (attack == true)
 					{
-						_Hit_Sword->_effect_animation = true;
-						_Hit_Sword->SetState(eState::Active);
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
 					}
 					if (attack_Cri_Mid == true)
 					{
@@ -724,7 +724,7 @@ namespace jk
 				if (!((_state == Archer_State::Idle) || (_state == Archer_State::Finishing_Move_Ready) || (_state == Archer_State::BackDash)))
 				{
 					_hit++;
-					_Hit_Sword->_effect_animation = true;
+					_Hit_Effect->_effect_animation = true;
 					_Critical_Middle->_effect_animation = true;
 					_Critical_High->_effect_animation = true;
 
@@ -735,7 +735,7 @@ namespace jk
 						Player_Hp->_HitOn = true;
 						Player_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
-						_Hit_Sword->SetDirection(-1);
+						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
 						_Critical_High->SetDirection(-1);
 					}
@@ -746,14 +746,14 @@ namespace jk
 						Player_Hp->_HitOn = true;
 						Player_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
-						_Hit_Sword->SetDirection(1);
+						_Hit_Effect->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
 						_Critical_High->SetDirection(1);
 					}
 					if (attack == true)
 					{
-						_Hit_Sword->_effect_animation = true;
-						_Hit_Sword->SetState(eState::Active);
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
 					}
 					if (attack_Cri_Mid == true)
 					{

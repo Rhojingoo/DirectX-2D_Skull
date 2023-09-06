@@ -193,6 +193,17 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
 			UltimateSkill_Projectile->SetState(eState::Paused);
 		}
+
+		{
+			Hit_Box = new HitBox_Knight();
+			Hit_Box->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetState(eState::Paused);
+		}
+
+
 		
 		at->PlayAnimation(L"Knight_maleIdle", true);
 		GameObject::Initialize();
@@ -210,6 +221,12 @@ namespace jk
 			mDir = 1;
 		else
 			mDir = -1;
+
+
+
+		ground_distance_L = Left_Ground.x - pos.x;
+		ground_distance_R = Right_Ground.x - pos.x;
+
 
 		switch (_state)
 		{
@@ -318,12 +335,33 @@ namespace jk
 	{
 		_collider->SetSize(Vector2(0.35f, 0.4f));
 		_collider->SetCenter(Vector2(0.0f, -30.5f));
+
+
+		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
+		if (_attack_Col == true)
+		{
+			Hit_Box->SetSize(Vector2(50.f, 85.f));
+			//Hit_Box->SetCenter(Vector3(100.f, -150.f, -250.f));
+			//_attackdir
+			Hit_Box->SetState(eState::Active);
+			if (_attackdir == 1)
+				HitBox_TR->SetPosition(Vector3(pos.x + 50, pos.y - 30, pos.z));
+			else
+				HitBox_TR->SetPosition(Vector3(pos.x - 50, pos.y - 30, pos.z));
+		}
+		else
+		{
+			Hit_Box->SetState(eState::Paused);
+		}
+
 		GameObject::LateUpdate();
 	}
 	void Knight_male::Render()
 	{
 		GameObject::Render();
 	}
+
+
 	void Knight_male::OnCollisionEnter(Collider2D* other)
 	{
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
@@ -353,7 +391,10 @@ namespace jk
 			}
 		}
 
-
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			_rigidbody->ClearVelocity();
+		}
 		
 	}
 	void Knight_male::OnCollisionStay(Collider2D* other)
@@ -392,13 +433,14 @@ namespace jk
 	{
 	}
 
+
 	void Knight_male::idle()
 	{
 		_time += Time::DeltaTime();
 		_Attacktime = 0;
 		_choicecombo = random(0, 3);
 
-		//_choicecombo = 2;
+		_choicecombo = 0;
 		if (_Intro == false)
 		{
 			_state = Knight_State::Intro;
@@ -411,21 +453,45 @@ namespace jk
 				_time = 0;
 				if (mDir == -1)
 				{
-					at->PlayAnimation(L"Knight_maleBackDashR", true);
-					_rigidbody->SetVelocity(Vector2(250.f, 250.f));
-					_rigidbody->SetGround(false);
-					_Ground_check = false;
-					_BackDash = true;
-					_state = Knight_State::BackDash;
+					if (ground_distance_R > 100)
+					{
+						at->PlayAnimation(L"Knight_maleBackDashR", true);
+						_rigidbody->SetVelocity(Vector2(250.f, 250.f));
+						_rigidbody->SetGround(false);
+						_Ground_check = false;
+						_BackDash = true;
+						_state = Knight_State::BackDash;
+					}
+					else
+					{
+						at->PlayAnimation(L"Knight_maleBackDash", true);
+						_rigidbody->SetVelocity(Vector2(-350.f, 250.f));
+						_rigidbody->SetGround(false);
+						_Ground_check = false;
+						_BackDash = true;
+						_state = Knight_State::BackDash;
+					}
 				}
 				else
 				{
-					at->PlayAnimation(L"Knight_maleBackDash", true);
-					_rigidbody->SetVelocity(Vector2(-250.f, 250.f));
-					_rigidbody->SetGround(false);
-					_Ground_check = false;
-					_BackDash = true;
-					_state = Knight_State::BackDash;
+					if (ground_distance_L < -100)
+					{
+						at->PlayAnimation(L"Knight_maleBackDash", true);
+						_rigidbody->SetVelocity(Vector2(-250.f, 250.f));
+						_rigidbody->SetGround(false);
+						_Ground_check = false;
+						_BackDash = true;
+						_state = Knight_State::BackDash;
+					}
+					else
+					{
+						at->PlayAnimation(L"Knight_maleBackDashR", true);
+						_rigidbody->SetVelocity(Vector2(350.f, 250.f));
+						_rigidbody->SetGround(false);
+						_Ground_check = false;
+						_BackDash = true;
+						_state = Knight_State::BackDash;
+					}
 				}
 				_number_of_hit = 0;
 			}
@@ -791,6 +857,7 @@ namespace jk
 	void Knight_male::choicecombo()
 	{
 		_Attacktime = 0;
+		_attack_Col = false;
 		if (_attack == true)
 		{			
 			if (_choicecombo == 0)
@@ -838,41 +905,52 @@ namespace jk
 
 	void Knight_male::combo()
 	{
+		_attack_Col = true;
 		if (_attackorder == 1)
 		{
-			_state = Knight_State::Attack_A;
+			_state = Knight_State::Attack_A;			
 			if (mDir == 1)
 			{
+				_attackdir = 1;
 				at->PlayAnimation(L"Knight_maleAttack_A", true);
 				_rigidbody->SetVelocity(Vector2(150.f,0.f));
 			}
 			else
 			{
+				_attackdir = -1;
 				at->PlayAnimation(L"Knight_maleAttack_AR", true);
 				_rigidbody->SetVelocity(Vector2(-150.f, 0.f));
 			}
 		}
 		if (_attackorder == 2)
 		{ 
-			_state = Knight_State::Attack_B;
+			_state = Knight_State::Attack_B;		
 			if (mDir == 1)
 			{
+				_attackdir = 1;
 				at->PlayAnimation(L"Knight_maleAttack_B", true);
 				_rigidbody->SetVelocity(Vector2(150.f, 0.f));
 			}
 			else
 			{
+				_attackdir = -1;
 				at->PlayAnimation(L"Knight_maleAttack_BR", true);
 				_rigidbody->SetVelocity(Vector2(-150.f, 0.f));
 			}
 		}
 		if (_attackorder == 3)
 		{
-			_state = Knight_State::Attack_C;
+			_state = Knight_State::Attack_C;			
 			if (mDir == 1)
-			at->PlayAnimation(L"Knight_maleAttack_C", true);	
+			{
+				_attackdir = 1;
+				at->PlayAnimation(L"Knight_maleAttack_C", true);
+			}
 			else
-			at->PlayAnimation(L"Knight_maleAttack_CR", true);
+			{
+				_attackdir = -1;
+				at->PlayAnimation(L"Knight_maleAttack_CR", true);
+			}
 		}
 	}
 

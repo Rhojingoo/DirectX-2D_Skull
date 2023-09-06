@@ -121,6 +121,8 @@
 #include "Homing_Pierce_ShortHair.h"
 #include "Rising_Pierce.h"
 #include "Dimension_Pierce.h"
+#include "MiniBoss_Bullet_Archer.h"
+
 
 
 //¿Ã∆Â∆Æ

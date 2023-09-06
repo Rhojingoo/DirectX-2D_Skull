@@ -93,6 +93,10 @@ namespace jk
 		int	_bulletcheck = 0;
 
 
+	private:
+		float ground_distance_L = 0.f;
+		float ground_distance_R = 0.f;
+
 
 	private:
 		Archer_State _state;
@@ -170,9 +174,6 @@ namespace jk
 	private:
 		Skul_Basic::Skul_Basic_State Skul_BasicState;
 
-	private:
-		float ground_distance_L = 0.f;
-		float ground_distance_R = 0.f;
 
 	private:
 		void choicecombo();
