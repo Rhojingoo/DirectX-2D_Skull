@@ -21,33 +21,36 @@ namespace jk
 		CameraScript* cam = AddComponent<CameraScript>();
 		_collider = AddComponent<Collider2D>();
 
-		//_At_colR = AddComponent<Collider2D>();
-		//_At_colR->SetSize(Vector2(0.02f, 0.05f));
-		//_At_colR->SetCenter(Vector2(25.f, -0.1f));
-
-		//_At_colL = AddComponent<Collider2D>();
-		//_At_colL->SetSize(Vector2(0.02f, 0.05f));
-		//_At_colL->SetCenter(Vector2(-25.f, -0.1f));
 
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		//_rigidbody->SetFriction(true);
-
-		Skul_Head = new Skul_head();
-		Skul_Head->Initialize();
-		Scene* scene = SceneManager::GetActiveScene();
-		scene->AddGameObject(eLayerType::Player, Skul_Head);
-		Transform* tr_head = Skul_Head->GetComponent<Transform>();
-		tr_head->SetPosition(Vector3(pos.x, pos.y, -250.f));
-		Skul_Head->GetComponent<Transform>()->SetScale(Vector3(15.f, 13.f, 0.f));
-		Skul_Head->SetState(eState::Paused);
-
-
-		Hit_Box = new HitBox_Player();
-		Hit_Box->Initialize();
-		scene = SceneManager::GetActiveScene();
-		scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
-		Hit_Box->SetState(eState::Active);
+		{
+			Skul_Head = new Skul_head();
+			Skul_Head->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Player, Skul_Head);
+			Transform* tr_head = Skul_Head->GetComponent<Transform>();
+			tr_head->SetPosition(Vector3(pos.x, pos.y, -250.f));
+			Skul_Head->GetComponent<Transform>()->SetScale(Vector3(15.f, 13.f, 0.f));
+			Skul_Head->SetState(eState::Paused);
+		}
+		{
+			Hit_Box = new HitBox_Player();
+			Hit_Box->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetState(eState::Active);
+		}
+		{
+			_Hit_Effect = new Player_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
 
 
 		at = AddComponent<Animator>();
@@ -118,17 +121,6 @@ namespace jk
 		at->CompleteEvent(L"NoHeadAttackBR") = std::bind(&Skul_Basic::attack_choice, this);	
 
 
-		{
-			_Hit_Effect = new Player_Hit_Effect;
-			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
-			_Hit_Effect->SetState(eState::Paused);
-		}
-
-
-
 		GameObject::Initialize();
 	}
 
@@ -147,7 +139,6 @@ namespace jk
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
 		}
-
 
 		if (_switch == true)
 		{
@@ -896,15 +887,14 @@ namespace jk
 			}
 		}
 
-		if (Monster_GoldHammer* Hammer = dynamic_cast<Monster_GoldHammer*>(other->GetOwner()))
+		if (Monster_GoldHammer* GoldHammer = dynamic_cast<Monster_GoldHammer*>(other->GetOwner()))
 		{
-			Goldhammer_st = Hammer->GetState();
-			if (Goldhammer_st == Monster_GoldHammer::Monster_GoldHammer_State::Tackle)
+			Goldham_st = GoldHammer->GetState();
+			if (Goldham_st == Monster_GoldHammer::Monster_GoldHammer_State::Tackle)
 			{
 				if (mDir == 1)
 				{
 					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
-
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(1);
 					_Hit_Effect->SetState(eState::Active);
@@ -912,7 +902,6 @@ namespace jk
 				if (mDir == -1)
 				{
 					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
-
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
 					_Hit_Effect->SetState(eState::Active);

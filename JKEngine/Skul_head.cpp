@@ -134,34 +134,10 @@ namespace jk
 		GameObject::Render();
 	}
 
-	//void Skul_head::idle()
-	//{
-	//}
-	//void Skul_head::move()
-	//{
-	//	//_rigidbody->ClearVelocityY();
-	//	//if (mDir == 1 && _velocity.x <= 220.0)
-	//	//{			
-	//	//	_state = Skul_Head_State::Idle;
-	//	//	_rigidbody->SetGround(false);
-	//	//	_rigidbody->ClearVelocityX();
-	//	//	mDir = 1;			
-	//	//}
-	//	//else if (mDir == -1 && _velocity.x >= -220.0)
-	//	//{			
-	//	//	_state = Skul_Head_State::Idle;
-	//	//	_rigidbody->SetGround(false);
-	//	//	_rigidbody->ClearVelocityX();
-	//	//	mDir = -1; 			
-	//	//}
-	//}
-	//void Skul_head::attack()
-	//{
-	//}
+
 
 	void Skul_head::OnCollisionEnter(Collider2D* other)
 	{
-
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
 			if (_Ground_check == false)
@@ -173,6 +149,7 @@ namespace jk
 				_Head_Attack = false;
 			}
 		}
+
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			if (_Ground_check == false)
@@ -190,52 +167,13 @@ namespace jk
 			_time = 0;
 			_Head_Attack = false;
 		}
-
-		if (Monster_Hammer* monster = dynamic_cast<Monster_Hammer*>(other->GetOwner()))
+		if (Monster* monster = dynamic_cast<Monster*>(other->GetOwner()))
 		{
 			_Head_Attack = true;
-		}
-		
-		if (Monster_warrior* monster = dynamic_cast<Monster_warrior*>(other->GetOwner()))
-		{
-			_Head_Attack = true;
-		}
-
-		if (Stone_wizard* monster = dynamic_cast<Stone_wizard*>(other->GetOwner()))
-		{
-			_Head_Attack = true;
-		}
-
-		if (Monster_GreenTree* monster = dynamic_cast<Monster_GreenTree*>(other->GetOwner()))
-		{
-			_Head_Attack = true;
-		}
-
-		if (Monster_BlossomEnt* monster = dynamic_cast<Monster_BlossomEnt*>(other->GetOwner()))
-		{
-			_Head_Attack = true;
-		}
-
-		if (Monster_BigEnt* monster = dynamic_cast<Monster_BigEnt*>(other->GetOwner()))
-		{
-			_Head_Attack = true;
-		}
-
-		if (Monster_Goldwarrior* monster = dynamic_cast<Monster_Goldwarrior*>(other->GetOwner()))
-		{
-			_Head_Attack = true;
-		}
-
-		if (Monster_GoldHammer* monster = dynamic_cast<Monster_GoldHammer*>(other->GetOwner()))
-		{
-			_Head_Attack = true;
-		}
+		}		
 	}
 	void Skul_head::OnCollisionStay(Collider2D* other)
 	{
-
-
-
 	}
 	void Skul_head::OnCollisionExit(Collider2D* other)
 	{

@@ -20,7 +20,6 @@ namespace jk
 		_Gobjs[0] = new Monster_GoldHammer;
 		_Gobjs[0]->Initialize();
 
-
 		//_Gobjs[0] = new Monster_warrior;
 		//_Gobjs[0]->Initialize();
 		//_Gobjs[1] = new Monster_Hammer;

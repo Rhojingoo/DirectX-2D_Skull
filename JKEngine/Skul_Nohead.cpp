@@ -1,26 +1,26 @@
-//#include "Skul_nohead.h"
-//#include "jkTime.h"
-//
-//namespace jk
-//{
-//	Skul_Nohead::Skul_Nohead()
-//		: mDir(1)
-//		, _attack(0)
-//		, _time(0.f)
-//		, _State(Skul_Nohead_State::Idle)
-//		, at(nullptr)
-//	{
-//	}
-//	Skul_Nohead::~Skul_Nohead()
-//	{
-//		MeshRenderer* mr = AddComponent<MeshRenderer>();
-//		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-//		mr->SetMaterial(Resources::Find<Material>(L"Basic_Skul"));
-//		//Vector2 mSize = mr->GetMaterial()->GetTexture()->GetTexSize();
-//		//GetComponent<Transform>()->SetScale(Vector3(mSize.x, mSize.y, 1.0f));
-//	}
-//	void Skul_Nohead::Initialize()
-//	{
+////#include "Skul_nohead.h"
+////#include "jkTime.h"
+////
+////namespace jk
+////{
+////	Skul_Nohead::Skul_Nohead()
+////		: mDir(1)
+////		, _attack(0)
+////		, _time(0.f)
+////		, _State(Skul_Nohead_State::Idle)
+////		, at(nullptr)
+////	{
+////	}
+////	Skul_Nohead::~Skul_Nohead()
+////	{
+////		MeshRenderer* mr = AddComponent<MeshRenderer>();
+////		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+////		mr->SetMaterial(Resources::Find<Material>(L"Basic_Skul"));
+////		//Vector2 mSize = mr->GetMaterial()->GetTexture()->GetTexSize();
+////		//GetComponent<Transform>()->SetScale(Vector3(mSize.x, mSize.y, 1.0f));
+////	}
+////	void Skul_Nohead::Initialize()
+////	{
 //	/*	at = AddComponent<Animator>();
 //		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\AttackA", this);
 //		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Nohead\\AttackB", this);

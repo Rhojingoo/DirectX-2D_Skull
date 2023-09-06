@@ -409,7 +409,6 @@ namespace jk
 			_rigidbody->SetGround(false);
 			_Ground_check = false;
 		}
-
 		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
 		{
 			_bulletcheck = 0;
@@ -432,7 +431,7 @@ namespace jk
 						if (mDir == 1)
 							at->PlayAnimation(L"GoldHammerWalk", true);
 						else
-							at->PlayAnimation(L"HammerWalkR", true);
+							at->PlayAnimation(L"GoldHammerWalkR", true);
 					}
 					if (_distance > -80 && _distance < 80)
 					{

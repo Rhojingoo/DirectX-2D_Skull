@@ -12,7 +12,6 @@ namespace jk
 	{
 	}
 
-
 	void Monster_Hammer::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
@@ -217,7 +216,6 @@ namespace jk
 		GameObject::Render();
 	}
 
-
 	void Monster_Hammer::OnCollisionEnter(Collider2D* other)
 	{		
 		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
@@ -239,8 +237,7 @@ namespace jk
 				_AttackCheck = 0;
 				_attacktime = 0;
 			}
-		}
-	
+		}	
 		
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{
@@ -343,9 +340,7 @@ namespace jk
 
 				}
 			}
-		}
-
-		//HammerDead
+		}		
 	}
 	void Monster_Hammer::OnCollisionStay(Collider2D* other)
 	{
@@ -481,7 +476,6 @@ namespace jk
 							at->PlayAnimation(L"HammerTackle_ReadyR", true);
 							_attackdir = -1;
 						}
-
 					}
 				}
 			}

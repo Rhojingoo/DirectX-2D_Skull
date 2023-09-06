@@ -24,8 +24,7 @@ namespace jk
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
-
-		//static GameObject SetoWner(GameObject* ac) { oWner = ac; }
+		
 
 		enum class Monster_Hammer_State
 		{

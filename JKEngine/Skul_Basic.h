@@ -62,8 +62,9 @@ namespace jk
 	private:
 		Player_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Hammer::Monster_Hammer_State hammer_st = {};
-		Monster_GoldHammer::Monster_GoldHammer_State Goldhammer_st = {};
-
+		Monster_GoldHammer::Monster_GoldHammer_State Goldham_st = {};
+		
+			
 	private:
 		Skul_Basic_State _State;
 		Skul_head* Skul_Head;
