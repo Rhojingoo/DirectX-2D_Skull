@@ -24,6 +24,7 @@ namespace jk
 		void SetDirection(int set) { _dir = set; }
 		bool _effect_switch = false;
 		bool _effect_animation = false;
+		bool _endeffect = true;
 
 	private:
 		Animator* at = nullptr;

@@ -1153,6 +1153,34 @@ namespace jk
 			}
 		}
 
+		if (Cleric_HolyThunder* Bullet = dynamic_cast<Cleric_HolyThunder*>(other->GetOwner()))
+		{
+			if (mDir == 1)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 55.f));
+				_rigidbody->AddForce(Vector2(-10.f, 15));
+				_rigidbody->SetGround(false);
+				_Ground_check = false;
+
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(-1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			if (mDir == -1)
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 55.f));
+				_rigidbody->AddForce(Vector2(10.f, 15));
+				_rigidbody->SetGround(false);
+				_Ground_check = false;
+
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+		}
+
+
+
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
@@ -1353,6 +1381,30 @@ namespace jk
 			}
 
 			
+		}
+
+		if (Cleric_Veteran_Sanctuary* Bullet = dynamic_cast<Cleric_Veteran_Sanctuary*>(other->GetOwner()))
+		{
+			if (_Hit_Effect->_endeffect == true)
+			{
+				if (mDir == 1)
+				{
+					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (mDir == -1)
+				{
+					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+				_Hit_Effect->_endeffect = false;
+			}
 		}
 	}
 	void Skul_Basic::OnCollisionExit(Collider2D* other)

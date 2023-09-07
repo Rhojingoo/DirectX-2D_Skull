@@ -74,6 +74,29 @@ namespace jk
 		void teleport_in();
 		void teleport_out();
 
+	private:
+		float _MaxHp = 2000;
+		float _CurrenHp = 2000;
+		float _MaxHp_scale = 0;
+		float _CurrenHp_scale = 0;
+		int	_bulletcheck = 0;
+
+
+	private:
+		float ground_distance_L = 0.f;
+		float ground_distance_R = 0.f;
+
+
+	private:
+		HitBox_Monster* Hit_Box = nullptr;
+		Player_Hp_Bar* Player_Hp = nullptr;
+		Monster_Hit_Effect* _Hit_Effect = nullptr;
+		Hit_Sword* _Hit_Sword = nullptr;
+		Hit_Critical_Middle* _Critical_Middle = nullptr;
+		Hit_Critical_High* _Critical_High = nullptr;
+		Monster_Death_Effect* _Death_Effect = nullptr;
+		bool _followskul = false;
+
 
 	private:
 		Cleric_Attack_Sign* _Attack_Sign = nullptr;
@@ -102,13 +125,18 @@ namespace jk
 
 	private:
 		static int mDir;
+		int _attackDir = 1;
 		float	_time = 0.f;						// 공격시 사용중
 		float	_attack_time = 0.f;
 		float	_distance = 0.f;					// 플레이어와의 거리 체크
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		int		_hit = 0;							// 공격받은 후 텔레포트하기 위한 변수
+		bool    _hit_switch = false;
 		int		_lotationplay = 0;
 		bool	_Teleport = false;
+		int		_HitType = 0;
+		int		_Dammege = 0;
+
 
 	private:
 		bool _attack_sign = false;
@@ -127,5 +155,6 @@ namespace jk
 		void complete_intro();
 		void complete_teleport_in();
 		void complete_teleport_out();
+		void complete_hit();
 	};
 }

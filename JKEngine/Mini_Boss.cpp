@@ -23,7 +23,7 @@ namespace jk
 
 	void Mini_Boss::Initialize()
 	{
-		_Gobjs[0] = new Knight_male;
+		_Gobjs[0] = new Cleric;
 		_Gobjs[0]->Initialize();
 
 
@@ -47,7 +47,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs[i]);
 			Transform* tr = _Gobjs[i]->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.f, 0.f, -250.f));
+			tr->SetPosition(Vector3(200.f, 0.f, -250.f));
 
 			//if (0 == i)
 			//	_Gobjs[i]->SetState(eState::Paused);

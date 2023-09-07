@@ -66,6 +66,7 @@ namespace jk
 
 	void Player_Hit_Effect::Compelete()
 	{
+		_endeffect = true;
 		this->SetState(eState::Paused);
 	}
 }

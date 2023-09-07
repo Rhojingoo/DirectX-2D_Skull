@@ -121,6 +121,7 @@ namespace jk
 		bool _attack_Bcheck = false;
 
 
+
 	private:
 		void attack_choice();
 		void Input_move();
