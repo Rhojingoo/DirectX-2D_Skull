@@ -23,7 +23,16 @@ namespace jk
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\Fireball_Projectile", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\Fireball_Projectile", this, 1);
-		//at->CompleteEvent(L"BulletWorld_On_Fire_Projectile_v") = std::bind(&Ultimate_On_Fire_Projectile::complete, this);
+
+
+		Bullet_Effect = new Fireball_Projectile_Hit;
+		Bullet_Effect->Initialize();
+		Scene* scene = SceneManager::GetActiveScene();
+		scene->AddGameObject(eLayerType::Bullet, Bullet_Effect);
+		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+		EffectTR->SetPosition(tr->GetPosition());
+		Bullet_Effect->SetState(eState::Paused);
+
 
 
 		at->PlayAnimation(L"BulletFireball_Projectile", true);
@@ -64,6 +73,71 @@ namespace jk
 	}
 	void Mage_FireBall::OnCollisionEnter(Collider2D* other)
 	{
+		//if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		//{
+		//	_rigidbody->SetGround(true);
+		//	_rigidbody->ClearVelocity();
+
+		//	if (_EffectSwitch == true)
+		//	{
+		//		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+		//		EffectTR->SetPosition(tr->GetPosition());
+		//		Bullet_Effect->SetState(eState::Active);
+		//		_EffectSwitch = false;
+		//		_BoomSwitch = false;
+		//		this->SetState(eState::Paused);
+		//		_bullet_On = false;
+		//		_Lifetime = 0;
+		//	}
+		//	else
+		//	{
+		//		//_EffectSwitch = true;
+		//	}
+		//}
+
+		//if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		//{
+		//	_rigidbody->SetGround(true);
+		//	_rigidbody->ClearVelocity();
+
+		//	if (_EffectSwitch == true)
+		//	{
+		//		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+		//		EffectTR->SetPosition(tr->GetPosition());
+		//		Bullet_Effect->SetState(eState::Active);
+		//		_EffectSwitch = false;
+		//		_BoomSwitch = false;
+		//		this->SetState(eState::Paused);
+		//		_bullet_On = false;
+		//		_Lifetime = 0;
+		//	}
+		//	else
+		//	{
+		//		//_EffectSwitch = true;
+		//	}
+		//}
+
+		//if (Player* mGround = dynamic_cast<Player*>(other->GetOwner()))
+		//{
+		//	_rigidbody->SetGround(true);
+		//	_rigidbody->ClearVelocity();
+
+		//	if (_EffectSwitch == true)
+		//	{
+		//		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+		//		EffectTR->SetPosition(tr->GetPosition());
+		//		Bullet_Effect->SetState(eState::Active);
+		//		_EffectSwitch = false;
+		//		_BoomSwitch = false;
+		//		this->SetState(eState::Paused);
+		//		_bullet_On = false;
+		//		_Lifetime = 0;
+		//	}
+		//	else
+		//	{
+		//		//_EffectSwitch = true;
+		//	}
+		//}
 	}
 	void Mage_FireBall::OnCollisionStay(Collider2D* other)
 	{

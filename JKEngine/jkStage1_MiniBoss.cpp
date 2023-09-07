@@ -148,7 +148,7 @@ namespace jk
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		camera->AddComponent<CameraScript>();
+		//camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
 

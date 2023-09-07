@@ -33,7 +33,6 @@ namespace jk
 		//if (Input::GetKey(eKeyCode::H))
 		//	mLookPosition.y += 100.0f * static_cast<float>(Time::DeltaTime());
 
-
 		//캐릭터를 중심으로 움직이게 설정
 		//if (camera == 0)
 		//{

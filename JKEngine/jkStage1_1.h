@@ -19,6 +19,7 @@ namespace jk
 		virtual void OnExit();
 
 	private:
-
+		Camera* cameraComp = nullptr;
+		Player* _player = nullptr;
 	};
 }

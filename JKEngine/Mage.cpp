@@ -282,6 +282,67 @@ namespace jk
 			Phoenix_Landing_Land->SetState(eState::Paused);		
 		}
 
+
+		{
+			Player_Hp = new Player_Hp_Bar;
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
+			Player_Hp->SetName(L"player_hp_bar");
+			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
+			hp_tr->SetScale(_MaxHp, 10, 0);
+			Player_Hp->Set_Max_Hp(_MaxHp);
+			Player_Hp->Set_Current_Hp(_MaxHp);
+			Player_Hp->SetState(eState::Active);
+		}
+		
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
+		{
+			_Hit_Sword = new Hit_Sword;
+			_Hit_Sword->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
+			_Hit_Sword->SetState(eState::Paused);
+		}
+
+		{
+			_Critical_Middle = new Hit_Critical_Middle;
+			_Critical_Middle->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
+			_Critical_Middle->SetState(eState::Paused);
+		}
+		{
+			_Critical_High = new Hit_Critical_High;
+			_Critical_High->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_High);
+			_Critical_High->SetState(eState::Paused);
+		}
+
+		{
+			_Death_Effect = new Monster_Death_Effect;
+			_Death_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
+			_Death_Effect->SetState(eState::Paused);
+		}
+
+
+
 		_first_place = pos;
 		at->PlayAnimation(L"MageIdle", true);
 		GameObject::Initialize();
@@ -297,6 +358,43 @@ namespace jk
 			mDir = 1;
 		else
 			mDir = -1;
+
+
+		_MaxHp_scale = _MaxHp / 10;
+		_CurrenHp_scale = _CurrenHp / 10;
+		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(pos.x - (_MaxHp_scale - _CurrenHp_scale) / 2, pos.y + 50, pos.z - 1));
+		hp_tr->SetScale(_CurrenHp_scale, 10, 0);
+
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
+		}
+
+		ground_distance_L = Left_Ground.x - pos.x;
+		ground_distance_R = Right_Ground.x - pos.x;
+
 
 
 		switch (_state)
@@ -425,7 +523,7 @@ namespace jk
 	void Mage::LateUpdate()
 	{
 		_collider->SetSize(Vector2(0.1f, 0.5f));
-		_collider->SetCenter(Vector2(0.0f, -25.f));	
+		_collider->SetCenter(Vector2(0.0f, -30.f));	
 		GameObject::LateUpdate();
 	}
 	void Mage::Render()
@@ -434,6 +532,372 @@ namespace jk
 	}
 	void Mage::OnCollisionEnter(Collider2D* other)
 	{
+		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
+		{
+			if (_state == Mage_State::Die)
+				return;
+
+			bool attack = false;
+			bool attack_Cri_Mid = false;
+			bool attack_Cri_High = false;
+
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Dammege = 10;
+				attack = true;
+			}
+			if (_HitType >= 6 && _HitType < 9)
+			{
+				_Dammege = random(15, 25);
+				attack_Cri_Mid = true;
+			}
+			if (_HitType >= 9 && _HitType <= 10)
+			{
+				_Dammege = random(30, 45);
+				attack_Cri_High = true;
+			}
+
+			if ((_state == Mage_State::Finishing_Move_Ready) || (_state == Mage_State::WalkBack_L)|| (_state == Mage_State::WalkBack_R)|| (_state == Mage_State::WalkFront_L) || (_state == Mage_State::WalkFront_R))
+			{
+				_hit++;
+				_Hit_Effect->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (mDir == 1)
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+				}
+				else
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Sword->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
+			if (_state == Mage_State::Idle)
+			{
+				_state = Mage_State::Hit;
+				_Hit_Effect->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"MageHit", true);
+					if (_hit < 2)
+						_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+					_hit++;
+
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+
+				}
+				if (mDir == -1)
+				{
+					at->PlayAnimation(L"MageHitR", true);
+					if (_hit < 2)
+						_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+					_hit++;
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
+			if (!((_state == Mage_State::Idle) || (_state == Mage_State::Finishing_Move_Ready) || (_state == Mage_State::WalkBack_L) || (_state == Mage_State::WalkBack_R) || (_state == Mage_State::WalkFront_L) || (_state == Mage_State::WalkFront_R)))
+			{
+				_hit++;
+				_Hit_Effect->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (mDir == 1)
+				{
+					_rigidbody->SetVelocity(Vector2(-20.f, 0.f));
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+				}
+				else
+				{
+					_rigidbody->SetVelocity(Vector2(20.f, 0.f));
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
+			if (_CurrenHp <= 0)
+			{
+				_state = Mage_State::Die;
+				_Hit_Effect->_effect_animation = true;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"MageDie", false);
+					_Hit_Effect->SetDirection(-1);
+				}
+				else
+				{
+					at->PlayAnimation(L"MageDieR", false);
+					_Hit_Effect->SetDirection(1);
+				}
+				_Death_Effect->SetState(eState::Active);
+			}
+		}
+
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			if (_state == Mage_State::Die)
+				return;
+
+			bool attack = false;
+			bool attack_Cri_Mid = false;
+			bool attack_Cri_High = false;
+
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Dammege = 25;
+				attack = true;
+			}
+			if (_HitType >= 6 && _HitType < 9)
+			{
+				_Dammege = random(35, 40);
+				attack_Cri_Mid = true;
+			}
+			if (_HitType >= 9 && _HitType <= 10)
+			{
+				_Dammege = random(50, 70);
+				attack_Cri_High = true;
+			}
+
+
+			if (player->_Head_Attack == false && _bulletcheck == 0)
+			{
+				if (player->_Ground_check == true)
+					return;
+
+				if ((_state == Mage_State::Finishing_Move_Ready) || (_state == Mage_State::WalkBack_L) || (_state == Mage_State::WalkBack_R) || (_state == Mage_State::WalkFront_L) || (_state == Mage_State::WalkFront_R))
+				{
+					_hit++;
+					_Hit_Effect->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+
+					if (mDir == 1)
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+					}
+					else
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (_state == Mage_State::Idle)
+				{
+					_hit++;
+					_Hit_Effect->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+					_state = Mage_State::Hit;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"MageHit", true);
+						if (_hit < 2)
+							_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+
+					}
+					if (mDir == -1)
+					{
+						at->PlayAnimation(L"MageHitR", true);
+						if (_hit < 2)
+							_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (!((_state == Mage_State::Idle) || (_state == Mage_State::Finishing_Move_Ready) || (_state == Mage_State::WalkBack_L) || (_state == Mage_State::WalkBack_R) || (_state == Mage_State::WalkFront_L) || (_state == Mage_State::WalkFront_R)))
+				{
+					_hit++;
+					_Hit_Effect->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+
+					if (mDir == 1)
+					{
+						_rigidbody->SetVelocity(Vector2(-20.f, 0.f));
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+					}
+					else
+					{
+						_rigidbody->SetVelocity(Vector2(20.f, 0.f));
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (_CurrenHp <= 0)
+				{
+					_state = Mage_State::Die;
+					_Hit_Effect->_effect_animation = true;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"MageDie", false);
+						_Hit_Effect->SetDirection(-1);
+					}
+					else
+					{
+						at->PlayAnimation(L"MageDieR", false);
+						_Hit_Effect->SetDirection(1);
+					}
+					_Death_Effect->SetState(eState::Active);
+				}
+			}
+		}
 	}
 	void Mage::OnCollisionStay(Collider2D* other)
 	{
@@ -1327,6 +1791,11 @@ namespace jk
 
 	void Mage::complete_hit()
 	{
+		_state = Mage_State::Idle;
+		if (mDir == 1)
+			at->PlayAnimation(L"MageIdle", true);
+		else
+			at->PlayAnimation(L"MageIdleR", true);
 	}
 	void Mage::complete_ultimate_set()
 	{

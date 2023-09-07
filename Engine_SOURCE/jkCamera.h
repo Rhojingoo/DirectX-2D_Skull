@@ -52,12 +52,18 @@ namespace jk
 		Matrix& GetProjectionMatrix() { return mProjection; }
 
 		static Vector3 GetWorldpos_Camera(Vector3 pos);
+		static void SetTarget(GameObject* target) { mTarget = target; }
+
 
 		Vector3 GetWorldTransform(Vector3 pos);
+
+
+
 
 	private:
 		static Matrix View;
 		static Matrix Projection;
+		static GameObject* mTarget;
 
 		Matrix mView;
 		Matrix mProjection;

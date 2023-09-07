@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "Bullet.h"
+#include "Fireball_Projectile_Hit.h"
 
 namespace jk
 {
@@ -20,11 +21,18 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 		void complete();
-
 		void SetDirection(int set) { _dir = set; }
+		
+	public:
+		bool _EffectSwitch = true;
+		bool _BoomSwitch = false;
 		bool _bullet_animation = false;
 		bool _bullet_On = false;
 		bool _rotationswitch = false;
+
+	private:
+		Fireball_Projectile_Hit* Bullet_Effect;
+
 
 	private:
 		Animator* at = nullptr;

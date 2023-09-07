@@ -124,6 +124,7 @@ namespace jk
 	void Stage1_1::LateUpdate()
 	{
 		Scene::LateUpdate();
+		cameraComp->SetTarget(_player);
 	}
 
 	void Stage1_1::Render()

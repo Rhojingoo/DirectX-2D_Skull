@@ -102,6 +102,29 @@ namespace jk
 		void WalkFront_R();
 		void WalkFront_L();
 
+	private:
+		float _MaxHp = 2000;
+		float _CurrenHp = 2000;
+		float _MaxHp_scale = 0;
+		float _CurrenHp_scale = 0;
+		int	_bulletcheck = 0;
+
+
+	private:
+		float ground_distance_L = 0.f;
+		float ground_distance_R = 0.f;
+
+
+	private:
+		HitBox_Monster* Hit_Box = nullptr;
+		Player_Hp_Bar* Player_Hp = nullptr;
+		Monster_Hit_Effect* _Hit_Effect = nullptr;
+		Hit_Sword* _Hit_Sword = nullptr;
+		Hit_Critical_Middle* _Critical_Middle = nullptr;
+		Hit_Critical_High* _Critical_High = nullptr;
+		Monster_Death_Effect* _Death_Effect = nullptr;
+		bool _followskul = false;
+
 		
 	private:
 		Mage_State _state;
@@ -135,6 +158,7 @@ namespace jk
 
 	private:
 		int		mDir = 1;
+		int _attackDir = 1;
 		float	_time = 0.f;						// 공격시 사용중
 		float	_attack_time = 0.f;
 		bool	_attack = false;					// 공격에서 idle로 보내는 스위치 변수
@@ -150,6 +174,8 @@ namespace jk
 		float   _movetime = 0.f;
 		int     _mtime = 0;
 		int		_hit = 0;							// 공격받은 횟수 Check
+		int		_HitType = 0;
+		int		_Dammege = 0;
 
 
 	private:

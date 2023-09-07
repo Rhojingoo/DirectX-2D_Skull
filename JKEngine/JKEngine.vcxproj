@@ -179,6 +179,7 @@
     <ClInclude Include="Dimension_Pierce_BulletEffect.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Face_UI.h" />
+    <ClInclude Include="Fireball_Projectile_Hit.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Attack_HitBox.h" />
@@ -343,6 +344,7 @@
     <ClCompile Include="Dimension_Pierce_BulletEffect.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Face_UI.cpp" />
+    <ClCompile Include="Fireball_Projectile_Hit.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Attack_HitBox.cpp" />
     <ClCompile Include="Ground_and_Wall.cpp" />
