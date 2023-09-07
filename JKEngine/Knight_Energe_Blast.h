@@ -1,7 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "Bullet.h"
-
+#include "MiniBoss_Bullet_Knight.h"
 
 namespace jk
 {

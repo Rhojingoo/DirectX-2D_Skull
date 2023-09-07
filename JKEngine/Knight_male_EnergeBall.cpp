@@ -72,7 +72,26 @@ namespace jk
 			{
 				//_EffectSwitch = true;
 			}
+		}
 
+		if (Player* mGround = dynamic_cast<Player*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+
+			if (_EffectSwitch == true)
+			{
+				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				Bullet_Effect->SetState(eState::Active);
+				_EffectSwitch = false;
+				_BoomSwitch = false;
+				this->SetState(eState::Paused);
+			}
+			else
+			{
+				//_EffectSwitch = true;
+			}
 		}
 	}
 	void Knight_male_EnergeBall::OnCollisionStay(Collider2D* other)

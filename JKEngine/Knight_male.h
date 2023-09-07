@@ -117,10 +117,15 @@ namespace jk
 
 	private:
 		HitBox_Knight* Hit_Box = nullptr;
-		Player_Hit_Effect* _Hit_Effect = nullptr;
+
+
+		Player_Hp_Bar* Player_Hp = nullptr;
+		Monster_Hit_Effect* _Hit_Effect = nullptr;
+		Player_Hit_Effect* _Hit_Effect_player = nullptr;
 		Hit_Sword* _Hit_Sword = nullptr;
 		Hit_Critical_Middle* _Critical_Middle = nullptr;
 		Hit_Critical_High* _Critical_High = nullptr;
+		Monster_Death_Effect* _Death_Effect = nullptr;
 		Monster_Hammer::Monster_Hammer_State hammer_st = {};
 		Monster_GoldHammer::Monster_GoldHammer_State Goldham_st = {};
 
@@ -131,9 +136,9 @@ namespace jk
 		int		_attackdir = 1;
 		bool	_attack_Col = false;
 
+
 		float	_distance = 0.f;			// 플레이어와의 거리 체크
 		bool	_Ground_check = false;		// 땅체크시에 쓰이고 있는 변수
-
 		bool	_dash = false;
 		float	_time = 0.f;				// 공격시 사용중
 		bool	_attack = false;			// 공격에서 idle로 보내는 스위치 변수
@@ -141,6 +146,8 @@ namespace jk
 		int		_number_of_hit = 0;			// 타격횟수에 따라 행동을 설정(그로기, 백대쉬, ultimate아우라취소등)하기위한 변수
 		int		_attackorder = 0;			// 콤보공격의 경우 순서가 정해져 있어 해당 순서에 진행하도록 설정하는 변수 
 		int		_choicecombo = 0;			// 공격종류의 선택을 할수 있도록 설정하는 변수
+		int		_HitType = 0;
+		int		_Dammege = 0;
 
 
 		float	_Attacktime = 0.f;				
@@ -174,5 +181,8 @@ namespace jk
 		void complete_gloggy();
 		void complete_hit();
 		void complete_Intro();
+		void complete_Attack_A();
+		void complete_Attack_B();
+		void complete_Attack_C();
 };
 }

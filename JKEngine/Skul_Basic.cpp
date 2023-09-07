@@ -85,8 +85,15 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, _Knight_Slash);
 			_Knight_Slash->SetState(eState::Paused);
 		}
-
-
+		{
+			_DarkKnight = new Hit_DarkPaladin;
+			_DarkKnight->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _DarkKnight);
+			_DarkKnight->SetState(eState::Paused);
+		}
+		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackB", this) ;
@@ -189,7 +196,14 @@ namespace jk
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
 		}
 
-
+		{
+			Transform* _Hit_Effect_TR = _DarkKnight->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
+		}
+		
 		if (_switch == true)
 		{
 			_State = Skul_Basic::Skul_Basic_State::Switch;
@@ -896,7 +910,6 @@ namespace jk
 			{
 				if (_State == Skul_Basic_State::Dash)
 				{
-
 				}
 				else
 				{
@@ -1006,16 +1019,16 @@ namespace jk
 			//	if (mDir == 1)
 			//	{
 			//		_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
-			//		_Hit_Effect->_effect_animation = true;
-			//		_Hit_Effect->SetDirection(1);
-			//		_Hit_Effect->SetState(eState::Active);
+			//		_Hit_Effect_player->_effect_animation = true;
+			//		_Hit_Effect_player->SetDirection(1);
+			//		_Hit_Effect_player->SetState(eState::Active);
 			//	}
 			//	if (mDir == -1)
 			//	{
 			//		_rigidbody->SetVelocity(Vector2(50.f, 0.f));
-			//		_Hit_Effect->_effect_animation = true;
-			//		_Hit_Effect->SetDirection(-1);
-			//		_Hit_Effect->SetState(eState::Active);
+			//		_Hit_Effect_player->_effect_animation = true;
+			//		_Hit_Effect_player->SetDirection(-1);
+			//		_Hit_Effect_player->SetState(eState::Active);
 			//	}
 			//}
 		}
@@ -1073,6 +1086,73 @@ namespace jk
 				_Knight_Slash->SetState(eState::Active);
 			}
 		}
+
+		if (MiniBoss_Bullet_Knight* Bullet = dynamic_cast<MiniBoss_Bullet_Knight*>(other->GetOwner()))
+		{
+			if (mDir == 1)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Hit_Sword->_effect_animation = true;
+				_Hit_Sword->SetDirection(-1);
+				_Hit_Sword->SetState(eState::Active);
+			}
+			if (mDir == -1)
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Hit_Sword->_effect_animation = true;
+				_Hit_Sword->SetDirection(1);
+				_Hit_Sword->SetState(eState::Active);
+			}
+		}
+
+		if (Knight_Energe_Blast* Bullet = dynamic_cast<Knight_Energe_Blast*>(other->GetOwner()))
+		{
+			if (mDir == 1)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 55.f));
+				_rigidbody->AddForce(Vector2(0.f, 15));
+				_rigidbody->SetGround(false);
+				_Ground_check = false;
+
+				_Hit_Sword->_effect_animation = true;
+				_Hit_Sword->SetDirection(-1);
+				_Hit_Sword->SetState(eState::Active);
+			}
+			if (mDir == -1)
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 55.f));
+				_rigidbody->AddForce(Vector2(0.f, 15));
+				_rigidbody->SetGround(false);
+				_Ground_check = false;
+
+				_Hit_Sword->_effect_animation = true;
+				_Hit_Sword->SetDirection(1);
+				_Hit_Sword->SetState(eState::Active);
+			}
+		}
+
+		if (Knight_UltimateSkill_Projectile* Bullet = dynamic_cast<Knight_UltimateSkill_Projectile*>(other->GetOwner()))
+		{
+			if (mDir == 1)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 50.f));
+
+				_DarkKnight->_effect_animation = true;
+				_DarkKnight->SetDirection(-1);
+				_DarkKnight->SetState(eState::Active);
+			}
+			if (mDir == -1)
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 50.f));
+
+				_DarkKnight->_effect_animation = true;
+				_DarkKnight->SetDirection(1);
+				_DarkKnight->SetState(eState::Active);
+			}
+		}
+
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{

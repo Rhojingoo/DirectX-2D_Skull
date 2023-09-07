@@ -1,11 +1,11 @@
 #pragma once
 #include "Include_Common.h"
-#include "Bullet.h"
+#include "MiniBoss_Bullet_Knight.h"
 #include "Kngiht_EnergyBall_Impact.h"
 
 namespace jk
 {
-	class Knight_male_EnergeBall : public Bullet
+	class Knight_male_EnergeBall : public MiniBoss_Bullet_Knight
 	{
 	public:
 		Knight_male_EnergeBall();

@@ -8,6 +8,7 @@
 #include "Hit_Sword.h"
 #include "Hit_Critical_Middle.h"
 #include "Hit_Critical_High.h"
+#include "Hit_DarkPaladin.h"
 #include "Slash_Effect.h"
 
 
@@ -77,6 +78,7 @@ namespace jk
 		Hit_Critical_Middle* _Critical_Middle = nullptr;
 		Hit_Critical_High* _Critical_High = nullptr;
 		Slash_Effect* _Knight_Slash = nullptr;
+		Hit_DarkPaladin* _DarkKnight = nullptr;
 
 
 		Monster_Hammer::Monster_Hammer_State hammer_st = {};

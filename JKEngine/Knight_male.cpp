@@ -34,7 +34,7 @@ namespace jk
 		//tr_head->SetPosition(Vector3(pos.x, pos.y, -250.f));
 		//Skul_Head->GetComponent<Transform>()->SetScale(Vector3(15.f, 13.f, 0.f));
 		//Skul_Head->SetState(eState::Paused);
-
+		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_A", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_B", this); 
@@ -81,14 +81,14 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Finish_Move", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\UltimateSkill_Motion", this,1);
 		
-
+			
 		//bind ºÎºÐ
-		at->CompleteEvent(L"Knight_maleAttack_A") = std::bind(&Knight_male::choicecombo, this);
-		at->CompleteEvent(L"Knight_maleAttack_B") = std::bind(&Knight_male::choicecombo, this);
-		at->CompleteEvent(L"Knight_maleAttack_C") = std::bind(&Knight_male::choicecombo, this);
-		at->CompleteEvent(L"Knight_maleAttack_AR") = std::bind(&Knight_male::choicecombo, this);
-		at->CompleteEvent(L"Knight_maleAttack_BR") = std::bind(&Knight_male::choicecombo, this);
-		at->CompleteEvent(L"Knight_maleAttack_CR") = std::bind(&Knight_male::choicecombo, this);
+		at->CompleteEvent(L"Knight_maleAttack_A") = std::bind(&Knight_male::complete_Attack_A, this);
+		at->CompleteEvent(L"Knight_maleAttack_B") = std::bind(&Knight_male::complete_Attack_B, this);
+		at->CompleteEvent(L"Knight_maleAttack_C") = std::bind(&Knight_male::complete_Attack_C, this);
+		at->CompleteEvent(L"Knight_maleAttack_AR") = std::bind(&Knight_male::complete_Attack_A, this);
+		at->CompleteEvent(L"Knight_maleAttack_BR") = std::bind(&Knight_male::complete_Attack_B, this);
+		at->CompleteEvent(L"Knight_maleAttack_CR") = std::bind(&Knight_male::complete_Attack_C, this);
 
 
 		at->CompleteEvent(L"Knight_maleEnergeBall") = std::bind(&Knight_male::choicecombo, this);
@@ -203,6 +203,75 @@ namespace jk
 			Hit_Box->SetState(eState::Paused);
 		}
 
+		{
+			Player_Hp = new Player_Hp_Bar;
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
+			Player_Hp->SetName(L"player_hp_bar");
+			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
+			hp_tr->SetScale(_MaxHp, 10, 0);
+			Player_Hp->Set_Max_Hp(_MaxHp);
+			Player_Hp->Set_Current_Hp(_MaxHp);
+			Player_Hp->SetState(eState::Active);
+		}
+		
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
+		{
+			_Hit_Effect_player = new Player_Hit_Effect;
+			_Hit_Effect_player->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect_player);
+			_Hit_Effect_player->SetState(eState::Paused);
+		}
+
+		
+
+		{
+			_Hit_Sword = new Hit_Sword;
+			_Hit_Sword->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
+			_Hit_Sword->SetState(eState::Paused);
+		}
+
+		{
+			_Critical_Middle = new Hit_Critical_Middle;
+			_Critical_Middle->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
+			_Critical_Middle->SetState(eState::Paused);
+		}
+		{
+			_Critical_High = new Hit_Critical_High;
+			_Critical_High->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_High);
+			_Critical_High->SetState(eState::Paused);
+		}
+
+		{
+			_Death_Effect = new Monster_Death_Effect;
+			_Death_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
+			_Death_Effect->SetState(eState::Paused);
+		}
+
 
 		
 		at->PlayAnimation(L"Knight_maleIdle", true);
@@ -221,6 +290,47 @@ namespace jk
 			mDir = 1;
 		else
 			mDir = -1;
+
+
+		_MaxHp_scale = _MaxHp / 10;
+		_CurrenHp_scale = _CurrenHp / 10;
+		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(pos.x - (_MaxHp_scale - _CurrenHp_scale) / 2, pos.y + 50, pos.z - 1));
+		hp_tr->SetScale(_CurrenHp_scale, 10, 0);
+
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect_player->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
+		}
+
 
 
 
@@ -364,32 +474,401 @@ namespace jk
 
 	void Knight_male::OnCollisionEnter(Collider2D* other)
 	{
+		//if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
+		//{
+		//	if (!(_state == Knight_State::Idle))
+		//		return;
+		//	
+		//	if (_state == Knight_State::Idle)
+		//	{
+		//		_state = Knight_State::Hit;
+		//		if (mDir == 1)
+		//		{
+		//			at->PlayAnimation(L"Knight_maleHit", true);
+		//			_hit_switch = true;	_number_of_hit++;
+		//			pos.x -= 50.0f * Time::DeltaTime();
+		//			tr->SetPosition(pos);
+		//		}
+		//		if (mDir == -1)
+		//		{
+		//			at->PlayAnimation(L"Knight_maleHitR", true);
+		//			_hit_switch = true;	_number_of_hit++;
+		//			pos.x += 50.0f * Time::DeltaTime();
+		//			tr->SetPosition(pos);
+		//		}
+		//		if (_number_of_hit >= 2)
+		//			int a = 0;
+		//	}
+		//}
+
+
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{
-			if (!(_state == Knight_State::Idle))
+			if (_state == Knight_State::Die)
 				return;
-			
+
+			bool attack = false;
+			bool attack_Cri_Mid = false;
+			bool attack_Cri_High = false;
+
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Dammege = 10;
+				attack = true;
+			}
+			if (_HitType >= 6 && _HitType < 9)
+			{
+				_Dammege = random(15, 25);
+				attack_Cri_Mid = true;
+			}
+			if (_HitType >= 9 && _HitType <= 10)
+			{
+				_Dammege = random(30, 45);
+				attack_Cri_High = true;
+			}
+
+			if ((_state == Knight_State::Finishing_Move_Ready) || (_state == Knight_State::BackDash))
+			{
+				_number_of_hit++;
+				_Hit_Effect->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (mDir == 1)
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+				}
+				else
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Sword->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
 			if (_state == Knight_State::Idle)
 			{
 				_state = Knight_State::Hit;
+				_Hit_Effect->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
 				if (mDir == 1)
 				{
 					at->PlayAnimation(L"Knight_maleHit", true);
+					if (_number_of_hit < 2)
+						_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 					_hit_switch = true;	_number_of_hit++;
-					pos.x -= 50.0f * Time::DeltaTime();
-					tr->SetPosition(pos);
+
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+
 				}
 				if (mDir == -1)
 				{
 					at->PlayAnimation(L"Knight_maleHitR", true);
+					if (_number_of_hit < 2)
+						_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 					_hit_switch = true;	_number_of_hit++;
-					pos.x += 50.0f * Time::DeltaTime();
-					tr->SetPosition(pos);
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
 				}
-				if (_number_of_hit >= 2)
-					int a = 0;
+				if (attack == true)
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
+			if (!((_state == Knight_State::Idle) || (_state == Knight_State::Finishing_Move_Ready) || (_state == Knight_State::BackDash)))
+			{
+				_number_of_hit++;
+				_Hit_Effect->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (mDir == 1)
+				{
+					_rigidbody->SetVelocity(Vector2(-20.f, 0.f));
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+				}
+				else
+				{
+					_rigidbody->SetVelocity(Vector2(20.f, 0.f));
+
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
+			if (_CurrenHp <= 0)
+			{
+				_state = Knight_State::Die;
+				_Hit_Effect->_effect_animation = true;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"Knight_maleDie", false);
+					_Hit_Effect->SetDirection(-1);
+				}
+				else
+				{
+					at->PlayAnimation(L"Knight_maleDieR", false);
+					_Hit_Effect->SetDirection(1);
+				}
+				_Death_Effect->SetState(eState::Active);
 			}
 		}
+
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			if (_state == Knight_State::Die)
+				return;
+
+			bool attack = false;
+			bool attack_Cri_Mid = false;
+			bool attack_Cri_High = false;
+
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Dammege = 25;
+				attack = true;
+			}
+			if (_HitType >= 6 && _HitType < 9)
+			{
+				_Dammege = random(35, 40);
+				attack_Cri_Mid = true;
+			}
+			if (_HitType >= 9 && _HitType <= 10)
+			{
+				_Dammege = random(50, 70);
+				attack_Cri_High = true;
+			}
+
+
+			if (player->_Head_Attack == false && _bulletcheck == 0)
+			{
+				if (player->_Ground_check == true)
+					return;
+
+				if ((_state == Knight_State::Finishing_Move_Ready) || (_state == Knight_State::BackDash))
+				{
+					_number_of_hit++;
+					_Hit_Effect->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+
+					if (mDir == 1)
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+					}
+					else
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (_state == Knight_State::Idle)
+				{
+					_hit_switch = true;	_number_of_hit++;
+					_Hit_Effect->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+					_state = Knight_State::Hit;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"Knight_maleHit", true);
+						if (_number_of_hit < 2)
+							_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+
+					}
+					if (mDir == -1)
+					{
+						at->PlayAnimation(L"Knight_maleHitR", true);
+						if (_number_of_hit < 2)
+							_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (!((_state == Knight_State::Idle) || (_state == Knight_State::Finishing_Move_Ready) || (_state == Knight_State::BackDash)))
+				{
+					_number_of_hit++;
+					_Hit_Effect->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+
+					if (mDir == 1)
+					{
+						_rigidbody->SetVelocity(Vector2(-20.f, 0.f));
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+					}
+					else
+					{
+						_rigidbody->SetVelocity(Vector2(20.f, 0.f));
+
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_CurrenHp = _CurrenHp - _Dammege;
+						_Hit_Effect->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (_CurrenHp <= 0)
+				{
+					_state = Knight_State::Die;
+					_Hit_Effect->_effect_animation = true;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"Knight_maleDie", false);
+						_Hit_Effect->SetDirection(-1);
+					}
+					else
+					{
+						at->PlayAnimation(L"Knight_maleDieR", false);
+						_Hit_Effect->SetDirection(1);
+					}
+					_Death_Effect->SetState(eState::Active);
+				}
+			}
+		}
+
 
 		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
 		{
@@ -439,8 +918,8 @@ namespace jk
 		_time += Time::DeltaTime();
 		_Attacktime = 0;
 		_choicecombo = random(0, 3);
-
-		_choicecombo = 0;
+		_choicecombo = 2;
+	
 		if (_Intro == false)
 		{
 			_state = Knight_State::Intro;
@@ -579,6 +1058,7 @@ namespace jk
 
 	void Knight_male::die()
 	{
+		_attack_Col = false;
 	}
 
 	void Knight_male::attack_a()
@@ -856,8 +1336,7 @@ namespace jk
 
 	void Knight_male::choicecombo()
 	{
-		_Attacktime = 0;
-		_attack_Col = false;
+		_Attacktime = 0;		
 		if (_attack == true)
 		{			
 			if (_choicecombo == 0)
@@ -1044,6 +1523,24 @@ namespace jk
 	void Knight_male::complete_Intro()
 	{
 		_Intro = true;
+	}
+
+	void Knight_male::complete_Attack_A()
+	{
+		_attack_Col = false;
+		choicecombo();
+	}
+
+	void Knight_male::complete_Attack_B()
+	{
+		_attack_Col = false;
+		choicecombo();
+	}
+
+	void Knight_male::complete_Attack_C()
+	{
+		_attack_Col = false;
+		choicecombo();
 	}
 
 }

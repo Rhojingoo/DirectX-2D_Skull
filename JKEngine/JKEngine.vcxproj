@@ -190,6 +190,7 @@
     <ClInclude Include="HitBox_Player.h" />
     <ClInclude Include="Hit_Critical_High.h" />
     <ClInclude Include="Hit_Critical_Middle.h" />
+    <ClInclude Include="Hit_DarkPaladin.h" />
     <ClInclude Include="Hit_Sword.h" />
     <ClInclude Include="Homing_Pierce_LongHair.h" />
     <ClInclude Include="Homing_Pierce_ShortHair.h" />
@@ -218,6 +219,7 @@
     <ClInclude Include="Mage_Phoenix_Landing.h" />
     <ClInclude Include="Mage_Phoenix_Landing_Land.h" />
     <ClInclude Include="MiniBoss_Bullet_Archer.h" />
+    <ClInclude Include="MiniBoss_Bullet_Knight.h" />
     <ClInclude Include="Monster_BigEnt_EnergeBall.h" />
     <ClInclude Include="Monster_Blossomeenct_Attack.h" />
     <ClInclude Include="Monster_Bullet.h" />
@@ -351,6 +353,7 @@
     <ClCompile Include="HitBox_Player.cpp" />
     <ClCompile Include="Hit_Critical_High.cpp" />
     <ClCompile Include="Hit_Critical_Middle.cpp" />
+    <ClCompile Include="Hit_DarkPaladin.cpp" />
     <ClCompile Include="Hit_Sword.cpp" />
     <ClCompile Include="Homing_Pierce_LongHair.cpp" />
     <ClCompile Include="Homing_Pierce_ShortHair.cpp" />
@@ -379,6 +382,7 @@
     <ClCompile Include="Mage_Phoenix_Landing.cpp" />
     <ClCompile Include="Mage_Phoenix_Landing_Land.cpp" />
     <ClCompile Include="MiniBoss_Bullet_Archer.cpp" />
+    <ClCompile Include="MiniBoss_Bullet_Knight.cpp" />
     <ClCompile Include="Monster_BigEnt_EnergeBall.cpp" />
     <ClCompile Include="Monster_Blossomeenct_Attack.cpp" />
     <ClCompile Include="Monster_Bullet.cpp" />
