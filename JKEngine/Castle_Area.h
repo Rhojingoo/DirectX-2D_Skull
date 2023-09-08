@@ -20,6 +20,8 @@ namespace jk
 		virtual void OnExit();
 
 	private:
-
+		Player* _player = nullptr;
+		Back_ground* Castle_wall_Back = nullptr;
+		Camera* cameraComp = nullptr;
 	};
 }

@@ -38,7 +38,7 @@ namespace jk
 		static Vector3 GetPlayer_GRPos() { return _Player_GRpos; }
 		
 		
-
+		Transform* PlayerTR = nullptr;
 		static PlayerList player_select;
 		static Vector3 _Pos; 
 		static Vector3 _Player_GRpos;

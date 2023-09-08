@@ -667,6 +667,13 @@ namespace jk::renderer
 						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Out_Fore_GR", material);
 			#pragma endregion	
 
+			#pragma region Out(catle)
+									texture = Resources::Load<Texture>(L"out_catle", L"..\\Resources\\Texture\\Devil_Catle\\Out_Catle.png");
+									material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+									material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Out_Catle", material);
+			#pragma endregion	
+
+
 		#pragma endregion	
 
 			#pragma region Cloud				

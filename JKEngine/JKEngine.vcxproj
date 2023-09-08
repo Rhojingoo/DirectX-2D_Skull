@@ -237,6 +237,7 @@
     <ClInclude Include="Monster_StoneWizard_Teleport.h" />
     <ClInclude Include="Monster_Tackle_Flash_Effect.h" />
     <ClInclude Include="Monster_Stone_wizard_IcicleBullet.h" />
+    <ClInclude Include="OutSide_CastleArea.h" />
     <ClInclude Include="Player_Hit_Effect.h" />
     <ClInclude Include="Sky_Ground.h" />
     <ClInclude Include="Slash_Effect.h" />
@@ -403,6 +404,7 @@
     <ClCompile Include="Monster_StoneWizard_Teleport.cpp" />
     <ClCompile Include="Monster_Tackle_Flash_Effect.cpp" />
     <ClCompile Include="Monster_Stone_wizard_IcicleBullet.cpp" />
+    <ClCompile Include="OutSide_CastleArea.cpp" />
     <ClCompile Include="Player_Hit_Effect.cpp" />
     <ClCompile Include="Sky_Ground.cpp" />
     <ClCompile Include="Slash_Effect.cpp" />

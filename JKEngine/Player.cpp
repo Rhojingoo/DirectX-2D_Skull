@@ -19,6 +19,9 @@ namespace jk
 	}
 	void Player::Initialize()
 	{
+		PlayerTR = GetComponent<Transform>();
+		_Pos = PlayerTR->GetPosition();
+
 		_Gobjs[0] = new Skul_Basic;
 		_Gobjs[0]->Initialize();
 		_Gobjs[1] = new Skul_Wolf;
@@ -29,8 +32,6 @@ namespace jk
 		_Gobjs[3]->Initialize();
 		_Gobjs[4] = new Skul_Thief;
 		_Gobjs[4]->Initialize();
-		//CameraScript* cam = AddComponent<CameraScript>();
-		//cam->SetTarget(this);
 
 		for (int i = 0; i < 5; i++)
 		{
@@ -50,8 +51,6 @@ namespace jk
 		player_check;
 		_Pos;
 
-		//Yggdrasil::SetPlayerPos(_Pos);
-		//Mini_Boss::SetPlayerPos(_Pos);
 		Monster::SetPlayerPos(_Pos);
 
 		if (_check_change == true)
@@ -138,20 +137,8 @@ namespace jk
 
 			_check_change = false;
 		}
-
-		//if (_skulhead_check == false)
-		//{
-		//	_Gobjs[(UINT)PlayerList::head]->SetState(eState::Paused);
-		//	Skul_head::Setattack(false);
-		//}
-		//else
-		//{
-		//	_Gobjs[(UINT)PlayerList::head]->SetState(eState::Active);
-		//	Skul_head::Setattack(true);  Skul_head::SetDirection(Skul_Basic::GetDirection());
-		//	Transform* tr = _Gobjs[(UINT)PlayerList::head]->GetComponent<Transform>();
-		//	tr->SetPosition(_Pos.x+100, _Pos.y, _Pos.z);
-		//}
 		
+		PlayerTR->SetPosition(_Pos);
 		GameObject::Update();
 	}
 	void Player::LateUpdate()

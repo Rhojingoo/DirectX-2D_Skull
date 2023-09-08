@@ -490,6 +490,9 @@
     <ClInclude Include="HitBox_Mage.h">
       <Filter>Game_ob\HitBox\MiniBoss</Filter>
     </ClInclude>
+    <ClInclude Include="OutSide_CastleArea.h">
+      <Filter>Scene\Castle_Area</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -974,6 +977,9 @@
     </ClCompile>
     <ClCompile Include="HitBox_Mage.cpp">
       <Filter>Game_ob\HitBox\MiniBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="OutSide_CastleArea.cpp">
+      <Filter>Scene\Castle_Area</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -7,12 +7,16 @@
 #include "jkSceneManager.h"
 #include "jkMeshRenderer.h"
 #include "jkBaseRenderer.h"
+#include "jkInput.h"
+#include "jkTime.h"
 
 extern jk::Application application;
 
 namespace jk
 {
 	GameObject* Camera::mTarget = nullptr;
+	GameObject* Camera::mTarget_BG = nullptr;
+
 
 	bool CompareZSort(GameObject* a, GameObject* b)
 	{
@@ -53,38 +57,86 @@ namespace jk
 
 	void Camera::Update()
 	{
-		//Transform* tr = GetOwner()->GetComponent<Transform>();
-		//Vector3 pos = tr->GetPosition();
-		//Vector2 _pos = mTarget->GetComponent<Transform>()->GetPositionXY();
 
-		//#pragma region api카메라
-		//mResolution.x = static_cast<float>(application.GetWidth());
-		//mResolution.y = static_cast<float>(application.GetHeight());
-		//mLookPosition = (mResolution / 2.0f);
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+	
 
-		//카메라가 움직일수 있는기능
-		//if (Input::GetKey(eKeyCode::G))
-		//	mLookPosition.x -= 100.0f * static_cast<float>(Time::DeltaTime());
-		//if (Input::GetKey(eKeyCode::J))
-		//	mLookPosition.x += 100.0f * static_cast<float>(Time::DeltaTime());
-		//if (Input::GetKey(eKeyCode::Y))
-		//	mLookPosition.y -= 100.0f * static_cast<float>(Time::DeltaTime());
-		//if (Input::GetKey(eKeyCode::H))
-		//	mLookPosition.y += 100.0f * static_cast<float>(Time::DeltaTime());
+		if (SetCamera == true)
+		{
+			Transform* PlayerTR = mTarget->GetComponent<Transform>();
+			Vector3 _pos = PlayerTR->GetPosition();			
 
-		//캐릭터를 중심으로 움직이게 설정
+			if(StayCamera == false)
+			{
+				if (SetCameraXY == true)
+					pos = Vector3(_pos.x, _pos.y + 65, -10);
+				if (SetCameraX == true)
+					pos.x = _pos.x;
+				if (SetCameraY == true)
+					pos.y = _pos.y + 65;
 
-			//if (mTarget != nullptr)
-			//{
-			//	mLookPosition
-			//		= mTarget->GetComponent<Transform>()->GetPositionXY();
-			//	target_pos = mLookPosition;
-			//}
-			//mDistance.x = pos.x - (mResolution.x / 2.0f);
-			//mDistance.y = pos.y - (mResolution.y / 2.0f);
-			//tr->SetPosition(pos);
-		
+				if (_MaxPlayerX < pos.x)
+					StayCamera = true;
+				if (_MinPlayerX > pos.x)
+					StayCamera = true;
+				if (_MaxPlayerY < pos.y)
+					StayCamera = true;
+				if (_MinPlayerY > pos.y)
+					StayCamera = true;
 
+
+				if ((_MaxBgX >= pos.x)&& (_MinBgX <= pos.x))
+					BgCamera = true;
+				
+				tr->SetPosition(pos);
+			}
+			else
+			{
+				if (SetCameraX == true)
+				{
+					if ((_MaxPlayerX >= _pos.x) && (_MinPlayerX <= _pos.x))
+						StayCamera = false;
+				}
+				if (SetCameraY == true)
+				{
+					if ((_MaxPlayerY >= _pos.x) && (_MinPlayerY <= _pos.x))
+						StayCamera = false;
+				}
+			}
+			if (BgCamera == true)
+			{
+				if (_MaxBgX < pos.x)
+					BgCamera = false;
+				if (_MinBgX > pos.x)
+					BgCamera = false;
+
+
+				Transform* BGTR = mTarget_BG->GetComponent<Transform>();
+				Vector3 posBG = BGTR->GetPosition();
+				Vector3 CurrentposBG = Vector3(0.f,0.f, posBG.z);
+
+				if (Input::GetKey(eKeyCode::RIGHT))
+					posBG.x += 65 * Time::DeltaTime();
+				if(Input::GetKey(eKeyCode::LEFT))
+					posBG.x -= 65 * Time::DeltaTime();
+				
+				BGTR->SetPosition(posBG);
+			}
+		}		
+		else
+		{
+			if (Input::GetKey(eKeyCode::E))
+			{
+				pos.x += 100.0f * (float)Time::DeltaTime();
+				tr->SetPosition(pos);
+			}
+			else if (Input::GetKey(eKeyCode::Q))
+			{
+				pos.x -= 100.0f * (float)Time::DeltaTime();
+				tr->SetPosition(pos);
+			}
+		}		
 	}
 
 	void Camera::LateUpdate()
@@ -143,6 +195,11 @@ namespace jk
 		if (mType == eProjectionType::OrthoGraphic)
 		{
 			float OrthorGraphicRatio = mSize;
+			if (SetCamera == true)
+				OrthorGraphicRatio = mSize / 2.5;			
+			else
+			 OrthorGraphicRatio = mSize;
+			
 			width *= OrthorGraphicRatio;
 			height *= OrthorGraphicRatio;
 

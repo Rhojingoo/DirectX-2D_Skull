@@ -13,6 +13,7 @@ namespace jk
 		//virtual void OnCollisionExit(Collider2D* other) override;
 		static void SetTarget(GameObject* target) { mTarget = target; }
 		static void Clear();
+		bool SetCamera = false;
 	
 	private:
 		static Vector2 mResolution;

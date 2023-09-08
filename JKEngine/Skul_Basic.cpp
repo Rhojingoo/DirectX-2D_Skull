@@ -484,6 +484,31 @@ namespace jk
 			{
 			}
 		}
+
+		if (_fall_check == true)
+		{
+			_fallcheck_time += Time::DeltaTime();
+			if (_fallcheck_time > 0.5)
+			{
+				_State = Skul_Basic_State::Fall;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"Skul_BasicFall", false);
+					if (_Skulhead == true)
+						at->PlayAnimation(L"NoHeadFall", false);
+					mDir = 1;
+				}
+				if (mDir == -1)
+				{
+					at->PlayAnimation(L"Skul_BasicFallR", false);
+					if (_Skulhead == true)
+						at->PlayAnimation(L"NoHeadFallR", false);
+					mDir = -1;
+				}
+
+				_fallcheck_time = 0;
+			}
+		}
 	}
 
 	void Skul_Basic::move()
@@ -691,7 +716,7 @@ namespace jk
 
 
 		_time += Time::DeltaTime();
-		if (_time > 2.f)
+		if (_time > 1.f)
 		{
 			_State = Skul_Basic_State::Falling;
 			if (mDir == 1)
@@ -1479,6 +1504,13 @@ namespace jk
 	}
 	void Skul_Basic::OnCollisionExit(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_Wall_check = false;
+			_Rightmove_Lock = false;
+			_Leftmove_Lock = false;			
+		}
+
 		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
 		{
 			_Wall_check = false;
@@ -1491,6 +1523,7 @@ namespace jk
 			_Ground_check = false;
 			mGround->_SkullOn = false;
 			_rigidbody->SetGround(false);
+			_fall_check = true;
 		}
 		 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))

@@ -110,6 +110,7 @@ namespace jk
 		float _time = 0.f;
 		float _attack_time = 0.f;
 		float _skulhead_time = 0.f;
+		float _fallcheck_time = 0.f;
 		bool _attack = false;
 		int _jump = 0;
 		bool _Skulhead = false;
@@ -122,7 +123,7 @@ namespace jk
 
 		bool _attack_Acheck = false;				//캐릭터의 어택상황을 체크하기 위해 필요한 변수
 		bool _attack_Bcheck = false;
-
+		bool _fall_check = false;
 
 
 	private:
