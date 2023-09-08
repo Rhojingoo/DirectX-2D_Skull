@@ -19,8 +19,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Effect\\Phoenix_Landing_Land", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Effect\\Phoenix_Landing_Land", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Effect\\Phoenix_Landing_Land", this,0,0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Effect\\Phoenix_Landing_Land", this, 1,0.05);
 
 		at->CompleteEvent(L"EffectPhoenix_Landing_Land") = std::bind(&Mage_Phoenix_Landing_Land::Compelete, this);
 		at->CompleteEvent(L"EffectPhoenix_Landing_LandR") = std::bind(&Mage_Phoenix_Landing_Land::Compelete, this);

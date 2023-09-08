@@ -17,6 +17,7 @@ namespace jk
 	void Mage_FireBoom::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
+		_collider->SetType(eColliderType::Circle);
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
@@ -46,8 +47,8 @@ namespace jk
 
 	void Mage_FireBoom::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.65f, 0.7f));
-		_collider->SetCenter(Vector2(0.0f, -0.07f));
+		_collider->SetSize(Vector2(0.5f, 0.5f));
+		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}
 

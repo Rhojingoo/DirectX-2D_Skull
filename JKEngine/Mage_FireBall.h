@@ -24,8 +24,6 @@ namespace jk
 		void SetDirection(int set) { _dir = set; }
 		
 	public:
-		bool _EffectSwitch = true;
-		bool _BoomSwitch = false;
 		bool _bullet_animation = false;
 		bool _bullet_On = false;
 		bool _rotationswitch = false;

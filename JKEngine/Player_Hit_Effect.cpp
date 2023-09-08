@@ -20,8 +20,8 @@ namespace jk
 
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Effect\\Hit_Skul", this, 0);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Effect\\Hit_Skul", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Effect\\Hit_Skul", this, 0,0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Effect\\Hit_Skul", this, 1,0.05);
 
 		at->CompleteEvent(L"EffectHit_Skul") = std::bind(&Player_Hit_Effect::Compelete, this);
 		at->CompleteEvent(L"EffectHit_SkulR") = std::bind(&Player_Hit_Effect::Compelete, this);

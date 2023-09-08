@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "Bullet.h"
+#include "Ultimate_On_Fire_Projectile_Hit.h"
 
 namespace jk
 {
@@ -26,6 +27,10 @@ namespace jk
 		bool _bullet_On = false;
 		bool _rotationswitch = false;
 		bool _missile = false;
+
+	private:
+		Ultimate_On_Fire_Projectile_Hit* Bullet_Effect;
+
 
 	private:
 		Animator* at = nullptr;

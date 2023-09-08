@@ -26,6 +26,15 @@ namespace jk
 		//at->CompleteEvent(L"BulletWorld_On_Fire_Projectile") = std::bind(&Ultimate_On_Fire_Projectile::complete, this);
 
 
+		Bullet_Effect = new Ultimate_On_Fire_Projectile_Hit;
+		Bullet_Effect->Initialize();
+		Scene* scene = SceneManager::GetActiveScene();
+		scene->AddGameObject(eLayerType::Effect, Bullet_Effect);
+		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+		EffectTR->SetPosition(tr->GetPosition());
+		Bullet_Effect->SetState(eState::Paused);
+
+
 		at->PlayAnimation(L"BulletWorld_On_Fire_Projectile", true);
 		GameObject::Initialize();
 	}
@@ -65,6 +74,78 @@ namespace jk
 	}
 	void Ultimate_On_Fire_Projectile::OnCollisionEnter(Collider2D* other)
 	{
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+			{
+				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				if (_dir == 1)
+					Bullet_Effect->SetDirection(1);
+				else
+					Bullet_Effect->SetDirection(-1);
+				Bullet_Effect->SetState(eState::Active);
+				this->SetState(eState::Paused);
+				_bullet_On = false;
+				_Lifetime = 0;
+			}
+		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+			{
+				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				if (_dir == 1)
+					Bullet_Effect->SetDirection(1);
+				else
+					Bullet_Effect->SetDirection(-1);
+				Bullet_Effect->SetState(eState::Active);
+				this->SetState(eState::Paused);
+				_bullet_On = false;
+				_Lifetime = 0;
+			}
+		}
+
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+			{
+				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				if (_dir == 1)
+					Bullet_Effect->SetDirection(1);
+				else
+					Bullet_Effect->SetDirection(-1);
+				Bullet_Effect->SetState(eState::Active);
+				this->SetState(eState::Paused);
+				_bullet_On = false;
+				_Lifetime = 0;
+			}
+		}
+
+
+		if (Player* mGround = dynamic_cast<Player*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+			{
+				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				if (_dir == 1)
+					Bullet_Effect->SetDirection(1);
+				else
+					Bullet_Effect->SetDirection(-1);
+				Bullet_Effect->SetState(eState::Active);
+				this->SetState(eState::Paused);
+				_bullet_On = false;
+				_Lifetime = 0;
+			}
+		}
 	}
 	void Ultimate_On_Fire_Projectile::OnCollisionStay(Collider2D* other)
 	{

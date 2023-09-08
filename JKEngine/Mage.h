@@ -10,7 +10,7 @@
 #include "Mage_Landing_Ready.h"
 #include "Mage_Phoenix_Landing.h"
 #include "Mage_Phoenix_Landing_Land.h"
-
+#include "HitBox_Mage.h"
 
 namespace jk
 {
@@ -116,7 +116,7 @@ namespace jk
 
 
 	private:
-		HitBox_Monster* Hit_Box = nullptr;
+		HitBox_Mage* Hit_Box = nullptr;
 		Player_Hp_Bar* Player_Hp = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Hit_Sword* _Hit_Sword = nullptr;
@@ -124,7 +124,7 @@ namespace jk
 		Hit_Critical_High* _Critical_High = nullptr;
 		Monster_Death_Effect* _Death_Effect = nullptr;
 		bool _followskul = false;
-
+		bool	_attack_Col = false;
 		
 	private:
 		Mage_State _state;
@@ -158,7 +158,7 @@ namespace jk
 
 	private:
 		int		mDir = 1;
-		int _attackDir = 1;
+		int		_attackDir = 1;
 		float	_time = 0.f;						// 공격시 사용중
 		float	_attack_time = 0.f;
 		bool	_attack = false;					// 공격에서 idle로 보내는 스위치 변수

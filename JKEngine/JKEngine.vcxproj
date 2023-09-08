@@ -187,6 +187,7 @@
     <ClInclude Include="Ground_Map.h" />
     <ClInclude Include="HitBox_Archer.h" />
     <ClInclude Include="HitBox_Knight.h" />
+    <ClInclude Include="HitBox_Mage.h" />
     <ClInclude Include="HitBox_Monster.h" />
     <ClInclude Include="HitBox_Player.h" />
     <ClInclude Include="Hit_Critical_High.h" />
@@ -299,6 +300,7 @@
     <ClInclude Include="UI_Camera.h" />
     <ClInclude Include="Ultimate_OnFire.h" />
     <ClInclude Include="Ultimate_OnFire_Ready.h" />
+    <ClInclude Include="Ultimate_On_Fire_Projectile_Hit.h" />
     <ClInclude Include="Yggdraisl_Groggy_StartImpact.h" />
     <ClInclude Include="Yggdrasil.h" />
     <ClInclude Include="Yggdrasil_Body.h" />
@@ -351,6 +353,7 @@
     <ClCompile Include="Ground_Map.cpp" />
     <ClCompile Include="HitBox_Archer.cpp" />
     <ClCompile Include="HitBox_Knight.cpp" />
+    <ClCompile Include="HitBox_Mage.cpp" />
     <ClCompile Include="HitBox_Monster.cpp" />
     <ClCompile Include="HitBox_Player.cpp" />
     <ClCompile Include="Hit_Critical_High.cpp" />
@@ -460,6 +463,7 @@
     <ClCompile Include="UI_Camera.cpp" />
     <ClCompile Include="Ultimate_OnFire.cpp" />
     <ClCompile Include="Ultimate_OnFire_Ready.cpp" />
+    <ClCompile Include="Ultimate_On_Fire_Projectile_Hit.cpp" />
     <ClCompile Include="Yggdraisl_Groggy_StartImpact.cpp" />
     <ClCompile Include="Yggdrasil.cpp" />
     <ClCompile Include="Yggdrasil_Body.cpp" />

@@ -24,7 +24,6 @@ namespace jk
 
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
-		//_rigidbody->SetFriction(true);
 		{
 			Skul_Head = new Skul_head();
 			Skul_Head->Initialize();
@@ -130,7 +129,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Jump", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\JumpAttack", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Walk", this);
-
+		
 
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\AttackA", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\AttackB", this, 1);
@@ -256,6 +255,9 @@ namespace jk
 
 		case jk::Skul_Basic::Skul_Basic_State::Death:death();
 			break;
+
+		case jk::Skul_Basic::Skul_Basic_State::Hit:hit();
+			break;			
 
 		default:
 			break;
@@ -902,6 +904,12 @@ namespace jk
 	}
 
 
+	void Skul_Basic::hit()
+	{
+		/*_Ground_check = false;*/
+	}
+
+
 	void Skul_Basic::OnCollisionEnter(Collider2D* other)
 	{		
 		if (Skul_head* _head = dynamic_cast<Skul_head*>(other->GetOwner()))
@@ -993,6 +1001,9 @@ namespace jk
 
 		if (Monster_Bullet* Bullet = dynamic_cast<Monster_Bullet*>(other->GetOwner()))
 		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
 			if (mDir == 1)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -1035,6 +1046,9 @@ namespace jk
 
 		if (MiniBoss_Bullet_Archer* Bullet = dynamic_cast<MiniBoss_Bullet_Archer*>(other->GetOwner()))
 		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
 			if (mDir == 1)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -1071,6 +1085,9 @@ namespace jk
 
 		if (HitBox_Knight* HitBox = dynamic_cast<HitBox_Knight*>(other->GetOwner()))
 		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
 			if (mDir == 1)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -1089,6 +1106,9 @@ namespace jk
 
 		if (MiniBoss_Bullet_Knight* Bullet = dynamic_cast<MiniBoss_Bullet_Knight*>(other->GetOwner()))
 		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
 			if (mDir == 1)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -1109,32 +1129,17 @@ namespace jk
 
 		if (Knight_Energe_Blast* Bullet = dynamic_cast<Knight_Energe_Blast*>(other->GetOwner()))
 		{
-			if (mDir == 1)
-			{
-				_rigidbody->SetVelocity(Vector2(-50.f, 55.f));
-				_rigidbody->AddForce(Vector2(0.f, 15));
-				_rigidbody->SetGround(false);
-				_Ground_check = false;
+			if (_State == Skul_Basic_State::Dash)
+				return;
 
-				_Hit_Sword->_effect_animation = true;
-				_Hit_Sword->SetDirection(-1);
-				_Hit_Sword->SetState(eState::Active);
-			}
-			if (mDir == -1)
-			{
-				_rigidbody->SetVelocity(Vector2(50.f, 55.f));
-				_rigidbody->AddForce(Vector2(0.f, 15));
-				_rigidbody->SetGround(false);
-				_Ground_check = false;
-
-				_Hit_Sword->_effect_animation = true;
-				_Hit_Sword->SetDirection(1);
-				_Hit_Sword->SetState(eState::Active);
-			}
+			_State = Skul_Basic_State::Hit;
 		}
 
 		if (Knight_UltimateSkill_Projectile* Bullet = dynamic_cast<Knight_UltimateSkill_Projectile*>(other->GetOwner()))
 		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
 			if (mDir == 1)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 50.f));
@@ -1155,32 +1160,52 @@ namespace jk
 
 		if (Cleric_HolyThunder* Bullet = dynamic_cast<Cleric_HolyThunder*>(other->GetOwner()))
 		{
-			if (mDir == 1)
-			{
-				_rigidbody->SetVelocity(Vector2(-50.f, 55.f));
-				_rigidbody->AddForce(Vector2(-10.f, 15));
-				_rigidbody->SetGround(false);
-				_Ground_check = false;
+			if (_State == Skul_Basic_State::Dash)
+				return;
 
-				_Hit_Effect->_effect_animation = true;
-				_Hit_Effect->SetDirection(-1);
-				_Hit_Effect->SetState(eState::Active);
-			}
-			if (mDir == -1)
-			{
-				_rigidbody->SetVelocity(Vector2(50.f, 55.f));
-				_rigidbody->AddForce(Vector2(10.f, 15));
-				_rigidbody->SetGround(false);
-				_Ground_check = false;
-
-				_Hit_Effect->_effect_animation = true;
-				_Hit_Effect->SetDirection(1);
-				_Hit_Effect->SetState(eState::Active);
-			}
+			_State = Skul_Basic_State::Hit;
 		}
 
+		if (HitBox_Mage* Bullet = dynamic_cast<HitBox_Mage*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
 
+			_State = Skul_Basic_State::Hit;
+		}
 
+		if (Mage_FireBoom* Bullet = dynamic_cast<Mage_FireBoom*>(other->GetOwner()))
+		{
+
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			_State = Skul_Basic_State::Hit;
+		}
+
+		if (Mage_FireBall* Bullet = dynamic_cast<Mage_FireBall*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			if (mDir == 1)
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+			if (mDir == -1)
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+		}
+
+		if (Ultimate_On_Fire_Projectile* Bullet = dynamic_cast<Ultimate_On_Fire_Projectile*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			if (mDir == 1)
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+			if (mDir == -1)
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+		}		
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
@@ -1311,13 +1336,27 @@ namespace jk
 				mGround->_SkullOn = true;
 				_Ground_check = _rigidbody->GetGround();
 
-				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
+				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling || _State == Skul_Basic_State::Hit)
 				{
 					_State = Skul_Basic_State::Idle;
 					if (mDir == 1)
+					{
 						at->PlayAnimation(L"Skul_BasicIdle", true);
-					else
+						if (_Skulhead == true)
+							at->PlayAnimation(L"NoHeadIdle", true);
+
+
+						mDir = 1;
+					}
+					else if (mDir == -1)
+					{
 						at->PlayAnimation(L"Skul_BasicIdleR", true);
+
+						if (_Skulhead == true)
+							at->PlayAnimation(L"NoHeadIdleR", true);
+
+						mDir = -1;
+					}
 				}
 			}
 			else
@@ -1343,7 +1382,17 @@ namespace jk
 						mDir = -1;
 					}
 				}
-			}			
+				if (_State == Skul_Basic_State::Hit)
+				{
+					_Ground_check = false;
+					_rigidbody->SetGround(false);
+					if (mDir == 1)
+						_rigidbody->SetVelocity(Vector2(-75.f, 175.f));
+
+					if (mDir == -1)
+						_rigidbody->SetVelocity(Vector2(75.f, 175.f));
+				}
+			}	
 		}
 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
@@ -1444,12 +1493,16 @@ namespace jk
 			_State = Skul_Basic_State::Attack_B;
 			if (mDir == 1)
 			{
-				at->PlayAnimation(L"Skul_BasicAttackB", true);
+				at->PlayAnimation(L"Skul_BasicAttackB", true);				
+				if (_Skulhead == true)
+					at->PlayAnimation(L"NoHeadAttackB", true);
 				mDir = 1;
 			}
 			else if (mDir == -1)
 			{
-				at->PlayAnimation(L"Skul_BasicAttackBR", true);
+				at->PlayAnimation(L"Skul_BasicAttackBR", true);					
+				if (_Skulhead == true)
+					at->PlayAnimation(L"NoHeadAttackBR", true);
 				mDir = -1;
 			}			
 		}

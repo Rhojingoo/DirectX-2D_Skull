@@ -1,6 +1,7 @@
 #include "Mage.h"
 #include <iostream>
 #include <random>
+#include "HitBox_Mage.h"
 
 namespace jk
 {
@@ -341,7 +342,14 @@ namespace jk
 			_Death_Effect->SetState(eState::Paused);
 		}
 
-
+		{
+			Hit_Box = new HitBox_Mage();
+			Hit_Box->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetState(eState::Paused);
+		}
 
 		_first_place = pos;
 		at->PlayAnimation(L"MageIdle", true);
@@ -524,6 +532,26 @@ namespace jk
 	{
 		_collider->SetSize(Vector2(0.1f, 0.5f));
 		_collider->SetCenter(Vector2(0.0f, -30.f));	
+
+		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
+		if (_attack_Col == true)
+		{
+			Hit_Box->SetSize(Vector2(150.f, 85.f));
+			HitBox_TR->SetPosition(Vector3(pos.x, pos.y - 30, pos.z));
+
+			Hit_Box->SetState(eState::Active);
+			//if (_attackDir == 1)
+			//	HitBox_TR->SetPosition(Vector3(pos.x + 50, pos.y - 30, pos.z));
+			//else
+			//	HitBox_TR->SetPosition(Vector3(pos.x - 50, pos.y - 30, pos.z));
+		}
+		else
+		{
+			Hit_Box->SetState(eState::Paused);
+		}
+
+
+
 		GameObject::LateUpdate();
 	}
 	void Mage::Render()
@@ -942,7 +970,7 @@ namespace jk
 		Fly_or_Landing();;
 
 		_swich_checkpoint = randomcount(0, 3);
-		//_swich_checkpoint = 4;
+		//_swich_checkpoint = 3;
 	
 
 		if (_Intro == false)
@@ -1023,11 +1051,9 @@ namespace jk
 		}
 	}	
 
-
 	void Mage::die()
 	{
 	}
-
 
 	void Mage::attack_a_ready()
 	{
@@ -1037,7 +1063,7 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));		
 			FireBall[i]->_rotationswitch = false;
 			FireBall[i]->SetState(eState::Paused);
-		
+
 			bullet_tr->SetRotationZ(0);
 		}	
 	}
@@ -1251,6 +1277,7 @@ namespace jk
 	{
 		if (_GroundLanding == true)
 		{
+			_attack_Col = true;
 			Transform* bullet_tr = Phoenix_Landing_Land->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y-30, pos.z - 1));
 			Phoenix_Landing->_effect_Animation = true;
@@ -1262,12 +1289,13 @@ namespace jk
 			_GroundLanding = false;
 		}
 		else
-		{
+		{	
 			if (Phoenix_Landing_Land->_effect_On == false)
 			{
+				_attack_Col = false;
 				_attack_time += Time::DeltaTime();
-				if (_attack_time > 2)
-				{
+				if (_attack_time > 0.5)
+				{					
 					_state = Mage_State::Idle;
 					if (mDir == 1)
 						at->PlayAnimation(L"MageIdle", true);
@@ -1286,6 +1314,8 @@ namespace jk
 	void Mage::attack_d_ready()
 	{
 	}
+
+
 	void Mage::fly()
 	{
 		if (pos.y < 150 + _playerpos.y)
@@ -1343,7 +1373,7 @@ namespace jk
 
 		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
 		_attack_time += Time::DeltaTime();
-		if (_attack_time >= 7.5)
+		if (_attack_time >= 5.5)
 		{
 			Ultimate_Aura->SetState(eState::Paused);
 			Ultimate_AuraSmoke->SetState(eState::Paused);
@@ -1373,18 +1403,43 @@ namespace jk
 				UltimateSkill_Effect_Complete->SetState(eState::Active);
 
 				//ultimate 미사일 좌표설정
-				for (int i = 0; i < 3; i++)
+				//for (int i = 0; i < 3; i++)
+				//{
+				//	int randomposX = random(pos.x - 100, pos.x + 100);
+				//	int randomposY = random(pos.y - 50, pos.y + 50);
+				//	_first_place;
+				// 
+				//	Transform* _OnFire_Ready_tr = _OnFire_Ready[i]->GetComponent<Transform>();
+				//	_OnFire_Ready_tr->SetPosition(Vector3(randomposX, randomposY, pos.z + 1));
+				//
+				//	Transform* _OnFire_tr = _OnFire[i]->GetComponent<Transform>();
+				//	_OnFire[i]->_effect_On = false;
+				//	_OnFire_tr->SetPosition(Vector3(randomposX, randomposY, pos.z + 1));
+				//}
 				{
-					int randomposX = random(pos.x - 100, pos.x + 100);
-					int randomposY = random(pos.y - 50, pos.y + 50);
+					Transform* _OnFire_Ready_tr0 = _OnFire_Ready[0]->GetComponent<Transform>();
+					_OnFire_Ready_tr0->SetPosition(Vector3(_first_place.x, _first_place.y, pos.z + 1));
 
-					Transform* _OnFire_Ready_tr = _OnFire_Ready[i]->GetComponent<Transform>();
-					_OnFire_Ready_tr->SetPosition(Vector3(randomposX, randomposY, pos.z + 1));
+					Transform* _OnFire_Ready_tr1 = _OnFire_Ready[1]->GetComponent<Transform>();
+					_OnFire_Ready_tr1->SetPosition(Vector3(_first_place.x-200, _first_place.y-100, pos.z + 1));
 
-					Transform* _OnFire_tr = _OnFire[i]->GetComponent<Transform>();
-					_OnFire[i]->_effect_On = false;
-					_OnFire_tr->SetPosition(Vector3(randomposX, randomposY, pos.z + 1));
+					Transform* _OnFire_Ready_tr2 = _OnFire_Ready[2]->GetComponent<Transform>();
+					_OnFire_Ready_tr2->SetPosition(Vector3(_first_place.x+200, _first_place.y-100, pos.z + 1));
+
+
+					Transform* _OnFire_tr0 = _OnFire[0]->GetComponent<Transform>();
+					_OnFire[0]->_effect_On = false;
+					_OnFire_tr0->SetPosition(Vector3(_first_place.x, _first_place.y, pos.z + 1));
+
+					Transform* _OnFire_tr1 = _OnFire[1]->GetComponent<Transform>();
+					_OnFire[1]->_effect_On = false;
+					_OnFire_tr1->SetPosition(Vector3(_first_place.x-200, _first_place.y-100, pos.z + 1));
+
+					Transform* _OnFire_tr2 = _OnFire[2]->GetComponent<Transform>();
+					_OnFire[2]->_effect_On = false;
+					_OnFire_tr2->SetPosition(Vector3(_first_place.x+200, _first_place.y-100, pos.z + 1));
 				}
+
 
 				if (mDir == 1)
 					at->PlayAnimation(L"MageUltimate_Skill_Fire", true);
@@ -1521,6 +1576,11 @@ namespace jk
 				_OnFire[i]->SetState(eState::Paused);
 				_OnFire_Ready[i]->SetState(eState::Active);
 			}
+
+			if (_ground == true)
+				_flyswich++;
+			if (_sky == true)
+				_landingswich++;
 
 			_state = Mage_State::Idle;
 			if (mDir == 1)
@@ -1919,7 +1979,6 @@ namespace jk
 	}
 	void Mage::attack_c_complete()
 	{
-		
 	}
 
 
@@ -1952,7 +2011,7 @@ namespace jk
 
 	void Mage::Fly_or_Landing()
 	{
-		if (_flyswich >= 3)
+		if (_flyswich >= 5)
 		{
 			_state = Mage_State::Fly;
 			if (mDir == 1)
@@ -1964,7 +2023,7 @@ namespace jk
 			_sky = true;
 			_ground = false;
 		}
-		if (_landingswich >= 5)
+		if (_landingswich >= 3)
 		{
 			if (_Ground_check == true)// 랜딩시 그라운드가 트루라면 랜딩 빠져나가기
 				return;

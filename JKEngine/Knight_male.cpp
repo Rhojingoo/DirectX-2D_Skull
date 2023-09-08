@@ -474,34 +474,6 @@ namespace jk
 
 	void Knight_male::OnCollisionEnter(Collider2D* other)
 	{
-		//if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
-		//{
-		//	if (!(_state == Knight_State::Idle))
-		//		return;
-		//	
-		//	if (_state == Knight_State::Idle)
-		//	{
-		//		_state = Knight_State::Hit;
-		//		if (mDir == 1)
-		//		{
-		//			at->PlayAnimation(L"Knight_maleHit", true);
-		//			_hit_switch = true;	_number_of_hit++;
-		//			pos.x -= 50.0f * Time::DeltaTime();
-		//			tr->SetPosition(pos);
-		//		}
-		//		if (mDir == -1)
-		//		{
-		//			at->PlayAnimation(L"Knight_maleHitR", true);
-		//			_hit_switch = true;	_number_of_hit++;
-		//			pos.x += 50.0f * Time::DeltaTime();
-		//			tr->SetPosition(pos);
-		//		}
-		//		if (_number_of_hit >= 2)
-		//			int a = 0;
-		//	}
-		//}
-
-
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{
 			if (_state == Knight_State::Die)
@@ -918,7 +890,7 @@ namespace jk
 		_time += Time::DeltaTime();
 		_Attacktime = 0;
 		_choicecombo = random(0, 3);
-		_choicecombo = 2;
+		//_choicecombo = 2;
 	
 		if (_Intro == false)
 		{
@@ -927,7 +899,7 @@ namespace jk
 		}
 		else
 		{
-			if (_number_of_hit >= 3)
+			if (_number_of_hit >= 8)
 			{
 				_time = 0;
 				if (mDir == -1)
@@ -976,7 +948,7 @@ namespace jk
 			}
 			else
 			{
-				if (_time > 3.f)
+				if (_time > 1.f)
 				{
 					if ((_distance >= 150 || _distance <= -150))
 					{

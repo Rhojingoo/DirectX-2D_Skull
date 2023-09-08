@@ -19,16 +19,29 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\Fireball_ProjectileHit", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\Fireball_ProjectileHit", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\Fireball_ProjectileHit", this,0,0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\Fireball_ProjectileHit", this, 1,0.05);
 
 		at->CompleteEvent(L"BulletFireball_ProjectileHit") = std::bind(&Fireball_Projectile_Hit::Compelete, this);
 		at->CompleteEvent(L"BulletFireball_ProjectileHitR") = std::bind(&Fireball_Projectile_Hit::Compelete, this);
+
+
+		at->PlayAnimation(L"BulletFireball_ProjectileHit", true);
 
 		GameObject::Initialize();
 	}
 	void Fireball_Projectile_Hit::Update()
 	{
+		if (_effect_On == true)
+		{
+			if (_dir == 1)
+				at->PlayAnimation(L"BulletFireball_ProjectileHit", true);
+			if (_dir == -1)
+				at->PlayAnimation(L"BulletFireball_ProjectileHitR", true);
+			_effect_On = false;
+		}
+
+
 		GameObject::Update();
 	}
 	void Fireball_Projectile_Hit::LateUpdate()

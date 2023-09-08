@@ -484,6 +484,12 @@
     <ClInclude Include="Fireball_Projectile_Hit.h">
       <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Ultimate_On_Fire_Projectile_Hit.h">
+      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="HitBox_Mage.h">
+      <Filter>Game_ob\HitBox\MiniBoss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -963,6 +969,12 @@
     <ClCompile Include="Fireball_Projectile_Hit.cpp">
       <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Ultimate_On_Fire_Projectile_Hit.cpp">
+      <Filter>Game_ob\MiniBoss\Mage\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="HitBox_Mage.cpp">
+      <Filter>Game_ob\HitBox\MiniBoss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1106,9 +1118,6 @@
     <Filter Include="Game_ob\Monster\Monster_BigEnt\Bullet">
       <UniqueIdentifier>{5cffc078-e3da-4766-9617-5a0765f81ea1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\Monster\Monster_BigEnt\Effect">
-      <UniqueIdentifier>{1f92947f-dd7d-4ad1-a41d-211de61a1f78}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game_ob\Monster\Monster_GreenTree\Bullet">
       <UniqueIdentifier>{528ea950-ff5b-4ab0-a598-fab8d797a06d}</UniqueIdentifier>
     </Filter>
@@ -1183,6 +1192,9 @@
     </Filter>
     <Filter Include="Game_ob\MiniBoss\Public\Effect">
       <UniqueIdentifier>{0cb0aa98-d67a-4d3b-8040-7341ad994671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Monster_BigEnt\Effect">
+      <UniqueIdentifier>{1f92947f-dd7d-4ad1-a41d-211de61a1f78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

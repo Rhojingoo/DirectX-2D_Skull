@@ -15,6 +15,7 @@ namespace jk
 	void Knight_male_EnergeBall::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
+		_collider->SetType(eColliderType::Circle);
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
@@ -44,7 +45,7 @@ namespace jk
 	}
 	void Knight_male_EnergeBall::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.5f, 0.5f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}
@@ -105,7 +106,7 @@ namespace jk
 		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
 		EffectTR->SetPosition(tr->GetPosition());
 		Bullet_Effect->SetState(eState::Active);
-		//_EffectSwitch = false;
+		_EffectSwitch = true;
 		_BoomSwitch = false;
 		this->SetState(eState::Paused);
 	}

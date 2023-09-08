@@ -28,7 +28,7 @@ namespace jk
 		Bullet_Effect = new Fireball_Projectile_Hit;
 		Bullet_Effect->Initialize();
 		Scene* scene = SceneManager::GetActiveScene();
-		scene->AddGameObject(eLayerType::Bullet, Bullet_Effect);
+		scene->AddGameObject(eLayerType::Effect, Bullet_Effect);
 		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
 		EffectTR->SetPosition(tr->GetPosition());
 		Bullet_Effect->SetState(eState::Paused);
@@ -73,71 +73,78 @@ namespace jk
 	}
 	void Mage_FireBall::OnCollisionEnter(Collider2D* other)
 	{
-		//if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
-		//{
-		//	_rigidbody->SetGround(true);
-		//	_rigidbody->ClearVelocity();
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+			{
+				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				if (_dir == 1)
+					Bullet_Effect->SetDirection(1);
+				else
+					Bullet_Effect->SetDirection(-1);
+				Bullet_Effect->SetState(eState::Active);	
+				this->SetState(eState::Paused);
+				_bullet_On = false;
+				_Lifetime = 0;
+			}
+		}
 
-		//	if (_EffectSwitch == true)
-		//	{
-		//		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
-		//		EffectTR->SetPosition(tr->GetPosition());
-		//		Bullet_Effect->SetState(eState::Active);
-		//		_EffectSwitch = false;
-		//		_BoomSwitch = false;
-		//		this->SetState(eState::Paused);
-		//		_bullet_On = false;
-		//		_Lifetime = 0;
-		//	}
-		//	else
-		//	{
-		//		//_EffectSwitch = true;
-		//	}
-		//}
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();						
+			{
+				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				if (_dir == 1)
+					Bullet_Effect->SetDirection(1);
+				else
+					Bullet_Effect->SetDirection(-1);
+				Bullet_Effect->SetState(eState::Active);
+				this->SetState(eState::Paused);
+				_bullet_On = false;
+				_Lifetime = 0; 
+			}
+		}
 
-		//if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
-		//{
-		//	_rigidbody->SetGround(true);
-		//	_rigidbody->ClearVelocity();
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+			{
+				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				if (_dir == 1)
+					Bullet_Effect->SetDirection(1);
+				else
+					Bullet_Effect->SetDirection(-1);
+				Bullet_Effect->SetState(eState::Active);
+				this->SetState(eState::Paused);
+				_bullet_On = false;
+				_Lifetime = 0;
+			}
+		}
 
-		//	if (_EffectSwitch == true)
-		//	{
-		//		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
-		//		EffectTR->SetPosition(tr->GetPosition());
-		//		Bullet_Effect->SetState(eState::Active);
-		//		_EffectSwitch = false;
-		//		_BoomSwitch = false;
-		//		this->SetState(eState::Paused);
-		//		_bullet_On = false;
-		//		_Lifetime = 0;
-		//	}
-		//	else
-		//	{
-		//		//_EffectSwitch = true;
-		//	}
-		//}
 
-		//if (Player* mGround = dynamic_cast<Player*>(other->GetOwner()))
-		//{
-		//	_rigidbody->SetGround(true);
-		//	_rigidbody->ClearVelocity();
-
-		//	if (_EffectSwitch == true)
-		//	{
-		//		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
-		//		EffectTR->SetPosition(tr->GetPosition());
-		//		Bullet_Effect->SetState(eState::Active);
-		//		_EffectSwitch = false;
-		//		_BoomSwitch = false;
-		//		this->SetState(eState::Paused);
-		//		_bullet_On = false;
-		//		_Lifetime = 0;
-		//	}
-		//	else
-		//	{
-		//		//_EffectSwitch = true;
-		//	}
-		//}
+		if (Player* mGround = dynamic_cast<Player*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+			{
+				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				if (_dir == 1)
+					Bullet_Effect->SetDirection(1);
+				else
+					Bullet_Effect->SetDirection(-1);
+				Bullet_Effect->SetState(eState::Active);
+				this->SetState(eState::Paused);
+				_bullet_On = false;
+				_Lifetime = 0;
+			}
+		}
 	}
 	void Mage_FireBall::OnCollisionStay(Collider2D* other)
 	{

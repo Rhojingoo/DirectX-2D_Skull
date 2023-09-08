@@ -42,6 +42,7 @@ namespace jk
 			Stun,
 			Switch,
 			Death,
+			Hit,
 		};
 
 		void idle();
@@ -58,6 +59,7 @@ namespace jk
 		void stun();
 		void change();
 		void death();
+		void hit();
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
