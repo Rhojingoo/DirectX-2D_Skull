@@ -16,6 +16,8 @@ namespace jk
 	Skul_Basic::~Skul_Basic()
 	{
 	}
+
+
 	void Skul_Basic::Initialize()
 	{
 		CameraScript* cam = AddComponent<CameraScript>();
@@ -210,6 +212,24 @@ namespace jk
 				at->PlayAnimation(L"Skul_BasicSwitch", true);			
 			else
 				at->PlayAnimation(L"Skul_BasicSwitchR", true);			
+		}
+
+
+		if (_Skulhead == true)
+		{
+			_skulhead_time += Time::DeltaTime();
+			if (_skulhead_time > 3)
+			{
+				_Skulhead = false;
+				Skul_Head->SetHead = false;
+				Skul_Head->SetState(eState::Paused);
+				_skulhead_time = 0.f;
+
+				if (mDir == 1)
+					at->PlayAnimation(L"Skul_BasicIdle", true);
+				else 	
+					at->PlayAnimation(L"Skul_BasicIdleR", true);			
+			}
 		}
 
 		switch (_State)
@@ -927,8 +947,9 @@ namespace jk
 					else
 						at->PlayAnimation(L"Skul_BasicIdleR", true);
 				}
-					Setskillcheck(false);
+				Setskillcheck(false);
 				_Skulhead = false;
+				_skulhead_time = 0.f;
 				Skul_Head->SetState(eState::Paused);
 			}
 		}

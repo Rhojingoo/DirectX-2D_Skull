@@ -43,6 +43,7 @@ namespace jk
 			Head_Life = true;
 			SetHead = false;
 			_Head_Rotation = true;
+			_Head_Attack = false;
 		}
 		else
 		{	
@@ -102,8 +103,7 @@ namespace jk
 				}
 				else
 				{
-					_time += Time::DeltaTime();
-					if (_time < 0.5)
+					if(_Ground_check == false)
 					{
 						if (mDir == 1)
 							tr->AddRotationZ(5);
@@ -113,8 +113,6 @@ namespace jk
 					else
 					{
 						_rigidbody->ClearVelocity();
-						//if (_Head_Attack == true)
-						//	_Head_Attack = false;
 					}
 				}
 			}
@@ -183,6 +181,11 @@ namespace jk
 	void Skul_head::OnCollisionExit(Collider2D* other)
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_Ground_check = false;
+		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			_Ground_check = false;
 		}

@@ -109,6 +109,7 @@ namespace jk
 		
 		float _time = 0.f;
 		float _attack_time = 0.f;
+		float _skulhead_time = 0.f;
 		bool _attack = false;
 		int _jump = 0;
 		bool _Skulhead = false;
