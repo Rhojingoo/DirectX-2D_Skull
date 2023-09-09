@@ -127,7 +127,7 @@ namespace jk
 		Scene::Update();
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(L"Stage1_1");
+			SceneManager::LoadScene(L"OutSide_Castle");
 		}
 	}
 

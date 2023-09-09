@@ -61,11 +61,20 @@
 #include "Ground_and_Wall.h"
 
 
+// Stage_Door
+#include "Stage1_Door.h"
+#include "Stage_end_wall.h"
+#include "Stage_end_table.h"
+
 
 //타격관련
 #include "Attack_HitBox.h"
 #include "HitBox_Player.h"
 #include "HitBox_Monster.h"
+
+
+//Npc
+#include "NPC_by_stage.h"
 
 
 //PLAYER
@@ -152,6 +161,7 @@
 #include "jkTitleScene.h"
 #include "jkPlayScene.h"
 #include "Castle_Area.h"
+#include "OutSide_CastleArea.h"
 #include "jkStage1_1.h"
 #include "jkStage1_MiniBoss.h"
 #include "jkStage1_2.h"
@@ -160,5 +170,4 @@
 #include "jkStage2_MiniBoss.h"
 #include "jkStage2_2.h"
 #include "jkStage2_Boss.h"
-
 

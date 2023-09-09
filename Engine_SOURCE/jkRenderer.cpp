@@ -668,11 +668,58 @@ namespace jk::renderer
 			#pragma endregion	
 
 			#pragma region Out(catle)
-									texture = Resources::Load<Texture>(L"out_catle", L"..\\Resources\\Texture\\Devil_Catle\\Out_Catle.png");
-									material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
-									material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Out_Catle", material);
+						texture = Resources::Load<Texture>(L"out_catle", L"..\\Resources\\Texture\\Devil_Catle\\Out_Catle.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Out_Catle", material);
 			#pragma endregion	
 
+
+			#pragma region Out(Castle_Out)
+						texture = Resources::Load<Texture>(L"rampart_base", L"..\\Resources\\Texture\\Devil_Catle\\Castle_Out\\Rampart_Base.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Rampart_Base", material);
+			#pragma endregion
+
+
+			#pragma region Cylinder
+						texture = Resources::Load<Texture>(L"cylinder1", L"..\\Resources\\Texture\\Devil_Catle\\Castle_Out\\Pillar\\Pillar01.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Pillar01", material);
+
+						texture = Resources::Load<Texture>(L"cylinder2", L"..\\Resources\\Texture\\Devil_Catle\\Castle_Out\\Pillar\\Pillar02.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Pillar02", material);
+
+						texture = Resources::Load<Texture>(L"cylinder3", L"..\\Resources\\Texture\\Devil_Catle\\Castle_Out\\Pillar\\Pillar03.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Pillar03", material);
+
+						texture = Resources::Load<Texture>(L"cylinder4", L"..\\Resources\\Texture\\Devil_Catle\\Castle_Out\\Pillar\\Pillar04.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Pillar04", material);
+			#pragma endregion	
+
+			#pragma region Trees_bush
+						texture = Resources::Load<Texture>(L"bush01", L"..\\Resources\\Texture\\Devil_Catle\\Castle_Out\\Tree_BUSH\\Fore_Bush00.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Fore_Bush00", material);
+
+						texture = Resources::Load<Texture>(L"bush02", L"..\\Resources\\Texture\\Devil_Catle\\Castle_Out\\Tree_BUSH\\Fore_Bush02.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Fore_Bush02", material);
+
+						texture = Resources::Load<Texture>(L"bush03", L"..\\Resources\\Texture\\Devil_Catle\\Castle_Out\\Tree_BUSH\\Fore_Bush03.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Fore_Bush03", material);
+
+						texture = Resources::Load<Texture>(L"bush04", L"..\\Resources\\Texture\\Devil_Catle\\Castle_Out\\Tree_BUSH\\Fore_Bush04.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Fore_Bush04", material);
+
+						texture = Resources::Load<Texture>(L"bush05", L"..\\Resources\\Texture\\Devil_Catle\\Castle_Out\\Tree_BUSH\\Fore_Tree01.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader); material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Fore_Tree01", material);
+			#pragma endregion	
 
 		#pragma endregion	
 
@@ -693,7 +740,16 @@ namespace jk::renderer
 									material->SetTexture(texture);
 									material->SetRenderingMode(eRenderingMode::Transparent);
 									Resources::Insert(L"Devil_castle_tile", material);
+
+
+									texture = Resources::Load<Texture>(L"out_castle_tiles", L"..\\Resources\\Tile\\S1_tile1.png");
+									material = std::make_shared<Material>();
+									material->SetShader(tile_shader);
+									material->SetTexture(texture);
+									material->SetRenderingMode(eRenderingMode::Transparent);
+									Resources::Insert(L"Out_castle_tiles", material);
 			#pragma endregion	
+
 
 			#pragma region PlayScene_Devil(background_materials)
 						//{
@@ -841,7 +897,6 @@ namespace jk::renderer
 
 
 		#pragma region Stage2
-
 			#pragma region Stage2_Boss
 			{
 				texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
@@ -876,14 +931,14 @@ namespace jk::renderer
 				Resources::Insert(L"Layana_Sisters_Steps", material);
 			}
 
-					#pragma region Tile_map(Stage2_Boss)
-								texture = Resources::Load<Texture>(L"Stage2_boss", L"..\\Resources\\Tile\\Stage2_Tile.png");
-								material = std::make_shared<Material>();
-								material->SetShader(tile_shader);
-								material->SetTexture(texture);
-								material->SetRenderingMode(eRenderingMode::Transparent);
-								Resources::Insert(L"Stage2_Boss", material);
-					#pragma endregion
+				#pragma region Tile_map(Stage2_Boss)
+							texture = Resources::Load<Texture>(L"Stage2_boss", L"..\\Resources\\Tile\\Stage2_Tile.png");
+							material = std::make_shared<Material>();
+							material->SetShader(tile_shader);
+							material->SetTexture(texture);
+							material->SetRenderingMode(eRenderingMode::Transparent);
+							Resources::Insert(L"Stage2_Boss", material);
+				#pragma endregion
 
 			#pragma endregion
 
@@ -928,6 +983,50 @@ namespace jk::renderer
 
 			#pragma endregion
 		#pragma endregion
+
+
+		#pragma region Stage_End
+
+				#pragma region Stage_1
+					{
+						texture = Resources::Load<Texture>(L"ch1_gate_choicetable", L"..\\Resources\\Texture\\Gate\\Stage1\\Ch1_Gate_ChoiceTable.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Ch1_Gate_ChoiceTable", material);
+					}
+					{
+						texture = Resources::Load<Texture>(L"ch1_gate_table", L"..\\Resources\\Texture\\Gate\\Stage1\\Ch1_Gate_Table.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Ch1_Gate_Table", material);
+					}
+				#pragma endregion
+
+				#pragma region Stage_2
+					{
+						texture = Resources::Load<Texture>(L"ch2_gate_table", L"..\\Resources\\Texture\\Gate\\Stage2\\Ch2_Gate_Table.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Ch2_Gate_Table", material);
+					}
+
+					{
+						texture = Resources::Load<Texture>(L"ch2_gate_choicetable", L"..\\Resources\\Texture\\Gate\\Stage2\\Ch2_Gate_ChoiceTable.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Ch2_Gate_ChoiceTable", material);
+					}
+				#pragma endregion
+
+		#pragma endregion	
 
 
 		#pragma region Tile	
@@ -988,6 +1087,10 @@ namespace jk::renderer
 				material->SetShader(debugShader);
 				Resources::Insert(L"DebugMaterial", material);
 		#pragma endregion
+
+
+
+
 	}
 
 

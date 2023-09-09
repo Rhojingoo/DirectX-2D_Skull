@@ -177,6 +177,7 @@
     <ClInclude Include="Dimension_Pierce_BossEffect.h" />
     <ClInclude Include="Dimension_Pierce.h" />
     <ClInclude Include="Dimension_Pierce_BulletEffect.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Face_UI.h" />
     <ClInclude Include="Fireball_Projectile_Hit.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Hit_Sword.h" />
     <ClInclude Include="Homing_Pierce_LongHair.h" />
     <ClInclude Include="Homing_Pierce_ShortHair.h" />
+    <ClInclude Include="Item_OBJ.h" />
     <ClInclude Include="jkStage2_2.h" />
     <ClInclude Include="jkStage2_Boss.h" />
     <ClInclude Include="jkStage2_MiniBoss.h" />
@@ -237,10 +239,14 @@
     <ClInclude Include="Monster_StoneWizard_Teleport.h" />
     <ClInclude Include="Monster_Tackle_Flash_Effect.h" />
     <ClInclude Include="Monster_Stone_wizard_IcicleBullet.h" />
+    <ClInclude Include="NPC_by_stage.h" />
     <ClInclude Include="OutSide_CastleArea.h" />
     <ClInclude Include="Player_Hit_Effect.h" />
     <ClInclude Include="Sky_Ground.h" />
     <ClInclude Include="Slash_Effect.h" />
+    <ClInclude Include="Stage1_Door.h" />
+    <ClInclude Include="Stage_end_table.h" />
+    <ClInclude Include="Stage_end_wall.h" />
     <ClInclude Include="Ultimate_OnFire_Fire.h" />
     <ClInclude Include="Ultimate_On_Fire_Projectile.h" />
     <ClInclude Include="Public_Heal_Effect.h" />
@@ -345,6 +351,7 @@
     <ClCompile Include="Dimension_Pierce_BossEffect.cpp" />
     <ClCompile Include="Dimension_Pierce.cpp" />
     <ClCompile Include="Dimension_Pierce_BulletEffect.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Fireball_Projectile_Hit.cpp" />
@@ -363,6 +370,7 @@
     <ClCompile Include="Hit_Sword.cpp" />
     <ClCompile Include="Homing_Pierce_LongHair.cpp" />
     <ClCompile Include="Homing_Pierce_ShortHair.cpp" />
+    <ClCompile Include="Item_OBJ.cpp" />
     <ClCompile Include="jkStage2_2.cpp" />
     <ClCompile Include="jkStage2_Boss.cpp" />
     <ClCompile Include="jkStage2_MiniBoss.cpp" />
@@ -404,10 +412,14 @@
     <ClCompile Include="Monster_StoneWizard_Teleport.cpp" />
     <ClCompile Include="Monster_Tackle_Flash_Effect.cpp" />
     <ClCompile Include="Monster_Stone_wizard_IcicleBullet.cpp" />
+    <ClCompile Include="NPC_by_stage.cpp" />
     <ClCompile Include="OutSide_CastleArea.cpp" />
     <ClCompile Include="Player_Hit_Effect.cpp" />
     <ClCompile Include="Sky_Ground.cpp" />
     <ClCompile Include="Slash_Effect.cpp" />
+    <ClCompile Include="Stage1_Door.cpp" />
+    <ClCompile Include="Stage_end_table.cpp" />
+    <ClCompile Include="Stage_end_wall.cpp" />
     <ClCompile Include="Ultimate_OnFire_Fire.cpp" />
     <ClCompile Include="Ultimate_On_Fire_Projectile.cpp" />
     <ClCompile Include="Public_Heal_Effect.cpp" />

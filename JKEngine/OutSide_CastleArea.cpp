@@ -11,7 +11,6 @@ namespace jk
 	}
 	void OutSide_CastleArea::Initialize()
 	{		
-
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
@@ -40,56 +39,89 @@ namespace jk
 		#pragma endregion	
 
 		#pragma region Player		
-				_player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+				_player = object::Instantiate<Player>(Vector3(0.f, -500.f, -250.f), eLayerType::Player);
 				_player->SetName(L"player_select");
 		#pragma endregion
 
-		#pragma region Npc	
+				Stage1_Door* Door1 = object::Instantiate<Stage1_Door>(Vector3(170.f, -80.f, -249.f), eLayerType::BACK_GROUND);
+				Door1->Set_Door_Allow(true); Door1->Set_Stage1_Door(0);
 
-		#pragma endregion
+
+				Stage1_Door* Door2 = object::Instantiate<Stage1_Door>(Vector3(440.f, -80.f, -249.f), eLayerType::BACK_GROUND);
+				Door2->Set_Door_Allow(true); Door2->Set_Stage1_Door(1);
+
+				Stage_end_wall* Door_Wall = object::Instantiate<Stage_end_wall>(Vector3(303.f, -80.f, -248.f), eLayerType::BACK_GROUND);
+				Door_Wall->Set_Wall_Allow(true);  Door_Wall->Set_Wall_Stage(0);
+
+				{
+					Back_ground* _Bush03 = object::Instantiate<Back_ground>(Vector3(303.f, -110.f, -249.f), eLayerType::BACK_GROUND, L"Ch1_Gate_Table");
+					_Bush03->GetComponent<Transform>()->SetScale(Vector3(90.f, 19.f, 0.f));	_Bush03->SetName(L"Ch1_Gate_Table1");
+				}
+	 
+				NPC_by_stage* _npc_by_stage = object::Instantiate<NPC_by_stage>(Vector3(-90.f, -50.f, -249.f), eLayerType::Item);
+				_npc_by_stage->Set_Table_Allow(true);  _npc_by_stage->Set_End_Table(1);
 
 		#pragma region CASTLE
-			Back_ground* in_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground, L"In_Fore_GR");
-			in_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1280.f, 720.f, 0.f));	in_Catle_Back->SetName(L"in_Catle_Back");
-
-			Castle_wall_Back = object::Instantiate<Back_ground>(Vector3(0.f, -30.f, -100.f), eLayerType::BACK_GROUND, L"Catle_wall_Back");
-			Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(960, 350.f, 0.f)); Castle_wall_Back->SetName(L"Catle_Back");
-
-			Back_ground* Castle_wall = object::Instantiate<Back_ground>(Vector3(0.0f, -880.f, -150.f), eLayerType::BACK_GROUND, L"Catle_wall_Front_01");
-			Castle_wall->GetComponent<Transform>()->SetScale(Vector3(1966.f, 2306.f, 0.f));	Castle_wall->SetName(L"Catle_front");
-
-			Back_ground* _chair = object::Instantiate<Back_ground>(Vector3(-695.f, 0.1f, -200.f), eLayerType::BACK_GROUND, L"Devil_Chair");
-			_chair->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f)); _chair->SetName(L"Devil_chair");
-
-			Back_ground* front_obj = object::Instantiate<Back_ground>(Vector3(-300.f, 0.f, -220.f), eLayerType::BACK_GROUND, L"Front_obj");
-			front_obj->GetComponent<Transform>()->SetScale(Vector3(1266.f, 548.f, 0.f)); front_obj->SetName(L"front_obj");
-
-			Back_ground* out_Catle_Back = object::Instantiate<Back_ground>(Vector3(1200.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Out_Fore_GR");
+			Back_ground* out_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Out_Fore_GR");
 			out_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1200.f, 5500.f, 0.f));	out_Catle_Back->SetName(L"out_Catle_Back");
 
-			Back_ground* _Out_Catle = object::Instantiate<Back_ground>(Vector3(1200.f, -1500.f, -99.f), eLayerType::BACK_GROUND, L"Out_Catle");
+			Back_ground* _Out_Catle = object::Instantiate<Back_ground>(Vector3(150.f, 300.f, -80.f), eLayerType::BACK_GROUND, L"Out_Catle");
 			_Out_Catle->GetComponent<Transform>()->SetScale(Vector3(1056.f, 1269.f, 0.f));	_Out_Catle->SetName(L"Out_catle");
 
-			Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 90.f), eLayerType::Map_Effect, L"Cloud_Devil");
-			cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f)); cloud->SetName(L"Castle_cloud");
+			Back_ground* _Rampart = object::Instantiate<Back_ground>(Vector3(-200.f, 50.f, -99.f), eLayerType::BACK_GROUND, L"Rampart_Base");
+			_Rampart->GetComponent<Transform>()->SetScale(Vector3(256.f, 415.f, 0.f));	_Out_Catle->SetName(L"Rampart_base");
+
+
+			Back_ground* _Pillar01 = object::Instantiate<Back_ground>(Vector3(-30.f, -10.f, -99.f), eLayerType::BACK_GROUND, L"Pillar03");
+			_Pillar01->GetComponent<Transform>()->SetScale(Vector3(58.f, 222.f, 0.f));	_Pillar01->SetName(L"pillar01");
+
+
+			Back_ground* _Pillar02 = object::Instantiate<Back_ground>(Vector3(70.f, -10.f, -99.f), eLayerType::BACK_GROUND, L"Pillar03");
+			_Pillar02->GetComponent<Transform>()->SetScale(Vector3(58.f, 222.f, 0.f));	_Pillar02->SetName(L"pillar02");
+
+
+			Back_ground* _Pillar03 = object::Instantiate<Back_ground>(Vector3(170.f, -10.f, -99.f), eLayerType::BACK_GROUND, L"Pillar03");
+			_Pillar03->GetComponent<Transform>()->SetScale(Vector3(58.f, 222.f, 0.f));	_Pillar03->SetName(L"pillar03");
+
+
+			Back_ground* _Pillar04 = object::Instantiate<Back_ground>(Vector3(270.f, -10.f, -99.f), eLayerType::BACK_GROUND, L"Pillar03");
+			_Pillar04->GetComponent<Transform>()->SetScale(Vector3(58.f, 222.f, 0.f));	_Pillar04->SetName(L"pillar04");
+
+
+			Back_ground* _Pillar05 = object::Instantiate<Back_ground>(Vector3(470.f, -10.f, -99.f), eLayerType::BACK_GROUND, L"Pillar03");
+			_Pillar05->GetComponent<Transform>()->SetScale(Vector3(58.f, 222.f, 0.f));	_Pillar05->SetName(L"pillar05");
+
+
+			Back_ground* _Trees = object::Instantiate<Back_ground>(Vector3(250.f, -25.f, -90.f), eLayerType::BACK_GROUND, L"Stage1_Back_GR14");
+			_Trees->GetComponent<Transform>()->SetScale(Vector3(780.f, 189.f, 0.f));	_Trees->SetName(L"S1_Back_GR14");
+
+
+			Back_ground* _Bush00 = object::Instantiate<Back_ground>(Vector3(100.f, -150.f, -201.f), eLayerType::BACK_GROUND, L"Fore_Bush00");
+			_Bush00->GetComponent<Transform>()->SetScale(Vector3(543.f, 74.f, 0.f));	_Trees->SetName(L"Fore_bush00");
+
+
+			Back_ground* _Bush01 = object::Instantiate<Back_ground>(Vector3(-185.f, -135.f, -251.f), eLayerType::BACK_GROUND, L"Fore_Bush02");
+			_Bush01->GetComponent<Transform>()->SetScale(Vector3(219.f, 137.f, 0.f));	_Bush01->SetName(L"Fore_bush02");
+
+
+			Back_ground* _Bush02 = object::Instantiate<Back_ground>(Vector3(550.f, -135.f, -252.f), eLayerType::BACK_GROUND, L"Fore_Bush03");
+			_Bush02->GetComponent<Transform>()->SetScale(Vector3(280.f, 204.f, 0.f));	_Bush02->SetName(L"Fore_bush03");
+
+
+			Back_ground* _Bush03 = object::Instantiate<Back_ground>(Vector3(500.f, -150.f, -251.f), eLayerType::BACK_GROUND, L"Fore_Bush04");
+			_Bush03->GetComponent<Transform>()->SetScale(Vector3(339.f, 112.f, 0.f));	_Bush03->SetName(L"Fore_bush04");
+
+
+			Back_ground* _Bush04 = object::Instantiate<Back_ground>(Vector3(700.f, -150.f, -251.f), eLayerType::BACK_GROUND, L"Fore_Tree01");
+			_Bush04->GetComponent<Transform>()->SetScale(Vector3(422.f, 501.f, 0.f));	_Bush04->SetName(L"Fore_tree01");
+			
 		#pragma endregion				
 
 		#pragma region tile_map		
-
-			{
-				Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(780.f, -252.f, -201.f), eLayerType::BACK_GROUND);
-				MinibossMap->GetComponent<Transform>()->SetScale(Vector3(400, 200.f, 0.f));	MinibossMap->SetName(L"CatleArea_GR");
-			}
-
-			{
-				Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(1060.f, /*-1995.f*/-2200.f, -202.f), eLayerType::BACK_GROUND);
-				MinibossMap->GetComponent<Transform>()->SetScale(Vector3(1000, 200.f, 0.f));	MinibossMap->SetName(L"CatleArea_OUTGR");
-			}
-
 			{
 				static Vector2 TileSize = Vector2(32.f, 32.f);
 				static int Tile_Colum = 60;
-				static int Tile_Row = 8;
+				static int Tile_Row = 5;
 
 				static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
 				Tile_map->SetName(L"Tile_Map");
@@ -97,11 +129,11 @@ namespace jk
 				Collider2D* cd = Tile_map->AddComponent<Collider2D>();
 				//tr->SetPositionZ(-200.f);
 				tr->SetPositionZ(-200.f);
-				tr->AddPositionY(-280.f);
-				tr->SetPositionX(-300.f);
+				tr->AddPositionY(-200.f);
+				tr->SetPositionX(0.f);
 				tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
 
-				TileMap::TileMap_Setting(Tile_map, L"Devil_castle_tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Devil_castle_Tile.xml");
+				TileMap::TileMap_Setting(Tile_map, L"Out_castle_tiles", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Castle_Out.xml");
 			}
 		#pragma endregion	
 	}
@@ -142,13 +174,13 @@ namespace jk
 		cameraComp->SetTarget(_player);
 		cameraComp->SetCamera = true;
 		cameraComp->SetCameraX = true;
-		cameraComp->Set_MaxPlayerX(1200.f);
-		cameraComp->Set_MinPlayerX(-600.f);
-		cameraComp->Set_MinPlayerY(-1800.f);
-		cameraComp->Set_MaxBGX(400.f);
-		cameraComp->Set_MinBGX(-600.f);
-		cameraComp->SetTarget_BG(Castle_wall_Back);
-		cameraComp->BgCamera = true;
+		//cameraComp->Set_MaxPlayerX(1200.f);
+		//cameraComp->Set_MinPlayerX(-600.f);
+		//cameraComp->Set_MinPlayerY(-1800.f);
+		//cameraComp->Set_MaxBGX(400.f);
+		//cameraComp->Set_MinBGX(-600.f);
+		//cameraComp->SetTarget_BG(Castle_wall_Back);
+		//cameraComp->BgCamera = true;
 
 		//UI Camera		
 		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);

@@ -32,6 +32,7 @@ namespace jk
 		SceneManager::CreateScene<Stage1_2>(L"Stage1_2");		
 		SceneManager::CreateScene<Stage1_MiniBoss>(L"Stage1_mBoss");
 		SceneManager::CreateScene<Stage1_1>(L"Stage1_1");
+		SceneManager::CreateScene<OutSide_CastleArea>(L"OutSide_Castle");
 		SceneManager::CreateScene<Castle_Area>(L"Start_Scene"); 
 		SceneManager::CreateScene<jkTitleScene>(L"TitleScene");
 

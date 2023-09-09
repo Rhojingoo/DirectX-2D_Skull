@@ -493,6 +493,24 @@
     <ClInclude Include="OutSide_CastleArea.h">
       <Filter>Scene\Castle_Area</Filter>
     </ClInclude>
+    <ClInclude Include="Stage1_Door.h">
+      <Filter>Game_ob\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Game_ob\BG\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage_end_wall.h">
+      <Filter>Game_ob\Stage_end_wall</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage_end_table.h">
+      <Filter>Game_ob\Stage_end_table</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC_by_stage.h">
+      <Filter>Game_ob\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Item_OBJ.h">
+      <Filter>Game_ob\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -981,6 +999,24 @@
     <ClCompile Include="OutSide_CastleArea.cpp">
       <Filter>Scene\Castle_Area</Filter>
     </ClCompile>
+    <ClCompile Include="Stage1_Door.cpp">
+      <Filter>Game_ob\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Game_ob\BG\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage_end_wall.cpp">
+      <Filter>Game_ob\Stage_end_wall</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage_end_table.cpp">
+      <Filter>Game_ob\Stage_end_table</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC_by_stage.cpp">
+      <Filter>Game_ob\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Item_OBJ.cpp">
+      <Filter>Game_ob\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1201,6 +1237,24 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Monster_BigEnt\Effect">
       <UniqueIdentifier>{1f92947f-dd7d-4ad1-a41d-211de61a1f78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Door">
+      <UniqueIdentifier>{f8b791aa-e881-4634-987f-2054405149cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\BG\Door">
+      <UniqueIdentifier>{dcdef7cc-e13a-4ba0-a168-cba63ff4c4f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Stage_end_wall">
+      <UniqueIdentifier>{6dc92452-c0c6-4198-af35-62ecc4cdda95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Stage_end_table">
+      <UniqueIdentifier>{2c524b92-6371-4b69-82d1-742432ad130e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\NPC">
+      <UniqueIdentifier>{a97fdb9c-ec4e-4b3c-b51e-565b6403beb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Item">
+      <UniqueIdentifier>{95962414-790b-4cd5-9b52-59f3c501bd62}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
