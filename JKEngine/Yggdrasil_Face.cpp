@@ -129,7 +129,6 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
 			Groggy_Start->SetState(eState::Paused);
 		}
-
 		
 
 		at->PlayAnimation(L"FaceYggdrasilFace_Idle", true);
@@ -144,7 +143,6 @@ namespace jk
 		Yggdrasil_rotation = GetRotations();
 		Yggdrasil_pos = Yggdrasil::GetPos();
 		Facepos_Setting();
-
 
 			
 		_distance = _playerpos.x - _pos.x;
@@ -382,14 +380,28 @@ namespace jk
 	{		
 		if (_Firstbullet == false)
 		{
-			if (_Changeon == true)
+			if (_Changeon == false)
 			{
 				Transform* bullet_tr = Yggdrasil_effect->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(_pos.x + 5, _pos.y + 15, _pos.z - 1));
 				Yggdrasil_effect->SetState(eState::Active);
+
+				{
+					_introtime += Time::DeltaTime();
+					if (_introtime < 1.5)					
+						_pos.x = UpdateVibration(_pos.x, 7, 10.f * 3.14, _introtime);					
+					else
+					{
+						_pos.x = Yggdrasil_pos.x;
+						Yggdrasil_Chin::_introchin = false;
+						Yggdrasil_Chin::_introchinup = true;
+						_introtime = 0;
+					}
+				}
+				
 			}
 
-			if (_Changeon == false)
+			if (_Changeon == true)
 			{
 				Transform* bullet_tr = EnergyCorps_Charging->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(_pos.x+5, _pos.y + 15, _pos.z - 1));
@@ -423,7 +435,10 @@ namespace jk
 				Energy_Bombattack();
 			}
 			else
-				_state = Yggdrasil_State::Attack_C_Down;			
+			{
+				_state = Yggdrasil_State::Attack_C_Down;
+				Groggy_Start->_groggystartefeect_switch = true;
+			}
 		}
 
 		// 체인지한뒤 에너지볼변경
@@ -528,45 +543,58 @@ namespace jk
 	{
 		if (_Changeon == false)
 		{
-			if (_pos.y > 50)
+			if (_NumberofAttack >= 2)
 			{
-				_pos.y -= 150 * Time::DeltaTime();
-				_BulletReady = false;
-			}
-			else
-			{
-				for (int i = 0; i < 8; i++)
+				if (Groggy_Start->_groggystartefeect_switch == true)
 				{
-					Bullet[i]->SetState(eState::Paused);
-					Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
-				}
-				{
-					Energy_Bomb->SetState(eState::Paused);
-					Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
-				}
-				if (_NumberofAttack >= 2)
-				{
-					if (Groggy_Start->_groggystartefeect_switch == true)
+					for (int i = 0; i < 8; i++)
 					{
-						Transform* bullet_tr = Groggy_Start->GetComponent<Transform>();
-						bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
-						Groggy_Start->SetState(eState::Active);
+						Bullet[i]->SetState(eState::Paused);
+						Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
 					}
-					else
 					{
-						_state = Yggdrasil_State::Attack_C_Finish;
-						_NumberofAttack = 0;
-						Energy_Bomb->_effect_switch = true;
+						Energy_Bomb->SetState(eState::Paused);
+						Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
 					}
+
+					Transform* bullet_tr = Groggy_Start->GetComponent<Transform>();
+					bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
+					Groggy_Start->SetState(eState::Active);
+					at->PlayAnimation(L"FaceYggdrasilFace_groggy", true);
 				}
 				else
 				{
-					_time = 0;
-					_Firstbullet = true;		
-					_BulletReady = false;
+					_state = Yggdrasil_State::Attack_C_Finish;
+					_NumberofAttack = 0;
 					Energy_Bomb->_effect_switch = true;
-					_state = Yggdrasil_State::Attack_C_Ready;
-					_NumberofAttack++;
+				}
+			}
+			else
+			{
+				if (_pos.y > 50)
+				{
+					_pos.y -= 150 * Time::DeltaTime();
+					_BulletReady = false;
+				}
+				else
+				{
+					for (int i = 0; i < 8; i++)
+					{
+						Bullet[i]->SetState(eState::Paused);
+						Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
+					}
+					{
+						Energy_Bomb->SetState(eState::Paused);
+						Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
+					}
+					{
+						_time = 0;
+						_Firstbullet = true;
+						_BulletReady = false;
+						Energy_Bomb->_effect_switch = true;
+						_state = Yggdrasil_State::Attack_C_Ready;
+						_NumberofAttack++; 
+					}					
 				}
 			}
 		}
@@ -618,6 +646,7 @@ namespace jk
 		_SetattackC_l = false;
 		_SetattackC_face = false;
 		_SetattackC_chin = false;
+
 
 		if (_AttackC_Finish == true)
 			_state = Yggdrasil_State::Groggy_Start;
@@ -782,6 +811,7 @@ namespace jk
 	{
 		if (_Groggy_Face_Up == false)
 		{
+			at->PlayAnimation(L"FaceYggdrasilFace_Idle", true);
 			if (_pos.y <= 0.f)
 				_pos.y += 50 * Time::DeltaTime();
 			if (_pos.x <= 0.f)
@@ -820,6 +850,8 @@ namespace jk
 			_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
 		if (_state == Yggdrasil_State::Change)
 			_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
+		if (_state == Yggdrasil_State::Attack_C_Ready)
+			_pos = Vector3(Yggdrasil_pos.x, _pos.y, -201.f);		
 	}
 		
 

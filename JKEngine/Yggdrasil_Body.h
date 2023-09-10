@@ -54,6 +54,9 @@ namespace jk
 		void body_down();
 		void body_up();
 
+		void move_up();
+		void move_down();
+
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
@@ -64,13 +67,22 @@ namespace jk
 		Vector3 _savepos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
+
+
+	private:
+		Vector3 mCenterpos = Vector3(0.f, 0.f, 0.f);
+		float fDist = 0.f;
+		float _maxdistance = 25.f;
+		float _chinspeed = 25.f;
+
+
+
 	private:	
 		float	_time = 0.f;						// 공격시 사용중	
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		bool    _groggy_body = false;
 		bool    _idle_bodyon = false;
 		float   _falldown = 0.f;
-
 
 		int introbody_ordernumber = 0;
 	};

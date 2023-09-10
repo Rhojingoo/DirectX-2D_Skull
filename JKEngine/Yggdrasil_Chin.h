@@ -75,17 +75,19 @@ namespace jk
 		Vector3 Yggdrasil_rotation = Vector3(0.f, 0.f, 0.f);
 
 	private:
-		static int			mDir;
+		int		mDir = 1;
 		float	_time = 0.f;						// 공격시 사용중
 		float	_distance = 0.f;					// 플레이어와의 거리 체크
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		bool	_Firstbullet = false;
+		bool	_Groggy_Finish = false;
 
 	private:
 		Vector3 mCenterpos = Vector3(0.f, 0.f, 0.f);
 		float fDist = 0.f;
-		float _maxdistance = 5.f;
-		float _chinspeed = 1.f;
+		float _maxdistance = 25.f;
+		float _chinspeed = 25.f;
+
 
 	public:
 		static bool _introchin;

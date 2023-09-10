@@ -50,6 +50,17 @@ namespace jk
 	{
 		SetPos(_pos);		
 
+		//if (_state != Yggdrasil_State::Intro_End && _state != Yggdrasil_State::Intro && _state != Yggdrasil_State::Attack_C && _state != Yggdrasil_State::Attack_C_Ready && _state != Yggdrasil_State::Attack_C_UP && _state != Yggdrasil_State::Attack_C_Down && _state != Yggdrasil_State::Attack_C_Finish && _state != Yggdrasil_State::Change && _state != Yggdrasil_State::Change_End)
+		//{
+		//	{				
+		//		if (mDir == 1)
+		//			move_down();
+		//		else
+		//			move_up();				
+		//	}
+		//}
+
+
 
 		switch (_state)
 		{
@@ -380,6 +391,32 @@ namespace jk
 				_groggy_body = false;
 			}
 		}
+	}
+
+	void Yggdrasil_Body::move_up()
+	{
+		Transform* tr = GetComponent<Transform>();
+
+		fDist = _savepos.y - _pos.y - _maxdistance;
+		_pos.y += _chinspeed * static_cast<float>(Time::DeltaTime());
+
+		if (fDist <= -3.f)
+			mDir *= -1;
+
+		tr->SetPosition(_pos);
+	}
+
+	void Yggdrasil_Body::move_down()
+	{
+		Transform* tr = GetComponent<Transform>();
+
+		fDist = _savepos.y - _pos.y - _maxdistance;
+		_pos.y -= _chinspeed * static_cast<float>(Time::DeltaTime());
+
+		if (fDist >= 3.0f)
+			mDir *= -1;
+
+		tr->SetPosition(_pos);
 	}
 
 

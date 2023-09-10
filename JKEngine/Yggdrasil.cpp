@@ -324,6 +324,8 @@ namespace jk
 		GameObject::Render();
 	}
 
+
+
 	void Yggdrasil::OnCollisionEnter(Collider2D* other)
 	{
 	}
@@ -352,11 +354,11 @@ namespace jk
 		}
 		if (_Intro == true)
 		{				
-			//if (test == 0) 시험용
-			//	{
-			//		Attack_Sellect = 2;
-			//		//test = 1;
-			//	}
+			if (test == 0) //시험용
+				{
+					Attack_Sellect = 2;
+					//test = 1;
+				}
 			_AttackA_FinishR = false;
 			_AttackA_FinishL = false;
 			_Groggy_Chin_Up = false;
@@ -411,7 +413,6 @@ namespace jk
 			}			
 		}
 	}
-
 
 	void Yggdrasil::attack_a_set()
 	{
@@ -694,6 +695,7 @@ namespace jk
 			//_Diecheck = 3;
 		}
 	}
+
 
 
 	void Yggdrasil::die_set()

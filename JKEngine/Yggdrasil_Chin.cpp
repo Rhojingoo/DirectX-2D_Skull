@@ -3,7 +3,7 @@
 
 namespace jk
 {
-	int Yggdrasil_Chin:: mDir = 1;		
+	//int Yggdrasil_Chin:: mDir = 1;		
 	bool Yggdrasil_Chin::_introchin = false;
 	bool Yggdrasil_Chin::_introchinup = false;
 
@@ -16,6 +16,7 @@ namespace jk
 	Yggdrasil_Chin::~Yggdrasil_Chin()
 	{
 	}
+
 	void Yggdrasil_Chin::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
@@ -64,8 +65,37 @@ namespace jk
 		YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
 		Yggdrasil_rotation = GetRotations();
 		Intro_chinplay();
+		if (_state == Yggdrasil_State::Attack_C_Ready)
+		{
+			YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
+			_pos.x = YggdrasilFace_pos.x + 12.5f;
+		}
+
+
 		if (_state != Yggdrasil_State::Intro_End && _state != Yggdrasil_State::Intro && _state != Yggdrasil_State::Attack_C && _state != Yggdrasil_State::Attack_C_Ready && _state != Yggdrasil_State::Attack_C_UP && _state != Yggdrasil_State::Attack_C_Down && _state != Yggdrasil_State::Attack_C_Finish && _state != Yggdrasil_State::Change && _state != Yggdrasil_State::Change_End)
-			_pos.y = YggdrasilFace_pos.y - 65.f;
+		{
+			if (_state == Yggdrasil_State::Groggy_Start || _state == Yggdrasil_State::Groggy_End)
+			{
+				_pos.y = YggdrasilFace_pos.y - 65.f;
+			}
+			else
+			{
+				if (_Groggy_Finish == true)
+				{
+					_Groggy_Finish = false;
+					_pos.y = YggdrasilFace_pos.y - 65.f;
+					mDir = 1;
+				}
+				else
+				{
+					if (mDir == 1)
+						Lmove_down();
+					else
+						Lmove_up();
+				}
+			}
+		}
+
 
 		switch (_state)
 		{
@@ -229,10 +259,6 @@ namespace jk
 		at->PlayAnimation(L"ChindYggdrasilChin_Idle", true);
 		if (_Changeon == true)
 			at->PlayAnimation(L"ChindYggdrasilChin_Change", true);
-		//if (mDir == 1)
-		//	Lmove_down();
-		//else
-		//	Lmove_up();
 	}	
 
 	void Yggdrasil_Chin::attack_a_set()
@@ -391,24 +417,24 @@ namespace jk
 		Transform* tr = GetComponent<Transform>();
 
 		fDist = mCenterpos.y - _pos.y - _maxdistance;
-		_pos.y -= _chinspeed * static_cast<float>(Time::DeltaTime());
+		_pos.y += _chinspeed * static_cast<float>(Time::DeltaTime());
 
-		if (fDist >= 5.0f)
-			mDir *= -1;		
+		if (fDist <= -5.f)
+			mDir *= -1;
 
 		tr->SetPosition(_pos);
 	}
 	void Yggdrasil_Chin::Lmove_down()
 	{
-		Transform* tr = GetComponent<Transform>();
+			Transform* tr = GetComponent<Transform>();
 
-		fDist = mCenterpos.y - _pos.y - _maxdistance;
-		_pos.y += _chinspeed * static_cast<float>(Time::DeltaTime());
+			fDist = mCenterpos.y - _pos.y - _maxdistance;
+			_pos.y -= _chinspeed * static_cast<float>(Time::DeltaTime());
 
-		if (fDist <= -1.f)
-			mDir *= -1;
+			if (fDist >= 5.0f)
+				mDir *= -1;
 
-		tr->SetPosition(_pos);
+			tr->SetPosition(_pos);
 	}
 
 	void Yggdrasil_Chin::Intro_chinplay()
@@ -493,7 +519,7 @@ namespace jk
 			if (_pos.x >= 7.f)
 				_pos.x -= 7 * Time::DeltaTime();
 			if ((_pos.y < -150.f) && (_pos.x < 7.f))
-				_Groggy_Chin_Down = true;
+				_Groggy_Chin_Down = true;			
 		}
 
 	}
@@ -510,6 +536,7 @@ namespace jk
 				_pos.x = 12.5f;
 				_pos.y = -65.f;
 				_Groggy_Chin_Up = true;
+				_Groggy_Finish = true;
 			}
 		}
 	}
