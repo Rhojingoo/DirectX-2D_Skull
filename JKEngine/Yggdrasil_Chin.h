@@ -80,6 +80,7 @@ namespace jk
 		float	_distance = 0.f;					// 플레이어와의 거리 체크
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		bool	_Firstbullet = false;
+		bool	_Chin_Attack_Ready = false;
 		bool	_Groggy_Finish = false;
 
 	private:

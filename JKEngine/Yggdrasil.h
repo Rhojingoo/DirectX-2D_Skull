@@ -133,6 +133,8 @@ namespace jk
 		static bool _SetattackA_l;
 		static bool _AttackA_Readyr;
 		static bool _AttackA_Readyl;
+		static bool _AttackA_Boddy;	
+		static bool _AttackA_Chin;
 		static bool _AttackA_LoadingR;
 		static bool _AttackA_LoadingL;
 		static bool _AttackA_FinishR;

@@ -65,6 +65,7 @@ namespace jk
 		YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
 		Yggdrasil_rotation = GetRotations();
 		Intro_chinplay();
+
 		if (_state == Yggdrasil_State::Attack_C_Ready)
 		{
 			YggdrasilFace_pos = Yggdrasil_Face::FaceGetpos();
@@ -77,6 +78,10 @@ namespace jk
 			if (_state == Yggdrasil_State::Groggy_Start || _state == Yggdrasil_State::Groggy_End)
 			{
 				_pos.y = YggdrasilFace_pos.y - 65.f;
+			}
+			else if (_state == Yggdrasil_State::Attack_A_Ready || _state == Yggdrasil_State::Attack_A_Left || _state == Yggdrasil_State::Attack_A_Right|| _state == Yggdrasil_State::Attack_A_Loading)
+			{
+				
 			}
 			else
 			{
@@ -266,6 +271,29 @@ namespace jk
 	}
 	void Yggdrasil_Chin::attack_a_ready()
 	{
+		if (_Chin_Attack_Ready == false)
+		{
+			if (_pos.y < YggdrasilFace_pos.y - 55.f)			
+				_pos.y += 50 * Time::DeltaTime();
+			else
+			{
+				if (_pos.y >= YggdrasilFace_pos.y - 55.f)
+				{
+					_pos.y = YggdrasilFace_pos.y - 55.f;
+					_Chin_Attack_Ready = true;
+				}
+			}			
+		}
+		else
+		{
+			if (_pos.y > YggdrasilFace_pos.y - 80.f)			
+				_pos.y -= 50 * Time::DeltaTime();
+			else
+			{
+				_pos.y = YggdrasilFace_pos.y - 80.f;
+				_AttackA_Chin = true;
+			}					
+		}		
 	}
 	void Yggdrasil_Chin::attack_a_right()
 	{
@@ -275,6 +303,7 @@ namespace jk
 	}
 	void Yggdrasil_Chin::attack_a_loading()
 	{
+		_Chin_Attack_Ready = false;
 	}
 	void Yggdrasil_Chin::attack_a_finish()
 	{

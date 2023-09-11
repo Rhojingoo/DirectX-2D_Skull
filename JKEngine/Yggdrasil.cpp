@@ -31,6 +31,9 @@ namespace jk
 	bool Yggdrasil::_SetattackA_l = false;
 	bool Yggdrasil::_AttackA_Readyr = false;
 	bool Yggdrasil::_AttackA_Readyl = false;
+	bool Yggdrasil::_AttackA_Boddy = false;
+	bool Yggdrasil::_AttackA_Chin = false;
+
 	bool Yggdrasil::_AttackA_LoadingR = false;
 	bool Yggdrasil::_AttackA_LoadingL = false;
 	bool Yggdrasil::_AttackA_FinishR = false;
@@ -425,47 +428,53 @@ namespace jk
 	}
 	void Yggdrasil::attack_a_ready()
 	{
-		if (_AttackA_Readyr == true && _AttackA_Readyr == true)
+		if (_AttackA_Readyr == true && _AttackA_Readyr == true && _AttackA_Boddy == true && _AttackA_Chin ==true)
 		{
 			if (mDir == 1)
 			{
 				_state = Yggdrasil_State::Attack_A_Right;
 				Yggdrasil_Hand_Right::_Attackswitch = true;
+				_AttackA_Boddy = false;
+				_AttackA_Chin = false;
 			}
 			else
 			{
 				_state = Yggdrasil_State::Attack_A_Left;
 				Yggdrasil_Hand_Left::_Attackswitch = true;
+				_AttackA_Boddy = false;
+				_AttackA_Chin = false;
 			}
 		}
 	}
 	void Yggdrasil::attack_a_right()
 	{
-		if (Yggdrasil_Hand_Right::_Attackswitch == true)
+		if (Yggdrasil_Hand_Right::_Attackswitch == true && _AttackA_Boddy == true)
 		{
 			_attackatime += Time::DeltaTime();
 			if (_attackatime > 2.5f)
 			{
 				_state = Yggdrasil_State::Attack_A_Loading;
 				_attackatime = 0.f;
+				_AttackA_Boddy = false;
 			}			
 		}
 	}
 	void Yggdrasil::attack_a_left()
 	{
-		if (Yggdrasil_Hand_Left::_Attackswitch == true) 
+		if (Yggdrasil_Hand_Left::_Attackswitch == true && _AttackA_Boddy == true)
 		{			
 			_attackatime += Time::DeltaTime();
 			if (_attackatime > 2.5f)
 			{
 				_state = Yggdrasil_State::Attack_A_Loading;
 				_attackatime = 0.f;
+				_AttackA_Boddy = false;
 			}
 		}
 	}
 	void Yggdrasil::attack_a_loading()
 	{
-		if (_AttackA_LoadingL == true && _AttackA_LoadingR == true)
+		if (_AttackA_LoadingL == true && _AttackA_LoadingR == true && _AttackA_Boddy == true)
 			_state = Yggdrasil_State::Attack_A_Finish;	
 	}
 	void Yggdrasil::attack_a_finish()
@@ -478,6 +487,7 @@ namespace jk
 		_AttackA_Readyl = false;
 		_AttackA_LoadingL = false;
 		_AttackA_LoadingR = false;
+		_AttackA_Boddy = false;
 
 		if (_AttackA_FinishR == true && _AttackA_FinishL == true)
 		{

@@ -58,6 +58,7 @@ namespace jk
 
 		void move_up();
 		void move_down();
+		float UpdateVibration(float originalX, float amplitude, float frequency, float timeElapsed);
 
 	public:
 		static bool Attack_C_Boddy_Ready;
@@ -92,6 +93,7 @@ namespace jk
 
 	private:	
 		float	_time = 0.f;						// 공격시 사용중	
+		float	_readytime = 0.f;
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		bool    _groggy_body = false;
 		bool    _idle_bodyon = false;

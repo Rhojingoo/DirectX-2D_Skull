@@ -54,6 +54,9 @@ namespace jk
 	{
 		SetPos(_pos);		
 
+		if (_state == Yggdrasil_State::Attack_A_Ready)
+			_pos.x = _savepos.x;
+
 		//if (_state != Yggdrasil_State::Intro_End && _state != Yggdrasil_State::Intro && _state != Yggdrasil_State::Attack_C && _state != Yggdrasil_State::Attack_C_Ready && _state != Yggdrasil_State::Attack_C_UP && _state != Yggdrasil_State::Attack_C_Down && _state != Yggdrasil_State::Attack_C_Finish && _state != Yggdrasil_State::Change && _state != Yggdrasil_State::Change_End)
 		//{
 		//	{				
@@ -253,15 +256,46 @@ namespace jk
 	}
 	void Yggdrasil_Body::attack_a_ready()
 	{
+		{
+			_readytime += Time::DeltaTime();
+			if (_readytime < 1.5)
+				_pos.x = UpdateVibration(_pos.x, 3, 10.f * 3.14, _readytime);
+			else
+			{
+				_pos.x = _savepos.x;
+				Yggdrasil_Chin::_introchin = false;
+				Yggdrasil_Chin::_introchinup = true;
+				_readytime = 0;
+				_AttackA_Boddy = true;
+			}
+		}
 	}
 	void Yggdrasil_Body::attack_a_right()
 	{
+		if (_pos.y > -45)
+		{
+			_pos.y -= 250 * Time::DeltaTime();
+		}
+		else
+			_AttackA_Boddy = true;
 	}
 	void Yggdrasil_Body::attack_a_left()
 	{
+		if (_pos.y > -45)
+		{
+			_pos.y -= 250 * Time::DeltaTime();
+		}
+		else
+			_AttackA_Boddy = true;
 	}
 	void Yggdrasil_Body::attack_a_loading()
 	{
+		if (_pos.y < -20)
+		{
+			_pos.y += 250 * Time::DeltaTime();
+		}
+		else
+			_AttackA_Boddy = true;
 	}
 	void Yggdrasil_Body::attack_a_finish()
 	{
@@ -476,6 +510,9 @@ namespace jk
 		tr->SetPosition(_pos);
 	}
 
-
+	float Yggdrasil_Body::UpdateVibration(float originalX, float amplitude, float frequency, float timeElapsed)
+	{
+		return originalX + amplitude * std::sin(frequency * timeElapsed);
+	}
 
 }
