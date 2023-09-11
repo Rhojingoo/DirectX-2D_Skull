@@ -71,6 +71,16 @@ namespace jk
 			_Sweeping->SetState(eState::Paused);
 		}
 
+		{
+			Hit_Box = new HitBox_YggDrasil();
+			Hit_Box->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetState(eState::Paused);
+		}
+
+
 		at->PlayAnimation(L"Hand1_HandIdle", true);
 		at->PlayAnimation(L"Hand1_Handintro", true);		
 			
@@ -235,8 +245,24 @@ namespace jk
 	}
 	void Yggdrasil_Hand_Left::LateUpdate()
 	{
+		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
 		_collider->SetSize(Vector2(0.05f, 0.1f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
+
+		if (_HitBox_Attack_On == true)
+		{
+			_collider->SetSize(Vector2(0.5f, 0.5f));
+			_collider->SetCenter(Vector2(0.0f, -0.05f));
+
+			Hit_Box->SetSize(Vector2(115.f,95.f));
+			HitBox_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z));
+			Hit_Box->SetState(eState::Active);
+		}
+		else
+		{
+			Hit_Box->SetState(eState::Paused);
+		}
+
 		GameObject::LateUpdate();
 	}
 
@@ -263,7 +289,8 @@ namespace jk
 					FistSlam_Smoke->SetState(eState::Active);
 					FistSlam_Smoke->_EffectOn = true;
 					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
-					Effect->SetPosition(Vector3(_pos.x, _pos.y + 120, _pos.z));
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 60, _playerpos.z-1));
+					_HitBox_Attack_On = false;
 				}				
 				if (_state == Yggdrasil_State::Attack_D)
 				{
@@ -277,7 +304,6 @@ namespace jk
 			{			
 				if(FistSlam_Smoke->_EffectOn == false)
 					FistSlam_Smoke->SetState(eState::Paused);
-
 			}
 		}
 	}
@@ -313,9 +339,7 @@ namespace jk
 	void Yggdrasil_Hand_Left::attack_a_ready()
 	{
 		if (_SetattackA_l == true)
-		{
-			//_Yggdrasildistance;
-			//int a = 0;
+		{	
 			at->PlayAnimation(L"Hand1_HandRock", true);
 			if (_Changeon == true)
 				at->PlayAnimation(L"HandHandRock_Change", true);
@@ -339,10 +363,16 @@ namespace jk
 	{
 		if (_AttackA_Readyl == true)
 		{
+			_HitBox_Attack_On = true;
 			_Ground_check = false;
+			_playerpos.x;
+			_playerpos.y;
+
+			Vector2 attack_pos = Vector2(_playerpos.x - _pos.x, _playerpos.y - _pos.y);
+			attack_pos.Normalize();
 			_rigidbody->SetGround(false);
-			_rigidbody->SetVelocity(Vector2(250.f, -150.f));
-			_AttackA_Readyl = false;
+			_rigidbody->SetVelocity(Vector2(attack_pos.x * 400.f, attack_pos.y * 400));
+			_AttackA_Readyl = false;	
 		}
 	}
 	void Yggdrasil_Hand_Left::attack_a_loading()
@@ -351,32 +381,52 @@ namespace jk
 		{
 			if (_NumberofAttack <= 2)
 			{
-				if (_pos.x > _AttackA_SavePos.x)
-					_pos.x -= 150.0f * Time::DeltaTime();
-				if (_pos.y < _AttackA_SavePos.y)
-					_pos.y += 250.0f * Time::DeltaTime();
-				tr->SetPosition(Vector3(_pos));
-
-				if (_AttackA_SavePos.x >= _pos.x)
-					_pos.x = _AttackA_SavePos.x;
-				if (_AttackA_SavePos.y <= _pos.y)
-					_pos.y = _AttackA_SavePos.y;
-
-				if ((_pos.x == _AttackA_SavePos.x) && (_pos.y == _AttackA_SavePos.y))
+				if (_attackloading == false)
 				{
-					if (_NumberofAttack < 2)
-						_state = Yggdrasil_State::Attack_A_Set;
-					else					
-						_AttackA_LoadingL = true;				
-				}				
+					if (_pos.x > _AttackA_SavePos.x)
+						_pos.x -= 150.0f * Time::DeltaTime();
+					else if (_pos.x < _AttackA_SavePos.x)
+						_pos.x += 150.0f * Time::DeltaTime();
+					if (_pos.y < _AttackA_SavePos.y)
+						_pos.y += 250.0f * Time::DeltaTime();
+					tr->SetPosition(Vector3(_pos));
+					
+					if (_AttackA_SavePos.y <= _pos.y)
+						_attackloading = true;				
+				}
+				else
+				{
+					if (_AttackA_SavePos.x >= _pos.x)
+						_pos.x = _AttackA_SavePos.x;
+					else if (_AttackA_SavePos.x <= _pos.x)
+						_pos.x = _AttackA_SavePos.x;
+					if (_AttackA_SavePos.y <= _pos.y)
+						_pos.y = _AttackA_SavePos.y;
+
+					if ((_pos.x == _AttackA_SavePos.x) && (_pos.y == _AttackA_SavePos.y))
+					{
+						if (_NumberofAttack < 2)
+						{
+							_state = Yggdrasil_State::Attack_A_Set;
+							_attackloading = false;
+						}
+						else
+						{
+							_AttackA_LoadingL = true;
+							_attackloading = false;
+						}
+					}				
+				}
 			}
 		}
 		if (_NumberofAttack >= 2 && _AttackA_LoadingR == true)
+		{
 			_AttackA_LoadingL = true;
+			_attackloading = false;
+		}
 	}
 	void Yggdrasil_Hand_Left::attack_a_finish()
 	{
-		int a = 0;
 		if (_NumberofAttack >= 2)
 		 {
 			_Savepointpos.x;

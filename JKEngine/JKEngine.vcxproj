@@ -191,6 +191,7 @@
     <ClInclude Include="HitBox_Mage.h" />
     <ClInclude Include="HitBox_Monster.h" />
     <ClInclude Include="HitBox_Player.h" />
+    <ClInclude Include="HitBox_YggDrasil.h" />
     <ClInclude Include="Hit_Critical_High.h" />
     <ClInclude Include="Hit_Critical_Middle.h" />
     <ClInclude Include="Hit_DarkPaladin.h" />
@@ -364,6 +365,7 @@
     <ClCompile Include="HitBox_Mage.cpp" />
     <ClCompile Include="HitBox_Monster.cpp" />
     <ClCompile Include="HitBox_Player.cpp" />
+    <ClCompile Include="HitBox_YggDrasil.cpp" />
     <ClCompile Include="Hit_Critical_High.cpp" />
     <ClCompile Include="Hit_Critical_Middle.cpp" />
     <ClCompile Include="Hit_DarkPaladin.cpp" />

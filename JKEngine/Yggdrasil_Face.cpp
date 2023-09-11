@@ -397,8 +397,7 @@ namespace jk
 						Yggdrasil_Chin::_introchinup = true;
 						_introtime = 0;
 					}
-				}
-				
+				}				
 			}
 
 			if (_Changeon == true)
@@ -564,9 +563,11 @@ namespace jk
 				}
 				else
 				{
-					_state = Yggdrasil_State::Attack_C_Finish;
-					_NumberofAttack = 0;
+					//_state = Yggdrasil_State::Attack_C_Finish;
+					//_NumberofAttack = 0;
 					Energy_Bomb->_effect_switch = true;
+					_Groggy_Bulletready = true;
+
 				}
 			}
 			else
@@ -592,8 +593,8 @@ namespace jk
 						_Firstbullet = true;
 						_BulletReady = false;
 						Energy_Bomb->_effect_switch = true;
-						_state = Yggdrasil_State::Attack_C_Ready;
-						_NumberofAttack++; 
+						_AttackC_Face = true;
+						//_state = Yggdrasil_State::Attack_C_Ready;					
 					}					
 				}
 			}

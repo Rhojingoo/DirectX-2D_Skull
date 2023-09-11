@@ -47,9 +47,14 @@ namespace jk
 	bool Yggdrasil::_SetattackC_l = false;
 	bool Yggdrasil::_SetattackC_face = false;
 	bool Yggdrasil::_SetattackC_chin = false;
+	bool Yggdrasil::_SetattackC_boddy = false;
 	bool Yggdrasil::_AttackC_Readyr = false;
 	bool Yggdrasil::_AttackC_Readyl = false;
+	bool Yggdrasil::_AttackC_Face = false;
+	bool Yggdrasil::_AttackC_Boddy = false;		
 	bool Yggdrasil::_AttackC_Finish = false;
+
+	int Yggdrasil::_NumberofAttack = 0;
 
 
 	bool Yggdrasil::_SetattackD_r = false;
@@ -78,7 +83,7 @@ namespace jk
 	bool  Yggdrasil::_Change_FinishL = false;
 	bool  Yggdrasil::_Change_Finish = false;
 
-
+	bool Yggdrasil::_Groggy_Bulletready = false;
 	bool Yggdrasil::_Groggy_Body_Down = false;
 	bool Yggdrasil::_Groggy_Face_Down = false;
 	bool Yggdrasil::_Groggy_Chin_Down = false;
@@ -95,8 +100,7 @@ namespace jk
 	bool Yggdrasil::_Die_Body_Down = false;
 	bool Yggdrasil::_Die_Face_Down = false;
 	bool Yggdrasil::_Die_Chin_Down = false;
-	
-	int	Yggdrasil::_NumberofAttack = 0;
+
 
 
 	Yggdrasil::Yggdrasil()		
@@ -356,7 +360,7 @@ namespace jk
 		{				
 			if (test == 0) //½ÃÇè¿ë
 				{
-					Attack_Sellect = 2;
+					Attack_Sellect = 0;
 					//test = 1;
 				}
 			_AttackA_FinishR = false;
@@ -532,17 +536,17 @@ namespace jk
 
 	void Yggdrasil::attack_c_set()
 	{
-		if ((_SetattackC_r == true) && (_SetattackC_l == true)&&(_SetattackC_face == true)&&(_SetattackC_chin ==true))
+		if ((_SetattackC_r == true) && (_SetattackC_l == true)&&(_SetattackC_face == true)&&(_SetattackC_chin ==true)&& _SetattackC_boddy == true)
 			_state = Yggdrasil_State::Attack_C_Ready;		
 	}
 	void Yggdrasil::attack_c_ready()
 	{
-		if (Yggdrasil_Face::_Firstbullet == true)
+		if ((Yggdrasil_Face::_Firstbullet == true) && (Yggdrasil_Body::Attack_C_Boddy_Ready == true))
 			_state = Yggdrasil_State::Attack_C_UP;
 	}
 	void Yggdrasil::attack_c_up()
 	{
-		if (Yggdrasil_Face::_BulletReady == true)
+		if ((Yggdrasil_Face::_BulletReady == true) && (Yggdrasil_Body::Boddy_BulletReady == true))
 			_state = Yggdrasil_State::Attack_C;
 	}
 	void Yggdrasil::attack_c()
@@ -550,6 +554,25 @@ namespace jk
 	}
 	void Yggdrasil::attack_c_down()
 	{
+		if (_NumberofAttack >= 2) 
+		{
+			if (_Groggy_Bulletready == true)
+			{
+				_state = Yggdrasil_State::Attack_C_Finish;
+				_NumberofAttack = 0;
+				_Groggy_Bulletready = false;
+			}
+		}
+		else
+		{
+			if ((_AttackC_Face == true) && (_AttackC_Boddy == true))
+			{
+				_state = Yggdrasil_State::Attack_C_Ready;
+				_AttackC_Face = false;
+				_AttackC_Boddy = false;
+				_NumberofAttack++;
+			}
+		}
 	}
 	void Yggdrasil::attack_c_finish()
 	{

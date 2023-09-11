@@ -149,8 +149,14 @@ namespace jk
 		static bool _SetattackC_l;
 		static bool _SetattackC_face;
 		static bool _SetattackC_chin;
+		static bool _SetattackC_boddy;
 		static bool _AttackC_Readyr;
 		static bool _AttackC_Readyl;
+
+		static bool _AttackC_Face;
+		static bool _AttackC_Boddy;
+
+
 		static bool _AttackC_Finish;
 
 
@@ -179,7 +185,7 @@ namespace jk
 		static bool _Change_FinishL;
 		static bool _Change_Finish;		
 		
-
+		static bool _Groggy_Bulletready;
 		static bool _Groggy_Body_Down;
 		static bool _Groggy_Face_Down;
 		static bool _Groggy_Chin_Down;
@@ -188,7 +194,6 @@ namespace jk
 		static bool _Groggy_Chin_Up;
 		static bool _Groggy_RightHand_Up;
 		static bool _Groggy_LeftHand_Up;
-		static int _NumberofAttack;
 
 		static bool _Die_SetR;
 		static bool _Die_SetL;
@@ -203,6 +208,8 @@ namespace jk
 		static int _Diecheck;			//Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
 		static bool _DieON;
 		int Attack_Sellect = 0;
+		static int    _NumberofAttack;
+
 
 	private:
 		GameObject* _Gobjs[5];

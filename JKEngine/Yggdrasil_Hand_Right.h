@@ -2,6 +2,7 @@
 #include "Include_Common.h"
 #include "Yggdrasil_FistSlam_Effect.h"
 #include "Yggdrasil_Sweeping.h"
+#include "HitBox_YggDrasil.h"
 
 namespace jk
 {
@@ -68,6 +69,7 @@ namespace jk
 	private:
 		Yggdrasil_FistSlam_Effect* FistSlam_Smoke = nullptr;
 		Yggdrasil_Sweeping* _Sweeping = nullptr;
+		HitBox_YggDrasil* Hit_Box = nullptr;
 
 	private:
 		Animator* at = nullptr;
@@ -88,6 +90,9 @@ namespace jk
 		bool	_Ground_check = false;					// 땅체크시에 쓰이고 있는 변수
 		bool _attackready = false;
 		bool _attackon = false;
+		bool _attackloading = false;
+		bool _HitBox_Attack_On = false;
+
 		void attackb_setting();
 	};
 }

@@ -19,7 +19,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\FistSlam_Impact", this, 0, 0.02f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\FistSlam_Impact", this, 0, 0.05f);
 		at->CompleteEvent(L"EffectFistSlam_Impact") = std::bind(&Yggdrasil_FistSlam_Effect::Compelete, this);
 
 		at->PlayAnimation(L"EffectFistSlam_Impact", true);

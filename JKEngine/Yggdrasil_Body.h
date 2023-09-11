@@ -32,6 +32,8 @@ namespace jk
 		void attack_b_finish();
 		void attack_c_set();
 		void attack_c_ready();
+		void attack_c_up();
+		void attack_c_down();
 		void attack_c();
 		void attack_c_finish();
 		void groggy_start();
@@ -57,6 +59,13 @@ namespace jk
 		void move_up();
 		void move_down();
 
+	public:
+		static bool Attack_C_Boddy_Ready;
+		static bool Boddy_BulletReady;
+
+
+
+
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
@@ -69,11 +78,15 @@ namespace jk
 
 
 
+
+
 	private:
 		Vector3 mCenterpos = Vector3(0.f, 0.f, 0.f);
 		float fDist = 0.f;
-		float _maxdistance = 25.f;
-		float _chinspeed = 25.f;
+		bool _Turn_up = false;
+		float _maxdistance = 10.f;
+		float _chinspeed = 10.f;
+		
 
 
 

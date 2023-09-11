@@ -416,7 +416,7 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		fDist = mCenterpos.y - _pos.y - _maxdistance;
+		fDist = (YggdrasilFace_pos.y - 50.f) - _pos.y - _maxdistance;
 		_pos.y += _chinspeed * static_cast<float>(Time::DeltaTime());
 
 		if (fDist <= -5.f)
@@ -428,7 +428,7 @@ namespace jk
 	{
 			Transform* tr = GetComponent<Transform>();
 
-			fDist = mCenterpos.y - _pos.y - _maxdistance;
+			fDist = (YggdrasilFace_pos.y-50.f) - _pos.y - _maxdistance;
 			_pos.y -= _chinspeed * static_cast<float>(Time::DeltaTime());
 
 			if (fDist >= 5.0f)

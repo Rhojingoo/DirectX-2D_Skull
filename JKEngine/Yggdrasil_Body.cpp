@@ -3,6 +3,10 @@
 
 namespace jk
 {
+	bool Yggdrasil_Body::Attack_C_Boddy_Ready = false;
+	bool Yggdrasil_Body::Boddy_BulletReady = false;
+	
+
 	Yggdrasil_Body::Yggdrasil_Body()
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
@@ -22,7 +26,7 @@ namespace jk
 
 		tr = GetComponent<Transform>();
 		_pos = Vector3(0.f, -380.f, -199.f);		
-		_savepos = Vector3(0.f, -20.f, -200.f);
+		_savepos = Vector3(0.f, -20.f, -199.f);
 		tr->SetPosition(_pos);
 
 		at = AddComponent<Animator>();
@@ -60,7 +64,18 @@ namespace jk
 		//	}
 		//}
 
+		if (_state == Yggdrasil_State::Attack_C_Ready)
+		{
+			_pos = _savepos;
+		}
 
+		if (_state == Yggdrasil_State::Idle)
+		{
+			if (_Turn_up == false)
+			move_down();
+			else
+			move_up();		
+		}
 
 		switch (_state)
 		{
@@ -122,6 +137,14 @@ namespace jk
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C:
 			Yggdrasil_Body::attack_c();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_UP:
+			Yggdrasil_Body::attack_c_up();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Down:
+			Yggdrasil_Body::attack_c_down();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::Attack_C_Finish:
@@ -264,15 +287,43 @@ namespace jk
 
 	void Yggdrasil_Body::attack_c_set()
 	{
+		if (_pos.y > -35)
+			_pos.y -= 250 * Time::DeltaTime();
+		else if (_pos.y < -36)
+			_pos.y += 250 * Time::DeltaTime();
+		else if (_pos.y >= -36 && _pos.y <= -35)
+		{
+			_pos.y = -35;
+			_SetattackC_boddy = true;
+		}
 	}
 	void Yggdrasil_Body::attack_c_ready()
 	{
+		Attack_C_Boddy_Ready = true;
+	}
+	void Yggdrasil_Body::attack_c_up()
+	{
+		if (_pos.y <= 10.f)
+			_pos.y += 250 * Time::DeltaTime();
+		else
+			Boddy_BulletReady = true;
+	}
+	void Yggdrasil_Body::attack_c_down()
+	{
+		if (_pos.y > -30)
+		{
+			_pos.y -= 250 * Time::DeltaTime();
+		}
+		else
+			_AttackC_Boddy = true;
 	}
 	void Yggdrasil_Body::attack_c()
 	{
 	}
 	void Yggdrasil_Body::attack_c_finish()
 	{
+		Attack_C_Boddy_Ready = false;
+		Boddy_BulletReady = false;
 	}
 
 
@@ -393,28 +444,34 @@ namespace jk
 		}
 	}
 
+
 	void Yggdrasil_Body::move_up()
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		fDist = _savepos.y - _pos.y - _maxdistance;
-		_pos.y += _chinspeed * static_cast<float>(Time::DeltaTime());
+		if (_Turn_up == true)
+		{
+			fDist = _savepos.y - _pos.y - _maxdistance;
+			_pos.y += _chinspeed * static_cast<float>(Time::DeltaTime());
 
-		if (fDist <= -3.f)
-			mDir *= -1;
+			if (fDist <= -10.f)
+				_Turn_up = false;					
+		}
+	
 
 		tr->SetPosition(_pos);
 	}
-
 	void Yggdrasil_Body::move_down()
 	{
 		Transform* tr = GetComponent<Transform>();
+		if (_Turn_up == false)
+		{
+			fDist = _savepos.y - _pos.y - _maxdistance;
+			_pos.y -= _chinspeed * static_cast<float>(Time::DeltaTime());
+			if (fDist >= 10.f)				
+				_Turn_up = true;
+		}
 
-		fDist = _savepos.y - _pos.y - _maxdistance;
-		_pos.y -= _chinspeed * static_cast<float>(Time::DeltaTime());
-
-		if (fDist >= 3.0f)
-			mDir *= -1;
 
 		tr->SetPosition(_pos);
 	}

@@ -511,6 +511,9 @@
     <ClInclude Include="Item_OBJ.h">
       <Filter>Game_ob\Item</Filter>
     </ClInclude>
+    <ClInclude Include="HitBox_YggDrasil.h">
+      <Filter>Game_ob\HitBox\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1017,6 +1020,9 @@
     <ClCompile Include="Item_OBJ.cpp">
       <Filter>Game_ob\Item</Filter>
     </ClCompile>
+    <ClCompile Include="HitBox_YggDrasil.cpp">
+      <Filter>Game_ob\HitBox\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1255,6 +1261,9 @@
     </Filter>
     <Filter Include="Game_ob\Item">
       <UniqueIdentifier>{95962414-790b-4cd5-9b52-59f3c501bd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\HitBox\Boss">
+      <UniqueIdentifier>{6e2d4803-c53e-4bd1-bc79-283d4c744410}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

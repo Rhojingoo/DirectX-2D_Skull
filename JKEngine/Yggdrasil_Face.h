@@ -92,7 +92,7 @@ namespace jk
 		float	_time = 0.f;						// 공격시 사용중
 		float	_distance = 0.f;					// 플레이어와의 거리 체크
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
-		int    _NumberofAttack = 0;					// 어택횟수체크
+	//	int    _NumberofAttack = 0;					// 어택횟수체크
 
 		Yggdrasil_BasicBullet* Bullet[8];
 		Yggdrasil_Energy_Bomb* Energy_Bomb;

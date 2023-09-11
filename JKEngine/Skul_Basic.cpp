@@ -1253,6 +1253,16 @@ namespace jk
 				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 		}		
 
+		if (HitBox_YggDrasil* Bullet = dynamic_cast<HitBox_YggDrasil*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			_State = Skul_Basic_State::Hit;
+		}
+
+
+
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			_Wall_check = true;
@@ -1332,22 +1342,36 @@ namespace jk
 		{
 			if (_Ground_check == false)
 			{
+				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
 				_Ground_check = true;
+				//mGround->_SkullOn = true;
 				_Ground_check = _rigidbody->GetGround();
 
-				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
+				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling || _State == Skul_Basic_State::Hit)
 				{
 					_State = Skul_Basic_State::Idle;
 					if (mDir == 1)
+					{
 						at->PlayAnimation(L"Skul_BasicIdle", true);
-					else
+						if (_Skulhead == true)
+							at->PlayAnimation(L"NoHeadIdle", true);
+						mDir = 1;
+					}
+					else if (mDir == -1)
+					{
 						at->PlayAnimation(L"Skul_BasicIdleR", true);
+
+						if (_Skulhead == true)
+							at->PlayAnimation(L"NoHeadIdleR", true);
+						mDir = -1;
+					}
 				}
 			}
 			else
 			{
+				_Player_GRpos = pos;
 				if (Input::GetKeyDown(eKeyCode::Z))
 				{
 					_State = Skul_Basic_State::Dash;
@@ -1367,6 +1391,16 @@ namespace jk
 						_rigidbody->SetVelocity(Vector2(-250.f, 0.f));
 						mDir = -1;
 					}
+				}
+				if (_State == Skul_Basic_State::Hit)
+				{
+					_Ground_check = false;
+					_rigidbody->SetGround(false);
+					if (mDir == 1)
+						_rigidbody->SetVelocity(Vector2(-75.f, 175.f));
+
+					if (mDir == -1)
+						_rigidbody->SetVelocity(Vector2(75.f, 175.f));
 				}
 			}
 		}
