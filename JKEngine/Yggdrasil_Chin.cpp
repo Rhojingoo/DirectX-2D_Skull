@@ -83,6 +83,10 @@ namespace jk
 			{
 				
 			}
+			else if ((_state == Yggdrasil_State::Attack_B_Ready) || (_state == Yggdrasil_State::Attack_B_Left) || (_state == Yggdrasil_State::Attack_B_Right))
+			{
+			}				
+
 			else
 			{
 				if (_Groggy_Finish == true)
@@ -315,12 +319,34 @@ namespace jk
 	}
 	void Yggdrasil_Chin::attack_b_ready()
 	{
+		if(_pos.x > (YggdrasilFace_pos.x + 12.5f))
+			_pos.x -=  150.f*Time::DeltaTime();
+		else if(_pos.x < (YggdrasilFace_pos.x + 12.5f))
+			_pos.x += 150.f * Time::DeltaTime();
+	
+
+		if (_pos.y < (YggdrasilFace_pos.y - 60.f))
+			_pos.y += 50.f * Time::DeltaTime();
 	}
 	void Yggdrasil_Chin::attack_b_left()
 	{
+		if (_pos.x > (YggdrasilFace_pos.x -5.5f))
+			_pos.x -= 150.f * Time::DeltaTime();
+		else if (_pos.x < (YggdrasilFace_pos.x - 5.5f))
+			_pos.x += 150.f * Time::DeltaTime();
+
+		if (_pos.y > (YggdrasilFace_pos.y - 80.f))
+			_pos.y -= 150.f * Time::DeltaTime();
 	}
 	void Yggdrasil_Chin::attack_b_right()
 	{
+		if (_pos.x < (YggdrasilFace_pos.x + 35.5f))
+			_pos.x += 150.f * Time::DeltaTime();
+		else if (_pos.x > (YggdrasilFace_pos.x + 35.5f))
+			_pos.x -= 150.f * Time::DeltaTime();
+
+		if (_pos.y > (YggdrasilFace_pos.y - 80.f))
+			_pos.y -= 150.f * Time::DeltaTime();
 	}
 	void Yggdrasil_Chin::attack_b_finish()
 	{
@@ -445,6 +471,7 @@ namespace jk
 	{
 		Transform* tr = GetComponent<Transform>();
 
+		_pos.x = YggdrasilFace_pos.x + 12.5f;
 		fDist = (YggdrasilFace_pos.y - 50.f) - _pos.y - _maxdistance;
 		_pos.y += _chinspeed * static_cast<float>(Time::DeltaTime());
 
@@ -457,6 +484,7 @@ namespace jk
 	{
 			Transform* tr = GetComponent<Transform>();
 
+			_pos.x = YggdrasilFace_pos.x + 12.5f;
 			fDist = (YggdrasilFace_pos.y-50.f) - _pos.y - _maxdistance;
 			_pos.y -= _chinspeed * static_cast<float>(Time::DeltaTime());
 

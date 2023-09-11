@@ -18,6 +18,7 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+
 		void idle();
 		void attack_a_set();
 		void attack_a_ready();
@@ -50,11 +51,9 @@ namespace jk
 		void change();
 		void change_end();
 
-
 		void die_set();
 		void die_ready();
 		void die();
-
 
 		void Lmove_up();
 		void Lmove_down();
@@ -64,6 +63,7 @@ namespace jk
 		void groggy_down();
 		void groggy_up();
 		void Die_Down();
+	
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
@@ -73,6 +73,7 @@ namespace jk
 		Vector3 Yggdrasil_pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 YggdrasilFace_pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 Yggdrasil_rotation = Vector3(0.f, 0.f, 0.f);
+
 
 	private:
 		int		mDir = 1;
@@ -89,10 +90,8 @@ namespace jk
 		float _maxdistance = 25.f;
 		float _chinspeed = 25.f;
 
-
 	public:
 		static bool _introchin;
 		static bool _introchinup;
-
 	};
 }

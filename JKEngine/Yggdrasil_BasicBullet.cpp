@@ -16,6 +16,7 @@ namespace jk
 	void Yggdrasil_BasicBullet::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
+		_collider->SetType(eColliderType::Circle);
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
@@ -38,7 +39,7 @@ namespace jk
 	}
 	void Yggdrasil_BasicBullet::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.5f, 0.5f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}

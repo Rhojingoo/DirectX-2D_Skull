@@ -38,7 +38,6 @@ namespace jk
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
-
 		{
 			Energy_Bomb = new Yggdrasil_Energy_Bomb;
 			Energy_Bomb->Initialize();			
@@ -143,13 +142,14 @@ namespace jk
 		Yggdrasil_rotation = GetRotations();
 		Yggdrasil_pos = Yggdrasil::GetPos();
 		Facepos_Setting();
+					
 
-			
 		_distance = _playerpos.x - _pos.x;
 		if (_distance >= 0.f)
 			mDir = 1;
 		else
 			mDir = -1;
+
 
 		switch (_state)
 		{
@@ -265,7 +265,6 @@ namespace jk
 			Yggdrasil_Face::change_end();
 			break;
 
-
 		case jk::Yggdrasil::Yggdrasil_State::DieSet:
 			Yggdrasil_Face::die_set();
 			break;
@@ -282,10 +281,13 @@ namespace jk
 			break;
 		}
 
+
 		tr->SetPosition(_pos);
 		tr->SetRotation(Yggdrasil_rotation);
 		GameObject::Update();
 	}
+
+
 	void Yggdrasil_Face::LateUpdate()
 	{
 		_collider->SetSize(Vector2(0.4f, 0.75f));
@@ -296,6 +298,7 @@ namespace jk
 	{
 		GameObject::Render();
 	}
+
 
 	void Yggdrasil_Face::OnCollisionEnter(Collider2D* other)
 	{
@@ -733,6 +736,7 @@ namespace jk
 		_FaceSet_of_Change = false;
 	}
 
+
 	void Yggdrasil_Face::die_set()
 	{
 	}
@@ -853,8 +857,7 @@ namespace jk
 			_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y + 50.f, -201.f);
 		if (_state == Yggdrasil_State::Attack_C_Ready)
 			_pos = Vector3(Yggdrasil_pos.x, _pos.y, -201.f);		
-	}
-		
-
-
+		if ((_state == Yggdrasil_State::Attack_B_Ready) || (_state == Yggdrasil_State::Attack_B_Right) || (_state == Yggdrasil_State::Attack_B_Left))
+			_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y+50, -201.f);
+	}		
 }

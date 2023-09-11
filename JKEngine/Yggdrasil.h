@@ -115,6 +115,7 @@ namespace jk
 		static Vector3 _playerpos;
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
 		static int	mDir;
+		static int	_Attack_Dir;
 		static float _time;
 		static void SetChange_Yggdrasil(bool check) { _Change = check; }
 
@@ -143,8 +144,13 @@ namespace jk
 
 		static bool _SetattackB_r;
 		static bool _SetattackB_l;
+		static bool _AttackB_Ready_Boddy;
 		static bool _AttackB_Readyr;
 		static bool _AttackB_Readyl;
+		static bool _AttackB_Boddy;
+		static bool _AttackB_Finishr;
+		static bool _AttackB_Finishl;
+		static bool _AttackB_FinishBoddy;
 
 
 		static bool _SetattackC_r;

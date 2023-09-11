@@ -10,6 +10,8 @@ namespace jk
 	Vector3 Yggdrasil::_Rotation = Vector3(0.f, 0.f, 0.f);
 	float Yggdrasil::_time = 0.f;
 	int	Yggdrasil::mDir = 1;
+	int	Yggdrasil::_Attack_Dir = 1;
+	
 
 	int Yggdrasil::_Diecheck = 0;  //Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
 	bool Yggdrasil::_DieON = false;
@@ -42,8 +44,14 @@ namespace jk
 
 	bool Yggdrasil::_SetattackB_r = false;
 	bool Yggdrasil::_SetattackB_l = false;
+	bool Yggdrasil::_AttackB_Ready_Boddy = false;	
 	bool Yggdrasil::_AttackB_Readyr = false;
 	bool Yggdrasil::_AttackB_Readyl = false;
+	bool Yggdrasil::_AttackB_Boddy = false;
+	bool Yggdrasil::_AttackB_Finishr = false;
+	bool Yggdrasil::_AttackB_Finishl = false;
+	bool Yggdrasil::_AttackB_FinishBoddy = false;
+
 
 
 	bool Yggdrasil::_SetattackC_r = false;
@@ -69,11 +77,13 @@ namespace jk
 	bool Yggdrasil::_AttackD_Finishr = false;
 	bool Yggdrasil::_AttackD_Finishl = false;
 
+
 	bool  Yggdrasil::_Change = false;
 	bool  Yggdrasil::_SetChange_r = false;
 	bool  Yggdrasil::_SetChange_l = false;
 	bool  Yggdrasil::_Change_Readyr = false;
 	bool  Yggdrasil::_Change_Readyl = false;
+
 
 	bool  Yggdrasil::_Change_Chin = false;
 	bool  Yggdrasil::_Change_Face = false;
@@ -82,9 +92,11 @@ namespace jk
 	bool  Yggdrasil::_Change_HandL = false;	
 	bool  Yggdrasil::_Changeon = false;
 
+
 	bool  Yggdrasil::_Change_FinishR = false; 
 	bool  Yggdrasil::_Change_FinishL = false;
 	bool  Yggdrasil::_Change_Finish = false;
+
 
 	bool Yggdrasil::_Groggy_Bulletready = false;
 	bool Yggdrasil::_Groggy_Body_Down = false;
@@ -96,6 +108,7 @@ namespace jk
 	bool Yggdrasil::_Groggy_RightHand_Up = false;
 	bool Yggdrasil::_Groggy_LeftHand_Up = false;
 
+
 	bool Yggdrasil::_Die_SetR = false;
 	bool Yggdrasil::_Die_SetL = false;
 	bool Yggdrasil::_Die_READY_R = false;
@@ -105,13 +118,13 @@ namespace jk
 	bool Yggdrasil::_Die_Chin_Down = false;
 
 
-
 	Yggdrasil::Yggdrasil()		
 	{
 	}
 	Yggdrasil::~Yggdrasil()
 	{
 	}
+
 	void Yggdrasil::Initialize()
 	{
 		_Gobjs[0] = new Yggdrasil_Body;
@@ -332,7 +345,6 @@ namespace jk
 	}
 
 
-
 	void Yggdrasil::OnCollisionEnter(Collider2D* other)
 	{
 	}
@@ -342,6 +354,7 @@ namespace jk
 	void Yggdrasil::OnCollisionExit(Collider2D* other)
 	{
 	}
+
 
 	void Yggdrasil::idle()
 	{
@@ -363,7 +376,7 @@ namespace jk
 		{				
 			if (test == 0) //시험용
 				{
-					Attack_Sellect = 0;
+					Attack_Sellect = 1;
 					//test = 1;
 				}
 			_AttackA_FinishR = false;
@@ -420,6 +433,7 @@ namespace jk
 			}			
 		}
 	}
+
 
 	void Yggdrasil::attack_a_set()
 	{
@@ -507,14 +521,16 @@ namespace jk
 	{
 		if (_NumberofAttack >= 2)
 		{
-			int a = 0;
-			_state = Yggdrasil_State::Attack_B_Finish;
-			Yggdrasil_Hand_Right::_Attackswitch = false;
-			Yggdrasil_Hand_Left::_Attackswitch = false;
-			_SetattackB_r = false;
-			_SetattackB_l = false;
-			_AttackB_Readyr = false;
-			_AttackB_Readyl = false;
+			if (_AttackB_FinishBoddy == true)
+			{
+				_state = Yggdrasil_State::Attack_B_Finish;
+				Yggdrasil_Hand_Right::_Attackswitch = false;
+				Yggdrasil_Hand_Left::_Attackswitch = false;
+				_SetattackB_r = false;
+				_SetattackB_l = false;
+				_AttackB_Readyr = false;
+				_AttackB_Readyl = false;
+			}
 		}
 		else
 		{
@@ -522,13 +538,23 @@ namespace jk
 			{
 				if (mDir == 1)
 				{
-					_state = Yggdrasil_State::Attack_B_Right;
-					Yggdrasil_Hand_Right::_Attackswitch = true;
+					_Attack_Dir = 1;
+					if (_AttackB_Ready_Boddy == true)
+					{
+						_state = Yggdrasil_State::Attack_B_Right;
+						Yggdrasil_Hand_Right::_Attackswitch = true;
+						_AttackB_Ready_Boddy = false;
+					}
 				}
 				else
 				{
-					_state = Yggdrasil_State::Attack_B_Left;
-					Yggdrasil_Hand_Left::_Attackswitch = true;
+					_Attack_Dir = -1;
+					if (_AttackB_Ready_Boddy == true)
+					{
+						_state = Yggdrasil_State::Attack_B_Left;
+						Yggdrasil_Hand_Left::_Attackswitch = true;
+						_AttackB_Ready_Boddy = false;
+					}
 				}
 			}
 		}
@@ -541,6 +567,12 @@ namespace jk
 	}
 	void Yggdrasil::attack_b_finish()
 	{
+		if (_AttackB_Finishr == true && _AttackB_Finishl == true && _AttackB_FinishBoddy == true)
+		{
+			_state = Yggdrasil_State::Idle;
+			Yggdrasil::_NumberofAttack = 0;
+			_time = 0;
+		}
 	}
 
 
@@ -728,7 +760,6 @@ namespace jk
 			//_Diecheck = 3;
 		}
 	}
-
 
 
 	void Yggdrasil::die_set()

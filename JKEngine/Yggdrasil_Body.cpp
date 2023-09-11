@@ -66,8 +66,12 @@ namespace jk
 		//			move_up();				
 		//	}
 		//}
+		if (_state == Yggdrasil_State::Attack_B_Ready)
+		{
+		
+		}
 
-		if (_state == Yggdrasil_State::Attack_C_Ready)
+		if ((_state == Yggdrasil_State::Attack_C_Ready) || (_state == Yggdrasil_State::Attack_C))
 		{
 			_pos = _savepos;
 		}
@@ -307,12 +311,92 @@ namespace jk
 	}
 	void Yggdrasil_Body::attack_b_ready()
 	{
+		if (_NumberofAttack >= 2)
+		{
+			{
+				if (_BodyRotation.z > 0.f)
+					_BodyRotation.z -= 20 * Time::DeltaTime();
+				else
+				{
+					_BodyRotation.z = 0.f;
+					_AttackB_FinishBoddy = true;
+				}
+			}
+			{
+				if (_BodyRotation.z < 0.f)
+					_BodyRotation.z += 20 * Time::DeltaTime();
+				else
+				{
+					_BodyRotation.z = 0.f;
+					_AttackB_FinishBoddy = true;
+				}
+			}
+			tr->SetRotation(_BodyRotation);
+		}
+		else
+		{
+			if (_AttackB_Boddy == false)
+			{
+				{
+					if (_BodyRotation.z > 0.f)
+						_BodyRotation.z -= 20 * Time::DeltaTime();
+					else
+					{
+						_BodyRotation.z = 0.f;
+						_AttackB_Boddy = true;
+					}
+				}
+				{
+					if (_BodyRotation.z < 0.f)
+						_BodyRotation.z += 20 * Time::DeltaTime();
+					else
+					{
+						_BodyRotation.z = 0.f;
+						_AttackB_Boddy = true;
+					}
+				}
+				tr->SetRotation(_BodyRotation);
+			}
+			else
+			{
+				if (_Attack_Dir == 1)
+				{
+					if (_pos.x < 50.f)
+						_pos.x += 150 * Time::DeltaTime();
+					else
+						_AttackB_Ready_Boddy = true;
+				}
+				else
+				{
+					if (_pos.x > -50.f)
+						_pos.x -= 150 * Time::DeltaTime();
+					else
+						_AttackB_Ready_Boddy = true;
+				}
+			}
+			tr->SetPosition(_pos);
+		}
 	}
 	void Yggdrasil_Body::attack_b_left()
-	{
+	{	
+		if (_BodyRotation.z > -20.f)
+			_BodyRotation.z -= 20 * Time::DeltaTime();
+		if (_pos.x < 0.f)
+			_pos.x += 80 * Time::DeltaTime();
+		
+		tr->SetPosition(_pos);
+		tr->SetRotation(_BodyRotation);
+		
 	}
 	void Yggdrasil_Body::attack_b_right()
 	{
+		if (_BodyRotation.z < 20.f)
+			_BodyRotation.z += 20 * Time::DeltaTime();
+		if (_pos.x > 0.f)
+			_pos.x -= 80 * Time::DeltaTime();
+				
+		tr->SetPosition(_pos);
+		tr->SetRotation(_BodyRotation);
 	}
 	void Yggdrasil_Body::attack_b_finish()
 	{

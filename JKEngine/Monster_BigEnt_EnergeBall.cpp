@@ -52,7 +52,6 @@ namespace jk
 		GameObject::Render();
 	}
 
-
 	void Monster_BigEnt_EnergeBall::OnCollisionEnter(Collider2D* other)
 	{
 	}

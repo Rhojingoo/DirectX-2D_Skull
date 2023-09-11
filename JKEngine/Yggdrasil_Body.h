@@ -65,8 +65,6 @@ namespace jk
 		static bool Boddy_BulletReady;
 
 
-
-
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
@@ -78,17 +76,12 @@ namespace jk
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 
-
-
-
 	private:
 		Vector3 mCenterpos = Vector3(0.f, 0.f, 0.f);
 		float fDist = 0.f;
 		bool _Turn_up = false;
 		float _maxdistance = 10.f;
 		float _chinspeed = 10.f;
-		
-
 
 
 	private:	
