@@ -319,10 +319,12 @@ namespace jk
 	{
 	}
 
+
 	void Yggdrasil_Hand_Left::idle()
 	{		
 		_pos = Vector3(GetPos().x - 150.f, GetPos().y - 100, -203.f);
 	}
+
 
 	void Yggdrasil_Hand_Left::attack_a_set()
 	{

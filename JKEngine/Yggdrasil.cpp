@@ -11,11 +11,31 @@ namespace jk
 	float Yggdrasil::_time = 0.f;
 	int	Yggdrasil::mDir = 1;
 	int	Yggdrasil::_Attack_Dir = 1;
-	
+
+	bool Yggdrasil::_FirstDie = false;;
+	bool Yggdrasil::_SecondDie = false;
+
+
+	float Yggdrasil::_MaxHp = 3000;
+	float Yggdrasil::_CurrenHp = 3000;
+	float Yggdrasil::_MaxHp_scale = 0;
+	float Yggdrasil::_CurrenHp_scale = 0;
+	int	Yggdrasil::_bulletcheck = 0;
+
+
+	Player_Hp_Bar* Yggdrasil::Player_Hp = nullptr;
+	Monster_Hit_Effect* Yggdrasil::_Hit_Effect = nullptr;
+	Player_Hit_Effect* Yggdrasil::_Hit_Effect_player = nullptr;
+	Hit_Sword* Yggdrasil::_Hit_Sword = nullptr;
+	Hit_Critical_Middle* Yggdrasil::_Critical_Middle = nullptr;
+	Hit_Critical_High* Yggdrasil::_Critical_High = nullptr;
+	Monster_Death_Effect* Yggdrasil::_Death_Effect = nullptr;
+
 
 	int Yggdrasil::_Diecheck = 0;  //Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
-	bool Yggdrasil::_DieON = false;
-	
+	bool Yggdrasil::_DieON = false;	
+	int	Yggdrasil::_HitType = 0;
+	int	Yggdrasil::_Dammege = 0;
 
 
 	bool Yggdrasil::_Intro = false;
@@ -142,15 +162,75 @@ namespace jk
 		{
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Boss, _Gobjs[i]);
-			//Transform* tr = _Gobjs[i]->GetComponent<Transform>();
-			//tr->SetPosition(Vector3(0.f, 0.f, -250.f));
-
-			//if (0 == i)
-			//	_Gobjs[i]->SetState(eState::Paused);
-			//if (_minibosschoice != i)
-			//	_Gobjs[i]->SetState(eState::Paused);
 		}
 	
+		{
+			Player_Hp = new Player_Hp_Bar;
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
+			Player_Hp->SetName(L"player_hp_bar");
+			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(_MaxHp, 10, 0);
+			Player_Hp->Set_Max_Hp(_MaxHp);
+			Player_Hp->Set_Current_Hp(_MaxHp);
+			Player_Hp->SetState(eState::Active);
+		}
+
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
+		{
+			_Hit_Effect_player = new Player_Hit_Effect;
+			_Hit_Effect_player->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect_player);
+			_Hit_Effect_player->SetState(eState::Paused);
+		}
+
+		{
+			_Hit_Sword = new Hit_Sword;
+			_Hit_Sword->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
+			_Hit_Sword->SetState(eState::Paused);
+		}
+
+		{
+			_Critical_Middle = new Hit_Critical_Middle;
+			_Critical_Middle->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
+			_Critical_Middle->SetState(eState::Paused);
+		}
+		{
+			_Critical_High = new Hit_Critical_High;
+			_Critical_High->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_High);
+			_Critical_High->SetState(eState::Paused);
+		}
+
+		{
+			_Death_Effect = new Monster_Death_Effect;
+			_Death_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
+			_Death_Effect->SetState(eState::Paused);
+		}
+
 		//_Change = true;
 		GameObject::Initialize();
 	}
@@ -164,19 +244,65 @@ namespace jk
 			mDir = -1;	
 
 
-		// 체인지 상태의 변환을 관리하며, 이미지의 변화를주는 변수->_Changeon
-		if (_Changeon == true)
+		_MaxHp_scale = _MaxHp / 10;
+		_CurrenHp_scale = _CurrenHp / 10;
+		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp_scale - _CurrenHp_scale) / 2, 150, _pos.z - 1));
+		hp_tr->SetScale(_CurrenHp_scale, 10, 0);
+
+		//{
+		//	Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+		//	if (mDir == 1)
+		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
+		//	else
+		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
+		//}
+		//{
+		//	Transform* _Hit_Effect_TR = _Hit_Effect_player->GetComponent<Transform>();
+		//	if (mDir == 1)
+		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
+		//	else
+		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
+		//}
+		//{
+		//	Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
+		//	if (mDir == 1)
+		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
+		//	else
+		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
+		//}
+		//{
+		//	Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
+		//	if (mDir == 1)
+		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
+		//	else
+		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
+		//}
+		//{
+		//	Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+		//	_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		//}
+
+
+		if (_FirstDie == true)
 		{
-			_Change = false;
-			//_Diecheck = 2;
-		}
-		//Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
-		if (_Diecheck == 1)
 			_Change = true;
-		if (_Diecheck == 2)
-			_Change = false;
-		if (_Diecheck == 3)
-			_DieON = true;
+			_FirstDie = false;
+		}
+
+		// 체인지 상태의 변환을 관리하며, 이미지의 변화를주는 변수->_Changeon
+		//if (_Changeon == true)
+		//{
+		//	_Change = false;
+		//	//_Diecheck = 2;
+		//}
+		//Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
+		//if (_Diecheck == 1)
+		//	_Change = true;
+		//if (_Diecheck == 2)
+		//	_Change = false;
+		//if (_Diecheck == 3)
+		//	_DieON = true;
 
 
 		switch (_state)
@@ -374,11 +500,7 @@ namespace jk
 		}
 		if (_Intro == true)
 		{				
-			if (test == 0) //시험용
-				{
-					Attack_Sellect = 1;
-					//test = 1;
-				}
+
 			_AttackA_FinishR = false;
 			_AttackA_FinishL = false;
 			_Groggy_Chin_Up = false;

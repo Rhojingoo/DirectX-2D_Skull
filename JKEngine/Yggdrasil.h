@@ -1,5 +1,6 @@
 #pragma once
 #include "Include_Common.h"
+#include "Player_Hp_Bar.h"
 
 namespace jk
 {
@@ -119,6 +120,18 @@ namespace jk
 		static float _time;
 		static void SetChange_Yggdrasil(bool check) { _Change = check; }
 
+		static Player_Hp_Bar* Player_Hp;
+		static Monster_Hit_Effect* _Hit_Effect; 
+		static Player_Hit_Effect* _Hit_Effect_player;
+		static Hit_Sword* _Hit_Sword; 
+		static Hit_Critical_Middle* _Critical_Middle; 
+		static Hit_Critical_High* _Critical_High; 
+		static Monster_Death_Effect* _Death_Effect; 
+		static int	_HitType;
+		static int	_Dammege;
+		static bool _FirstDie;
+		static bool _SecondDie;
+
 		static bool _Intro;
 		static bool _Intro_SetR;
 		static bool _Intro_SetL;
@@ -218,9 +231,16 @@ namespace jk
 		int Attack_Sellect = 0;
 		static int    _NumberofAttack;
 
+	public:
+		static float _MaxHp;
+		static float _CurrenHp;
+		static float _MaxHp_scale;
+		static float _CurrenHp_scale; 
+		static int	_bulletcheck;
+
 
 	private:
-		GameObject* _Gobjs[5];
+		GameObject* _Gobjs[5];	
 		static Vector3 _pos;
 		static Vector3 _Rotation;
 		float _attackatime = 0.f;

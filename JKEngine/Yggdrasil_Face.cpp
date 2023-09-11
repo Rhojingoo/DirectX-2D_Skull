@@ -15,6 +15,8 @@ namespace jk
 	Yggdrasil_Face::~Yggdrasil_Face()
 	{
 	}
+
+
 	void Yggdrasil_Face::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
@@ -309,6 +311,158 @@ namespace jk
 				Transform* bullet_tr = Groggy_impact->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y - 50, _pos.z - 1));
 				Groggy_impact->SetState(eState::Active);
+			}
+		}
+
+		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
+		{
+			bool attack = false;
+			bool attack_Cri_Mid = false;
+			bool attack_Cri_High = false;
+
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Dammege = 10;
+				attack = true;
+			}
+			if (_HitType >= 6 && _HitType < 9)
+			{
+				_Dammege = random(15, 25);
+				attack_Cri_Mid = true;
+			}
+			if (_HitType >= 9 && _HitType <= 10)
+			{
+				_Dammege = random(30, 45);
+				attack_Cri_High = true;
+			}
+
+			{	
+				_Hit_Effect->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (mDir == 1)
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+				}
+				else
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Sword->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}	
+			if (_CurrenHp <= 0)
+			{
+				if (Yggdrasil::_Change == false)
+				{
+					Yggdrasil::_FirstDie = true;
+					Yggdrasil::_Change = true;
+					_Death_Effect->SetState(eState::Active);
+				}
+				else
+				{
+					_Death_Effect->SetState(eState::Active);
+				}
+			}
+		}
+
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			bool attack = false;
+			bool attack_Cri_Mid = false;
+			bool attack_Cri_High = false;
+
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Dammege = 25;
+				attack = true;
+			}
+			if (_HitType >= 6 && _HitType < 9)
+			{
+				_Dammege = random(35, 40);
+				attack_Cri_Mid = true;
+			}
+			if (_HitType >= 9 && _HitType <= 10)
+			{
+				_Dammege = random(50, 70);
+				attack_Cri_High = true;
+			}
+
+			{
+				_Hit_Effect->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (mDir == 1)
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Effect->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+				}
+				else
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_CurrenHp = _CurrenHp - _Dammege;
+					_Hit_Sword->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
+			if (_CurrenHp <= 0)
+			{
+				if (Yggdrasil::_Change == false)
+				{
+					Yggdrasil::_FirstDie = true;
+					Yggdrasil::_Change = true;
+					_Death_Effect->SetState(eState::Active);
+				}
+				else
+				{
+					_Death_Effect->SetState(eState::Active);
+				}				
 			}
 		}
 	}

@@ -514,13 +514,6 @@ namespace jk
 	}
 	void Yggdrasil_Hand_Right::attack_b_left()
 	{
-		//if (_NumberofAttack >= 2)
-		//{
-		//	at->PlayAnimation(L"Hand1_HandIdleR", true);
-		//	_rigidbody->ClearVelocityX();
-		//	_pos.x = _Savepointpos.x;
-		//	_pos.y = _Savepointpos.y - 300;
-		//}
 	}
 	void Yggdrasil_Hand_Right::attack_b_finish()
 	{

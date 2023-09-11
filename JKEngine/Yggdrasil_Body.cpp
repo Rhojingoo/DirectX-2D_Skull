@@ -456,6 +456,7 @@ namespace jk
 			body_up();
 	}
 
+
 	void Yggdrasil_Body::intro_set_right()
 	{
 	}
