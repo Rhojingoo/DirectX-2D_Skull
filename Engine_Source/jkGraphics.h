@@ -21,6 +21,8 @@
 #define CBSLOT_PARTICLE				6
 #define CBSLOT_NOISE				7
 #define CBSLOT_HP_Bar				8	
+#define CBSLOT_AlphaBlend			9
+
 
 namespace jk::graphics
 {
@@ -46,6 +48,7 @@ namespace jk::graphics
 		Particle,
 		Noise,
 		HP_Bar,
+		AlphaBlend,
 		End,
 	};
 

@@ -465,7 +465,7 @@ namespace jk
 			_SetattackB_r = true;
 			at->PlayAnimation(L"Hand1_HandAttackR", false);
 			if (_Changeon == true)
-				at->PlayAnimation(L"HandHandAttack_ChangeR", true);
+				at->PlayAnimation(L"HandHandAttack_ChangeR", false);
 		}
 	}
 	void Yggdrasil_Hand_Right::attack_b_ready()

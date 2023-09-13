@@ -75,7 +75,7 @@ namespace jk
 
 		if (_state != Yggdrasil_State::Intro_End && _state != Yggdrasil_State::Intro && _state != Yggdrasil_State::Attack_C && _state != Yggdrasil_State::Attack_C_Ready && _state != Yggdrasil_State::Attack_C_UP && _state != Yggdrasil_State::Attack_C_Down && _state != Yggdrasil_State::Attack_C_Finish && _state != Yggdrasil_State::Change && _state != Yggdrasil_State::Change_End)
 		{
-			if (_state == Yggdrasil_State::Groggy_Start || _state == Yggdrasil_State::Groggy_End)
+			if (_state == Yggdrasil_State::Groggy_Start || _state == Yggdrasil_State::Groggy_End || _state == Yggdrasil_State::Die ||_state == Yggdrasil_State::DieReady|| _state == Yggdrasil_State::DieSet)
 			{
 				_pos.y = YggdrasilFace_pos.y - 65.f;
 			}
@@ -565,10 +565,6 @@ namespace jk
 
 	void Yggdrasil_Chin::groggy_down()
 	{
-		//_pos.x = YggdrasilFace_pos.x + 0.f;
-		//_pos.y = YggdrasilFace_pos.y - 65.f;
-
-
 		if (_Groggy_Chin_Down == false)
 		{
 			if (_pos.y >= -150.f)
@@ -578,7 +574,6 @@ namespace jk
 			if ((_pos.y < -150.f) && (_pos.x < 7.f))
 				_Groggy_Chin_Down = true;			
 		}
-
 	}
 	void Yggdrasil_Chin::groggy_up()
 	{

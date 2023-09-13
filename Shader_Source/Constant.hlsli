@@ -125,6 +125,11 @@ cbuffer HP_Bar : register(b8)
     float4 Damage;
 }
 
+cbuffer AlphaBlend : register(b9)
+{
+    float4 Alpha;
+}
+
 
 struct Particle
 {

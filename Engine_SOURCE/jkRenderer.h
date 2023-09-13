@@ -119,6 +119,10 @@ namespace jk::renderer
 		Vector4 _Damage;
 	};
 
+	CBUFFER(_AlphaBlendCB, CBSLOT_AlphaBlend)
+	{
+		Vector4 _Alpha;
+	};
 
 	extern jk::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 

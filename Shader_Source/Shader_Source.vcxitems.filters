@@ -63,6 +63,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)HP_Bar_VS.hlsl">
       <Filter>HLSL\HP_Bar</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AlphaPS.hlsl">
+      <Filter>HLSL\Alpha</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HLSL">
@@ -94,6 +97,9 @@
     </Filter>
     <Filter Include="HLSL\HP_Bar">
       <UniqueIdentifier>{105fd3b9-7cac-4bfc-bf7a-2f18a841f9e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\Alpha">
+      <UniqueIdentifier>{7e648099-41bf-4d60-a32b-e6c10c116d79}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

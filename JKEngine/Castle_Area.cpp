@@ -47,6 +47,9 @@ namespace jk
 				_player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 				_player->SetName(L"player_select");
 
+
+				_Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -300.f), eLayerType::Map_Effect);
+				_Alpha->SetScale(Vector3(1600.f, 800.f, 0.f));
 			#pragma endregion
 
 			#pragma region Npc	
@@ -142,6 +145,10 @@ namespace jk
 	}
 	void Castle_Area::OnEnter()
 	{
+
+
+
+
 	#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);

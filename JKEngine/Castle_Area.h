@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "jkPlayScene.h"
+#include "Alpha_Blend.h"
 
 namespace jk
 {
@@ -21,6 +22,7 @@ namespace jk
 
 	private:
 		Player* _player = nullptr;
+		Alpha_Blend* _Alpha = nullptr;
 		Back_ground* Castle_wall_Back = nullptr;
 		Camera* cameraComp = nullptr;
 	};

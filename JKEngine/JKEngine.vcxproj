@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Alpha_Blend.h" />
     <ClInclude Include="Archer.h" />
     <ClInclude Include="Archer_Arrow.h" />
     <ClInclude Include="Archer_Arrow_Bye.h" />
@@ -329,6 +330,7 @@
     <ClInclude Include="Yggdrsil_Energy_Corps.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Alpha_Blend.cpp" />
     <ClCompile Include="Archer.cpp" />
     <ClCompile Include="Archer_Arrow.cpp" />
     <ClCompile Include="Archer_Arrow_Bye.cpp" />

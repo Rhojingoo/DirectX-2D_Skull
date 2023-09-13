@@ -514,6 +514,9 @@
     <ClInclude Include="HitBox_YggDrasil.h">
       <Filter>Game_ob\HitBox\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="Alpha_Blend.h">
+      <Filter>Game_ob\Alpha_Blend</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1023,6 +1026,9 @@
     <ClCompile Include="HitBox_YggDrasil.cpp">
       <Filter>Game_ob\HitBox\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="Alpha_Blend.cpp">
+      <Filter>Game_ob\Alpha_Blend</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1264,6 +1270,9 @@
     </Filter>
     <Filter Include="Game_ob\HitBox\Boss">
       <UniqueIdentifier>{6e2d4803-c53e-4bd1-bc79-283d4c744410}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Alpha_Blend">
+      <UniqueIdentifier>{0798d46d-e3ce-41f3-a943-fe444556c681}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

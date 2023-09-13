@@ -130,7 +130,7 @@ namespace jk
 		static int	_HitType;
 		static int	_Dammege;
 		static bool _FirstDie;
-		static bool _SecondDie;
+		static bool _Check_Life;
 
 		static bool _Intro;
 		static bool _Intro_SetR;

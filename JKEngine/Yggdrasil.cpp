@@ -13,7 +13,7 @@ namespace jk
 	int	Yggdrasil::_Attack_Dir = 1;
 
 	bool Yggdrasil::_FirstDie = false;;
-	bool Yggdrasil::_SecondDie = false;
+	bool Yggdrasil::_Check_Life = false;
 
 
 	float Yggdrasil::_MaxHp = 3000;
@@ -231,6 +231,7 @@ namespace jk
 			_Death_Effect->SetState(eState::Paused);
 		}
 
+		//_DieON = true;
 		//_Change = true;
 		GameObject::Initialize();
 	}
@@ -250,60 +251,24 @@ namespace jk
 		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp_scale - _CurrenHp_scale) / 2, 150, _pos.z - 1));
 		hp_tr->SetScale(_CurrenHp_scale, 10, 0);
 
-		//{
-		//	Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
-		//	if (mDir == 1)
-		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
-		//	else
-		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
-		//}
-		//{
-		//	Transform* _Hit_Effect_TR = _Hit_Effect_player->GetComponent<Transform>();
-		//	if (mDir == 1)
-		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
-		//	else
-		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
-		//}
-		//{
-		//	Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
-		//	if (mDir == 1)
-		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
-		//	else
-		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
-		//}
-		//{
-		//	Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
-		//	if (mDir == 1)
-		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
-		//	else
-		//		_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
-		//}
-		//{
-		//	Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
-		//	_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
-		//}
 
-
-		if (_FirstDie == true)
-		{
-			_Change = true;
-			_FirstDie = false;
-		}
-
-		// 체인지 상태의 변환을 관리하며, 이미지의 변화를주는 변수->_Changeon
-		//if (_Changeon == true)
+		//if(_Check_Life == true)
 		//{
-		//	_Change = false;
-		//	//_Diecheck = 2;
-		//}
-		//Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
-		//if (_Diecheck == 1)
-		//	_Change = true;
-		//if (_Diecheck == 2)
-		//	_Change = false;
-		//if (_Diecheck == 3)
-		//	_DieON = true;
+		//	if (_Change == true)
+		//	{
+		//		Yggdrasil_Hand_Right::_Attackswitch = true;
+		//		Yggdrasil_Hand_Left::_Attackswitch = true;
+		//		_state = Yggdrasil_State::Change_Set;
+		//	}
 
+		//	if (_DieON == true)
+		//	{
+		//		Yggdrasil_Hand_Right::_Attackswitch = true;
+		//		Yggdrasil_Hand_Left::_Attackswitch = true;
+		//		_state = Yggdrasil_State::DieSet;
+		//	}
+		//	_Check_Life = false;
+		//}
 
 		switch (_state)
 		{
@@ -523,6 +488,9 @@ namespace jk
 				_state = Yggdrasil_State::DieSet;
 			}
 	
+			Attack_Sellect = 2;
+
+
 			if (_time > 3)
 			{
 				if (Attack_Sellect == 0)

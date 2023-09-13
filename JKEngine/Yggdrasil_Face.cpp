@@ -377,15 +377,20 @@ namespace jk
 			}	
 			if (_CurrenHp <= 0)
 			{
-				if (Yggdrasil::_Change == false)
+				if (Yggdrasil::_FirstDie == false)
 				{
+					_Check_Life = true;
 					Yggdrasil::_FirstDie = true;
 					Yggdrasil::_Change = true;
+					_MaxHp = 3500;
+					_CurrenHp = 3500;
 					_Death_Effect->SetState(eState::Active);
 				}
 				else
 				{
+					_Check_Life = true;
 					_Death_Effect->SetState(eState::Active);
+					_DieON = true;
 				}
 			}
 		}
@@ -453,16 +458,21 @@ namespace jk
 			}
 			if (_CurrenHp <= 0)
 			{
-				if (Yggdrasil::_Change == false)
+				if (Yggdrasil::_FirstDie == false)
 				{
+					_Check_Life = true;
 					Yggdrasil::_FirstDie = true;
 					Yggdrasil::_Change = true;
+					_MaxHp = 3500;
+					_CurrenHp = 3500;
 					_Death_Effect->SetState(eState::Active);
 				}
 				else
 				{
+					_Check_Life = true;
 					_Death_Effect->SetState(eState::Active);
-				}				
+					_DieON = true;
+				}
 			}
 		}
 	}
@@ -634,11 +644,11 @@ namespace jk
 						}
 					}
 				}
-				if (_time >= 5.f)
+				if (_time >= 3.f)
 				{
 					for (int i = 5; i < 10; i++)
 					{
-						if (_time >= (5.0f + 0.5f * i))
+						if (_time >= (3.0f + 0.5f * i))
 						{							
 							Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
 							Transform* effect_tr = Groggy_Begin_Efeect[i]->GetComponent<Transform>();
@@ -664,7 +674,7 @@ namespace jk
 				{
 					for (int i = 10; i < 15; i++)
 					{
-						if (_time >= (10.0f + 0.5f * i))
+						if (_time >= (6.0f + 0.5f * i))
 						{							
 							Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
 							Transform* effect_tr = Groggy_Begin_Efeect[i]->GetComponent<Transform>();
@@ -767,6 +777,7 @@ namespace jk
 			{
 				for (int i = 0; i < 15; i++)
 				{
+					Energy_Corps[i]->SetState(eState::Paused);
 					Energy_Corps[i]->_effect_switch = true;
 					Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
 					if (Groggy_Begin_Efeect[i]->_EffectOn == false)
@@ -971,6 +982,8 @@ namespace jk
 		if (_Groggy_Face_Up == false)
 		{
 			at->PlayAnimation(L"FaceYggdrasilFace_Idle", true);
+			if (_Changeon == true)
+				at->PlayAnimation(L"FaceYggdrasilFace_Change", true);
 			if (_pos.y <= 0.f)
 				_pos.y += 50 * Time::DeltaTime();
 			if (_pos.x <= 0.f)

@@ -99,6 +99,13 @@ namespace jk::renderer
 			, shader->GetInputLayoutAddressOf());
 
 
+		shader = jk::Resources::Find<Shader>(L"Alpha_Shader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+
+
 		shader = jk::Resources::Find<Shader>(L"ParticleShader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -372,9 +379,13 @@ namespace jk::renderer
 		constantBuffer[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
 		constantBuffer[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
 
-		// Move ConBuffer
+		// HP_Bar ConBuffer
 		constantBuffer[(UINT)eCBType::HP_Bar] = new ConstantBuffer(eCBType::HP_Bar);
 		constantBuffer[(UINT)eCBType::HP_Bar]->Create(sizeof(HP_BarCB));
+
+		// AlphaBlend ConBuffer
+		constantBuffer[(UINT)eCBType::AlphaBlend] = new ConstantBuffer(eCBType::AlphaBlend);
+		constantBuffer[(UINT)eCBType::AlphaBlend]->Create(sizeof(AnimatorCB));
 	}
 
 
@@ -411,11 +422,12 @@ namespace jk::renderer
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		jk::Resources::Insert(L"PaintShader", paintShader);
 
+
 		// Compute Shader		
 		//std::shared_ptr<ParticleShader> psSystemShader = std::make_shared<ParticleShader>();
 		//psSystemShader->Create(L"ParticleCS.hlsl", "main");
 		//jk::Resources::Insert(L"ParticleSystemShader", psSystemShader);
-		
+
 
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
 		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
@@ -434,12 +446,19 @@ namespace jk::renderer
 		moveShader->Create(eShaderStage::PS, L"MovePS.hlsl", "main");
 		jk::Resources::Insert(L"Move_Shader", moveShader);
 
+
 		//HP_Bar
 		std::shared_ptr<Shader> hp_bar_Shader = std::make_shared<Shader>();
 		hp_bar_Shader->Create(eShaderStage::VS, L"HP_Bar_VS.hlsl", "main");
 		hp_bar_Shader->Create(eShaderStage::PS, L"HP_Bar_PS.hlsl", "main");
 		jk::Resources::Insert(L"HP_Bar_Shader", hp_bar_Shader);
 
+
+		//SpriteVS
+		std::shared_ptr<Shader> alpha_shader = std::make_shared<Shader>();
+		alpha_shader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		alpha_shader->Create(eShaderStage::PS, L"AlphaPS.hlsl", "main");
+		jk::Resources::Insert(L"Alpha_Shader", alpha_shader);
 
 
 		//≈∏¿œ
@@ -487,6 +506,9 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"ParticleShader");
 		std::shared_ptr<Shader> hp_bar_Shader
 			= Resources::Find<Shader>(L"HP_Bar_Shader");
+		std::shared_ptr<Shader> alpha_Shader
+			= Resources::Find<Shader>(L"Alpha_Shader");
+
 
 
 		#pragma region Public
@@ -1076,7 +1098,7 @@ namespace jk::renderer
 								Resources::Insert(L"Stage2_Tile", material);
 				#pragma endregion
 
-		#pragma endregion		
+		#pragma endregion	
 
 
 		#pragma region DebugShader_Collider
@@ -1089,8 +1111,9 @@ namespace jk::renderer
 		#pragma endregion
 
 
-
-
+		material = std::make_shared<Material>();
+		material->SetShader(alpha_Shader);
+		Resources::Insert(L"AlphaMaterial", material);
 	}
 
 
