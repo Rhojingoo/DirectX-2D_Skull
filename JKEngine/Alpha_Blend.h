@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 
+
 namespace jk
 {
 	class Alpha_Blend : public GameObject

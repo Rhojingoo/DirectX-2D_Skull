@@ -115,8 +115,6 @@ namespace jk
 			}
 			return nullptr;
 		}
-	
-
 
 
 		void SetState(eState state) { mState = state; }

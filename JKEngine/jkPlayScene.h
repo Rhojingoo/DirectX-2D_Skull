@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "..\Engine_SOURCE\jkScene.h"
+#include "Player.h"
 
 namespace jk
 {
@@ -15,7 +16,10 @@ namespace jk
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
+		//void SetPlayer(Player* set) { _player = set; }
+		//Player* GetPlayer() { return _player; }
+
 	private:
-		
+		//static Player* _player;
 	};
 }

@@ -21,5 +21,9 @@ namespace jk
 	private:
 		Player* _player = nullptr;
 		Camera* cameraComp = nullptr;
+		Alpha_Blend* _Alpha = nullptr;
+		float _time = 0.f;
+		bool _Fadecheck = false;
+		Stage1_Door* Door1 = nullptr;
 	};
 }

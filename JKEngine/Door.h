@@ -18,6 +18,8 @@ namespace jk
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
+
+
 	private:
 		MeshRenderer* meshrenderer;
 		Transform* tr;

@@ -25,7 +25,6 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Open_Door\\DarkMarcket", this, 0, 0.05);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Open_Door\\Upgrade_Door", this, 0, 0.05);
 
-
 		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Close_Door\\Close_Basic_Door", this, 0, 0.05);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Close_Door\\Close_Boss_Door", this, 0, 0.05);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Close_Door\\Close_DarkMarcket", this, 0, 0.05);
@@ -33,11 +32,9 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Close_Door\\Close_GetTreasure_Door", this, 0, 0.05);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Close_Door\\Close_MiniBoss_Door", this, 0, 0.05);
 		
-
 		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Deactivate_Door\\First", this, 0, 0.05);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Deactivate_Door\\Second", this, 0, 0.05);
 		
-
 		at->PlayAnimation(L"Open_DoorBasic_Door", true);
 		GameObject::Initialize();
 	}
@@ -81,7 +78,6 @@ namespace jk
 			{
 				at->PlayAnimation(L"Close_DoorClose_MiniBoss_Door", true);
 				_State = Stage1Door_State::Close_MiniBoss_Door;
-
 			}
 			if (_Stage1_Door == 7)
 			{
@@ -102,7 +98,6 @@ namespace jk
 		}
 
 
-
 		switch (_State)
 		{
 		case jk::Stage1_Door::Stage1Door_State::Open_Basic_Door:
@@ -121,7 +116,6 @@ namespace jk
 			boss_door();
 			break;		
 
-
 		case jk::Stage1_Door::Stage1Door_State::Close_Basic_Door:
 			basic_door();
 			break;
@@ -138,8 +132,6 @@ namespace jk
 			boss_door();
 			break;
 
-
-
 		case jk::Stage1_Door::Stage1Door_State::Deactivate_Door_First:
 			basic_door();
 			break;
@@ -148,32 +140,56 @@ namespace jk
 			basic_door();
 			break;
 
-
-
 		default:
 			break;
 		}
 		GameObject::Update();
 	}
+
 	void Stage1_Door::LateUpdate()
 	{
 		_collider->SetSize(Vector2(0.35f, 0.65f));
 		_collider->SetCenter(Vector2(5.f, -20.f));
 		GameObject::LateUpdate();
 	}
+
 	void Stage1_Door::Render()
 	{
 		GameObject::Render();
 	}
+
 	void Stage1_Door::OnCollisionEnter(Collider2D* other)
 	{
+
 	}
 	void Stage1_Door::OnCollisionStay(Collider2D* other)
 	{
+		if (Player* _head = dynamic_cast<Player*>(other->GetOwner()))
+		{
+			if (Input::GetKeyState(eKeyCode::F) == eKeyState::Down)
+			{
+				_Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+				_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
+				_Alpha->Set_Black_Transparent();
+				_Fadecheck = true;
+			}			
+			if (_Fadecheck == true)
+			{
+				_time += 2.75 * Time::DeltaTime();
+				if (_time > 3)
+				{
+					SceneManager::LoadScene(Path);
+					_time = 0;
+					_Fadecheck = false;
+				}
+			}
+
+		}
 	}
 	void Stage1_Door::OnCollisionExit(Collider2D* other)
-	{
+	{		
 	}
+
 	void Stage1_Door::basic_door()
 	{
 	}

@@ -9,7 +9,7 @@
 #else
 #pragma comment(lib, "..\\x64\\Release\\JKEngine.lib")
 #endif
-
+#include "jkPlayScene.h"
 
 
 
@@ -19,7 +19,7 @@ namespace jk
 	{		
 		//Tool 
 		//SceneManager::CreateScene<ToolScene>(L"ToolScene");
-		
+
 		
 		
 		//Scene

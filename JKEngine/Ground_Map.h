@@ -1,6 +1,6 @@
 #pragma once
 #include "Include_Common.h"
-
+#include "Alpha_Blend.h"
 
 namespace jk
 {
@@ -20,9 +20,14 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
-		Collider2D* _collider = nullptr;
-		bool _SkullOn = false;
+		void Set_StageTurn(bool set) { _StageTurn = set; }
+		bool Get_Turnon() { return _turnon; }
 
+		Collider2D* _collider = nullptr;
+		Alpha_Blend* _Alpha = nullptr;
+		bool _SkullOn = false;
+		bool _StageTurn = false;
+		bool _turnon = false;	
 	};
 
 }

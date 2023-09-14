@@ -37,6 +37,7 @@ namespace jk
 
 		void Set_Stage1_Door(int SET) { _Stage1_Door = SET; }
 		void Set_Door_Allow(bool SET) { _Set_Door_Allow = SET; }
+		void Set_NextStage(const std::wstring& path) { Path = path; }
 
 	private:
 		void basic_door();
@@ -52,5 +53,10 @@ namespace jk
 		Transform* tr = nullptr;
 		int _Stage1_Door = 0;
 		bool _Set_Door_Allow = false;
+
+		Alpha_Blend* _Alpha = nullptr;
+		float _time = 0.f;
+		bool _Fadecheck = false;
+		std::wstring Path = {};
 	};
 }

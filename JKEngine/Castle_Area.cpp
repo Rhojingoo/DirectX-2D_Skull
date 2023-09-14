@@ -10,19 +10,24 @@ namespace jk
 	Castle_Area::~Castle_Area()
 	{
 	}
+
 	void Castle_Area::Initialize()
 	{
 		//PlayScene::Initialize();
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Boss, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Hitbox, true);
+		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::Hitbox, true);
 		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 	
 
 			#pragma region UI	
@@ -42,20 +47,18 @@ namespace jk
 
 			#pragma endregion	
 
-			#pragma region Player		
-		
-				_player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-				_player->SetName(L"player_select");
 
+#pragma region Player				
+		_player = object::Instantiate<Player>(Vector3(0.f, 0.f, -250.f), eLayerType::Player);
+		_player->SetName(L"player_select");
+#pragma endregion
 
-			#pragma endregion
 
 			#pragma region Npc	
 
 			#pragma endregion
 
 			#pragma region CASTLE
-
 					Back_ground* in_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground, L"In_Fore_GR");
 					in_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1280.f, 720.f, 0.f));	in_Catle_Back->SetName(L"in_Catle_Back");
 
@@ -83,17 +86,15 @@ namespace jk
 			#pragma endregion				
 
 			#pragma region tile_map		
-
 					{
 						Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(780.f, -252.f, -201.f), eLayerType::BACK_GROUND);
 						MinibossMap->GetComponent<Transform>()->SetScale(Vector3(400, 200.f, 0.f));	MinibossMap->SetName(L"CatleArea_GR");
 					}
-
 					{
-						Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(1060.f, /*-1995.f*/-2200.f, -202.f), eLayerType::BACK_GROUND);
-						MinibossMap->GetComponent<Transform>()->SetScale(Vector3(1000, 200.f, 0.f));	MinibossMap->SetName(L"CatleArea_OUTGR");
+						out_GroundMap = object::Instantiate<Ground_Map>(Vector3(1060.f, /*-1995.f*/-2200.f, -202.f), eLayerType::BACK_GROUND);
+						out_GroundMap->GetComponent<Transform>()->SetScale(Vector3(1000, 200.f, 0.f));	out_GroundMap->SetName(L"CatleArea_OUTGR");
+						out_GroundMap->Set_StageTurn(true);
 					}
-
 					{
 						static Vector2 TileSize = Vector2(32.f, 32.f);
 						static int Tile_Colum = 60;
@@ -113,50 +114,72 @@ namespace jk
 					}
 			#pragma endregion						
 	}
-
 	void Castle_Area::Update()
 	{
-		Transform* PlayerTR = _player->GetComponent<Transform>();
-		Vector3 player_pos = PlayerTR->GetPosition();
-
-		if (player_pos.x > 975)
+		if (_player)
 		{
-			cameraComp->SetCameraX = false;
-			cameraComp->SetCameraY = true;
-		}	
+			Transform* PlayerTR = _player->GetComponent<Transform>();
+			Vector3 player_pos = PlayerTR->GetPosition();
 
-		Scene::Update();
+			if (player_pos.x < 975 && player_pos.y < -122)
+				cameraComp->SetCameraXY = false;
 
-		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
-		{
-			_Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
-			_Alpha->Set_Black_Transparent();
-			_Fadecheck = true;
-		}
-		if (_Fadecheck == true)
-		{
 
-			_time += 2.75 * Time::DeltaTime();
-			if (_time > 3)
+			if (player_pos.x >= 975)
 			{
-				SceneManager::LoadScene(L"OutSide_Castle");
-				_time = 0;
-				_Fadecheck = false;
+				cameraComp->SetCameraX = false;
+				if (player_pos.y < -122)
+					cameraComp->SetCameraY = true;
+				else
+					cameraComp->SetCameraY = false;
+			}
+
+
+			if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+			{
+				_Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+				_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
+				_Alpha->Set_Black_Transparent();
+				_Fadecheck = true;
+			}
+			if (out_GroundMap->Get_Turnon() == true)
+			{
+				if (_Fadecheck == false)
+				{
+					_Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+					_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
+					_Alpha->Set_Black_Transparent();
+					_Fadecheck = true;
+				}
+			}
+			if (_Fadecheck == true)
+			{
+				_time += 2.75 * Time::DeltaTime();
+				if (_time > 3)
+				{
+					SceneManager::LoadScene(L"OutSide_Castle");
+					_time = 0;
+					_Fadecheck = false;	
+					//Transform* _playerTR = _player->GetComponent<Transform>();
+					//_playerTR->SetPosition(Vector3(0.f, 750.f, -250.f));
+				}
 			}
 		}
+		Scene::Update();
 	}
-
 	void Castle_Area::LateUpdate()
 	{
 		Scene::LateUpdate();
 	}
-
 	void Castle_Area::Render()
 	{
 		Scene::Render();
 	}
 	void Castle_Area::OnEnter()
 	{
+		//_player = GetPlayer();
+		//Transform* _playerTR = _player->GetComponent<Transform>();
+		//_playerTR->SetPosition(Vector3(0.f, -120.f, -250.f));
 
 	#pragma region Cam & Mouse& Grid
 		//Main Camera			
@@ -167,7 +190,9 @@ namespace jk
 		renderer::mainCamera = cameraComp;
 		cameraComp->SetTarget(_player);
 		cameraComp->SetCamera = true;
+		cameraComp->SetCameraXY = true;
 		cameraComp->SetCameraX = true;
+		//cameraComp->SetCameraXY = false;
 		cameraComp->Set_MaxPlayerX(1200.f);
 		cameraComp->Set_MinPlayerX(-600.f);
 		cameraComp->Set_MinPlayerY(-1800.f);

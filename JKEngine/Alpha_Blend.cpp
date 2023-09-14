@@ -1,5 +1,8 @@
 #include "Alpha_Blend.h"
+#include "jkApplication.h"
 
+
+extern jk::Application application;
 namespace jk
 {
 	bool Alpha_Blend::_FadeCheck = false;
@@ -10,7 +13,7 @@ namespace jk
 		mr->SetMaterial(Resources::Find<Material>(L"AlphaMaterial"));
 
 		_tr = this->GetComponent<Transform>();
-		_tr->SetScale(Vector3(1600.f, 800.f, 0.f));
+		_tr->SetScale(Vector3(application.GetWidth(), application.GetHeight(), 0.f));
 	}
 	Alpha_Blend::~Alpha_Blend()
 	{

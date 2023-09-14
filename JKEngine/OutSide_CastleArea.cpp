@@ -11,16 +11,26 @@ namespace jk
 	}
 	void OutSide_CastleArea::Initialize()
 	{		
+		#pragma region Player		
+				_player = object::Instantiate<Player>(Vector3(0.f, 750.f, -250.f), eLayerType::Player);
+				_player->SetName(L"player_select");
+		#pragma endregion
+
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
-			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
 			CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
 			CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
 			CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
 			CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
 			CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
+			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Boss, true);
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
+			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Hitbox, true);
+			CollisionManager::SetLayer(eLayerType::Boss, eLayerType::Hitbox, true);
 			CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
+			CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
+
 
 		#pragma region UI	
 				//Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
@@ -37,29 +47,24 @@ namespace jk
 				//Player_Face->SetName(L"player_head");
 				//Player_Face->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 		#pragma endregion	
-
-		#pragma region Player		
-				_player = object::Instantiate<Player>(Vector3(0.f, -500.f, -250.f), eLayerType::Player);
-				_player->SetName(L"player_select");
-		#pragma endregion
-
-				Stage1_Door* Door1 = object::Instantiate<Stage1_Door>(Vector3(170.f, -80.f, -249.f), eLayerType::BACK_GROUND);
-				Door1->Set_Door_Allow(true); Door1->Set_Stage1_Door(0);
+			Door1 = object::Instantiate<Stage1_Door>(Vector3(170.f, -80.f, -249.f), eLayerType::BACK_GROUND);
+			Door1->Set_Door_Allow(true); Door1->Set_Stage1_Door(0);	Door1->Set_NextStage(L"Stage1_1");
 
 
-				Stage1_Door* Door2 = object::Instantiate<Stage1_Door>(Vector3(440.f, -80.f, -249.f), eLayerType::BACK_GROUND);
-				Door2->Set_Door_Allow(true); Door2->Set_Stage1_Door(1);
+			Stage1_Door* Door2 = object::Instantiate<Stage1_Door>(Vector3(440.f, -80.f, -249.f), eLayerType::BACK_GROUND);
+			Door2->Set_Door_Allow(true); Door2->Set_Stage1_Door(1); Door1->Set_NextStage(L"Stage1_1");
 
-				Stage_end_wall* Door_Wall = object::Instantiate<Stage_end_wall>(Vector3(303.f, -80.f, -248.f), eLayerType::BACK_GROUND);
-				Door_Wall->Set_Wall_Allow(true);  Door_Wall->Set_Wall_Stage(0);
 
-				{
-					Back_ground* _Bush03 = object::Instantiate<Back_ground>(Vector3(303.f, -110.f, -249.f), eLayerType::BACK_GROUND, L"Ch1_Gate_Table");
-					_Bush03->GetComponent<Transform>()->SetScale(Vector3(90.f, 19.f, 0.f));	_Bush03->SetName(L"Ch1_Gate_Table1");
-				}
+			Stage_end_wall* Door_Wall = object::Instantiate<Stage_end_wall>(Vector3(303.f, -80.f, -248.f), eLayerType::BACK_GROUND);
+			Door_Wall->Set_Wall_Allow(true);  Door_Wall->Set_Wall_Stage(0);
+
+			{
+				Back_ground* _Bush03 = object::Instantiate<Back_ground>(Vector3(303.f, -110.f, -249.f), eLayerType::BACK_GROUND, L"Ch1_Gate_Table");
+				_Bush03->GetComponent<Transform>()->SetScale(Vector3(90.f, 19.f, 0.f));	_Bush03->SetName(L"Ch1_Gate_Table1");
+			}
 	 
-				NPC_by_stage* _npc_by_stage = object::Instantiate<NPC_by_stage>(Vector3(-90.f, -50.f, -249.f), eLayerType::Item);
-				_npc_by_stage->Set_Table_Allow(true);  _npc_by_stage->Set_End_Table(1);
+			NPC_by_stage* _npc_by_stage = object::Instantiate<NPC_by_stage>(Vector3(-90.f, -50.f, -249.f), eLayerType::Item);
+			_npc_by_stage->Set_Table_Allow(true);  _npc_by_stage->Set_End_Table(1);
 
 		#pragma region CASTLE
 			Back_ground* out_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Out_Fore_GR");
@@ -142,17 +147,32 @@ namespace jk
 		Transform* PlayerTR = _player->GetComponent<Transform>();
 		Vector3 player_pos = PlayerTR->GetPosition();
 
-		if (player_pos.x > 975)
+		if (player_pos.y < 50)
 		{
-			cameraComp->SetCameraX = false;
-			cameraComp->SetCameraY = true;
+			cameraComp->SetTarget(_player);
+			cameraComp->SetCamera = true;
+			cameraComp->SetCameraX = true;
+		}
+	
+		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+		{
+			_Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+			_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
+			_Alpha->Set_Black_Transparent();
+			_Fadecheck = true;
+		}
+		if (_Fadecheck == true)
+		{
+			_time += 2.75 * Time::DeltaTime();
+			if (_time > 3)
+			{
+				SceneManager::LoadScene(L"Stage1_1");
+				_time = 0;
+				_Fadecheck = false;
+			}
 		}
 
 		Scene::Update();
-		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
-		{
-			SceneManager::LoadScene(L"Stage1_1");
-		}
 	}
 	void OutSide_CastleArea::LateUpdate()
 	{
@@ -164,6 +184,12 @@ namespace jk
 	}
 	void OutSide_CastleArea::OnEnter()
 	{
+
+
+	//_player = GetPlayer();
+	//Transform* _playerTR = _player->GetComponent<Transform>();
+	//_playerTR->SetPosition(Vector3(0.f, 750.f, -250.f));
+
 #pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -171,16 +197,9 @@ namespace jk
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
-		cameraComp->SetTarget(_player);
-		cameraComp->SetCamera = true;
-		cameraComp->SetCameraX = true;
-		//cameraComp->Set_MaxPlayerX(1200.f);
-		//cameraComp->Set_MinPlayerX(-600.f);
-		//cameraComp->Set_MinPlayerY(-1800.f);
-		//cameraComp->Set_MaxBGX(400.f);
-		//cameraComp->Set_MinBGX(-600.f);
-		//cameraComp->SetTarget_BG(Castle_wall_Back);
-		//cameraComp->BgCamera = true;
+		cameraComp->Set_MaxPlayerX(280.f);
+		cameraComp->Set_MinPlayerX(0.f);
+
 
 		//UI Camera		
 		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
