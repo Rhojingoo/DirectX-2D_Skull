@@ -30,10 +30,22 @@ namespace jk
 	void jkTitleScene::Update()
 	{
 		Scene::Update();
-
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			SceneManager::LoadScene(L"Start_Scene");
+			_Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+			_Alpha->GetComponent<Transform>()->SetScale(Vector3(2600.f, 1500.f, 0.f));
+			_Alpha->Set_Black_Transparent();
+			_Fadecheck = true;
+		}
+		if (_Fadecheck == true)
+		{
+			_time += 2.75 * Time::DeltaTime();
+			if (_time > 3)
+			{
+				SceneManager::LoadScene(L"Start_Scene");
+				_time = 0;
+				_Fadecheck = false;
+			}
 		}
 	}
 	void jkTitleScene::LateUpdate()

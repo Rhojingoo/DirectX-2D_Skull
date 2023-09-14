@@ -454,9 +454,9 @@ namespace jk::renderer
 		jk::Resources::Insert(L"HP_Bar_Shader", hp_bar_Shader);
 
 
-		//SpriteVS
+		//AlphaPS
 		std::shared_ptr<Shader> alpha_shader = std::make_shared<Shader>();
-		alpha_shader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		alpha_shader->Create(eShaderStage::VS, L"AlphaVS.hlsl", "main");
 		alpha_shader->Create(eShaderStage::PS, L"AlphaPS.hlsl", "main");
 		jk::Resources::Insert(L"Alpha_Shader", alpha_shader);
 
@@ -481,7 +481,6 @@ namespace jk::renderer
 
 		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
 		Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
-
 		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
 		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
 		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
@@ -634,6 +633,8 @@ namespace jk::renderer
 				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);	
 				material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Title_Mini_Logo", material);
 		#pragma endregion		
+
+
 
 		#pragma region StartScene
 
@@ -903,9 +904,9 @@ namespace jk::renderer
 
 
 			#pragma region Stage1_MiniBoss
-									texture = Resources::Load<Texture>(L"miniboss_00", L"..\\Resources\\Texture\\Ground\\Stage_1\\MiniBoss\\Miniboss_00.png");
-									material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
-									Resources::Insert(L"Miniboss_00", material); material->SetRenderingMode(eRenderingMode::Transparent);
+						texture = Resources::Load<Texture>(L"miniboss_00", L"..\\Resources\\Texture\\Ground\\Stage_1\\MiniBoss\\Miniboss_00.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+						Resources::Insert(L"Miniboss_00", material); material->SetRenderingMode(eRenderingMode::Transparent);
 			#pragma endregion
 
 				#pragma region Stage1_Boss
@@ -1111,8 +1112,11 @@ namespace jk::renderer
 		#pragma endregion
 
 
+		texture = Resources::Load<Texture>(L"Blackfade", L"..\\Resources\\Texture\\Blackfade.png");
+		material->SetTexture(texture);
 		material = std::make_shared<Material>();
 		material->SetShader(alpha_Shader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"AlphaMaterial", material);
 	}
 

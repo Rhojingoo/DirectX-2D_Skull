@@ -66,6 +66,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)AlphaPS.hlsl">
       <Filter>HLSL\Alpha</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AlphaVS.hlsl">
+      <Filter>HLSL\Alpha</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HLSL">

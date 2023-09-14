@@ -87,10 +87,7 @@ namespace jk
 			{
 				at->PlayAnimation(L"Close_DoorClose_Boss_Door", true);
 				_State = Stage1Door_State::Close_Boss_Door;
-
 			}
-
-
 			if (_Stage1_Door == 8)
 			{
 				at->PlayAnimation(L"Deactivate_DoorFirst", true);

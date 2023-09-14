@@ -14,18 +14,18 @@ struct VSOut
     float2 UV : TEXCOORD;
 };
 
+#define moveX Alpha.x
+#define moveY Alpha.y
 float4 main(VSOut In) : SV_TARGET
 {
-    float4 color = (float4)0.0f;
+     float4 color = (float4)0.0f;
 
-    
     color = albedoTexture.Sample(anisotropicSampler, In.UV);
 
-    color.rgb *= Alpha.x;
+    color.rgb = lerp(float3(0, 0, 0), color.rgb, moveX);
+  
+    color.a = moveY;
 
     return color;
+   
 }
-
-
-
-

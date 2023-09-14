@@ -25,5 +25,7 @@ namespace jk
 		Alpha_Blend* _Alpha = nullptr;
 		Back_ground* Castle_wall_Back = nullptr;
 		Camera* cameraComp = nullptr;
+		float _time = 0.f;
+		bool _Fadecheck = false;
 	};
 }
