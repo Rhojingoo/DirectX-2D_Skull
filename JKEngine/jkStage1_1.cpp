@@ -11,6 +11,8 @@ namespace jk
 	}
 	void Stage1_1::Initialize()
 	{
+
+
 		//PlayScene::Initialize();
 		#pragma region CollisionManager
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
@@ -42,35 +44,8 @@ namespace jk
 			//Player_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 		}
 
-		Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
-		testmonster->SetName(L"test_monster"); 
 
-		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-		_player->SetName(L"player_select");
-
-		#pragma region BG	
-		{	
-			Back_ground* Fore_S1_1_color = object::Instantiate<Back_ground>(Vector3(-100.f, 50.f, 105.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Color");
-			Fore_S1_1_color->GetComponent<Transform>()->SetScale(Vector3(960.f, 800.f, 0.f));	Fore_S1_1_color->SetName(L"s1_1_fore_gr_color");
-
-			Back_ground* Fore_S1_1_tree = object::Instantiate<Back_ground>(Vector3(-100.f, -150.f, 103.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Tree");
-			Fore_S1_1_tree->GetComponent<Transform>()->SetScale(Vector3(960.f, 800.f, 0.f));	Fore_S1_1_tree->SetName(L"s1_1_fore_gr_tree");
-
-			Back_ground* Mid_S1_1 = object::Instantiate<Back_ground>(Vector3(-100.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Stage1_Mid_GR1_1");
-			Mid_S1_1->GetComponent<Transform>()->SetScale(Vector3(960.f, 800.f, 0.f));	Mid_S1_1->SetName(L"Mid_S1_1");
-
-			Back_ground* Back_GR00 = object::Instantiate<Back_ground>(Vector3(50.f, -235.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR00");
-			Back_GR00->GetComponent<Transform>()->SetScale(Vector3(785.f, 190.f, 0.f));	Back_GR00->SetName(L"back_gr00");
-
-			Back_ground* Back_GR01 = object::Instantiate<Back_ground>(Vector3(-100.f, 300.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR02");
-			Back_GR01->GetComponent<Transform>()->SetScale(Vector3(145.f, 172.f, 0.f));	Back_GR01->SetName(L"back_gr01");
-
-			Back_ground* Back_GR02 = object::Instantiate<Back_ground>(Vector3(45.f, 300.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR02");
-			Back_GR02->GetComponent<Transform>()->SetScale(Vector3(145.f, 172.f, 0.f));	Back_GR02->SetName(L"back_gr02");
-		}
-		#pragma endregion
-
-		#pragma region tile_map		
+#pragma region tile_map		
 		{
 			Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(-80.f, -485.f, -205.f), eLayerType::BACK_GROUND);
 			MinibossMap->GetComponent<Transform>()->SetScale(Vector3(1000, 320.f, 0.f));	MinibossMap->SetName(L"Miniboss_ground00");
@@ -100,20 +75,62 @@ namespace jk
 
 			static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
 			Tile_map->SetName(L"tile_stage1");
-			Transform* tr = Tile_map->GetComponent<Transform>();			
+			Transform* tr = Tile_map->GetComponent<Transform>();
 			tr->AddPositionY(0.f);
 			tr->SetPositionX(-100.f);
 			tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
 
 			TileMap::TileMap_Setting(Tile_map, L"Stage1_1Tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Stage1_1.xml");
 		}
-		#pragma endregion	
+#pragma endregion	
 
+#pragma region BG	
+		{
+			Back_ground* Fore_S1_1_color = object::Instantiate<Back_ground>(Vector3(-100.f, 50.f, 105.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Color");
+			Fore_S1_1_color->GetComponent<Transform>()->SetScale(Vector3(960.f, 800.f, 0.f));	Fore_S1_1_color->SetName(L"s1_1_fore_gr_color");
 
+			Back_ground* Fore_S1_1_tree = object::Instantiate<Back_ground>(Vector3(-100.f, -150.f, 103.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Tree");
+			Fore_S1_1_tree->GetComponent<Transform>()->SetScale(Vector3(960.f, 800.f, 0.f));	Fore_S1_1_tree->SetName(L"s1_1_fore_gr_tree");
+
+			Back_ground* Mid_S1_1 = object::Instantiate<Back_ground>(Vector3(-100.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Stage1_Mid_GR1_1");
+			Mid_S1_1->GetComponent<Transform>()->SetScale(Vector3(960.f, 800.f, 0.f));	Mid_S1_1->SetName(L"Mid_S1_1");
+
+			Back_ground* Back_GR00 = object::Instantiate<Back_ground>(Vector3(50.f, -235.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR00");
+			Back_GR00->GetComponent<Transform>()->SetScale(Vector3(785.f, 190.f, 0.f));	Back_GR00->SetName(L"back_gr00");
+
+			Back_ground* Back_GR01 = object::Instantiate<Back_ground>(Vector3(-100.f, 300.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR02");
+			Back_GR01->GetComponent<Transform>()->SetScale(Vector3(145.f, 172.f, 0.f));	Back_GR01->SetName(L"back_gr01");
+
+			Back_ground* Back_GR02 = object::Instantiate<Back_ground>(Vector3(45.f, 300.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR02");
+			Back_GR02->GetComponent<Transform>()->SetScale(Vector3(145.f, 172.f, 0.f));	Back_GR02->SetName(L"back_gr02");
+		}
+#pragma endregion
+
+		_player = object::Instantiate<Player>(Vector3(-400.f, 0.f, -250.f), eLayerType::Player);
+		_player->SetName(L"player_select");
+
+		//Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
+		//testmonster->SetName(L"test_monster"); 
 	}
 
 	void Stage1_1::Update()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+		//cameraComp->SetTarget(_player);
+		//if (player_pos.x < -200)
+		//{
+		//	cameraComp->SetTarget(_player);
+		//	cameraComp->SetCamera = true;
+		//	cameraComp->SetCameraX = true;
+		//}
+		//if (player_pos.x > -200)
+		//{
+		//	cameraComp->SetCameraX = false;
+		//	cameraComp->SetCameraXY = true;
+		//}
+
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(L"Stage1_mBoss");
@@ -133,14 +150,24 @@ namespace jk
 	}
 	void Stage1_1::OnEnter()
 	{
+
 #pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
+		renderer::cameras.push_back(cameraComp);
+		renderer::mainCamera = cameraComp;
+		//cameraComp->SetTarget(_player);
+		//cameraComp->SetCamera = true;
+		//cameraComp->SetCameraXY = true;
+		//cameraComp->Set_MaxPlayerX(100.f);
+		//cameraComp->Set_MinPlayerX(-200.f);
+		//cameraComp->Set_MaxPlayerY(320.f);
+		//cameraComp->Set_MinPlayerY(-280.f);
 
 		//UI Camera		
 		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -150,8 +177,10 @@ namespace jk
 		cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Effect, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Hitbox, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
@@ -171,8 +200,6 @@ namespace jk
 		GridScript* gridSc = grid->AddComponent<GridScript>();
 		gridSc->SetCamera(cameraComp);
 #pragma endregion	
-
-
 	}
 	void Stage1_1::OnExit()
 	{

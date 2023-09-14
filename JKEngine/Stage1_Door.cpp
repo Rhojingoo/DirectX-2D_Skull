@@ -183,7 +183,6 @@ namespace jk
 					_Fadecheck = false;
 				}
 			}
-
 		}
 	}
 	void Stage1_Door::OnCollisionExit(Collider2D* other)
