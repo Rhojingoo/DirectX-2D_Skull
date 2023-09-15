@@ -16,6 +16,5 @@ namespace jk
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
-
 	};
 }

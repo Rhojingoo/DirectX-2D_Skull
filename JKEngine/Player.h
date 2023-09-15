@@ -36,13 +36,14 @@ namespace jk
 		static void Setskillcheck(bool check_head) {_skulhead_check = check_head;}
 		static bool Get_Ground_On() { return _Ground_On; }
 		static Vector3 GetPlayer_GRPos() { return _Player_GRpos; }
-		
+
 		
 		Transform* PlayerTR = nullptr;
 		static PlayerList player_select;
 		static Vector3 _Pos; 
 		static Vector3 _Player_GRpos;
 		static bool _Ground_On;
+
 
 	private:
 		static PlayerList player_check;

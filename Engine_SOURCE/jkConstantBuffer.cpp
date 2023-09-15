@@ -36,4 +36,5 @@ namespace jk::graphics
 		jk::graphics::GetDevice()->BindConstantBuffer(stage, mType, buffer.Get());
 	}
 
+
 }

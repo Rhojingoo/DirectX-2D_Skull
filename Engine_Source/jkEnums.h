@@ -12,6 +12,7 @@ namespace jk::enums
 		Collider2D,
 		RigidBody,
 		MeshRenderer,
+		SpriteRenderer,
 		Animator,
 		Camera,
 		Script,

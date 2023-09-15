@@ -23,7 +23,7 @@ namespace jk::graphics
 		std::shared_ptr<Shader> GetShader() { return mShader; }
 		void SetTexture(std::shared_ptr<Texture> texture) { mTexture = texture; }
 		std::shared_ptr<Texture> GetTexture() { return mTexture; }
-		
+
 		void SetRenderingMode(eRenderingMode mode) { mMode = mode; }
 		eRenderingMode GetRenderingMode() { return mMode; }
 

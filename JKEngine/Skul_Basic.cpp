@@ -20,7 +20,7 @@ namespace jk
 
 	void Skul_Basic::Initialize()
 	{
-		CameraScript* cam = AddComponent<CameraScript>();
+		//CameraScript* cam = AddComponent<CameraScript>();
 		_collider = AddComponent<Collider2D>();
 
 
@@ -77,7 +77,6 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, _Critical_High);
 			_Critical_High->SetState(eState::Paused);
 		}
-
 		{
 			_Knight_Slash = new Slash_Effect;
 			_Knight_Slash->Initialize();
@@ -108,7 +107,6 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Switch", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Walk", this);
 
-
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackA", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackB", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Dash", this, 1);
@@ -121,7 +119,6 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Switch", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Walk", this, 1);
 
-
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\AttackB", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Dash", this);
@@ -130,8 +127,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Jump", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\JumpAttack", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Walk", this);
-		
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Walk", this);		
 
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\AttackA", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\AttackB", this, 1);
@@ -142,7 +138,6 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Jump", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\JumpAttack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Walk", this, 1);
-
 
 		at->PlayAnimation(L"Skul_BasicIdle", true);
 		at->CompleteEvent(L"Skul_BasicAttackA") = std::bind(&Skul_Basic::attack_choice, this);		
@@ -156,12 +151,10 @@ namespace jk
 		at->CompleteEvent(L"Skul_BasicSwitch") = std::bind(&Skul_Basic::switch_on_off, this);
 		at->CompleteEvent(L"Skul_BasicSwitchR") = std::bind(&Skul_Basic::switch_on_off, this);
 
-
 		at->CompleteEvent(L"NoHeadAttackA") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NoHeadAttackAR") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NoHeadAttackB") = std::bind(&Skul_Basic::attack_choice, this);
 		at->CompleteEvent(L"NoHeadAttackBR") = std::bind(&Skul_Basic::attack_choice, this);	
-
 
 		GameObject::Initialize();
 	}

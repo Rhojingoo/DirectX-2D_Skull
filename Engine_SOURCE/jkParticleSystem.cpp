@@ -26,8 +26,8 @@ namespace jk
 
 		mCS = Resources::Find<ParticleShader>(L"ParticleSystemShader");
 
-		Particle particles[1000] = {};
-		for (size_t i = 0; i < 1000; i++)
+		Particle particles[100] = {};
+		for (size_t i = 0; i < 100; i++)
 		{
 			Vector4 pos = Vector4::Zero;
 
@@ -42,7 +42,7 @@ namespace jk
 		}
 
 		mBuffer = new graphics::StructuredBuffer();
-		mBuffer->Create(sizeof(Particle), 1000, eViewType::UAV, particles);
+		mBuffer->Create(sizeof(Particle), 100, eViewType::UAV, particles);
 
 		mSharedBuffer = new graphics::StructuredBuffer();
 		mSharedBuffer->Create(sizeof(ParticleShared), 1, eViewType::UAV, nullptr, true);

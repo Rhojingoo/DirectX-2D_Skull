@@ -4,22 +4,22 @@
 
 namespace jk::graphics
 {
-	Texture::Texture()
-		: Resource(enums::eResourceType::Texture)
-		, mImage{}
-		, mTexture(nullptr)
-		, mSRV(nullptr)
-		, mDesc{}
-		, mBitmap(NULL)
-		, mHdc(NULL)
-		, mWidth(0)
-		, mHeight(0)		
-	{
-	}
+    Texture::Texture()
+        : Resource(enums::eResourceType::Texture)
+        , mImage{}
+        , mTexture(nullptr)
+        , mSRV(nullptr)
+        , mDesc{}
+        , mBitmap(NULL)
+        , mHdc(NULL)
+        , mWidth(0)
+        , mHeight(0)
+    {
+    }
 
-	Texture::~Texture()
-	{
-	}
+    Texture::~Texture()
+    {
+    }
 
     bool Texture::Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag)
     {
@@ -148,10 +148,10 @@ namespace jk::graphics
                 if (FAILED(hr))
                 {
                     return hr;
-                }                
-               
-                if(reversecheck==1 /*|| reversecheck == 3*/)
-                Reverse_Image(convertedImage);                
+                }
+
+                if (reversecheck == 1 /*|| reversecheck == 3*/)
+                    Reverse_Image(convertedImage);
 
                 if (isMake == false)
                 {
@@ -163,7 +163,7 @@ namespace jk::graphics
                     return hr;
                 }
 
-          
+
                 if (reversecheck == 0 /*|| reversecheck == 2*/)
                 {
                     //坷弗率
@@ -174,22 +174,22 @@ namespace jk::graphics
                     UINT atlasSegmentRight = (width * count) + width;
                     UINT atlasSegmentBottom = height;
                     INT offsetX = atlasSegmentRight - checkwidth;
-                    INT offsetY = atlasSegmentBottom - checkheight;    
+                    INT offsetY = atlasSegmentBottom - checkheight;
                     hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, checkwidth, checkheight),
                         *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, offsetX, offsetY);
 
 
-                     //哭率
-                    //UINT checkwidth = convertedImage.GetMetadata().width;
-                    //UINT checkheight = convertedImage.GetMetadata().height;
-                    //UINT spriteRight = checkwidth;
-                    //UINT spriteBottom = checkheight;
-                    //UINT atlasSegmentRight = width * count;
-                    //UINT atlasSegmentBottom = height;
-                    //INT offsetX = atlasSegmentRight;
-                    //INT offsetY = (atlasSegmentBottom - checkheight);
-                    //hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, checkwidth, checkheight),
-                    //    *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, offsetX, offsetY);
+                    //哭率
+                   //UINT checkwidth = convertedImage.GetMetadata().width;
+                   //UINT checkheight = convertedImage.GetMetadata().height;
+                   //UINT spriteRight = checkwidth;
+                   //UINT spriteBottom = checkheight;
+                   //UINT atlasSegmentRight = width * count;
+                   //UINT atlasSegmentBottom = height;
+                   //INT offsetX = atlasSegmentRight;
+                   //INT offsetY = (atlasSegmentBottom - checkheight);
+                   //hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, checkwidth, checkheight),
+                   //    *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, offsetX, offsetY);
                 }
                 //else if (reversecheck == 2)
                 //{
@@ -223,7 +223,7 @@ namespace jk::graphics
 
 
                     //坷弗率
-                    UINT checkwidth = convertedImage.GetMetadata().width;      
+                    UINT checkwidth = convertedImage.GetMetadata().width;
                     UINT checkheight = convertedImage.GetMetadata().height;
                     UINT spriteRight = checkwidth;
                     UINT spriteBottom = checkheight;
@@ -264,52 +264,52 @@ namespace jk::graphics
         return S_OK;
     }
 
-	HRESULT Texture::Load(const std::wstring& path)
-	{
-		wchar_t szExtension[256] = {};
-		_wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, 256);
+    HRESULT Texture::Load(const std::wstring& path)
+    {
+        wchar_t szExtension[256] = {};
+        _wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, szExtension, 256);
 
-		std::wstring extension = szExtension;
-		if (extension == L".dds" || extension == L".DDS")
-		{
-			if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
-				return S_FALSE;
-		}
-		else if (extension == L".tga" || extension == L".TGA")
-		{
-			if (FAILED(LoadFromTGAFile(path.c_str(), nullptr, mImage)))
-				return S_FALSE;
-		}
-		else // WIC (png, jpg, jpeg, bmp )
-		{
-			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
-				return S_FALSE;
-		}
+        std::wstring extension = szExtension;
+        if (extension == L".dds" || extension == L".DDS")
+        {
+            if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
+                return S_FALSE;
+        }
+        else if (extension == L".tga" || extension == L".TGA")
+        {
+            if (FAILED(LoadFromTGAFile(path.c_str(), nullptr, mImage)))
+                return S_FALSE;
+        }
+        else // WIC (png, jpg, jpeg, bmp )
+        {
+            if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
+                return S_FALSE;
+        }
 
-		CreateShaderResourceView
-		(
-			GetDevice()->GetID3D11Device()
-			, mImage.GetImages()
-			, mImage.GetImageCount()
-			, mImage.GetMetadata()
-			, mSRV.GetAddressOf()
-		);
-		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
-		mTexture->GetDesc(&mDesc);
+        CreateShaderResourceView
+        (
+            GetDevice()->GetID3D11Device()
+            , mImage.GetImages()
+            , mImage.GetImageCount()
+            , mImage.GetMetadata()
+            , mSRV.GetAddressOf()
+        );
+        mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
+        mTexture->GetDesc(&mDesc);
 
-		mTextureSize.x = (float)mImage.GetImages()[0].width;
-		mTextureSize.y = (float)mImage.GetImages()[0].height;
-      
-        
+        mTextureSize.x = (float)mImage.GetImages()[0].width;
+        mTextureSize.y = (float)mImage.GetImages()[0].height;
+
+
         mWidth = mImage.GetMetadata().width;
         mHeight = mImage.GetMetadata().height;
-		return S_OK;
-	}
+        return S_OK;
+    }
 
-	void Texture::BindShader(eShaderStage stage, UINT startSlot)
-	{
-		GetDevice()->BindShaderResource(stage, startSlot, mSRV.GetAddressOf());
-	}
+    void Texture::BindShader(eShaderStage stage, UINT startSlot)
+    {
+        GetDevice()->BindShaderResource(stage, startSlot, mSRV.GetAddressOf());
+    }
 
     void Texture::BindShaderResource(eShaderStage stage, UINT startSlot)
     {
@@ -329,18 +329,17 @@ namespace jk::graphics
         GetDevice()->BindUnorderedAccess(slot, &p, &i);
     }
 
-	void Texture::Clear()
-	{
-		ID3D11ShaderResourceView* srv = nullptr;
+    void Texture::Clear()
+    {
+        ID3D11ShaderResourceView* srv = nullptr;
 
-		GetDevice()->BindShaderResource(eShaderStage::VS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::DS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::GS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::HS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::CS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::PS, 0, &srv);
-	}   
+        GetDevice()->BindShaderResource(eShaderStage::VS, 0, &srv);
+        GetDevice()->BindShaderResource(eShaderStage::DS, 0, &srv);
+        GetDevice()->BindShaderResource(eShaderStage::GS, 0, &srv);
+        GetDevice()->BindShaderResource(eShaderStage::HS, 0, &srv);
+        GetDevice()->BindShaderResource(eShaderStage::CS, 0, &srv);
+        GetDevice()->BindShaderResource(eShaderStage::PS, 0, &srv);
+    }
 }
 
 
-  

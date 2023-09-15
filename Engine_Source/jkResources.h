@@ -101,8 +101,6 @@ namespace jk
 //		}
 //#pragma endregion
 
-
-
 	private:
 		static std::map<std::wstring, std::shared_ptr<Resource>> mResources;
 		//static std::map<std::wstring, Resource*> _Resources;

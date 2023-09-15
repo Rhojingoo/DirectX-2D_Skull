@@ -23,13 +23,13 @@ namespace jk::graphics
 		Texture();
 		~Texture();
 
-
 		bool Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag);
 		HRESULT CreateTex(const std::wstring& path, UINT width, UINT height, UINT fileCount, int check_reverse = 0);
 		void Reverse_Image(DirectX::ScratchImage& image);//Horizontally
 
 		virtual HRESULT Load(const std::wstring& path) override;
 		void BindShader(eShaderStage stage, UINT startSlot);
+
 		void BindShaderResource(eShaderStage stage, UINT startSlot);
 		void BindUnorderedAccessViews(UINT slot);
 		void ClearUnorderedAccessViews(UINT slot);
@@ -39,7 +39,7 @@ namespace jk::graphics
 
 		const Vector2& GetTexSize() { return mTextureSize; }
 		void SetTexSize(const Vector2& textureSize) { mTextureSize = textureSize; }
-		
+
 		size_t GetWidth() { return mImage.GetMetadata().width; }
 		size_t GetHeight() { return mImage.GetMetadata().height; }
 		//size_t GetWidth() { return mWidth; }
@@ -60,7 +60,7 @@ namespace jk::graphics
 		void SetTexture(Microsoft::WRL::ComPtr<ID3D11Texture2D> texture) { mTexture = texture; }
 
 
-	private:	
+	private:
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mSRV;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> mRTV;
@@ -74,7 +74,7 @@ namespace jk::graphics
 		HBITMAP mBitmap;
 		HDC mHdc;
 		UINT mWidth;
-		UINT mHeight;		
+		UINT mHeight;
 		Vector2 mTextureSize;
 		int reversecheck;
 

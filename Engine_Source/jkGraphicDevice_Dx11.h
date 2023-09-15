@@ -40,8 +40,8 @@ namespace jk::graphics
 		void BindComputeShader(ID3D11ComputeShader* pComputeShader);
 		void Dispatch(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ);
 
-
 		void SetConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size);
+		void ClearConstantBuffer(ID3D11Buffer* buffer, UINT size);
 		void BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 		void BindsConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 		void BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV);
@@ -49,6 +49,8 @@ namespace jk::graphics
 		void BindViewPort(D3D11_VIEWPORT* viewPort);
 		void BindBuffer(ID3D11Buffer* buffer, void* data, UINT size);
 		void BindUnorderedAccess(UINT slot, ID3D11UnorderedAccessView** ppUnorderedAccessViews, const UINT* pUAVInitialCounts);
+		
+		
 		void BindRasterizeState(ID3D11RasterizerState* pRasterizerState);
 		void BindDepthStencilState(ID3D11DepthStencilState* pDepthStencilState);
 		void BindBlendState(ID3D11BlendState* pBlendState);

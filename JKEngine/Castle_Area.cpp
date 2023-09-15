@@ -47,6 +47,12 @@ namespace jk
 
 			#pragma endregion	
 
+		//std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+		//std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexuture");
+		//paintShader->SetTarget(paintTexture);
+		//paintShader->OnExcute();
+
+
 
 #pragma region Player				
 		_player = object::Instantiate<Player>(Vector3(0.f, 0.f, -250.f), eLayerType::Player);

@@ -73,9 +73,6 @@
     <Filter Include="GameObject\Component\Base">
       <UniqueIdentifier>{2e87fb99-d7e0-4984-ba95-38a29f6f1c51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Component\MeshRenderer">
-      <UniqueIdentifier>{fe7192c8-82b3-4187-8c16-07aa7b0cf3ec}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\Component\Transform">
       <UniqueIdentifier>{4c816747-d1ce-4874-8dce-f5e6e868c033}</UniqueIdentifier>
     </Filter>
@@ -120,6 +117,12 @@
     </Filter>
     <Filter Include="GameObject\Component\ParticleSystem">
       <UniqueIdentifier>{81b7e588-f9df-44c9-a348-1162c0869f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Render">
+      <UniqueIdentifier>{3c0c4f36-0744-4f21-88bc-92c308cfab7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Render\MeshRenderer">
+      <UniqueIdentifier>{fe7192c8-82b3-4187-8c16-07aa7b0cf3ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -205,7 +208,7 @@
       <Filter>Resource\Material</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkMeshRenderer.h">
-      <Filter>GameObject\Component\MeshRenderer</Filter>
+      <Filter>GameObject\Component\Render\MeshRenderer</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTransform.h">
       <Filter>GameObject\Component\Transform</Filter>
@@ -342,7 +345,7 @@
       <Filter>Resource\Material</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkMeshRenderer.cpp">
-      <Filter>GameObject\Component\MeshRenderer</Filter>
+      <Filter>GameObject\Component\Render\MeshRenderer</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTransform.cpp">
       <Filter>GameObject\Component\Transform</Filter>

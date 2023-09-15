@@ -517,6 +517,9 @@
     <ClInclude Include="Alpha_Blend.h">
       <Filter>Game_ob\Alpha_Blend</Filter>
     </ClInclude>
+    <ClInclude Include="Player_AfterImage.h">
+      <Filter>Game_ob\PLAYER\After_Image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1029,6 +1032,9 @@
     <ClCompile Include="Alpha_Blend.cpp">
       <Filter>Game_ob\Alpha_Blend</Filter>
     </ClCompile>
+    <ClCompile Include="Player_AfterImage.cpp">
+      <Filter>Game_ob\PLAYER\After_Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1273,6 +1279,9 @@
     </Filter>
     <Filter Include="Game_ob\Alpha_Blend">
       <UniqueIdentifier>{0798d46d-e3ce-41f3-a943-fe444556c681}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\PLAYER\After_Image">
+      <UniqueIdentifier>{a3b29d1f-77fb-4b67-9ae3-613756d5b773}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
