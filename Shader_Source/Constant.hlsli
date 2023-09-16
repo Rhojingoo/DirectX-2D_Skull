@@ -1,6 +1,4 @@
 
-
-
 cbuffer Transform : register(b0)
 {
     row_major matrix WorldMatrix;
@@ -48,7 +46,6 @@ cbuffer MaterialData : register(b1)
     matrix cbmat2;
     matrix cbmat3;
     matrix cbmat4;
-
 
     int     g_int_0;
     int     g_int_1;
@@ -130,6 +127,7 @@ cbuffer AlphaBlend : register(b9)
     float4 Alpha;
 }
 
+
 struct Particle
 {
     float4 position;
@@ -139,8 +137,6 @@ struct Particle
     float speed;
     uint active;
 };
-
-
 
 
 StructuredBuffer<Particle> particles : register(t14);

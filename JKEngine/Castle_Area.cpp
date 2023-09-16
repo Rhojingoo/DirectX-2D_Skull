@@ -60,7 +60,6 @@ namespace jk
 			AddGameObject(eLayerType::Monster, player);
 			ParticleSystem* mr = player->AddComponent<ParticleSystem>();
 			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -249.0f));
-			//player->GetComponent<Transform>()->SetScale(Vector3(10000.f, 100000.f, 5000.f));
 		}
 
 			#pragma region Player				

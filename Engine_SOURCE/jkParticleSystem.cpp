@@ -26,7 +26,7 @@ namespace jk
 
 		mCS = Resources::Find<ParticleShader>(L"ParticleSystemShader");
 
-		Particle particles[1000] = {};
+		Particle particle[1000] = {};
 		for (size_t i = 0; i < 1000; i++)
 		{
 			Vector4 pos = Vector4::Zero;
@@ -40,28 +40,25 @@ namespace jk
 			//if (sign == 0)
 			//	pos.y *= -10.0f;
 
-			particles[i].direction =
+			particle[i].direction =
 				Vector4(cosf((float)i * (XM_2PI / (float)1000))
 					, sinf((float)i * (XM_2PI / 100.f))
 					, 0.0f, 1.0f);
-			particles[i].position = pos;
-			particles[i].speed = 1.0f;
-			particles[i].active = 0;
+			particle[i].position = pos;
+			particle[i].speed = 1.0f;
+			particle[i].active = 0;
 		}
 
 		mBuffer = new graphics::StructuredBuffer();
-		mBuffer->Create(sizeof(Particle), 1000, eViewType::UAV, particles);
+		mBuffer->Create(sizeof(Particle), 1000, eViewType::UAV, particle);
 
 		mSharedBuffer = new graphics::StructuredBuffer();
-		mSharedBuffer->Create(sizeof(Particle), 1, eViewType::UAV, nullptr, true);
-
-		//ParticleShared shareData = {};
-		//shareData.sharedActiveCount = 1000;
-		//mSharedBuffer->SetData(&shareData, 1);
-		//mBuffer->SetData(particles, 100);		
+		mSharedBuffer->Create(sizeof(ParticleShared), 1, eViewType::UAV, nullptr, true);
 	}
 	ParticleSystem::~ParticleSystem()
 	{
+		delete mSharedBuffer;
+		delete mBuffer;
 	}
 
 	void ParticleSystem::Initialize()

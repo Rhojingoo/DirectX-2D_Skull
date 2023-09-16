@@ -441,7 +441,6 @@ namespace jk::renderer
 		psSystemShader->Create(L"ParticleCS.hlsl", "main");
 		jk::Resources::Insert(L"ParticleSystemShader", psSystemShader);
 
-
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
 		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
 		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
@@ -1109,21 +1108,15 @@ namespace jk::renderer
 		#pragma endregion
 
 
-		texture = Resources::Load<Texture>(L"Blackfade", L"..\\Resources\\Texture\\Blackfade.png");
-		material->SetTexture(texture);
-		material = std::make_shared<Material>();
-		material->SetShader(alpha_Shader);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert(L"AlphaMaterial", material);
-
-		//texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
-		//texture = Resources::Find<Texture>(L"PaintTexuture");
-		//material = std::make_shared<Material>();
-		//material->SetShader(spriteShader);
-		//material->SetTexture(texture);
-		//material->SetRenderingMode(eRenderingMode::Transparent);
-		//Resources::Insert(L"SpriteMaterial02", material);
-	}
+		#pragma region Pade_In & Out
+				texture = Resources::Load<Texture>(L"Blackfade", L"..\\Resources\\Texture\\Blackfade.png");
+				material->SetTexture(texture);
+				material = std::make_shared<Material>();
+				material->SetShader(alpha_Shader);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"AlphaMaterial", material);
+		#pragma endregion
+			}
 
 
 	void Initialize()

@@ -15,7 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)COLOR.hlsli" />
-    <None Include="$(MSBuildThisFileDirectory)Compute.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)Constant.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
     <None Include="$(MSBuildThisFileDirectory)Sampler.hlsli" />
@@ -24,9 +23,6 @@
   <ItemGroup>
     <FxCompile Include="$(MSBuildThisFileDirectory)AlphaPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AlphaVS.hlsl" />
-    <FxCompile Include="$(MSBuildThisFileDirectory)ani2.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-    </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugPS.hlsl" />
@@ -46,8 +42,6 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TileMapPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TileMapVS.hlsl" />
-    <FxCompile Include="$(MSBuildThisFileDirectory)Tile_PS.hlsl" />
-    <FxCompile Include="$(MSBuildThisFileDirectory)Tile_VS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TrianglePS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TriangleVS.hlsl" />
   </ItemGroup>

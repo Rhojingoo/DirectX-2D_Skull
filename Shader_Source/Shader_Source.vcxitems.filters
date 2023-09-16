@@ -34,12 +34,6 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugVS.hlsl">
       <Filter>HLSL\Debug</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)Tile_PS.hlsl">
-      <Filter>HLSL\Tile</Filter>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)Tile_VS.hlsl">
-      <Filter>HLSL\Tile</Filter>
-    </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)TileMapVS.hlsl">
       <Filter>HLSL\Tile</Filter>
     </FxCompile>
@@ -49,14 +43,6 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationPS.hlsl">
       <Filter>HLSL\Animation</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)ani2.hlsl">
-      <Filter>HLSL</Filter>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)ParticlePS.hlsl" />
-    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleVS.hlsl" />
-    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleCS.hlsl" />
-    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleGS.hlsl" />
-    <FxCompile Include="$(MSBuildThisFileDirectory)PaintCS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)HP_Bar_PS.hlsl">
       <Filter>HLSL\HP_Bar</Filter>
     </FxCompile>
@@ -68,6 +54,21 @@
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)AlphaVS.hlsl">
       <Filter>HLSL\Alpha</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)PaintCS.hlsl">
+      <Filter>HLSL\Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleCS.hlsl">
+      <Filter>HLSL\Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleGS.hlsl">
+      <Filter>HLSL\Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticlePS.hlsl">
+      <Filter>HLSL\Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)ParticleVS.hlsl">
+      <Filter>HLSL\Particle</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +105,9 @@
     <Filter Include="HLSL\Alpha">
       <UniqueIdentifier>{7e648099-41bf-4d60-a32b-e6c10c116d79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HLSL\Particle">
+      <UniqueIdentifier>{935c0351-4446-42b9-bc4d-3ce93c83f79e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli">
@@ -120,9 +124,6 @@
     </None>
     <None Include="$(MSBuildThisFileDirectory)Texture.hlsli">
       <Filter>HLSLI</Filter>
-    </None>
-    <None Include="$(MSBuildThisFileDirectory)Compute.hlsli">
-      <Filter>HLSL</Filter>
     </None>
   </ItemGroup>
 </Project>

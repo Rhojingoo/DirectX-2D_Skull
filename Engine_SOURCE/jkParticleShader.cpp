@@ -13,6 +13,7 @@ namespace jk::graphics
 
 	ParticleShader::~ParticleShader()
 	{
+
 	}
 
 	void ParticleShader::Binds()

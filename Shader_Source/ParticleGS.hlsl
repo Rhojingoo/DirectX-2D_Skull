@@ -1,7 +1,6 @@
 #include "globals.hlsli"
 
 
-
 struct VSOut
 {
     float4 LocalPos : SV_Position;
@@ -45,7 +44,7 @@ void main(point VSOut In[1], inout TriangleStream<GSOut> output)
     for (int i = 0; i < 4; ++i)
     {
         Out[i].Pos = mul(float4(NewPos[i], 1.0f), ProjectionMatrix);
-        //Out[i].Pos = float4(NewPos[i], 1.0f);
+
     }
 
     Out[0].UV = float2(0.0f, 0.0f);
@@ -54,10 +53,6 @@ void main(point VSOut In[1], inout TriangleStream<GSOut> output)
     Out[3].UV = float2(0.0f, 1.0f);
 
 
-    //Out[0].Instance = In[0].Instance;
-    //Out[1].Instance = In[0].Instance;
-    //Out[2].Instance = In[0].Instance;
-    //Out[3].Instance = In[0].Instance;
 
     // 0 -- 1
     // | \  |

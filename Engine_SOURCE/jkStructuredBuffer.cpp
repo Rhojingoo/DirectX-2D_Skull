@@ -139,8 +139,7 @@ namespace jk::graphics
 
 		return true;
 	}
-
-	
+		
 	bool StructuredBuffer::CreateRWBuffer()
 	{
 		D3D11_BUFFER_DESC wDesc(desc);
@@ -200,6 +199,12 @@ namespace jk::graphics
 			GetDevice()->BindBuffer(mReadBuffer.Get(), data, size);
 	}
 
+
+	void StructuredBuffer::Bind(eShaderStage stage, UINT slot)
+	{
+		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
+	}
+
 	void StructuredBuffer::BindSRV(eShaderStage stage, UINT slot)
 	{
 		mSRVSlot = slot;
@@ -211,12 +216,8 @@ namespace jk::graphics
 		mUAVslot = slot;
 		UINT i = -1;
 		GetDevice()->BindUnorderedAccess(slot, mUAV.GetAddressOf(), &i);
-	}
-	
-	void StructuredBuffer::Bind(eShaderStage stage, UINT slot)
-	{
-		GetDevice()->BindShaderResource(stage, slot, mSRV.GetAddressOf());
-	}
+	}	
+
 
 	void StructuredBuffer::Clear()
 	{
