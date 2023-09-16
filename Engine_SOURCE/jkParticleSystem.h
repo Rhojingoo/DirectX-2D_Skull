@@ -20,7 +20,7 @@ namespace jk
 	private:
 		graphics::StructuredBuffer* mBuffer;
 		std::shared_ptr<ParticleShader> mCS;
-		//graphics::StructuredBuffer* mSharedBuffer;
+		graphics::StructuredBuffer* mSharedBuffer;
 
 
 		UINT    mCount;

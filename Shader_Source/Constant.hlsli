@@ -141,7 +141,6 @@ struct Particle
     uint active;
 };
 
-
 StructuredBuffer<Particle> particles : register(t14);
 Texture2D noiseTexture : register(t15);
 

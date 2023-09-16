@@ -294,7 +294,6 @@
     <ClInclude Include="Player_Hp_Bar.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="LoadScenes.h" />
-    <ClInclude Include="jkToolScript.h" />
     <ClInclude Include="Main_Camera.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player_State_UI.h" />
@@ -461,7 +460,6 @@
     <ClCompile Include="jkTile_Ground.cpp" />
     <ClCompile Include="jkTitleScene.cpp" />
     <ClCompile Include="jkToolScene.cpp" />
-    <ClCompile Include="jkToolScript.cpp" />
     <ClCompile Include="Knight_male.cpp" />
     <ClCompile Include="Mini_Boss.cpp" />
     <ClCompile Include="Monster.cpp" />

@@ -18,7 +18,7 @@ namespace jk::graphics
 	void ParticleShader::Binds()
 	{
 		mParticleBuffer->BindUAV(0);
-		//mSharedBuffer->BindUAV(1);
+		mSharedBuffer->BindUAV(1);
 
 		mGroupX = mParticleBuffer->GetStride() / mThreadGroupCountX + 1;
 		mGroupY = 1;
@@ -28,7 +28,7 @@ namespace jk::graphics
 	void ParticleShader::Clear()
 	{
 		mParticleBuffer->Clear();
-		//mSharedBuffer->Clear();
+		mSharedBuffer->Clear();
 	}
 
 

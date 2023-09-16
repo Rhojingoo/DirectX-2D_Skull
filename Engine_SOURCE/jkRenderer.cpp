@@ -387,6 +387,22 @@ namespace jk::renderer
 	}
 
 
+	void LoadTexture()
+	{
+		//paint texture
+		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
+		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+		jk::Resources::Insert(L"PaintTexuture", uavTexture);
+
+
+		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
+		Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
+		//Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
+		//Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
+		//Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
+	}
+
+
 	void LoadShader()
 	{
 		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
@@ -420,8 +436,7 @@ namespace jk::renderer
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		jk::Resources::Insert(L"PaintShader", paintShader);
 
-
-		// Compute Shader		
+		// Compute Shader
 		std::shared_ptr<ParticleShader> psSystemShader = std::make_shared<ParticleShader>();
 		psSystemShader->Create(L"ParticleCS.hlsl", "main");
 		jk::Resources::Insert(L"ParticleSystemShader", psSystemShader);
@@ -466,22 +481,6 @@ namespace jk::renderer
 		tile_shader->Create(eShaderStage::PS, L"TileMapPS.hlsl", "main");
 		jk::Resources::Insert(L"Tile_Shader", tile_shader);
 #pragma endregion	
-	}
-
-
-	void LoadTexture()
-	{
-		//paint texture
-		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
-		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
-		jk::Resources::Insert(L"PaintTexuture", uavTexture);
-
-
-		//std::shared_ptr<Texture> particle = std::make_shared<Texture>();
-		//Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
-		//Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
-		//Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
-		//Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
 	}
 
 
@@ -604,14 +603,11 @@ namespace jk::renderer
 
 		#pragma endregion
 
-		//std::shared_ptr<Texture> particleTexx
-		//	= Resources::Find<Texture>(L"CartoonSmoke");
-		//material->SetTexture(particleTexx);
-		//Resources::Insert(L"ParticleMaterial", material);
-
-
+		std::shared_ptr<Texture> particleText
+			= Resources::Find<Texture>(L"CartoonSmoke");
 		material = std::make_shared<Material>();
 		material->SetShader(particleShader);
+		material->SetTexture(particleText);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"ParticleMaterial", material);
 

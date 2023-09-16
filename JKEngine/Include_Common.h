@@ -38,15 +38,12 @@
 #include "..\\Engine_SOURCE\\jkXmlParser.h"
 #include "..\\Engine_SOURCE\\jkUI_Mouse.h"
 #include "..\\Engine_SOURCE\\jkTile_Mouse.h"
-#include "..\\Engine_SOURCE\\jkTile.h"
-#include "..\\Engine_SOURCE\\jkPalatte.h"
 #include "..\\Engine_SOURCE\\jkAnimation.h"
 
 
 //스크립트
 #include "..\\Engine_SOURCE\\jkScript.h"
 #include "jkGridScript.h"
-#include "jkToolScript.h"
 #include "jkCameraScript.h"
 #include "jkPlayerScript.h"
 

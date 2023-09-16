@@ -11,9 +11,6 @@
     <ClInclude Include="jkGridScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="jkToolScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
     <ClInclude Include="Include_Common.h" />
     <ClInclude Include="BG.h">
       <Filter>Game_ob\BG</Filter>
@@ -526,9 +523,6 @@
       <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="jkGridScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="jkToolScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="BG.cpp">

@@ -31,10 +31,15 @@ void main(point VSOut In[1], inout TriangleStream<GSOut> output)
 
     float3 NewPos[4] =
     {
-        viewPos - float3(-0.5f, 0.5f, 0.f) * float3(0.2f, 0.2f, 1.f),
-        viewPos - float3(0.5f, 0.5f, 0.f) * float3(0.2f, 0.2f, 1.f),
-        viewPos - float3(0.5f, -0.5f, 0.f) * float3(0.2f, 0.2f, 1.f),
-        viewPos - float3(-0.5f, -0.5f, 0.f) * float3(0.2f, 0.2f, 1.f)
+        //viewPos - float3(-0.5f, 0.5f, 0.f) * float3(0.2f, 0.2f, 1.f),
+        //viewPos - float3(0.5f, 0.5f, 0.f) * float3(0.2f, 0.2f, 1.f),
+        //viewPos - float3(0.5f, -0.5f, 0.f) * float3(0.2f, 0.2f, 1.f),
+        //viewPos - float3(-0.5f, -0.5f, 0.f) * float3(0.2f, 0.2f, 1.f)
+
+        viewPos - float3(-0.5f, 0.5f, 0.f) * float3(25.f, 25.f, 1.f),
+        viewPos - float3(0.5f, 0.5f, 0.f) * float3(25.f, 25.f, 1.f),
+        viewPos - float3(0.5f, -0.5f, 0.f) * float3(25.f, 25.f, 1.f),
+        viewPos - float3(-0.5f, -0.5f, 0.f) * float3(25.f, 25.f, 1.f)
     };
 
     for (int i = 0; i < 4; ++i)
