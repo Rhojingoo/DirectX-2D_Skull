@@ -24,6 +24,8 @@ namespace jk
 		std::shared_ptr<Material> material = Resources::Find<Material>(L"ParticleMaterial");
 		SetMaterial(material);
 
+		mCS = Resources::Find<ParticleShader>(L"ParticleSystemShader");
+
 		Particle particles[1000] = {};
 		for (size_t i = 0; i < 1000; i++)
 		{
@@ -38,13 +40,19 @@ namespace jk
 			if (sign == 0)
 				pos.y *= -10.0f;
 
+			particles[i].direction =
+				Vector4(cosf((float)i * (XM_2PI / (float)1000))
+					, sinf((float)i * (XM_2PI / 100.f))
+					, 0.0f, 1.0f);
+
 			particles[i].position = pos;
+			particles[i].speed = 1.0f;
 			particles[i].active = 1;
 		}
 
 		mBuffer = new graphics::StructuredBuffer();
-		mBuffer->Create(sizeof(Particle), 1000, eSRVType::None);
-		mBuffer->SetData(particles, 1000);
+		mBuffer->Create(sizeof(Particle), 1000, eViewType::UAV, particles);
+		//mBuffer->SetData(particles, 1000);
 
 
 		/*std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"PointMesh");
@@ -87,6 +95,9 @@ namespace jk
 	}
 	void ParticleSystem::LateUpdate()
 	{
+		mCS->SetParticleBuffer(mBuffer);
+		mCS->OnExcute();
+
 		//float AliveTime = 1.0f / 1.0f;
 		//mTime += Time::DeltaTime();
 
@@ -114,11 +125,16 @@ namespace jk
 	void ParticleSystem::Render()
 	{
 		GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
-		mBuffer->Bind(eShaderStage::VS, 14);
-		mBuffer->Bind(eShaderStage::GS, 14);
-		mBuffer->Bind(eShaderStage::PS, 14);
+		mBuffer->BindSRV(eShaderStage::VS, 14);
+		mBuffer->BindSRV(eShaderStage::GS, 14);
+		mBuffer->BindSRV(eShaderStage::PS, 14);
+
+		//mBuffer->Bind(eShaderStage::VS, 14);
+		//mBuffer->Bind(eShaderStage::GS, 14);
+		//mBuffer->Bind(eShaderStage::PS, 14);
 
 		GetMaterial()->Binds();
 		GetMesh()->RenderInstanced(1000);
+		mBuffer->Clear();
 	}
 }

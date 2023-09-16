@@ -4,10 +4,13 @@
 namespace jk::graphics
 {
 	StructuredBuffer::StructuredBuffer()
-		: mSRV(nullptr)
-		//, mType(eSRVType::None)
+		: GpuBuffer()
+		, mType(eSRVType::SRV)
+		, mSRV(nullptr)
 		, mSize(0)
 		, mStride(0)
+		, mSRVSlot(0)
+		, mUAVslot(0)
 	{
 	}
 	StructuredBuffer::~StructuredBuffer()

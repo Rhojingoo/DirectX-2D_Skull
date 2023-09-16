@@ -422,9 +422,9 @@ namespace jk::renderer
 
 
 		// Compute Shader		
-		//std::shared_ptr<ParticleShader> psSystemShader = std::make_shared<ParticleShader>();
-		//psSystemShader->Create(L"ParticleCS.hlsl", "main");
-		//jk::Resources::Insert(L"ParticleSystemShader", psSystemShader);
+		std::shared_ptr<ParticleShader> psSystemShader = std::make_shared<ParticleShader>();
+		psSystemShader->Create(L"ParticleCS.hlsl", "main");
+		jk::Resources::Insert(L"ParticleSystemShader", psSystemShader);
 
 
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();

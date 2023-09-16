@@ -103,7 +103,7 @@ namespace jk::renderer
 	{
 		UINT elementCount;
 		float elpasedTime;
-		float deltaTime;
+		int padd;
 		int padd2;
 	};
 

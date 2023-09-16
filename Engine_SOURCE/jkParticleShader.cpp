@@ -18,7 +18,7 @@ namespace jk::graphics
 	void ParticleShader::Binds()
 	{
 		mParticleBuffer->BindUAV(0);
-		mSharedBuffer->BindUAV(1);
+		//mSharedBuffer->BindUAV(1);
 
 		mGroupX = mParticleBuffer->GetStride() / mThreadGroupCountX + 1;
 		mGroupY = 1;
@@ -28,7 +28,7 @@ namespace jk::graphics
 	void ParticleShader::Clear()
 	{
 		mParticleBuffer->Clear();
-		mSharedBuffer->Clear();
+		//mSharedBuffer->Clear();
 	}
 
 
@@ -43,8 +43,7 @@ namespace jk::graphics
 
 		renderer::ParticleCB data = {};
 		data.elementCount = mParticleBuffer->GetStride();
-		data.elpasedTime = elapsedTime;
-		data.deltaTime = Time::DeltaTime();
+		data.elpasedTime = Time::DeltaTime();
 
 		cb->SetData(&data);
 		cb->Bind(eShaderStage::CS);
