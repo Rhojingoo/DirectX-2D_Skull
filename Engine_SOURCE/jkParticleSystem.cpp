@@ -30,15 +30,15 @@ namespace jk
 		for (size_t i = 0; i < 1000; i++)
 		{
 			Vector4 pos = Vector4::Zero;
-			pos.x += rand() % 20;
-			pos.y += rand() % 10;
+			//pos.x += rand() % 20;
+			//pos.y += rand() % 10;
 
-			int sign = rand() % 2;
-			if (sign == 0)
-				pos.x *= -10.0f;
-			sign = rand() % 2;
-			if (sign == 0)
-				pos.y *= -10.0f;
+			//int sign = rand() % 2;
+			//if (sign == 0)
+			//	pos.x *= -10.0f;
+			//sign = rand() % 2;
+			//if (sign == 0)
+			//	pos.y *= -10.0f;
 
 			particles[i].direction =
 				Vector4(cosf((float)i * (XM_2PI / (float)1000))

@@ -36,10 +36,10 @@ void main(point VSOut In[1], inout TriangleStream<GSOut> output)
         //viewPos - float3(0.5f, -0.5f, 0.f) * float3(0.2f, 0.2f, 1.f),
         //viewPos - float3(-0.5f, -0.5f, 0.f) * float3(0.2f, 0.2f, 1.f)
 
-        viewPos - float3(-0.5f, 0.5f, 0.f) * float3(25.f, 25.f, 1.f),
-        viewPos - float3(0.5f, 0.5f, 0.f) * float3(25.f, 25.f, 1.f),
-        viewPos - float3(0.5f, -0.5f, 0.f) * float3(25.f, 25.f, 1.f),
-        viewPos - float3(-0.5f, -0.5f, 0.f) * float3(25.f, 25.f, 1.f)
+        viewPos - float3(-1.f, 1.f, 0.f) * float3(5.f, 5.f, 1.f),// 25,25,1 이게 크기를 바꾸는것
+        viewPos - float3(1.f, 1.f, 0.f) * float3(5.f, 5.f, 1.f),
+        viewPos - float3(1.f, -1.f, 0.f) * float3(5.f, 5.f, 1.f),
+        viewPos - float3(-1.f, -1.f, 0.f) * float3(5.f, 5.f, 1.f)
     };
 
     for (int i = 0; i < 4; ++i)

@@ -397,9 +397,9 @@ namespace jk::renderer
 
 		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
 		Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
-		//Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
-		//Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
-		//Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
+		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
+		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
+		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
 	}
 
 
@@ -1170,7 +1170,7 @@ namespace jk::renderer
 
 	void Render()
 	{
-		//BindNoiseTexture();
+		BindNoiseTexture();
 
 		for (Camera* cam : cameras)
 		{

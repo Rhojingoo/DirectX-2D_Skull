@@ -175,6 +175,21 @@ namespace jk::graphics
 		UINT active;
 	};
 
+	struct Particles
+	{
+		math::Vector3 position;
+		float   curTime;
+		math::Vector3 direction;
+		float   lifeTime;
+
+		UINT    alive;
+		float   speed;
+		math::Vector2 padding;
+	};
+
+
+
+
 	struct ParticleShared
 	{
 		UINT sharedActiveCount;

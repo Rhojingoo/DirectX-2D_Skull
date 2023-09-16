@@ -134,12 +134,14 @@ struct Particle
 {
     float4 position;
     float4 direction;
-
     float endTime;
     float time;
     float speed;
     uint active;
 };
+
+
+
 
 StructuredBuffer<Particle> particles : register(t14);
 Texture2D noiseTexture : register(t15);

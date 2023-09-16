@@ -43,7 +43,9 @@ namespace jk::graphics
 
 		renderer::ParticleCB data = {};
 		data.elementCount = mParticleBuffer->GetStride();
-		data.elpasedTime = Time::DeltaTime();
+		data.elpasedTime = elapsedTime;
+		data.deltaTime = Time::DeltaTime();
+
 
 		cb->SetData(&data);
 		cb->Bind(eShaderStage::CS);

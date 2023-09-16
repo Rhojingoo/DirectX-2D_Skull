@@ -103,10 +103,9 @@ namespace jk::renderer
 	{
 		UINT elementCount;
 		float elpasedTime;
-		int padd;
+		float deltaTime;
 		int padd2;
 	};
-
 
 	CBUFFER(NoiseCB, CBSLOT_NOISE)
 	{
