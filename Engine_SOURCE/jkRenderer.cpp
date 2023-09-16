@@ -400,6 +400,9 @@ namespace jk::renderer
 		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
 		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
 		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
+		//Resources::Load<Texture>(L"Basic_AfterImage", L"..\\Resources\\noise\\noise_03.png");
+
+
 	}
 
 
@@ -441,6 +444,8 @@ namespace jk::renderer
 		psSystemShader->Create(L"ParticleCS.hlsl", "main");
 		jk::Resources::Insert(L"ParticleSystemShader", psSystemShader);
 
+
+		// 파티클
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
 		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
 		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
@@ -450,6 +455,19 @@ namespace jk::renderer
 		paritcleShader->SetDSState(eDSType::NoWrite);
 		paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 		jk::Resources::Insert(L"ParticleShader", paritcleShader);
+
+
+		// 잔상
+		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
+		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
+		paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
+		paritcleShader->SetRSState(eRSType::SolidNone);
+		paritcleShader->SetBSState(eBSType::AlphaBlend);
+		paritcleShader->SetDSState(eDSType::NoWrite);
+		paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+		jk::Resources::Insert(L"ParticleShader", paritcleShader);
+
 
 
 		//구름
@@ -609,6 +627,15 @@ namespace jk::renderer
 		material->SetTexture(particleText);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"ParticleMaterial", material);
+
+
+		//std::shared_ptr<Texture> particleText
+		//	= Resources::Find<Texture>(L"CartoonSmoke");
+		//material = std::make_shared<Material>();
+		//material->SetShader(particleShader);
+		//material->SetTexture(particleText);
+		//material->SetRenderingMode(eRenderingMode::Transparent);
+		//Resources::Insert(L"DashBase_Material", material);
 
 
 		////애니메이션 만들때 사용
@@ -1116,7 +1143,7 @@ namespace jk::renderer
 				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"AlphaMaterial", material);
 		#pragma endregion
-			}
+	}
 
 
 	void Initialize()

@@ -44,14 +44,12 @@ void main(point VSOut In[1], inout TriangleStream<GSOut> output)
     for (int i = 0; i < 4; ++i)
     {
         Out[i].Pos = mul(float4(NewPos[i], 1.0f), ProjectionMatrix);
-
     }
 
     Out[0].UV = float2(0.0f, 0.0f);
     Out[1].UV = float2(1.0f, 0.0f);
     Out[2].UV = float2(1.0f, 1.0f);
     Out[3].UV = float2(0.0f, 1.0f);
-
 
 
     // 0 -- 1

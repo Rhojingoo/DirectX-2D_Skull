@@ -108,6 +108,9 @@
     <Filter Include="HLSL\Particle">
       <UniqueIdentifier>{935c0351-4446-42b9-bc4d-3ce93c83f79e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HLSL\AfterImage">
+      <UniqueIdentifier>{86a05a9b-845f-444b-9630-429936086764}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli">
