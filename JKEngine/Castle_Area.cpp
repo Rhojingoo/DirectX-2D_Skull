@@ -1,6 +1,7 @@
 #include "Castle_Area.h"
 #include "jkAnimator.h"
 #include "jkParticleSystem.h"
+#include "jkPaintShader.h"
 
 namespace jk
 {
@@ -47,18 +48,28 @@ namespace jk
 
 			#pragma endregion	
 
-		//std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
-		//std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexuture");
-		//paintShader->SetTarget(paintTexture);
-		//paintShader->OnExcute();
+			std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+			std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexuture");
+			paintShader->SetTarget(paintTexture);
+			paintShader->OnExcute();
 
 
+		{
+			GameObject* player = new GameObject();
+			player->SetName(L"Particle");
+			AddGameObject(eLayerType::Monster, player);
+			ParticleSystem* mr = player->AddComponent<ParticleSystem>();
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -249.0f));
+			player->GetComponent<Transform>()->SetScale(Vector3(105.f, 105.f, 5.f));
+			//Collider2D* cd = player->AddComponent<Collider2D>();
+			//cd->SetSize(Vector2(1.2f, 1.2f));
+			//player->AddComponent<PlayerScript>();
+		}
 
-#pragma region Player				
-		_player = object::Instantiate<Player>(Vector3(0.f, 0.f, -250.f), eLayerType::Player);
-		_player->SetName(L"player_select");
-#pragma endregion
-
+			#pragma region Player				
+					_player = object::Instantiate<Player>(Vector3(0.f, 0.f, -250.f), eLayerType::Player);
+					_player->SetName(L"player_select");
+			#pragma endregion
 
 			#pragma region Npc	
 
@@ -68,7 +79,7 @@ namespace jk
 					Back_ground* in_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground, L"In_Fore_GR");
 					in_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1280.f, 720.f, 0.f));	in_Catle_Back->SetName(L"in_Catle_Back");
 
-					Castle_wall_Back = object::Instantiate<Back_ground>(Vector3(0.f, -30.f, -100.f), eLayerType::BACK_GROUND, L"Catle_wall_Back");
+					Castle_wall_Back = object::Instantiate<Back_ground>(Vector3(0.f, -30.f, -149.f), eLayerType::BACK_GROUND, L"Catle_wall_Back");
 					Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(960, 350.f, 0.f)); Castle_wall_Back->SetName(L"Catle_Back");
 
 					Back_ground* Castle_wall = object::Instantiate<Back_ground>(Vector3(0.0f, -880.f, -150.f), eLayerType::BACK_GROUND, L"Catle_wall_Front_01");
@@ -198,7 +209,7 @@ namespace jk
 		cameraComp->SetCamera = true;
 		cameraComp->SetCameraXY = true;
 		cameraComp->SetCameraX = true;
-		//cameraComp->SetCameraXY = false;
+		cameraComp->SetCameraXY = false;
 		cameraComp->Set_MaxPlayerX(1200.f);
 		cameraComp->Set_MinPlayerX(-600.f);
 		cameraComp->Set_MinPlayerY(-1800.f);
@@ -225,7 +236,6 @@ namespace jk
 		cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 		renderer::cameras.push_back(cameraComp_ui);			
-
 
 		//UI_Mouse
 		UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);

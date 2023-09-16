@@ -10,8 +10,9 @@ namespace jk::graphics
 		StructuredBuffer();
 		~StructuredBuffer();
 
-		bool Create(UINT size, UINT stride, eViewType type, void* data, bool cpuAccess = false);
+		bool Create(UINT size, UINT stride, eSRVType type);
 		bool Create(UINT size, UINT stride, eSRVType type, void* data);
+		bool Create(UINT size, UINT stride, eViewType type, void* data, bool cpuAccess = false);
 		bool CreateRWBuffer();
 		void SetData_Buffer (void* data, UINT stride);
 		void SetData(void* data, UINT bufferCount);

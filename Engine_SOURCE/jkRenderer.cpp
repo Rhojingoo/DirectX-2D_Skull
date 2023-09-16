@@ -105,7 +105,6 @@ namespace jk::renderer
 			, shader->GetInputLayoutAddressOf());
 
 
-
 		shader = jk::Resources::Find<Shader>(L"ParticleShader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -245,7 +244,6 @@ namespace jk::renderer
 		mesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 		Resources::Insert(L"PointMesh", mesh);
-
 
 		vertexes.clear();
 		indexes.clear(); }
@@ -479,11 +477,11 @@ namespace jk::renderer
 		jk::Resources::Insert(L"PaintTexuture", uavTexture);
 
 
-		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
-		Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
-		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
-		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
-		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
+		//std::shared_ptr<Texture> particle = std::make_shared<Texture>();
+		//Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
+		//Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
+		//Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
+		//Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
 	}
 
 
@@ -507,7 +505,6 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"HP_Bar_Shader");
 		std::shared_ptr<Shader> alpha_Shader
 			= Resources::Find<Shader>(L"Alpha_Shader");
-
 
 
 		#pragma region Public
@@ -607,11 +604,16 @@ namespace jk::renderer
 
 		#pragma endregion
 
-				std::shared_ptr<Texture> particleTexx
-					= Resources::Find<Texture>(L"CartoonSmoke");
-				material->SetTexture(particleTexx);
-				Resources::Insert(L"ParticleMaterial", material);
+		//std::shared_ptr<Texture> particleTexx
+		//	= Resources::Find<Texture>(L"CartoonSmoke");
+		//material->SetTexture(particleTexx);
+		//Resources::Insert(L"ParticleMaterial", material);
 
+
+		material = std::make_shared<Material>();
+		material->SetShader(particleShader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"ParticleMaterial", material);
 
 
 		////애니메이션 만들때 사용
@@ -633,7 +635,6 @@ namespace jk::renderer
 				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);	
 				material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Title_Mini_Logo", material);
 		#pragma endregion		
-
 
 
 		#pragma region StartScene
@@ -1118,6 +1119,14 @@ namespace jk::renderer
 		material->SetShader(alpha_Shader);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"AlphaMaterial", material);
+
+		//texture = Resources::Load<Texture>(L"Smile", L"..\\Resources\\Texture\\Smile.png");
+		//texture = Resources::Find<Texture>(L"PaintTexuture");
+		//material = std::make_shared<Material>();
+		//material->SetShader(spriteShader);
+		//material->SetTexture(texture);
+		//material->SetRenderingMode(eRenderingMode::Transparent);
+		//Resources::Insert(L"SpriteMaterial02", material);
 	}
 
 
@@ -1165,7 +1174,7 @@ namespace jk::renderer
 
 	void Render()
 	{
-		BindNoiseTexture();
+		//BindNoiseTexture();
 
 		for (Camera* cam : cameras)
 		{

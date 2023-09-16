@@ -130,7 +130,6 @@ cbuffer AlphaBlend : register(b9)
     float4 Alpha;
 }
 
-
 struct Particle
 {
     float4 position;
@@ -141,6 +140,7 @@ struct Particle
     float speed;
     uint active;
 };
+
 
 StructuredBuffer<Particle> particles : register(t14);
 Texture2D noiseTexture : register(t15);

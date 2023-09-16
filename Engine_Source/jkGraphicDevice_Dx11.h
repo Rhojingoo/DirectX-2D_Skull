@@ -35,7 +35,12 @@ namespace jk::graphics
 		void BindVertexBuffer(UINT StartSlot, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets);
 		void BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset);
 		void BindVertexShader(ID3D11VertexShader* pVetexShader);
+
+		void BindHullShader(ID3D11HullShader* pHullShader);
+		void BindDomainShader(ID3D11DomainShader* pDomainShader);
 		void BindGeometryShader(ID3D11GeometryShader* pGeometryShader);
+
+
 		void BindPixelShader(ID3D11PixelShader* pPixelShader);
 		void BindComputeShader(ID3D11ComputeShader* pComputeShader);
 		void Dispatch(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ);

@@ -310,7 +310,6 @@ namespace jk::graphics
     {
         GetDevice()->BindShaderResource(stage, startSlot, mSRV.GetAddressOf());
     }
-
     void Texture::BindShaderResource(eShaderStage stage, UINT startSlot)
     {
         GetDevice()->BindShaderResource(stage, startSlot, mSRV.GetAddressOf());
@@ -321,13 +320,13 @@ namespace jk::graphics
         UINT i = -1;
         GetDevice()->BindUnorderedAccess(slot, mUAV.GetAddressOf(), &i);
     }
-
     void Texture::ClearUnorderedAccessViews(UINT slot)
     {
         ID3D11UnorderedAccessView* p = nullptr;
         UINT i = -1;
         GetDevice()->BindUnorderedAccess(slot, &p, &i);
     }
+
 
     void Texture::Clear()
     {
