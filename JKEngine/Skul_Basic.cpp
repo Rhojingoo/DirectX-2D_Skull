@@ -20,7 +20,7 @@ namespace jk
 
 	void Skul_Basic::Initialize()
 	{
-		//CameraScript* cam = AddComponent<CameraScript>();
+
 		_collider = AddComponent<Collider2D>();
 
 
@@ -81,7 +81,6 @@ namespace jk
 			_Knight_Slash = new Slash_Effect;
 			_Knight_Slash->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Knight_Slash);
 			_Knight_Slash->SetState(eState::Paused);
 		}
@@ -89,9 +88,16 @@ namespace jk
 			_DarkKnight = new Hit_DarkPaladin;
 			_DarkKnight->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _DarkKnight);
 			_DarkKnight->SetState(eState::Paused);
+		}
+		{
+			Test_Dash = new GameObject();
+			Test_Dash->SetName(L"Particle");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Test_Dash);
+			AfterImage_TEST = Test_Dash->AddComponent<Player_AfterImage>();
+			AfterImage_TEST->Set_Owner(this);			
 		}
 		
 		at = AddComponent<Animator>();
@@ -392,6 +398,8 @@ namespace jk
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
 			_State = Skul_Basic_State::Dash;
+			AfterImage_TEST->Set_AfterImage_Switch(true);
+
 			if (mDir == 1)
 			{
 				at->PlayAnimation(L"Skul_BasicDash", true);

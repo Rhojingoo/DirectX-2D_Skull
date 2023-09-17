@@ -110,6 +110,12 @@ namespace jk::renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+
+		shader = jk::Resources::Find<Shader>(L"AfterImageShader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 #pragma endregion
 
 		//Sampler State
@@ -458,16 +464,15 @@ namespace jk::renderer
 
 
 		// 잔상
-		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
-		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
-		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
-		paritcleShader->Create(eShaderStage::PS, L"ParticlePS.hlsl", "main");
-		paritcleShader->SetRSState(eRSType::SolidNone);
-		paritcleShader->SetBSState(eBSType::AlphaBlend);
-		paritcleShader->SetDSState(eDSType::NoWrite);
-		paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
-		jk::Resources::Insert(L"ParticleShader", paritcleShader);
-
+		std::shared_ptr<Shader> afterimageShader = std::make_shared<Shader>();
+		afterimageShader->Create(eShaderStage::VS, L"AfterImageVS.hlsl", "main");
+		afterimageShader->Create(eShaderStage::GS, L"AfterImageGS.hlsl", "main");
+		afterimageShader->Create(eShaderStage::PS, L"AfterImagePS.hlsl", "main");
+		afterimageShader->SetRSState(eRSType::SolidNone);
+		afterimageShader->SetBSState(eBSType::AlphaBlend);
+		afterimageShader->SetDSState(eDSType::NoWrite);
+		afterimageShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+		jk::Resources::Insert(L"AfterImageShader", afterimageShader);
 
 
 		//구름
@@ -521,7 +526,10 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"HP_Bar_Shader");
 		std::shared_ptr<Shader> alpha_Shader
 			= Resources::Find<Shader>(L"Alpha_Shader");
+		std::shared_ptr<Shader> dahs_Shader
+			= Resources::Find<Shader>(L"AfterImageShader");
 
+		
 
 		#pragma region Public
 		#pragma region Mouse
@@ -629,13 +637,13 @@ namespace jk::renderer
 		Resources::Insert(L"ParticleMaterial", material);
 
 
-		//std::shared_ptr<Texture> particleText
-		//	= Resources::Find<Texture>(L"CartoonSmoke");
-		//material = std::make_shared<Material>();
-		//material->SetShader(particleShader);
-		//material->SetTexture(particleText);
-		//material->SetRenderingMode(eRenderingMode::Transparent);
-		//Resources::Insert(L"DashBase_Material", material);
+		std::shared_ptr<Texture> testText
+			= Resources::Find<Texture>(L"CartoonSmoke");
+		material = std::make_shared<Material>();
+		material->SetShader(dahs_Shader);
+		material->SetTexture(testText);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"DashBase_Material", material);
 
 
 		////애니메이션 만들때 사용

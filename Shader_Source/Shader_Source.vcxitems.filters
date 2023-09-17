@@ -70,6 +70,18 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)ParticleVS.hlsl">
       <Filter>HLSL\Particle</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AfterImageGS.hlsl">
+      <Filter>HLSL\AfterImage</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AfterImagePS.hlsl">
+      <Filter>HLSL\AfterImage</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AfterImageVS.hlsl">
+      <Filter>HLSL\AfterImage</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AfterImageCS.hlsl">
+      <Filter>HLSL\AfterImage</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HLSL">

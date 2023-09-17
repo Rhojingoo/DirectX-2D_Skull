@@ -10,7 +10,7 @@
 #include "Hit_Critical_High.h"
 #include "Hit_DarkPaladin.h"
 #include "Slash_Effect.h"
-
+#include "Player_AfterImage.h"
 
 namespace jk
 {
@@ -100,6 +100,9 @@ namespace jk
 		Vector3 _skulheadtemp = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 		
+
+		GameObject* Test_Dash = nullptr;
+		Player_AfterImage* AfterImage_TEST = nullptr;
 		
 		int ColID = 0;
 

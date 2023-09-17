@@ -21,6 +21,10 @@
     <None Include="$(MSBuildThisFileDirectory)Texture.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AfterImageCS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)AfterImageGS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)AfterImagePS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)AfterImageVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AlphaPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AlphaVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationPS.hlsl" />

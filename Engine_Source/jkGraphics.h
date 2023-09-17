@@ -176,6 +176,17 @@ namespace jk::graphics
 	};
 
 
+	struct After_Image
+	{
+		math::Vector4 position;
+
+		float endTime;
+		float time;
+		UINT direction;
+		UINT active;
+	};
+
+
 
 	struct ParticleShared
 	{
