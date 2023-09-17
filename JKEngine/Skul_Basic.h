@@ -101,8 +101,9 @@ namespace jk
 		Vector2 _velocity = Vector2(0.f, 0.f);
 		
 
-		GameObject* Test_Dash = nullptr;
-		Player_AfterImage* AfterImage_TEST = nullptr;
+		Player_AfterImage* AfterImage_TEST[10] = {};
+		float timeSinceLastImage = 0.0f;  // 마지막 잔상 생성 후 경과 시간
+		const float delayBetweenImages = 0.03f;
 		
 		int ColID = 0;
 

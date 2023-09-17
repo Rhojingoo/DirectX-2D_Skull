@@ -29,11 +29,7 @@ float4 main(VSOut In) : SV_TARGET
             || UV.y < SpriteLeftTop.y || UV.y > SpriteLeftTop.y + SpriteSize.y)
             discard;        
 
-        color = atlasTexture.Sample(anisotropicSampler, UV);
+        color = atlasTexture.Sample(anisotropicSampler, UV);     
     }
-    
-   //if (color.a <= 0.0f)
-   //    discard;
-
     return color;
 }

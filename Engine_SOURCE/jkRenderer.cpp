@@ -109,6 +109,12 @@ namespace jk::renderer
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
+		
+
+			shader = jk::Resources::Find<Shader>(L"AfterImage_Shader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
 
 
 		shader = jk::Resources::Find<Shader>(L"AfterImageShader");
@@ -429,6 +435,13 @@ namespace jk::renderer
 		spriteAniShader->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
 		jk::Resources::Insert(L"Animation_Shader", spriteAniShader);
 
+
+		std::shared_ptr<Shader> sprite_AfterImage_Shader = std::make_shared<Shader>();
+		sprite_AfterImage_Shader->Create(eShaderStage::VS, L"AnimationVS.hlsl", "main");
+		sprite_AfterImage_Shader->Create(eShaderStage::PS, L"Dash_AniPS.hlsl", "main");
+		jk::Resources::Insert(L"AfterImage_Shader", sprite_AfterImage_Shader);
+
+
 		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
 		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
@@ -518,6 +531,8 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"Tile_Shader");
 		std::shared_ptr<Shader> animationShader
 			= Resources::Find<Shader>(L"Animation_Shader"); 
+		std::shared_ptr<Shader> afterImage_Shader
+			= Resources::Find<Shader>(L"AfterImage_Shader");
 		std::shared_ptr<Shader> debugShader
 			= Resources::Find<Shader>(L"DebugShader");
 		std::shared_ptr<Shader> particleShader
@@ -528,8 +543,7 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"Alpha_Shader");
 		std::shared_ptr<Shader> dahs_Shader
 			= Resources::Find<Shader>(L"AfterImageShader");
-
-		
+				
 
 		#pragma region Public
 		#pragma region Mouse
@@ -588,7 +602,14 @@ namespace jk::renderer
 				Resources::Insert(L"Skill_face", material);
 			#pragma endregion
 
-		#pragma endregion
+			#pragma region Dash
+				material = std::make_shared<Material>();
+				material->SetShader(afterImage_Shader);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"After_Image_Skul", material);				
+			#pragma endregion
+
+#pragma endregion
 
 		#pragma region Monster
 		#pragma region Knight_male
@@ -647,10 +668,7 @@ namespace jk::renderer
 
 
 		////애니메이션 만들때 사용
-		//material = std::make_shared<Material>();
-		//material->SetShader(animationShader);
-		//material->SetRenderingMode(eRenderingMode::Transparent);
-		//Resources::Insert(L"Animation_Shader", material);
+
 
 		#pragma region Title
 				texture	= Resources::Load<Texture>(L"title_image", L"..\\Resources\\Texture\\Title\\Title_Art2.png");
@@ -1151,6 +1169,16 @@ namespace jk::renderer
 				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"AlphaMaterial", material);
 		#pragma endregion
+
+
+		//#pragma region Dash
+		//				texture = Resources::Load<Texture>(L"Blackfade", L"..\\Resources\\Texture\\Blackfade.png");
+		//				material->SetTexture(texture);
+		//				material = std::make_shared<Material>();
+		//				material->SetShader(alpha_Shader);
+		//				material->SetRenderingMode(eRenderingMode::Transparent);
+		//				Resources::Insert(L"AlphaMaterial", material);
+		//#pragma endregion
 	}
 
 

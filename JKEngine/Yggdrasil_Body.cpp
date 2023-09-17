@@ -530,7 +530,7 @@ namespace jk
 			if (_pos.y >= -100.f)
 				_pos.y -= 25 * Time::DeltaTime();
 			if (_BodyRotation.z < 35.f)
-				_BodyRotation.z += 20 * Time::DeltaTime();
+				_BodyRotation.z += 20.f* Time::DeltaTime();
 			tr->SetRotation(_BodyRotation);
 			if ((_pos.y >= -100.f) && (_BodyRotation.z >= 35.f))
 			{

@@ -82,6 +82,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)AfterImageCS.hlsl">
       <Filter>HLSL\AfterImage</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Dash_AniPS.hlsl">
+      <Filter>HLSL\Animation</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HLSL">

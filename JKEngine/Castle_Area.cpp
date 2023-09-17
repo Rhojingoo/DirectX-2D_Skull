@@ -54,13 +54,13 @@ namespace jk
 			paintShader->OnExcute();
 
 
-		{
-			GameObject* player = new GameObject();
-			player->SetName(L"Particle");
-			AddGameObject(eLayerType::Monster, player);
-			ParticleSystem* mr = player->AddComponent<ParticleSystem>();
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -249.0f));
-		}
+		//{//파티클 성공
+		//	GameObject* player = new GameObject();
+		//	player->SetName(L"Particle");
+		//	AddGameObject(eLayerType::Monster, player);
+		//	ParticleSystem* mr = player->AddComponent<ParticleSystem>();
+		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -249.0f));
+		//}
 
 			#pragma region Player				
 					_player = object::Instantiate<Player>(Vector3(0.f, 0.f, -250.f), eLayerType::Player);

@@ -66,6 +66,12 @@ namespace jk
 
 
 	private:
+		Player_AfterImage* AfterImage_TEST[10] = {};
+		float timeSinceLastImage = 0.0f; 
+		const float delayBetweenImages = 0.03f;
+
+
+	private:
 		static int mDir;
 		static bool _switch;
 		float _time = 0.f;

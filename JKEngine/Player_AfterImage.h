@@ -1,17 +1,17 @@
 #pragma once
 #include "Include_Common.h"
-#include "..\Engine_SOURCE\jkMeshRenderer.h"
-#include "..\Engine_SOURCE\jkMaterial.h"
-#include "..\Engine_SOURCE\jkStructuredBuffer.h"
-#include "..\Engine_SOURCE\jkParticleShader.h"
-//#include "jkMaterial.h"
-//#include "jkStructuredBuffer.h"
-//#include "jkParticleShader.h"
+#include "..\Engine_SOURCE\jkGameObject.h"
+//#include "jkGameObject.h"
+//#include "..\Engine_SOURCE\jkMeshRenderer.h"
+//#include "..\Engine_SOURCE\jkMaterial.h"
+//#include "..\Engine_SOURCE\jkStructuredBuffer.h"
+//#include "..\Engine_SOURCE\jkParticleShader.h"
+
 
 
 namespace jk
 {
-	class Player_AfterImage :  public MeshRenderer
+	class Player_AfterImage :  public GameObject
 	{
 	public:
 		Player_AfterImage();
@@ -26,26 +26,56 @@ namespace jk
 		void Set_Owner(Player* set) { mOwner = set; }
 		void Set_AfterImage_Switch(bool set) { _AfterImage = set; }
 
-	private:
-		graphics::StructuredBuffer* mBuffer;
-		std::shared_ptr<ParticleShader> mCS;
-		graphics::StructuredBuffer* mSharedBuffer;
+		enum class AfterImage_State
+		{
+			Skul_Basic = 0,
+			Skul_NoHead,
+			Skul_Wolf,
+			Skul_Spear,
+			Finish_Image,
+			End,
+		};	
+
+		void Skul_Basic();
+		void Skul_NoHead();
+		void Skul_Wolf();
+		void Skul_Spear();
+		void Finish_Image();
+
+
+		void Set_Basic_Dash(int Dir, Vector3 position) { _State = AfterImage_State::Skul_Basic, _Dir = Dir, _Pos = position; };
+		void Set_Nohead_Dash(int Dir, Vector3 position) { _State = AfterImage_State::Skul_NoHead, _Dir = Dir, _Pos = position; }
+		void Set_Wolf_Dash(int Dir, Vector3 position) { _State = AfterImage_State::Skul_Wolf, _Dir = Dir, _Pos = position; }
+		void Set_Spear_Dash(int Dir, Vector3 position) { _State = AfterImage_State::Skul_Spear, _Dir = Dir, _Pos = position; }
+
+		bool _AfterImage = false;
 
 	private:
 		Player* mOwner = nullptr;
 		Transform* PlayerTr = nullptr;
-		bool _AfterImage = false;
+		AfterImage_State _State = {};
+		int _Dir = 1;
+		Vector3 _Pos = Vector3();
+
+
 		bool _AfterImage_Late = false;
 		bool _AfterImage_Render = false;
+		float mTime = 1.f;
+		float _Time = 0.f;
+
+		float timeSinceLastImage = 0.0f;  // 마지막 잔상 생성 후 경과 시간
+		const float delayBetweenImages = 0.3f;
+
+
 	
 	private://첨에 오브젝트로 진행하려할때의 변수들
-		class Animator* mAnimator;
 		std::shared_ptr<Material> mMaterial;
+		class Animator* mAnimator;
 		Animator* at = nullptr;
 		Animator* at1 = nullptr;
 		Animator* at2 = nullptr;
-		float mTime = 1.f;
-		float _Time = 0.f;
+		Collider2D* _collider = nullptr;
+		Transform* tr = nullptr;
 		static bool _FadeCheck;
 	};
 }

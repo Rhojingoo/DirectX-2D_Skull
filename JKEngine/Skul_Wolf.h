@@ -61,6 +61,11 @@ namespace jk
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
+
+	private:
+		Player_AfterImage* AfterImage_TEST[10] = {};
+		float timeSinceLastImage = 0.0f;
+		const float delayBetweenImages = 0.03f;
 		
 	private:
 		static int mDir;

@@ -29,6 +29,7 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)AlphaVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)Dash_AniPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)GridPS.hlsl" />

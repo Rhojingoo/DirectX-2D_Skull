@@ -92,12 +92,15 @@ namespace jk
 			_DarkKnight->SetState(eState::Paused);
 		}
 		{
-			Test_Dash = new GameObject();
-			Test_Dash->SetName(L"Particle");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Effect, Test_Dash);
-			AfterImage_TEST = Test_Dash->AddComponent<Player_AfterImage>();
-			AfterImage_TEST->Set_Owner(this);			
+			for (int i = 0; i < 10; i++)
+			{
+				AfterImage_TEST[i] = new Player_AfterImage();
+				AfterImage_TEST[i]-> Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, AfterImage_TEST[i]);
+				AfterImage_TEST[i]->Set_Owner(this); 
+				AfterImage_TEST[i]->SetState(eState::Paused);
+			}			
 		}
 		
 		at = AddComponent<Animator>();
@@ -398,7 +401,6 @@ namespace jk
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
 			_State = Skul_Basic_State::Dash;
-			AfterImage_TEST->Set_AfterImage_Switch(true);
 
 			if (mDir == 1)
 			{
@@ -822,7 +824,7 @@ namespace jk
 	}
 
 	void Skul_Basic::dash()
-	{		 
+	{		
 		_Leftmove_Lock = false;
 		_Rightmove_Lock = false;
 		_Ground_check = false;
@@ -846,9 +848,27 @@ namespace jk
 			_rigidbody->SetGround(false);
 			_rigidbody->ClearVelocityX();
 			mDir = -1;
-		}				
+		}		
+		//else
+		{
+			timeSinceLastImage += Time::DeltaTime();
+			if (timeSinceLastImage >= delayBetweenImages)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					if (AfterImage_TEST[i]->_AfterImage == false)
+					{
+						int direction = (mDir == 1) ? 1 : -1;
+						AfterImage_TEST[i]->Set_Basic_Dash(direction, Vector3(pos.x, pos.y, pos.z+1));
+						AfterImage_TEST[i]->SetState(eState::Active);
+						AfterImage_TEST[i]->_AfterImage = true;
+						timeSinceLastImage = 0.0f;  // 시간 초기화
+						break;  // 하나의 잔상만 생성한 후 for문 종료					
+					}
+				}				
+			}
+		}
 	}
-
 
 	void Skul_Basic::attack_a()
 	{		
@@ -1375,7 +1395,7 @@ namespace jk
 				_Player_GRpos = pos;
 				if (Input::GetKeyDown(eKeyCode::Z))
 				{
-					_State = Skul_Basic_State::Dash;
+					_State = Skul_Basic_State::Dash;				
 					if (mDir == 1)
 					{
 						at->PlayAnimation(L"Skul_BasicDash", true);
@@ -1715,8 +1735,8 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
-			SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
+			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
+			//SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::sowrd_Skul, PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::thief_Skul, PlayerList::basic_Skul, true, mDir);
 			pos.y = pos.y + 5;

@@ -72,6 +72,22 @@ namespace jk
 		at->CompleteEvent(L"WolfSkillBR") = std::bind(&Skul_Wolf::attack_choice, this);
 		at->CompleteEvent(L"WolfDash") = std::bind(&Skul_Wolf::dash_check, this);
 		at->CompleteEvent(L"WolfDashR") = std::bind(&Skul_Wolf::dash_check, this);
+
+
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				AfterImage_TEST[i] = new Player_AfterImage();
+				AfterImage_TEST[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, AfterImage_TEST[i]);
+				AfterImage_TEST[i]->Set_Owner(this);
+				AfterImage_TEST[i]->SetState(eState::Paused);
+			}
+		}
+
+
+
 		GameObject::Initialize();
 	}
 	void Skul_Wolf::Update()
@@ -556,6 +572,24 @@ namespace jk
 			{				
 				_rigidbody->SetVelocity(Vector2(-350.f, 250.f));
 				_rigidbody->SetGround(false);	mDir = -1;				
+			}
+		}
+		{
+			timeSinceLastImage += Time::DeltaTime();
+			if (timeSinceLastImage >= delayBetweenImages)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					if (AfterImage_TEST[i]->_AfterImage == false)
+					{
+						int direction = (mDir == 1) ? 1 : -1;
+						AfterImage_TEST[i]->Set_Wolf_Dash(direction, Vector3(pos.x, pos.y, pos.z + 1));
+						AfterImage_TEST[i]->SetState(eState::Active);
+						AfterImage_TEST[i]->_AfterImage = true;
+						timeSinceLastImage = 0.0f;  // 시간 초기화
+						break;  // 하나의 잔상만 생성한 후 for문 종료					
+					}
+				}
 			}
 		}
 	}

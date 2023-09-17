@@ -70,6 +70,20 @@ namespace jk
 		at->CompleteEvent(L"SpearSwitchR") = std::bind(&Skul_Spear::switch_on_off, this);
 
 
+
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				AfterImage_TEST[i] = new Player_AfterImage();
+				AfterImage_TEST[i]->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::Effect, AfterImage_TEST[i]);
+				AfterImage_TEST[i]->Set_Owner(this);
+				AfterImage_TEST[i]->SetState(eState::Paused);
+			}
+		}
+
+
 		GameObject::Initialize();
 	}
 	void Skul_Spear::Update()
@@ -548,6 +562,24 @@ namespace jk
 			_rigidbody->SetGround(false);
 			_rigidbody->ClearVelocityX();
 			mDir = -1;
+		}
+		{
+			timeSinceLastImage += Time::DeltaTime();
+			if (timeSinceLastImage >= delayBetweenImages)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					if (AfterImage_TEST[i]->_AfterImage == false)
+					{
+						int direction = (mDir == 1) ? 1 : -1;
+						AfterImage_TEST[i]->Set_Spear_Dash(direction, Vector3(pos.x, pos.y, pos.z + 1));
+						AfterImage_TEST[i]->SetState(eState::Active);
+						AfterImage_TEST[i]->_AfterImage = true;
+						timeSinceLastImage = 0.0f;  // 시간 초기화
+						break;  // 하나의 잔상만 생성한 후 for문 종료					
+					}
+				}
+			}
 		}
 	}
 

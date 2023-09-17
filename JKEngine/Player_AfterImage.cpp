@@ -7,110 +7,175 @@
 namespace jk
 {
 	Player_AfterImage::Player_AfterImage()
-	{
-		
-		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"PointMesh");
-		SetMesh(mesh);
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"DashBase_Material");
-		SetMaterial(material);
-		mCS = Resources::Find<ParticleShader>(L"ParticleSystemShader");
-		//MeshRenderer* mr = AddComponent<MeshRenderer>();
-		//mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//mr->SetMaterial(Resources::Find<Material>(L"Basic_Skul"));
-
+	{		
+		MeshRenderer* mr = AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"After_Image_Skul"));
 	}
+
 	Player_AfterImage::~Player_AfterImage()
 	{
-		delete mSharedBuffer;
-		delete mBuffer;
 	}
 
 	void Player_AfterImage::Initialize()
 	{
-		//at = AddComponent<Animator>();
-		//at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Dash", this);
-		//at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Dash", this, 1);
+		_collider = AddComponent<Collider2D>();
+		tr = this->GetComponent<Transform>();
+		at = AddComponent<Animator>();
+		
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Dash", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Dash", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Dash", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Dash", this, 1);
+
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\After_Image\\BasicDash", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\After_Image\\BasicDash", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\After_Image\\NoHeadDash", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\After_Image\\NoHeadDash", this, 1);
 		//at->PlayAnimation(L"Skul_BasicDash", true);
-		//GameObject::Initialize();
+		
+		at1 = AddComponent<Animator>();
+		at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this);
+		at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
+		at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this, 1);
+		at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
+		//at1->PlayAnimation(L"WolfDash", true);
+		
+		at2 = AddComponent<Animator>();
+		at2->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Dash", this);
+		at2->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Dash", this, 1);
+		//at2->PlayAnimation(L"SpearDash", true);
+
+		GameObject::Initialize();
 	}
+
 	void Player_AfterImage::Update()
-	{		
-		PlayerTr = mOwner->GetComponent<Transform>();
-		if (_AfterImage == true)
+	{					
+
+		switch (_State)
 		{
-			After_Image particle[15] = {};
-			for (size_t i = 0; i < 15; i++)
-			{
-				Vector4 pos = Vector4(PlayerTr->GetPosition().x, PlayerTr->GetPosition().y, PlayerTr->GetPosition().z + 1, 0.f);
-				particle[i].position = pos;
-				particle[i].active = 0;
-				particle[i].endTime = 2.f;
-			}
-			mBuffer = new graphics::StructuredBuffer();
-			mBuffer->Create(sizeof(Particle), 15, eViewType::UAV, particle);
-			mSharedBuffer = new graphics::StructuredBuffer();
-			mSharedBuffer->Create(sizeof(ParticleShared), 1, eViewType::UAV, nullptr, true);
-			_AfterImage = false;
-			_AfterImage_Late = true;
-		}
-	
+		case jk::Player_AfterImage::AfterImage_State::Skul_Basic:
+			Skul_Basic();
+			break;
+
+		case jk::Player_AfterImage::AfterImage_State::Skul_NoHead:
+			Skul_NoHead();
+			break;
+
+		case jk::Player_AfterImage::AfterImage_State::Skul_Wolf:
+			Skul_Wolf();
+			break;
+
+		case jk::Player_AfterImage::AfterImage_State::Skul_Spear:
+			Skul_Spear();
+			break;
+
+		case jk::Player_AfterImage::AfterImage_State::Finish_Image:
+			Finish_Image();
+			break;
+
+		default:
+			break;
+		}	
+
+		tr->SetPosition(_Pos);
+		GameObject::Update();
 	}
+
 	void Player_AfterImage::LateUpdate()
 	{
-		//GameObject::LateUpdate();
-		if (_AfterImage_Late == true)
-		{
-			float AliveTime = 1.0f / 1.0f;
-			mTime += Time::DeltaTime();
-			if (mTime > AliveTime)
-			{
-				float f = (mTime / AliveTime);
-				UINT AliveCount = (UINT)f;
-				mTime = f - floor(f);
-
-				ParticleShared shareData = {};
-				shareData.sharedActiveCount = 2;
-				mSharedBuffer->SetData_Buffer(&shareData, 1);
-			}
-			else
-			{
-				ParticleShared shareData = {};
-				shareData.sharedActiveCount = 0;
-				mSharedBuffer->SetData_Buffer(&shareData, 1);
-			}
-
-			mCS->SetParticleBuffer(mBuffer);
-			mCS->SetSharedBuffer(mSharedBuffer);
-			mCS->OnExcute();
-			_AfterImage_Late = false;
-			_AfterImage_Render = true;
-		}
+		_collider->SetSize(Vector2(0.f, 0.f));
+		GameObject::LateUpdate();
 	}
+
 	void Player_AfterImage::Render()
 	{
-		if (_AfterImage_Render == true)
-		{
-			GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
-			mBuffer->BindSRV(eShaderStage::VS, 14);
-			mBuffer->BindSRV(eShaderStage::GS, 14);
-			mBuffer->BindSRV(eShaderStage::PS, 14);
-
-			GetMaterial()->Binds();
-			GetMesh()->RenderInstanced(15);
-			mBuffer->Clear();
-			_AfterImage_Render = false;
-		}
-		//BindConstantBuffer();
-		//GameObject::Render();float AliveTime = 1.0f / 1.0f;		
+		BindConstantBuffer();
+		GameObject::Render();
 	}
+
 	void Player_AfterImage::BindConstantBuffer()
 	{
-		//renderer::_AlphaBlendCB _Alphacb = {};
-		//_Alphacb._Alpha.x = mTime;
-		//_Alphacb._Alpha.y = _Time;
+		renderer::_AlphaBlendCB _Alphacb = {};
+		_Alphacb._Alpha.x = mTime;	
 
-		//ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::AlphaBlend];
-		//cb->SetData(&_Alphacb);
-		//cb->Bind(eShaderStage::PS);
+		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::AlphaBlend];
+		cb->SetData(&_Alphacb);
+		cb->Bind(eShaderStage::PS);
+	}
+
+	void Player_AfterImage::Skul_Basic()
+	{
+		_Time += Time::DeltaTime();
+		if (_Time > delayBetweenImages)
+		{
+			_Time = 0.f;
+			_State = AfterImage_State::Finish_Image;
+		}
+		else
+		{
+			if(_Dir==1)
+				at->PlayAnimation(L"After_ImageBasicDash", false);
+			else
+				at->PlayAnimation(L"After_ImageBasicDashR", false);
+		}
+	}
+
+	void Player_AfterImage::Skul_NoHead()
+	{
+		_Time += Time::DeltaTime();
+		if (_Time > delayBetweenImages)
+		{
+			_Time = 0.f;
+			_State = AfterImage_State::Finish_Image;
+		}
+		else
+		{
+			if (_Dir == 1)
+				at->PlayAnimation(L"Skul_BasicDash", false);
+			else
+				at->PlayAnimation(L"Skul_BasicDashR", false);
+		}
+	}
+
+	void Player_AfterImage::Skul_Wolf()
+	{
+		_Time += Time::DeltaTime();
+		if (_Time > delayBetweenImages)
+		{
+			_Time = 0.f;
+			_State = AfterImage_State::Finish_Image;
+		}
+		else
+		{
+			if (_Dir == 1)
+				at1->PlayAnimation(L"WolfDash", false);
+			else
+				at1->PlayAnimation(L"WolfDashR", false);
+		}
+	}
+
+	void Player_AfterImage::Skul_Spear()
+	{
+		_Time += Time::DeltaTime();
+		if (_Time > delayBetweenImages)
+		{
+			_Time = 0.f;
+			_State = AfterImage_State::Finish_Image;
+		}
+		else
+		{
+			if (_Dir == 1)
+				at2->PlayAnimation(L"SpearDash", false);
+			else
+				at2->PlayAnimation(L"SpearDashR", false);
+		}
+	}
+
+	void Player_AfterImage::Finish_Image()
+	{
+		_Pos = Vector3();
+		_AfterImage = false;
+		this->SetState(eState::Paused);
 	}
 }
