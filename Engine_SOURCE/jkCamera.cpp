@@ -136,6 +136,16 @@ namespace jk
 				pos.x -= 100.0f * (float)Time::DeltaTime();
 				tr->SetPosition(pos);
 			}
+			if (Input::GetKey(eKeyCode::R))
+			{
+				pos.y += 100.0f * (float)Time::DeltaTime();
+				tr->SetPosition(pos);
+			}
+			else if (Input::GetKey(eKeyCode::F))
+			{
+				pos.y -= 100.0f * (float)Time::DeltaTime();
+				tr->SetPosition(pos);
+			}
 		}		
 	}
 
