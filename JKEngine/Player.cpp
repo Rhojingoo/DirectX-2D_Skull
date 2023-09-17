@@ -9,6 +9,8 @@ namespace jk
 	bool Player:: _check_change = 0;
 	bool Player::_skulhead_check = false;
 	bool Player::_Ground_On = false;
+	bool Player::_First_tuch = false;
+	
 	int Player:: mDir = 1;
 
 	Player::Player() 	

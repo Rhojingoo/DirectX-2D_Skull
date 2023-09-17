@@ -33,13 +33,13 @@ namespace jk
 	#pragma region BG	
 			{
 				Back_ground* Fore_S1_1_color = object::Instantiate<Back_ground>(Vector3(50.f, 50.f, 105.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Color");
-				Fore_S1_1_color->GetComponent<Transform>()->SetScale(Vector3(960.f*1.5, 800.f, 0.f));	Fore_S1_1_color->SetName(L"s1_1_fore_gr_color");
+				Fore_S1_1_color->GetComponent<Transform>()->SetScale(Vector3(960.f*2.5, 800.f, 0.f));	Fore_S1_1_color->SetName(L"s1_1_fore_gr_color");
 
 				Back_ground* Fore_S1_1_tree = object::Instantiate<Back_ground>(Vector3(50.f, -150.f, 103.f), eLayerType::Fore_Ground, L"Stage1_Fore_GR_Tree");
-				Fore_S1_1_tree->GetComponent<Transform>()->SetScale(Vector3(960.f*1.5, 800.f, 0.f));	Fore_S1_1_tree->SetName(L"s1_1_fore_gr_tree");
+				Fore_S1_1_tree->GetComponent<Transform>()->SetScale(Vector3(960.f*2.5, 800.f, 0.f));	Fore_S1_1_tree->SetName(L"s1_1_fore_gr_tree");
 
 				Back_ground* Mid_S1_1 = object::Instantiate<Back_ground>(Vector3(50.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Stage1_Mid_GR1_1");
-				Mid_S1_1->GetComponent<Transform>()->SetScale(Vector3(960.f*1.5, 800.f, 0.f));	Mid_S1_1->SetName(L"Mid_S1_1");
+				Mid_S1_1->GetComponent<Transform>()->SetScale(Vector3(960.f*2.5, 800.f, 0.f));	Mid_S1_1->SetName(L"Mid_S1_1");
 
 
 				Back_ground* Back_GR06 = object::Instantiate<Back_ground>(Vector3(50.f, 120.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR14");
@@ -54,13 +54,17 @@ namespace jk
 				Back_ground* Back_GR09 = object::Instantiate<Back_ground>(Vector3(470.f, -150.f, 99.f), eLayerType::Fore_Ground, L"Stage1_Back_GR02");
 				Back_GR09->GetComponent<Transform>()->SetScale(Vector3(145.f, 172.f, 0.f));	Back_GR09->SetName(L"back_gr09");
 
+
+				Back_ground* Ground_Assistment = object::Instantiate<Back_ground>(Vector3(45.f, -100.f, -199.f), eLayerType::Fore_Ground, L"Map1_2");
+				Ground_Assistment->GetComponent<Transform>()->SetScale(Vector3(1920.f, 960.f, 0.f));	Ground_Assistment->SetName(L"Map1_2_assist");
+
 			}
 	#pragma endregion
 
 	#pragma region tile_map & Ground_COL
 			{
-				Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(-560.f, -80.f, -205.f), eLayerType::BACK_GROUND);
-				MinibossMap->GetComponent<Transform>()->SetScale(Vector3(155, 25, 0.f));	MinibossMap->SetName(L"Miniboss_ground00");
+				Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(-740.f, -80.f, -205.f), eLayerType::BACK_GROUND);
+				MinibossMap->GetComponent<Transform>()->SetScale(Vector3(500, 25, 0.f));	MinibossMap->SetName(L"Miniboss_ground00");
 
 				Ground_Map* MinibossMap1 = object::Instantiate<Ground_Map>(Vector3(-345.f, -240.f, -205.f), eLayerType::BACK_GROUND);
 				MinibossMap1->GetComponent<Transform>()->SetScale(Vector3(290, 25.f, 0.f));	MinibossMap1->SetName(L"Miniboss_ground01");
@@ -106,13 +110,13 @@ namespace jk
 
 
 				static Vector2 TileSize = Vector2(32.f, 32.f);
-				static int Tile_Colum = 40;
+				static int Tile_Colum = 60;
 				static int Tile_Row = 30;
 
 				static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
 				Tile_map->SetName(L"tile_stage1_2");
 				Transform* tr = Tile_map->GetComponent<Transform>();
-				//tr->SetPositionZ(-200.f);
+				tr->SetPositionZ(-200.f);
 				tr->AddPositionY(0.f);
 				tr->SetPositionX(0.f);
 				tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));

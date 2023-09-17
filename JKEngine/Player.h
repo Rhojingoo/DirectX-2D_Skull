@@ -43,6 +43,7 @@ namespace jk
 		static Vector3 _Pos; 
 		static Vector3 _Player_GRpos;
 		static bool _Ground_On;
+		static bool _First_tuch;
 
 
 	private:

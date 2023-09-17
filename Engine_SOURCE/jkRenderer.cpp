@@ -952,6 +952,23 @@ namespace jk::renderer
 				#pragma endregion
 
 
+				#pragma region Stage1_1_Bg
+										texture = Resources::Load<Texture>(L"map1_1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\map1_1.png");
+										material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+										Resources::Insert(L"Map1_1", material); material->SetRenderingMode(eRenderingMode::Transparent);
+				#pragma endregion
+
+
+
+				#pragma region Stage1_2_Bg
+										texture = Resources::Load<Texture>(L"map1_2", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\map1_2.png");
+										material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+										Resources::Insert(L"Map1_2", material); material->SetRenderingMode(eRenderingMode::Transparent);
+				#pragma endregion
+
+
+
+
 			#pragma region Stage1_MiniBoss
 						texture = Resources::Load<Texture>(L"miniboss_00", L"..\\Resources\\Texture\\Ground\\Stage_1\\MiniBoss\\Miniboss_00.png");
 						material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
