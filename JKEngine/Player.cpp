@@ -40,7 +40,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();			
 			scene->AddGameObject(eLayerType::Player, _Gobjs[i]);
 			Transform* tr = _Gobjs[i]->GetComponent<Transform>();
-			tr->SetPosition(Vector3(_Pos.x, _Pos.y, -250.f));
+			tr->SetPosition(Vector3(_Pos.x, _Pos.y, _Pos.z));
 
 			if ((UINT)player_select != i)
 			_Gobjs[i]->SetState(eState::Paused);

@@ -72,8 +72,6 @@ namespace jk
 		std::shared_ptr<Material> mMaterial;
 		class Animator* mAnimator;
 		Animator* at = nullptr;
-		Animator* at1 = nullptr;
-		Animator* at2 = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		static bool _FadeCheck;

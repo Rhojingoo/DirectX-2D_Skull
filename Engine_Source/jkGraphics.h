@@ -187,7 +187,6 @@ namespace jk::graphics
 	};
 
 
-
 	struct ParticleShared
 	{
 		UINT sharedActiveCount;

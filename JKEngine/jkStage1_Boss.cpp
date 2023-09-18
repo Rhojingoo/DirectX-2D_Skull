@@ -26,6 +26,7 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::Hitbox, true);
 		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
+
 #pragma endregion 
 
 		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
@@ -102,18 +103,20 @@ namespace jk
 		//UI Camera		
 		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
-		cameraComp_ui->TurnLayerMask(eLayerType::UI, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Effect, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Grid, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Hitbox, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 		renderer::cameras.push_back(cameraComp_ui);
 
 		//UI_Mouse

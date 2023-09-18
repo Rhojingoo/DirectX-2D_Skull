@@ -59,6 +59,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkXmlParser.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Particle_DamageEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\External\CMarkUp\Include\Markup.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkXmlParser.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Particle_DamageEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)..\External\DirectXTex\Include\DirectXTex.inl" />

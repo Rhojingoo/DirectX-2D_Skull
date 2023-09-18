@@ -22,7 +22,9 @@ namespace jk
 		_collider = AddComponent<Collider2D>();
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		
+		//at1 = AddComponent<Animator>();
+		//at2 = AddComponent<Animator>();
+
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Dash", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\Dash", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\NoHead\\Dash", this);
@@ -34,16 +36,23 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\After_Image\\NoHeadDash", this, 1);
 		//at->PlayAnimation(L"Skul_BasicDash", true);
 		
-		at1 = AddComponent<Animator>();
-		at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this);
-		at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
-		at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this, 1);
-		at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
+		
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
+		//at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this);
+		//at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
+		//at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this, 1);
+		//at1->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
 		//at1->PlayAnimation(L"WolfDash", true);
 		
-		at2 = AddComponent<Animator>();
-		at2->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Dash", this);
-		at2->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Dash", this, 1);
+
+
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Dash", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Dash", this, 1);
+		//at2->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Dash", this);
+		//at2->CreateAnimations(L"..\\Resources\\Texture\\Player\\Spear\\Dash", this, 1);
 		//at2->PlayAnimation(L"SpearDash", true);
 
 		GameObject::Initialize();
@@ -149,9 +158,13 @@ namespace jk
 		else
 		{
 			if (_Dir == 1)
-				at1->PlayAnimation(L"WolfDash", false);
+				at->PlayAnimation(L"WolfDash", false);
 			else
-				at1->PlayAnimation(L"WolfDashR", false);
+				at->PlayAnimation(L"WolfDashR", false);
+			//if (_Dir == 1)
+			//	at1->PlayAnimation(L"WolfDash", false);
+			//else
+			//	at1->PlayAnimation(L"WolfDashR", false);
 		}
 	}
 
@@ -166,9 +179,14 @@ namespace jk
 		else
 		{
 			if (_Dir == 1)
-				at2->PlayAnimation(L"SpearDash", false);
+				at->PlayAnimation(L"SpearDash", false);
 			else
-				at2->PlayAnimation(L"SpearDashR", false);
+				at->PlayAnimation(L"SpearDashR", false);
+
+			//if (_Dir == 1)
+			//	at2->PlayAnimation(L"SpearDash", false);
+			//else
+			//	at2->PlayAnimation(L"SpearDashR", false);
 		}
 	}
 

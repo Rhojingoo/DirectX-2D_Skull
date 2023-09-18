@@ -673,7 +673,6 @@ namespace jk::renderer
 		#pragma endregion
 		#pragma endregion
 
-
 		#pragma region Test & Compute_PaintShader
 				texture	= Resources::Load<Texture>(L"Link", L"..\\Resources\\Texture\\Link.png");
 				material = std::make_shared<Material>();

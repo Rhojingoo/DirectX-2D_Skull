@@ -17,10 +17,10 @@ namespace jk
 	}
 	void Monster::Initialize()
 	{
-		_Gobjs[0] = new Monster_warrior;
+		_Gobjs[0] = new Monster_Goldwarrior;
 		_Gobjs[0]->Initialize();
-		_Gobjs[1] = new Monster_BlossomEnt;
-		_Gobjs[1]->Initialize();
+		//_Gobjs[1] = new Monster_GoldHammer;
+		//_Gobjs[1]->Initialize();
 
 		//_Gobjs[0] = new Monster_warrior;
 		//_Gobjs[0]->Initialize();
@@ -40,7 +40,7 @@ namespace jk
 		//_Gobjs[7]->Initialize();
 
 
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, _Gobjs[i]);

@@ -50,7 +50,7 @@ namespace jk
 		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 
-		Mboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -250.f), eLayerType::MiniBoss);
+		Mboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -249.f), eLayerType::MiniBoss);
 		Mboss->SetName(L"test_mboss");
 
 
@@ -81,16 +81,16 @@ namespace jk
 					Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(0.f, -450.f, -205.f), eLayerType::BACK_GROUND);
 					MinibossMap->GetComponent<Transform>()->SetScale(Vector3(1000, 320.f, 0.f));	MinibossMap->SetName(L"Miniboss_ground00");
 
-					Ground_Map* MinibossMap1 = object::Instantiate<Ground_Map>(Vector3(-645.f, -180.f, -205.f), eLayerType::BACK_GROUND);
+					Ground_Map* MinibossMap1 = object::Instantiate<Ground_Map>(Vector3(-645.f, -180.f, -206.f), eLayerType::BACK_GROUND);
 					MinibossMap1->GetComponent<Transform>()->SetScale(Vector3(630, 35.f, 0.f));	MinibossMap1->SetName(L"Miniboss_ground01");
 
-					Ground_Map* MinibossMap2 = object::Instantiate<Ground_Map>(Vector3(645.f, -180.f, -205.f), eLayerType::BACK_GROUND);
+					Ground_Map* MinibossMap2 = object::Instantiate<Ground_Map>(Vector3(645.f, -180.f, -207.f), eLayerType::BACK_GROUND);
 					MinibossMap2->GetComponent<Transform>()->SetScale(Vector3(630, 35.f, 0.f));	MinibossMap2->SetName(L"Miniboss_ground02");
 
-					Ground_and_Wall* MinibossWall = object::Instantiate<Ground_and_Wall>(Vector3(-340.f, -235.f, -205.f), eLayerType::BACK_GROUND);
+					Ground_and_Wall* MinibossWall = object::Instantiate<Ground_and_Wall>(Vector3(-340.f, -235.f, -208.f), eLayerType::BACK_GROUND);
 					MinibossWall->GetComponent<Transform>()->SetScale(Vector3(30, 130.f, 0.f));	MinibossWall->SetName(L"Miniboss_Wall00");
 
-					Ground_and_Wall* MinibossWall1 = object::Instantiate<Ground_and_Wall>(Vector3(340.f, -235.f, -205.f), eLayerType::BACK_GROUND);
+					Ground_and_Wall* MinibossWall1 = object::Instantiate<Ground_and_Wall>(Vector3(340.f, -235.f, -209.f), eLayerType::BACK_GROUND);
 					MinibossWall1->GetComponent<Transform>()->SetScale(Vector3(30, 130.f, 0.f));	MinibossWall1->SetName(L"Miniboss_Wall01");
 
 
@@ -122,19 +122,6 @@ namespace jk
 	}
 	void Stage1_MiniBoss::LateUpdate()
 	{
-		//Vector3 pos(800, 450, 0.0f);
-		//Vector3 pos2(800, 450, 1000.0f);
-		//Viewport viewport;
-		//viewport.width = 1600.0f;
-		//viewport.height = 900.0f;
-		//viewport.x = 0;
-		//viewport.y = 0;
-		//viewport.minDepth = 0.0f;
-		//viewport.maxDepth = 1.0f;
-
-		//pos = viewport.Unproject(pos, Camera::GetGpuProjectionMatrix(), Camera::GetGpuViewMatrix(), Matrix::Identity);
-		//pos2 = viewport.Unproject(pos2, Camera::GetGpuProjectionMatrix(), Camera::GetGpuViewMatrix(), Matrix::Identity);
-
 		Scene::LateUpdate();
 	}
 	void Stage1_MiniBoss::Render()
@@ -160,8 +147,10 @@ namespace jk
 		cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Effect, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
+		cameraComp_ui->TurnLayerMask(eLayerType::Hitbox, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);

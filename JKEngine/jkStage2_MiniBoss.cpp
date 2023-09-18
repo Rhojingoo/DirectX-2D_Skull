@@ -10,8 +10,6 @@ jk::Stage2_MiniBoss::~Stage2_MiniBoss()
 
 void jk::Stage2_MiniBoss::Initialize()
 {
-
-
 		#pragma region CollisionManager
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
@@ -92,11 +90,7 @@ void jk::Stage2_MiniBoss::Initialize()
 					TileMap::TileMap_Setting(Tile_map, L"Stage2_Tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Stage2_MiniBoss.xml");
 				}
 			#pragma endregion
-		#pragma endregion 
-
-
-
-	
+		#pragma endregion 	
 }
 
 void jk::Stage2_MiniBoss::Update()
@@ -141,6 +135,7 @@ void jk::Stage2_MiniBoss::OnEnter()
 	cameraComp_ui->TurnLayerMask(eLayerType::Effect, false);
 	cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 	cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
+	cameraComp_ui->TurnLayerMask(eLayerType::Hitbox, false);
 	cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
 	cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
 	cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);

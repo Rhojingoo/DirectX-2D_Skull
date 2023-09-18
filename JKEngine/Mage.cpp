@@ -531,7 +531,7 @@ namespace jk
 	void Mage::LateUpdate()
 	{
 		_collider->SetSize(Vector2(0.1f, 0.5f));
-		_collider->SetCenter(Vector2(0.0f, -30.f));	
+		_collider->SetCenter(Vector2(0.0f, -30.f));
 
 		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
 		if (_attack_Col == true)
@@ -544,6 +544,10 @@ namespace jk
 			//	HitBox_TR->SetPosition(Vector3(pos.x + 50, pos.y - 30, pos.z));
 			//else
 			//	HitBox_TR->SetPosition(Vector3(pos.x - 50, pos.y - 30, pos.z));
+		}
+		else if(_state == Mage_State::Die)
+		{
+			Hit_Box->SetState(eState::Paused);
 		}
 		else
 		{
