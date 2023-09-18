@@ -2,6 +2,7 @@
 #include "jkAnimator.h"
 #include "jkParticleSystem.h"
 #include "jkPaintShader.h"
+#include "Blosome.h"
 
 namespace jk
 {

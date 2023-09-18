@@ -6,10 +6,11 @@
 #include "jkResources.h"
 #include "jkTransform.h"
 #include "jkGameObject.h"
+#include "jkAnimator.h"
 
 namespace jk
 {
-	ParticleSystem::ParticleSystem()
+	ParticleSystem::ParticleSystem(const Vector3& set)
 		: mCount(0)
 		, mStartSize(Vector4::One)
 		, mEndSize(Vector4::One)
@@ -21,15 +22,19 @@ namespace jk
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"PointMesh");
 		SetMesh(mesh);
 
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"ParticleMaterial");
+		std::shared_ptr<Material> material = Resources::Find<Material>(L"ParticleMaterial2");
 		SetMaterial(material);
 
 		mCS = Resources::Find<ParticleShader>(L"ParticleSystemShader");
+		_Pos = set;
+
 
 		Particle particle[1000] = {};
 		for (size_t i = 0; i < 1000; i++)
 		{
-			Vector4 pos = Vector4::Zero;
+			//Transform* TR = GetOwner()->GetComponent<Transform>();
+			Vector4 pos = Vector4(_Pos.x, _Pos.y, _Pos.z-1, 0.f);
+			//pos = Vector4::Zero;
 			//pos.x += rand() % 20;
 			//pos.y += rand() % 10;
 
@@ -53,7 +58,7 @@ namespace jk
 		mBuffer->Create(sizeof(Particle), 1000, eViewType::UAV, particle);
 
 		mSharedBuffer = new graphics::StructuredBuffer();
-		mSharedBuffer->Create(sizeof(ParticleShared), 1, eViewType::UAV, nullptr, true);
+		mSharedBuffer->Create(sizeof(ParticleShared), 1000, eViewType::UAV, nullptr, true);
 	}
 	ParticleSystem::~ParticleSystem()
 	{
@@ -63,6 +68,37 @@ namespace jk
 
 	void ParticleSystem::Initialize()
 	{
+		//Transform* TR = GetOwner()->GetComponent<Transform>();
+		//pos = Vector4(TR->GetPosition().x, TR->GetPosition().y, TR->GetPosition().z, 0.f);
+
+
+		//Particle particle[1000] = {};
+		//for (size_t i = 0; i < 1000; i++)
+		//{
+		//	Transform* TR = GetOwner()->GetComponent<Transform>();
+		//	Vector4 pos = Vector4(TR->GetPosition().x, TR->GetPosition().y, TR->GetPosition().z, 0.f);
+		//	//pos = Vector4::Zero;
+		//	//pos.x += rand() % 20;
+		//	//pos.y += rand() % 10;
+
+		//	//int sign = rand() % 2;
+		//	//if (sign == 0)
+		//	//	pos.x *= -10.0f;
+		//	//sign = rand() % 2;
+		//	//if (sign == 0)
+		//	//	pos.y *= -10.0f;
+
+		//	particle[i].direction =
+		//		Vector4(cosf((float)i * (XM_2PI / (float)1000))
+		//			, sinf((float)i * (XM_2PI / 100.f))
+		//			, 0.0f, 1.0f);
+		//	particle[i].position = pos;
+		//	particle[i].speed = 1.0f;
+		//	particle[i].active = 0;
+		//}
+
+		//mBuffer = new graphics::StructuredBuffer();
+		//mBuffer->Create(sizeof(Particle), 1000, eViewType::UAV, particle);
 	}
 	void ParticleSystem::Update()
 	{

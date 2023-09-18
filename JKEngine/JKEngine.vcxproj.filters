@@ -517,6 +517,9 @@
     <ClInclude Include="Player_AfterImage.h">
       <Filter>Game_ob</Filter>
     </ClInclude>
+    <ClInclude Include="Blosome.h">
+      <Filter>Game_ob\Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1029,6 +1032,9 @@
     <ClCompile Include="Player_AfterImage.cpp">
       <Filter>Game_ob</Filter>
     </ClCompile>
+    <ClCompile Include="Blosome.cpp">
+      <Filter>Game_ob\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1273,6 +1279,9 @@
     </Filter>
     <Filter Include="Game_ob\Alpha_Blend">
       <UniqueIdentifier>{0798d46d-e3ce-41f3-a943-fe444556c681}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Particle">
+      <UniqueIdentifier>{3fee6bea-8bae-407f-a40b-9c4640638d14}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

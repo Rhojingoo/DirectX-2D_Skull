@@ -110,17 +110,24 @@ namespace jk::renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 		
-
+		
 			shader = jk::Resources::Find<Shader>(L"AfterImage_Shader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		//애니메이션 파티클 연습용
+		//shader = jk::Resources::Find<Shader>(L"ParticleShader2");
+		//jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+		//	, shader->GetVSCode()
+		//	, shader->GetInputLayoutAddressOf());
 
-		shader = jk::Resources::Find<Shader>(L"AfterImageShader");
-		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-			, shader->GetVSCode()
-			, shader->GetInputLayoutAddressOf());
+
+		//없애도되는 쉐이더 (공부용)
+		//shader = jk::Resources::Find<Shader>(L"AfterImageShader");
+		//jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+		//	, shader->GetVSCode()
+		//	, shader->GetInputLayoutAddressOf());
 
 #pragma endregion
 
@@ -409,12 +416,10 @@ namespace jk::renderer
 
 		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
 		Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
+		Resources::Load<Texture>(L"Blossom_Particle", L"..\\Resources\\particle\\BlossomParticle_14.png");
 		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
 		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
 		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
-		//Resources::Load<Texture>(L"Basic_AfterImage", L"..\\Resources\\noise\\noise_03.png");
-
-
 	}
 
 
@@ -476,16 +481,28 @@ namespace jk::renderer
 		jk::Resources::Insert(L"ParticleShader", paritcleShader);
 
 
-		// 잔상
-		std::shared_ptr<Shader> afterimageShader = std::make_shared<Shader>();
-		afterimageShader->Create(eShaderStage::VS, L"AfterImageVS.hlsl", "main");
-		afterimageShader->Create(eShaderStage::GS, L"AfterImageGS.hlsl", "main");
-		afterimageShader->Create(eShaderStage::PS, L"AfterImagePS.hlsl", "main");
-		afterimageShader->SetRSState(eRSType::SolidNone);
-		afterimageShader->SetBSState(eBSType::AlphaBlend);
-		afterimageShader->SetDSState(eDSType::NoWrite);
-		afterimageShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
-		jk::Resources::Insert(L"AfterImageShader", afterimageShader);
+		//파티클 애니메이션화
+		//std::shared_ptr<Shader> paritcleShader2 = std::make_shared<Shader>();
+		//paritcleShader2->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
+		//paritcleShader2->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
+		//paritcleShader2->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
+		//paritcleShader2->SetRSState(eRSType::SolidNone);
+		//paritcleShader2->SetBSState(eBSType::AlphaBlend);
+		//paritcleShader2->SetDSState(eDSType::NoWrite);
+		//paritcleShader2->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+		//jk::Resources::Insert(L"ParticleShader2", paritcleShader2);
+
+
+		// 파티클 잔상화
+		//std::shared_ptr<Shader> afterimageShader = std::make_shared<Shader>();
+		//afterimageShader->Create(eShaderStage::VS, L"AfterImageVS.hlsl", "main");
+		//afterimageShader->Create(eShaderStage::GS, L"AfterImageGS.hlsl", "main");
+		//afterimageShader->Create(eShaderStage::PS, L"AfterImagePS.hlsl", "main");
+		//afterimageShader->SetRSState(eRSType::SolidNone);
+		//afterimageShader->SetBSState(eBSType::AlphaBlend);
+		//afterimageShader->SetDSState(eDSType::NoWrite);
+		//afterimageShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+		//jk::Resources::Insert(L"AfterImageShader", afterimageShader);
 
 
 		//구름
@@ -541,10 +558,11 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"HP_Bar_Shader");
 		std::shared_ptr<Shader> alpha_Shader
 			= Resources::Find<Shader>(L"Alpha_Shader");
-		std::shared_ptr<Shader> dahs_Shader
-			= Resources::Find<Shader>(L"AfterImageShader");
-				
-
+		//std::shared_ptr<Shader> dahs_Shader  //연습용 파티클 대쉬
+		//	= Resources::Find<Shader>(L"AfterImageShader");
+		//std::shared_ptr<Shader> particleShader2  //연습용 파티클 애니메이션
+		//	= Resources::Find<Shader>(L"ParticleShader2");
+		
 		#pragma region Public
 		#pragma region Mouse
 			std::shared_ptr<Texture> texture
@@ -658,16 +676,33 @@ namespace jk::renderer
 		Resources::Insert(L"ParticleMaterial", material);
 
 
-		std::shared_ptr<Texture> testText
-			= Resources::Find<Texture>(L"CartoonSmoke");
+		std::shared_ptr<Texture> particleText2
+			= Resources::Find<Texture>(L"Blossom_Particle");
 		material = std::make_shared<Material>();
-		material->SetShader(dahs_Shader);
-		material->SetTexture(testText);
+		material->SetShader(particleShader);
+		material->SetTexture(particleText2);
 		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert(L"DashBase_Material", material);
+		Resources::Insert(L"ParticleMaterial2", material);
+
+		//파티클 애니메이션용
+		//#pragma region Dash
+		//		material = std::make_shared<Material>();
+		//		material->SetShader(particleShader2);
+		//		material->SetRenderingMode(eRenderingMode::Transparent);
+		//		Resources::Insert(L"AniParticleMaterial", material);
+		//#pragma endregion
+		
+		// 파티클 대쉬용
+		//std::shared_ptr<Texture> testText
+		//	= Resources::Find<Texture>(L"CartoonSmoke");
+		//material = std::make_shared<Material>();
+		//material->SetShader(dahs_Shader);
+		//material->SetTexture(testText);
+		//material->SetRenderingMode(eRenderingMode::Transparent);
+		//Resources::Insert(L"DashBase_Material", material);
 
 
-		////애니메이션 만들때 사용
+
 
 
 		#pragma region Title
@@ -949,6 +984,23 @@ namespace jk::renderer
 						material->SetTexture(texture);
 						material->SetRenderingMode(eRenderingMode::Transparent);
 						Resources::Insert(L"Stage1_Back_GR16", material);
+
+
+						texture = Resources::Load<Texture>(L"back_gr17_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR17.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Back_GR17", material);
+
+
+
+						texture = Resources::Load<Texture>(L"back_gr18_stage1", L"..\\Resources\\Texture\\Stage1\\PUBLC_BG\\Back_GR18.png");
+						material = std::make_shared<Material>();
+						material->SetShader(spriteShader);
+						material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent);
+						Resources::Insert(L"Stage1_Back_GR18", material);
 				#pragma endregion
 
 

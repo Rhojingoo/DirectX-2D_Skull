@@ -164,6 +164,7 @@
     <ClInclude Include="Archer_Upward_Impact_Bullet.h" />
     <ClInclude Include="Archer_Utimate_Sign.h" />
     <ClInclude Include="BG.h" />
+    <ClInclude Include="Blosome.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Castle_Area.h" />
@@ -340,6 +341,7 @@
     <ClCompile Include="Archer_Upward_Impact_Bullet.cpp" />
     <ClCompile Include="Archer_Utimate_Sign.cpp" />
     <ClCompile Include="BG.cpp" />
+    <ClCompile Include="Blosome.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Castle_Area.cpp" />

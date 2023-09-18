@@ -98,6 +98,32 @@ namespace jk
 		}
 
 		template <typename T>
+		T* AddComponent(const Vector3& abc)
+		{
+			T* comp = new T(abc);
+
+			Component* buff
+				= dynamic_cast<Component*>(comp);
+			Script* script
+				= dynamic_cast<Script*>(buff);
+
+			if (buff == nullptr)
+				return nullptr;
+
+			if (script == nullptr)
+				mComponents.push_back(buff);
+			else
+				mScripts.push_back(script);
+
+			comp->SetOwner(this);		
+			comp->Initialize();
+
+
+			return comp;
+		}
+
+
+		template <typename T>
 		T* RemoveComponent(UINT COLID)
 		{
 			for (auto it = mComponents.begin(); it != mComponents.end(); ++it)

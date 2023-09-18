@@ -9,7 +9,7 @@ namespace jk
 	class ParticleSystem : public MeshRenderer
 	{
 	public:
-		ParticleSystem();
+		ParticleSystem(const Vector3 &set);
 		~ParticleSystem();
 
 		virtual void Initialize() override;
@@ -21,9 +21,10 @@ namespace jk
 		graphics::StructuredBuffer* mBuffer;
 		std::shared_ptr<ParticleShader> mCS;
 		graphics::StructuredBuffer* mSharedBuffer;
-
+		Vector3 _Pos = {};
 
 		UINT    mCount;
+		Vector4 pos = Vector4::Zero;
 		Vector4 mStartSize;
 		Vector4 mEndSize;
 		Vector4 mStartColor;
