@@ -127,6 +127,11 @@ cbuffer AlphaBlend : register(b9)
     float4 Alpha;
 }
 
+cbuffer DirectionBuffer : register(b10)
+{
+    bool Direction;
+}
+
 
 struct Particle
 {

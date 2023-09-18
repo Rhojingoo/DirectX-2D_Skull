@@ -118,6 +118,12 @@
     <Filter Include="GameObject\Component\Render\MeshRenderer">
       <UniqueIdentifier>{fe7192c8-82b3-4187-8c16-07aa7b0cf3ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\ParticleSystem\Particle_Tree">
+      <UniqueIdentifier>{6e5c884a-bc78-4eca-bb47-988552ce8532}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\ParticleSystem\Particle_Damege">
+      <UniqueIdentifier>{66f61da7-1e3b-4606-a56f-db79df625ca2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -249,11 +255,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkParticleShader.h">
       <Filter>Resource\Shader\CS</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkParticleSystem.h">
-      <Filter>GameObject\Component\ParticleSystem</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkPaintShader.h">
       <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkParticleSystem.h">
+      <Filter>GameObject\Component\ParticleSystem\Particle_Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Particle_DamageEffect.h">
+      <Filter>GameObject\Component\ParticleSystem\Particle_Damege</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -371,11 +380,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkParticleShader.cpp">
       <Filter>Resource\Shader\CS</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkParticleSystem.cpp">
-      <Filter>GameObject\Component\ParticleSystem</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkPaintShader.cpp">
       <Filter>Resource\Shader\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkParticleSystem.cpp">
+      <Filter>GameObject\Component\ParticleSystem\Particle_Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Particle_DamageEffect.cpp">
+      <Filter>GameObject\Component\ParticleSystem\Particle_Damege</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

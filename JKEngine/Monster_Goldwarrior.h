@@ -48,6 +48,10 @@ namespace jk
 		float _CurrenHp = 100;
 		int	_bulletcheck = 0;
 
+	private:
+		GameObject* Hit_Particle = nullptr;
+		bool	_hit_particle = false;
+		float	_particletime = 0.f;
 
 	private:
 		Monster_Goldwarrior_State _state;

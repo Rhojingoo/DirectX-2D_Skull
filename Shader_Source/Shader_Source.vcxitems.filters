@@ -56,19 +56,19 @@
       <Filter>HLSL\Alpha</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)PaintCS.hlsl">
-      <Filter>HLSL\Particle</Filter>
+      <Filter>HLSL\Particle_Tree</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)ParticleCS.hlsl">
-      <Filter>HLSL\Particle</Filter>
+      <Filter>HLSL\Particle_Tree</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)ParticleGS.hlsl">
-      <Filter>HLSL\Particle</Filter>
+      <Filter>HLSL\Particle_Tree</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)ParticlePS.hlsl">
-      <Filter>HLSL\Particle</Filter>
+      <Filter>HLSL\Particle_Tree</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)ParticleVS.hlsl">
-      <Filter>HLSL\Particle</Filter>
+      <Filter>HLSL\Particle_Tree</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)AfterImageGS.hlsl">
       <Filter>HLSL\AfterImage</Filter>
@@ -84,6 +84,18 @@
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)Dash_AniPS.hlsl">
       <Filter>HLSL\Animation</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)HitParticleGS.hlsl">
+      <Filter>HLSL\Particle_Hit</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)HitParticlePS.hlsl">
+      <Filter>HLSL\Particle_Hit</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)HitParticleVS.hlsl">
+      <Filter>HLSL\Particle_Hit</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)HitParticleCS.hlsl">
+      <Filter>HLSL\Particle_Hit</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,11 +132,14 @@
     <Filter Include="HLSL\Alpha">
       <UniqueIdentifier>{7e648099-41bf-4d60-a32b-e6c10c116d79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="HLSL\Particle">
-      <UniqueIdentifier>{935c0351-4446-42b9-bc4d-3ce93c83f79e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="HLSL\AfterImage">
       <UniqueIdentifier>{86a05a9b-845f-444b-9630-429936086764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\Particle_Tree">
+      <UniqueIdentifier>{935c0351-4446-42b9-bc4d-3ce93c83f79e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL\Particle_Hit">
+      <UniqueIdentifier>{8d42d2b4-2ada-415d-aac7-752747396367}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

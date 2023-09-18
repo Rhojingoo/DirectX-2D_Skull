@@ -1,4 +1,6 @@
 #include "Monster_BigEnt.h"
+#include "Particle_DamageEffect.h"
+
 
 namespace jk
 {
@@ -99,7 +101,13 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
 			_Death_Effect->SetState(eState::Paused);
 		}
-
+		{
+			Hit_Particle = new GameObject();
+			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
+			Hit_Particle->SetState(eState::Paused);
+		}
 
 		GameObject::Initialize();
 	}
@@ -131,6 +139,17 @@ namespace jk
 		{
 			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
 			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		}
+
+		if (_hit_particle == true)
+		{
+			_particletime += Time::DeltaTime();
+			if (_particletime > 0.5)
+			{
+				Hit_Particle->SetState(eState::Paused);
+				_particletime = 0.f;
+				_hit_particle = false;
+			}
 		}
 
 
@@ -211,11 +230,10 @@ namespace jk
 	{
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{
-			if (!(_state == Monster_BigEnt_State::Idle))
+			if (_state == Monster_BigEnt_State::Dead)
 				return;
 
-
-			//if (!(_state == Monster_BigEnt_State::AttackA_Ready || _state == Monster_BigEnt_State::AttackA|| _state == Monster_BigEnt_State::AttackA_End|| _state == Monster_BigEnt_State::AttackB_Ready || _state == Monster_BigEnt_State::AttackB))
+			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 			{
 				if (mDir == 1)
 				{
@@ -228,6 +246,12 @@ namespace jk
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(1);
 					_Hit_Effect->SetState(eState::Active);
+
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(_pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(1);
+					_hit_particle = true;
 				}
 				if (mDir == -1)
 				{
@@ -239,6 +263,12 @@ namespace jk
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
 					_Hit_Effect->SetState(eState::Active);
+
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(_pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(-1);
+					_hit_particle = true;
 				}
 				if (_CurrenHp <= 0)
 				{
@@ -255,7 +285,7 @@ namespace jk
 
 			if (_state == Monster_BigEnt_State::Dead)
 				return;
-
+			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 			{
 				if (player->_Head_Attack == false && _bulletcheck == 0)
 				{
@@ -272,6 +302,12 @@ namespace jk
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(1);
 						_Hit_Effect->SetState(eState::Active);
+
+						Hit_Particle->SetState(eState::Active);
+						mr->SetPosition(_pos);
+						mr->Setpos_siwtch(true);
+						mr->SetDirection(1);
+						_hit_particle = true;
 					}
 					if (mDir == -1)
 					{
@@ -283,6 +319,12 @@ namespace jk
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(-1);
 						_Hit_Effect->SetState(eState::Active);
+
+						Hit_Particle->SetState(eState::Active);
+						mr->SetPosition(_pos);
+						mr->Setpos_siwtch(true);
+						mr->SetDirection(-1);
+						_hit_particle = true;
 					}
 					if (_CurrenHp <= 0)
 					{

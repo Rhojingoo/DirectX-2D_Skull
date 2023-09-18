@@ -54,6 +54,11 @@ namespace jk
 		Player_Hp_Bar* Player_Hp = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Death_Effect* _Death_Effect = nullptr;
+	
+	private:
+		GameObject* Hit_Particle = nullptr;
+		bool	_hit_particle = false;
+		float	_particletime = 0.f;
 
 	private:
 		Monster_GreenTree_State _state;

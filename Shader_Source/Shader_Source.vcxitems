@@ -34,6 +34,10 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)DebugVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)GridPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)GridVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)HitParticleCS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)HitParticleGS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)HitParticlePS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)HitParticleVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)HP_Bar_PS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)HP_Bar_VS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)MovePS.hlsl" />

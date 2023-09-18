@@ -163,6 +163,7 @@ namespace jk
 		}			
 		
 		Input_move();
+		_Pos = pos;
 		tr->SetPosition(pos);
 
 		GameObject::Update();

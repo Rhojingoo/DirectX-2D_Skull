@@ -109,8 +109,13 @@ namespace jk::renderer
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
-		
-		
+
+
+		shader = jk::Resources::Find<Shader>(L"HITParticleShader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());		
+				
 			shader = jk::Resources::Find<Shader>(L"AfterImage_Shader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
@@ -417,6 +422,7 @@ namespace jk::renderer
 		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
 		Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
 		Resources::Load<Texture>(L"Blossom_Particle", L"..\\Resources\\particle\\BlossomParticle_14.png");
+		Resources::Load<Texture>(L"HIT_Particle", L"..\\Resources\\particle\\Particle_Hit.png");
 		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
 		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
 		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
@@ -463,13 +469,13 @@ namespace jk::renderer
 		paintShader->Create(L"PaintCS.hlsl", "main");
 		jk::Resources::Insert(L"PaintShader", paintShader);
 
-		// Compute Shader
+		// Compute Shader (배경용)
 		std::shared_ptr<ParticleShader> psSystemShader = std::make_shared<ParticleShader>();
 		psSystemShader->Create(L"ParticleCS.hlsl", "main");
 		jk::Resources::Insert(L"ParticleSystemShader", psSystemShader);
 
 
-		// 파티클
+		// 파티클 (배경용)
 		std::shared_ptr<Shader> paritcleShader = std::make_shared<Shader>();
 		paritcleShader->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
 		paritcleShader->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
@@ -479,6 +485,23 @@ namespace jk::renderer
 		paritcleShader->SetDSState(eDSType::NoWrite);
 		paritcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 		jk::Resources::Insert(L"ParticleShader", paritcleShader);
+
+
+		// Compute Shader (대미지용)
+		std::shared_ptr<ParticleShader> hitpsSystemShader = std::make_shared<ParticleShader>();
+		hitpsSystemShader->Create(L"HitParticleCS.hlsl", "main");
+		jk::Resources::Insert(L"HITParticleSystemShader", hitpsSystemShader);
+		
+		// 파티클 (대미지용)
+		std::shared_ptr<Shader> hitparitcleShader = std::make_shared<Shader>();
+		hitparitcleShader->Create(eShaderStage::VS, L"HitParticleVS.hlsl", "main");
+		hitparitcleShader->Create(eShaderStage::GS, L"HitParticleGS.hlsl", "main");
+		hitparitcleShader->Create(eShaderStage::PS, L"HitParticlePS.hlsl", "main");
+		hitparitcleShader->SetRSState(eRSType::SolidNone);
+		hitparitcleShader->SetBSState(eBSType::AlphaBlend);
+		hitparitcleShader->SetDSState(eDSType::NoWrite);
+		hitparitcleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+		jk::Resources::Insert(L"HITParticleShader", hitparitcleShader);
 
 
 		//파티클 애니메이션화
@@ -554,6 +577,9 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"DebugShader");
 		std::shared_ptr<Shader> particleShader
 			= Resources::Find<Shader>(L"ParticleShader");
+		std::shared_ptr<Shader> hitparticleShader
+			= Resources::Find<Shader>(L"HITParticleShader");
+
 		std::shared_ptr<Shader> hp_bar_Shader
 			= Resources::Find<Shader>(L"HP_Bar_Shader");
 		std::shared_ptr<Shader> alpha_Shader
@@ -675,7 +701,6 @@ namespace jk::renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"ParticleMaterial", material);
 
-
 		std::shared_ptr<Texture> particleText2
 			= Resources::Find<Texture>(L"Blossom_Particle");
 		material = std::make_shared<Material>();
@@ -684,6 +709,15 @@ namespace jk::renderer
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"ParticleMaterial2", material);
 
+		std::shared_ptr<Texture> particleText3
+			= Resources::Find<Texture>(L"HIT_Particle");
+		material = std::make_shared<Material>();
+		material->SetShader(particleShader);
+		material->SetTexture(particleText3);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"HITParticleMaterial", material);
+
+		
 		//파티클 애니메이션용
 		//#pragma region Dash
 		//		material = std::make_shared<Material>();

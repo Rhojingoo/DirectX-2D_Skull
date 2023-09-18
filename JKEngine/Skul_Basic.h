@@ -81,6 +81,7 @@ namespace jk
 		Hit_Critical_High* _Critical_High = nullptr;
 		Slash_Effect* _Knight_Slash = nullptr;
 		Hit_DarkPaladin* _DarkKnight = nullptr;
+		GameObject* Hit_Particle = nullptr;
 
 
 		Monster_Hammer::Monster_Hammer_State hammer_st = {};

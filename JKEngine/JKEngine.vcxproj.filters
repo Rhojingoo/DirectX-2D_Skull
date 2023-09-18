@@ -100,9 +100,6 @@
     <ClInclude Include="Monster_warrior.h">
       <Filter>Game_ob\Monster\Monster_warrior</Filter>
     </ClInclude>
-    <ClInclude Include="Stone_wizard.h">
-      <Filter>Game_ob\Monster\Monster_Stone_wizard</Filter>
-    </ClInclude>
     <ClInclude Include="Yggdrasil.h">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
     </ClInclude>
@@ -520,6 +517,9 @@
     <ClInclude Include="Blosome.h">
       <Filter>Game_ob\Particle</Filter>
     </ClInclude>
+    <ClInclude Include="Stone_wizard.h">
+      <Filter>Game_ob\Monster\Monster_Stone_wizard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -614,9 +614,6 @@
     </ClCompile>
     <ClCompile Include="Monster_warrior.cpp">
       <Filter>Game_ob\Monster\Monster_warrior</Filter>
-    </ClCompile>
-    <ClCompile Include="Stone_wizard.cpp">
-      <Filter>Game_ob\Monster\Monster_Stone_wizard</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil.cpp">
       <Filter>Game_ob\Boss\Yggdrasil</Filter>
@@ -1034,6 +1031,9 @@
     </ClCompile>
     <ClCompile Include="Blosome.cpp">
       <Filter>Game_ob\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone_wizard.cpp">
+      <Filter>Game_ob\Monster\Monster_Stone_wizard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

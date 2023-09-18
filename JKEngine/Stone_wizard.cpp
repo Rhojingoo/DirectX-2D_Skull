@@ -1,7 +1,7 @@
 #include "Stone_wizard.h"
 #include <iostream>
 #include <random>
-
+#include "Particle_DamageEffect.h"
 
 namespace jk
 {
@@ -127,7 +127,13 @@ namespace jk
 			effect_tr->SetPosition(tr->GetPosition());
 			Icicle_Bullet->SetState(eState::Paused);
 		}
-
+		{
+			Hit_Particle = new GameObject();
+			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
+			Hit_Particle->SetState(eState::Paused);
+		}
 
 		GameObject::Initialize();
 	}
@@ -138,13 +144,26 @@ namespace jk
 		_velocity = _rigidbody->GetVelocity();
 		SetDirection();
 
-
+		if (_hit_particle == true)
+		{		
+			_particletime += Time::DeltaTime();
+			if (_particletime > 0.5)
+			{
+				Hit_Particle->SetState(eState::Paused);
+				_particletime = 0.f;
+				_hit_particle = false;
+			}			
+		}
 
 		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
 		hp_tr->SetPosition(Vector3(pos.x - (_MaxHp - _CurrenHp), pos.y + 50, pos.z - 1));
 		hp_tr->SetScale(_CurrenHp, 10, 0);
 		if (_CurrenHp <= 0)
+		{	
+			_hit_particle = false;
+			Hit_Particle->SetState(eState::Paused);
 			this->SetState(eState::Paused);
+		}
 
 		{
 			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
@@ -157,8 +176,6 @@ namespace jk
 			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
 			_Effect_TR->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
 		}
-
-
 
 
 		switch (_state)
@@ -187,18 +204,27 @@ namespace jk
 			teleport_out();
 			break;
 
+		case jk::Stone_wizard::Stone_wizard_State::Dead:
+			dead();
+			break;
+			
 		default:
 			break;
 		}
-
 
 		Effect_tr->SetPosition(tr->GetPosition());
 		GameObject::Update();
 	}
 	void Stone_wizard::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.45f, 0.7f));
-		_collider->SetCenter(Vector2(1.f, -5.8f));
+		if (_state == Stone_wizard_State::Dead)		
+			_collider->SetSize(Vector2(0.f, 0.f));		
+		else
+		{
+			_collider->SetSize(Vector2(0.45f, 0.7f));
+			_collider->SetCenter(Vector2(1.f, -5.8f));
+		}
+
 		GameObject::LateUpdate();
 	}
 	void Stone_wizard::Render()
@@ -210,50 +236,105 @@ namespace jk
 	void Stone_wizard::OnCollisionEnter(Collider2D* other)
 	{
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
-		{
-			if (!(_state == Stone_wizard_State::Idle))
-				return;
+		{	
+			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 
 			if (!(_state == Stone_wizard_State::Attack || _state == Stone_wizard_State::Attack_Ready))
-			{
-				if (!(_state == Stone_wizard_State::Attack || _state == Stone_wizard_State::Attack_Ready))
+			{			
+				_state = Stone_wizard_State::Hit;
+				if (mDir == 1)
 				{
-					_state = Stone_wizard_State::Hit;
-					if (mDir == 1)
-					{
-						at->PlayAnimation(L"Stone_wizardHit", false);
-						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
-						tr->SetPosition(pos);
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(10);
-						_CurrenHp = _CurrenHp - 10;
+					at->PlayAnimation(L"Stone_wizardHit", false);
+					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+					tr->SetPosition(pos);
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+					_CurrenHp = _CurrenHp - 10;
 
-						_Hit_Effect->_effect_animation = true;
-						_Hit_Effect->SetDirection(1);
-						_Hit_Effect->SetState(eState::Active);
-					}
-					if (mDir == -1)
-					{
-						at->PlayAnimation(L"Stone_wizardHitR", false);
-						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
-						tr->SetPosition(pos);
-						_CurrenHp = _CurrenHp - 10;
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(10);
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
 
-						_Hit_Effect->_effect_animation = true;
-						_Hit_Effect->SetDirection(-1);
-						_Hit_Effect->SetState(eState::Active);
-					}
-					if (_CurrenHp <= 0)
-					{
-						_state = Stone_wizard_State::Dead;
-						_Hit_Effect->_effect_animation = true;
-						_Death_Effect->SetState(eState::Active);
-						_CurrenHp = 0;					
-					}
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(1);
+					_hit_particle = true;
+				}
+				if (mDir == -1)
+				{
+					at->PlayAnimation(L"Stone_wizardHitR", false);
+					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+					tr->SetPosition(pos);
+					_CurrenHp = _CurrenHp - 10;
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
+
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(-1);
+					_hit_particle = true;
+				}
+				if (_CurrenHp <= 0)
+				{
+					_state = Stone_wizard_State::Dead;
+					_Hit_Effect->_effect_animation = true;
+					_Death_Effect->SetState(eState::Active);
+					_CurrenHp = 0;					
 				}
 			}			
+
+			if ((_state == Stone_wizard_State::Attack || _state == Stone_wizard_State::Attack_Ready))
+			{	
+				if (mDir == 1)
+				{
+					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+					tr->SetPosition(pos);
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+					_CurrenHp = _CurrenHp - 10;
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
+
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(1);
+					_hit_particle = true;
+				}
+				if (mDir == -1)
+				{				
+					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+					tr->SetPosition(pos);
+					_CurrenHp = _CurrenHp - 10;
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
+
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(-1);
+					_hit_particle = true;
+				}
+				if (_CurrenHp <= 0)
+				{
+					_state = Stone_wizard_State::Dead;
+					_Hit_Effect->_effect_animation = true;
+					_Death_Effect->SetState(eState::Active);
+					_CurrenHp = 0;
+				}
+			}
 		}	
 
 		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
@@ -302,6 +383,11 @@ namespace jk
 					_bulletcheck++;
 				}
 			}
+
+			Hit_Particle->SetState(eState::Active);
+			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
+			mr->SetPosition(pos);
+			mr->Setpos_siwtch(true);
 		}
 	}
 	void Stone_wizard::OnCollisionStay(Collider2D* other)
@@ -364,10 +450,7 @@ namespace jk
 			_rigidbody->SetGround(false);
 			_Ground_check = false;
 		}
-		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
-		{
-			_bulletcheck = 0;
-		}
+
 	}
 
 	void Stone_wizard::idle()
@@ -468,7 +551,7 @@ namespace jk
 	void Stone_wizard::hit()
 	{
 		_attacktime += Time::DeltaTime();
-		if (_attacktime >= 0.5)
+		if (_attacktime >= 1)
 		{
 			_state = Stone_wizard_State::Idle;
 			if (mDir == 1)
@@ -476,6 +559,17 @@ namespace jk
 			else
 				at->PlayAnimation(L"Stone_wizardIdleR", true);
 			_attacktime = 0;
+			_hit_particle = true;
+		}
+	}
+
+	void Stone_wizard::dead()
+	{
+		_attacktime += Time::DeltaTime();
+		if (_attacktime >= 1)
+		{
+			_attacktime = 0;
+			_hit_particle = true;
 		}
 	}
 
@@ -572,7 +666,6 @@ namespace jk
 			_time = 0.f;
 		}
 	}
-
 
 	void Stone_wizard::complete_attack_ready()
 	{

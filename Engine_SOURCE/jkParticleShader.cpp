@@ -32,7 +32,6 @@ namespace jk::graphics
 		mSharedBuffer->Clear();
 	}
 
-
 	void ParticleShader::SetParticleBuffer(StructuredBuffer* particleBuffer)
 	{
 		mParticleBuffer = particleBuffer;

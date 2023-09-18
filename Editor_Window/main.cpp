@@ -9,6 +9,7 @@
 #include "..\Engine_SOURCE\jkResources.h"
 #include "LoadScenes.h"
 #include "guiEditor.h"
+#include <thread>
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\JKEngine.lib")
@@ -129,33 +130,62 @@ ATOM MyRegisterClass(HINSTANCE hInstance, LPCWSTR name, WNDPROC proc)
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-   hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
+     hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-  //main
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-   //Tool
-   //HWND hWnd2 = CreateWindowW(L"ToolWindow", szTitle, WS_OVERLAPPEDWINDOW,
-   //    CW_USEDEFAULT, 0, 500, 500, nullptr, nullptr, hInstance, nullptr);
+    //main
+     HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+     //Tool
+     //HWND hWnd2 = CreateWindowW(L"ToolWindow", szTitle, WS_OVERLAPPEDWINDOW,
+     //    CW_USEDEFAULT, 0, 500, 500, nullptr, nullptr, hInstance, nullptr);
 
-   if (!hWnd)
-   {
-      return FALSE;
-   }
+     if (!hWnd)
+     {
+        return FALSE;
+     }
 
-   application.SetWindow(hWnd, 1600, 900);
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
+     application.SetWindow(hWnd, 1600, 900);
+     ShowWindow(hWnd, nCmdShow);
+     UpdateWindow(hWnd);
 
-   //ShowWindow(hWnd2, nCmdShow);
-   //UpdateWindow(hWnd2);
+     //ShowWindow(hWnd2, nCmdShow);
+     //UpdateWindow(hWnd2);
 
-   application.Initialize();
-   //application.SetToolHwnd(hWnd2);
-   jk::InitializeScenes();
-   gui::Editor::Initialize();
+     application.Initialize();
+     //application.SetToolHwnd(hWnd2);
+     jk::InitializeScenes();
+     gui::Editor::Initialize();
 
-   return TRUE;
+     return TRUE;
+    
+    //{//멀티스레드 시도
+    //{
+    //    hInst = hInstance;
+    //    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+    //        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+    //    if (!hWnd)
+    //    {
+    //        return FALSE;
+    //    }
+    //    application.SetWindow(hWnd, 1600, 900);
+    //    ShowWindow(hWnd, nCmdShow);
+    //    UpdateWindow(hWnd);
+    //    // 병렬 초기화를 위한 스레드 생성
+    //    std::thread initAppThread([&]() {
+    //        application.Initialize();
+    //        });
+    //    std::thread initSceneThread([&]() {
+    //        jk::InitializeScenes();
+    //        });
+    //    std::thread initEditorThread([&]() {
+    //        gui::Editor::Initialize();
+    //        });
+    //    // 모든 스레드가 종료될 때까지 대기
+    //    initAppThread.join();
+    //    initSceneThread.join();
+    //    initEditorThread.join();
+    //    return TRUE;
+    //}
 }
 
 //

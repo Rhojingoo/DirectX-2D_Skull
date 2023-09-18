@@ -61,11 +61,17 @@ namespace jk
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:
+		GameObject* Hit_Particle = nullptr;
+		bool	_hit_particle = false;
+		float	_particletime = 0.f;
+
+	private:
 		HitBox_Monster* Hit_Box = nullptr;
 		Player_Hp_Bar* Player_Hp = nullptr; 
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Death_Effect* _Death_Effect = nullptr;
 		bool _followskul = false;
+
 
 	private:
 		int		mDir = 1;

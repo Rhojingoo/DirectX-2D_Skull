@@ -57,6 +57,12 @@ namespace jk
 		float _MaxHp = 200;
 		float _CurrenHp = 200;
 
+
+	private:
+		GameObject* Hit_Particle = nullptr;
+		bool	_hit_particle = false;
+		float	_particletime = 0.f;
+
 	private:
 		Monster_Hammer_State _state = {};
 		Animator* at = nullptr;

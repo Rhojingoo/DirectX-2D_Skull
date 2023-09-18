@@ -1,4 +1,6 @@
 #include "Monster_Hammer.h"
+#include "Particle_DamageEffect.h"
+
 
 namespace jk
 {
@@ -112,6 +114,14 @@ namespace jk
 			_Hammer_Effect->SetState(eState::Paused);
 		}
 
+		{
+			Hit_Particle = new GameObject();
+			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
+			Hit_Particle->SetState(eState::Paused);
+		}
+
 		GameObject::Initialize();
 	}
 	void Monster_Hammer::Update()
@@ -130,6 +140,19 @@ namespace jk
 			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
 			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 		}
+
+		if (_hit_particle == true)
+		{
+			_particletime += Time::DeltaTime();
+			if (_particletime > 0.5)
+			{
+				Hit_Particle->SetState(eState::Paused);
+				_particletime = 0.f;
+				_hit_particle = false;
+			}
+		}
+
+
 
 		tr = GetComponent<Transform>();
 		_pos = tr->GetPosition();
@@ -241,6 +264,10 @@ namespace jk
 		
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{
+			if (_state == Monster_Hammer_State::Dead)
+				return;
+
+			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 			if (!(_state == Monster_Hammer_State::Attack || _state == Monster_Hammer_State::Tackle))
 			{
 				if (mDir == 1)
@@ -254,6 +281,12 @@ namespace jk
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(1);
 					_Hit_Effect->SetState(eState::Active);
+
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(_pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(1);
+					_hit_particle = true;
 				}
 				if (mDir == -1)
 				{
@@ -266,6 +299,68 @@ namespace jk
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
 					_Hit_Effect->SetState(eState::Active);
+
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(_pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(-1);
+					_hit_particle = true;
+				}
+				if (_CurrenHp <= 0)
+				{
+					_state = Monster_Hammer_State::Dead;
+					_Hit_Effect->_effect_animation = true;
+					if (_attackdir == 1)
+					{
+						at->PlayAnimation(L"HammerDead", false);
+						_Hit_Effect->SetDirection(1);
+					}
+					else
+					{
+						at->PlayAnimation(L"HammerDeadR", false);
+						_Hit_Effect->SetDirection(-1);
+					}
+					_Death_Effect->SetState(eState::Active);
+				}
+			}
+
+			if ((_state == Monster_Hammer_State::Attack || _state == Monster_Hammer_State::Tackle))
+			{
+				if (mDir == 1)
+				{
+					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+
+					_CurrenHp = _CurrenHp - 10;
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
+
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(_pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(1);
+					_hit_particle = true;
+				}
+				if (mDir == -1)
+				{
+					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+
+					_CurrenHp = _CurrenHp - 10;
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(10);
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
+
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(_pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(-1);
+					_hit_particle = true;
 				}
 				if (_CurrenHp <= 0)
 				{
@@ -288,6 +383,10 @@ namespace jk
 
 		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
 		{
+			if (_state == Monster_Hammer_State::Dead)
+				return;
+
+			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 			if (!(_state == Monster_Hammer_State::Attack || _state == Monster_Hammer_State::Tackle))
 			{
 				if (player->_Head_Attack == false && _bulletcheck ==0)
@@ -307,6 +406,12 @@ namespace jk
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(1);
 						_Hit_Effect->SetState(eState::Active);
+
+						Hit_Particle->SetState(eState::Active);
+						mr->SetPosition(_pos);
+						mr->Setpos_siwtch(true);
+						mr->SetDirection(1);
+						_hit_particle = true;
 					}
 					if (mDir == -1)
 					{
@@ -319,6 +424,77 @@ namespace jk
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(-1);
 						_Hit_Effect->SetState(eState::Active);
+
+						Hit_Particle->SetState(eState::Active);
+						mr->SetPosition(_pos);
+						mr->Setpos_siwtch(true);
+						mr->SetDirection(-1);
+						_hit_particle = true;
+					}
+					if (_CurrenHp <= 0)
+					{
+						_state = Monster_Hammer_State::Dead;
+						_Hit_Effect->_effect_animation = true;
+						if (_attackdir == 1)
+						{
+							at->PlayAnimation(L"HammerDead", false);
+							_Hit_Effect->SetDirection(1);
+						}
+						else
+						{
+							at->PlayAnimation(L"HammerDeadR", false);
+							_Hit_Effect->SetDirection(-1);
+						}
+						_Death_Effect->SetState(eState::Active);
+					}
+					_bulletcheck++;
+
+				}
+			}
+
+			if ((_state == Monster_Hammer_State::Attack || _state == Monster_Hammer_State::Tackle))
+			{
+				if (player->_Head_Attack == false && _bulletcheck == 0)
+				{
+
+					if (player->_Ground_check == true)
+						return;
+
+					if (mDir == 1)
+					{
+						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+
+						_CurrenHp = _CurrenHp - 25;
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(25);
+
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetDirection(1);
+						_Hit_Effect->SetState(eState::Active);
+
+						Hit_Particle->SetState(eState::Active);
+						mr->SetPosition(_pos);
+						mr->Setpos_siwtch(true);
+						mr->SetDirection(1);
+						_hit_particle = true;
+					}
+					if (mDir == -1)
+					{
+						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+
+						_CurrenHp = _CurrenHp - 25;
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(25);
+
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetDirection(-1);
+						_Hit_Effect->SetState(eState::Active);
+
+						Hit_Particle->SetState(eState::Active);
+						mr->SetPosition(_pos);
+						mr->Setpos_siwtch(true);
+						mr->SetDirection(-1);
+						_hit_particle = true;
 					}
 					if (_CurrenHp <= 0)
 					{

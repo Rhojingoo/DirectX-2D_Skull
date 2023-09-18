@@ -68,16 +68,16 @@ namespace jk
 					{
 						Back_ground* Back_GR03 = object::Instantiate<Back_ground>(Vector3(300.f, 350.f, 98.f), eLayerType::Fore_Ground, L"Stage1_Back_GR17");
 						Back_GR03->GetComponent<Transform>()->SetScale(Vector3(359.f, 308.f, 0.f));	Back_GR03->SetName(L"back_gr03");
-						ParticleSystem* mr = Back_GR03->AddComponent<ParticleSystem>(Vector3(300.f, 350.f, 98.f)); mr->Initialize();
+						ParticleSystem* mr = Back_GR03->AddComponent<ParticleSystem>(Vector3(300.f, 350.f, 98.f));
 
 						Back_ground* Back_GR04 = object::Instantiate<Back_ground>(Vector3(-245.f, 350.f, 98.f), eLayerType::Fore_Ground, L"Stage1_Back_GR18");
 						Back_GR04->GetComponent<Transform>()->SetScale(Vector3(341.f, 249.f, 0.f));	Back_GR04->SetName(L"back_gr04");
-						ParticleSystem* mr2 = Back_GR04->AddComponent<ParticleSystem>(Vector3(-245.f, 350.f, 98.f)); mr2->Initialize();
+						ParticleSystem* mr2 = Back_GR04->AddComponent<ParticleSystem>(Vector3(-245.f, 350.f, 98.f)); 
 
 
 						Back_ground* Back_GR05 = object::Instantiate<Back_ground>(Vector3(-605.f, -75.f, 98.f), eLayerType::Fore_Ground, L"Stage1_Back_GR18");
 						Back_GR05->GetComponent<Transform>()->SetScale(Vector3(341.f, 249.f, 0.f));	Back_GR05->SetName(L"back_gr05");
-						ParticleSystem* mr3 = Back_GR05->AddComponent<ParticleSystem>(Vector3(-605.f, -75.f, 98.f)); mr3->Initialize();
+						ParticleSystem* mr3 = Back_GR05->AddComponent<ParticleSystem>(Vector3(-605.f, -75.f, 98.f));
 					}
 					//Back_ground* Ground_Assistment = object::Instantiate<Back_ground>(Vector3(-100.f, 32.f, -199.f), eLayerType::Fore_Ground, L"Map1_1");
 					//Ground_Assistment->GetComponent<Transform>()->SetScale(Vector3(1920.f, 1024.f, 0.f));	Ground_Assistment->SetName(L"Map1_1_assist");
@@ -133,8 +133,8 @@ namespace jk
 		_player = object::Instantiate<Player>(Vector3(-700.f, -150.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 
-		//Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
-		//testmonster->SetName(L"test_monster"); 
+		Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
+		testmonster->SetName(L"test_monster"); 
 	}
 
 	void Stage1_1::Update()

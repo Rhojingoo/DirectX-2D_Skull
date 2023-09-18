@@ -1,5 +1,4 @@
-#include "jkParticleSystem.h"
-
+#include "Particle_DamageEffect.h"
 #include "jkTime.h"
 #include "jkMesh.h"
 #include "jkMaterial.h"
@@ -8,9 +7,12 @@
 #include "jkGameObject.h"
 #include "jkAnimator.h"
 
+
 namespace jk
 {
-	ParticleSystem::ParticleSystem(const Vector3& set)
+	float Particle_DamageEffect::mDir = 1.f;
+
+	Particle_DamageEffect::Particle_DamageEffect(const Vector3& set)
 		: mCount(0)
 		, mStartSize(Vector4::One)
 		, mEndSize(Vector4::One)
@@ -22,48 +24,53 @@ namespace jk
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"PointMesh");
 		SetMesh(mesh);
 
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"ParticleMaterial2");
+		std::shared_ptr<Material> material = Resources::Find<Material>(L"HITParticleMaterial");
 		SetMaterial(material);
 
-		mCS = Resources::Find<ParticleShader>(L"ParticleSystemShader");
+		mCS = Resources::Find<ParticleShader>(L"HITParticleSystemShader");
 		_Pos = set;
-
-
-		Particle particle[1000] = {};
-		for (size_t i = 0; i < 1000; i++)
-		{	
-			Vector4 pos = Vector4(_Pos.x, _Pos.y, _Pos.z-1, 0.f);
-	
-			particle[i].direction =
-				Vector4(cosf((float)i * (XM_2PI / (float)1000))
-					, sinf((float)i * (XM_2PI / 100.f))
-					, 0.0f, 1.0f);
-			particle[i].position = pos;
-			particle[i].speed = 1.0f;
-			particle[i].active = 0;
-		}
-
-		mBuffer = new graphics::StructuredBuffer();
-		mBuffer->Create(sizeof(Particle), 1000, eViewType::UAV, particle);
 
 		mSharedBuffer = new graphics::StructuredBuffer();
 		mSharedBuffer->Create(sizeof(ParticleShared), 1000, eViewType::UAV, nullptr, true);
 	}
-	ParticleSystem::~ParticleSystem()
+	Particle_DamageEffect::~Particle_DamageEffect()
 	{
 		delete mSharedBuffer;
-		delete mBuffer;
+		delete mBuffer;	
 	}
 
-	void ParticleSystem::Initialize()
-	{		
-	}
-	void ParticleSystem::Update()
+	void Particle_DamageEffect::Initialize()
 	{
 	}
-	void ParticleSystem::LateUpdate()
+	void Particle_DamageEffect::Update()
 	{
-		float AliveTime = 1.0f / 1.0f;
+		if (Setposition == true)
+		{
+			Particle particle[1000] = {};
+			for (size_t i = 0; i < 1000; i++)
+			{
+				Vector4 pos = Vector4(_Pos.x, _Pos.y, _Pos.z - 1, 0.f);
+
+				particle[i].direction =
+					Vector4(cosf((float)i * (XM_2PI / (float)1000))
+						, sinf((float)i * (XM_2PI / 100.f))
+						, mDir, 1.0f);
+				particle[i].position = pos;
+				particle[i].speed = 2.0f;
+				particle[i].active = 0;
+			}
+			if (mBuffer) // 이미 mBuffer가 있으면 해제
+			{
+				delete mBuffer;
+			}
+			mBuffer = new graphics::StructuredBuffer();
+			mBuffer->Create(sizeof(Particle), 1000, eViewType::UAV, particle);
+			Setposition = false;
+		}
+	}
+	void Particle_DamageEffect::LateUpdate()
+	{	
+		float AliveTime = 1.f / 1.0f;
 		mTime += Time::DeltaTime();
 
 		if (mTime > AliveTime)
@@ -73,7 +80,7 @@ namespace jk
 			mTime = f - floor(f);
 
 			ParticleShared shareData = {};
-			shareData.sharedActiveCount = 10;
+			shareData.sharedActiveCount = 35;
 			mSharedBuffer->SetData_Buffer(&shareData, 1);
 		}
 		else
@@ -87,7 +94,7 @@ namespace jk
 		mCS->SetSharedBuffer(mSharedBuffer);
 		mCS->OnExcute();
 	}
-	void ParticleSystem::Render()
+	void Particle_DamageEffect::Render()
 	{
 		GetOwner()->GetComponent<Transform>()->BindConstantBuffer();
 		mBuffer->BindSRV(eShaderStage::VS, 14);
@@ -98,4 +105,5 @@ namespace jk
 		GetMesh()->RenderInstanced(1000);
 		mBuffer->Clear();
 	}
+
 }

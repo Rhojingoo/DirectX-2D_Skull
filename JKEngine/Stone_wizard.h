@@ -43,6 +43,7 @@ namespace jk
 		void attack_ready();
 		void attack();
 		void hit();
+		void dead();
 		void teleport_in();
 		void teleport_out();
 
@@ -67,7 +68,7 @@ namespace jk
 		Player_Hp_Bar* Player_Hp = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Death_Effect* _Death_Effect = nullptr;
-
+		GameObject* Hit_Particle = nullptr;
 
 	private:
 		Monster_StoneWizard_Teleport* Wizard_Teleport = nullptr;
@@ -82,11 +83,13 @@ namespace jk
 		bool	_Ground_check = false;		// 땅체크시에 쓰이고 있는 변수
 		float	_time = 0.f;				// 공격시 사용중
 		float	_attacktime = 0.f;
+		float	_particletime = 0.f;
 	
 	private:	
 		bool	_teleportCheck = false;			// 텔레포드 인아웃을 할수 있도록 설정하는 변수
 		bool	_attack_ready = false;
 		bool	_attack = false;
+		bool	_hit_particle = false;
 
 
 	private:
