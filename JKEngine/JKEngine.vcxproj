@@ -124,6 +124,7 @@
       </PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -238,6 +239,7 @@
     <ClInclude Include="Monster_GroundAttack_Sign.h" />
     <ClInclude Include="Monster_Hammer_Effect.h" />
     <ClInclude Include="Monster_Hit_Effect.h" />
+    <ClInclude Include="Monster_ObjPool.h" />
     <ClInclude Include="Monster_StoneWizard_Icicle_Effect.h" />
     <ClInclude Include="Monster_StoneWizard_Teleport.h" />
     <ClInclude Include="Monster_Tackle_Flash_Effect.h" />
@@ -246,11 +248,13 @@
     <ClInclude Include="OutSide_CastleArea.h" />
     <ClInclude Include="Player_AfterImage.h" />
     <ClInclude Include="Player_Hit_Effect.h" />
+    <ClInclude Include="practice.h" />
     <ClInclude Include="Sky_Ground.h" />
     <ClInclude Include="Slash_Effect.h" />
     <ClInclude Include="Stage1_Door.h" />
     <ClInclude Include="Stage_end_table.h" />
     <ClInclude Include="Stage_end_wall.h" />
+    <ClInclude Include="Stge_Manager.h" />
     <ClInclude Include="Ultimate_OnFire_Fire.h" />
     <ClInclude Include="Ultimate_On_Fire_Projectile.h" />
     <ClInclude Include="Public_Heal_Effect.h" />
@@ -395,6 +399,7 @@
     <ClCompile Include="Layana_Dark_HomingPierce.cpp" />
     <ClCompile Include="Layana_Dark_HomingPierce_Effect.cpp" />
     <ClCompile Include="Layana_Ground_Thunder.cpp" />
+    <ClCompile Include="LoadScenes.cpp" />
     <ClCompile Include="Mage_BoomSign.cpp" />
     <ClCompile Include="Mage_FireBall.cpp" />
     <ClCompile Include="Mage_FireBoom.cpp" />
@@ -414,6 +419,7 @@
     <ClCompile Include="Monster_GroundAttack_Sign.cpp" />
     <ClCompile Include="Monster_Hammer_Effect.cpp" />
     <ClCompile Include="Monster_Hit_Effect.cpp" />
+    <ClCompile Include="Monster_ObjPool.cpp" />
     <ClCompile Include="Monster_StoneWizard_Icicle_Effect.cpp" />
     <ClCompile Include="Monster_StoneWizard_Teleport.cpp" />
     <ClCompile Include="Monster_Tackle_Flash_Effect.cpp" />
@@ -422,11 +428,13 @@
     <ClCompile Include="OutSide_CastleArea.cpp" />
     <ClCompile Include="Player_AfterImage.cpp" />
     <ClCompile Include="Player_Hit_Effect.cpp" />
+    <ClCompile Include="practice.cpp" />
     <ClCompile Include="Sky_Ground.cpp" />
     <ClCompile Include="Slash_Effect.cpp" />
     <ClCompile Include="Stage1_Door.cpp" />
     <ClCompile Include="Stage_end_table.cpp" />
     <ClCompile Include="Stage_end_wall.cpp" />
+    <ClCompile Include="Stge_Manager.cpp" />
     <ClCompile Include="Ultimate_OnFire_Fire.cpp" />
     <ClCompile Include="Ultimate_On_Fire_Projectile.cpp" />
     <ClCompile Include="Public_Heal_Effect.cpp" />

@@ -86,6 +86,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     jk::renderer::Release();
     jk::SceneManager::Release();
     gui::Editor::Release();
+    jk::Release();
 
     return (int) msg.wParam;
 }
@@ -153,6 +154,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
      application.Initialize();
      //application.SetToolHwnd(hWnd2);
+     //jk::PlayScene::Initialize();
      jk::InitializeScenes();
      gui::Editor::Initialize();
 

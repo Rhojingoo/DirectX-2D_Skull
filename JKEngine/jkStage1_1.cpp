@@ -1,6 +1,9 @@
 #include "jkStage1_1.h"
 #include "jkParticleSystem.h"
 #include "jkPaintShader.h"
+#include "LoadScenes.h"
+
+
 
 namespace jk
 {
@@ -10,27 +13,10 @@ namespace jk
 	Stage1_1::~Stage1_1()
 	{
 	}
-	void Stage1_1::Initialize()	{
-
-
-		//PlayScene::Initialize();
-		#pragma region CollisionManager
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Bullet, true);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Hitbox, true);
-		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
-#pragma endregion 
-		
+	void Stage1_1::Initialize()
+	{
+		OBJPOOL = jk::Obj;
+		StageMn = jk::Stage_MN;
 		//ui
 		{
 			//UI
@@ -43,6 +29,8 @@ namespace jk
 			//Player_Hp->SetName(L"player_hp_bar");
 			//Player_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 		}
+
+		SetMonOBJ();
 
 		#pragma region BG	
 				{
@@ -72,18 +60,13 @@ namespace jk
 
 						Back_ground* Back_GR04 = object::Instantiate<Back_ground>(Vector3(-245.f, 350.f, 98.f), eLayerType::Fore_Ground, L"Stage1_Back_GR18");
 						Back_GR04->GetComponent<Transform>()->SetScale(Vector3(341.f, 249.f, 0.f));	Back_GR04->SetName(L"back_gr04");
-						ParticleSystem* mr2 = Back_GR04->AddComponent<ParticleSystem>(Vector3(-245.f, 350.f, 98.f)); 
+						ParticleSystem* mr2 = Back_GR04->AddComponent<ParticleSystem>(Vector3(-245.f, 350.f, 98.f));
 
 
 						Back_ground* Back_GR05 = object::Instantiate<Back_ground>(Vector3(-605.f, -75.f, 98.f), eLayerType::Fore_Ground, L"Stage1_Back_GR18");
 						Back_GR05->GetComponent<Transform>()->SetScale(Vector3(341.f, 249.f, 0.f));	Back_GR05->SetName(L"back_gr05");
 						ParticleSystem* mr3 = Back_GR05->AddComponent<ParticleSystem>(Vector3(-605.f, -75.f, 98.f));
 					}
-					//Back_ground* Ground_Assistment = object::Instantiate<Back_ground>(Vector3(-100.f, 32.f, -199.f), eLayerType::Fore_Ground, L"Map1_1");
-					//Ground_Assistment->GetComponent<Transform>()->SetScale(Vector3(1920.f, 1024.f, 0.f));	Ground_Assistment->SetName(L"Map1_1_assist");
-
-
-
 				}
 		#pragma endregion
 
@@ -133,72 +116,51 @@ namespace jk
 		_player = object::Instantiate<Player>(Vector3(-700.f, -150.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 
-		Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
-		testmonster->SetName(L"test_monster"); 
+		//Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
+		//testmonster->SetName(L"test_monster"); 
 	}
 
 	void Stage1_1::Update()
 	{
-		Transform* PlayerTR = _player->GetComponent<Transform>();
-		Vector3 player_pos = PlayerTR->GetPosition();
-		
+		CamareShooting();
 
-		if (player_pos.x < -450 )
-			cameraComp->SetCameraX = true;
-
-		if (player_pos.x >= -450 && player_pos.x <= -380)
-		{
-			cameraComp->SetCameraX = false;
-			cameraComp->SetCameraXY = true;
-		}
-
-		if (player_pos.x > -380)
-		{
-			cameraComp->SetCameraX = true;
-			cameraComp->SetCameraXY = false;
-		}
-
-		if (player_pos.x < 330)
-		{
-			cameraComp->SetCameraX = true;
-			cameraComp->SetCameraY = false;
-		}
-
-		if (player_pos.x >= 330)
-		{
-			cameraComp->SetCameraX = false;			
-		}
-		
-		if (player_pos.x >= 330 && player_pos.y >= -90)
-			cameraComp->SetCameraY = true;
-
-		//if (player_pos.x >= 330 && player_pos.y < -90)
-		//	cameraComp->SetCameraY = false;
-
-
-		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
-		{
-			SceneManager::LoadScene(L"Stage1_mBoss");
-		}
 		Scene::Update();
 	}
-	
+
 	void Stage1_1::LateUpdate()
 	{
-		Scene::LateUpdate();	
+		Scene::LateUpdate();
 	}
 
 	void Stage1_1::Render()
 	{
 		Scene::Render();
 	}
+
 	void Stage1_1::OnEnter()
 	{
+#pragma region CollisionManager
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Bullet, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Hitbox, true);
+		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
+#pragma endregion 
+
 #pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		cameraComp = camera->AddComponent<Camera>();
-		cameraComp->TurnLayerMask(eLayerType::UI, false);		
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
 		cameraComp->SetTarget(_player);
@@ -243,5 +205,147 @@ namespace jk
 	}
 	void Stage1_1::OnExit()
 	{
+	}
+	void Stage1_1::CamareShooting()
+	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+		if (player_pos.x < -450)
+			cameraComp->SetCameraX = true;
+
+		if (player_pos.x >= -450 && player_pos.x <= -380)
+		{
+			cameraComp->SetCameraX = false;
+			cameraComp->SetCameraXY = true;
+		}
+
+		if (player_pos.x > -380)
+		{
+			cameraComp->SetCameraX = true;
+			cameraComp->SetCameraXY = false;
+		}
+
+		if (player_pos.x < 330)
+		{
+			cameraComp->SetCameraX = true;
+			cameraComp->SetCameraY = false;
+		}
+
+		if (player_pos.x >= 330)
+		{
+			cameraComp->SetCameraX = false;
+		}
+
+		if (player_pos.x >= 330 && player_pos.y >= -90)
+			cameraComp->SetCameraY = true;
+
+		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+		{
+			SceneManager::LoadScene(L"Stage1_mBoss");
+		}
+	}
+	void Stage1_1::SetMonOBJ()
+	{
+		std::vector<Monster*> monsterGroup1;
+		for (int i = 0; i < 7; i++)
+		{
+			Monster* newMonster = Obj->Get_Monster_warrior();
+			monsterGroup1.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_wizard();
+			monsterGroup1.push_back(newMonster);
+		}
+		StageMn->addMonsterGroup(monsterGroup1);
+
+
+
+		std::vector<Monster*> monsterGroup2;
+		for (int i = 0; i < 5; i++)
+		{
+			Monster* newMonster = Obj->Get_Monster_warrior();
+			monsterGroup2.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_wizard();
+			monsterGroup2.push_back(newMonster);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Monster* newMonster = Obj->Get_Hammer();
+			monsterGroup2.push_back(newMonster);
+		}
+		StageMn->addMonsterGroup(monsterGroup2);
+
+
+		std::vector<Monster*> monsterGroup3;
+		for (int i = 0; i < 10; i++)
+		{
+			Monster* newMonster = Obj->Get_Monster_warrior();
+			monsterGroup3.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_Hammer();
+			monsterGroup3.push_back(newMonster);
+		}
+		StageMn->addMonsterGroup(monsterGroup3);
+
+
+
+		std::vector<Monster*> monsterGroup4;
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_Monster_warrior();
+			monsterGroup4.push_back(newMonster);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Monster* newMonster = Obj->Get_Hammer();
+			monsterGroup4.push_back(newMonster);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Monster* newMonster = Obj->Get_BigEnt();
+			monsterGroup4.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_Blossom();
+			monsterGroup4.push_back(newMonster);
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			Monster* newMonster = Obj->Get_GreenTree();
+			monsterGroup4.push_back(newMonster);
+		}
+		StageMn->addMonsterGroup(monsterGroup4);
+
+
+
+		std::vector<Monster*> monsterGroup5;
+		for (int i = 0; i < 4; i++)
+		{
+			Monster* newMonster = Obj->Get_Monster_warrior();
+			monsterGroup5.push_back(newMonster);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Monster* newMonster = Obj->Get_BigEnt();
+			monsterGroup5.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_Blossom();
+			monsterGroup5.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_GreenTree();
+			monsterGroup5.push_back(newMonster);
+		}
+		StageMn->addMonsterGroup(monsterGroup5);
 	}
 }

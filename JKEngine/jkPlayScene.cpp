@@ -1,4 +1,5 @@
 #include "jkPlayScene.h"
+//#include "Monster_ObjPool.h"
 
 namespace jk
 {
@@ -12,8 +13,7 @@ namespace jk
 
 	void PlayScene::Initialize()
 	{
-		//_player = object::Instantiate<Player>(Vector3(0.f, 0.f, -250.f), eLayerType::Player);
-		//_player->SetName(L"player_select");
+		//Monster_ObjPool* Obj = new Monster_ObjPool(105,15,10);
 
 		Scene::Initialize();
 	}

@@ -511,15 +511,22 @@
     <ClInclude Include="Alpha_Blend.h">
       <Filter>Game_ob\Alpha_Blend</Filter>
     </ClInclude>
-    <ClInclude Include="Player_AfterImage.h">
-      <Filter>Game_ob</Filter>
-    </ClInclude>
     <ClInclude Include="Blosome.h">
       <Filter>Game_ob\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Stone_wizard.h">
       <Filter>Game_ob\Monster\Monster_Stone_wizard</Filter>
     </ClInclude>
+    <ClInclude Include="Player_AfterImage.h">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_ObjPool.h">
+      <Filter>OBJ_Pool\MonsterOBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="Stge_Manager.h">
+      <Filter>OBJ_Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="practice.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1026,15 +1033,25 @@
     <ClCompile Include="Alpha_Blend.cpp">
       <Filter>Game_ob\Alpha_Blend</Filter>
     </ClCompile>
-    <ClCompile Include="Player_AfterImage.cpp">
-      <Filter>Game_ob</Filter>
-    </ClCompile>
     <ClCompile Include="Blosome.cpp">
       <Filter>Game_ob\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Stone_wizard.cpp">
       <Filter>Game_ob\Monster\Monster_Stone_wizard</Filter>
     </ClCompile>
+    <ClCompile Include="Player_AfterImage.cpp">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_ObjPool.cpp">
+      <Filter>OBJ_Pool\MonsterOBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="Stge_Manager.cpp">
+      <Filter>OBJ_Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadScenes.cpp">
+      <Filter>Scene\Load</Filter>
+    </ClCompile>
+    <ClCompile Include="practice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1282,6 +1299,15 @@
     </Filter>
     <Filter Include="Game_ob\Particle">
       <UniqueIdentifier>{3fee6bea-8bae-407f-a40b-9c4640638d14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBJ_Pool">
+      <UniqueIdentifier>{8898660c-990b-4973-bb7d-f2c6fe8ab891}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBJ_Pool\Obj">
+      <UniqueIdentifier>{93bee63d-205f-453b-835c-5110012f6d77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBJ_Pool\MonsterOBJ">
+      <UniqueIdentifier>{b6283ed8-5b67-40fd-9e66-274af1520444}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

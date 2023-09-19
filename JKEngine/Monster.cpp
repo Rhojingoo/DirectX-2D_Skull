@@ -3,7 +3,7 @@
 namespace jk
 {
 	GameObject* Monster::_player = nullptr;
-	Monster::MonsterList Monster::monster_select = MonsterList();
+	//Monster::MonsterList Monster::monster_select = MonsterList();
 	Vector3 Monster::_Pos = Vector3(0.f, 0.f, 0.f);
 	Vector3 Monster::_playerpos = Vector3(0.f, 0.f, 0.f);
 	Vector3 Monster::_playerGRpos = Vector3(0.f, 0.f, 0.f);	
@@ -17,8 +17,11 @@ namespace jk
 	}
 	void Monster::Initialize()
 	{
-		_Gobjs[0] = new Monster_Goldwarrior;
-		_Gobjs[0]->Initialize();
+
+
+
+		//_Gobjs[0] = new Monster_Goldwarrior;
+		//_Gobjs[0]->Initialize();
 		//_Gobjs[1] = new Monster_GoldHammer;
 		//_Gobjs[1]->Initialize();
 
@@ -40,13 +43,13 @@ namespace jk
 		//_Gobjs[7]->Initialize();
 
 
-		for (int i = 0; i < 1; i++)
-		{
-			Scene* scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Monster, _Gobjs[i]);
-			Transform* tr = _Gobjs[i]->GetComponent<Transform>();
-			tr->SetPosition(Vector3(0.f, 0.f, -250.f));
-		}
+		//for (int i = 0; i < 1; i++)
+		//{
+		//	Scene* scene = SceneManager::GetActiveScene();
+		//	scene->AddGameObject(eLayerType::Monster, _Gobjs[i]);
+		//	Transform* tr = _Gobjs[i]->GetComponent<Transform>();
+		//	tr->SetPosition(Vector3(0.f, 0.f, -250.f));
+		//}
 
 		GameObject::Initialize();
 	}
@@ -66,6 +69,38 @@ namespace jk
 	{
 		GameObject::Render();
 	}
+
+
+	//void Monster::Set_Monster_Type(MonsterList type)
+	//{
+	//	if (type == MonsterList::Ice_wizard)
+	//	{
+	//	}
+	//	if (type == MonsterList::Monster_Hammer)
+	//	{
+	//	}
+	//	if (type == MonsterList::Monster_warrior)
+	//	{
+	//	}
+	//	if (type == MonsterList::Monster_BigEnt)
+	//	{
+	//	}
+	//	if (type == MonsterList::Monster_GreenTree)
+	//	{
+	//	}
+	//	if (type == MonsterList::Monster_BlossomEnt)
+	//	{
+	//	}
+	//	if (type == MonsterList::Monster_Goldwarrior)
+	//	{
+	//	}
+	//	if (type == MonsterList::Monster_GoldHammer)
+	//	{
+	//	}
+	//}
+
+
+
 	void Monster::OnCollisionEnter(Collider2D* other)
 	{
 	}

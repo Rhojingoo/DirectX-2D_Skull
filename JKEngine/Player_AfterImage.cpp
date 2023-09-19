@@ -161,10 +161,6 @@ namespace jk
 				at->PlayAnimation(L"WolfDash", false);
 			else
 				at->PlayAnimation(L"WolfDashR", false);
-			//if (_Dir == 1)
-			//	at1->PlayAnimation(L"WolfDash", false);
-			//else
-			//	at1->PlayAnimation(L"WolfDashR", false);
 		}
 	}
 
@@ -182,11 +178,6 @@ namespace jk
 				at->PlayAnimation(L"SpearDash", false);
 			else
 				at->PlayAnimation(L"SpearDashR", false);
-
-			//if (_Dir == 1)
-			//	at2->PlayAnimation(L"SpearDash", false);
-			//else
-			//	at2->PlayAnimation(L"SpearDashR", false);
 		}
 	}
 
