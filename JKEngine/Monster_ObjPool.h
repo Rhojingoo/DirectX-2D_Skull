@@ -1,5 +1,6 @@
 #pragma once
 #include "Include_Common.h"
+//#include "jkLayer.h"
 #include "Monster.h"
 
 namespace jk
@@ -12,7 +13,9 @@ namespace jk
         {          
             //많은 몬스터
             for (int i = 0; i < Lots_of_monsters; ++i)
-            {
+            {  
+               // Monster_warrior* _warrior = new Monster_warrior();
+                //Layer::AddGameObject(_warrior);
                 warrior_pool.push_back(new Monster_warrior());
             }
             for (int i = 0; i < Lots_of_monsters; ++i)

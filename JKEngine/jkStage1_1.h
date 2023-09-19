@@ -27,6 +27,7 @@ namespace jk
 	private:
 		Camera* cameraComp = nullptr;
 		Player* _player = nullptr;		
+
 		Monster_ObjPool* OBJPOOL = nullptr;
 		Stage_Manager* StageMn = nullptr;
 	};

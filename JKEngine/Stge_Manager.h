@@ -10,7 +10,20 @@ namespace jk
     {
     public:
         Stage_Manager(Monster_ObjPool* set) { _OBJ_POOL = set; }
-        ~Stage_Manager() {};
+        ~Stage_Manager() {
+            while (!monsterGroups.empty()) 
+            {
+                std::vector<Monster*>& monsterGroup = monsterGroups.front();
+
+                // 모든 몬스터를 메모리에서 해제
+                for (Monster* monster : monsterGroup) 
+                {
+                    delete monster;
+                }
+                // 해당 몬스터 그룹을 큐에서 제거
+                monsterGroups.pop();
+            }
+        };
         
         void addMonsterGroup(const std::vector<Monster*>& group)   { monsterGroups.push(group);  }
 

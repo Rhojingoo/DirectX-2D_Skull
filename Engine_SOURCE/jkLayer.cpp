@@ -78,9 +78,10 @@ namespace jk
 				iter = mGameObjects.erase(iter);
 				continue;
 			}
-
 			iter++;
 		}
+
+
 
 		//메모리 해제
 		for (GameObject* gameObj : deleteGameObj)

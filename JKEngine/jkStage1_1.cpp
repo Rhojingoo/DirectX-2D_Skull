@@ -139,69 +139,69 @@ namespace jk
 
 	void Stage1_1::OnEnter()
 	{
-#pragma region CollisionManager
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Bullet, true);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Hitbox, true);
-		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
-#pragma endregion 
+		#pragma region CollisionManager
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Bullet, true);
+				CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Boss, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Item, eLayerType::BACK_GROUND, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Hitbox, true);
+				CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
+				CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
+		#pragma endregion 
 
-#pragma region Cam & Mouse& Grid
-		//Main Camera			
-		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-		cameraComp = camera->AddComponent<Camera>();
-		cameraComp->TurnLayerMask(eLayerType::UI, false);
-		renderer::cameras.push_back(cameraComp);
-		renderer::mainCamera = cameraComp;
-		cameraComp->SetTarget(_player);
-		cameraComp->SetCamera = true;
-		cameraComp->SetCameraXY = true;
-		cameraComp->Set_MaxPlayerX(700.f);
-		cameraComp->Set_MinPlayerX(-840.f);
-		cameraComp->Set_MaxPlayerY(400.f);
-		cameraComp->Set_MinPlayerY(-360.f);
+		#pragma region Cam & Mouse& Grid
+				//Main Camera			
+				Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+				cameraComp = camera->AddComponent<Camera>();
+				cameraComp->TurnLayerMask(eLayerType::UI, false);
+				renderer::cameras.push_back(cameraComp);
+				renderer::mainCamera = cameraComp;
+				cameraComp->SetTarget(_player);
+				cameraComp->SetCamera = true;
+				cameraComp->SetCameraXY = true;
+				cameraComp->Set_MaxPlayerX(700.f);
+				cameraComp->Set_MinPlayerX(-840.f);
+				cameraComp->Set_MaxPlayerY(400.f);
+				cameraComp->Set_MinPlayerY(-360.f);
 
-		//UI Camera		
-		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-		Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
-		cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Effect, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Hitbox, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
-		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
-		renderer::cameras.push_back(cameraComp_ui);
+				//UI Camera		
+				UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+				Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
+				cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::MiniBoss, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Boss, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Bullet, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Effect, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Item, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Hitbox, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::BACK_GROUND, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Fore_Ground, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Mid_Ground, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Map_Effect, false);
+				cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
+				renderer::cameras.push_back(cameraComp_ui);
 
-		//UI_Mouse
-		UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
-		cursor->SetName(L"Catle_Cursor_UI");
-		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
-		cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
+				//UI_Mouse
+				UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
+				cursor->SetName(L"Catle_Cursor_UI");
+				cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
+				cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
 
-		//Grid
-		Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
-		grid->SetName(L"Catle_Grid");
-		GridScript* gridSc = grid->AddComponent<GridScript>();
-		gridSc->SetCamera(cameraComp);
-#pragma endregion	
+				//Grid
+				Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+				grid->SetName(L"Catle_Grid");
+				GridScript* gridSc = grid->AddComponent<GridScript>();
+				gridSc->SetCamera(cameraComp);
+		#pragma endregion	
 	}
 	void Stage1_1::OnExit()
 	{
@@ -249,19 +249,25 @@ namespace jk
 		std::vector<Monster*> monsterGroup1;
 		for (int i = 0; i < 7; i++)
 		{
-			Monster* newMonster = Obj->Get_Monster_warrior();
-			monsterGroup1.push_back(newMonster);
+			Monster_warrior* _warrior = Obj->Get_Monster_warrior();
+			_warrior->Initialize();
+			_warrior->SetPosition(Vector3(-400 + i*50,-300,-249));		
+			//Monster* newMonster = Obj->Get_Monster_warrior();
+			monsterGroup1.push_back(_warrior);
 		}
 		for (int i = 0; i < 3; i++)
 		{
-			Monster* newMonster = Obj->Get_wizard();
-			monsterGroup1.push_back(newMonster);
+			Stone_wizard* _wizard = Obj->Get_wizard();
+			_wizard->Initialize();			
+			_wizard->SetPosition(Vector3(-170 + i*100, -300, -249));		
+			//Monster* newMonster = Obj->Get_wizard();
+			monsterGroup1.push_back(_wizard);
 		}
 		StageMn->addMonsterGroup(monsterGroup1);
 
 
 
-		std::vector<Monster*> monsterGroup2;
+	/*	std::vector<Monster*> monsterGroup2;
 		for (int i = 0; i < 5; i++)
 		{
 			Monster* newMonster = Obj->Get_Monster_warrior();
@@ -346,6 +352,6 @@ namespace jk
 			Monster* newMonster = Obj->Get_GreenTree();
 			monsterGroup5.push_back(newMonster);
 		}
-		StageMn->addMonsterGroup(monsterGroup5);
+		StageMn->addMonsterGroup(monsterGroup5);*/
 	}
 }
