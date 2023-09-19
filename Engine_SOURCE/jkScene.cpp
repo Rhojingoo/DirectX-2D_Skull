@@ -8,11 +8,11 @@ namespace jk
 	}
 	Scene::~Scene()
 	{
-
 	}
 
 	void Scene::Initialize()
 	{
+		
 	}
 
 	void Scene::Update()
@@ -59,6 +59,6 @@ namespace jk
 
 	void Scene::AddMonster(GameObject* monster)
 	{
-		mLayers[(int)eLayerType::Monster].AddGameObject(monster);
+		mLayers[(int)eLayerType::Monster].AddMonsterObject(monster);
 	}
 }

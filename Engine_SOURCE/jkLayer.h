@@ -15,7 +15,8 @@ namespace jk
 		virtual void Render();
 		virtual void Destory();
 
-		void AddGameObject(GameObject* gameObj);	
+		void AddGameObject(GameObject* gameObj);
+		void AddMonsterObject(GameObject* gameObj);
 		void ReturnMonster(GameObject* monster);
 
 		const std::vector<GameObject*> GetGameObjects()
@@ -25,5 +26,6 @@ namespace jk
 
 	private:
 		std::vector<GameObject*> mGameObjects;
+		std::vector<GameObject*> mMonsterObjects;
 	};
 }

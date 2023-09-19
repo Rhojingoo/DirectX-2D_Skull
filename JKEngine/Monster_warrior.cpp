@@ -639,6 +639,7 @@ namespace jk
 	void Monster_warrior::dead()
 	{
 		_Die = true;
+		Hit_Box->SetState(eState::Paused);
 	}
 
 	void Monster_warrior::hit()

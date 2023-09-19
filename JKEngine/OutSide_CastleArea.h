@@ -1,10 +1,11 @@
 #pragma once
 #include "Include_Common.h"
+#include "..\Engine_SOURCE\jkScene.h"
 #include "jkPlayScene.h"
 
 namespace jk
 {
-	class OutSide_CastleArea : public PlayScene
+	class OutSide_CastleArea : public Scene
 	{
 	public:
 		OutSide_CastleArea();
@@ -18,6 +19,8 @@ namespace jk
 		virtual void OnEnter();
 		virtual void OnExit();
 
+	
+
 	private:
 		Player* _player = nullptr;
 		Camera* cameraComp = nullptr;
@@ -25,5 +28,6 @@ namespace jk
 		float _time = 0.f;
 		bool _Fadecheck = false;
 		Stage1_Door* Door1 = nullptr;
+
 	};
 }

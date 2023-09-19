@@ -23,6 +23,7 @@ namespace jk
 		void AddGameObject(eLayerType type, GameObject* gameObj);
 		void AddMonster(GameObject* monster);
 
+
 		template <typename T>
 		std::vector<T*> FindObjectsOfType()
 		{

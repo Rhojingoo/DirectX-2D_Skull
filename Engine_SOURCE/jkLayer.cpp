@@ -13,9 +13,13 @@ namespace jk
 			if (gameObj == nullptr)
 				continue;
 
+			//std::wstring acv = L"Monster";
+			//if(acv == gameObj->GetName())
+			//	continue;
+		
 			delete gameObj;
 			gameObj = nullptr;
-		}
+		}		
 	}
 	void Layer::Initialize()
 	{
@@ -23,6 +27,15 @@ namespace jk
 	void Layer::Update()
 	{
 		for (GameObject* gameObj : mGameObjects)
+		{
+			if (gameObj->GetState()
+				!= GameObject::eState::Active)
+				continue;
+
+			gameObj->Update();
+		}
+
+		for (GameObject* gameObj : mMonsterObjects)
 		{
 			if (gameObj->GetState()
 				!= GameObject::eState::Active)
@@ -41,10 +54,26 @@ namespace jk
 
 			gameObj->LateUpdate();
 		}
+		for (GameObject* gameObj : mMonsterObjects)
+		{
+			if (gameObj->GetState()
+				!= GameObject::eState::Active)
+				continue;
+
+			gameObj->LateUpdate();
+		}
 	}
 	void Layer::Render()
 	{
 		for (GameObject* gameObj : mGameObjects)
+		{
+			if (gameObj->GetState()
+				!= GameObject::eState::Active)
+				continue;
+
+			gameObj->Render();
+		}
+		for (GameObject* gameObj : mMonsterObjects)
 		{
 			if (gameObj->GetState()
 				!= GameObject::eState::Active)
@@ -91,6 +120,11 @@ namespace jk
 	}
 
 	void Layer::AddGameObject(GameObject* gameObj)
+	{
+		mGameObjects.push_back(gameObj);
+	}
+
+	void Layer::AddMonsterObject(GameObject* gameObj)
 	{
 		mGameObjects.push_back(gameObj);
 	}

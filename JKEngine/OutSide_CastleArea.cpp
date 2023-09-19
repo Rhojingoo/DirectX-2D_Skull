@@ -3,6 +3,8 @@
 
 namespace jk
 {
+
+
 	OutSide_CastleArea::OutSide_CastleArea()
 	{
 	}
@@ -11,10 +13,13 @@ namespace jk
 	}
 	void OutSide_CastleArea::Initialize()
 	{		
+
+
 		#pragma region Player		
 				_player = object::Instantiate<Player>(Vector3(0.f, 750.f, -250.f), eLayerType::Player);
 				_player->SetName(L"player_select");
-		#pragma endregion
+		#pragma endregion	
+
 
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
@@ -79,7 +84,7 @@ namespace jk
 			cameraComp->SetCamera = true;
 			cameraComp->SetCameraX = true;
 		}
-	
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			_Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);

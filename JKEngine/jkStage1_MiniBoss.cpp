@@ -1,6 +1,7 @@
 #include "jkStage1_MiniBoss.h"
 #include "jkParticleSystem.h"
 #include "jkComputeShader.h"
+#include "LoadScenes.h"
 #include "jkPaintShader.h"
 
 namespace jk
@@ -13,24 +14,6 @@ namespace jk
 	}
 	void Stage1_MiniBoss::Initialize()
 	{
-
-		//std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
-		//std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexuture");
-		//paintShader->SetTarget(paintTexture);
-		//paintShader->OnExcute();
-		//ComputeShader* cs = new ComputeShader();
-		//cs->Create(L"PaintCS.hlsl", "main");
-
-		#pragma region Test_particle
-					//GameObject* player = new GameObject();
-					//player->SetName(L"Particle");
-					//AddGameObject(eLayerType::Monster, player);
-					//ParticleSystem* mr = player->AddComponent<ParticleSystem>();
-					//player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -20.0f));
-					//player->GetComponent<Transform>()->SetScale(Vector3(100.2f, 100.2f, 0.2f));
-			#pragma endregion
-
-
 		#pragma region CollisionManager
 				CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
@@ -46,13 +29,12 @@ namespace jk
 				CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 		#pragma endregion 
 
-
 		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 
-		Mboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -249.f), eLayerType::MiniBoss);
-		Mboss->SetName(L"test_mboss");
 
+		//Mboss = object::Instantiate<Mini_Boss>(Vector3(0.f, 0.f, -249.f), eLayerType::MiniBoss);
+		//Mboss->SetName(L"test_mboss");
 
 		#pragma region BG	
 				{
@@ -114,6 +96,9 @@ namespace jk
 	}
 	void Stage1_MiniBoss::Update()
 	{
+		
+
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(L"Stage1_2");
@@ -130,6 +115,12 @@ namespace jk
 	}
 	void Stage1_MiniBoss::OnEnter()
 	{
+
+
+
+		SetMonOBJ();
+
+
 #pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -177,5 +168,150 @@ namespace jk
 	}
 	void Stage1_MiniBoss::OnExit()
 	{
+	}
+	void Stage1_MiniBoss::CamareShooting()
+	{
+	}
+	void Stage1_MiniBoss::SetMonOBJ()
+	{
+		for (int i = 0; i < 7; i++)
+		{
+			Monster_warrior* _warrior = OBJPOOL->Get_Monster_warrior();
+			_warrior->Initialize();
+			Transform* ttr = _warrior->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(-400 + i * 50, -220, -249));
+			AddGameObject(eLayerType::Monster, _warrior);
+			//AddMonster(_warrior);
+			_warrior->SetState(GameObject::eState::Paused);
+			monsterGroup1.push_back(_warrior);
+		}
+		StageMn->addMonsterGroup(monsterGroup1);
+
+
+		//for (int i = 0; i < 7; i++)
+		//{
+		//	Monster_warrior* _warrior = OBJPOOL->Get_Monster_warrior();
+		//	_warrior->Initialize();
+		//	Transform* ttr = _warrior->GetComponent<Transform>();
+		//	ttr->SetPosition(Vector3(-400 + i * 50, -300, -249));
+		//	AddGameObject(eLayerType::Monster, _warrior);
+		//	_warrior->SetState(GameObject::eState::Paused);
+		//	monsterGroup2.push_back(_warrior);
+		//}
+		//StageMn->addMonsterGroup(monsterGroup2);
+
+		//AddGameObject(eLayerType::Monster, _warrior); → 나중에 업데이트에서 진행 → 다죽으면 회수처리도 필요
+		//for (int i = 0; i < 3; i++)
+		//{
+		//	Stone_wizard* _wizard = Obj->Get_wizard();
+		//	_wizard->Initialize();			
+		//	_wizard->SetPosition(Vector3(-170 + i*100, -300, -249));		
+		//	monsterGroup1.push_back(_wizard);
+		//}
+		//StageMn->addMonsterGroup(monsterGroup1);
+
+
+
+	/*	std::vector<Monster*> monsterGroup2;
+		for (int i = 0; i < 5; i++)
+		{
+			Monster* newMonster = Obj->Get_Monster_warrior();
+			monsterGroup2.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_wizard();
+			monsterGroup2.push_back(newMonster);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Monster* newMonster = Obj->Get_Hammer();
+			monsterGroup2.push_back(newMonster);
+		}
+		StageMn->addMonsterGroup(monsterGroup2);
+
+
+		std::vector<Monster*> monsterGroup3;
+		for (int i = 0; i < 10; i++)
+		{
+			Monster* newMonster = Obj->Get_Monster_warrior();
+			monsterGroup3.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_Hammer();
+			monsterGroup3.push_back(newMonster);
+		}
+		StageMn->addMonsterGroup(monsterGroup3);
+
+
+
+		std::vector<Monster*> monsterGroup4;
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_Monster_warrior();
+			monsterGroup4.push_back(newMonster);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Monster* newMonster = Obj->Get_Hammer();
+			monsterGroup4.push_back(newMonster);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Monster* newMonster = Obj->Get_BigEnt();
+			monsterGroup4.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_Blossom();
+			monsterGroup4.push_back(newMonster);
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			Monster* newMonster = Obj->Get_GreenTree();
+			monsterGroup4.push_back(newMonster);
+		}
+		StageMn->addMonsterGroup(monsterGroup4);
+
+
+
+		std::vector<Monster*> monsterGroup5;
+		for (int i = 0; i < 4; i++)
+		{
+			Monster* newMonster = Obj->Get_Monster_warrior();
+			monsterGroup5.push_back(newMonster);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Monster* newMonster = Obj->Get_BigEnt();
+			monsterGroup5.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_Blossom();
+			monsterGroup5.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = Obj->Get_GreenTree();
+			monsterGroup5.push_back(newMonster);
+		}
+		StageMn->addMonsterGroup(monsterGroup5);*/
+	}
+	bool Stage1_MiniBoss::AreAllMonstersDead(const std::vector<Monster*>& monsterGroup)
+	{
+		for (const Monster* monster : monsterGroup)
+		{
+			if (!monster->_Die)
+			{
+				Monsters_check = false;
+				// 하나라도 살아있는 몬스터가 있으면 false 반환
+				return Monsters_check;
+			}
+		}
+		// 모든 몬스터가 죽었다면 true 반환
+		Monsters_check = true;
+		return Monsters_check;
 	}
 }

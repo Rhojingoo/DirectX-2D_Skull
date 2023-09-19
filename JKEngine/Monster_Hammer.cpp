@@ -832,6 +832,7 @@ namespace jk
 
 	void Monster_Hammer::dead()
 	{
+		_Die = true;
 	}
 
 	void Monster_Hammer::Complete_attack()

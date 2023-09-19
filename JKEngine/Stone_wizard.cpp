@@ -161,6 +161,7 @@ namespace jk
 		if (_CurrenHp <= 0)
 		{	
 			_hit_particle = false;
+			_Die = true;
 			Hit_Particle->SetState(eState::Paused);
 			this->SetState(eState::Paused);
 		}

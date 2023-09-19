@@ -8,18 +8,17 @@
 
 namespace jk
 {
-	Monster_ObjPool* jk::Obj = nullptr;
-	Stage_Manager* jk::Stage_MN = nullptr;
+	//Monster_ObjPool* jk::Obj = nullptr;
+	//Stage_Manager* jk::Stage_MN = nullptr;
 
 	void SettingOBJ()
 	{
-		Obj = new Monster_ObjPool(135, 15, 30, 10);
-		Stage_MN = new Stage_Manager(Obj);
+		//Obj = new Monster_ObjPool(135, 15, 30, 10);
+		//Stage_MN = new Stage_Manager(Obj);
 	}
 	void InitializeScenes()
 	{
-		//Scene
-		SettingOBJ();
+		//Scene		
 		SceneManager::CreateScene<Stage2_Boss>(L"Stage2_Boss");
 		SceneManager::CreateScene<Stage2_2>(L"Stage2_2");
 		SceneManager::CreateScene<Stage2_MiniBoss>(L"Stage2_mBoss");
@@ -34,10 +33,13 @@ namespace jk
 	}
 	void Release()
 	{
-		delete Obj;
-		Obj = nullptr;
-		delete Stage_MN;
-		Stage_MN = nullptr;
+		//Obj->~Monster_ObjPool();
+		//Stage_MN->~Stage_Manager();
+
+		//delete Obj;
+		//Obj = nullptr;
+		//delete Stage_MN;
+		//Stage_MN = nullptr;
 	}
 }
 

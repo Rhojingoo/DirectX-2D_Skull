@@ -8,87 +8,115 @@ namespace jk
     {
     public:
         Monster_ObjPool(int totalSize, int NumberofMonsters, int Lots_of_monsters, int Number_of_Big_Monsters)
-            : capacity(totalSize)
+            : capacity1(Lots_of_monsters), capacity2(NumberofMonsters), capacity3(Number_of_Big_Monsters)
         {          
             //많은 몬스터
             for (int i = 0; i < Lots_of_monsters; ++i)
             {  
                 Monster_warrior* _warrior = new Monster_warrior();
+                _warrior->SetName(L"Monster");
                 warrior_pool.push_back(_warrior);
             }
-            //for (int i = 0; i < Lots_of_monsters; ++i)
-            //{
-            //    Goldwarrior_pool.push_back(new Monster_Goldwarrior());
-            //}
+            for (int i = 0; i < Lots_of_monsters; ++i)
+            {
+                Goldwarrior_pool.push_back(new Monster_Goldwarrior());
+            }
 
-            ////작은 몬스터
-            //for (int i = 0; i < NumberofMonsters; ++i)
-            //{
-            //    wizard_pool.push_back(new Stone_wizard());
-            //}
-            //for (int i = 0; i < NumberofMonsters; ++i)
-            //{
-            //    GreenTree_pool.push_back(new Monster_GreenTree());
-            //}
-            //for (int i = 0; i < NumberofMonsters; ++i)
-            //{
-            //    Blossom_pool.push_back(new Monster_BlossomEnt());
-            //}
+            //작은 몬스터
+            for (int i = 0; i < NumberofMonsters; ++i)
+            {
+                wizard_pool.push_back(new Stone_wizard());
+            }
+            for (int i = 0; i < NumberofMonsters; ++i)
+            {
+                GreenTree_pool.push_back(new Monster_GreenTree());
+            }
+            for (int i = 0; i < NumberofMonsters; ++i)
+            {
+                Blossom_pool.push_back(new Monster_BlossomEnt());
+            }
 
-            ////큰몬스터들
-            //for (int i = 0; i < Number_of_Big_Monsters; ++i)
-            //{
-            //    BigEnt_pool.push_back(new Monster_BigEnt());
-            //}
-            //for (int i = 0; i < Number_of_Big_Monsters; ++i)
-            //{
-            //    Hammer_pool.push_back(new Monster_Hammer());
-            //}
-            //for (int i = 0; i < Number_of_Big_Monsters; ++i)
-            //{
-            //    GoldHammer_pool.push_back(new Monster_GoldHammer());
-            //}
+            //큰몬스터들
+            for (int i = 0; i < Number_of_Big_Monsters; ++i)
+            {
+                BigEnt_pool.push_back(new Monster_BigEnt());
+            }
+            for (int i = 0; i < Number_of_Big_Monsters; ++i)
+            {
+                Hammer_pool.push_back(new Monster_Hammer());
+            }
+            for (int i = 0; i < Number_of_Big_Monsters; ++i)
+            {
+                GoldHammer_pool.push_back(new Monster_GoldHammer());
+            }
         }
 
         virtual ~Monster_ObjPool()
-        {       
+        {      
+            //for (Monster* monster : warrior_pool)
+            //{
+            //    if (monster == nullptr)
+            //        continue;
+
+            //    delete monster;
+            //}
+
+            int a = 0;
             for (Monster_warrior* monster : warrior_pool)
             {
+                if (monster == nullptr)
+                    continue;
+                a++;
                 delete monster;
+                monster = nullptr;
             }
 
             for (Stone_wizard* monster : wizard_pool)
             {
+                if (monster == nullptr)
+                    continue;
                 delete monster;
             }
 
             for (Monster_GreenTree* monster : GreenTree_pool)
             {
+                if (monster == nullptr)
+                    continue;
                 delete monster;
             }
 
             for (Monster_BlossomEnt* monster : Blossom_pool)
             {
+                if (monster == nullptr)
+                    continue;
                 delete monster;
             }
 
             for (Monster_BigEnt* monster : BigEnt_pool)
             {
+                if (monster == nullptr)
+                    continue;
                 delete monster;
             }
 
             for (Monster_Hammer* monster : Hammer_pool)
             {
+                if (monster == nullptr)
+                    continue;
                 delete monster;
             }
 
             for (Monster_Goldwarrior* monster : Goldwarrior_pool)
             {
+                if (monster == nullptr)
+                    continue;
                 delete monster;
             }
 
             for (Monster_GoldHammer* monster : GoldHammer_pool)
             {
+                if (monster == nullptr)
+                    continue;
                 delete monster;
             }
         }
@@ -189,7 +217,7 @@ namespace jk
         #pragma region 몬스터 리턴함수
                      void Return_Monster_warrior(Monster_warrior* monster)
                      {
-                         if (warrior_pool.size() < capacity)
+                         if (warrior_pool.size() < capacity1)
                              warrior_pool.push_back(monster);
                          else
                              delete monster;
@@ -197,7 +225,7 @@ namespace jk
 
                      void Return_wizard(Stone_wizard* monster)
                      {
-                         if (wizard_pool.size() < capacity)
+                         if (wizard_pool.size() < capacity2)
                              wizard_pool.push_back(monster);
                          else
                              delete monster;
@@ -205,7 +233,7 @@ namespace jk
 
                      void Return_GreenTree(Monster_GreenTree* monster)
                      {
-                         if (GreenTree_pool.size() < capacity)
+                         if (GreenTree_pool.size() < capacity2)
                              GreenTree_pool.push_back(monster);
                          else
                              delete monster;
@@ -213,7 +241,7 @@ namespace jk
 
                      void Return_Blossom(Monster_BlossomEnt* monster)
                      {
-                         if (Blossom_pool.size() < capacity)
+                         if (Blossom_pool.size() < capacity2)
                              Blossom_pool.push_back(monster);
                          else
                              delete monster;
@@ -221,7 +249,7 @@ namespace jk
 
                      void Return_BigEnt(Monster_BigEnt* monster)
                      {
-                         if (BigEnt_pool.size() < capacity)
+                         if (BigEnt_pool.size() < capacity2)
                              BigEnt_pool.push_back(monster);
                          else
                              delete monster;
@@ -229,7 +257,7 @@ namespace jk
 
                      void Return_Hammer(Monster_Hammer* monster)
                      {
-                         if (Hammer_pool.size() < capacity)
+                         if (Hammer_pool.size() < capacity2)
                              Hammer_pool.push_back(monster);
                          else
                              delete monster;
@@ -237,7 +265,7 @@ namespace jk
 
                      void Return_Goldwarrior(Monster_Goldwarrior* monster)
                      {
-                         if (Goldwarrior_pool.size() < capacity)
+                         if (Goldwarrior_pool.size() < capacity2)
                              Goldwarrior_pool.push_back(monster);
                          else
                              delete monster;
@@ -245,7 +273,7 @@ namespace jk
 
                      void Return_GoldHammer(Monster_GoldHammer* monster)
                      {
-                         if (GoldHammer_pool.size() < capacity)
+                         if (GoldHammer_pool.size() < capacity2)
                              GoldHammer_pool.push_back(monster);
                          else
                              delete monster;
@@ -264,7 +292,10 @@ namespace jk
     private:
         std::vector<Monster_Goldwarrior*> Goldwarrior_pool;
         std::vector<Monster_GoldHammer*> GoldHammer_pool;
-        int capacity;
+        int capacity1;
+        int capacity2;
+        int capacity3;
+
 
     };
 }
