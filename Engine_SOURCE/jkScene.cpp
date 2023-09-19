@@ -56,4 +56,9 @@ namespace jk
 	{
 		mLayers[(int)type].AddGameObject(gameObj);
 	}
+
+	void Scene::AddMonster(GameObject* monster)
+	{
+		mLayers[(int)eLayerType::Monster].AddGameObject(monster);
+	}
 }

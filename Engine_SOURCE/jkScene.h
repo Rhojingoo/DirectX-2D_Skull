@@ -2,6 +2,7 @@
 #include "jkEntity.h"
 #include "jkLayer.h"
 
+
 namespace jk
 {
 	class Scene : public Entity
@@ -20,7 +21,7 @@ namespace jk
 		virtual void OnExit();
 
 		void AddGameObject(eLayerType type, GameObject* gameObj);
-		//std::vector<GameObject*> Get
+		void AddMonster(GameObject* monster);
 
 		template <typename T>
 		std::vector<T*> FindObjectsOfType()
@@ -36,7 +37,6 @@ namespace jk
 						findObjs.push_back(buff);
 				}
 			}
-
 			return findObjs;
 		}
 		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }

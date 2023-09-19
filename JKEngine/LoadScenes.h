@@ -4,9 +4,6 @@
 #include "Monster_ObjPool.h"
 #include "Stge_Manager.h"
 
-
-
-
 namespace jk
 {
 	extern Monster_ObjPool* Obj; 

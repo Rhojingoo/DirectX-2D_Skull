@@ -12,9 +12,13 @@ namespace jk
 	}
 	Stage1_1::~Stage1_1()
 	{
+		//monsterGroup1.clear();
 	}
 	void Stage1_1::Initialize()
 	{
+
+
+
 		OBJPOOL = jk::Obj;
 		StageMn = jk::Stage_MN;
 		//ui
@@ -30,7 +34,11 @@ namespace jk
 			//Player_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 		}
 
+		_player = object::Instantiate<Player>(Vector3(-700.f, -150.f, -250.f), eLayerType::Player);
+		_player->SetName(L"player_select");
 		SetMonOBJ();
+
+		//Stage_MN->spawnNextGroup();
 
 		#pragma region BG	
 				{
@@ -113,16 +121,47 @@ namespace jk
 				}
 		#pragma endregion	
 
-		_player = object::Instantiate<Player>(Vector3(-700.f, -150.f, -250.f), eLayerType::Player);
-		_player->SetName(L"player_select");
 
-		//Monster* testmonster = object::Instantiate<Monster>(Vector3(0.f, 0.f, -250.f), eLayerType::Monster);
-		//testmonster->SetName(L"test_monster"); 
+
 	}
 
 	void Stage1_1::Update()
 	{
 		CamareShooting();
+
+		if (Input::GetKey(eKeyCode::L))		
+			test = true;		
+		if (test == true)
+		{
+			Stage_MN->spawnNextGroup();
+			test = false;
+		}
+
+		if(firstMonsters==false)
+		AreAllMonstersDead(monsterGroup1);
+
+		if (firstMonsters == true)
+		{
+			int a = 0;
+			time += Time::DeltaTime();
+			if (time > 2)
+			{
+				for (Monster* monster : monsterGroup1)
+				{
+					Obj->Return_Monster_warrior (dynamic_cast<Monster_warrior*>(monster));
+					//GetLayer(eLayerType::Monster).ReturnMonster(monster);
+				}
+				time = 0;
+			}			
+		}
+
+		//if (Input::GetKey(eKeyCode::P))
+		//	test2 = true;
+		//if (test2 == true)
+		//{
+		//	Stage_MN->spawnNextGroup();
+		//	test2 = false;
+		//}
 
 		Scene::Update();
 	}
@@ -245,25 +284,41 @@ namespace jk
 		}
 	}
 	void Stage1_1::SetMonOBJ()
-	{
-		std::vector<Monster*> monsterGroup1;
+	{	
 		for (int i = 0; i < 7; i++)
 		{
-			Monster_warrior* _warrior = Obj->Get_Monster_warrior();
+			Monster_warrior* _warrior = OBJPOOL->Get_Monster_warrior();
 			_warrior->Initialize();
-			_warrior->SetPosition(Vector3(-400 + i*50,-300,-249));		
-			//Monster* newMonster = Obj->Get_Monster_warrior();
-			monsterGroup1.push_back(_warrior);
-		}
-		for (int i = 0; i < 3; i++)
-		{
-			Stone_wizard* _wizard = Obj->Get_wizard();
-			_wizard->Initialize();			
-			_wizard->SetPosition(Vector3(-170 + i*100, -300, -249));		
-			//Monster* newMonster = Obj->Get_wizard();
-			monsterGroup1.push_back(_wizard);
+			Transform* ttr = _warrior->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(-400 + i * 50, -300, -249));	
+			AddGameObject(eLayerType::Monster, _warrior);
+			_warrior->SetState(GameObject::eState::Paused);
+			monsterGroup1.push_back(_warrior);				
 		}
 		StageMn->addMonsterGroup(monsterGroup1);
+
+
+		//for (int i = 0; i < 7; i++)
+		//{
+		//	Monster_warrior* _warrior = OBJPOOL->Get_Monster_warrior();
+		//	_warrior->Initialize();
+		//	Transform* ttr = _warrior->GetComponent<Transform>();
+		//	ttr->SetPosition(Vector3(-400 + i * 50, -300, -249));
+		//	AddGameObject(eLayerType::Monster, _warrior);
+		//	_warrior->SetState(GameObject::eState::Paused);
+		//	monsterGroup2.push_back(_warrior);
+		//}
+		//StageMn->addMonsterGroup(monsterGroup2);
+
+		//AddGameObject(eLayerType::Monster, _warrior); → 나중에 업데이트에서 진행 → 다죽으면 회수처리도 필요
+		//for (int i = 0; i < 3; i++)
+		//{
+		//	Stone_wizard* _wizard = Obj->Get_wizard();
+		//	_wizard->Initialize();			
+		//	_wizard->SetPosition(Vector3(-170 + i*100, -300, -249));		
+		//	monsterGroup1.push_back(_wizard);
+		//}
+		//StageMn->addMonsterGroup(monsterGroup1);
 
 
 
@@ -353,5 +408,21 @@ namespace jk
 			monsterGroup5.push_back(newMonster);
 		}
 		StageMn->addMonsterGroup(monsterGroup5);*/
+	}
+
+	bool Stage1_1::AreAllMonstersDead(const std::vector<Monster*>& monsterGroup)
+	{
+		for (const Monster* monster : monsterGroup)
+		{
+			if (!monster->_Die)
+			{
+				firstMonsters = false;
+				// 하나라도 살아있는 몬스터가 있으면 false 반환
+				return firstMonsters;
+			}
+		}
+		// 모든 몬스터가 죽었다면 true 반환
+		firstMonsters = true;
+		return firstMonsters;
 	}
 }

@@ -39,6 +39,7 @@ namespace jk
 		static Vector3 _playerpos; 
 		static Vector3 _playerGRpos;
 		static bool _player_groundcheck;
+		bool _Die = false;
 
 
 	private:
