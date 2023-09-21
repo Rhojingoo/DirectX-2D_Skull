@@ -51,11 +51,13 @@ namespace jk
 			Intro_Ready,
 			Intro,
 			Intro_End,
+			Change_Wating,
 			Change_Set,
 			Change_Ready,
 			Change,
 			Change_End,
 			DieSet,
+			Die_Waiting,
 			DieReady,
 			Die,
 		};
@@ -95,12 +97,14 @@ namespace jk
 		void intro();
 		void intro_end();
 
+		void change_wating();
 		void change_set();
 		void change_ready();
 		void change();
 		void change_end();
 
 		void die_set();
+		void die_waiting();
 		void die_ready();
 		void die();
 
@@ -127,10 +131,16 @@ namespace jk
 		static Hit_Critical_Middle* _Critical_Middle; 
 		static Hit_Critical_High* _Critical_High; 
 		static Monster_Death_Effect* _Death_Effect; 
+
+
 		static int	_HitType;
 		static int	_Dammege;
 		static bool _FirstDie;
-		static bool _Check_Life;
+		static int _Diecheck;			
+		static bool _DieON;
+		int Attack_Sellect = 0;
+		static int    _NumberofAttack;
+
 
 		static bool _Intro;
 		static bool _Intro_SetR;
@@ -194,6 +204,9 @@ namespace jk
 		static bool _Change;
 		static bool _SetChange_r;
 		static bool _SetChange_l;
+		static bool _SetChange_face;
+		static bool _SetChange_chin;
+		static bool _SetChange_boddy;
 		static bool _Change_Readyr;
 		static bool _Change_Readyl;
 		static bool _Change_Chin;
@@ -218,18 +231,23 @@ namespace jk
 
 		static bool _Die_SetR;
 		static bool _Die_SetL;
+		static bool _Die_SetFace;
+		static bool _Die_SetChin;
+		static bool _Die_SetBoddy;
+
+		static bool _Die_Waiting_R;
+		static bool _Die_Waiting_L;
+		static bool _Die_Waiting_Face;
+		static bool _Die_Waiting_Chin;
+		static bool _Die_Waiting_Boddy;
+
+
 		static bool _Die_READY_R;
 		static bool _Die_READY_L;
 		static bool _Die_Body_Down;
 		static bool _Die_Face_Down;
 		static bool _Die_Chin_Down;
 
-
-
-		static int _Diecheck;			//Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
-		static bool _DieON;
-		int Attack_Sellect = 0;
-		static int    _NumberofAttack;
 
 	public:
 		static float _MaxHp;
@@ -246,5 +264,15 @@ namespace jk
 		float _attackatime = 0.f;
 		int test = 0;
 		
+
+	private:
+		float _Fadetime = 0.f;
+		float _FadeAssistantTime = 0.f;
+		bool _Fadecheck = false;
+		bool _ChangeFadein = false;
+		bool _DieFadein = false;
+		bool _DiewaitingFadein = false;
+		GameObject* Particle[3];
+
 	};
 }

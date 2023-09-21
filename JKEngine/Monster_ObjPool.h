@@ -7,47 +7,63 @@ namespace jk
     class Monster_ObjPool
     {
     public:
-        Monster_ObjPool(int totalSize, int NumberofMonsters, int Lots_of_monsters, int Number_of_Big_Monsters)
+        Monster_ObjPool(int StageSelect, int NumberofMonsters, int Lots_of_monsters, int Number_of_Big_Monsters)
             : capacity1(Lots_of_monsters), capacity2(NumberofMonsters), capacity3(Number_of_Big_Monsters)
         {          
-            //많은 몬스터
-            for (int i = 0; i < Lots_of_monsters; ++i)
-            {  
-                Monster_warrior* _warrior = new Monster_warrior();
-                _warrior->SetName(L"Monster");
-                warrior_pool.push_back(_warrior);
-            }
-            for (int i = 0; i < Lots_of_monsters; ++i)
+            if (StageSelect == 1)
             {
-                Goldwarrior_pool.push_back(new Monster_Goldwarrior());
+                //많은 몬스터
+                for (int i = 0; i < Lots_of_monsters; ++i)
+                {
+                    Monster_warrior* _warrior = new Monster_warrior();
+                    _warrior->SetName(L"Monster");
+                    warrior_pool.push_back(_warrior);
+                }
+              
+                //작은 몬스터
+                for (int i = 0; i < NumberofMonsters; ++i)
+                {
+                    wizard_pool.push_back(new Stone_wizard());
+                }
+                for (int i = 0; i < NumberofMonsters; ++i)
+                {
+                    GreenTree_pool.push_back(new Monster_GreenTree());
+                }
+                for (int i = 0; i < NumberofMonsters; ++i)
+                {
+                    Blossom_pool.push_back(new Monster_BlossomEnt());
+                }
+
+                //큰몬스터들
+                for (int i = 0; i < Number_of_Big_Monsters; ++i)
+                {
+                    BigEnt_pool.push_back(new Monster_BigEnt());
+                }
+                for (int i = 0; i < Number_of_Big_Monsters; ++i)
+                {
+                    Hammer_pool.push_back(new Monster_Hammer());
+                }
+      
             }
 
-            //작은 몬스터
-            for (int i = 0; i < NumberofMonsters; ++i)
+            if (StageSelect == 2)
             {
-                wizard_pool.push_back(new Stone_wizard());
-            }
-            for (int i = 0; i < NumberofMonsters; ++i)
-            {
-                GreenTree_pool.push_back(new Monster_GreenTree());
-            }
-            for (int i = 0; i < NumberofMonsters; ++i)
-            {
-                Blossom_pool.push_back(new Monster_BlossomEnt());
-            }
+                for (int i = 0; i < Lots_of_monsters; ++i)
+                {
+                    Goldwarrior_pool.push_back(new Monster_Goldwarrior());
+                }
 
-            //큰몬스터들
-            for (int i = 0; i < Number_of_Big_Monsters; ++i)
-            {
-                BigEnt_pool.push_back(new Monster_BigEnt());
-            }
-            for (int i = 0; i < Number_of_Big_Monsters; ++i)
-            {
-                Hammer_pool.push_back(new Monster_Hammer());
-            }
-            for (int i = 0; i < Number_of_Big_Monsters; ++i)
-            {
-                GoldHammer_pool.push_back(new Monster_GoldHammer());
+                //작은 몬스터
+                for (int i = 0; i < NumberofMonsters; ++i)
+                {
+                    wizard_pool.push_back(new Stone_wizard());
+                }
+
+
+                for (int i = 0; i < Number_of_Big_Monsters; ++i)
+                {
+                    GoldHammer_pool.push_back(new Monster_GoldHammer());
+                }
             }
         }
 

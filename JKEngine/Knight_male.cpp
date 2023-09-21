@@ -284,7 +284,7 @@ namespace jk
 		tr = GetComponent<Transform>();
 		pos = tr->GetPosition();
 		_velocity = _rigidbody->GetVelocity();
-		_playerpos;
+		_playerpos = Player::GetPlayer_Pos();
 		_distance = _playerpos.x - pos.x;
 		if (_distance >= 0.f)
 			mDir = 1;
@@ -1030,6 +1030,9 @@ namespace jk
 
 	void Knight_male::die()
 	{
+		_Die = true;
+		Ultimate_Aura->SetState(eState::Paused);
+		Ultimate_AuraSmoke->SetState(eState::Paused);
 		_attack_Col = false;
 	}
 

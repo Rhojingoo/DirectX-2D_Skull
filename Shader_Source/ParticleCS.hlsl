@@ -59,6 +59,15 @@ void main(uint3 DTid : SV_DispatchThreadID)
             float3 randomDirection = float3(vRandom.x * -2.0, abs(vRandom.y)*-2.f, vRandom.z * 2.0f - 1.0f);//다이렉션 1번랜덤
             float3 dir = (noise - 0.5f) * 2.f;// 다이렉션 2번랜덤
 
+            if (ParticleBuffer[DTid.x].direction.z == 0.0f)
+            {
+                randomDirection;
+            }
+            else if (ParticleBuffer[DTid.x].direction.z == 1.0f)
+            {
+                randomDirection = dir;
+            }
+
             ParticleBuffer[DTid.x].position.xyz;// = vRandom.xyz * 100.0f; // 랜덤 시작 위치 설정
 
             ParticleBuffer[DTid.x].direction.xyz = normalize(randomDirection);  // 방향설정(2번랜덤)
@@ -81,11 +90,6 @@ void main(uint3 DTid : SV_DispatchThreadID)
             ParticleBuffer[DTid.x].active = 0;
             ParticleBuffer[DTid.x].time = 0.0f;  // 시간을 다시 0으로 초기화
         }
-
-        //ParticleBuffer[DTid.x].position.xyz += ParticleBuffer[DTid.x].direction.xyz * ParticleBuffer[DTid.x].speed * deltaTime; // 파티클 움직임
-
-        //if (ParticleBuffer[DTid.x].time > ParticleBuffer[DTid.x].endTime)
-        //    ParticleBuffer[DTid.x].active = 0; // 일정 시간이 지나면 비활성화
     }
 }
 

@@ -44,6 +44,7 @@ namespace jk
 
 		at->PlayAnimation(L"GreenTreeIdle", true);
 
+
 		{
 			GroundAttack_Sign = new Monster_GroundAttack_Sign;
 			GroundAttack_Sign->Initialize();
@@ -53,6 +54,8 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
 			GroundAttack_Sign->SetState(eState::Paused);
 		}
+
+
 		{
 			GroundAttack = new Monster_Ent_GroundAttack;
 			GroundAttack->Initialize();
@@ -62,6 +65,7 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
 			GroundAttack->SetState(eState::Paused);
 		}
+
 
 		{
 			Player_Hp = new Player_Hp_Bar;
@@ -76,7 +80,8 @@ namespace jk
 			Player_Hp->Set_Current_Hp(_MaxHp);
 			Player_Hp->SetState(eState::Active);
 		}
-		;
+		
+
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
@@ -86,6 +91,7 @@ namespace jk
 			_Hit_Effect->SetState(eState::Paused);
 		}
 
+
 		{
 			_Death_Effect = new Monster_Death_Effect;
 			_Death_Effect->Initialize();
@@ -94,6 +100,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
 			_Death_Effect->SetState(eState::Paused);
 		}
+
+
 		{
 			Hit_Particle = new GameObject();
 			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
@@ -121,19 +129,14 @@ namespace jk
 		else
 			mDir = -1;
 
+
 		if (_player_groundcheck == true)
 			_AttackSign_place = Vector3(_playerGRpos.x, _playerGRpos.y - 20, _playerGRpos.z - 1);
+
 
 		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
 		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp - _CurrenHp), _pos.y + 50, _pos.z - 1));
 		hp_tr->SetScale(_CurrenHp, 10, 0);
-
-		if (_CurrenHp <= 0)
-		{
-			_hit_particle = false;
-			Hit_Particle->SetState(eState::Paused);
-			this->SetState(eState::Paused);
-		}
 
 		{
 			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
@@ -146,6 +149,16 @@ namespace jk
 			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
 			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 		}
+
+
+		if (_CurrenHp <= 0)
+		{
+			_hit_particle = false;
+			Hit_Particle->SetState(eState::Paused);
+			_Die = true;
+		}
+
+
 
 		if (_hit_particle == true)
 		{
@@ -262,7 +275,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_GreenTree_State::Dead;
-					_Hit_Effect->_effect_animation = true;
+					_Death_Effect->_effect_animation = true;
 					_Death_Effect->SetState(eState::Active);
 				}
 			}
@@ -308,7 +321,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_GreenTree_State::Dead;
-					_Hit_Effect->_effect_animation = true;
+					_Death_Effect->_effect_animation = true;
 					_Death_Effect->SetState(eState::Active);
 				}
 			}
@@ -369,7 +382,8 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_GreenTree_State::Dead;
-						_Hit_Effect->_effect_animation = true;
+						_Death_Effect->_effect_animation = true;
+						_Death_Effect->SetState(eState::Active);
 					}
 					_bulletcheck++;
 				}
@@ -421,7 +435,8 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_GreenTree_State::Dead;
-						_Hit_Effect->_effect_animation = true;
+						_Death_Effect->_effect_animation = true;
+						_Death_Effect->SetState(eState::Active);
 					}
 					_bulletcheck++;
 				}
@@ -568,6 +583,8 @@ namespace jk
 
 	void Monster_GreenTree::dead()
 	{
+		if(_Die==true)
+			this->SetState(eState::Paused);
 	}
 	void Monster_GreenTree::hit()
 	{

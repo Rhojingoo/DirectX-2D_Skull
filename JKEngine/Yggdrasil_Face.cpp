@@ -34,6 +34,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_groggy", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Die", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Die_Set", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Die_Effect", this);
 		
 		//bind ºÎºÐ
@@ -130,7 +131,18 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
 			Groggy_Start->SetState(eState::Paused);
 		}
-		
+		{
+			_Dead_Effect = new Yggdrasil_FaceDead_Effect;
+			_Dead_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Dead_Effect);
+			Transform* bullet_tr = _Dead_Effect->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_Dead_Effect->SetState(eState::Paused);
+		}
+
+
+
 
 		at->PlayAnimation(L"FaceYggdrasilFace_Idle", true);
 		if (_Changeon == true)
@@ -271,6 +283,10 @@ namespace jk
 			Yggdrasil_Face::die_set();
 			break;
 
+		case jk::Yggdrasil::Yggdrasil_State::Die_Waiting:
+			Yggdrasil_Face::die_waiting();
+			break;
+
 		case jk::Yggdrasil::Yggdrasil_State::DieReady:
 			Yggdrasil_Face::die_ready();
 			break;
@@ -320,22 +336,22 @@ namespace jk
 			bool attack_Cri_Mid = false;
 			bool attack_Cri_High = false;
 
-			_HitType = random(1, 10);
+			_HitType = random(1, 6);
 			if (_HitType >= 1 && _HitType < 6)
 			{
-				_Dammege = 10;
+				_Dammege = 3000;
 				attack = true;
 			}
-			if (_HitType >= 6 && _HitType < 9)
-			{
-				_Dammege = random(15, 25);
-				attack_Cri_Mid = true;
-			}
-			if (_HitType >= 9 && _HitType <= 10)
-			{
-				_Dammege = random(30, 45);
-				attack_Cri_High = true;
-			}
+			//if (_HitType >= 6 && _HitType < 9)
+			//{
+			//	_Dammege = random(15, 25);
+			//	attack_Cri_Mid = true;
+			//}
+			//if (_HitType >= 9 && _HitType <= 10)
+			//{
+			//	_Dammege = random(30, 45);
+			//	attack_Cri_High = true;
+			//}
 
 			{	
 				_Hit_Effect->_effect_animation = true;
@@ -377,20 +393,19 @@ namespace jk
 			}	
 			if (_CurrenHp <= 0)
 			{
-				if (Yggdrasil::_FirstDie == false)
+				if (_Diecheck == 0)
 				{
-					_Check_Life = true;
-					Yggdrasil::_FirstDie = true;
-					Yggdrasil::_Change = true;
-					_MaxHp = 3500;
-					_CurrenHp = 3500;
-					_Death_Effect->SetState(eState::Active);
+					if (Yggdrasil::_FirstDie == false)
+					{				
+						Yggdrasil::_FirstDie = true;
+						Yggdrasil::_Change = true;
+						_Diecheck = 1;
+					}
 				}
-				else
+				else if(_Diecheck ==1)
 				{
-					_Check_Life = true;
-					_Death_Effect->SetState(eState::Active);
 					_DieON = true;
+					Yggdrasil::_FirstDie = true;
 				}
 			}
 		}
@@ -458,20 +473,19 @@ namespace jk
 			}
 			if (_CurrenHp <= 0)
 			{
-				if (Yggdrasil::_FirstDie == false)
+				if (_Diecheck == 0)
 				{
-					_Check_Life = true;
-					Yggdrasil::_FirstDie = true;
-					Yggdrasil::_Change = true;
-					_MaxHp = 3500;
-					_CurrenHp = 3500;
-					_Death_Effect->SetState(eState::Active);
+					if (Yggdrasil::_FirstDie == false)
+					{					
+						Yggdrasil::_FirstDie = true;
+						Yggdrasil::_Change = true;
+						_Diecheck = 1;
+					}
 				}
-				else
-				{
-					_Check_Life = true;
-					_Death_Effect->SetState(eState::Active);
+				else if (_Diecheck == 1)
+				{		
 					_DieON = true;
+					Yggdrasil::_FirstDie = true;
 				}
 			}
 		}
@@ -602,6 +616,19 @@ namespace jk
 			}
 			else
 			{
+				if (_CurrenHp <= 0)
+				{
+					for (int i = 0; i < 8; i++)
+					{
+						Bullet[i]->SetState(eState::Paused);
+						Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
+					}
+					{
+						Energy_Bomb->SetState(eState::Paused);
+						Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
+					}
+				}
+
 				_state = Yggdrasil_State::Attack_C_Down;
 				Groggy_Start->_groggystartefeect_switch = true;
 			}
@@ -739,6 +766,19 @@ namespace jk
 			}
 			else
 			{
+				if (_CurrenHp <= 0)
+				{
+					for (int i = 0; i < 8; i++)
+					{
+						Bullet[i]->SetState(eState::Paused);
+						Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
+					}
+					{
+						Energy_Bomb->SetState(eState::Paused);
+						Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
+					}
+				}
+
 				if (_pos.y > 50)
 				{
 					_pos.y -= 150 * Time::DeltaTime();
@@ -821,7 +861,6 @@ namespace jk
 			_state = Yggdrasil_State::Groggy_Start;
 	}
 
-
 	void Yggdrasil_Face::groggy_start()
 	{
 		groggy_down();
@@ -866,6 +905,25 @@ namespace jk
 
 	void Yggdrasil_Face::change_set()
 	{
+		if (_SetChange_face == false)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				Bullet[i]->SetState(eState::Paused);
+				Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
+			}
+			{
+				Energy_Bomb->SetState(eState::Paused);
+				Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
+				Yggdrasil_effect->SetState(eState::Paused);
+			}		
+
+
+			_pos.x = 0;
+			_pos.y = 50;
+			_SetChange_face = true;
+		}
+
 		if (_Change ==true)
 			_FaceSet_of_Change = true;
 	}
@@ -904,6 +962,23 @@ namespace jk
 
 	void Yggdrasil_Face::die_set()
 	{
+		_pos.x = 0;
+		_pos.y = 50;
+		for (int i = 0; i < 15; i++)
+		{
+			Groggy_Begin_Efeect[i]->SetState(eState::Paused);
+				Energy_Corps[i]->SetState(eState::Paused);
+		}
+		Transform* bullet_tr = _Dead_Effect->GetComponent<Transform>();
+		bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		_Dead_Effect->SetState(eState::Active);
+		at->PlayAnimation(L"FaceYggdrasilFace_Die_Set", false);		
+		_Die_SetFace = true;
+	}
+	void Yggdrasil_Face::die_waiting()
+	{
+		_Dead_Effect->SetState(eState::Paused);
+		 _Die_Waiting_Face = true;
 	}
 	void Yggdrasil_Face::die_ready()
 	{

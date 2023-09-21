@@ -9,7 +9,7 @@ namespace jk
 	class ParticleSystem : public MeshRenderer
 	{
 	public:
-		ParticleSystem(const Vector3 &set);
+		ParticleSystem(const Vector3 &set, float setimage = 0);
 		~ParticleSystem();
 
 		virtual void Initialize() override;

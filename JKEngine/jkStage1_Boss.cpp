@@ -29,11 +29,12 @@ namespace jk
 
 #pragma endregion 
 
-		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+		_player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 
-		Yggdrasil* testboss = object::Instantiate<Yggdrasil>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
-		testboss->SetName(L"test_BOSS");
+		_Stage1_Boss = object::Instantiate<Yggdrasil>(Vector3(0.f, -500.f, -250.f), eLayerType::Boss);
+		_Stage1_Boss->SetName(L"Stage1_BOSS");
+		_Stage1_Boss->SetState(GameObject::eState::Paused);
 
 
 		#pragma region BG	
@@ -69,12 +70,20 @@ namespace jk
 			TileMap::TileMap_Setting(Tile_map, L"Stage1_MiniBoss", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Yggdrasil_bossmap.xml");
 		}
 		#pragma endregion	
-
-	
-
 	}
 	void Stage1_Boss::Update()
 	{
+		if (_player->firstGroundcheck == true)
+		{
+			if (_first_groundturch == false)
+			{
+				_first_groundturch = true;
+				_Stage1_Boss->SetState(GameObject::eState::Active);
+			}
+		}
+
+		CamareShooting();
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(L"Stage2_1");
@@ -84,6 +93,7 @@ namespace jk
 	void Stage1_Boss::LateUpdate()
 	{
 		Scene::LateUpdate();
+
 	}
 	void Stage1_Boss::Render()
 	{
@@ -94,11 +104,18 @@ namespace jk
 #pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, true);
-		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
+		cameraComp->SetTarget(_player);
+		cameraComp->SetCamera = true;
+		cameraComp->SetYggdrasilCamera = true;
+		cameraComp->SetCameraXY = true;
+		cameraComp->Set_MaxPlayerX(700.f);
+		cameraComp->Set_MinPlayerX(-840.f);
+		cameraComp->Set_MaxPlayerY(400.f);
+		cameraComp->Set_MinPlayerY(-360.f);
 
 		//UI Camera		
 		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -134,5 +151,30 @@ namespace jk
 	}
 	void Stage1_Boss::OnExit()
 	{
+	}
+
+
+	void Stage1_Boss::CamareShooting()
+	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+
+		if (_first_groundturch == true)
+			cameraComp->SetCameraXY = false;
+
+
+		//if (player_pos.x <= -610)
+		//	cameraComp->SetCameraXY = false;
+
+
+		//if (_Boss_Create == false)
+		//{
+		//	if (player_pos.x > -610 && player_pos.x <= -240)
+		//		cameraComp->SetCameraXY = true;
+		//	if (player_pos.x > -10)
+		//	{
+		//		cameraComp->SetCameraXY = false;		
+		//	}
+		//}
 	}
 }

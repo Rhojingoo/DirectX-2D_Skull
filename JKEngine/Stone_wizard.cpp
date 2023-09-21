@@ -158,11 +158,12 @@ namespace jk
 		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
 		hp_tr->SetPosition(Vector3(pos.x - (_MaxHp - _CurrenHp), pos.y + 50, pos.z - 1));
 		hp_tr->SetScale(_CurrenHp, 10, 0);
+
 		if (_CurrenHp <= 0)
 		{	
 			_hit_particle = false;
-			_Die = true;
 			Hit_Particle->SetState(eState::Paused);
+			_Die = true;
 			this->SetState(eState::Paused);
 		}
 
@@ -284,7 +285,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Stone_wizard_State::Dead;
-					_Hit_Effect->_effect_animation = true;
+					_Death_Effect->_effect_animation = true;
 					_Death_Effect->SetState(eState::Active);
 					_CurrenHp = 0;					
 				}

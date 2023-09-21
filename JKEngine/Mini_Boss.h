@@ -19,6 +19,7 @@ namespace jk
 			knight,	
 			archer,
 			mage,
+			cleric,
 		};
 
 		virtual void OnCollisionEnter(Collider2D* other) override;
@@ -35,6 +36,8 @@ namespace jk
 
 		static Vector3 Left_Ground;
 		static Vector3 Right_Ground;
+		bool _Die = false;
+
 
 	private : 
 		static GameObject* _player;	
@@ -42,16 +45,6 @@ namespace jk
 		//static PlayerList player_check;
 		MinibossList _mboss;
 		int _minibosschoice = 0;
-
 		static Vector3 _Pos;
-
-		GameObject* _Gobjs[1];
-	
-	private:
-
-		//static bool _check_change;
-		//static int mDir;	
-
-
 	};
 }

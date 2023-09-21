@@ -27,17 +27,11 @@ namespace jk
 
 	void Door::OnCollisionEnter(Collider2D* other)
 	{
-
 	}
-
 	void Door::OnCollisionStay(Collider2D* other)
 	{
-
 	}
-
 	void Door::OnCollisionExit(Collider2D* other)
 	{
-
 	}
-
 }

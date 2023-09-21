@@ -14,9 +14,6 @@ namespace jk
 	void Monster_Death_Effect::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
-		_rigidbody = AddComponent<RigidBody>();
-		_rigidbody->SetMass(1.f);
-		_rigidbody->SetGround(true);
 
 
 		at = AddComponent<Animator>();

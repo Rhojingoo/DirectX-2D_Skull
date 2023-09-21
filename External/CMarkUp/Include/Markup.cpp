@@ -790,8 +790,8 @@ bool TextEncoding::FindRaggedEnd( int& nTruncBeforeBytes )
 		}
 		else
 		{
-			// Do a conversion-based test unless we can determine it is not multi-byte
-			// If m_strEncoding="" default code page then GetACP can tell us the code page, otherwise just do the test
+			// Do a conversion-based change_monster1 unless we can determine it is not multi-byte
+			// If m_strEncoding="" default code page then GetACP can tell us the code page, otherwise just do the change_monster1
 #if defined(MARKUP_WINCONV)
 			if ( nCP == 0 )
 				nCP = GetACP();

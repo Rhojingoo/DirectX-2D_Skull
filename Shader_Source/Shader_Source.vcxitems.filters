@@ -97,6 +97,9 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)HitParticleCS.hlsl">
       <Filter>HLSL\Particle_Hit</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Alpa_AnimationPS.hlsl">
+      <Filter>HLSL\Animation</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HLSL">

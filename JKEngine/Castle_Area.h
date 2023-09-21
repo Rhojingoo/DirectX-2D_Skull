@@ -28,5 +28,7 @@ namespace jk
 		Camera* cameraComp = nullptr;
 		float _time = 0.f;
 		bool _Fadecheck = false;
+
+		bool first_groundturch = false;
 	};
 }

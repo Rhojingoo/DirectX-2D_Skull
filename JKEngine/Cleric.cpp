@@ -233,7 +233,7 @@ namespace jk
 	{
 		pos = tr->GetPosition();
 		_velocity = _rigidbody->GetVelocity();
-		_playerpos;
+		_playerpos = Player::GetPlayer_Pos();
 		_distance = _playerpos.x - pos.x;
 		if (_distance >= 0.f)
 			mDir = 1;
@@ -1109,6 +1109,9 @@ namespace jk
 	}
 	void Cleric::die()
 	{
+		_Die = true;
+		Ultimate_Aura->SetState(eState::Paused);
+		Ultimate_AuraSmoke->SetState(eState::Paused);	
 	}
 	void Cleric::intro()
 	{

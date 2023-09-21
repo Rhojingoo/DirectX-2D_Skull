@@ -33,10 +33,10 @@ namespace jk
 		void FadeIn_DeepBlack();
 		void FadeOut();	
 
-		void Set_White_Transparent() { _State = Alpha_Blend_State::FadeIn_White_Transparent, mTime = 0, _Time = 0, _FadeCheck = false; };
-		void Set_DeepWhite() { _State = Alpha_Blend_State::FadeIn_DeepWhite, mTime = 0, _Time = 3, _FadeCheck = false; };
-		void Set_Black_Transparent() { _State = Alpha_Blend_State::FadeIn_Black_Transparent, mTime = 1, _Time = 0, _FadeCheck = false; };
-		void Set_DeepBlack() { _State = Alpha_Blend_State::FadeIn_DeepBlack, mTime = 1, _Time = 3, _FadeCheck = false; };
+		void Set_White_Transparent() { _State = Alpha_Blend_State::FadeIn_White_Transparent, mTime = 0, _Time = 0, _Colorcheck=0, _FadeCheck = false; };
+		void Set_DeepWhite() { _State = Alpha_Blend_State::FadeIn_DeepWhite, mTime = 0, _Time = 3, _Colorcheck = 0, _FadeCheck = false; };
+		void Set_Black_Transparent() { _State = Alpha_Blend_State::FadeIn_Black_Transparent, mTime = 1, _Time = 0, _Colorcheck = 1, _FadeCheck = false; };
+		void Set_DeepBlack() { _State = Alpha_Blend_State::FadeIn_DeepBlack, mTime = 1, _Time = 3, _Colorcheck = 1, _FadeCheck = false; };
 
 		void Set_FadeCheck(bool set) { _FadeCheck = set; }
 		bool Get_FadeCheck() { return _FadeCheck; }
@@ -47,6 +47,7 @@ namespace jk
 
 		float mTime = 0.f;
 		float _Time = 0.f;
+		float _Colorcheck = 0.f;
 		static bool _FadeCheck;
 
 		Vector4 mFadeInStartColor = Vector4();

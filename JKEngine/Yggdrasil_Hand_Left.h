@@ -3,6 +3,7 @@
 #include "Yggdrasil_FistSlam_Effect.h"
 #include "Yggdrasil_Sweeping.h"
 #include "HitBox_YggDrasil.h"
+#include "Yggdrasil_HandDead_Effect.h"
 
 
 namespace jk
@@ -57,6 +58,7 @@ namespace jk
 		void change_end();
 
 		void die_set();
+		void die_waiting();
 		void die_ready();
 		void die();
 
@@ -70,7 +72,7 @@ namespace jk
 		Yggdrasil_FistSlam_Effect* FistSlam_Smoke = nullptr;
 		Yggdrasil_Sweeping* _Sweeping = nullptr;
 		HitBox_YggDrasil* Hit_Box = nullptr;
-
+		Yggdrasil_HandDead_Effect* _Dead_Effect = nullptr;
 
 	private:
 		Animator* at = nullptr;

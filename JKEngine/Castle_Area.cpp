@@ -4,6 +4,8 @@
 #include "jkPaintShader.h"
 #include "Blosome.h"
 
+
+
 namespace jk
 {
 	Castle_Area::Castle_Area()
@@ -64,7 +66,7 @@ namespace jk
 		//}
 
 			#pragma region Player				
-					_player = object::Instantiate<Player>(Vector3(0.f, 0.f, -250.f), eLayerType::Player);
+					_player = object::Instantiate<Player>(Vector3(0.f, -50.f, -250.f), eLayerType::Player);
 					_player->SetName(L"player_select");
 			#pragma endregion
 
@@ -130,6 +132,7 @@ namespace jk
 	}
 	void Castle_Area::Update()
 	{
+
 		if (_player)
 		{
 			Transform* PlayerTR = _player->GetComponent<Transform>();
@@ -147,6 +150,17 @@ namespace jk
 				else
 					cameraComp->SetCameraY = false;
 			}
+
+			if (_player->firstGroundcheck == true)
+			{
+				if (first_groundturch = false)
+				{
+					cameraComp->SetCameraXY = false;
+					first_groundturch = true;
+				}
+			}
+
+
 
 
 			if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
@@ -206,7 +220,6 @@ namespace jk
 		cameraComp->SetCamera = true;
 		cameraComp->SetCameraXY = true;
 		cameraComp->SetCameraX = true;
-		cameraComp->SetCameraXY = false;
 		cameraComp->Set_MaxPlayerX(1200.f);
 		cameraComp->Set_MinPlayerX(-600.f);
 		cameraComp->Set_MinPlayerY(-1800.f);

@@ -44,6 +44,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandBullet_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Bullet_off_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Bullet_on_Change", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandDie_Change", this);
+
 		
 
 		//bind ºÎºÐ
@@ -78,6 +80,15 @@ namespace jk
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetState(eState::Paused);
+		}
+		{
+			_Dead_Effect = new Yggdrasil_HandDead_Effect;
+			_Dead_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Dead_Effect);
+			Transform* bullet_tr = _Dead_Effect->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_Dead_Effect->SetState(eState::Paused);
 		}
 
 
@@ -229,6 +240,12 @@ namespace jk
 		case jk::Yggdrasil::Yggdrasil_State::DieSet:
 			Yggdrasil_Hand_Left::die_set();
 			break;
+
+
+		case jk::Yggdrasil::Yggdrasil_State::Die_Waiting:
+			Yggdrasil_Hand_Left::die_waiting();
+			break;
+
 
 		case jk::Yggdrasil::Yggdrasil_State::DieReady:
 			Yggdrasil_Hand_Left::die_ready();
@@ -760,8 +777,12 @@ namespace jk
 	{
 		if (_Attackswitch == true)
 		{
+			_pos = Vector3(GetPos().x - 150.f, GetPos().y - 100, -203.f);
+			_rigidbody->ClearVelocity();
 			_rigidbody->SetVelocity(Vector2(-10.f, 0.f));
 			_Attackswitch = false;
+			_Sweeping->SetState(eState::Paused);
+			_HitBox_Attack_On = false;
 		}
 		else
 		{
@@ -814,15 +835,35 @@ namespace jk
 		}		
 	}
 
+
+
 	void Yggdrasil_Hand_Left::die_set()
 	{
+		_HitBox_Attack_On = false;
+		_Attackswitch = false;
+		_Sweeping->SetState(eState::Paused);
+		_rigidbody->ClearVelocity();
 		_pos = Vector3(GetPos().x - 150.f, GetPos().y - 100, -203.f);
-		at->PlayAnimation(L"HandBullet_on_Change", false);
+		at->PlayAnimation(L"HandHandDie_Change", false);
+		Transform* bullet_tr = _Dead_Effect->GetComponent<Transform>();
+		bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		_Dead_Effect->SetDirection(1);
+		_Dead_Effect->SetDirectionBool(true);
+		_Dead_Effect->SetState(eState::Active);
+
 		_Die_SetL = true;
 	}
+
+	void Yggdrasil_Hand_Left::die_waiting()
+	{
+		_Dead_Effect->SetState(eState::Paused);
+		_Die_Waiting_L = true;
+	}
+
 	void Yggdrasil_Hand_Left::die_ready()
 	{
 	}
+
 	void Yggdrasil_Hand_Left::die()
 	{
 	}

@@ -100,24 +100,6 @@
     <ClInclude Include="Monster_warrior.h">
       <Filter>Game_ob\Monster\Monster_warrior</Filter>
     </ClInclude>
-    <ClInclude Include="Yggdrasil.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_Body.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_Chin.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_Face.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_Hand_Right.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_Hand_Left.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClInclude>
     <ClInclude Include="Monster_BigEnt.h">
       <Filter>Game_ob\Monster\Monster_BigEnt</Filter>
     </ClInclude>
@@ -147,9 +129,6 @@
     </ClInclude>
     <ClInclude Include="Yggdrsil_Energy_Corps.h">
       <Filter>Game_ob\Boss\Yggdrasil\_YggdrasilBullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_Effect.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Sisters.h">
       <Filter>Game_ob\Boss\Layana_Sisters</Filter>
@@ -183,30 +162,6 @@
     </ClInclude>
     <ClInclude Include="TwinMeteor_Boss.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_EnergyBullet_Effect.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_FistSlam_Effect.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_Sweeping.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_EnergeBall_CreateEffect.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_Groggy_GroundEffect.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_EnergyCorps_Charging.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdrasil_EnergyCorps_Spark.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Yggdraisl_Groggy_StartImpact.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Knight_male_EnergeBall.h">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
@@ -521,12 +476,72 @@
       <Filter>Game_ob\PLAYER</Filter>
     </ClInclude>
     <ClInclude Include="Monster_ObjPool.h">
-      <Filter>OBJ_Pool\MonsterOBJ</Filter>
+      <Filter>OBJ_Create\MonsterOBJ</Filter>
     </ClInclude>
     <ClInclude Include="Stge_Manager.h">
-      <Filter>OBJ_Pool</Filter>
+      <Filter>OBJ_Create</Filter>
     </ClInclude>
     <ClInclude Include="practice.h" />
+    <ClInclude Include="MiniBoss_ObjCreate.h">
+      <Filter>OBJ_Create\Mini_BossOBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdraisl_Groggy_StartImpact.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_EnergeBall_CreateEffect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_EnergyBullet_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_EnergyCorps_Charging.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_EnergyCorps_Spark.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_FistSlam_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Groggy_GroundEffect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Sweeping.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_BoddyDead_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Body.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Chin.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Face.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Hand_Left.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Hand_Right.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_FaceDead_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_HandDead_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_ChinDead_Effect.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -622,24 +637,6 @@
     <ClCompile Include="Monster_warrior.cpp">
       <Filter>Game_ob\Monster\Monster_warrior</Filter>
     </ClCompile>
-    <ClCompile Include="Yggdrasil.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_Body.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_Chin.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_Face.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_Hand_Right.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_Hand_Left.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClCompile>
     <ClCompile Include="Monster_BigEnt.cpp">
       <Filter>Game_ob\Monster\Monster_BigEnt</Filter>
     </ClCompile>
@@ -669,9 +666,6 @@
     </ClCompile>
     <ClCompile Include="Yggdrsil_Energy_Corps.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\_YggdrasilBullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_Effect.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_LongHair.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters</Filter>
@@ -705,30 +699,6 @@
     </ClCompile>
     <ClCompile Include="TwinMeteor_Effect.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_EnergyBullet_Effect.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_FistSlam_Effect.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_Sweeping.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_EnergeBall_CreateEffect.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_Groggy_GroundEffect.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_EnergyCorps_Charging.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdrasil_EnergyCorps_Spark.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Yggdraisl_Groggy_StartImpact.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Knight_male_EnergeBall.cpp">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
@@ -1043,15 +1013,75 @@
       <Filter>Game_ob\PLAYER</Filter>
     </ClCompile>
     <ClCompile Include="Monster_ObjPool.cpp">
-      <Filter>OBJ_Pool\MonsterOBJ</Filter>
+      <Filter>OBJ_Create\MonsterOBJ</Filter>
     </ClCompile>
     <ClCompile Include="Stge_Manager.cpp">
-      <Filter>OBJ_Pool</Filter>
+      <Filter>OBJ_Create</Filter>
     </ClCompile>
     <ClCompile Include="LoadScenes.cpp">
       <Filter>Scene\Load</Filter>
     </ClCompile>
     <ClCompile Include="practice.cpp" />
+    <ClCompile Include="MiniBoss_ObjCreate.cpp">
+      <Filter>OBJ_Create\Mini_BossOBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdraisl_Groggy_StartImpact.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_EnergeBall_CreateEffect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_EnergyBullet_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_EnergyCorps_Charging.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_EnergyCorps_Spark.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_FistSlam_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Groggy_GroundEffect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Sweeping.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_BoddyDead_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Body.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Chin.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Face.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Hand_Left.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Hand_Right.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_FaceDead_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_HandDead_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_ChinDead_Effect.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1300,14 +1330,26 @@
     <Filter Include="Game_ob\Particle">
       <UniqueIdentifier>{3fee6bea-8bae-407f-a40b-9c4640638d14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="OBJ_Pool">
+    <Filter Include="OBJ_Create">
       <UniqueIdentifier>{8898660c-990b-4973-bb7d-f2c6fe8ab891}</UniqueIdentifier>
     </Filter>
-    <Filter Include="OBJ_Pool\Obj">
+    <Filter Include="OBJ_Create\Obj">
       <UniqueIdentifier>{93bee63d-205f-453b-835c-5110012f6d77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="OBJ_Pool\MonsterOBJ">
+    <Filter Include="OBJ_Create\MonsterOBJ">
       <UniqueIdentifier>{b6283ed8-5b67-40fd-9e66-274af1520444}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBJ_Create\Mini_BossOBJ">
+      <UniqueIdentifier>{3e2c0fe7-c428-4bf7-969e-4962768f564c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Yggdrasil\Effect\Dead_Effect">
+      <UniqueIdentifier>{5a91596d-2a17-4c77-aac0-5bd5cc76821d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Yggdrasil\Effect\Attack_Effect">
+      <UniqueIdentifier>{c578556d-368f-45fb-a0ed-f85b37364d00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Yggdrasil\Base">
+      <UniqueIdentifier>{b2b83813-6007-4e62-98df-16ddac787cb9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -68,6 +68,7 @@ namespace jk
 		void Set_MinBGY(float set) { _MinBgY = set; }
 
 		bool SetCamera = false;
+		bool SetYggdrasilCamera = false;
 		bool SetCameraXY = false;
 		bool SetCameraX = false;
 		bool SetCameraY = false;

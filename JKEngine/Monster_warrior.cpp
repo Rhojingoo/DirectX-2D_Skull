@@ -74,14 +74,14 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
-			Hit_Box->SetState(eState::Active);
+			Hit_Box->SetState(eState::Paused);
 		}
 
 		{
 			Player_Hp = new Player_Hp_Bar;
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::UI, Player_Hp);
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
 			Player_Hp->SetName(L"player_hp_bar");
 			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
@@ -203,11 +203,11 @@ namespace jk
 			else
 				HitBox_TR->SetPosition(Vector3(_pos.x - 30, _pos.y-5, _pos.z));
 		}
-		else
-		{
+		else		
 			Hit_Box->SetState(eState::Paused);
-		}
-
+		
+		if(_state== Monster_warrior_State::Dead)
+			Hit_Box->SetState(eState::Paused);
 
 		_collider->SetSize(Vector2(0.35f, 0.75f));
 		_collider->SetCenter(Vector2(1.f, -6.5f));
@@ -507,6 +507,21 @@ namespace jk
 				_rigidbody->ClearVelocity();
 			}
 		}
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			if (mGround->_SkullOn == true)
+				_followskul = true;
+			if (mGround->_SkullOn == false)
+				_followskul = false;
+
+			if (_Ground_check == false)
+			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_Ground_check = _rigidbody->GetGround();
+				_rigidbody->ClearVelocity();
+			}
+		}
 	}
 	void Monster_warrior::OnCollisionExit(Collider2D* other)
 	{
@@ -638,8 +653,12 @@ namespace jk
 
 	void Monster_warrior::dead()
 	{
+		Hit_Particle->SetState(eState::Paused);
+		_hit_particle = false;
+		_particletime = 0.f;
+	
+
 		_Die = true;
-		Hit_Box->SetState(eState::Paused);
 	}
 
 	void Monster_warrior::hit()

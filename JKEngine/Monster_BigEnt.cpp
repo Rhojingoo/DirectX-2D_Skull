@@ -45,7 +45,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
-			Hit_Box->SetState(eState::Active);
+			Hit_Box->SetState(eState::Paused);
 		}
 		{
 			for (int i = 0; i < 8; i++)
@@ -282,9 +282,9 @@ namespace jk
 
 		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
 		{
-
 			if (_state == Monster_BigEnt_State::Dead)
 				return;
+
 			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 			{
 				if (player->_Head_Attack == false && _bulletcheck == 0)
@@ -360,6 +360,19 @@ namespace jk
 				_rigidbody->ClearVelocity();
 			}
 		}
+
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+
+
+			if (_Ground_check == false)
+			{
+				_rigidbody->SetGround(true);
+				_Ground_check = true;
+				_Ground_check = _rigidbody->GetGround();
+				_rigidbody->ClearVelocity();
+			}
+		}
 	}
 	void Monster_BigEnt::OnCollisionExit(Collider2D* other)
 	{
@@ -372,14 +385,13 @@ namespace jk
 	void Monster_BigEnt::idle()
 	{
 		_time += Time::DeltaTime();
-		if (_time > 3.f)
+		if (_time > 2.f)
 		{
-			if ((_distance >= 200) || (_distance <= -200))
-			{
-				_state = Monster_BigEnt_State::AttackB_Ready;
-				at->PlayAnimation(L"GiganticEntAttack_Range_Ready", false);
-			}
-			else
+			//if ((_distance > 200) || (_distance < -200))
+			//{
+
+			//}
+			if ((_distance <= 200) && (_distance >= -200))
 			{
 				if (_choiceattack == 0)
 				{
@@ -391,6 +403,11 @@ namespace jk
 					_state = Monster_BigEnt_State::AttackB_Ready;
 					at->PlayAnimation(L"GiganticEntAttack_Range_Ready", false);
 				}
+			}
+			else
+			{
+				_state = Monster_BigEnt_State::AttackB_Ready;
+				at->PlayAnimation(L"GiganticEntAttack_Range_Ready", false);
 			}
 		}
 		
@@ -442,6 +459,7 @@ namespace jk
 
 	void Monster_BigEnt::dead()
 	{
+		_Die = true;
 	}
 	void Monster_BigEnt::hit()
 	{

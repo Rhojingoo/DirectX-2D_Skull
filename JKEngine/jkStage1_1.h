@@ -2,7 +2,6 @@
 #include "Include_Common.h"
 #include "..\Engine_SOURCE\jkScene.h"
 #include "jkPlayScene.h"
-
 #include "Monster_ObjPool.h"
 #include "Stge_Manager.h"
 
@@ -26,21 +25,32 @@ namespace jk
 		void SetMonOBJ();
 		bool AreAllMonstersDead(const std::vector<Monster*>& monsterGroup, bool check);
 
-		bool test = false;
-		bool test2 = false;
+
 		bool Monsters_check = false;
 		float time = 0.f;
 	private:
 		Camera* cameraComp = nullptr;
 		Player* _player = nullptr;		
 
+		Stage1_Door* Door1 = nullptr;
+		bool first_groundturch = false;;
+		bool first_MonsterCreate = false;;
+
 		Monster_ObjPool* OBJPOOL = nullptr;
 		Stage_Manager* StageMn = nullptr;
 		bool firstMonsters = false;
 		bool secondMonsters = false;
 		bool thirdMonsters = false;
+		bool fourthMonsters = false;
 		std::vector<Monster*> monsterGroup1;
 		std::vector<Monster*> monsterGroup2;
 		std::vector<Monster*> monsterGroup3;
+		std::vector<Monster*> monsterGroup4;
+		bool change_monster1 = false;
+		bool change_monster2 = false;
+		bool change_monster3 = false;
+		bool change_monster4 = false;
 	};
+
+
 }

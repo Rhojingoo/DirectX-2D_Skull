@@ -120,13 +120,6 @@ namespace jk
 		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp - _CurrenHp), _pos.y + 50, _pos.z - 1));
 		hp_tr->SetScale(_CurrenHp, 10, 0);
 
-		if (_CurrenHp <= 0)
-		{
-			_hit_particle = false;
-			Hit_Particle->SetState(eState::Paused);
-			this->SetState(eState::Paused);
-		}
-
 		{
 			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
 			if (mDir == 1)
@@ -138,6 +131,16 @@ namespace jk
 			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
 			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 		}
+
+		if (_CurrenHp <= 0)
+		{
+			_hit_particle = false;
+			Hit_Particle->SetState(eState::Paused);
+			_Die = true;
+			this->SetState(eState::Paused);
+		}
+
+
 
 		if (_hit_particle == true)
 		{
@@ -248,8 +251,9 @@ namespace jk
 				}
 				if (_CurrenHp <= 0)
 				{
-					_state = Monster_BlossomEnt_State::Dead;
 					_Hit_Effect->_effect_animation = true;
+					Hit_Particle->SetState(eState::Paused);
+					_state = Monster_BlossomEnt_State::Dead;
 				}
 			}
 
@@ -293,8 +297,12 @@ namespace jk
 				}
 				if (_CurrenHp <= 0)
 				{
-					_state = Monster_BlossomEnt_State::Dead;
 					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Paused);
+					Hit_Particle->SetState(eState::Paused);
+					_particletime = 0.f;
+					_hit_particle = false;;
+					_state = Monster_BlossomEnt_State::Dead;
 				}
 			}
 		}

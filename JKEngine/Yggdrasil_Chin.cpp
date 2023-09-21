@@ -45,13 +45,24 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Chind\\YggdrasilChin_Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Chind\\YggdrasilChin_Attac_C", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Chind\\YggdrasilChin_Change", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Chind\\YggdrasilChin_Change_Die_Effect", this);
+		//at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Chind\\YggdrasilChin_Change_Die_Effect", this);
 		
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
+
 		
+		{
+			_Dead_Effect = new Yggdrasil_ChinDead_Effect;
+			_Dead_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Dead_Effect);
+			Transform* bullet_tr = _Dead_Effect->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_Dead_Effect->SetState(eState::Paused);
+		}
+
 
 		at->PlayAnimation(L"ChindYggdrasilChin_Idle", true);		
 		if (_Changeon == true)
@@ -73,7 +84,10 @@ namespace jk
 		}
 
 
-		if (_state != Yggdrasil_State::Intro_End && _state != Yggdrasil_State::Intro && _state != Yggdrasil_State::Attack_C && _state != Yggdrasil_State::Attack_C_Ready && _state != Yggdrasil_State::Attack_C_UP && _state != Yggdrasil_State::Attack_C_Down && _state != Yggdrasil_State::Attack_C_Finish && _state != Yggdrasil_State::Change && _state != Yggdrasil_State::Change_End)
+		if (_state != Yggdrasil_State::Intro_End && _state != Yggdrasil_State::Intro && _state != Yggdrasil_State::Attack_C && _state != Yggdrasil_State::Attack_C_Ready 
+			&& _state != Yggdrasil_State::Attack_C_UP && _state != Yggdrasil_State::Attack_C_Down && _state != Yggdrasil_State::Attack_C_Finish 
+			&& _state != Yggdrasil_State::Change && _state != Yggdrasil_State::Change_End && _state != Yggdrasil_State::DieSet &&_state != Yggdrasil_State::DieReady 
+			&& _state != Yggdrasil_State::Die &&_state != Yggdrasil_State::Die_Waiting)
 		{
 			if (_state == Yggdrasil_State::Groggy_Start || _state == Yggdrasil_State::Groggy_End || _state == Yggdrasil_State::Die ||_state == Yggdrasil_State::DieReady|| _state == Yggdrasil_State::DieSet)
 			{
@@ -222,6 +236,10 @@ namespace jk
 
 		case jk::Yggdrasil::Yggdrasil_State::DieSet:
 			Yggdrasil_Chin::die_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Die_Waiting:
+			Yggdrasil_Chin::die_waiting();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::DieReady:
@@ -419,6 +437,12 @@ namespace jk
 
 	void Yggdrasil_Chin::change_set()
 	{
+		if (_SetChange_chin == false)
+		{
+			_pos.x = 12.5f;
+			_pos.y = -65.f;
+			_SetChange_chin = true;
+		}
 	}
 	void Yggdrasil_Chin::change_ready()
 	{
@@ -457,6 +481,17 @@ namespace jk
 
 	void Yggdrasil_Chin::die_set()
 	{
+		_pos.x = YggdrasilFace_pos.x + 12.5f;
+		_pos.y = YggdrasilFace_pos.y - 65.f;
+		Transform* bullet_tr = _Dead_Effect->GetComponent<Transform>();
+		bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		_Dead_Effect->SetState(eState::Active);
+		_Die_SetChin = true;
+	}
+	void Yggdrasil_Chin::die_waiting()
+	{
+		_Dead_Effect->SetState(eState::Paused);
+		_Die_Waiting_Chin = true;
 	}
 	void Yggdrasil_Chin::die_ready()
 	{

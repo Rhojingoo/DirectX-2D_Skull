@@ -1,5 +1,6 @@
 #pragma once
 #include "Include_Common.h"
+#include "Yggdrasil_ChinDead_Effect.h"
 
 namespace jk
 {	
@@ -52,6 +53,7 @@ namespace jk
 		void change_end();
 
 		void die_set();
+		void die_waiting();
 		void die_ready();
 		void die();
 
@@ -74,6 +76,8 @@ namespace jk
 		Vector3 YggdrasilFace_pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 Yggdrasil_rotation = Vector3(0.f, 0.f, 0.f);
 
+	private:
+		Yggdrasil_ChinDead_Effect* _Dead_Effect = nullptr;
 
 	private:
 		int		mDir = 1;

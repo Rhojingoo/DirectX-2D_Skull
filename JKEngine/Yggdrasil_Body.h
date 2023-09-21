@@ -1,5 +1,6 @@
 #pragma once
 #include "Include_Common.h"
+#include "Yggdrasil_BoddyDead_Effect.h"
 
 namespace jk
 {
@@ -50,6 +51,7 @@ namespace jk
 		void change_end();
 
 		void die_set();
+		void die_waiting();
 		void die_ready();
 		void die();
 
@@ -75,6 +77,8 @@ namespace jk
 		Vector3 _savepos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
+	private:
+		Yggdrasil_BoddyDead_Effect* _Dead_Effect = nullptr;
 
 	private:
 		Vector3 mCenterpos = Vector3(0.f, 0.f, 0.f);

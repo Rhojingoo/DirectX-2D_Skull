@@ -1,6 +1,7 @@
 #include "Yggdrasil.h"
 #include <iostream>
 #include <random>
+#include "jkParticleSystem.h"
 
 namespace jk
 {
@@ -13,7 +14,10 @@ namespace jk
 	int	Yggdrasil::_Attack_Dir = 1;
 
 	bool Yggdrasil::_FirstDie = false;;
-	bool Yggdrasil::_Check_Life = false;
+	int Yggdrasil::_Diecheck = 0;  //Diecheck = 0에서 죽으면 각성, Diecheck =1 일때 에너지가 없으면 진짜죽음
+	bool Yggdrasil::_DieON = false;
+	int	Yggdrasil::_HitType = 0;
+	int	Yggdrasil::_Dammege = 0;
 
 
 	float Yggdrasil::_MaxHp = 3000;
@@ -31,11 +35,6 @@ namespace jk
 	Hit_Critical_High* Yggdrasil::_Critical_High = nullptr;
 	Monster_Death_Effect* Yggdrasil::_Death_Effect = nullptr;
 
-
-	int Yggdrasil::_Diecheck = 0;  //Diecheck = 1일때 Change = true, Diecheck = 2일때 Change = false, Diecheck = 3일때 _DieON = true -> change상태임
-	bool Yggdrasil::_DieON = false;	
-	int	Yggdrasil::_HitType = 0;
-	int	Yggdrasil::_Dammege = 0;
 
 
 	bool Yggdrasil::_Intro = false;
@@ -101,10 +100,13 @@ namespace jk
 	bool  Yggdrasil::_Change = false;
 	bool  Yggdrasil::_SetChange_r = false;
 	bool  Yggdrasil::_SetChange_l = false;
+	bool  Yggdrasil::_SetChange_face = false;
+	bool  Yggdrasil::_SetChange_chin = false;
+	bool  Yggdrasil::_SetChange_boddy = false;
+
+
 	bool  Yggdrasil::_Change_Readyr = false;
 	bool  Yggdrasil::_Change_Readyl = false;
-
-
 	bool  Yggdrasil::_Change_Chin = false;
 	bool  Yggdrasil::_Change_Face = false;
 	bool  Yggdrasil::_Change_Body = false;
@@ -131,11 +133,23 @@ namespace jk
 
 	bool Yggdrasil::_Die_SetR = false;
 	bool Yggdrasil::_Die_SetL = false;
+	bool Yggdrasil::_Die_SetFace = false;
+	bool Yggdrasil::_Die_SetChin = false;
+	bool Yggdrasil::_Die_SetBoddy = false;
+
+	bool Yggdrasil::_Die_Waiting_R = false;
+	bool Yggdrasil::_Die_Waiting_L = false;
+	bool Yggdrasil::_Die_Waiting_Face = false;
+	bool Yggdrasil::_Die_Waiting_Chin = false;
+	bool Yggdrasil::_Die_Waiting_Boddy = false;
+
+
 	bool Yggdrasil::_Die_READY_R = false;
 	bool Yggdrasil::_Die_READY_L = false;
 	bool Yggdrasil::_Die_Body_Down = false;
 	bool Yggdrasil::_Die_Face_Down = false;
 	bool Yggdrasil::_Die_Chin_Down = false;
+
 
 
 	Yggdrasil::Yggdrasil()		
@@ -252,23 +266,57 @@ namespace jk
 		hp_tr->SetScale(_CurrenHp_scale, 10, 0);
 
 
-		//if(_Check_Life == true)
-		//{
-		//	if (_Change == true)
-		//	{
-		//		Yggdrasil_Hand_Right::_Attackswitch = true;
-		//		Yggdrasil_Hand_Left::_Attackswitch = true;
-		//		_state = Yggdrasil_State::Change_Set;
-		//	}
+		if (_Change == true)
+		{
+			if (_ChangeFadein == false)
+			{
+				Alpha_Blend* _Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+				_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
+				_Alpha->Set_White_Transparent();
+				_Fadecheck = true;
+				_ChangeFadein = true;
+			}
+			if (_Fadecheck == true)
+			{
+				_Fadetime += 2.75 * Time::DeltaTime();
+				if (_Fadetime > 3)
+				{
+					_Fadecheck = false;
+					_Fadetime = 0;
+					_MaxHp = 3500;
+					_CurrenHp = 3500;
+					Yggdrasil_Hand_Right::_Attackswitch = true;
+					Yggdrasil_Hand_Left::_Attackswitch = true;
+					_state = Yggdrasil_State::Change_Set;
+				}
+			}
+		}
 
-		//	if (_DieON == true)
-		//	{
-		//		Yggdrasil_Hand_Right::_Attackswitch = true;
-		//		Yggdrasil_Hand_Left::_Attackswitch = true;
-		//		_state = Yggdrasil_State::DieSet;
-		//	}
-		//	_Check_Life = false;
-		//}
+		if (_DieON == true)
+		{
+			if (_DieFadein == false)
+			{
+				Alpha_Blend* _Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+				_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
+				_Alpha->Set_White_Transparent();
+				_Fadecheck = true;
+				_DieFadein = true;
+			}
+			if (_Fadecheck == true)
+			{
+				_Fadetime += 2.75 * Time::DeltaTime();
+				if (_Fadetime > 3)
+				{
+					_Fadetime = 0;
+					_Fadecheck = false;		
+					Yggdrasil_Hand_Right::_Attackswitch = true;
+					Yggdrasil_Hand_Left::_Attackswitch = true;
+					_state = Yggdrasil_State::DieSet;
+				}
+			}
+		}
+
+
 
 		switch (_state)
 		{
@@ -408,9 +456,15 @@ namespace jk
 			change_end();
 			break;
 
+
+
 		case jk::Yggdrasil::Yggdrasil_State::DieSet:
 			die_set();
 			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Die_Waiting:
+			die_waiting();
+			break;			
 
 		case jk::Yggdrasil::Yggdrasil_State::DieReady:
 			die_ready();
@@ -474,21 +528,21 @@ namespace jk
 			_Groggy_RightHand_Up = false;
 			_Groggy_LeftHand_Up = false;
 
-			if (_Change == true)
-			{
-				Yggdrasil_Hand_Right::_Attackswitch = true;
-				Yggdrasil_Hand_Left::_Attackswitch = true;
-				_state = Yggdrasil_State::Change_Set;
-			}
+			//if (_Change == true)
+			//{
+			//	Yggdrasil_Hand_Right::_Attackswitch = true;
+			//	Yggdrasil_Hand_Left::_Attackswitch = true;
+			//	_state = Yggdrasil_State::Change_Set;
+			//}
 
-			if (_DieON == true)
-			{
-				Yggdrasil_Hand_Right::_Attackswitch = true;
-				Yggdrasil_Hand_Left::_Attackswitch = true;
-				_state = Yggdrasil_State::DieSet;
-			}
+			//if (_DieON == true)
+			//{
+			//	Yggdrasil_Hand_Right::_Attackswitch = true;
+			//	Yggdrasil_Hand_Left::_Attackswitch = true;
+			//	_state = Yggdrasil_State::DieSet;
+			//}
 	
-			Attack_Sellect = 2;
+			Attack_Sellect = 1;
 
 
 			if (_time > 3)
@@ -815,10 +869,16 @@ namespace jk
 	}	
 	
 	
+	void Yggdrasil::change_wating()
+	{
+	}
+
+
 	void Yggdrasil::change_set()
 	{
-		if (_SetChange_r == true && _SetChange_l == true)
+		if (_SetChange_r == true && _SetChange_l == true && _SetChange_face==true && _SetChange_chin ==true && _SetChange_boddy==true)
 			_state = Yggdrasil_State::Change_Ready;
+		_time = 0.f;
 	}
 	void Yggdrasil::change_ready()
 	{
@@ -854,8 +914,48 @@ namespace jk
 
 	void Yggdrasil::die_set()
 	{
-		if (_Die_SetR == true && _Die_SetL == true)
-			_state = Yggdrasil_State::DieReady;
+		if (_Die_SetR == true && _Die_SetL == true && _Die_SetFace == true && _Die_SetChin == true && _Die_SetBoddy == true)
+		{
+			_FadeAssistantTime += Time::DeltaTime();
+			if (_FadeAssistantTime > 2)
+			{
+				if (_DiewaitingFadein == false)
+				{
+					Alpha_Blend* _Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+					_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
+					_Alpha->Set_White_Transparent();	
+					_DiewaitingFadein = true;
+				}
+				if (_DiewaitingFadein == true)
+				{
+					_Fadetime += 2.75 * Time::DeltaTime();
+					if (_Fadetime > 3)
+					{
+						_Fadetime = 0.f;
+						_FadeAssistantTime = 0.f;
+						_DiewaitingFadein = false;
+						_state = Yggdrasil_State::Die_Waiting;
+
+						Particle[0] = object::Instantiate<GameObject>(Vector3(-290.f, 90.f, -249.f), eLayerType::Fore_Ground);					
+						ParticleSystem* mr = Particle[0]->AddComponent<ParticleSystem>(Vector3(-290.f, 90.f, -249.f),1);
+
+						Particle[1]  = object::Instantiate<GameObject>(Vector3(0.f, 150.f, -249.f), eLayerType::Fore_Ground);						
+						ParticleSystem* mr2 = Particle[1]->AddComponent<ParticleSystem>(Vector3(0.f, 150.f, -249.f),1);
+
+						Particle[2]  = object::Instantiate<GameObject>(Vector3(250.f, 120.f, -249.f), eLayerType::Fore_Ground);					
+						ParticleSystem* mr3 = Particle[2]->AddComponent<ParticleSystem>(Vector3(250.f, 120.f, -249.f),1);
+					}
+				}
+			
+			}		
+		}
+	}
+	void Yggdrasil::die_waiting()
+	{
+		if (_Die_Waiting_R == true && _Die_Waiting_L == true && _Die_Waiting_Face == true && _Die_Waiting_Chin == true && _Die_Waiting_Boddy == true)
+		{
+			int a = 0;
+		}
 	}
 	void Yggdrasil::die_ready()
 	{

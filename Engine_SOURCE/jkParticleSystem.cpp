@@ -10,7 +10,7 @@
 
 namespace jk
 {
-	ParticleSystem::ParticleSystem(const Vector3& set)
+	ParticleSystem::ParticleSystem(const Vector3& set, float setimage)
 		: mCount(0)
 		, mStartSize(Vector4::One)
 		, mEndSize(Vector4::One)
@@ -22,8 +22,16 @@ namespace jk
 		std::shared_ptr<Mesh> mesh = Resources::Find<Mesh>(L"PointMesh");
 		SetMesh(mesh);
 
-		std::shared_ptr<Material> material = Resources::Find<Material>(L"ParticleMaterial2");
-		SetMaterial(material);
+		if (setimage == 0.f)
+		{
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"ParticleMaterial2");
+			SetMaterial(material);
+		}
+		if (setimage == 1.f)
+		{
+			std::shared_ptr<Material> material = Resources::Find<Material>(L"Yggdrasil_Particle_Mt");
+			SetMaterial(material);
+		}
 
 		mCS = Resources::Find<ParticleShader>(L"ParticleSystemShader");
 		_Pos = set;
@@ -37,7 +45,7 @@ namespace jk
 			particle[i].direction =
 				Vector4(cosf((float)i * (XM_2PI / (float)1000))
 					, sinf((float)i * (XM_2PI / 100.f))
-					, 0.0f, 1.0f);
+					, setimage, 1.0f);
 			particle[i].position = pos;
 			particle[i].speed = 1.0f;
 			particle[i].active = 0;
@@ -73,7 +81,7 @@ namespace jk
 			mTime = f - floor(f);
 
 			ParticleShared shareData = {};
-			shareData.sharedActiveCount = 10;
+			shareData.sharedActiveCount = 25;
 			mSharedBuffer->SetData_Buffer(&shareData, 1);
 		}
 		else

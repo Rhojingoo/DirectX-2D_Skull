@@ -206,7 +206,14 @@ namespace jk
 		{
 			float OrthorGraphicRatio = mSize;
 			if (SetCamera == true)
-				OrthorGraphicRatio = mSize / 2.5;			
+			{
+				//OrthorGraphicRatio = mSize / 2.0;
+
+				if (SetYggdrasilCamera == true)
+					OrthorGraphicRatio = mSize / 2.0;
+				else
+				OrthorGraphicRatio = mSize / 2.5;
+			}
 			else
 			 OrthorGraphicRatio = mSize;
 			

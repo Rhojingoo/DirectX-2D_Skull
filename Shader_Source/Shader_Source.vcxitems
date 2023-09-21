@@ -25,6 +25,7 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)AfterImageGS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AfterImagePS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AfterImageVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)Alpa_AnimationPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AlphaPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AlphaVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)AnimationPS.hlsl" />

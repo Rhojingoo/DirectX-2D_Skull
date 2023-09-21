@@ -116,23 +116,15 @@ namespace jk::renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());		
 				
-			shader = jk::Resources::Find<Shader>(L"AfterImage_Shader");
+		shader = jk::Resources::Find<Shader>(L"AfterImage_Shader");
 		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
-		//애니메이션 파티클 연습용
-		//shader = jk::Resources::Find<Shader>(L"ParticleShader2");
-		//jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-		//	, shader->GetVSCode()
-		//	, shader->GetInputLayoutAddressOf());
-
-
-		//없애도되는 쉐이더 (공부용)
-		//shader = jk::Resources::Find<Shader>(L"AfterImageShader");
-		//jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
-		//	, shader->GetVSCode()
-		//	, shader->GetInputLayoutAddressOf());
+		shader = jk::Resources::Find<Shader>(L"AlphaANI_Shader");
+		jk::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());		
 
 #pragma endregion
 
@@ -422,6 +414,7 @@ namespace jk::renderer
 		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
 		Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
 		Resources::Load<Texture>(L"Blossom_Particle", L"..\\Resources\\particle\\BlossomParticle_14.png");
+		Resources::Load<Texture>(L"Yggdrasil_Particle", L"..\\Resources\\particle\\Particle_Yggdrasil.png");
 		Resources::Load<Texture>(L"HIT_Particle", L"..\\Resources\\particle\\Particle_Hit.png");
 		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
 		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
@@ -548,6 +541,12 @@ namespace jk::renderer
 		alpha_shader->Create(eShaderStage::PS, L"AlphaPS.hlsl", "main");
 		jk::Resources::Insert(L"Alpha_Shader", alpha_shader);
 
+		//animation_alpha
+		std::shared_ptr<Shader> alphaANI_shader = std::make_shared<Shader>();
+		alphaANI_shader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
+		alphaANI_shader->Create(eShaderStage::PS, L"Alpa_AnimationPS.hlsl", "main");
+		jk::Resources::Insert(L"AlphaANI_Shader", alphaANI_shader);
+
 
 		//타일
 #pragma region Tile_map_cmarkup
@@ -584,6 +583,11 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"HP_Bar_Shader");
 		std::shared_ptr<Shader> alpha_Shader
 			= Resources::Find<Shader>(L"Alpha_Shader");
+		std::shared_ptr<Shader> aniAlpha_Shader
+			= Resources::Find<Shader>(L"AlphaANI_Shader");
+
+
+		
 		//std::shared_ptr<Shader> dahs_Shader  //연습용 파티클 대쉬
 		//	= Resources::Find<Shader>(L"AfterImageShader");
 		//std::shared_ptr<Shader> particleShader2  //연습용 파티클 애니메이션
@@ -653,6 +657,15 @@ namespace jk::renderer
 				Resources::Insert(L"After_Image_Skul", material);				
 			#pragma endregion
 
+			#pragma region AniAlpha_Shader
+				material = std::make_shared<Material>();
+				material->SetShader(aniAlpha_Shader);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"ANI_ALPHA", material);
+			#pragma endregion
+				
+
+
 #pragma endregion
 
 		#pragma region Monster
@@ -709,35 +722,23 @@ namespace jk::renderer
 		Resources::Insert(L"ParticleMaterial2", material);
 
 		std::shared_ptr<Texture> particleText3
-			= Resources::Find<Texture>(L"HIT_Particle");
+			= Resources::Find<Texture>(L"Yggdrasil_Particle");
 		material = std::make_shared<Material>();
 		material->SetShader(particleShader);
 		material->SetTexture(particleText3);
 		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"Yggdrasil_Particle_Mt", material);
+
+
+		std::shared_ptr<Texture> particleText4
+			= Resources::Find<Texture>(L"HIT_Particle");
+		material = std::make_shared<Material>();
+		material->SetShader(particleShader);
+		material->SetTexture(particleText4);
+		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"HITParticleMaterial", material);
 
 		
-		//파티클 애니메이션용
-		//#pragma region Dash
-		//		material = std::make_shared<Material>();
-		//		material->SetShader(particleShader2);
-		//		material->SetRenderingMode(eRenderingMode::Transparent);
-		//		Resources::Insert(L"AniParticleMaterial", material);
-		//#pragma endregion
-		
-		// 파티클 대쉬용
-		//std::shared_ptr<Texture> testText
-		//	= Resources::Find<Texture>(L"CartoonSmoke");
-		//material = std::make_shared<Material>();
-		//material->SetShader(dahs_Shader);
-		//material->SetTexture(testText);
-		//material->SetRenderingMode(eRenderingMode::Transparent);
-		//Resources::Insert(L"DashBase_Material", material);
-
-
-
-
-
 		#pragma region Title
 				texture	= Resources::Load<Texture>(L"title_image", L"..\\Resources\\Texture\\Title\\Title_Art2.png");
 				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);	
@@ -1067,10 +1068,21 @@ namespace jk::renderer
 						material->SetTexture(texture);
 						Resources::Insert(L"Stage_king1", material);
 				#pragma endregion
+
+				////BossDeadEffect
+				//{
+				//	texture = Resources::Load<Texture>(L"yggdrasilBody_Die_Effect", L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Die_Effect\\YggdrasilBody_Die_Effect.png");
+				//	material = std::make_shared<Material>();
+				//	material->SetShader(aniAlpha_Shader);
+				//	material->SetTexture(texture);
+				//	material->SetRenderingMode(eRenderingMode::Transparent);
+				//	Resources::Insert(L"YggdrasilBody_Die_Effect", material);
+				//}
 		#pragma endregion
 
 
 		#pragma region Stage2
+
 			#pragma region Stage2_Boss
 			{
 				texture = Resources::Load<Texture>(L"King2", L"..\\Resources\\Texture\\Stage2\\King2.png");
@@ -1104,15 +1116,16 @@ namespace jk::renderer
 				material->SetRenderingMode(eRenderingMode::Transparent);
 				Resources::Insert(L"Layana_Sisters_Steps", material);
 			}
+			// Tile_map(Stage2_Boss)
+			{
+				texture = Resources::Load<Texture>(L"Stage2_boss", L"..\\Resources\\Tile\\Stage2_Tile.png");
+				material = std::make_shared<Material>();
+				material->SetShader(tile_shader);
+				material->SetTexture(texture);
+				material->SetRenderingMode(eRenderingMode::Transparent);
+				Resources::Insert(L"Stage2_Boss", material);
+			}
 
-				#pragma region Tile_map(Stage2_Boss)
-							texture = Resources::Load<Texture>(L"Stage2_boss", L"..\\Resources\\Tile\\Stage2_Tile.png");
-							material = std::make_shared<Material>();
-							material->SetShader(tile_shader);
-							material->SetTexture(texture);
-							material->SetRenderingMode(eRenderingMode::Transparent);
-							Resources::Insert(L"Stage2_Boss", material);
-				#pragma endregion
 
 			#pragma endregion
 
@@ -1156,6 +1169,8 @@ namespace jk::renderer
 				#pragma endregion
 
 			#pragma endregion
+
+
 		#pragma endregion
 
 

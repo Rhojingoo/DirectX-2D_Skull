@@ -69,10 +69,14 @@ namespace jk
 		static int GetDirection() { return mDir; }
 		Skul_Basic_State Get_Skul_state() { return _State; }
 
+		
+
 	public:
 		int _Attack_Basic = 10;
 		int _Attack_CriticalNomal = 15;
 		int _Attack_CriticalHigh = 20;
+		bool _Firsrt_Ground;
+
 
 	private:
 		Player_Hit_Effect* _Hit_Effect = nullptr;
@@ -100,7 +104,7 @@ namespace jk
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 _skulheadtemp = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
-		
+	
 
 		Player_AfterImage* AfterImage_TEST[10] = {};
 		float timeSinceLastImage = 0.0f;  // 마지막 잔상 생성 후 경과 시간

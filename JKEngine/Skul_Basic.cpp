@@ -6,6 +6,9 @@ namespace jk
 {
 	int Skul_Basic::mDir = 1;
 	bool Skul_Basic::_switch = false;
+	
+
+
 	Skul_Basic::Skul_Basic()
 		: _State(Skul_Basic_State::Idle)
 		, at(nullptr)
@@ -1577,11 +1580,6 @@ namespace jk
 			float Gr_Top_pos = Ground_pos.y + Gr_Size;
 			float Skul_halfsize = _collider->GetScale().y / 2;
 			float skul_footpos = pos.y - Skul_halfsize;
-
-			//if (skul_footpos > Gr_Top_pos)
-			//{
-			//	_Ground_check = false;
-			//}
 		}
 
 		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
@@ -1652,6 +1650,14 @@ namespace jk
 				//mGround->_SkullOn = true;
 				_Ground_check = _rigidbody->GetGround();
 
+
+
+				if (_Firsrt_Ground == false)
+				{
+					firstGroundcheck = true;
+					_Firsrt_Ground = true;
+				}
+
 				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling || _State == Skul_Basic_State::Hit)
 				{
 					_State = Skul_Basic_State::Idle;
@@ -1718,6 +1724,12 @@ namespace jk
 				_Ground_check = true;				
 				mGround->_SkullOn = true;
 				_Ground_check = _rigidbody->GetGround();
+
+				if (_Firsrt_Ground == false)
+				{
+					firstGroundcheck = true;
+					_Firsrt_Ground = true;
+				}
 
 				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling || _State == Skul_Basic_State::Hit)
 				{
@@ -1794,7 +1806,7 @@ namespace jk
 				mGround->_SkullOn = true;
 				_Ground_check = true;		
 				_rigidbody->SetGround(true);
-				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling)
+				if (_State == Skul_Basic_State::JumpAttack || _State == Skul_Basic_State::Fall || _State == Skul_Basic_State::Falling || _State == Skul_Basic_State::Hit)
 				{
 					_State = Skul_Basic_State::Idle;
 					if (mDir == 1)

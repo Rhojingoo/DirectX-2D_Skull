@@ -9,6 +9,7 @@
 #include "Yggdrasil_EnergyCorps_Charging.h"
 #include "Yggdrasil_EnergyCorps_Spark.h"
 #include "Yggdraisl_Groggy_StartImpact.h"
+#include "Yggdrasil_FaceDead_Effect.h"
 
 namespace jk
 {
@@ -61,6 +62,7 @@ namespace jk
 		void change_end();
 
 		void die_set();
+		void die_waiting();
 		void die_ready();
 		void die();
 
@@ -103,7 +105,7 @@ namespace jk
 		Yggdrasil_EnergyCorps_Charging* EnergyCorps_Charging = nullptr;
 		Yggdrasil_EnergyCorps_Spark* EnergyCorps_Spark = nullptr;
 		Yggdraisl_Groggy_StartImpact* Groggy_Start = nullptr;
-
+		Yggdrasil_FaceDead_Effect* _Dead_Effect = nullptr;
 
 		GameObject::eState check_state;
 		float	_activetime = 0.f;

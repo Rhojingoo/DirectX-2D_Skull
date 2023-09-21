@@ -57,7 +57,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
-			Hit_Box->SetState(eState::Active); 
+			Hit_Box->SetState(eState::Paused); 
 		}
 
 		{
@@ -228,7 +228,8 @@ namespace jk
 		{
 			Hit_Box->SetState(eState::Paused);
 		}
-
+		if (_state == Monster_Hammer_State::Dead)
+			Hit_Box->SetState(eState::Paused);
 
 		_collider->SetSize(Vector2(0.65f, 0.75f));
 		_collider->SetCenter(Vector2(1.f, -8.5f));
@@ -832,7 +833,12 @@ namespace jk
 
 	void Monster_Hammer::dead()
 	{
-		_Die = true;
+		Hit_Particle->SetState(eState::Paused);
+		_hit_particle = false;
+		_particletime = 0.f;
+		Hit_Box->SetState(eState::Paused);
+		Tackle_Flash->SetState(eState::Paused);
+		_Die = true;	
 	}
 
 	void Monster_Hammer::Complete_attack()

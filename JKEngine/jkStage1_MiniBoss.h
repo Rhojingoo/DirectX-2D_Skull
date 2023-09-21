@@ -3,6 +3,7 @@
 #include "..\Engine_SOURCE\jkScene.h"
 #include "jkPlayScene.h"
 #include "Monster_ObjPool.h"
+#include "MiniBoss_ObjCreate.h"
 #include "Stge_Manager.h"
 #include "Mini_Boss.h"
 
@@ -23,21 +24,27 @@ namespace jk
 		virtual void OnExit();
 
 		void CamareShooting();
-		void SetMonOBJ();
-		bool AreAllMonstersDead(const std::vector<Monster*>& monsterGroup);
 
+		void CreateMiniboss(int stage);
+		int random(int a, int b);
+		bool AreAllMiniBossDead(const std::vector<Mini_Boss*>& monsterGroup);
 
 	private:
+		Camera* cameraComp = nullptr;
+		Player* _player = nullptr;
 		Mini_Boss* Mboss = nullptr;
+		Stage1_Door* Door1 = nullptr;
 
-		Monster_ObjPool* OBJPOOL = nullptr;
-		Stage_Manager* StageMn = nullptr;
-		std::vector<Monster*> monsterGroup1;
-		std::vector<Monster*> monsterGroup2;
-		bool test = false;
-		bool test2 = false;
-		bool Monsters_check = false;
-		bool firstMonsters = false;
-		float time = 0.f;
+
+
+		MiniBoss_ObjCreate* OBJPOOL = nullptr;
+		std::vector<Mini_Boss*> mBossGroup;
+
+		bool _first_groundturch = false;;
+		bool _MiniBoss_groundturch = false;
+		bool _MiniBoss_Create = false;;
+		bool _MiniBoss_Dead = false;;
+		bool _Door_Open = false;
+		int _Randomcheck = 0;
 	};
 }

@@ -42,6 +42,17 @@ namespace jk
 		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
 
 
+		{
+			_Dead_Effect = new Yggdrasil_BoddyDead_Effect();
+			_Dead_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Dead_Effect);
+			Transform* bullet_tr = _Dead_Effect->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			_Dead_Effect->SetState(eState::Paused);
+		}
+
+
 		at->PlayAnimation(L"BodyYggdrasilBody_Idle", true);
 		if (_Changeon == true)
 			at->PlayAnimation(L"BodyYggdrasilBody_Change", true);
@@ -57,20 +68,9 @@ namespace jk
 		if (_state == Yggdrasil_State::Attack_A_Ready)
 			_pos.x = _savepos.x;
 
-		//if (_state != Yggdrasil_State::Intro_End && _state != Yggdrasil_State::Intro && _state != Yggdrasil_State::Attack_C && _state != Yggdrasil_State::Attack_C_Ready && _state != Yggdrasil_State::Attack_C_UP && _state != Yggdrasil_State::Attack_C_Down && _state != Yggdrasil_State::Attack_C_Finish && _state != Yggdrasil_State::Change && _state != Yggdrasil_State::Change_End)
-		//{
-		//	{				
-		//		if (mDir == 1)
-		//			move_down();
-		//		else
-		//			move_up();				
-		//	}
-		//}
 		if (_state == Yggdrasil_State::Attack_B_Ready)
-		{
-		
+		{		
 		}
-
 		if ((_state == Yggdrasil_State::Attack_C_Ready) || (_state == Yggdrasil_State::Attack_C))
 		{
 			_pos = _savepos;
@@ -204,6 +204,10 @@ namespace jk
 
 		case jk::Yggdrasil::Yggdrasil_State::DieSet:
 			Yggdrasil_Body::die_set();
+			break;
+
+		case jk::Yggdrasil::Yggdrasil_State::Die_Waiting:
+			Yggdrasil_Body::die_waiting();
 			break;
 
 		case jk::Yggdrasil::Yggdrasil_State::DieReady:
@@ -492,6 +496,19 @@ namespace jk
 
 	void Yggdrasil_Body::change_set()
 	{
+		if (_SetChange_boddy == false)
+		{
+			_pos.x = 0.f;
+			_pos.y = -20.f;
+			if (_BodyRotation.z >= 0.f)
+				_BodyRotation.z = 0.f;
+			if (_BodyRotation.z <= 0.f)						
+				_BodyRotation.z = 0.f;			
+			
+			tr->SetRotation(_BodyRotation);
+			tr->SetPosition(_pos);
+			_SetChange_boddy = true;
+		}
 	}
 	void Yggdrasil_Body::change_ready()
 	{
@@ -511,6 +528,25 @@ namespace jk
 
 	void Yggdrasil_Body::die_set()
 	{
+		_pos.x = 0.f;
+		_pos.y = -20.f;
+		if (_BodyRotation.z >= 0.f)
+			_BodyRotation.z = 0.f;
+		if (_BodyRotation.z <= 0.f)
+			_BodyRotation.z = 0.f;
+
+		tr->SetRotation(_BodyRotation);
+		tr->SetPosition(_pos);
+
+		Transform* Effect_tr = _Dead_Effect->GetComponent<Transform>();
+		Effect_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		_Dead_Effect->SetState(eState::Active);
+		_Die_SetBoddy = true;
+	}
+	void Yggdrasil_Body::die_waiting()
+	{
+		_Dead_Effect->SetState(eState::Paused);
+		_Die_Waiting_Boddy = true;
 	}
 	void Yggdrasil_Body::die_ready()
 	{
@@ -520,8 +556,6 @@ namespace jk
 	void Yggdrasil_Body::die()
 	{
 	}
-
-
 
 	void Yggdrasil_Body::body_down()
 	{

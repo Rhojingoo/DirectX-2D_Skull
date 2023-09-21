@@ -18,7 +18,14 @@ namespace jk
 		virtual void OnEnter();
 		virtual void OnExit();
 
-	private:
+		void CamareShooting();
 
+	private:
+		Camera* cameraComp = nullptr;
+		Player* _player = nullptr;
+		Yggdrasil* _Stage1_Boss = nullptr;
+		bool _first_groundturch = false;;
+		bool _Boss_Create = false;;
+		bool _Boss_Dead = false;;
 	};
 }

@@ -97,10 +97,38 @@ namespace jk
 			return comp;
 		}
 
+
 		template <typename T>
 		T* AddComponent(const Vector3& abc)
 		{
 			T* comp = new T(abc);
+
+			Component* buff
+				= dynamic_cast<Component*>(comp);
+			Script* script
+				= dynamic_cast<Script*>(buff);
+
+			if (buff == nullptr)
+				return nullptr;
+
+			if (script == nullptr)
+				mComponents.push_back(buff);
+			else
+				mScripts.push_back(script);
+
+			comp->SetOwner(this);
+			comp->Initialize();
+
+
+			return comp;
+		}
+
+
+
+		template <typename T>
+		T* AddComponent(const Vector3& abc, float set)
+		{
+			T* comp = new T(abc, set);
 
 			Component* buff
 				= dynamic_cast<Component*>(comp);

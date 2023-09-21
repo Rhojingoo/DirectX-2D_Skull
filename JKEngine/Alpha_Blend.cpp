@@ -66,6 +66,7 @@ namespace jk
 		renderer::_AlphaBlendCB _Alphacb = {};
 		_Alphacb._Alpha.x = mTime;
 		_Alphacb._Alpha.y = _Time;
+		_Alphacb._Alpha.z = _Colorcheck;
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::AlphaBlend];
 		cb->SetData(&_Alphacb);
