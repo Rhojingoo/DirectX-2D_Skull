@@ -62,10 +62,12 @@ void main(uint3 DTid : SV_DispatchThreadID)
             if (ParticleBuffer[DTid.x].direction.z == 0.0f)
             {
                 randomDirection;
+                ParticleBuffer[DTid.x].endTime = lerp(7.0f, 15.0f, vRandom.w);  //  endTime을 랜덤하게 설정 (예: 7.0초에서 15.0초 사이)
             }
             else if (ParticleBuffer[DTid.x].direction.z == 1.0f)
             {
-                randomDirection = dir;
+                randomDirection = dir;            
+                ParticleBuffer[DTid.x].endTime = 3.5f;  //  endTime을 랜덤하게 설정 (예: 7.0초에서 15.0초 사이)
             }
 
             ParticleBuffer[DTid.x].position.xyz;// = vRandom.xyz * 100.0f; // 랜덤 시작 위치 설정
@@ -73,9 +75,16 @@ void main(uint3 DTid : SV_DispatchThreadID)
             ParticleBuffer[DTid.x].direction.xyz = normalize(randomDirection);  // 방향설정(2번랜덤)
 
             ParticleBuffer[DTid.x].speed = vRandom.w * 100.0f; // 랜덤 속도 설정
-
-            // endTime을 랜덤하게 설정 (예: 2.0초에서 5.0초 사이)
-            ParticleBuffer[DTid.x].endTime = lerp(7.0f, 15.0f, vRandom.w);
+          
+            
+            //if (ParticleBuffer[DTid.x].direction.z == 0.0f)
+            //{
+            //    ParticleBuffer[DTid.x].endTime = lerp(7.0f, 15.0f, vRandom.w);  //  endTime을 랜덤하게 설정 (예: 7.0초에서 15.0초 사이)
+            //}
+            //if (ParticleBuffer[DTid.x].direction.z == 1.0f)
+            //{
+            //    ParticleBuffer[DTid.x].endTime = 5.0f;  //  endTime을 랜덤하게 설정 (예: 7.0초에서 15.0초 사이)
+            //}
         }
     }
     else
@@ -88,7 +97,20 @@ void main(uint3 DTid : SV_DispatchThreadID)
         if (ParticleBuffer[DTid.x].time > ParticleBuffer[DTid.x].endTime)
         {
             ParticleBuffer[DTid.x].active = 0;
-            ParticleBuffer[DTid.x].time = 0.0f;  // 시간을 다시 0으로 초기화
+
+            // 시간을 다시 0으로 초기화
+            // ParticleBuffer[DTid.x].time = 0.0f;
+
+
+            if (ParticleBuffer[DTid.x].direction.z == 0.0f)
+            {
+               ParticleBuffer[DTid.x].time = 0.0f;
+            }
+           if (ParticleBuffer[DTid.x].direction.z == 1.0f)
+            {
+               // ParticleBuffer[DTid.x].time;
+            }
+             
         }
     }
 }

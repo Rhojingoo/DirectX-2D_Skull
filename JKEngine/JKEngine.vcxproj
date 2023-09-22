@@ -252,6 +252,7 @@
     <ClInclude Include="practice.h" />
     <ClInclude Include="Sky_Ground.h" />
     <ClInclude Include="Slash_Effect.h" />
+    <ClInclude Include="Stage1_BossDoor.h" />
     <ClInclude Include="Stage1_Door.h" />
     <ClInclude Include="Stage_end_table.h" />
     <ClInclude Include="Stage_end_wall.h" />
@@ -323,6 +324,8 @@
     <ClInclude Include="Yggdrasil_BasicBullet.h" />
     <ClInclude Include="Yggdrasil_Chin.h" />
     <ClInclude Include="Yggdrasil_ChinDead_Effect.h" />
+    <ClInclude Include="Yggdrasil_Dead_Impact1.h" />
+    <ClInclude Include="Yggdrasil_Dead_Impact2.h" />
     <ClInclude Include="Yggdrasil_Effect.h" />
     <ClInclude Include="Yggdrasil_EnergeBall_CreateEffect.h" />
     <ClInclude Include="Yggdrasil_EnergyBullet_Effect.h" />
@@ -437,6 +440,7 @@
     <ClCompile Include="practice.cpp" />
     <ClCompile Include="Sky_Ground.cpp" />
     <ClCompile Include="Slash_Effect.cpp" />
+    <ClCompile Include="Stage1_BossDoor.cpp" />
     <ClCompile Include="Stage1_Door.cpp" />
     <ClCompile Include="Stage_end_table.cpp" />
     <ClCompile Include="Stage_end_wall.cpp" />
@@ -505,6 +509,8 @@
     <ClCompile Include="Yggdrasil_BasicBullet.cpp" />
     <ClCompile Include="Yggdrasil_Chin.cpp" />
     <ClCompile Include="Yggdrasil_ChinDead_Effect.cpp" />
+    <ClCompile Include="Yggdrasil_Dead_Impact1.cpp" />
+    <ClCompile Include="Yggdrasil_Dead_Impact2.cpp" />
     <ClCompile Include="Yggdrasil_Effect.cpp" />
     <ClCompile Include="Yggdrasil_EnergeBall_CreateEffect.cpp" />
     <ClCompile Include="Yggdrasil_EnergyBullet_Effect.cpp" />

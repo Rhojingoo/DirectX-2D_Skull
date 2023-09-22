@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "jkPlayScene.h"
+#include "Stage1_BossDoor.h"
 
 namespace jk
 {
@@ -21,11 +22,19 @@ namespace jk
 		void CamareShooting();
 
 	private:
+		Back_ground* Kingbg = nullptr;
 		Camera* cameraComp = nullptr;
 		Player* _player = nullptr;
 		Yggdrasil* _Stage1_Boss = nullptr;
+		Stage1_BossDoor* _Door = nullptr;
 		bool _first_groundturch = false;;
 		bool _Boss_Create = false;;
 		bool _Boss_Dead = false;;
+
+		float _time = 0.f;
+		bool _Fadein = false;
+		bool _Fadeout = false;
+		float _Fadetime = 0.f;
+		
 	};
 }

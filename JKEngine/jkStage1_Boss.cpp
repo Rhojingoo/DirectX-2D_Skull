@@ -39,7 +39,10 @@ namespace jk
 
 		#pragma region BG	
 		{
-			Back_ground* Kingbg = object::Instantiate<Back_ground>(Vector3(40.f, 50.f, 10.f), eLayerType::BACK_GROUND, L"Stage_king1");
+			_Door = object::Instantiate<Stage1_BossDoor>(Vector3(1300.f, 157.f, 5.f), eLayerType::BACK_GROUND);
+			
+
+			Kingbg = object::Instantiate<Back_ground>(Vector3(40.f, 50.f, 10.f), eLayerType::BACK_GROUND, L"Stage_king1");
 			Kingbg->GetComponent<Transform>()->SetScale(Vector3(900.f * 2, 560.0f * 2, 0.0f));			
 		}
 		#pragma endregion	
@@ -58,13 +61,18 @@ namespace jk
 			tr->SetPositionZ(-200.f);
 			tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
 
+
+			Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(1343, -10.f, -205.f), eLayerType::BACK_GROUND);
+			MinibossMap->GetComponent<Transform>()->SetScale(Vector3(955, 30.f, 0.f));	MinibossMap->SetName(L"ST1boss_ground00");
+
+			Ground_and_Wall* MinibossWall = object::Instantiate<Ground_and_Wall>(Vector3(878.f, -90.f, -205.f), eLayerType::BACK_GROUND);
+			MinibossWall->GetComponent<Transform>()->SetScale(Vector3(30, 175.f, 0.f));	MinibossWall->SetName(L"ST1boss_Wall00");
+
 			Collider2D* cd = Tile_map->AddComponent<Collider2D>();
 			cd->SetSize(Vector2(1.f, 0.5f));
 			cd->SetCenter(Vector2(-955.f, -45.f));
 
-			Collider2D* cd2 = Tile_map->AddComponent<Collider2D>();
-			cd2->SetSize(Vector2(0.5f, 0.5f));
-			cd2->SetCenter(Vector2(1925.f, 115.f));
+
 
 
 			TileMap::TileMap_Setting(Tile_map, L"Stage1_MiniBoss", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Yggdrasil_bossmap.xml");
@@ -82,6 +90,29 @@ namespace jk
 			}
 		}
 
+		if (_Stage1_Boss->_BossDie == true)
+		{
+				if (_Fadein == false)
+				{
+					Alpha_Blend* _Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+					_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
+					_Alpha->Set_White_Transparent();
+					_Fadein = true;
+				}
+				else
+				{
+					if (_Fadeout == false)
+						_Fadetime += 2.75 * Time::DeltaTime();
+					if (_Fadetime > 3)
+					{
+						_Fadetime = 0.f;
+						_Fadeout = true;
+						_Boss_Dead = true;
+						//_Stage1_Boss->SetState(GameObject::eState::Paused);
+					}
+				}			
+		}
+
 		CamareShooting();
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
@@ -93,7 +124,6 @@ namespace jk
 	void Stage1_Boss::LateUpdate()
 	{
 		Scene::LateUpdate();
-
 	}
 	void Stage1_Boss::Render()
 	{
@@ -101,7 +131,7 @@ namespace jk
 	}
 	void Stage1_Boss::OnEnter()
 	{
-#pragma region Cam & Mouse& Grid
+		#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		cameraComp = camera->AddComponent<Camera>();
@@ -112,7 +142,7 @@ namespace jk
 		cameraComp->SetCamera = true;
 		cameraComp->SetYggdrasilCamera = true;
 		cameraComp->SetCameraXY = true;
-		cameraComp->Set_MaxPlayerX(700.f);
+		cameraComp->Set_MaxPlayerX(1500.f);
 		cameraComp->Set_MinPlayerX(-840.f);
 		cameraComp->Set_MaxPlayerY(400.f);
 		cameraComp->Set_MinPlayerY(-360.f);
@@ -160,21 +190,28 @@ namespace jk
 		Vector3 player_pos = PlayerTR->GetPosition();
 
 		if (_first_groundturch == true)
-			cameraComp->SetCameraXY = false;
+		{
+			if (_Boss_Dead == false)
+				cameraComp->SetCameraXY = false;
+		}
 
+		if (_Boss_Dead == true)
+		{
+			cameraComp->Set_MaxBGX(1500.f);
+			cameraComp->Set_MinBGX(0.f);
+			cameraComp->SetTarget_BG(Kingbg);
+			cameraComp->BgCamera = true;
+			//cameraComp->SetCameraX = true;
 
-		//if (player_pos.x <= -610)
-		//	cameraComp->SetCameraXY = false;
+			if (player_pos.x >= 950 || player_pos.x <= -450)
+				cameraComp->SetCameraX = false;
+			else
+				cameraComp->SetCameraX = true;
 
-
-		//if (_Boss_Create == false)
-		//{
-		//	if (player_pos.x > -610 && player_pos.x <= -240)
-		//		cameraComp->SetCameraXY = true;
-		//	if (player_pos.x > -10)
-		//	{
-		//		cameraComp->SetCameraXY = false;		
-		//	}
-		//}
+			if (player_pos.x >= 750 && player_pos.x <= 930)
+				cameraComp->SetCameraXY = true;
+			else
+				cameraComp->SetCameraXY = false;
+		}
 	}
 }

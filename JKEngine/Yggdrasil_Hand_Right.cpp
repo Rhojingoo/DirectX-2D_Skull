@@ -45,6 +45,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Bullet_off_Change", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Bullet_on_Change", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandDie_Change", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Hand_DIE", this,1);
 
 		
 		//bind ºÎºÐ
@@ -772,12 +773,13 @@ namespace jk
 			_rigidbody->SetVelocity(Vector2(10.f, 0.f));
 			_Attackswitch = false;
 			_Sweeping->SetState(eState::Paused);
+			at->PlayAnimation(L"Hand1_HandRockR", false);
 			_HitBox_Attack_On = false;
 		}
 		else
 		{
 			_SetChange_r = true;
-			at->PlayAnimation(L"Hand1_HandRockR", true);
+			//at->PlayAnimation(L"Hand1_HandRockR", true);
 		}
 	}
 	void Yggdrasil_Hand_Right::change_ready()
@@ -841,6 +843,7 @@ namespace jk
 	}
 	void Yggdrasil_Hand_Right::die_waiting()
 	{
+		at->PlayAnimation(L"HandHand_DIER", false);
 		_Dead_Effect->SetState(eState::Paused);
 		_Die_Waiting_R = true;
 	}

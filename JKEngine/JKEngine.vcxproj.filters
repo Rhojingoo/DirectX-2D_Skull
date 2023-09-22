@@ -542,6 +542,15 @@
     <ClInclude Include="Yggdrasil_ChinDead_Effect.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Yggdrasil_Dead_Impact1.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil_Dead_Impact2.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage1_BossDoor.h">
+      <Filter>Game_ob\Door</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1081,6 +1090,15 @@
     </ClCompile>
     <ClCompile Include="Yggdrasil_ChinDead_Effect.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Dead_Impact1.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil_Dead_Impact2.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage1_BossDoor.cpp">
+      <Filter>Game_ob\Door</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

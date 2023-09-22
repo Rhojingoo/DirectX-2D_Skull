@@ -1,6 +1,9 @@
 #pragma once
 #include "Include_Common.h"
 #include "Player_Hp_Bar.h"
+#include "Yggdrasil_Dead_Impact1.h"
+#include "Yggdrasil_Dead_Impact2.h"
+
 
 namespace jk
 {
@@ -138,6 +141,7 @@ namespace jk
 		static bool _FirstDie;
 		static int _Diecheck;			
 		static bool _DieON;
+		static bool _BossDie;
 		int Attack_Sellect = 0;
 		static int    _NumberofAttack;
 
@@ -268,11 +272,15 @@ namespace jk
 	private:
 		float _Fadetime = 0.f;
 		float _FadeAssistantTime = 0.f;
+		float _Dietime = 0.f;
 		bool _Fadecheck = false;
 		bool _ChangeFadein = false;
 		bool _DieFadein = false;
 		bool _DiewaitingFadein = false;
-		GameObject* Particle[3];
+		GameObject* Particle[3] = {};
+		Yggdrasil_Dead_Impact1* DieImpact_first[2] = {};
+		Yggdrasil_Dead_Impact2* DieImpact_second = nullptr;
+
 
 	};
 }

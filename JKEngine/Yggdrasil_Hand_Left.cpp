@@ -45,9 +45,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Bullet_off_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Bullet_on_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\HandDie_Change", this);
-
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\Hand_DIE", this);		
 		
-
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
@@ -782,12 +781,13 @@ namespace jk
 			_rigidbody->SetVelocity(Vector2(-10.f, 0.f));
 			_Attackswitch = false;
 			_Sweeping->SetState(eState::Paused);
+			at->PlayAnimation(L"Hand1_HandRock", false);
 			_HitBox_Attack_On = false;
 		}
 		else
 		{
 			_SetChange_l = true;
-			at->PlayAnimation(L"Hand1_HandRock", true);
+			//at->PlayAnimation(L"Hand1_HandRock", true);
 		}
 	}
 	void Yggdrasil_Hand_Left::change_ready()
@@ -853,17 +853,15 @@ namespace jk
 
 		_Die_SetL = true;
 	}
-
 	void Yggdrasil_Hand_Left::die_waiting()
-	{
+	{		
+		at->PlayAnimation(L"HandHand_DIE", false);
 		_Dead_Effect->SetState(eState::Paused);
 		_Die_Waiting_L = true;
 	}
-
 	void Yggdrasil_Hand_Left::die_ready()
 	{
 	}
-
 	void Yggdrasil_Hand_Left::die()
 	{
 	}

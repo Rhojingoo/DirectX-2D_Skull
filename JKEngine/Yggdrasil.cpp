@@ -18,6 +18,7 @@ namespace jk
 	bool Yggdrasil::_DieON = false;
 	int	Yggdrasil::_HitType = 0;
 	int	Yggdrasil::_Dammege = 0;
+	bool Yggdrasil::_BossDie = false;
 
 
 	float Yggdrasil::_MaxHp = 3000;
@@ -936,14 +937,23 @@ namespace jk
 						_DiewaitingFadein = false;
 						_state = Yggdrasil_State::Die_Waiting;
 
-						Particle[0] = object::Instantiate<GameObject>(Vector3(-290.f, 90.f, -249.f), eLayerType::Fore_Ground);					
-						ParticleSystem* mr = Particle[0]->AddComponent<ParticleSystem>(Vector3(-290.f, 90.f, -249.f),1);
+						DieImpact_first[0] = object::Instantiate<Yggdrasil_Dead_Impact1>(Vector3(-150.f, _pos.y-40.f, -248.f), eLayerType::Effect);					
 
-						Particle[1]  = object::Instantiate<GameObject>(Vector3(0.f, 150.f, -249.f), eLayerType::Fore_Ground);						
-						ParticleSystem* mr2 = Particle[1]->AddComponent<ParticleSystem>(Vector3(0.f, 150.f, -249.f),1);
+						DieImpact_first[1] = object::Instantiate<Yggdrasil_Dead_Impact1>(Vector3(150.f, _pos.y - 40.f, -248.f), eLayerType::Effect);
 
-						Particle[2]  = object::Instantiate<GameObject>(Vector3(250.f, 120.f, -249.f), eLayerType::Fore_Ground);					
-						ParticleSystem* mr3 = Particle[2]->AddComponent<ParticleSystem>(Vector3(250.f, 120.f, -249.f),1);
+						DieImpact_second = object::Instantiate<Yggdrasil_Dead_Impact2>(Vector3(15.f, 90, -248.f), eLayerType::Effect);
+						Transform* impacttr = DieImpact_second->GetComponent<Transform>();
+						impacttr->SetScale(Vector3(412.f, 220.f, 0.f));
+				
+
+						Particle[0] = object::Instantiate<GameObject>(Vector3(12.f, 60.f, -249.f), eLayerType::Effect);					
+						ParticleSystem* mr = Particle[0]->AddComponent<ParticleSystem>(Vector3(2.f, 60.f, -249.f),1);
+
+						Particle[1]  = object::Instantiate<GameObject>(Vector3(-135.f, -80.f, -249.f), eLayerType::Effect);						
+						ParticleSystem* mr2 = Particle[1]->AddComponent<ParticleSystem>(Vector3(-135.f, -80.f, -249.f),1);
+
+						Particle[2]  = object::Instantiate<GameObject>(Vector3(145.f, -80.f, -249.f), eLayerType::Effect);					
+						ParticleSystem* mr3 = Particle[2]->AddComponent<ParticleSystem>(Vector3(145.f, -80.f, -249.f),1);
 					}
 				}
 			
@@ -954,16 +964,26 @@ namespace jk
 	{
 		if (_Die_Waiting_R == true && _Die_Waiting_L == true && _Die_Waiting_Face == true && _Die_Waiting_Chin == true && _Die_Waiting_Boddy == true)
 		{
-			int a = 0;
+			_Dietime += Time::DeltaTime();
+			if (_Dietime > 3.5f)
+			{
+				_state = Yggdrasil_State::DieReady;
+				_Dietime = 0;
+			}
 		}
 	}
 	void Yggdrasil::die_ready()
 	{
-		if (_Die_Body_Down == true && _Die_Face_Down == true&& _Die_Chin_Down ==true)
+		if (_Die_Body_Down == true && _Die_Face_Down == true && _Die_Chin_Down == true)
+		{
+			for (int i = 0; i < 3; i++)
+				Particle[i]->SetState(eState::Paused);
 			_state = Yggdrasil_State::Die;
+		}
 	}
 	void Yggdrasil::die()
 	{
+		_BossDie = true;
 	}
 
 

@@ -490,6 +490,7 @@ namespace jk
 	}
 	void Yggdrasil_Chin::die_waiting()
 	{
+		at->PlayAnimation(L"ChindYggdrasilChin_Idle", false);
 		_Dead_Effect->SetState(eState::Paused);
 		_Die_Waiting_Chin = true;
 	}

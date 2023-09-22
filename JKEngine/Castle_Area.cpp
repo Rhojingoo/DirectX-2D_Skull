@@ -132,7 +132,6 @@ namespace jk
 	}
 	void Castle_Area::Update()
 	{
-
 		if (_player)
 		{
 			Transform* PlayerTR = _player->GetComponent<Transform>();

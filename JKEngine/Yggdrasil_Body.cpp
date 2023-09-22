@@ -35,6 +35,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Change", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Changing", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Die_Effect", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Die", this);
+
 		
 		//bind ºÎºÐ
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
@@ -51,7 +53,7 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 			_Dead_Effect->SetState(eState::Paused);
 		}
-
+			
 
 		at->PlayAnimation(L"BodyYggdrasilBody_Idle", true);
 		if (_Changeon == true)
@@ -545,6 +547,7 @@ namespace jk
 	}
 	void Yggdrasil_Body::die_waiting()
 	{
+		at->PlayAnimation(L"BodyYggdrasilBody_Die", false);
 		_Dead_Effect->SetState(eState::Paused);
 		_Die_Waiting_Boddy = true;
 	}
@@ -573,7 +576,7 @@ namespace jk
 					_Groggy_Body_Down = true;
 					_groggy_body = true;
 				}
-				if (_Diecheck == 3)
+				if (_DieON == true)
 					_Die_Body_Down = true;
 			}
 		}
