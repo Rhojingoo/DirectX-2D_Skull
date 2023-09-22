@@ -19,9 +19,10 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
-		static void SetDirection(int set) { mDir = set; }
-		static int	mDir;
-		static bool	_SwitchOn;
+		 void SetDirection(int set) { mDir = set; }
+		 static int	mDir;
+		 static bool	_SwitchOn;
+		 static bool	_SwitchOff;
 
 		void Compelete_Pierce();
 

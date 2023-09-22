@@ -19,6 +19,9 @@ namespace jk
 		virtual void OnExit();
 
 	private:
+		Camera* cameraComp = nullptr;
+		Player* _player = nullptr;
+		Layana_Sisters* _Layana_Boss = nullptr;
 
 	};
 }

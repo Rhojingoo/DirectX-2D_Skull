@@ -198,7 +198,6 @@ namespace jk
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
 		}
-
 		{
 			Transform * _Hit_Effect_TR = _Knight_Slash->GetComponent<Transform>();
 			if (mDir == 1)
@@ -206,7 +205,6 @@ namespace jk
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
 		}
-
 		{
 			Transform* _Hit_Effect_TR = _DarkKnight->GetComponent<Transform>();
 			if (mDir == 1)
@@ -214,6 +212,7 @@ namespace jk
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
 		}
+
 		
 		if (_switch == true)
 		{
@@ -1285,24 +1284,25 @@ namespace jk
 			}
 		}
 
+		//Monster
 		if (HitBox_Monster* _Monster = dynamic_cast<HitBox_Monster*>(other->GetOwner()))
 		{		
-			if (mDir == 1)
-			{			
-				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));	
-
+			Transform* hittr = _Monster->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 				_Hit_Effect->_effect_animation = true;
 				_Hit_Effect->SetDirection(1);
 				_Hit_Effect->SetState(eState::Active);
 			}
-			if (mDir == -1)
+			else
 			{
-				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
-
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 				_Hit_Effect->_effect_animation = true;
 				_Hit_Effect->SetDirection(-1);
 				_Hit_Effect->SetState(eState::Active);
-			}		
+			}
 		}
 
 		if (Monster_Hammer* Hammer = dynamic_cast<Monster_Hammer*>(other->GetOwner()))
@@ -1310,18 +1310,18 @@ namespace jk
 			hammer_st = Hammer->GetState();
 			if (hammer_st == Monster_Hammer::Monster_Hammer_State::Tackle)
 			{
-				if (mDir == 1)
+				Transform* hittr = Hammer->GetComponent<Transform>();
+				Vector3 hitpos = hittr->GetPosition();
+				if (hitpos.x > pos.x)
 				{
 					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
-
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(1);
 					_Hit_Effect->SetState(eState::Active);
 				}
-				if (mDir == -1)
+				else
 				{
-					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
-
+					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
 					_Hit_Effect->SetState(eState::Active);
@@ -1334,16 +1334,18 @@ namespace jk
 			Goldham_st = GoldHammer->GetState();
 			if (Goldham_st == Monster_GoldHammer::Monster_GoldHammer_State::Tackle)
 			{
-				if (mDir == 1)
+				Transform* hittr = GoldHammer->GetComponent<Transform>();
+				Vector3 hitpos = hittr->GetPosition();
+				if (hitpos.x > pos.x)
 				{
 					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(1);
 					_Hit_Effect->SetState(eState::Active);
 				}
-				if (mDir == -1)
+				else
 				{
-					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
 					_Hit_Effect->SetState(eState::Active);
@@ -1356,44 +1358,27 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			if (mDir == 1)
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
-
 				_Hit_Effect->_effect_animation = true;
 				_Hit_Effect->SetDirection(1);
 				_Hit_Effect->SetState(eState::Active);
 			}
-			if (mDir == -1)
+			else
 			{
-				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
-
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 				_Hit_Effect->_effect_animation = true;
 				_Hit_Effect->SetDirection(-1);
 				_Hit_Effect->SetState(eState::Active);
-			}			
+			}		
 		}
 
+		//MiniBoss
 		if (Mini_Boss*  Boss = dynamic_cast<Mini_Boss*>(other->GetOwner()))
 		{
-			//Goldham_st = GoldHammer->GetState();
-			//if (Goldham_st == Monster_GoldHammer::Monster_GoldHammer_State::Tackle)
-			//{
-			//	if (mDir == 1)
-			//	{
-			//		_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
-			//		_Hit_Effect_player->_effect_animation = true;
-			//		_Hit_Effect_player->SetDirection(1);
-			//		_Hit_Effect_player->SetState(eState::Active);
-			//	}
-			//	if (mDir == -1)
-			//	{
-			//		_rigidbody->SetVelocity(Vector2(50.f, 0.f));
-			//		_Hit_Effect_player->_effect_animation = true;
-			//		_Hit_Effect_player->SetDirection(-1);
-			//		_Hit_Effect_player->SetState(eState::Active);
-			//	}
-			//}
 		}
 
 		if (MiniBoss_Bullet_Archer* Bullet = dynamic_cast<MiniBoss_Bullet_Archer*>(other->GetOwner()))
@@ -1401,18 +1386,18 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			if (mDir == 1)
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
-
 				_Hit_Sword->_effect_animation = true;
 				_Hit_Sword->SetDirection(-1);
 				_Hit_Sword->SetState(eState::Active);
 			}
-			if (mDir == -1)
+			else
 			{
 				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
-
 				_Hit_Sword->_effect_animation = true;
 				_Hit_Sword->SetDirection(1);
 				_Hit_Sword->SetState(eState::Active);
@@ -1440,14 +1425,16 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			if (mDir == 1)
+			Transform* hittr = HitBox->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 				_Hit_Effect->_effect_animation = true;
 				_Knight_Slash->SetDirection(1);
 				_Knight_Slash->SetState(eState::Active);
 			}
-			if (mDir == -1)
+			else
 			{
 				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 				_Knight_Slash->_effect_animation = true;
@@ -1461,18 +1448,18 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			if (mDir == 1)
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
-
 				_Hit_Sword->_effect_animation = true;
 				_Hit_Sword->SetDirection(-1);
 				_Hit_Sword->SetState(eState::Active);
 			}
-			if (mDir == -1)
+			else
 			{
 				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
-
 				_Hit_Sword->_effect_animation = true;
 				_Hit_Sword->SetDirection(1);
 				_Hit_Sword->SetState(eState::Active);
@@ -1484,6 +1471,12 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				HitDir = -1;
+			else
+				HitDir = 1;
 			_State = Skul_Basic_State::Hit;
 		}
 
@@ -1492,22 +1485,42 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			if (mDir == 1)
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
 			{
+				HitDir = -1;
 				_rigidbody->SetVelocity(Vector2(-50.f, 50.f));
 
 				_DarkKnight->_effect_animation = true;
 				_DarkKnight->SetDirection(-1);
 				_DarkKnight->SetState(eState::Active);
 			}
-			if (mDir == -1)
+			else
 			{
+				HitDir = 1;
 				_rigidbody->SetVelocity(Vector2(50.f, 50.f));
 
 				_DarkKnight->_effect_animation = true;
 				_DarkKnight->SetDirection(1);
 				_DarkKnight->SetState(eState::Active);
 			}
+			_State = Skul_Basic_State::Hit;
+
+			//if (mDir == 1)
+			//{
+			//	_rigidbody->SetVelocity(Vector2(-50.f, 50.f));
+			//	_DarkKnight->_effect_animation = true;
+			//	_DarkKnight->SetDirection(-1);
+			//	_DarkKnight->SetState(eState::Active);
+			//}
+			//if (mDir == -1)
+			//{
+			//	_rigidbody->SetVelocity(Vector2(50.f, 50.f));
+			//	_DarkKnight->_effect_animation = true;
+			//	_DarkKnight->SetDirection(1);
+			//	_DarkKnight->SetState(eState::Active);
+			//}
 		}
 
 		if (Cleric_HolyThunder* Bullet = dynamic_cast<Cleric_HolyThunder*>(other->GetOwner()))
@@ -1515,6 +1528,12 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				HitDir = -1;
+			else
+				HitDir = 1;
 			_State = Skul_Basic_State::Hit;
 		}
 
@@ -1523,6 +1542,12 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				HitDir = -1;
+			else
+				HitDir = 1;
 			_State = Skul_Basic_State::Hit;
 		}
 
@@ -1532,6 +1557,12 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				HitDir = -1;
+			else
+				HitDir = 1;
 			_State = Skul_Basic_State::Hit;
 		}
 
@@ -1540,10 +1571,11 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			if (mDir == 1)
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
-
-			if (mDir == -1)
+			else
 				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 		}
 
@@ -1552,23 +1584,56 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			if (mDir == 1)
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
-
-			if (mDir == -1)
-				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+			else
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));				
 		}		
 
-		if (HitBox_YggDrasil* Bullet = dynamic_cast<HitBox_YggDrasil*>(other->GetOwner()))
+
+		//Boss_YggDrasil
+		if (HitBox_YggDrasil* Hit_Boss = dynamic_cast<HitBox_YggDrasil*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+			Transform* hittr = Hit_Boss->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				HitDir = -1;
+			else
+				HitDir = 1;
+
 			_State = Skul_Basic_State::Hit;
+		}
+		//Boss_Layana
+		if (HitBox_Layana* Hit_Boss = dynamic_cast<HitBox_Layana*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			Transform* hittr = Hit_Boss->GetComponent<Transform>();
+			Vector3 hitpos = hittr-> GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
 		}
 
 
-
+		//Ground
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			_Wall_check = true;
@@ -1705,11 +1770,11 @@ namespace jk
 				{
 					_Ground_check = false;
 					_rigidbody->SetGround(false);
-					if (mDir == 1)
+					if (HitDir == 1)
 						_rigidbody->SetVelocity(Vector2(-75.f, 175.f));
 
-					if (mDir == -1)
-						_rigidbody->SetVelocity(Vector2(75.f, 175.f));
+					if (HitDir == -1)
+						_rigidbody->SetVelocity(Vector2(75.f, 175.f));	
 				}
 			}
 		}
@@ -1781,11 +1846,11 @@ namespace jk
 				{
 					_Ground_check = false;
 					_rigidbody->SetGround(false);
-					if (mDir == 1)
+					if (HitDir == 1)
 						_rigidbody->SetVelocity(Vector2(-75.f, 175.f));
 
-					if (mDir == -1)
-						_rigidbody->SetVelocity(Vector2(75.f, 175.f));
+					if (HitDir == -1)
+						_rigidbody->SetVelocity(Vector2(75.f, 175.f));	
 				}
 			}	
 		}

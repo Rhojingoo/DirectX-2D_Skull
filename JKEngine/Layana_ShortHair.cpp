@@ -27,7 +27,7 @@ namespace jk
 
 
 		tr = GetComponent<Transform>();
-		_pos = Vector3(0.f, 0.f, -200.f);
+		_pos = Vector3(0.f, 90.f, -200.f);
 		_ShortHairCreatepos = _pos;
 		tr->SetPosition(_pos);
 
@@ -149,6 +149,15 @@ namespace jk
 		at->CompleteEvent(L"Short_hairAwakenReady_SR") = std::bind(&Layana_ShortHair::Complete_Awaken_Ready, this);
 
 
+		{
+			Hit_Box = new HitBox_Layana();
+			Hit_Box->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetState(eState::Paused);
+		}
+
 		for (int i = 0; i < 3; i++)
 		{
 			Homing[i] = new Homing_Pierce_ShortHair;
@@ -159,12 +168,16 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
 			Homing[i]->SetState(eState::Paused);
 		}
-		bullet_tr1 = Homing[0]->GetComponent<Transform>();
-		bullet_tr2 = Homing[1]->GetComponent<Transform>();
-		bullet_tr3 = Homing[2]->GetComponent<Transform>();
-		bullet_rb1 = Homing[0]->GetComponent<RigidBody>();
-		bullet_rb2 = Homing[1]->GetComponent<RigidBody>();
-		bullet_rb3 = Homing[2]->GetComponent<RigidBody>();
+		for (int i = 0; i < 3; i++)
+		{
+			Homing_EF[i] = new Homing_Impact;
+			Homing_EF[i]->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Homing_EF[i]);
+			Transform* bullet_tr = Homing_EF[i]->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			Homing_EF[i]->SetState(eState::Paused);
+		}
 
 
 
@@ -229,11 +242,27 @@ namespace jk
 			TwinMeteor_BossEffect->SetState(eState::Paused);
 		}
 
+		{
+			Intro_SM = new Intro_Somke;
+			Intro_SM->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Intro_SM);
+			Intro_SM->SetState(eState::Paused);
+		}
+
 		at->PlayAnimation(L"Short_hairIdle_S", true);
 		GameObject::Initialize();
 	}
 	void Layana_ShortHair::Update()
 	{
+		bullet_tr1 = Homing[0]->GetComponent<Transform>();
+		bullet_tr2 = Homing[1]->GetComponent<Transform>();
+		bullet_tr3 = Homing[2]->GetComponent<Transform>();
+		bullet_rb1 = Homing[0]->GetComponent<RigidBody>();
+		bullet_rb2 = Homing[1]->GetComponent<RigidBody>();
+		bullet_rb3 = Homing[2]->GetComponent<RigidBody>();
+
 		_Playerpos = Player::GetPlayer_Pos();
 		_velocity = _rigidbody->GetVelocity();
 		_Playerdistance.x = _Playerpos.x - _pos.x;
@@ -515,6 +544,24 @@ namespace jk
 	}
 	void Layana_ShortHair::LateUpdate()
 	{
+		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
+		if (_HitBox_Attack_On == true)
+		{
+			if (_state == Layana_Sisters_State::Sisters_Attack_A)
+			{
+				Hit_Box->SetSize(Vector2(55.f, 5.f));
+				Hit_Box->SetState(eState::Active);
+				if (_HitBox_Dir == 1)	//오른쪽으로 공격할때의 기준
+					HitBox_TR->SetPosition(Vector3(_pos.x + 50, _pos.y - 40, _pos.z));
+				else					//왼쪽으로 공격할때의 기준
+					HitBox_TR->SetPosition(Vector3(_pos.x - 50, _pos.y - 40, _pos.z));
+			}
+		}
+		else
+		{
+			Hit_Box->SetState(eState::Paused);
+		}
+
 		_collider->SetSize(Vector2(0.1f, 0.55f));
 		_collider->SetCenter(Vector2(0.0f, -20.5f));
 		GameObject::LateUpdate();
@@ -577,9 +624,12 @@ namespace jk
 				//	_SkillA_Landing = true;
 				//}
 				if (_state == Layana_Sisters_State::Intro_Fall)
-				{
-					//at->PlayAnimation(L"Short_hairIntro_Landing_S", true);
+				{		
 					_Intro_Landing = true;
+					Intro_SM->SetState(eState::Active);
+					Intro_SM->SetSwitch(true);
+					Transform* SMtr = Intro_SM->GetComponent<Transform>();
+					SMtr->SetPosition(_pos.x + 20, _pos.y - 50.f, _pos.z - 1);
 				}
 
 				if (_state == Layana_Sisters_State::Sisters_Attack_Fall)
@@ -663,7 +713,7 @@ namespace jk
 			}
 			else
 			{
-				if (_SistersAttack_Number >= 2)
+				if (_SistersAttack_Number > 5)
 				{
 					_Joint_Attack = true;
 					_ShortHair_state = Layana_ShortHair_State::FlyDash;
@@ -758,19 +808,19 @@ namespace jk
 		{
 			if (_pos.x < _ShortHairCreatepos.x)
 			{
-				if (_pos.x > _ShortHairCreatepos.x - 700)
+				if (_pos.x > _ShortHairCreatepos.x - 600)
 					_pos.x -= 750.f * Time::DeltaTime();
-				if (_pos.y < _ShortHairCreatepos.y + 150)
+				if (_pos.y < 100)
 					_pos.y += 150.f * Time::DeltaTime();
 			}
 			else
 			{
-				if (_pos.x < _ShortHairCreatepos.x + 700)
+				if (_pos.x < _ShortHairCreatepos.x + 600)
 					_pos.x += 750.f * Time::DeltaTime();
-				if (_pos.y < _ShortHairCreatepos.y + 155)
+				if (_pos.y < 100)
 					_pos.y += 150.f * Time::DeltaTime();
 			}
-			if (_pos.y >= _ShortHairCreatepos.y + 150.f)
+			if (_pos.y >=  100.f)
 				_AttackStageON = false;
 		}
 		else
@@ -785,7 +835,7 @@ namespace jk
 						bullte_effect->SetPosition(Vector3(_ShortHairCreatepos.x + 250, _pos.y - 200, -205));
 						float angle = 30;
 						float angleInDegrees = angle * (180.0f / XM_PI);
-						bullte_effect->AddRotationZ(angleInDegrees);
+						bullte_effect->SetRotationZ(angleInDegrees);
 						TwinMeteor_BossEffect->SetState(eState::Active);
 						_SistersAttack_C_Ready_ShortHair = true;
 					}
@@ -795,7 +845,7 @@ namespace jk
 						bullte_effect->SetPosition(Vector3(_ShortHairCreatepos.x - 250, _pos.y - 200, -205));
 						float angle = -30;
 						float angleInDegrees = angle * (180.0f / XM_PI);
-						bullte_effect->AddRotationZ(angleInDegrees);
+						bullte_effect->SetRotationZ(angleInDegrees);
 						TwinMeteor_BossEffect->SetState(eState::Active);
 						_SistersAttack_C_Ready_ShortHair = true;
 					}
@@ -812,7 +862,7 @@ namespace jk
 							tr->SetPosition(_pos);							
 							float angle = -210;
 							float angleInDegrees = angle * (180.0f / XM_PI);
-							tr->AddRotationZ(angleInDegrees);
+							tr->SetRotationZ(angleInDegrees);
 							_rigidbody->SetVelocity(Vector2(800.f, -150.f));
 							_rigidbody->SetGround(false);
 							_Ground_check = false;
@@ -822,7 +872,7 @@ namespace jk
 								bullte_effect->SetPosition(Vector3(_ShortHairCreatepos.x - 250, _pos.y - 200, -205));
 								float angle = -30;
 								float angleInDegrees = angle * (180.0f / XM_PI);								
-								bullte_effect->AddRotationZ(angleInDegrees);
+								bullte_effect->SetRotationZ(angleInDegrees);
 								TwinMeteor_Impact->SetState(eState::Active);
 							}
 							_SistersAttack_C_DashOn_ShortHair = true;
@@ -833,7 +883,7 @@ namespace jk
 							tr->SetPosition(_pos);
 							float angle = -210;
 							float angleInDegrees = angle * (180.0f / XM_PI);
-							tr->AddRotationZ(angleInDegrees);
+							tr->SetRotationZ(angleInDegrees);
 							_rigidbody->SetVelocity(Vector2(-800.f, -150.f));
 							_rigidbody->SetGround(false);
 							_Ground_check = false;
@@ -843,7 +893,7 @@ namespace jk
 								bullte_effect->SetPosition(Vector3(_ShortHairCreatepos.x + 250, _pos.y - 200, -205));
 								float angle = 30;
 								float angleInDegrees = angle * (180.0f / XM_PI);								
-								bullte_effect->AddRotationZ(angleInDegrees);
+								bullte_effect->SetRotationZ(angleInDegrees);
 								TwinMeteor_Impact->SetState(eState::Active);
 							}
 							_SistersAttack_C_DashOn_ShortHair = true;
@@ -858,13 +908,15 @@ namespace jk
 				_rigidbody->SetGround(false);
 				if (_pos.x < _ShortHairCreatepos.x)
 				{
-					_rigidbody->SetVelocity(Vector2(650.f, -150.f));
+					_rigidbody->SetVelocity(Vector2(700.f, -350.f));
 					at->PlayAnimation(L"Short_hairDash_S", true);
+					_HitBox_Dir = 1;
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
+					_rigidbody->SetVelocity(Vector2(-700.f, -350.f));
 					at->PlayAnimation(L"Short_hairDash_SR", true);
+					_HitBox_Dir = -1;
 				}
 			}
 		}
@@ -914,6 +966,7 @@ namespace jk
 	}
 	void Layana_ShortHair::Sisters_Attack_A()
 	{
+		_HitBox_Attack_On = true;
 		if (_GroundMeteorAttack_Right == true)
 		{
 			if (_pos.x >= _ShortHairCreatepos.x + 312)
@@ -925,6 +978,7 @@ namespace jk
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Ground03_Landing_SR", false);		
 				_SistersAttack_A_ShortHair_END = true;
+				_HitBox_Attack_On = false;
 			}
 			
 		}
@@ -939,6 +993,7 @@ namespace jk
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Ground03_Landing_SR", false);		
 				_SistersAttack_A_ShortHair_END = true;
+				_HitBox_Attack_On = false;
 			}			
 		}
 	}
@@ -1013,12 +1068,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[0] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr1->GetPosition().x, _Playerpos.y - bullet_tr1->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb1->SetGround(false);
 					bullet_rb1->SetGravity(true);
 					bullet_rb1->SetFriction(true);
-					bullet_rb1->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb1->SetVelocity(Vector2(_HomingVector[0].x * 750, _HomingVector[0].y * 750));
 					Vector2 vel = bullet_rb1->GetVelocity();
 					_Bullet_Switch[0] = true;
 				}
@@ -1027,12 +1080,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[1] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr2->GetPosition().x, _Playerpos.y - bullet_tr2->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb2->SetGround(false);
 					bullet_rb2->SetGravity(true);
 					bullet_rb2->SetFriction(true);
-					bullet_rb2->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb2->SetVelocity(Vector2(_HomingVector[1].x * 750, _HomingVector[1].y * 750));
 					Vector2 vel = bullet_rb2->GetVelocity();
 					_Bullet_Switch[1] = true;
 				}
@@ -1041,12 +1092,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[2] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr3->GetPosition().x, _Playerpos.y - bullet_tr3->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb3->SetGround(false);
 					bullet_rb3->SetGravity(true);
 					bullet_rb3->SetFriction(true);
-					bullet_rb3->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb3->SetVelocity(Vector2(_HomingVector[2].x * 750, _HomingVector[2].y * 750));
 					Vector2 vel = bullet_rb3->GetVelocity();
 					_Bullet_Switch[2] = true;
 				}
@@ -1075,6 +1124,7 @@ namespace jk
 				bullet_rb3->SetGround(true);
 				_Attacktime = 0;
 				Homing[i]->SetState(eState::Paused);
+				_Bullet_Switch[i] = false;
 			}
 			_SistersAttack_B_ShortHair_END = true;			
 			if (_Dir == 1)
@@ -1087,7 +1137,9 @@ namespace jk
 	void Layana_ShortHair::Sisters_Attack_B_End()
 	{
 		_Sisters_Attack_B_Switch = false;
-		_SkillHomingON = false;
+		_SkillHomingON = false;		
+		_HomingNumber = 0;
+		_Attacktime = 0.f;
 	}
 
 
@@ -1182,34 +1234,36 @@ namespace jk
 	{
 		if (_pos.x < _ShortHairCreatepos.x)
 		{
-			if (_pos.x > _ShortHairCreatepos.x - 700)
+			if (_pos.x > _ShortHairCreatepos.x - 600)
 				_pos.x -= 750.f * Time::DeltaTime();
-			if (_pos.y < _ShortHairCreatepos.y + 150)
+			if (_pos.y < 100)
 				_pos.y += 150.f * Time::DeltaTime();
 		}
 		else
 		{
-			if (_pos.x < _ShortHairCreatepos.x + 700)
+			if (_pos.x < _ShortHairCreatepos.x + 600)
 				_pos.x += 750.f * Time::DeltaTime();
-			if (_pos.y < _ShortHairCreatepos.y + 155)
+			if (_pos.y < 10)
 				_pos.y += 150.f * Time::DeltaTime();
 		}
-		if (_pos.y >= _ShortHairCreatepos.y + 150.f)
+		if (_pos.y >= _ShortHairCreatepos.y + 100.f)
 		{
 			if (_GroundMeteorSwitch == true)
 			{
 				_ShortHair_state = Layana_ShortHair_State::LandingDash;
 				_Ground_check = false;
 				_rigidbody->SetGround(false);
-				if (_Dir == -1)
+				if (_pos.x < _ShortHairCreatepos.x)
 				{
-					_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
+					_rigidbody->SetVelocity(Vector2(700.f, -350.f));
 					at->PlayAnimation(L"Short_hairDash_S", true);
+					_HitBox_Dir = 1;
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(650.f, -150.f));
+					_rigidbody->SetVelocity(Vector2(-700.f, -350.f));
 					at->PlayAnimation(L"Short_hairDash_SR", true);
+					_HitBox_Dir = -1;
 				}
 			}
 
@@ -1491,12 +1545,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[0] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr1->GetPosition().x, _Playerpos.y - bullet_tr1->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb1->SetGround(false);
 					bullet_rb1->SetGravity(true);
 					bullet_rb1->SetFriction(true);
-					bullet_rb1->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb1->SetVelocity(Vector2(_HomingVector[0].x * 750, _HomingVector[0].y * 750));
 					Vector2 vel = bullet_rb1->GetVelocity();
 					_Bullet_Switch[0] = true;
 				}
@@ -1505,12 +1557,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[1] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr2->GetPosition().x, _Playerpos.y - bullet_tr2->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb2->SetGround(false);
 					bullet_rb2->SetGravity(true);
 					bullet_rb2->SetFriction(true);
-					bullet_rb2->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb2->SetVelocity(Vector2(_HomingVector[1].x * 750, _HomingVector[1].y * 750));
 					Vector2 vel = bullet_rb2->GetVelocity();
 					_Bullet_Switch[1] = true;
 				}
@@ -1519,12 +1569,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[2] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr3->GetPosition().x, _Playerpos.y - bullet_tr3->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb3->SetGround(false);
 					bullet_rb3->SetGravity(true);
 					bullet_rb3->SetFriction(true);
-					bullet_rb3->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb3->SetVelocity(Vector2(_HomingVector[2].x * 750, _HomingVector[2].y * 750));
 					Vector2 vel = bullet_rb3->GetVelocity();
 					_Bullet_Switch[2] = true;
 				}
@@ -1553,6 +1601,8 @@ namespace jk
 				bullet_rb3->SetGround(true);
 				_Attacktime = 0;
 				Homing[i]->SetState(eState::Paused);
+
+				_Bullet_Switch[i] = false;
 			}
 
 			_ShortHair_state = Layana_ShortHair_State::Skill_A_Bullet_End;
@@ -1564,7 +1614,8 @@ namespace jk
 	}
 	void Layana_ShortHair::Skill_A_End()
 	{
-
+		_HomingNumber = 0;
+		_Attacktime = 0.f;
 	}
 
 
@@ -2054,7 +2105,7 @@ namespace jk
 	{
 		if (_Intro_Switch == false)
 		{
-			_pos = Vector3(_ShortHairCreatepos.x - 150, _ShortHairCreatepos.y + 200, _ShortHairCreatepos.z);
+			_pos = Vector3(_ShortHairCreatepos.x - 150, _ShortHairCreatepos.y, _ShortHairCreatepos.z);
 			tr->SetPosition(_pos);
 			_Intro_Switch = true;
 		}
@@ -2131,50 +2182,64 @@ namespace jk
 
 	void Layana_ShortHair::CreateHoming()
 	{
-		if (_Attacktime >= 0.5f)
+		if (_SkillHomingON == false)
 		{
-			if (_HomingNumber < 2)
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime >= 0.5f)
+			{
+				_Attacktime = 0;
 				_HomingNumber++;
-			_Attacktime = 0;
-		}
+			}
 
-		_Attacktime += Time::DeltaTime();
-		if (_HomingNumber == 0)
-		{
-			_HomingEditPOS.x = 85;
-			_HomingEditPOS.y = -50;
-		}
-		if (_HomingNumber == 1)
-		{
-			_HomingEditPOS.x = 70;
-			_HomingEditPOS.y = 0;
-		}
-		if (_HomingNumber == 2)
-		{
-			_HomingEditPOS.x = 50;
-			_HomingEditPOS.y = 50;
-		}
+			if (_HomingNumber == 0)
+			{
+				_HomingEditPOS.x = 85;
+				_HomingEditPOS.y = -50;
+			}
+			if (_HomingNumber == 1)
+			{
+				_HomingEditPOS.x = 70;
+				_HomingEditPOS.y = 0;
+			}
+			if (_HomingNumber == 2)
+			{
+				_HomingEditPOS.x = 50;
+				_HomingEditPOS.y = 50;
+			}
 
-		Transform* bullet_tr = Homing[_HomingNumber]->GetComponent<Transform>();
-		if (_Dir == 1)
-		{
-			bullet_tr->SetRotationZ(0);
-			Homing[_HomingNumber]->SetDirection(-1);
-			bullet_tr->SetPosition(Vector3(_pos.x + _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -255));
-		}
-		else
-		{
-			bullet_tr->SetRotationZ(0);
-			Homing[_HomingNumber]->SetDirection(1);
-			bullet_tr->SetPosition(Vector3(_pos.x - _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -255));
-		}
-		Homing[_HomingNumber]->SetState(eState::Active);
+			Transform* bullet_tr = Homing[_HomingNumber]->GetComponent<Transform>();
+			if (_Dir == 1)
+			{
+				bullet_tr->SetRotationZ(0);
+				Homing[_HomingNumber]->SetDirection(1);
+				bullet_tr->SetPosition(Vector3(_pos.x + _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -255));
 
-		if (_HomingNumber >= 2)
-		{
-			_SkillHomingON = true;
-			_HomingNumber = 0;
-			_Attacktime = 0;
+				Transform* bullet_tr = Homing_EF[_HomingNumber]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(_pos.x + _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -251 - 1));
+				Homing_EF[_HomingNumber]->SetSwitch(true);
+				Homing_EF[_HomingNumber]->SetDirection(1);
+				Homing_EF[_HomingNumber]->SetState(eState::Active);
+			}
+			else
+			{
+				bullet_tr->SetRotationZ(0);
+				Homing[_HomingNumber]->SetDirection(-1);
+				bullet_tr->SetPosition(Vector3(_pos.x - _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -255));
+
+				Transform* bullet_tr = Homing_EF[_HomingNumber]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(_pos.x - _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -251 - 1));
+				Homing_EF[_HomingNumber]->SetSwitch(true);
+				Homing_EF[_HomingNumber]->SetDirection(-1);
+				Homing_EF[_HomingNumber]->SetState(eState::Active);
+			}
+			Homing[_HomingNumber]->SetState(eState::Active);
+
+			if (_HomingNumber >= 2)
+			{
+				_SkillHomingON = true;
+				_HomingNumber = 0;
+				_Attacktime = 0;
+			}
 		}
 	}
 	void Layana_ShortHair::SettingHoming(Transform* set, int angle_of_number)
@@ -2185,28 +2250,42 @@ namespace jk
 		if (_ShortHairCreatepos.x >= _pos.x)
 		{
 			Homing[_HomingNumber]->SetDirection(1);
-			attackpoint = Vector2(set->GetPositionX() - _Playerpos.x, set->GetPositionY() + _Playerpos.y);
-			rotation = Vector2(_Playerpos.x, _Playerpos.y);
+			attackpoint = Vector2(_Playerpos.x, _Playerpos.y);
+			rotation = Vector2(set->GetPositionX(), set->GetPositionY());
 		}
 		else
 		{
-			Homing[_HomingNumber]->SetDirection(1);
-			attackpoint = Vector2(set->GetPositionX() - _Playerpos.x, set->GetPositionY() + _Playerpos.y);
-			rotation = Vector2(_Playerpos.x, _Playerpos.y);
+			Homing[_HomingNumber]->SetDirection(-1);
+			attackpoint = Vector2(_Playerpos.x, _Playerpos.y);
+			rotation = Vector2(set->GetPositionX(), set->GetPositionY());
 		}
-		attackpoint.Normalize();
-		rotation.Normalize();
 
 		Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
+		direction.Normalize();
 		float angle = std::atan2(direction.y, direction.x);
+
+		if (_ShortHairCreatepos.x < _pos.x)
+		{
+			angle += XM_PI; // 180도를 라디안으로 변환하여 더함
+		}
+
 		set->SetRotationZ(angle);
 
 		if (angle_of_number == 0)
+		{
 			_HomingAngle[0] = angle;
+			_HomingVector[0] = direction;
+		}
 		if (angle_of_number == 1)
+		{
 			_HomingAngle[1] = angle;
+			_HomingVector[1] = direction;
+		}
 		if (angle_of_number == 2)
+		{
 			_HomingAngle[2] = angle;
+			_HomingVector[2] = direction;
+		}
 	}
 }
 

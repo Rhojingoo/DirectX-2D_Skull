@@ -133,7 +133,8 @@ namespace jk
 		bool _attack_Acheck = false;				//캐릭터의 어택상황을 체크하기 위해 필요한 변수
 		bool _attack_Bcheck = false;
 		bool _fall_check = false;
-
+		bool _HitUP = true;
+		int HitDir = 1;
 
 	private:
 		void attack_choice();

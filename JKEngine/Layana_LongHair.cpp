@@ -8,6 +8,16 @@ namespace jk
 	Layana_LongHair::Layana_Long_Background Layana_LongHair::Background_state = Layana_Long_Background();
 
 
+	int	Layana_LongHair::_HitType = 0;
+	int	Layana_LongHair::_Dammege = 0;
+	Player_Hp_Bar* Layana_LongHair::Player_Hp = nullptr;
+	Monster_Hit_Effect* Layana_LongHair::_Hit_Effect = nullptr;
+	Player_Hit_Effect* Layana_LongHair::_Hit_Effect_player = nullptr;
+	Hit_Sword* Layana_LongHair::_Hit_Sword = nullptr;
+	Hit_Critical_Middle* Layana_LongHair::_Critical_Middle = nullptr;
+	Hit_Critical_High* Layana_LongHair::_Critical_High = nullptr;
+	Monster_Death_Effect* Layana_LongHair::_Death_Effect = nullptr;
+
 
 	Layana_LongHair::Layana_LongHair()
 	{
@@ -29,7 +39,7 @@ namespace jk
 
 
 		tr = GetComponent<Transform>();
-		_pos = Vector3(0.f, 0.f, -200.f);		
+		_pos = Vector3(0.f, 90.f, -200.f);		
 		_LongHairCreatepos = _pos;
 		tr->SetPosition(_pos);
 
@@ -156,6 +166,14 @@ namespace jk
 		at->CompleteEvent(L"Long_hairAwakenReadyR") = std::bind(&Layana_LongHair::Complete_Awaken_Ready, this);
 
 
+		{
+			Hit_Box = new HitBox_Layana();
+			Hit_Box->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetState(eState::Paused);
+		}
 		
 		for (int i = 0; i < 3; i++)
 		{
@@ -167,12 +185,16 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
 			Homing[i]->SetState(eState::Paused);
 		}
-		bullet_tr1 = Homing[0]->GetComponent<Transform>();
-		bullet_tr2 = Homing[1]->GetComponent<Transform>();
-		bullet_tr3 = Homing[2]->GetComponent<Transform>();
-		bullet_rb1 = Homing[0]->GetComponent<RigidBody>();
-		bullet_rb2 = Homing[1]->GetComponent<RigidBody>();
-		bullet_rb3 = Homing[2]->GetComponent<RigidBody>();
+		for (int i = 0; i < 3; i++)
+		{
+			Homing_EF[i] = new Homing_Impact;
+			Homing_EF[i]->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Homing_EF[i]);
+			Transform* bullet_tr = Homing_EF[i]->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
+			Homing_EF[i]->SetState(eState::Paused);
+		}
 
 
 		
@@ -237,11 +259,102 @@ namespace jk
 			TwinMeteor_BossEffect->SetState(eState::Paused);
 		}
 
+		{
+			Intro_SM = new Intro_Somke;
+			Intro_SM->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Intro_SM);
+			Intro_SM->SetState(eState::Paused);
+		}
+
+
+
+
+		{
+			Player_Hp = new Player_Hp_Bar;
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
+			Player_Hp->SetName(L"player_hp_bar");
+			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(_Max_LongHair_Hp, 10, 0);
+			Player_Hp->Set_Max_Hp(_Max_LongHair_Hp);
+			Player_Hp->Set_Current_Hp(_Max_LongHair_Hp);
+			Player_Hp->SetState(eState::Active);
+		}
+
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
+		{
+			_Hit_Effect_player = new Player_Hit_Effect;
+			_Hit_Effect_player->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect_player);
+			_Hit_Effect_player->SetState(eState::Paused);
+		}
+
+		{
+			_Hit_Sword = new Hit_Sword;
+			_Hit_Sword->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
+			_Hit_Sword->SetState(eState::Paused);
+		}
+
+		{
+			_Critical_Middle = new Hit_Critical_Middle;
+			_Critical_Middle->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
+			_Critical_Middle->SetState(eState::Paused);
+		}
+		{
+			_Critical_High = new Hit_Critical_High;
+			_Critical_High->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_High);
+			_Critical_High->SetState(eState::Paused);
+		}
+
+		{
+			_Death_Effect = new Monster_Death_Effect;
+			_Death_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
+			_Death_Effect->SetState(eState::Paused);
+		}
+
+
+
+
+
+
 		at->PlayAnimation(L"Long_hairIdle", true);
 		GameObject::Initialize();
 	}
 	void Layana_LongHair::Update()
 	{
+		bullet_tr1 = Homing[0]->GetComponent<Transform>();
+		bullet_tr2 = Homing[1]->GetComponent<Transform>();
+		bullet_tr3 = Homing[2]->GetComponent<Transform>();
+		bullet_rb1 = Homing[0]->GetComponent<RigidBody>();
+		bullet_rb2 = Homing[1]->GetComponent<RigidBody>();
+		bullet_rb3 = Homing[2]->GetComponent<RigidBody>();
+
 		_Playerpos = Player::GetPlayer_Pos();
 		_velocity = _rigidbody->GetVelocity();
 		_Playerdistance.x = _Playerpos.x - _pos.x;
@@ -252,6 +365,13 @@ namespace jk
 			_Dir = -1;
 		_pos = tr->GetPosition();
 		LongHairPos = _pos;
+
+		_MaxHp_LongHair_scale = _Max_LongHair_Hp / 100;
+		_CurrenHp_LongHair_scale = _Curren_LongHair_Hp / 100;
+		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp_LongHair_scale - _CurrenHp_LongHair_scale)+200 / 2, 150, _pos.z - 1));
+		hp_tr->SetScale(_CurrenHp_LongHair_scale, 10, 0);
+
 
 		if (Joint_Operation == true)
 		{
@@ -532,6 +652,25 @@ namespace jk
 	}
 	void Layana_LongHair::LateUpdate()
 	{
+		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
+		if (_HitBox_Attack_On == true)
+		{
+			if (_state == Layana_Sisters_State::Sisters_Attack_A)
+			{				
+				Hit_Box->SetSize(Vector2(55.f, 5.f));
+				Hit_Box->SetState(eState::Active);
+				if (_HitBox_Dir == 1)	//오른쪽으로 공격할때의 기준
+					HitBox_TR->SetPosition(Vector3(_pos.x+50, _pos.y-40, _pos.z));					
+				else					//왼쪽으로 공격할때의 기준
+					HitBox_TR->SetPosition(Vector3(_pos.x-50, _pos.y-40, _pos.z));				
+			}
+		}
+		else
+		{			
+			Hit_Box->SetState(eState::Paused);
+		}
+
+
 		_collider->SetSize(Vector2(0.1f, 0.55f));
 		_collider->SetCenter(Vector2(0.0f, -20.5f));
 		GameObject::LateUpdate();
@@ -544,6 +683,166 @@ namespace jk
 
 	void Layana_LongHair::OnCollisionEnter(Collider2D* other)
 	{
+		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
+		{
+			bool attack = false;
+			bool attack_Cri_Mid = false;
+			bool attack_Cri_High = false;
+
+			_HitType = random(1, 6);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Dammege = 3000;
+				attack = true;
+			}
+			//if (_HitType >= 6 && _HitType < 9)
+			//{
+			//	_Dammege = random(15, 25);
+			//	attack_Cri_Mid = true;
+			//}
+			//if (_HitType >= 9 && _HitType <= 10)
+			//{
+			//	_Dammege = random(30, 45);
+			//	attack_Cri_High = true;
+			//}
+
+			{
+				_Hit_Effect->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (_Dir == 1)
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+					_Hit_Effect->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+				}
+				else
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+					_Hit_Sword->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
+			if (_Curren_LongHair_Hp <= 0)
+			{
+				int a = 0;
+				//if (_Diecheck == 0)
+				//{
+				//	//if (Yggdrasil::_FirstDie == false)
+				//	//{
+				//	//	Yggdrasil::_FirstDie = true;
+				//	//	Yggdrasil::_Change = true;
+				//	//	_Diecheck = 1;
+				//	//}
+				//}
+				//else if (_Diecheck == 1)
+				//{
+				//	//_DieON = true;
+				//	//Yggdrasil::_FirstDie = true;
+				//}
+			}
+		}
+
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			bool attack = false;
+			bool attack_Cri_Mid = false;
+			bool attack_Cri_High = false;
+
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Dammege = 25;
+				attack = true;
+			}
+			if (_HitType >= 6 && _HitType < 9)
+			{
+				_Dammege = random(35, 40);
+				attack_Cri_Mid = true;
+			}
+			if (_HitType >= 9 && _HitType <= 10)
+			{
+				_Dammege = random(50, 70);
+				attack_Cri_High = true;
+			}
+
+			{
+				_Hit_Effect->_effect_animation = true;
+				_Critical_Middle->_effect_animation = true;
+				_Critical_High->_effect_animation = true;
+				if (_Dir == 1)
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+					_Hit_Effect->SetDirection(-1);
+					_Critical_Middle->SetDirection(-1);
+					_Critical_High->SetDirection(-1);
+				}
+				else
+				{
+					Player_Hp->_HitOn = true;
+					Player_Hp->SetHitDamage(_Dammege);
+					_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+					_Hit_Sword->SetDirection(1);
+					_Critical_Middle->SetDirection(1);
+					_Critical_High->SetDirection(1);
+				}
+				if (attack == true)
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetState(eState::Active);
+				}
+				if (attack_Cri_Mid == true)
+				{
+					_Critical_Middle->_effect_animation = true;
+					_Critical_Middle->SetState(eState::Active);
+				}
+				if (attack_Cri_High == true)
+				{
+					_Critical_High->_effect_animation = true;
+					_Critical_High->SetState(eState::Active);
+				}
+			}
+			if (_Curren_LongHair_Hp <= 0)
+			{
+				//if (_Diecheck == 0)
+				//{
+				//	if (Yggdrasil::_FirstDie == false)
+				//	{
+				//		Yggdrasil::_FirstDie = true;
+				//		Yggdrasil::_Change = true;
+				//		_Diecheck = 1;
+				//	}
+				//}
+				//else if (_Diecheck == 1)
+				//{
+				//	_DieON = true;
+				//	Yggdrasil::_FirstDie = true;
+				//}
+			}
+		}
 	}
 	void Layana_LongHair::OnCollisionStay(Collider2D* other)
 	{
@@ -594,11 +893,14 @@ namespace jk
 				//}
 
 
-
 				if (_state == Layana_Sisters_State::Intro_Fall)
 				{					
 					//at->PlayAnimation(L"Long_hairIntro_LandingR", true);			
 					_Intro_Landing = true;
+					Intro_SM->SetState(eState::Active);
+					Intro_SM->SetSwitch(true);
+					Transform* SMtr = Intro_SM->GetComponent<Transform>();
+					SMtr->SetPosition(_pos.x-20, _pos.y-50.f, _pos.z - 1);
 				}
 
 				if (_state == Layana_Sisters_State::Sisters_Attack_Fall)
@@ -660,12 +962,6 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_SelectAttack = random(0, 6);
-		//_SelectAttack = 9;
-
-		//if (Input::GetKeyDown(eKeyCode::K))
-		//{
-		//	_SelectAttack = 9;
-		//}
 
 		if (_Intro_On == true)
 			Intro_Combo();
@@ -686,7 +982,7 @@ namespace jk
 			}
 			else
 			{
-				if (_SistersAttack_Number >= 2)
+				if (_SistersAttack_Number > 5)
 				{
 					_Joint_Attack = true;
 					_LongHair_state = Layana_LongHair_State::FlyDash;
@@ -782,19 +1078,19 @@ namespace jk
 		{
 			if (_pos.x < _LongHairCreatepos.x )
 			{
-				if (_pos.x > _LongHairCreatepos.x - 700)
+				if (_pos.x > _LongHairCreatepos.x - 600)
 					_pos.x -= 750.f * Time::DeltaTime();
-				if (_pos.y < _LongHairCreatepos.y + 150)
+				if (_pos.y < 100)
 					_pos.y += 150.f * Time::DeltaTime();
 			}
 			else
 			{
-				if (_pos.x < _LongHairCreatepos.x + 700)
+				if (_pos.x < _LongHairCreatepos.x + 600)
 					_pos.x += 750.f * Time::DeltaTime();
-				if (_pos.y < _LongHairCreatepos.y + 155)
+				if (_pos.y < 100)
 					_pos.y += 150.f * Time::DeltaTime();
 			}
-			if (_pos.y >= _LongHairCreatepos.y + 150.f)
+			if (_pos.y >=  100.f)
 				_AttackStageON = false;
 		}
 		else
@@ -810,7 +1106,7 @@ namespace jk
 						bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x + 250, _pos.y - 200, -205));
 						float angle = 30;
 						float angleInDegrees = angle * (180.0f / XM_PI);
-						bullte_effect->AddRotationZ(angleInDegrees);
+						bullte_effect->SetRotationZ(angleInDegrees);
 						TwinMeteor_BossEffect->SetState(eState::Active);
 						_SistersAttack_C_Ready_LongHair = true;
 					}
@@ -820,7 +1116,7 @@ namespace jk
 						bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x - 250, _pos.y - 200, -205));
 						float angle = -30;
 						float angleInDegrees = angle * (180.0f / XM_PI);
-						bullte_effect->AddRotationZ(angleInDegrees);
+						bullte_effect->SetRotationZ(angleInDegrees);
 						TwinMeteor_BossEffect->SetState(eState::Active);
 						_SistersAttack_C_Ready_LongHair = true;
 					}
@@ -838,7 +1134,7 @@ namespace jk
 							float angle = -210;
 							float angleInDegrees = angle * (180.0f / XM_PI);
 							at->PlayAnimation(L"Long_hairMeteor_Ground02_Attack", true);
-							tr->AddRotationZ(angleInDegrees);
+							tr->SetRotationZ(angleInDegrees);
 							_rigidbody->SetVelocity(Vector2(800.f, -150.f));
 							_rigidbody->SetGround(false);
 							_Ground_check = false;
@@ -847,7 +1143,7 @@ namespace jk
 								bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x - 250, _pos.y - 200, -205));
 								float angle = -30;
 								float angleInDegrees = angle * (180.0f / XM_PI);
-								bullte_effect->AddRotationZ(angleInDegrees);
+								bullte_effect->SetRotationZ(angleInDegrees);
 								TwinMeteor_Impact->SetState(eState::Active);							
 							}
 							_SistersAttack_C_DashOn_LongHair = true;
@@ -859,7 +1155,7 @@ namespace jk
 							float angle = -210;
 							float angleInDegrees = angle * (180.0f / XM_PI);
 							at->PlayAnimation(L"Long_hairMeteor_Ground02_AttackR", true);
-							tr->AddRotationZ(angleInDegrees);
+							tr->SetRotationZ(angleInDegrees);
 							_rigidbody->SetVelocity(Vector2(-800.f, -150.f));
 							_rigidbody->SetGround(false);
 							_Ground_check = false;			
@@ -868,7 +1164,7 @@ namespace jk
 								bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x + 250, _pos.y - 200, -205));
 								float angle = 30;
 								float angleInDegrees = angle * (180.0f / XM_PI);
-								bullte_effect->AddRotationZ(angleInDegrees);
+								bullte_effect->SetRotationZ(angleInDegrees);
 								TwinMeteor_Impact->SetState(eState::Active);
 							}
 							_SistersAttack_C_DashOn_LongHair = true;
@@ -883,13 +1179,15 @@ namespace jk
 				_rigidbody->SetGround(false);
 				if (_pos.x < _LongHairCreatepos.x)
 				{
-					_rigidbody->SetVelocity(Vector2(650.f, -150.f));
+					_rigidbody->SetVelocity(Vector2(700.f, -350.f));
 					at->PlayAnimation(L"Long_hairDash", true);
+					_HitBox_Dir = 1;
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
+					_rigidbody->SetVelocity(Vector2(-700.f, -350.f));
 					at->PlayAnimation(L"Long_hairDashR", true);
+					_HitBox_Dir = -1;
 				}
 			}
 		}
@@ -906,7 +1204,6 @@ namespace jk
 			}
 		}
 	}
-
 
 
 	void Layana_LongHair::Sisters_Attack_A_Ready()
@@ -944,6 +1241,7 @@ namespace jk
 	}
 	void Layana_LongHair::Sisters_Attack_A()
 	{
+		_HitBox_Attack_On = true;
 		if (_GroundMeteorAttack_Right == true)
 		{
 			if (_pos.x >= _LongHairCreatepos.x + 312)
@@ -955,6 +1253,7 @@ namespace jk
 				else
 					at->PlayAnimation(L"Long_hairMeteor_Ground03_LandingR", false);			
 				_SistersAttack_A_LongHair_END = true;
+				_HitBox_Attack_On = false;
 			}
 		}
 		if (_GroundMeteorAttack_Left == true)
@@ -968,6 +1267,7 @@ namespace jk
 				else
 					at->PlayAnimation(L"Long_hairMeteor_Ground03_LandingR", false);		
 				_SistersAttack_A_LongHair_END = true;
+				_HitBox_Attack_On = false;
 			}			
 		}
 	}
@@ -1042,12 +1342,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[0] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr1->GetPosition().x, _Playerpos.y - bullet_tr1->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb1->SetGround(false);
 					bullet_rb1->SetGravity(true);
-					bullet_rb1->SetFriction(true);
-					bullet_rb1->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb1->SetFriction(true);				
+					bullet_rb1->SetVelocity(Vector2(_HomingVector[0].x * 750, _HomingVector[0].y * 750));
 					Vector2 vel = bullet_rb1->GetVelocity();
 					_Bullet_Switch[0] = true;
 				}
@@ -1056,12 +1354,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[1] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr2->GetPosition().x, _Playerpos.y - bullet_tr2->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb2->SetGround(false);
 					bullet_rb2->SetGravity(true);
 					bullet_rb2->SetFriction(true);
-					bullet_rb2->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb2->SetVelocity(Vector2(_HomingVector[1].x * 750, _HomingVector[1].y * 750));
 					Vector2 vel = bullet_rb2->GetVelocity();
 					_Bullet_Switch[1] = true;
 				}
@@ -1070,12 +1366,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[2] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr3->GetPosition().x, _Playerpos.y - bullet_tr3->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb3->SetGround(false);
 					bullet_rb3->SetGravity(true);
 					bullet_rb3->SetFriction(true);
-					bullet_rb3->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb3->SetVelocity(Vector2(_HomingVector[2].x * 750, _HomingVector[2].y * 750));
 					Vector2 vel = bullet_rb3->GetVelocity();
 					_Bullet_Switch[2] = true;
 				}
@@ -1103,7 +1397,8 @@ namespace jk
 				bullet_rb3->SetFriction(false);
 				bullet_rb3->SetGround(true);
 				_Attacktime = 0;
-				Homing[i]->SetState(eState::Paused);
+				Homing[i]->SetState(eState::Paused);	
+				_Bullet_Switch[i] = false;
 			}
 
 			_SistersAttack_B_LongHair_END = true;
@@ -1117,6 +1412,8 @@ namespace jk
 	{
 		_Sisters_Attack_B_Switch = false;
 		_SkillHomingON = false;
+		_HomingNumber = 0;
+		_Attacktime = 0.f;
 	}
 
 
@@ -1209,19 +1506,19 @@ namespace jk
 	{	
 		if (_pos.x < _LongHairCreatepos.x)
 		{
-			if (_pos.x > _LongHairCreatepos.x - 700)
+			if (_pos.x > _LongHairCreatepos.x - 600)
 				_pos.x -= 750.f * Time::DeltaTime();
-			if (_pos.y < _LongHairCreatepos.y + 150)
+			if (_pos.y < 100)
 				_pos.y += 150.f * Time::DeltaTime();
 		}
 		else
 		{
-			if (_pos.x < _LongHairCreatepos.x + 700)
+			if (_pos.x < _LongHairCreatepos.x + 600)
 				_pos.x += 750.f * Time::DeltaTime();
-			if (_pos.y < _LongHairCreatepos.y + 155)
+			if (_pos.y < 100)
 				_pos.y += 150.f * Time::DeltaTime();
 		}
-		if (_pos.y >= _LongHairCreatepos.y + 150.f)
+		if (_pos.y >= _LongHairCreatepos.y + 100.f)
 		{			
 			if (_GroundMeteorSwitch == true)
 			{
@@ -1230,13 +1527,15 @@ namespace jk
 				_rigidbody->SetGround(false);
 				if (_pos.x < _LongHairCreatepos.x)
 				{
-					_rigidbody->SetVelocity(Vector2(650.f, -150.f));
+					_rigidbody->SetVelocity(Vector2(700.f, -350.f));
 					at->PlayAnimation(L"Long_hairDash", true);
+					_HitBox_Dir = 1;
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
+					_rigidbody->SetVelocity(Vector2(-700.f, -350.f));
 					at->PlayAnimation(L"Long_hairDashR", true);
+					_HitBox_Dir = -1;
 				}
 			}
 			if (_VerticalMeteorSwitch == true)
@@ -1503,8 +1802,7 @@ namespace jk
 
 	}
 	void Layana_LongHair::Skill_A()
-	{
-		
+	{		
 		_Attacktime += Time::DeltaTime();
 
 		if (_Attacktime < 5)
@@ -1521,12 +1819,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[0] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr1->GetPosition().x, _Playerpos.y - bullet_tr1->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb1->SetGround(false);
 					bullet_rb1->SetGravity(true);
 					bullet_rb1->SetFriction(true);
-					bullet_rb1->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb1->SetVelocity(Vector2(_HomingVector[0].x * 750, _HomingVector[0].y * 750));
 					Vector2 vel = bullet_rb1->GetVelocity();
 					_Bullet_Switch[0] = true;
 				}
@@ -1535,12 +1831,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[1] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr2->GetPosition().x, _Playerpos.y - bullet_tr2->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb2->SetGround(false);
 					bullet_rb2->SetGravity(true);
 					bullet_rb2->SetFriction(true);
-					bullet_rb2->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb2->SetVelocity(Vector2(_HomingVector[1].x * 750, _HomingVector[1].y * 750));
 					Vector2 vel = bullet_rb2->GetVelocity();
 					_Bullet_Switch[1] = true;
 				}
@@ -1549,12 +1843,10 @@ namespace jk
 			{
 				if (_Bullet_Switch[2] == false)
 				{
-					Vector2 attackrotation_PLAYER = Vector2(_Playerpos.x - bullet_tr3->GetPosition().x, _Playerpos.y - bullet_tr3->GetPosition().y);
-					attackrotation_PLAYER.Normalize();
 					bullet_rb3->SetGround(false);
 					bullet_rb3->SetGravity(true);
 					bullet_rb3->SetFriction(true);
-					bullet_rb3->SetVelocity(Vector2(attackrotation_PLAYER.x * 750, attackrotation_PLAYER.y * 750));
+					bullet_rb3->SetVelocity(Vector2(_HomingVector[2].x * 750, _HomingVector[2].y * 750));
 					Vector2 vel = bullet_rb3->GetVelocity();
 					_Bullet_Switch[2] = true;
 				}
@@ -1583,6 +1875,7 @@ namespace jk
 				bullet_rb3->SetGround(true);
 				_Attacktime = 0;
 				Homing[i]->SetState(eState::Paused);
+				_Bullet_Switch[i] = false;
 			}
 
 			_LongHair_state = Layana_LongHair_State::Skill_A_Bullet_End;
@@ -1596,7 +1889,8 @@ namespace jk
 	}
 	void Layana_LongHair::Skill_A_End()
 	{
-
+		_HomingNumber = 0;
+		_Attacktime = 0.f;
 	}
 
 
@@ -1676,14 +1970,14 @@ namespace jk
 					{						
 						int setangle = random(295, 335);
 						float anglew = setangle / (180.0f / XM_PI);
-						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetRotationZ(anglew);
 						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y + 25, -250));
 					}
 					else
 					{						
 						int setangle = random(25, 65);
 						float anglew = setangle / (180.0f / XM_PI);
-						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetRotationZ(anglew);
 						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y - 25, -250));
 					}					
 					Dimension_Bullet->SetState(eState::Active);
@@ -1695,14 +1989,14 @@ namespace jk
 					{
 						int setangle = random(-335, -295);						
 						float anglew = setangle / (180.0f / XM_PI);
-						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetRotationZ(anglew);
 						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y + 25, -250));
 					}
 					else
 					{					
 						int setangle = random(-65, -25);							
 						float anglew = setangle / (180.0f / XM_PI);
-						boss_bullet->AddRotationZ(anglew);
+						boss_bullet->SetRotationZ(anglew);
 						boss_bullet->SetPosition(Vector3(_Playerpos.x, _Playerpos.y - 25, -250));
 					}				
 					Dimension_Bullet->SetState(eState::Active);
@@ -1808,7 +2102,6 @@ namespace jk
 			Background_state = Layana_Long_Background::BackGround_Idle;
 		}
 	}
-
 
 
 	void Layana_LongHair::Rush_Combo()
@@ -2084,7 +2377,7 @@ namespace jk
 	{
 		if (_Intro_Switch == false)
 		{
-			_pos = Vector3(_LongHairCreatepos.x + 150, _LongHairCreatepos.y + 200, _LongHairCreatepos.z);
+			_pos = Vector3(_LongHairCreatepos.x + 150, _LongHairCreatepos.y, _LongHairCreatepos.z);
 			tr->SetPosition(_pos);
 			_Intro_Switch = true;
 		}
@@ -2164,50 +2457,64 @@ namespace jk
 
 	void Layana_LongHair::CreateHoming()
 	{
-		if (_Attacktime >= 0.5f)
+		if (_SkillHomingON == false)
 		{
-			if (_HomingNumber < 2)
+			_Attacktime += Time::DeltaTime();
+			if (_Attacktime >= 0.5f)
+			{
+				_Attacktime = 0;
 				_HomingNumber++;
-			_Attacktime = 0;
-		}
+			}
 
-		_Attacktime += Time::DeltaTime();
-		if (_HomingNumber == 0)
-		{
-			_HomingEditPOS.x = 85;
-			_HomingEditPOS.y = -50;
-		}
-		if (_HomingNumber == 1)
-		{
-			_HomingEditPOS.x = 70;
-			_HomingEditPOS.y = 0;
-		}
-		if (_HomingNumber == 2)
-		{
-			_HomingEditPOS.x = 50;
-			_HomingEditPOS.y = 50;
-		}
+			if (_HomingNumber == 0)
+			{
+				_HomingEditPOS.x = 85;
+				_HomingEditPOS.y = -50;
+			}
+			if (_HomingNumber == 1)
+			{
+				_HomingEditPOS.x = 70;
+				_HomingEditPOS.y = 0;
+			}
+			if (_HomingNumber == 2)
+			{
+				_HomingEditPOS.x = 50;
+				_HomingEditPOS.y = 50;
+			}
 
-		Transform* bullet_tr = Homing[_HomingNumber]->GetComponent<Transform>();
-		if (_Dir == 1)
-		{
-			bullet_tr->SetRotationZ(0);
-			Homing[_HomingNumber]->SetDirection(-1);
-			bullet_tr->SetPosition(Vector3(_pos.x + _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -255));
-		}
-		else
-		{
-			bullet_tr->SetRotationZ(0);
-			Homing[_HomingNumber]->SetDirection(1);
-			bullet_tr->SetPosition(Vector3(_pos.x - _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -255));
-		}
-		Homing[_HomingNumber]->SetState(eState::Active);
+			Transform* bullet_tr = Homing[_HomingNumber]->GetComponent<Transform>();
+			if (_Dir == 1)
+			{
+				bullet_tr->SetRotationZ(0);
+				Homing[_HomingNumber]->SetDirection(1);
+				bullet_tr->SetPosition(Vector3(_pos.x + _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -251));
 
-		if (_HomingNumber >= 2)
-		{
-			_SkillHomingON = true;
-			_HomingNumber = 0;
-			_Attacktime = 0;
+				Transform* bullet_tr = Homing_EF[_HomingNumber]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(_pos.x + _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -251-1));
+				Homing_EF[_HomingNumber]->SetSwitch(true); 
+				Homing_EF[_HomingNumber]->SetDirection(1);
+				Homing_EF[_HomingNumber]->SetState(eState::Active);
+			}
+			else
+			{
+				bullet_tr->SetRotationZ(0);
+				Homing[_HomingNumber]->SetDirection(-1);
+				bullet_tr->SetPosition(Vector3(_pos.x - _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -251));
+
+				Transform* bullet_tr = Homing_EF[_HomingNumber]->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(_pos.x - _HomingEditPOS.x, _pos.y + _HomingEditPOS.y, -251-1));
+				Homing_EF[_HomingNumber]->SetSwitch(true);
+				Homing_EF[_HomingNumber]->SetDirection(-1);
+				Homing_EF[_HomingNumber]->SetState(eState::Active);
+			}
+			Homing[_HomingNumber]->SetState(eState::Active);
+
+			if (_HomingNumber >= 2)
+			{
+				_SkillHomingON = true;
+				_HomingNumber = 0;
+				_Attacktime = 0;
+			}
 		}
 	}
 	void Layana_LongHair::SettingHoming(Transform* set, int angle_of_number)
@@ -2216,29 +2523,44 @@ namespace jk
 		Vector2 rotation = {};
 
 		if (_LongHairCreatepos.x >= _pos.x)
-		{	
-			Homing[_HomingNumber]->SetDirection(1);			
-			attackpoint = Vector2(tr->GetPositionX() - _Playerpos.x, tr->GetPositionY() + _Playerpos.y);
-			rotation = Vector2(_Playerpos.x, _Playerpos.y);
+		{
+			Homing[_HomingNumber]->SetDirection(1);
+			attackpoint = Vector2(_Playerpos.x, _Playerpos.y);
+			rotation = Vector2(set->GetPositionX(), set->GetPositionY());
+
 		}
 		else
 		{
-			Homing[_HomingNumber]->SetDirection(1);
-			attackpoint = Vector2(tr->GetPositionX() - _Playerpos.x, tr->GetPositionY() + _Playerpos.y);
-			rotation = Vector2(_Playerpos.x, _Playerpos.y);
+			Homing[_HomingNumber]->SetDirection(-1);
+			attackpoint = Vector2(_Playerpos.x, _Playerpos.y);
+			rotation = Vector2(set->GetPositionX(), set->GetPositionY());
 		}
-		attackpoint.Normalize();
-		rotation.Normalize();
 
 		Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
-		float angle = std::atan2(direction.y, direction.x);
+		direction.Normalize();
+		float angle = std::atan2(direction.y, direction.x);		
+		
+		if (_LongHairCreatepos.x < _pos.x) 
+		{
+			angle += XM_PI; // 180도를 라디안으로 변환하여 더함
+		}
+
 		set->SetRotationZ(angle);
 
 		if (angle_of_number == 0)
+		{
 			_HomingAngle[0] = angle;
+			_HomingVector[0] = direction;
+		}
 		if (angle_of_number == 1)
+		{
 			_HomingAngle[1] = angle;
+			_HomingVector[1] = direction;
+		}
 		if (angle_of_number == 2)
+		{
 			_HomingAngle[2] = angle;
+			_HomingVector[2] = direction;
+		}
 	}
 }

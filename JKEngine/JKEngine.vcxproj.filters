@@ -515,9 +515,6 @@
     <ClInclude Include="Yggdrasil_BoddyDead_Effect.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
     </ClInclude>
-    <ClInclude Include="Yggdrasil.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
-    </ClInclude>
     <ClInclude Include="Yggdrasil_Body.h">
       <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
     </ClInclude>
@@ -550,6 +547,18 @@
     </ClInclude>
     <ClInclude Include="Stage1_BossDoor.h">
       <Filter>Game_ob\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil.h">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClInclude>
+    <ClInclude Include="HitBox_Layana.h">
+      <Filter>Game_ob\HitBox\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Intro_Somke.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+    </ClInclude>
+    <ClInclude Include="Homing_Impact.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1064,9 +1073,6 @@
     <ClCompile Include="Yggdrasil_BoddyDead_Effect.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
     </ClCompile>
-    <ClCompile Include="Yggdrasil.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Yggdrasil_Body.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
     </ClCompile>
@@ -1099,6 +1105,18 @@
     </ClCompile>
     <ClCompile Include="Stage1_BossDoor.cpp">
       <Filter>Game_ob\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil</Filter>
+    </ClCompile>
+    <ClCompile Include="HitBox_Layana.cpp">
+      <Filter>Game_ob\HitBox\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Intro_Somke.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+    </ClCompile>
+    <ClCompile Include="Homing_Impact.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1368,6 +1386,9 @@
     </Filter>
     <Filter Include="Game_ob\Boss\Yggdrasil\Base">
       <UniqueIdentifier>{b2b83813-6007-4e62-98df-16ddac787cb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Somke">
+      <UniqueIdentifier>{b6b762ad-c3ea-4853-95fe-c198cac2cb2e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

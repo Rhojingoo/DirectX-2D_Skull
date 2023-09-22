@@ -2,12 +2,17 @@
 #include "Include_Common.h"
 #include "Layana_Sisters.h"
 #include "Homing_Pierce_ShortHair.h"
+#include "Homing_Impact.h"
 #include "Rising_Pierce.h"
 #include "Dimension_Pierce.h"
 #include "Dimension_Pierce_BossEffect.h"
 #include "Dimension_Pierce_BulletEffect.h"
 #include "TwinMeteor_Boss.h"
 #include "TwinMeteor_Effect.h"
+#include "HitBox_Layana.h"
+#include "Intro_Somke.h"
+
+
 
 
 namespace jk
@@ -213,9 +218,13 @@ namespace jk
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
+		HitBox_Layana* Hit_Box = nullptr;
+		bool _HitBox_Attack_On = false;
+		int _HitBox_Dir = 1;
 
 	private:
 		Homing_Pierce_ShortHair* Homing[3];
+		Homing_Impact* Homing_EF[3] = {};
 		Transform* bullet_tr1 = nullptr;
 		Transform* bullet_tr2 = nullptr;
 		Transform* bullet_tr3 = nullptr;
@@ -235,6 +244,8 @@ namespace jk
 		Dimension_Pierce_BulletEffect* Dimension_BulletEffect = nullptr;
 		TwinMeteor_Effect* TwinMeteor_Impact = nullptr;
 		TwinMeteor_Boss* TwinMeteor_BossEffect = nullptr;
+		Intro_Somke* Intro_SM = nullptr;
+
 
 	private:
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
@@ -284,6 +295,7 @@ namespace jk
 		bool    _SkillHomingFire = false;
 		int		_HomingNumber = 0;
 		float   _HomingAngle[3];
+		Vector2   _HomingVector[3];
 
 		bool	_SkillB_Switch = false;
 

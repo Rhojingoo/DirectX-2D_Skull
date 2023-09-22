@@ -51,7 +51,9 @@ namespace jk
 			Sisters_Attack_D,		
 		};
 
+
 		void idle();
+
 
 		void Intro_Dash();
 		void Intro_Landing();
@@ -85,6 +87,7 @@ namespace jk
 	
 		void longhair_change();
 		void shorthair_change();
+		void AttackSwap();
 		int random(int a, int b);
 
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
@@ -105,7 +108,7 @@ namespace jk
 
 
 	private:
-		GameObject* _Gobjs[3];
+		GameObject* _Gobjs[2];
 		float _time = 0.f;
 		float _Attacktime = 0.f;
 
@@ -170,6 +173,25 @@ namespace jk
 		static bool _SistersAttack_C_DashOn_ShortHair;
 		static bool _SistersAttack_C_LongHair_LAND;
 		static bool _SistersAttack_C_ShortHair_LAND;
+
+
+	public:
+		static float _Max_LongHair_Hp;
+		static float _Curren_LongHair_Hp;
+		static float _MaxHp_LongHair_scale;
+		static float _CurrenHp_LongHair_scale;
+
+
+		static float _Max_ShortHair_Hp;
+		static float _Curren_ShortHair_Hp;
+		static float _MaxHp_ShortHair_scale;
+		static float _CurrenHp_ShortHair_scale;
+
+
+
+
+
+
 
 
 	};

@@ -197,7 +197,7 @@ namespace jk
 
 		if (_Boss_Dead == true)
 		{
-			cameraComp->Set_MaxBGX(1500.f);
+			cameraComp->Set_MaxBGX(700.f);
 			cameraComp->Set_MinBGX(0.f);
 			cameraComp->SetTarget_BG(Kingbg);
 			cameraComp->BgCamera = true;

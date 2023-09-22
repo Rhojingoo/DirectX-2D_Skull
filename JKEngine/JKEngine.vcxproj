@@ -191,6 +191,7 @@
     <ClInclude Include="Ground_Map.h" />
     <ClInclude Include="HitBox_Archer.h" />
     <ClInclude Include="HitBox_Knight.h" />
+    <ClInclude Include="HitBox_Layana.h" />
     <ClInclude Include="HitBox_Mage.h" />
     <ClInclude Include="HitBox_Monster.h" />
     <ClInclude Include="HitBox_Player.h" />
@@ -199,8 +200,10 @@
     <ClInclude Include="Hit_Critical_Middle.h" />
     <ClInclude Include="Hit_DarkPaladin.h" />
     <ClInclude Include="Hit_Sword.h" />
+    <ClInclude Include="Homing_Impact.h" />
     <ClInclude Include="Homing_Pierce_LongHair.h" />
     <ClInclude Include="Homing_Pierce_ShortHair.h" />
+    <ClInclude Include="Intro_Somke.h" />
     <ClInclude Include="Item_OBJ.h" />
     <ClInclude Include="jkStage2_2.h" />
     <ClInclude Include="jkStage2_Boss.h" />
@@ -378,6 +381,7 @@
     <ClCompile Include="Ground_Map.cpp" />
     <ClCompile Include="HitBox_Archer.cpp" />
     <ClCompile Include="HitBox_Knight.cpp" />
+    <ClCompile Include="HitBox_Layana.cpp" />
     <ClCompile Include="HitBox_Mage.cpp" />
     <ClCompile Include="HitBox_Monster.cpp" />
     <ClCompile Include="HitBox_Player.cpp" />
@@ -386,8 +390,10 @@
     <ClCompile Include="Hit_Critical_Middle.cpp" />
     <ClCompile Include="Hit_DarkPaladin.cpp" />
     <ClCompile Include="Hit_Sword.cpp" />
+    <ClCompile Include="Homing_Impact.cpp" />
     <ClCompile Include="Homing_Pierce_LongHair.cpp" />
     <ClCompile Include="Homing_Pierce_ShortHair.cpp" />
+    <ClCompile Include="Intro_Somke.cpp" />
     <ClCompile Include="Item_OBJ.cpp" />
     <ClCompile Include="jkStage2_2.cpp" />
     <ClCompile Include="jkStage2_Boss.cpp" />

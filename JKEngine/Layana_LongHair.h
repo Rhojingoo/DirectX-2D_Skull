@@ -2,12 +2,17 @@
 #include "Include_Common.h"
 #include "Layana_Sisters.h"
 #include "Homing_Pierce_LongHair.h"
+#include "Homing_Impact.h"
 #include "Rising_Pierce.h"
 #include "Dimension_Pierce.h"
 #include "Dimension_Pierce_BossEffect.h"
 #include "Dimension_Pierce_BulletEffect.h"
 #include "TwinMeteor_Boss.h"
 #include "TwinMeteor_Effect.h"
+#include "HitBox_Layana.h"
+#include "Intro_Somke.h"
+
+
 
 namespace jk
 {
@@ -211,10 +216,13 @@ namespace jk
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
-	
+		HitBox_Layana* Hit_Box = nullptr;
+		bool _HitBox_Attack_On = false;
+		int _HitBox_Dir = 1;
 		
 	private:
 		Homing_Pierce_LongHair* Homing[3];
+		Homing_Impact* Homing_EF[3] = {};
 		Transform* bullet_tr1 = nullptr;
 		Transform* bullet_tr2 = nullptr;
 		Transform* bullet_tr3 = nullptr;
@@ -235,6 +243,10 @@ namespace jk
 		Dimension_Pierce_BulletEffect* Dimension_BulletEffect = nullptr;
 		TwinMeteor_Effect* TwinMeteor_Impact = nullptr;
 		TwinMeteor_Boss* TwinMeteor_BossEffect = nullptr;
+		Intro_Somke* Intro_SM = nullptr;
+
+
+
 
 	private:
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
@@ -253,9 +265,25 @@ namespace jk
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		bool	_BackGround_check = true;			// 백그라운드 아이들시 사용되는 변수
 		int		_Rushnumber = 0;					// 러쉬 공격시 1번 = a, 2번 = b, 3번 =c , 0 = 대기상태
+
+
 		 
 	public:
 		static	bool _AttackStageON;				// FLyDash의 경우 나가있는지 안에 있는지 확인할수 있는변 나가있는상태라면 위치 셋팅하여 안으로 들어오게 도와주는 역할의 변수 
+		
+		
+	public:
+		static int	_HitType;
+		static int	_Dammege;
+		static Player_Hp_Bar* Player_Hp;
+		static Monster_Hit_Effect* _Hit_Effect;
+		static Player_Hit_Effect* _Hit_Effect_player;
+		static Hit_Sword* _Hit_Sword;
+		static Hit_Critical_Middle* _Critical_Middle;
+		static Hit_Critical_High* _Critical_High;
+		static Monster_Death_Effect* _Death_Effect;
+
+
 
 	private:
 		bool	_Sisters_Attack_A = false;
@@ -284,6 +312,7 @@ namespace jk
 		bool    _SkillHomingFire = false;
 		int		_HomingNumber = 0;
 		float   _HomingAngle[3];
+		Vector2   _HomingVector[3];
 
 		bool	_SkillB_Switch = false;
 
