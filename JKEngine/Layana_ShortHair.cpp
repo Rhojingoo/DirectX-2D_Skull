@@ -54,8 +54,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Ground02_Attack_S", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Ground03_Landing_S", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Ground04_End_S", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical00_Jump_S", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical01_Ready_S", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical00_Jump_S", this,0,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical01_Ready_S", this,0,0.065);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical02_Attack_S", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical03_Landing_S", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical04_End_S", this);
@@ -94,8 +94,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Ground02_Attack_S", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Ground03_Landing_S", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Ground04_End_S", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical00_Jump_S", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical01_Ready_S", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical00_Jump_S", this, 1,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical01_Ready_S", this, 1,0.065);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical02_Attack_S", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical03_Landing_S", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Meteor_Vertical04_End_S", this, 1);
@@ -581,7 +581,7 @@ namespace jk
 		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
 		if (_HitBox_Attack_On == true)
 		{
-			if (_state == Layana_Sisters_State::Sisters_Attack_A)
+			if (_state == Layana_Sisters_State::Sisters_Attack_A|| _ShortHair_state == Layana_ShortHair_State::Meteor_Ground_Attack)
 			{
 				Hit_Box->SetSize(Vector2(55.f, 5.f));
 				Hit_Box->SetState(eState::Active);
@@ -590,9 +590,33 @@ namespace jk
 				else					//왼쪽으로 공격할때의 기준
 					HitBox_TR->SetPosition(Vector3(_pos.x - 50, _pos.y - 40, _pos.z));
 			}
+			else if (_ShortHair_state == Layana_ShortHair_State::Meteor_Vertical_Landing)
+			{
+				Hit_Box->SetSize(Vector2(5.f, 55.f));
+				Hit_Box->SetState(eState::Active);
+				HitBox_TR->SetPosition(Vector3(_pos.x + 5, _pos.y - 50, _pos.z));
+			}
+			else if (_ShortHair_state == Layana_ShortHair_State::Meteor_Cross_Landing)
+			{
+				Hit_Box->SetSize(Vector2(5.f, 55.f));
+
+				Hit_Box->SetState(eState::Active);
+
+				if (_HitBox_Dir == 1)	//오른쪽으로 공격할때의 기준
+				{
+					HitBox_TR->SetPosition(Vector3(_pos.x + 30, _pos.y - 50, _pos.z));
+					HitBox_TR->SetRotationZ(45 / (180.f / XM_PI));
+				}
+				else					//왼쪽으로 공격할때의 기준
+				{
+					HitBox_TR->SetPosition(Vector3(_pos.x - 30, _pos.y - 50, _pos.z));
+					HitBox_TR->SetRotationZ(-45 / (180.f / XM_PI));
+				}
+			}
 		}
 		else
 		{
+			HitBox_TR->SetRotationZ(0);
 			Hit_Box->SetState(eState::Paused);
 		}
 
@@ -618,13 +642,13 @@ namespace jk
 			{
 				_rigidbody->SetGround(true);
 				_Ground_check = true;
-				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
 			}
 			else
 			{
 				if (_ShortHair_state == Layana_ShortHair_State::Meteor_Cross_Landing)
 				{
+					_HitBox_Attack_On = false;
 					if (_Dir == 1)
 						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_S", true);
 					else
@@ -642,25 +666,16 @@ namespace jk
 				}
 				if (_ShortHair_state == Layana_ShortHair_State::Meteor_Vertical_Landing)
 				{
-					if (_Dir == 1)
+					if (_VerticalMeteorLanding == false)
 					{
-						at->PlayAnimation(L"Short_hairMeteor_Vertical03_Landing_S", true);
+						if (_Dir == 1)
+							at->PlayAnimation(L"Short_hairMeteor_Vertical03_Landing_S", true);
+						else
+							at->PlayAnimation(L"Short_hairMeteor_Vertical03_Landing_SR", true);
 
-						Intro_SM->SetState(eState::Active);
-						Intro_SM->SetSwitch(true);
-						Transform* SMtr = Intro_SM->GetComponent<Transform>();
-						SMtr->SetPosition(_pos.x + 20, _pos.y - 50.f, _pos.z - 1);
+						_VerticalMeteorLandingSM = true;
+						_VerticalMeteorLanding = true;
 					}
-					else
-					{
-						at->PlayAnimation(L"Short_hairMeteor_Vertical03_LandingR_S", true);
-
-						Intro_SM->SetState(eState::Active);
-						Intro_SM->SetSwitch(true);
-						Transform* SMtr = Intro_SM->GetComponent<Transform>();
-						SMtr->SetPosition(_pos.x - 20, _pos.y - 50.f, _pos.z - 1);
-					}
-					_VerticalMeteorLanding = true;
 				}
 				if (_ShortHair_state == Layana_ShortHair_State::AwakenJump)
 					_Awaken_Ready = true;
@@ -672,6 +687,8 @@ namespace jk
 				//		at->PlayAnimation(L"Long_hairSkill_A_Bullet_ReadyR", true);					
 				//	_SkillA_Landing = true;
 				//}
+
+
 				if (_state == Layana_Sisters_State::Intro_Fall)
 				{		
 					_Intro_Landing = true;
@@ -741,7 +758,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_SelectAttack = random(0, 6);
-		//_SelectAttack = 0;
+		_SelectAttack = 6;
 
 		if (_Intro_On == true)
 			Intro_Combo();
@@ -750,8 +767,7 @@ namespace jk
 		{
 			BackGround_Combo();
 			_time = 0;
-		}
-		
+		}		
 
 		if (ShortHair_Operation == true)
 		{
@@ -774,7 +790,7 @@ namespace jk
 				}
 				else
 				{
-					if (_time >= 3.0)
+					if (_time >= 2.0)
 					{
 						if (_SelectAttack == 0)
 							Rush_Combo();
@@ -1099,6 +1115,7 @@ namespace jk
 				at->PlayAnimation(L"Short_hairMeteor_Ground04_End_SR", false);
 			_SistersAttack_A_ShortHair_END = false;
 			_SistersAttack_A_Ready_ShortHair = false;
+			_HitBox_Attack_On = false;
 		}
 	}
 
@@ -1339,10 +1356,10 @@ namespace jk
 		{
 			if (_pos.x < _ShortHairCreatepos.x + 600)
 				_pos.x += 750.f * Time::DeltaTime();
-			if (_pos.y < 10)
+			if (_pos.y < 100)
 				_pos.y += 150.f * Time::DeltaTime();
 		}
-		if (_pos.y >= _ShortHairCreatepos.y + 100.f)
+		if (_pos.y >= 100.f)
 		{
 			if (_GroundMeteorSwitch == true)
 			{
@@ -1369,11 +1386,6 @@ namespace jk
 				_Ground_check = false;
 				_pos.x = _Playerpos.x;
 				at->PlayAnimation(L"Short_hairMeteor_Vertical00_Jump_S", true);
-
-				//if(mDir ==1)
-				//	at->PlayAnimation(L"Short_hairMeteor_Vertical00_Jump_S", true);	
-				//else
-				//	at->PlayAnimation(L"Short_hairMeteor_Vertical00_Jump_SR", true);
 			}
 
 			if (_BackGround_Switch == true)
@@ -1506,17 +1518,19 @@ namespace jk
 				at->PlayAnimation(L"Short_hairMeteor_Cross04_Attack_SR", false);
 				float angle = 45 / (180.0f / XM_PI);
 				tr->SetRotationZ(angle);
+				_HitBox_Dir = 1;
 			}
 			else
 			{
 				at->PlayAnimation(L"Short_hairMeteor_Cross04_Attack_SR", false);
 				float angle = -45 / (180.0f / XM_PI);
 				tr->SetRotationZ(angle);
+				_HitBox_Dir = -1;
 			}
 		}
 		//몸땡이 발사
 		{
-
+			_HitBox_Attack_On = true;
 			Vector2 attack_pos = Vector2(_Playerpos.x - _pos.x, _Playerpos.y - _pos.y);
 			attack_pos.Normalize();
 			_rigidbody->SetGround(false);
@@ -1540,6 +1554,7 @@ namespace jk
 	}
 	void Layana_ShortHair::GroundAttack()
 	{
+		_HitBox_Attack_On = true;
 		if (_GroundMeteorAttack_Right == true)
 		{
 			if (_pos.x >= _ShortHairCreatepos.x + 312)
@@ -1551,6 +1566,7 @@ namespace jk
 					at->PlayAnimation(L"Short_hairMeteor_Ground04_End_S", true);
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Ground04_End_SR", true);
+				_HitBox_Attack_On = false;
 			}
 		}
 		if (_GroundMeteorAttack_Left == true)
@@ -1564,6 +1580,7 @@ namespace jk
 					at->PlayAnimation(L"Short_hairMeteor_Ground04_End_S", true);
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Ground04_End_SR", true);
+				_HitBox_Attack_On = false;
 			}
 		}
 	}
@@ -1587,10 +1604,31 @@ namespace jk
 	}
 	void Layana_ShortHair::Vertical_Landing()
 	{
+		_HitBox_Attack_On = true;
 		_Attacktime += Time::DeltaTime();
+		if (_VerticalMeteorLandingSM == true)
+		{
+			if (_Dir == 1)
+			{
+				Intro_SM->SetState(eState::Active);
+				Intro_SM->SetSwitch(true);
+				Transform* SMtr = Intro_SM->GetComponent<Transform>();
+				SMtr->SetPosition(_pos.x + 20, _pos.y - 50.f, _pos.z - 1);
+			}
+			else
+			{
+				Intro_SM->SetState(eState::Active);
+				Intro_SM->SetSwitch(true);
+				Transform* SMtr = Intro_SM->GetComponent<Transform>();
+				SMtr->SetPosition(_pos.x - 20, _pos.y - 50.f, _pos.z - 1);
+			}
+			_VerticalMeteorLandingSM = false;
+		}
+
 		if (_VerticalMeteorLanding == true)
 		{
-			if (_Attacktime >= 1.f)
+			_HitBox_Attack_On = false;
+			if (_Attacktime >= 0.5f)
 			{
 				_ShortHair_state = Layana_ShortHair_State::Meteor_Vertical_End;
 
@@ -1599,6 +1637,7 @@ namespace jk
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Vertical04_End_SR", true);
 				_Attacktime = 0;
+				_HitBox_Attack_On = false;
 			}
 		}
 	}
@@ -1848,7 +1887,7 @@ namespace jk
 		{
 			_Attacktime += Time::DeltaTime();
 
-			if (_Attacktime >= 1 && _Attacktime < 1.5)
+			if (_Attacktime >= 0.5 && _Attacktime < 1.0)
 			{
 				Transform* boss_bullet = Dimension_Bullet->GetComponent<Transform>();
 				Transform* boss_effect = Dimension_BulletEffect->GetComponent<Transform>();
@@ -1902,7 +1941,7 @@ namespace jk
 
 	void Layana_ShortHair::BackGround_Idle()
 	{
-		if (_SistersAttack_Number >= 2)
+		if (_SistersAttack_Number >= 6)
 		{
 			Background_state = Layana_Short_Background::BackGround_Exit;
 			at->PlayAnimation(L"Short_hairBackGround_Move_S", false);
@@ -1919,25 +1958,25 @@ namespace jk
 		if (_BackGround_Idle == true)
 		{
 			Background_state = Layana_Short_Background::BackGround_Idle;
-			at->PlayAnimation(L"Short_hairBackGround_Idle_S", false);
+			at->PlayAnimation(L"Short_hairBackGround_Idle_S", true);
 			_BackGround_Idle = false;
 		}
 	}
 	void Layana_ShortHair::BackGround_Exit()
 	{
-		if (_pos.y >= _ShortHairCreatepos.y + 150)
+		if (_pos.y >= 100)
 		{
 			_rigidbody->SetGround(true);
 			if (LongHairPos.x >= _ShortHairCreatepos.x)
 			{
-				_pos.x = -700;
-				_pos.y = 150;
+				_pos.x = -600;
+				_pos.y = 100;
 				_pos.z = -200;
 			}
 			else
 			{
-				_pos.x = 700;
-				_pos.y = 150;
+				_pos.x = 600;
+				_pos.y = 100;
 				_pos.z = -200;
 			}
 			ShortHair_First_moving = true;
@@ -2051,7 +2090,7 @@ namespace jk
 		else
 		{
 			_ShortHair_state = Layana_ShortHair_State::Dash;
-			if (_pos.x > _ShortHairCreatepos.x)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairDash_S", true);
 			else
 				at->PlayAnimation(L"Short_hairDash_SR", true);
@@ -2172,11 +2211,8 @@ namespace jk
 		_pos.x = _Playerpos.x;
 		at->PlayAnimation(L"Short_hairMeteor_Vertical02_Attack_S", false);
 		_rigidbody->SetGround(false);
-		_rigidbody->SetVelocity(Vector2(0.f, -350.f));
-		//if (_Dir == 1)
-		//	at->PlayAnimation(L"Long_hairMeteor_Vertical02_Attack", false);
-		//else
-		//	at->PlayAnimation(L"Long_hairMeteor_Vertical02_AttackR", false);
+		_rigidbody->SetVelocity(Vector2(0.f, -550.f));
+		_VerticalMeteorLanding = false;
 	}
 	void Layana_ShortHair::Complete_VerticalEnd()
 	{

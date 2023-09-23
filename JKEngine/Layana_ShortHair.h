@@ -295,6 +295,7 @@ namespace jk
 
 		bool	_VerticalMeteorSwitch = false;
 		bool	_VerticalMeteorLanding = false;
+		bool	_VerticalMeteorLandingSM = false;
 
 		bool	_SkillA_Switch = false;
 		bool	_SkillA_Landing = false;

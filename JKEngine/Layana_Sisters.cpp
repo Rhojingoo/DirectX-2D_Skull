@@ -337,8 +337,8 @@ namespace jk
 
 	void Layana_Sisters::Sisters_Attack_Set()
 	{	
-			//_Sisters_AttackType = random(0, 2);
-			_Sisters_AttackType = 2;
+			_Sisters_AttackType = random(0, 2);
+			//_Sisters_AttackType = 2;
 			if (_Sisters_AttackType == 0)
 			{
 				_Sisters_Attack_A_Switch = true;
@@ -523,19 +523,21 @@ namespace jk
 
 	void Layana_Sisters::AttackSwap()
 	{
-		//if (_SistersAttack_Number >= 4)
-		//{
-		//	_Sisters_Attack_On = false;
-		//	Joint_Operation = false;
-		//	int select = random(0, 1);
+		if (_SistersAttack_Number >= 1)
+		{
+			_Sisters_Attack_On = false;
+			Joint_Operation = false;
+			int select = random(0, 1);
+			select = 1;
 
-		//	if (select == 0)
-		//		longhair_change();
-		//	if (select == 1)
-		//		shorthair_change();
-		//	_Attacktime = 0;
-		//}
-		//else
+			if (select == 0)
+				longhair_change();
+			if (select == 1)
+				shorthair_change();
+			_Attacktime = 0;
+			//_SistersAttack_Number = 0;
+		}
+		else
 		{
 			_state = Layana_Sisters_State::Sisters_Attack_Set;
 			_Attacktime = 0;

@@ -29,8 +29,8 @@ namespace jk
 
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Impact", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Impact", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Impact", this, 0, 0.075);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Impact", this, 1, 0.075);
 		at->CompleteEvent(L"EffectDimensionPierce_Impact") = std::bind(&Dimension_Pierce_BulletEffect::Compelete_Pierce, this);
 		at->CompleteEvent(L"EffectDimensionPierce_ImpactR") = std::bind(&Dimension_Pierce_BulletEffect::Compelete_Pierce, this);
 
@@ -55,7 +55,7 @@ namespace jk
 
 	void Dimension_Pierce_BulletEffect::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.85f, 0.5f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}

@@ -322,8 +322,11 @@ namespace jk
 			Hit_Box->SetState(eState::Paused);			
 		}		
 		
-		_collider->SetSize(Vector2(0.1f, 0.5f));
-		_collider->SetCenter(Vector2(0.0f, -2.5f));
+		_collider->SetSize(Vector2(0.35f, 0.5f));
+		if(mDir ==1)
+			_collider->SetCenter(Vector2(5.0f, -2.5f));
+		else
+			_collider->SetCenter(Vector2(-5.0f, -2.5f));
 
 		GameObject::LateUpdate();
 		
@@ -1687,7 +1690,36 @@ namespace jk
 			}
 		}
 
+		if (Dimension_Pierce_BulletEffect* Bullet = dynamic_cast<Dimension_Pierce_BulletEffect*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
 		
+
 		//Ground
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
