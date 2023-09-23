@@ -11,6 +11,9 @@
 #include "TwinMeteor_Effect.h"
 #include "HitBox_Layana.h"
 #include "Intro_Somke.h"
+#include "Intro_Aura_Layana.h"
+#include "Layana_Dash_Smoke.h"
+#include "Layana_Meteor_GR_Smoke.h"
 
 
 
@@ -160,6 +163,7 @@ namespace jk
 
 		void Intro_Dash();
 		void Intro_Landing();
+		void Intro_Landing_End();
 		void Intro_Fall();
 
 		void Awaken();
@@ -188,7 +192,8 @@ namespace jk
 		void Complete_Skill_A();
 		void Complete_Skill_B();
 
-		void Complete_IntroRanding();
+		void Complete_IntroLanding();
+		void Complete_IntroLanding_END();
 
 		void Complete_Awaken_Ready();
 		void Complete_Awaken();
@@ -244,8 +249,9 @@ namespace jk
 		TwinMeteor_Effect* TwinMeteor_Impact = nullptr;
 		TwinMeteor_Boss* TwinMeteor_BossEffect = nullptr;
 		Intro_Somke* Intro_SM = nullptr;
-
-
+		Intro_Aura_Layana* Intro_Ar = nullptr;
+		Layana_Dash_Smoke* Dash_SM = nullptr;
+		Layana_Meteor_GR_Smoke* MeteorGR_SM = nullptr;
 
 
 	private:

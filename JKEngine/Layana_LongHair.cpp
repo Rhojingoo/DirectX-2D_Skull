@@ -58,6 +58,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Intro_Dash", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Intro_Fall", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Intro_Landing", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Intro_Landing_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Cross00_Jump", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Cross01_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Cross02_Landing", this);
@@ -97,6 +98,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Intro_Dash", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Intro_Fall", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Intro_Landing", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Intro_Landing_End", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Cross00_Jump", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Cross01_Ready", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Cross02_Landing", this,1);
@@ -140,7 +142,8 @@ namespace jk
 		at->CompleteEvent(L"Long_hairMeteor_Vertical04_End") = std::bind(&Layana_LongHair::Complete_VerticalEnd, this);
 		at->CompleteEvent(L"Long_hairSkill_A_Bullet_End") = std::bind(&Layana_LongHair::Complete_Skill_A, this);
 		at->CompleteEvent(L"Long_hairSkill_B_RisingPierce_End") = std::bind(&Layana_LongHair::Complete_Skill_B, this);
-		at->CompleteEvent(L"Long_hairIntro_Landing") = std::bind(&Layana_LongHair::Complete_IntroRanding, this);
+		at->CompleteEvent(L"Long_hairIntro_Landing") = std::bind(&Layana_LongHair::Complete_IntroLanding, this);
+		at->CompleteEvent(L"Long_hairIntro_Landing_End") = std::bind(&Layana_LongHair::Complete_IntroLanding_END, this);
 		at->CompleteEvent(L"Long_hairAwaken") = std::bind(&Layana_LongHair::Complete_Awaken, this);
 		at->CompleteEvent(L"Long_hairAwakenReadyR") = std::bind(&Layana_LongHair::Complete_Awaken_Ready, this);
 
@@ -161,7 +164,8 @@ namespace jk
 		at->CompleteEvent(L"Long_hairMeteor_Vertical04_EndR") = std::bind(&Layana_LongHair::Complete_VerticalEnd, this);
 		at->CompleteEvent(L"Long_hairSkill_A_Bullet_EndR") = std::bind(&Layana_LongHair::Complete_Skill_A, this);
 		at->CompleteEvent(L"Long_hairSkill_B_RisingPierce_EndR") = std::bind(&Layana_LongHair::Complete_Skill_B, this);
-		at->CompleteEvent(L"Long_hairIntro_LandingR") = std::bind(&Layana_LongHair::Complete_IntroRanding, this);
+		at->CompleteEvent(L"Long_hairIntro_LandingR") = std::bind(&Layana_LongHair::Complete_IntroLanding, this);
+		at->CompleteEvent(L"Long_hairIntro_Landing_EndR") = std::bind(&Layana_LongHair::Complete_IntroLanding_END, this);
 		at->CompleteEvent(L"Long_hairAwakenR") = std::bind(&Layana_LongHair::Complete_Awaken, this);
 		at->CompleteEvent(L"Long_hairAwakenReadyR") = std::bind(&Layana_LongHair::Complete_Awaken_Ready, this);
 
@@ -253,7 +257,7 @@ namespace jk
 			TwinMeteor_BossEffect = new TwinMeteor_Boss;
 			TwinMeteor_BossEffect->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Bullet, TwinMeteor_BossEffect);
+			scene->AddGameObject(eLayerType::Effect, TwinMeteor_BossEffect);
 			Transform* bullte_effect = TwinMeteor_BossEffect->GetComponent<Transform>();
 			bullte_effect->SetPosition(Vector3(_pos.x, _pos.y, -205));
 			TwinMeteor_BossEffect->SetState(eState::Paused);
@@ -267,10 +271,34 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, Intro_SM);
 			Intro_SM->SetState(eState::Paused);
 		}
+		{
+			Intro_Ar = new Intro_Aura_Layana;
+			Intro_Ar->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Intro_Ar);
+			Intro_Ar->SetState(eState::Paused);
+		}
+		{
+			Dash_SM = new Layana_Dash_Smoke;
+			Dash_SM->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Dash_SM);
+			Dash_SM->SetState(eState::Paused);
+		}
+		{
+			MeteorGR_SM = new Layana_Meteor_GR_Smoke;
+			MeteorGR_SM->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, MeteorGR_SM);
+			MeteorGR_SM->SetState(eState::Paused);
+		}
 
 
 
-
+		//hp관련
 		{
 			Player_Hp = new Player_Hp_Bar;
 			Scene* scene = SceneManager::GetActiveScene();
@@ -341,8 +369,6 @@ namespace jk
 
 
 
-
-
 		at->PlayAnimation(L"Long_hairIdle", true);
 		GameObject::Initialize();
 	}
@@ -391,6 +417,10 @@ namespace jk
 
 			case jk::Layana_Sisters::Layana_Sisters_State::Intro_Landing:
 				Layana_LongHair::Intro_Landing();
+				break;
+
+			case jk::Layana_Sisters::Layana_Sisters_State::Intro_Landing_End:
+				Layana_LongHair::Intro_Landing_End();
 				break;
 
 
@@ -876,9 +906,23 @@ namespace jk
 				if (_LongHair_state == Layana_LongHair_State::Meteor_Vertical_Landing)
 				{
 					if (_Dir == 1)
+					{
 						at->PlayAnimation(L"Long_hairMeteor_Vertical03_Landing", true);
+
+						Intro_SM->SetState(eState::Active);
+						Intro_SM->SetSwitch(true);
+						Transform* SMtr = Intro_SM->GetComponent<Transform>();
+						SMtr->SetPosition(_pos.x - 20, _pos.y - 50.f, _pos.z - 1);
+					}
 					else
+					{
 						at->PlayAnimation(L"Long_hairMeteor_Vertical03_LandingR", true);
+
+						Intro_SM->SetState(eState::Active);
+						Intro_SM->SetSwitch(true);
+						Transform* SMtr = Intro_SM->GetComponent<Transform>();
+						SMtr->SetPosition(_pos.x - 20, _pos.y - 50.f, _pos.z - 1);
+					}
 					_VerticalMeteorLanding = true;
 				}
 				if (_LongHair_state == Layana_LongHair_State::AwakenJump)
@@ -1049,6 +1093,9 @@ namespace jk
 		}
 	}
 	void Layana_LongHair::Intro_Landing()
+	{	
+	}
+	void Layana_LongHair::Intro_Landing_End()
 	{
 		if (_Intro_LongHair_END == true)
 		{
@@ -1056,6 +1103,12 @@ namespace jk
 			_SistersAttack_A_IntroReady_LongHair = true;
 			at->PlayAnimation(L"Long_hairDash", true);
 			_Intro_LongHair_END = false;
+
+			Transform* SM_Effect = Dash_SM->GetComponent<Transform>();
+			SM_Effect->SetPosition(Vector3(_pos.x - 30, _pos.y - 40, _pos.z - 1));
+			Dash_SM->SetDirection(1);
+			Dash_SM->SetSwitch(true);
+			Dash_SM->SetState(eState::Active);
 		}
 	}
 
@@ -1063,9 +1116,25 @@ namespace jk
 	void Layana_LongHair::Sisters_Attack_Set()
 	{		
 		if (_pos.x > _LongHairCreatepos.x)
+		{
 			at->PlayAnimation(L"Long_hairDash", true);
+
+			Transform* SM_Effect = Dash_SM->GetComponent<Transform>();
+			SM_Effect->SetPosition(Vector3(_pos.x - 30, _pos.y - 40, _pos.z - 1));
+			Dash_SM->SetDirection(1);
+			Dash_SM->SetSwitch(true);
+			Dash_SM->SetState(eState::Active);
+		}
 		else
+		{
 			at->PlayAnimation(L"Long_hairDashR", true);
+		
+			Transform* SM_Effect = Dash_SM->GetComponent<Transform>();
+			SM_Effect->SetPosition(Vector3(_pos.x + 30, _pos.y - 40, _pos.z - 1));
+			Dash_SM->SetDirection(-1);
+			Dash_SM->SetSwitch(true);
+			Dash_SM->SetState(eState::Active);
+		}
 		_AttackStageON = true;
 		_SistersAttack_Set_LongHair = true;
 	}
@@ -1103,7 +1172,7 @@ namespace jk
 					if (_pos.x >= 0)
 					{
 						Transform* bullte_effect = TwinMeteor_BossEffect->GetComponent<Transform>();
-						bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x + 250, _pos.y - 200, -205));
+						bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x + 50, _pos.y - 200, -205));
 						float angle = 30;
 						float angleInDegrees = angle * (180.0f / XM_PI);
 						bullte_effect->SetRotationZ(angleInDegrees);
@@ -1113,7 +1182,7 @@ namespace jk
 					else
 					{
 						Transform* bullte_effect = TwinMeteor_BossEffect->GetComponent<Transform>();
-						bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x - 250, _pos.y - 200, -205));
+						bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x - 50, _pos.y - 200, -205));
 						float angle = -30;
 						float angleInDegrees = angle * (180.0f / XM_PI);
 						bullte_effect->SetRotationZ(angleInDegrees);
@@ -1132,17 +1201,17 @@ namespace jk
 							_pos = Vector3(-640.f, _pos.y, _pos.z);
 							tr->SetPosition(_pos);
 							float angle = -210;
-							float angleInDegrees = angle * (180.0f / XM_PI);
+							float angleInDegrees = angle * (180.f / XM_PI);
 							at->PlayAnimation(L"Long_hairMeteor_Ground02_Attack", true);
 							tr->SetRotationZ(angleInDegrees);
-							_rigidbody->SetVelocity(Vector2(800.f, -150.f));
+							_rigidbody->SetVelocity(Vector2(1200.f, -150.f));
 							_rigidbody->SetGround(false);
 							_Ground_check = false;
 							{
 								Transform* bullte_effect = TwinMeteor_Impact->GetComponent<Transform>();
-								bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x - 250, _pos.y - 200, -205));
+								bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x - 50, _pos.y - 215, -205));
 								float angle = -30;
-								float angleInDegrees = angle * (180.0f / XM_PI);
+								float angleInDegrees = angle * (180.f / XM_PI);
 								bullte_effect->SetRotationZ(angleInDegrees);
 								TwinMeteor_Impact->SetState(eState::Active);							
 							}
@@ -1153,17 +1222,17 @@ namespace jk
 							_pos = Vector3(640.f, _pos.y, _pos.z);
 							tr->SetPosition(_pos);
 							float angle = -210;
-							float angleInDegrees = angle * (180.0f / XM_PI);
+							float angleInDegrees = angle * (180.f / XM_PI);
 							at->PlayAnimation(L"Long_hairMeteor_Ground02_AttackR", true);
 							tr->SetRotationZ(angleInDegrees);
-							_rigidbody->SetVelocity(Vector2(-800.f, -150.f));
+							_rigidbody->SetVelocity(Vector2(-1200.f, -150.f));
 							_rigidbody->SetGround(false);
 							_Ground_check = false;			
 							{
 								Transform* bullte_effect = TwinMeteor_Impact->GetComponent<Transform>();
-								bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x + 250, _pos.y - 200, -205));
+								bullte_effect->SetPosition(Vector3(_LongHairCreatepos.x + 50, _pos.y - 215, -205));
 								float angle = 30;
-								float angleInDegrees = angle * (180.0f / XM_PI);
+								float angleInDegrees = angle * (180.f / XM_PI);
 								bullte_effect->SetRotationZ(angleInDegrees);
 								TwinMeteor_Impact->SetState(eState::Active);
 							}
@@ -1225,14 +1294,26 @@ namespace jk
 				if (_pos.x < _LongHairCreatepos.x)
 				{
 					at->PlayAnimation(L"Long_hairMeteor_Ground02_Attack", false);
-					_rigidbody->SetVelocity(Vector2(700.f, 0.f));
+					_rigidbody->SetVelocity(Vector2(900.f, 0.f));
 					_GroundMeteorAttack_Right = true;
+
+					Transform* SM_Effect = MeteorGR_SM->GetComponent<Transform>();
+					SM_Effect->SetPosition(Vector3(_pos.x-100, _pos.y - 30, _pos.z-1));
+					MeteorGR_SM->SetDirection(1);
+					MeteorGR_SM->SetSwitch(true);
+					MeteorGR_SM->SetState(eState::Active);
 				}
 				else
 				{
 					at->PlayAnimation(L"Long_hairMeteor_Ground02_AttackR", false);
-					_rigidbody->SetVelocity(Vector2(-700.f, 0.f));
+					_rigidbody->SetVelocity(Vector2(-900.f, 0.f));
 					_GroundMeteorAttack_Left = true;
+
+					Transform* SM_Effect = MeteorGR_SM->GetComponent<Transform>();
+					SM_Effect->SetPosition(Vector3(_pos.x+100, _pos.y - 30, _pos.z-1));
+					MeteorGR_SM->SetDirection(-1);
+					MeteorGR_SM->SetSwitch(true);
+					MeteorGR_SM->SetState(eState::Active);
 				}
 				_Attacktime = 0;
 				_SistersAttack_A_DashOn_LongHair = true;
@@ -1434,8 +1515,6 @@ namespace jk
 	{
 		if (_SistersAttack_C_LongHair_LAND == true)
 		{
-			//_Attacktime += Time::DeltaTime();
-			//if (_Attacktime > 1.5)
 			{
 				if (_Dir == 1)
 					at->PlayAnimation(L"Long_hairMeteor_Cross03_End", false);
@@ -1527,13 +1606,13 @@ namespace jk
 				_rigidbody->SetGround(false);
 				if (_pos.x < _LongHairCreatepos.x)
 				{
-					_rigidbody->SetVelocity(Vector2(700.f, -350.f));
+					_rigidbody->SetVelocity(Vector2(900.f, -350.f));
 					at->PlayAnimation(L"Long_hairDash", true);
 					_HitBox_Dir = 1;
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(-700.f, -350.f));
+					_rigidbody->SetVelocity(Vector2(-900.f, -350.f));
 					at->PlayAnimation(L"Long_hairDashR", true);
 					_HitBox_Dir = -1;
 				}
@@ -1550,6 +1629,7 @@ namespace jk
 				//else
 				//	at->PlayAnimation(L"Long_hairMeteor_Vertical00_JumpR", true);
 			}
+
 			if (_BackGround_Switch == true)
 			{
 				_pos = Vector3(_LongHairCreatepos.x + 50, _LongHairCreatepos.y + 100, -150.f);
@@ -1583,14 +1663,26 @@ namespace jk
 				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"Long_hairMeteor_Ground02_Attack", true);
-					_rigidbody->SetVelocity(Vector2(700.f, 0.f));
+					_rigidbody->SetVelocity(Vector2(900.f, 0.f));
 					_GroundMeteorAttack_Right = true;
+
+					Transform* SM_Effect = MeteorGR_SM->GetComponent<Transform>();
+					SM_Effect->SetPosition(Vector3(_pos.x + 100, _pos.y - 30, _pos.z - 1));
+					MeteorGR_SM->SetDirection(-1);
+					MeteorGR_SM->SetSwitch(true);
+					MeteorGR_SM->SetState(eState::Active);
 				}
 				else
 				{
 					at->PlayAnimation(L"Long_hairMeteor_Ground02_AttackR", true);
-					_rigidbody->SetVelocity(Vector2(-700.f, 0.f));
+					_rigidbody->SetVelocity(Vector2(-900.f, 0.f));
 					_GroundMeteorAttack_Left = true;
+
+					Transform* SM_Effect = MeteorGR_SM->GetComponent<Transform>();
+					SM_Effect->SetPosition(Vector3(_pos.x + 100, _pos.y - 30, _pos.z - 1));
+					MeteorGR_SM->SetDirection(-1);
+					MeteorGR_SM->SetSwitch(true);
+					MeteorGR_SM->SetState(eState::Active);
 				}
 				_Attacktime = 0;
 			}
@@ -2245,9 +2337,25 @@ namespace jk
 		_GroundMeteorSwitch = true; // 이동이 되었을때 공격하는 모션 온
 		_LongHair_state = Layana_LongHair_State::FlyDash;
 		if (_pos.x > _LongHairCreatepos.x)
+		{
 			at->PlayAnimation(L"Long_hairDash", true);
+
+			Transform* SM_Effect = Dash_SM->GetComponent<Transform>();
+			SM_Effect->SetPosition(Vector3(_pos.x - 30, _pos.y - 40, _pos.z - 1));
+			Dash_SM->SetDirection(1);
+			Dash_SM->SetSwitch(true);
+			Dash_SM->SetState(eState::Active);
+		}
 		else
+		{
 			at->PlayAnimation(L"Long_hairDashR", true);
+
+			Transform* SM_Effect = Dash_SM->GetComponent<Transform>();
+			SM_Effect->SetPosition(Vector3(_pos.x + 30, _pos.y - 40, _pos.z - 1));
+			Dash_SM->SetDirection(-1);
+			Dash_SM->SetSwitch(true);
+			Dash_SM->SetState(eState::Active);
+		}
 	}
 	void Layana_LongHair::Complete_GroundLanding()
 	{				
@@ -2272,10 +2380,27 @@ namespace jk
 	{
 		_VerticalMeteorSwitch = true;
 		_LongHair_state = Layana_LongHair_State::FlyDash;
+
 		if (_pos.x > _LongHairCreatepos.x)
+		{
 			at->PlayAnimation(L"Long_hairDash", true);
+
+			Transform* SM_Effect = Dash_SM->GetComponent<Transform>();
+			SM_Effect->SetPosition(Vector3(_pos.x - 30, _pos.y - 40, _pos.z - 1));
+			Dash_SM->SetDirection(1);
+			Dash_SM->SetSwitch(true);
+			Dash_SM->SetState(eState::Active);
+		}
 		else
+		{
 			at->PlayAnimation(L"Long_hairDashR", true);
+
+			Transform* SM_Effect = Dash_SM->GetComponent<Transform>();
+			SM_Effect->SetPosition(Vector3(_pos.x + 30, _pos.y - 40, _pos.z - 1));
+			Dash_SM->SetDirection(-1);
+			Dash_SM->SetSwitch(true);
+			Dash_SM->SetState(eState::Active);
+		}
 	}	
 	void Layana_LongHair::Complete_VerticalJump()
 	{
@@ -2391,17 +2516,23 @@ namespace jk
 			_Intro_Switch = false;
 		}
 	}
-	void Layana_LongHair::Complete_IntroRanding()
+	void Layana_LongHair::Complete_IntroLanding()
 	{
-		if (_Dir == 1)
-			at->PlayAnimation(L"Long_hairIdle", true);
-		else
-			at->PlayAnimation(L"Long_hairIdleR", true);
-		_Intro_LongHair_END = true;
+		at->PlayAnimation(L"Long_hairIntro_Landing_EndR", true);
+		Transform* ImpactTR = Intro_Ar->GetComponent<Transform>();
+		ImpactTR->SetPosition(Vector3(_pos.x, _pos.y-20, _pos.z - 1));
+		Intro_Ar->SetDirection(-1);
+		Intro_Ar->SetSwitch(true);
+		Intro_Ar->SetState(eState::Active);
+		_Intro_LandEnd_LongHair = true;
 		_time = 0.f;
 		_Attacktime = 0.f;
 		_Intro_Switch = false;
 		_Intro_Landing = false;
+	}
+	void Layana_LongHair::Complete_IntroLanding_END()
+	{
+		_Intro_LongHair_END = true;
 	}
 
 

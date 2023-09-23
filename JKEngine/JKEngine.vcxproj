@@ -203,6 +203,7 @@
     <ClInclude Include="Homing_Impact.h" />
     <ClInclude Include="Homing_Pierce_LongHair.h" />
     <ClInclude Include="Homing_Pierce_ShortHair.h" />
+    <ClInclude Include="Intro_Aura_Layana.h" />
     <ClInclude Include="Intro_Somke.h" />
     <ClInclude Include="Item_OBJ.h" />
     <ClInclude Include="jkStage2_2.h" />
@@ -222,7 +223,9 @@
     <ClInclude Include="Layana_Dark_Awaken.h" />
     <ClInclude Include="Layana_Dark_HomingPierce.h" />
     <ClInclude Include="Layana_Dark_HomingPierce_Effect.h" />
+    <ClInclude Include="Layana_Dash_Smoke.h" />
     <ClInclude Include="Layana_Ground_Thunder.h" />
+    <ClInclude Include="Layana_Meteor_GR_Smoke.h" />
     <ClInclude Include="Mage_BoomSign.h" />
     <ClInclude Include="Mage_FireBall.h" />
     <ClInclude Include="Mage_FireBoom.h" />
@@ -393,6 +396,7 @@
     <ClCompile Include="Homing_Impact.cpp" />
     <ClCompile Include="Homing_Pierce_LongHair.cpp" />
     <ClCompile Include="Homing_Pierce_ShortHair.cpp" />
+    <ClCompile Include="Intro_Aura_Layana.cpp" />
     <ClCompile Include="Intro_Somke.cpp" />
     <ClCompile Include="Item_OBJ.cpp" />
     <ClCompile Include="jkStage2_2.cpp" />
@@ -412,7 +416,9 @@
     <ClCompile Include="Layana_Dark_Awaken.cpp" />
     <ClCompile Include="Layana_Dark_HomingPierce.cpp" />
     <ClCompile Include="Layana_Dark_HomingPierce_Effect.cpp" />
+    <ClCompile Include="Layana_Dash_Smoke.cpp" />
     <ClCompile Include="Layana_Ground_Thunder.cpp" />
+    <ClCompile Include="Layana_Meteor_GR_Smoke.cpp" />
     <ClCompile Include="LoadScenes.cpp" />
     <ClCompile Include="Mage_BoomSign.cpp" />
     <ClCompile Include="Mage_FireBall.cpp" />

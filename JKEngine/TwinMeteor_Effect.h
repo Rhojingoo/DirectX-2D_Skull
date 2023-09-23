@@ -1,10 +1,12 @@
 #pragma once
 #include "Include_Common.h"
-#include "Effect.h"
+#include "Bullet.h"
+#include "Hit_Critical_Middle.h"
+
 
 namespace jk
 {
-	class TwinMeteor_Effect : public Effect
+	class TwinMeteor_Effect : public Bullet
 	{
 	public:
 		TwinMeteor_Effect();
@@ -27,9 +29,11 @@ namespace jk
 		void Compelete_Pierce();
 
 	private:
+		Transform* _tr = nullptr;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
+		Hit_Critical_Middle* _Critical_Middle = nullptr;
 	};
 }

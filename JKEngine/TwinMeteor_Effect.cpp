@@ -16,6 +16,7 @@ namespace jk
 	}
 	void TwinMeteor_Effect::Initialize()
 	{
+		_tr = this->GetComponent<Transform>();
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
@@ -23,10 +24,19 @@ namespace jk
 
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\TwinMeteor_Impact", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\TwinMeteor_Impact", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\TwinMeteor_Impact", this,0, 0.08);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\TwinMeteor_Impact", this, 1, 0.08);
 		at->CompleteEvent(L"EffectTwinMeteor_Impact") = std::bind(&TwinMeteor_Effect::Compelete_Pierce, this);
 		at->CompleteEvent(L"EffectTwinMeteor_ImpactR") = std::bind(&TwinMeteor_Effect::Compelete_Pierce, this);
+
+		{
+			_Critical_Middle = new Hit_Critical_Middle;
+			_Critical_Middle->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
+			_Critical_Middle->SetState(eState::Paused);
+		}
 		
 		at->PlayAnimation(L"EffectTwinMeteor_Impact", true);
 		GameObject::Initialize();
@@ -45,7 +55,7 @@ namespace jk
 	}
 	void TwinMeteor_Effect::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.9f, 0.35f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}
@@ -55,6 +65,10 @@ namespace jk
 	}
 	void TwinMeteor_Effect::OnCollisionEnter(Collider2D* other)
 	{
+		if (Player* player = dynamic_cast<Player*>(other->GetOwner()))
+		{
+	
+		}
 	}
 	void TwinMeteor_Effect::OnCollisionStay(Collider2D* other)
 	{

@@ -15,6 +15,7 @@ namespace jk
 	}
 	void Homing_Pierce_ShortHair::Initialize()
 	{
+		_tr = this->GetComponent<Transform>();
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
@@ -24,6 +25,15 @@ namespace jk
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Homing_pierce", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Homing_pierce", this, 1);
+
+		{
+			_Critical_Middle = new Hit_Critical_Middle;
+			_Critical_Middle->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
+			_Critical_Middle->SetState(eState::Paused);
+		}
 
 		at->PlayAnimation(L"BulletHoming_pierce", true);
 		GameObject::Initialize();
@@ -39,7 +49,7 @@ namespace jk
 	}
 	void Homing_Pierce_ShortHair::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.85f, 0.35f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}
@@ -49,6 +59,54 @@ namespace jk
 	}
 	void Homing_Pierce_ShortHair::OnCollisionEnter(Collider2D* other)
 	{
+		if (Tile_Ground* Bullet = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (mDir == 1)
+			{
+				Vector3 pos = _tr->GetPosition();
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				Vector3 pos = _tr->GetPosition();
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+
+			this->SetState(eState::Paused);
+		}
+
+		if (Player* player = dynamic_cast<Player*>(other->GetOwner()))
+		{
+			if (mDir == 1)
+			{
+				Vector3 pos = _tr->GetPosition();
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				Vector3 pos = _tr->GetPosition();
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			this->SetState(eState::Paused);
+		}
 	}
 	void Homing_Pierce_ShortHair::OnCollisionStay(Collider2D* other)
 	{

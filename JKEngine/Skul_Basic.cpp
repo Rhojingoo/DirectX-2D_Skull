@@ -1298,7 +1298,7 @@ namespace jk
 			}
 			else
 			{
-				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 				_Hit_Effect->_effect_animation = true;
 				_Hit_Effect->SetDirection(-1);
 				_Hit_Effect->SetState(eState::Active);
@@ -1321,7 +1321,7 @@ namespace jk
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
 					_Hit_Effect->SetState(eState::Active);
@@ -1345,7 +1345,7 @@ namespace jk
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
 					_Hit_Effect->SetState(eState::Active);
@@ -1369,7 +1369,7 @@ namespace jk
 			}
 			else
 			{
-				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 				_Hit_Effect->_effect_animation = true;
 				_Hit_Effect->SetDirection(-1);
 				_Hit_Effect->SetState(eState::Active);
@@ -1625,14 +1625,69 @@ namespace jk
 			}
 			else
 			{
-				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 				_Hit_Effect->_effect_animation = true;
 				_Hit_Effect->SetDirection(1);
 				_Hit_Effect->SetState(eState::Active);
 			}
 		}
 
+		if (Homing_Pierce_LongHair* Bullet = dynamic_cast<Homing_Pierce_LongHair*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
 
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)			
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));			
+			else		
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));			
+		}
+
+		if (Homing_Pierce_ShortHair* Bullet = dynamic_cast<Homing_Pierce_ShortHair*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+			else
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+		}
+
+		if (TwinMeteor_Effect* Bullet = dynamic_cast<TwinMeteor_Effect*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x+20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x-20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		
 		//Ground
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{

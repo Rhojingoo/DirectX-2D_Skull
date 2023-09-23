@@ -24,6 +24,7 @@ namespace jk
 			Intro_Dash,
 			Intro_Fall,
 			Intro_Landing,
+			Intro_Landing_End,
 
 			Sisters_Attack_Set,
 			Sisters_Attack_FlyDash,
@@ -57,6 +58,7 @@ namespace jk
 
 		void Intro_Dash();
 		void Intro_Landing();
+		void Intro_Landing_End();
 		void Intro_Fall();
 
 
@@ -120,6 +122,10 @@ namespace jk
 		static bool _Intro_Fall_ShortHair;
 		static bool _Intro_Land_LongHair;
 		static bool _Intro_Land_ShortHair;
+
+		static bool _Intro_LandEnd_LongHair;
+		static bool _Intro_LandEnd_ShortHair;
+
 		static bool _Intro_LongHair_END;
 		static bool _Intro_ShortHair_END;
 

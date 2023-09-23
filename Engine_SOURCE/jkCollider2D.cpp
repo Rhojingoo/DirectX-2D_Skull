@@ -33,6 +33,11 @@ namespace jk
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 rotation =  tr->GetRotation();
+		const float pi = 3.141592f;
+		XM_PI;
+		float degree = 180.f/ pi;
+		rotation = rotation * degree;
+
 		_Scale = tr->GetScale();
 		_Scale.x *= mSize.x;
 		_Scale.y *= mSize.y;

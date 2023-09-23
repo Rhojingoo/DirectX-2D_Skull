@@ -560,6 +560,15 @@
     <ClInclude Include="Homing_Impact.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
     </ClInclude>
+    <ClInclude Include="Intro_Aura_Layana.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Dash_Smoke.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Meteor_GR_Smoke.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1117,6 +1126,15 @@
     </ClCompile>
     <ClCompile Include="Homing_Impact.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClCompile>
+    <ClCompile Include="Intro_Aura_Layana.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Dash_Smoke.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Meteor_GR_Smoke.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

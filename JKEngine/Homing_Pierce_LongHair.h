@@ -1,6 +1,8 @@
 #pragma once
 #include "Include_Common.h"
 #include "Bullet.h"
+#include "Hit_Critical_Middle.h"
+
 
 namespace jk
 {
@@ -27,10 +29,12 @@ namespace jk
 	
 
 	private:
+		Transform* _tr = nullptr;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
+		Hit_Critical_Middle* _Critical_Middle = nullptr;
 
 	private:
 		static Vector3 _pos;

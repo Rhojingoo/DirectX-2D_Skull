@@ -39,6 +39,8 @@ namespace jk
 	bool Layana_Sisters::_Intro_Fall_ShortHair = false;
 	bool Layana_Sisters::_Intro_Land_LongHair = false;
 	bool Layana_Sisters::_Intro_Land_ShortHair = false;
+	bool Layana_Sisters::_Intro_LandEnd_LongHair = false;
+	bool Layana_Sisters::_Intro_LandEnd_ShortHair = false;
 	bool Layana_Sisters::_Intro_LongHair_END = false;
 	bool Layana_Sisters::_Intro_ShortHair_END = false;
 
@@ -134,6 +136,10 @@ namespace jk
 
 			case jk::Layana_Sisters::Layana_Sisters_State::Intro_Landing:
 				Intro_Landing();
+				break;
+
+			case jk::Layana_Sisters::Layana_Sisters_State::Intro_Landing_End:
+				Intro_Landing_End();
 				break;
 
 
@@ -307,6 +313,11 @@ namespace jk
 	}
 	void Layana_Sisters::Intro_Landing()
 	{
+		if (_Intro_LandEnd_LongHair == true && _Intro_LandEnd_ShortHair == true)
+			_state = Layana_Sisters_State::Intro_Landing_End;
+	}
+	void Layana_Sisters::Intro_Landing_End()
+	{
 		if (_Intro_ShortHair_END == true && _Intro_LongHair_END == true)
 		{
 			_Intro_On = false;
@@ -327,7 +338,7 @@ namespace jk
 	void Layana_Sisters::Sisters_Attack_Set()
 	{	
 			//_Sisters_AttackType = random(0, 2);
-			_Sisters_AttackType = 1;
+			_Sisters_AttackType = 2;
 			if (_Sisters_AttackType == 0)
 			{
 				_Sisters_Attack_A_Switch = true;
@@ -336,10 +347,10 @@ namespace jk
 			{
 				_Sisters_Attack_B_Switch = true;
 			}
-			//if (_Sisters_AttackType == 2)
-			//{
-			//	_Sisters_Attack_C_Switch = true;
-			//}
+			if (_Sisters_AttackType == 2)
+			{
+				_Sisters_Attack_C_Switch = true;
+			}
 			if (_SistersAttack_Set_LongHair == true && _SistersAttack_Set_ShortHair == true)
 				_state = Layana_Sisters_State::Sisters_Attack_FlyDash;			
 			_SistersAttack_Number++;
