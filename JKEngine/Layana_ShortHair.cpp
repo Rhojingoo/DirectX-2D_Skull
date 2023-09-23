@@ -7,6 +7,16 @@ namespace jk
 	Layana_ShortHair::Layana_Short_Background Layana_ShortHair::Background_state = Layana_Short_Background();
 
 
+	int	Layana_ShortHair::_HitType = 0;
+	int	Layana_ShortHair::_Dammege = 0;
+	Player_Hp_Bar* Layana_ShortHair::Player_Hp = nullptr;
+	Monster_Hit_Effect* Layana_ShortHair::_Hit_Effect = nullptr;
+	Player_Hit_Effect* Layana_ShortHair::_Hit_Effect_player = nullptr;
+	Hit_Sword* Layana_ShortHair::_Hit_Sword = nullptr;
+	Hit_Critical_Middle* Layana_ShortHair::_Critical_Middle = nullptr;
+	Hit_Critical_High* Layana_ShortHair::_Critical_High = nullptr;
+	Monster_Death_Effect* Layana_ShortHair::_Death_Effect = nullptr;
+
 
 	Layana_ShortHair::Layana_ShortHair()
 	{
@@ -30,7 +40,7 @@ namespace jk
 		_pos = Vector3(0.f, 90.f, -200.f);
 		_ShortHairCreatepos = _pos;
 		tr->SetPosition(_pos);
-
+		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Awaken_S", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\AwakenJump_S", this);
@@ -304,6 +314,110 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, MeteorGR_SM);
 			MeteorGR_SM->SetState(eState::Paused);
 		}
+		{
+			RisingPierce_EF = new RisingPierce_Ready;
+			RisingPierce_EF->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, RisingPierce_EF);
+			RisingPierce_EF->SetState(eState::Paused);
+		}
+		{
+			Golden_Meteor_Bl = new Golden_Meteor_Bullet;
+			Golden_Meteor_Bl->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Golden_Meteor_Bl);
+			Golden_Meteor_Bl->SetState(eState::Paused);
+		}
+		{
+			Golden_Meteor_Ef = new Golden_Meteor_Effect_End;
+			Golden_Meteor_Ef->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Golden_Meteor_Ef);
+			Golden_Meteor_Ef->SetState(eState::Paused);
+		}
+
+
+
+
+
+
+		//hp관련
+		{
+			Player_Hp = new Player_Hp_Bar;
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Player_Hp);
+			Player_Hp->SetName(L"player_hp_bar");
+			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(_Max_LongHair_Hp, 10, 0);
+			Player_Hp->Set_Max_Hp(_Max_LongHair_Hp);
+			Player_Hp->Set_Current_Hp(_Max_LongHair_Hp);
+			Player_Hp->SetState(eState::Active);
+		}
+
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
+		{
+			_Hit_Effect_player = new Player_Hit_Effect;
+			_Hit_Effect_player->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect_player);
+			_Hit_Effect_player->SetState(eState::Paused);
+		}
+
+		{
+			_Hit_Sword = new Hit_Sword;
+			_Hit_Sword->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
+			_Hit_Sword->SetState(eState::Paused);
+		}
+
+		{
+			_Critical_Middle = new Hit_Critical_Middle;
+			_Critical_Middle->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
+			_Critical_Middle->SetState(eState::Paused);
+		}
+		{
+			_Critical_High = new Hit_Critical_High;
+			_Critical_High->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_High);
+			_Critical_High->SetState(eState::Paused);
+		}
+
+		{
+			_Death_Effect = new Monster_Death_Effect;
+			_Death_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
+			_Death_Effect->SetState(eState::Paused);
+		}
+
+
+
+
+
+
+
 
 
 		at->PlayAnimation(L"Short_hairIdle_S", true);
@@ -328,6 +442,44 @@ namespace jk
 			_Dir = -1;
 		_pos = tr->GetPosition();
 		ShortHairPos = _pos;
+
+
+		_MaxHp_LongHair_scale = _Max_LongHair_Hp / 100;
+		_CurrenHp_LongHair_scale = _Curren_LongHair_Hp / 100;
+		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp_LongHair_scale - _CurrenHp_LongHair_scale) + 200 / 2, 150, _pos.z - 1));
+		hp_tr->SetScale(_CurrenHp_LongHair_scale, 10, 0);
+
+
+		Transform* BulletTR = Golden_Meteor_Bl->GetComponent<Transform>();
+		BulletTR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+
+
+	
+
+
+		if (_ShortHair_Die == true)
+		{
+			if (LongHair_Operation == true)
+			{
+				if (_DieOn == false)
+				{
+					Background_state = Layana_Short_Background::Die;
+					if (_pos.x < _ShortHairCreatepos.x)
+						at->PlayAnimation(L"Short_hairDie_S", false);
+					else
+						at->PlayAnimation(L"Short_hairDie_SR", false);
+					_DieOn = true;
+				}
+			}
+		}
+		if (_LongHair_Die == true)
+		{		
+			ShortHair_Operation = true;
+			Awaken_Combo();
+			_ShortHair_Awaken = false;			
+		}
+
 
 		if (Joint_Operation == true)
 		{
@@ -607,6 +759,10 @@ namespace jk
 					Layana_ShortHair::BackGround_Exit();
 					break;
 
+				case jk::Layana_ShortHair::Layana_Short_Background::Die:
+					Layana_ShortHair::die();
+					break;
+
 
 				default:
 					break;
@@ -630,12 +786,6 @@ namespace jk
 					HitBox_TR->SetPosition(Vector3(_pos.x + 50, _pos.y - 40, _pos.z));
 				else					//왼쪽으로 공격할때의 기준
 					HitBox_TR->SetPosition(Vector3(_pos.x - 50, _pos.y - 40, _pos.z));
-			}
-			else if (_ShortHair_state == Layana_ShortHair_State::Meteor_Vertical_Landing)
-			{
-				Hit_Box->SetSize(Vector2(5.f, 55.f));
-				Hit_Box->SetState(eState::Active);
-				HitBox_TR->SetPosition(Vector3(_pos.x + 5, _pos.y - 50, _pos.z));
 			}
 			else if (_ShortHair_state == Layana_ShortHair_State::Meteor_Cross_Landing)
 			{
@@ -722,6 +872,150 @@ namespace jk
 
 	void Layana_ShortHair::OnCollisionEnter(Collider2D* other)
 	{
+		if (Background_state != Layana_Short_Background::Die && Background_state != Layana_Short_Background::BackGround_Idle)
+		{
+			if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
+			{
+				bool attack = false;
+				bool attack_Cri_Mid = false;
+				bool attack_Cri_High = false;
+
+				_HitType = random(1, 6);
+				if (_HitType >= 1 && _HitType < 6)
+				{
+					_Dammege = 3000;
+					attack = true;
+				}
+				//if (_HitType >= 6 && _HitType < 9)
+				//{
+				//	_Dammege = random(15, 25);
+				//	attack_Cri_Mid = true;
+				//}
+				//if (_HitType >= 9 && _HitType <= 10)
+				//{
+				//	_Dammege = random(30, 45);
+				//	attack_Cri_High = true;
+				//}
+
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+					if (_Dir == 1)
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+						_Hit_Effect->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+					}
+					else
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+						_Hit_Sword->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (_Curren_LongHair_Hp <= 0)
+				{
+					if (_First_Die == false)
+					{
+						_First_Die = true;
+						_ShortHair_Die = true;
+					}
+				}
+			}
+
+			if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+			{
+				bool attack = false;
+				bool attack_Cri_Mid = false;
+				bool attack_Cri_High = false;
+
+				_HitType = random(1, 10);
+				if (_HitType >= 1 && _HitType < 6)
+				{
+					_Dammege = 25;
+					attack = true;
+				}
+				if (_HitType >= 6 && _HitType < 9)
+				{
+					_Dammege = random(35, 40);
+					attack_Cri_Mid = true;
+				}
+				if (_HitType >= 9 && _HitType <= 10)
+				{
+					_Dammege = random(50, 70);
+					attack_Cri_High = true;
+				}
+
+				{
+					_Hit_Effect->_effect_animation = true;
+					_Critical_Middle->_effect_animation = true;
+					_Critical_High->_effect_animation = true;
+					if (_Dir == 1)
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+						_Hit_Effect->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+					}
+					else
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+						_Hit_Sword->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+				}
+				if (_Curren_LongHair_Hp <= 0)
+				{
+					if (_First_Die == false)
+					{
+						_First_Die = true;
+						_ShortHair_Die = true;
+					}
+				}
+			}
+		}
 	}
 	void Layana_ShortHair::OnCollisionStay(Collider2D* other)
 	{
@@ -847,64 +1141,69 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_SelectAttack = random(0, 6);
-		_SelectAttack = 0;
+		_SelectAttack = 3;
 
 		if (_Intro_On == true)
 			Intro_Combo();
 
-		if (LongHair_Operation == true)
+		if (_First_Die == false)
 		{
-			BackGround_Combo();
-			_time = 0;
-		}		
+			if (LongHair_Operation == true)
+			{
+				BackGround_Combo();
+				_time = 0;
+			}
+		}
 
 		if (ShortHair_Operation == true)
 		{
-
-			if (ShortHair_First_moving == true)
+			if (_First_Die == false)
 			{
-				Meteor_Vertical_Combo();
-				ShortHair_First_moving = false;
-			}
-			else
-			{
-				if (_SistersAttack_Number > 5)
+				if (ShortHair_First_moving == true)
 				{
-					_Joint_Attack = true;
-					_ShortHair_state = Layana_ShortHair_State::FlyDash;
-					if (_pos.x > _ShortHairCreatepos.x)
-						at->PlayAnimation(L"Short_hairDash_S", true);
-					else
-						at->PlayAnimation(L"Short_hairDash_SR", true);					
+					Meteor_Vertical_Combo();
+					ShortHair_First_moving = false;
 				}
 				else
 				{
-					if (_time >= 2.0)
+					if (_SistersAttack_Number > 5)
 					{
-						if (_SelectAttack == 0)
-							Rush_Combo();
-						if (_SelectAttack == 1)
-							Meteor_Cross_Combo();
-						if (_SelectAttack == 2)
-							Meteor_Ground_Combo();
-						if (_SelectAttack == 3)
-							Meteor_Vertical_Combo();
-						if (_SelectAttack == 4)
-							Skill_A_Combo();
-						if (_SelectAttack == 5)
-							Skill_B_Combo();
-						if (_SelectAttack == 6)
-							Skill_C_Combo();
-						if (_SelectAttack == 7)
-							BackGround_Combo();
+						_Joint_Attack = true;
+						_ShortHair_state = Layana_ShortHair_State::FlyDash;
+						if (_pos.x > _ShortHairCreatepos.x)
+							at->PlayAnimation(L"Short_hairDash_S", true);
+						else
+							at->PlayAnimation(L"Short_hairDash_SR", true);
+					}
+					else
+					{
+						if (_time >= 2.0)
+						{
+							if (_SelectAttack == 0)
+								Rush_Combo();
+							if (_SelectAttack == 1)
+								Meteor_Cross_Combo();
+							if (_SelectAttack == 2)
+								Meteor_Ground_Combo();
+							if (_SelectAttack == 3)
+								Meteor_Vertical_Combo();
+							if (_SelectAttack == 4)
+								Skill_A_Combo();
+							if (_SelectAttack == 5)
+								Skill_B_Combo();
+							if (_SelectAttack == 6)
+								Skill_C_Combo();
+							if (_SelectAttack == 7)
+								BackGround_Combo();
 
 
-						if (_SelectAttack == 9)
-							Awaken_Combo();
+							if (_SelectAttack == 9)
+								Awaken_Combo();
 
-						if (_SelectAttack == 10)
-							Intro_Combo();
-						_SistersAttack_Number++;
+							if (_SelectAttack == 10)
+								Intro_Combo();
+							_SistersAttack_Number++;
+						}
 					}
 				}
 			}
@@ -1397,37 +1696,67 @@ namespace jk
 
 	void Layana_ShortHair::Dash()
 	{
-		if (!(_Playerdistance.x <= 80 && _Playerdistance.x >= -80))
+		if (_SkillB_Dash == true)
 		{
-			if (_Dir == 1)
-				_pos.x += 350.f * Time::DeltaTime();
+			if (!(_Playerdistance.x <= 30 && _Playerdistance.x >= -30))
+			{
+				if (_Dir == 1)
+					_pos.x += 350.f * Time::DeltaTime();
+				else
+					_pos.x -= 350.f * Time::DeltaTime();
+			}
 			else
-				_pos.x -= 350.f * Time::DeltaTime();
+			{
+				_ShortHair_state = Layana_ShortHair_State::Skill_B_RisingPierce;
+				if (_Dir == 1)
+					at->PlayAnimation(L"Short_hairSkill_B_RisingPierce_S", false);
+				else
+					at->PlayAnimation(L"Short_hairSkill_B_RisingPierce_SR", false);
+
+				_SkillB_Dash = false;
+
+				Transform* EFtr = RisingPierce_EF->GetComponent<Transform>();
+				EFtr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+				RisingPierce_EF->SetDirection(1);
+				RisingPierce_EF->SetSwitch(true);
+				RisingPierce_EF->SetState(eState::Active);
+			}
 		}
 		else
 		{
-			if (_RushSwitch == true)
+
+			if (!(_Playerdistance.x <= 80 && _Playerdistance.x >= -80))
 			{
-				_ShortHair_state = Layana_ShortHair_State::Rush_Ready;
 				if (_Dir == 1)
-					at->PlayAnimation(L"Short_hairRush_Ready_S", true);
+					_pos.x += 350.f * Time::DeltaTime();
 				else
-					at->PlayAnimation(L"Short_hairRush_Ready_SR", true);
+					_pos.x -= 350.f * Time::DeltaTime();
 			}
-			if (_CrossMeteorSwitch == true)
+			else
 			{
-				_ShortHair_state = Layana_ShortHair_State::Meteor_Cross_Jump;
-				if (_Dir == 1)
+				if (_RushSwitch == true)
 				{
-					at->PlayAnimation(L"Short_hairMeteor_Cross00_Jump_SR", false);
-					_rigidbody->SetVelocity(Vector2(250.f, 450.f));
-					_rigidbody->SetGround(false);
+					_ShortHair_state = Layana_ShortHair_State::Rush_Ready;
+					if (_Dir == 1)
+						at->PlayAnimation(L"Short_hairRush_Ready_S", true);
+					else
+						at->PlayAnimation(L"Short_hairRush_Ready_SR", true);
 				}
-				else
+				if (_CrossMeteorSwitch == true)
 				{
-					at->PlayAnimation(L"Short_hairMeteor_Cross00_Jump_S", false);
-					_rigidbody->SetVelocity(Vector2(-250.f, 450.f));
-					_rigidbody->SetGround(false);
+					_ShortHair_state = Layana_ShortHair_State::Meteor_Cross_Jump;
+					if (_Dir == 1)
+					{
+						at->PlayAnimation(L"Short_hairMeteor_Cross00_Jump_SR", false);
+						_rigidbody->SetVelocity(Vector2(250.f, 450.f));
+						_rigidbody->SetGround(false);
+					}
+					else
+					{
+						at->PlayAnimation(L"Short_hairMeteor_Cross00_Jump_S", false);
+						_rigidbody->SetVelocity(Vector2(-250.f, 450.f));
+						_rigidbody->SetGround(false);
+					}
 				}
 			}
 		}
@@ -1706,6 +2035,12 @@ namespace jk
 	void Layana_ShortHair::Vertical_Landing()
 	{
 		_HitBox_Attack_On = true;
+		if (_VerticalMeteor_Bullet == false)
+		{
+			Golden_Meteor_Bl->SetState(eState::Active);
+			_VerticalMeteor_Bullet = true;
+		}
+
 		_Attacktime += Time::DeltaTime();
 		if (_VerticalMeteorLandingSM == true)
 		{
@@ -1723,12 +2058,17 @@ namespace jk
 				Transform* SMtr = Intro_SM->GetComponent<Transform>();
 				SMtr->SetPosition(_pos.x - 20, _pos.y - 50.f, _pos.z - 1);
 			}
+
+			Golden_Meteor_Ef->SetState(eState::Active);
+			Transform* effectTR = Golden_Meteor_Ef->GetComponent<Transform>();
+			effectTR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			Golden_Meteor_Ef->SetSwitch(true);
+
 			_VerticalMeteorLandingSM = false;
 		}
 
 		if (_VerticalMeteorLanding == true)
-		{
-			_HitBox_Attack_On = false;
+		{		
 			if (_Attacktime >= 0.5f)
 			{
 				_ShortHair_state = Layana_ShortHair_State::Meteor_Vertical_End;
@@ -1737,8 +2077,7 @@ namespace jk
 					at->PlayAnimation(L"Short_hairMeteor_Vertical04_End_S", true);
 				else
 					at->PlayAnimation(L"Short_hairMeteor_Vertical04_End_SR", true);
-				_Attacktime = 0;
-				_HitBox_Attack_On = false;
+				_Attacktime = 0;			
 			}
 		}
 	}
@@ -2374,6 +2713,7 @@ namespace jk
 		_rigidbody->SetGround(false);
 		_rigidbody->SetVelocity(Vector2(0.f, -550.f));
 		_VerticalMeteorLanding = false;
+		_VerticalMeteor_Bullet = false;
 	}
 	void Layana_ShortHair::Complete_VerticalEnd()
 	{
@@ -2424,11 +2764,29 @@ namespace jk
 
 	void Layana_ShortHair::Skill_B_Combo()
 	{
-		_ShortHair_state = Layana_ShortHair_State::Skill_B_RisingPierce;
-		if (_Dir == 1)
-			at->PlayAnimation(L"Short_hairSkill_B_RisingPierce_S", false);
+		if (_Playerdistance.x <= 30 && _Playerdistance.x >= -30)
+		{
+			_ShortHair_state = Layana_ShortHair_State::Skill_B_RisingPierce;
+			if (_Dir == 1)
+				at->PlayAnimation(L"Short_hairSkill_B_RisingPierce_S", false);
+			else
+				at->PlayAnimation(L"Short_hairSkill_B_RisingPierce_SR", false);
+
+			Transform* EFtr = RisingPierce_EF->GetComponent<Transform>();
+			EFtr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			RisingPierce_EF->SetDirection(1);
+			RisingPierce_EF->SetSwitch(true);
+			RisingPierce_EF->SetState(eState::Active);
+		}
 		else
-			at->PlayAnimation(L"Short_hairSkill_B_RisingPierce_SR", false);
+		{
+			_SkillB_Dash = true;
+			_ShortHair_state = Layana_ShortHair_State::Dash;
+			if (_Dir == 1)
+				at->PlayAnimation(L"Short_hairDash_S", true);
+			else
+				at->PlayAnimation(L"Short_hairDash_SR", true);
+		}
 	}
 	void Layana_ShortHair::Complete_Skill_B()
 	{
@@ -2501,7 +2859,7 @@ namespace jk
 	{
 		if (_Awaken_Switch == false)
 		{
-			_pos = Vector3(_ShortHairCreatepos.x + 200, _ShortHairCreatepos.y - 50, _ShortHairCreatepos.z);
+			_pos = Vector3(_ShortHairCreatepos.x + 200, _ShortHairCreatepos.y - 50, -249);
 			tr->SetPosition(_pos);
 			_rigidbody->SetGround(false);
 			_Ground_check = false;

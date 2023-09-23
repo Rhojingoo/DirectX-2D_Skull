@@ -19,6 +19,14 @@ namespace jk
 	float Layana_Sisters::_MaxHp_ShortHair_scale = 0;
 	float Layana_Sisters::_CurrenHp_ShortHair_scale = 0;
 
+	bool Layana_Sisters::_First_Die = false;
+	bool Layana_Sisters::_LongHair_Die = false;
+	bool Layana_Sisters::_ShortHair_Die = false;
+	bool Layana_Sisters::_DarkLayana_Die = false;
+	bool Layana_Sisters::_ShortHair_Awaken = false;
+	bool Layana_Sisters::_LongHair_Awaken = false;
+
+
 
 	int Layana_Sisters::_SistersAttack_Number = 0;
 	bool Layana_Sisters::Joint_Operation = true;
@@ -116,6 +124,10 @@ namespace jk
 
 	void Layana_Sisters::Update()
 	{
+
+		if(_First_Die == true)		
+			Joint_Operation = false;
+
 		if (Joint_Operation == true)
 		{
 			switch (_state)
@@ -227,27 +239,33 @@ namespace jk
 
 		if (ShortHair_Operation == true)
 		{
-			if (LongHair_First_moving == true && ShortHair_First_moving == true)
+			if (_First_Die == false)
 			{
-				_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
-				ShortHair_Operation = false;
-				LongHair_Operation = false;				
-				Joint_Operation = true;
-				LongHair_First_moving = false;
-				ShortHair_First_moving = false;
+				if (LongHair_First_moving == true && ShortHair_First_moving == true)
+				{
+					_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
+					ShortHair_Operation = false;
+					LongHair_Operation = false;
+					Joint_Operation = true;
+					LongHair_First_moving = false;
+					ShortHair_First_moving = false;
+				}
 			}
 		}
 		
 		if (LongHair_Operation == true)
 		{
-			if (LongHair_First_moving == true && ShortHair_First_moving == true)
+			if (_First_Die == false)
 			{
-				_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
-				ShortHair_Operation = false;
-				LongHair_Operation = false;
-				Joint_Operation = true;
-				LongHair_First_moving = false;
-				ShortHair_First_moving = false;
+				if (LongHair_First_moving == true && ShortHair_First_moving == true)
+				{
+					_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
+					ShortHair_Operation = false;
+					LongHair_Operation = false;
+					Joint_Operation = true;
+					LongHair_First_moving = false;
+					ShortHair_First_moving = false;
+				}
 			}
 		}
 

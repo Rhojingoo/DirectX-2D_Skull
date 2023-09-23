@@ -14,6 +14,9 @@
 #include "Intro_Aura_Layana.h"
 #include "Layana_Dash_Smoke.h"
 #include "Layana_Meteor_GR_Smoke.h"
+#include "RisingPierce_Ready.h"
+#include "Golden_Meteor_Bullet.h"
+#include "Golden_Meteor_Effect_End.h"
 
 
 namespace jk
@@ -81,8 +84,6 @@ namespace jk
 			Awaken,
 			AwakenJump,
 			AwakenReady,
-
-			Die,
 		};
 
 		enum class Layana_Short_Background
@@ -92,6 +93,7 @@ namespace jk
 			BackGround_Idle,
 			BackGround_Enter,	
 			BackGround_Exit,
+			Die,
 		};
 
 
@@ -219,9 +221,7 @@ namespace jk
 		void CreateHoming();
 		void SettingHoming(Transform* set, int angle_of_number);
 		float Getposition_X() { return _pos.x; }
-		
-	public:
-		static Layana_ShortHair_State _ShortHair_state;		
+		static Layana_ShortHair_State _ShortHair_state;
 		static Layana_Short_Background Background_state;
 
 
@@ -260,6 +260,9 @@ namespace jk
 		Intro_Aura_Layana* Intro_Ar = nullptr;
 		Layana_Dash_Smoke* Dash_SM = nullptr;
 		Layana_Meteor_GR_Smoke* MeteorGR_SM = nullptr;
+		RisingPierce_Ready* RisingPierce_EF = nullptr;
+		Golden_Meteor_Bullet* Golden_Meteor_Bl = nullptr;
+		Golden_Meteor_Effect_End* Golden_Meteor_Ef = nullptr;
 
 
 	private:
@@ -283,6 +286,20 @@ namespace jk
 	public:
 		static bool _AttackStageON;				// FLyDash의 경우 나가있는지 안에 있는지 확인할수 있는변 나가있는상태라면 위치 셋팅하여 안으로 들어오게 도와주는 역할의 변수 
 
+
+	public:
+		static int	_HitType;
+		static int	_Dammege;
+		static Player_Hp_Bar* Player_Hp;
+		static Monster_Hit_Effect* _Hit_Effect;
+		static Player_Hit_Effect* _Hit_Effect_player;
+		static Hit_Sword* _Hit_Sword;
+		static Hit_Critical_Middle* _Critical_Middle;
+		static Hit_Critical_High* _Critical_High;
+		static Monster_Death_Effect* _Death_Effect;
+
+
+
 	private:
 	
 		bool	_Sisters_Attack_A = false;
@@ -304,6 +321,8 @@ namespace jk
 		bool	_VerticalMeteorSwitch = false;
 		bool	_VerticalMeteorLanding = false;
 		bool	_VerticalMeteorLandingSM = false;
+		bool	_VerticalMeteor_Bullet = false;
+
 
 		bool	_SkillA_Switch = false;
 		bool	_SkillA_Landing = false;
@@ -314,6 +333,7 @@ namespace jk
 		Vector2   _HomingVector[3];
 
 		bool	_SkillB_Switch = false;
+		bool	_SkillB_Dash = false;
 
 		bool	_SkillC_Switch = false;
 
@@ -330,6 +350,7 @@ namespace jk
 
 		int		_SelectAttack = 0;
 
+		bool	_DieOn = false;
 
 
 

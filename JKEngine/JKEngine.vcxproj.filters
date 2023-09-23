@@ -569,6 +569,15 @@
     <ClInclude Include="Layana_Meteor_GR_Smoke.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
     </ClInclude>
+    <ClInclude Include="RisingPierce_Ready.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClInclude>
+    <ClInclude Include="Golden_Meteor_Bullet.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Golden_Meteor_Effect_End.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1135,6 +1144,15 @@
     </ClCompile>
     <ClCompile Include="Layana_Meteor_GR_Smoke.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+    </ClCompile>
+    <ClCompile Include="RisingPierce_Ready.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+    </ClCompile>
+    <ClCompile Include="Golden_Meteor_Bullet.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Golden_Meteor_Effect_End.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -43,8 +43,8 @@ namespace jk
 		_LongHairCreatepos = _pos;
 		tr->SetPosition(_pos);
 
-		
-		
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Awaken", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\AwakenJump", this);
@@ -316,6 +316,31 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, MeteorGR_SM);
 			MeteorGR_SM->SetState(eState::Paused);
 		}
+		{
+			RisingPierce_EF = new RisingPierce_Ready;
+			RisingPierce_EF->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, RisingPierce_EF);
+			RisingPierce_EF->SetState(eState::Paused);
+		}
+		
+		{
+			Golden_Meteor_Bl = new Golden_Meteor_Bullet;
+			Golden_Meteor_Bl->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Bullet, Golden_Meteor_Bl);
+			Golden_Meteor_Bl->SetState(eState::Paused);
+		}
+		{
+			Golden_Meteor_Ef = new Golden_Meteor_Effect_End;
+			Golden_Meteor_Ef->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Golden_Meteor_Ef);
+			Golden_Meteor_Ef->SetState(eState::Paused);
+		}
 
 
 
@@ -387,6 +412,9 @@ namespace jk
 			_Death_Effect->SetState(eState::Paused);
 		}
 
+
+
+
 		at->PlayAnimation(L"Long_hairIdle", true);
 		GameObject::Initialize();
 	}
@@ -415,6 +443,33 @@ namespace jk
 		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
 		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp_LongHair_scale - _CurrenHp_LongHair_scale)+200 / 2, 150, _pos.z - 1));
 		hp_tr->SetScale(_CurrenHp_LongHair_scale, 10, 0);
+
+		Transform* BulletTR = Golden_Meteor_Bl->GetComponent<Transform>();
+		BulletTR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+
+
+		if (_LongHair_Die == true)
+		{			
+			if (ShortHair_Operation == true)
+			{
+				if (_DieOn == false)
+				{
+					Background_state = Layana_Long_Background::Die;
+					if (_pos.x < _LongHairCreatepos.x)
+						at->PlayAnimation(L"Long_hairDie", false);
+					else
+						at->PlayAnimation(L"Long_hairDieR", false);
+					_DieOn = true;
+				}
+			}
+		}
+
+		if (_ShortHair_Die == true)
+		{
+			LongHair_Operation = true;
+			Awaken_Combo();
+			_LongHair_Awaken = false;
+		}
 
 
 		if (Joint_Operation == true)
@@ -664,13 +719,6 @@ namespace jk
 				Layana_LongHair::Awaken();
 				break;
 
-			case jk::Layana_LongHair::Layana_LongHair_State::BackGround_Idle:
-				Layana_LongHair::BackGround_Idle();
-				break;
-
-			case jk::Layana_LongHair::Layana_LongHair_State::BackGround_Move:
-				Layana_LongHair::BackGround_Enter();
-				break;
 
 			default:
 				break;
@@ -702,6 +750,9 @@ namespace jk
 				Layana_LongHair::BackGround_Exit();
 				break;
 
+			case jk::Layana_LongHair::Layana_Long_Background::Die:
+				Layana_LongHair::die();
+				break;
 				//int a = 0;
 
 			default:
@@ -728,12 +779,6 @@ namespace jk
 				else					//왼쪽으로 공격할때의 기준
 					HitBox_TR->SetPosition(Vector3(_pos.x-50, _pos.y-40, _pos.z));				
 			}
-			else if (_LongHair_state == Layana_LongHair_State::Meteor_Vertical_Landing)
-			{
-				Hit_Box->SetSize(Vector2(5.f, 55.f));
-				Hit_Box->SetState(eState::Active);
-				HitBox_TR->SetPosition(Vector3(_pos.x + 5, _pos.y - 50, _pos.z));
-			}
 			else if (_LongHair_state == Layana_LongHair_State::Meteor_Cross_Landing)
 			{
 				Hit_Box->SetSize(Vector2(5.f, 55.f));
@@ -751,7 +796,6 @@ namespace jk
 					HitBox_TR->SetRotationZ(-45 / (180.f / XM_PI));
 				}
 			}
-
 			else if (_LongHair_state == Layana_LongHair_State::RushA)
 			{
 				Hit_Box->SetSize(Vector2(55.f, 5.f));
@@ -819,164 +863,148 @@ namespace jk
 
 	void Layana_LongHair::OnCollisionEnter(Collider2D* other)
 	{
-		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
+		if (Background_state != Layana_Long_Background::Die && Background_state != Layana_Long_Background::BackGround_Idle)
 		{
-			bool attack = false;
-			bool attack_Cri_Mid = false;
-			bool attack_Cri_High = false;
-
-			_HitType = random(1, 6);
-			if (_HitType >= 1 && _HitType < 6)
+			if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 			{
-				_Dammege = 3000;
-				attack = true;
-			}
-			//if (_HitType >= 6 && _HitType < 9)
-			//{
-			//	_Dammege = random(15, 25);
-			//	attack_Cri_Mid = true;
-			//}
-			//if (_HitType >= 9 && _HitType <= 10)
-			//{
-			//	_Dammege = random(30, 45);
-			//	attack_Cri_High = true;
-			//}
+				bool attack = false;
+				bool attack_Cri_Mid = false;
+				bool attack_Cri_High = false;
 
-			{
-				_Hit_Effect->_effect_animation = true;
-				_Critical_Middle->_effect_animation = true;
-				_Critical_High->_effect_animation = true;
-				if (_Dir == 1)
+				_HitType = random(1, 6);
+				if (_HitType >= 1 && _HitType < 6)
 				{
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
-					_Hit_Effect->SetDirection(-1);
-					_Critical_Middle->SetDirection(-1);
-					_Critical_High->SetDirection(-1);
+					_Dammege = 3000;
+					attack = true;
 				}
-				else
-				{
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
-					_Hit_Sword->SetDirection(1);
-					_Critical_Middle->SetDirection(1);
-					_Critical_High->SetDirection(1);
-				}
-				if (attack == true)
+				//if (_HitType >= 6 && _HitType < 9)
+				//{
+				//	_Dammege = random(15, 25);
+				//	attack_Cri_Mid = true;
+				//}
+				//if (_HitType >= 9 && _HitType <= 10)
+				//{
+				//	_Dammege = random(30, 45);
+				//	attack_Cri_High = true;
+				//}
+
 				{
 					_Hit_Effect->_effect_animation = true;
-					_Hit_Effect->SetState(eState::Active);
-				}
-				if (attack_Cri_Mid == true)
-				{
 					_Critical_Middle->_effect_animation = true;
-					_Critical_Middle->SetState(eState::Active);
-				}
-				if (attack_Cri_High == true)
-				{
 					_Critical_High->_effect_animation = true;
-					_Critical_High->SetState(eState::Active);
+					if (_Dir == 1)
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+						_Hit_Effect->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+					}
+					else
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+						_Hit_Sword->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
 				}
-			}
-			if (_Curren_LongHair_Hp <= 0)
-			{
-				int a = 0;
-				//if (_Diecheck == 0)
-				//{
-				//	//if (Yggdrasil::_FirstDie == false)
-				//	//{
-				//	//	Yggdrasil::_FirstDie = true;
-				//	//	Yggdrasil::_Change = true;
-				//	//	_Diecheck = 1;
-				//	//}
-				//}
-				//else if (_Diecheck == 1)
-				//{
-				//	//_DieON = true;
-				//	//Yggdrasil::_FirstDie = true;
-				//}
-			}
-		}
-
-		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
-		{
-			bool attack = false;
-			bool attack_Cri_Mid = false;
-			bool attack_Cri_High = false;
-
-			_HitType = random(1, 10);
-			if (_HitType >= 1 && _HitType < 6)
-			{
-				_Dammege = 25;
-				attack = true;
-			}
-			if (_HitType >= 6 && _HitType < 9)
-			{
-				_Dammege = random(35, 40);
-				attack_Cri_Mid = true;
-			}
-			if (_HitType >= 9 && _HitType <= 10)
-			{
-				_Dammege = random(50, 70);
-				attack_Cri_High = true;
-			}
-
-			{
-				_Hit_Effect->_effect_animation = true;
-				_Critical_Middle->_effect_animation = true;
-				_Critical_High->_effect_animation = true;
-				if (_Dir == 1)
+				if (_Curren_LongHair_Hp <= 0)
 				{
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
-					_Hit_Effect->SetDirection(-1);
-					_Critical_Middle->SetDirection(-1);
-					_Critical_High->SetDirection(-1);
+					if (_First_Die == false)
+					{
+						_First_Die = true;
+						_LongHair_Die = true;
+					}
 				}
-				else
+			}
+
+			if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+			{
+				bool attack = false;
+				bool attack_Cri_Mid = false;
+				bool attack_Cri_High = false;
+
+				_HitType = random(1, 10);
+				if (_HitType >= 1 && _HitType < 6)
 				{
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
-					_Hit_Sword->SetDirection(1);
-					_Critical_Middle->SetDirection(1);
-					_Critical_High->SetDirection(1);
+					_Dammege = 25;
+					attack = true;
 				}
-				if (attack == true)
+				if (_HitType >= 6 && _HitType < 9)
+				{
+					_Dammege = random(35, 40);
+					attack_Cri_Mid = true;
+				}
+				if (_HitType >= 9 && _HitType <= 10)
+				{
+					_Dammege = random(50, 70);
+					attack_Cri_High = true;
+				}
+
 				{
 					_Hit_Effect->_effect_animation = true;
-					_Hit_Effect->SetState(eState::Active);
-				}
-				if (attack_Cri_Mid == true)
-				{
 					_Critical_Middle->_effect_animation = true;
-					_Critical_Middle->SetState(eState::Active);
-				}
-				if (attack_Cri_High == true)
-				{
 					_Critical_High->_effect_animation = true;
-					_Critical_High->SetState(eState::Active);
+					if (_Dir == 1)
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+						_Hit_Effect->SetDirection(-1);
+						_Critical_Middle->SetDirection(-1);
+						_Critical_High->SetDirection(-1);
+					}
+					else
+					{
+						Player_Hp->_HitOn = true;
+						Player_Hp->SetHitDamage(_Dammege);
+						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+						_Hit_Sword->SetDirection(1);
+						_Critical_Middle->SetDirection(1);
+						_Critical_High->SetDirection(1);
+					}
+					if (attack == true)
+					{
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
 				}
-			}
-			if (_Curren_LongHair_Hp <= 0)
-			{
-				//if (_Diecheck == 0)
-				//{
-				//	if (Yggdrasil::_FirstDie == false)
-				//	{
-				//		Yggdrasil::_FirstDie = true;
-				//		Yggdrasil::_Change = true;
-				//		_Diecheck = 1;
-				//	}
-				//}
-				//else if (_Diecheck == 1)
-				//{
-				//	_DieON = true;
-				//	Yggdrasil::_FirstDie = true;
-				//}
+				if (_Curren_LongHair_Hp <= 0)
+				{
+					if (_First_Die == false)
+					{
+						_First_Die = true;
+						_LongHair_Die = true;
+					}
+				}
 			}
 		}
 	}
@@ -1104,65 +1132,71 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_SelectAttack = random(0, 6);
-		_SelectAttack = 0;
+		_SelectAttack = 3;
 
 
 		if (_Intro_On == true)
 			Intro_Combo();
 
-		if (ShortHair_Operation == true)
+		if (_First_Die == false)
 		{
-			if(LongHair_First_moving==false)
-			BackGround_Combo();
-			_time = 0;			
+			if (ShortHair_Operation == true)
+			{
+				if (LongHair_First_moving == false)
+					BackGround_Combo();
+				_time = 0;
+			}
 		}
 
 		if (LongHair_Operation == true)
-		{			
-			if (LongHair_First_moving == true)
+		{	
+			if (_First_Die == false)
 			{
-				Meteor_Vertical_Combo();
-				LongHair_First_moving = false;
-			}
-			else
-			{
-				if (_SistersAttack_Number > 5)
+				if (LongHair_First_moving == true)
 				{
-					_Joint_Attack = true;
-					_LongHair_state = Layana_LongHair_State::FlyDash;
-					if (_pos.x > _LongHairCreatepos.x)
-						at->PlayAnimation(L"Long_hairDash", true);
-					else
-						at->PlayAnimation(L"Long_hairDashR", true);
+					Meteor_Vertical_Combo();
+					LongHair_First_moving = false;
 				}
 				else
 				{
-					if (_time >= 2.0)
+					if (_SistersAttack_Number > 5)
 					{
-						if (_SelectAttack == 0)
-							Rush_Combo();
-						if (_SelectAttack == 1)
-							Meteor_Cross_Combo();
-						if (_SelectAttack == 2)
-							Meteor_Ground_Combo();
-						if (_SelectAttack == 3)
-							Meteor_Vertical_Combo();
-						if (_SelectAttack == 4)
-							Skill_A_Combo();
-						if (_SelectAttack == 5)
-							Skill_B_Combo();
-						if (_SelectAttack == 6)
-							Skill_C_Combo();
-						if (_SelectAttack == 7)
-							BackGround_Combo();
+						_Joint_Attack = true;
+						_LongHair_state = Layana_LongHair_State::FlyDash;
+						if (_pos.x > _LongHairCreatepos.x)
+							at->PlayAnimation(L"Long_hairDash", true);
+						else
+							at->PlayAnimation(L"Long_hairDashR", true);
+					}
+					else
+					{
+						if (_time >= 2.0)
+						{
+							if (_SelectAttack == 0)
+								Rush_Combo();
+							if (_SelectAttack == 1)
+								Meteor_Cross_Combo();
+							if (_SelectAttack == 2)
+								Meteor_Ground_Combo();
+							if (_SelectAttack == 3)
+								Meteor_Vertical_Combo();
+							if (_SelectAttack == 4)
+								Skill_A_Combo();
+							if (_SelectAttack == 5)
+								Skill_B_Combo();
+							if (_SelectAttack == 6)
+								Skill_C_Combo();
+							if (_SelectAttack == 7)
+								BackGround_Combo();
 
 
-						if (_SelectAttack == 9)
-							Awaken_Combo();
+							if (_SelectAttack == 9)
+								Awaken_Combo();
 
-						if (_SelectAttack == 10)
-							Intro_Combo();
-						_SistersAttack_Number++;
+							if (_SelectAttack == 10)
+								Intro_Combo();
+							_SistersAttack_Number++;
+						}
 					}
 				}
 			}
@@ -1646,37 +1680,66 @@ namespace jk
 	//대쉬
 	void Layana_LongHair::Dash()
 	{
-		if (!(_Playerdistance.x <= 80 && _Playerdistance.x >= -80))
+		if (_SkillB_Dash == true)
 		{
-			if (_Dir == 1)
-				_pos.x += 350.f * Time::DeltaTime();
+			if (!(_Playerdistance.x <= 30 && _Playerdistance.x >= -30))
+			{
+				if (_Dir == 1)
+					_pos.x += 350.f * Time::DeltaTime();
+				else
+					_pos.x -= 350.f * Time::DeltaTime();
+			}
 			else
-				_pos.x -= 350.f * Time::DeltaTime();
+			{
+				_LongHair_state = Layana_LongHair_State::Skill_B_RisingPierce;
+				if (_Dir == 1)
+					at->PlayAnimation(L"Long_hairSkill_B_RisingPierce", false);
+				else
+					at->PlayAnimation(L"Long_hairSkill_B_RisingPierceR", false);
+				
+				_SkillB_Dash = false;				
+
+				Transform* EFtr = RisingPierce_EF->GetComponent<Transform>();
+				EFtr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+				RisingPierce_EF->SetDirection(1);
+				RisingPierce_EF->SetSwitch(true);
+				RisingPierce_EF->SetState(eState::Active);
+			}
 		}
 		else
 		{
-			if (_RushSwitch == true)
-			{				
-				_LongHair_state = Layana_LongHair_State::Rush_Ready;
-				if (_Dir == 1)
-					at->PlayAnimation(L"Long_hairRush_Ready", true);
-				else
-					at->PlayAnimation(L"Long_hairRush_ReadyR", true);
-			}
-			if (_CrossMeteorSwitch == true)
+			if (!(_Playerdistance.x <= 80 && _Playerdistance.x >= -80))
 			{
-				_LongHair_state = Layana_LongHair_State::Meteor_Cross_Jump;
 				if (_Dir == 1)
-				{
-					at->PlayAnimation(L"Long_hairMeteor_Cross00_JumpR", false);
-					_rigidbody->SetVelocity(Vector2(250.f, 450.f));
-					_rigidbody->SetGround(false);
-				}
+					_pos.x += 350.f * Time::DeltaTime();
 				else
+					_pos.x -= 350.f * Time::DeltaTime();
+			}
+			else
+			{
+				if (_RushSwitch == true)
 				{
-					at->PlayAnimation(L"Long_hairMeteor_Cross00_Jump", false);
-					_rigidbody->SetVelocity(Vector2(-250.f, 450.f));
-					_rigidbody->SetGround(false);
+					_LongHair_state = Layana_LongHair_State::Rush_Ready;
+					if (_Dir == 1)
+						at->PlayAnimation(L"Long_hairRush_Ready", true);
+					else
+						at->PlayAnimation(L"Long_hairRush_ReadyR", true);
+				}
+				if (_CrossMeteorSwitch == true)
+				{
+					_LongHair_state = Layana_LongHair_State::Meteor_Cross_Jump;
+					if (_Dir == 1)
+					{
+						at->PlayAnimation(L"Long_hairMeteor_Cross00_JumpR", false);
+						_rigidbody->SetVelocity(Vector2(250.f, 450.f));
+						_rigidbody->SetGround(false);
+					}
+					else
+					{
+						at->PlayAnimation(L"Long_hairMeteor_Cross00_Jump", false);
+						_rigidbody->SetVelocity(Vector2(-250.f, 450.f));
+						_rigidbody->SetGround(false);
+					}
 				}
 			}
 		}
@@ -1948,7 +2011,12 @@ namespace jk
 	}
 	void Layana_LongHair::Vertical_Landing()
 	{
-		_HitBox_Attack_On = true;
+		if (_VerticalMeteor_Bullet == false)
+		{
+			Golden_Meteor_Bl->SetState(eState::Active);
+			_VerticalMeteor_Bullet = true;
+		}
+
 		_Attacktime += Time::DeltaTime();
 		if (_VerticalMeteorLandingSM == true)
 		{
@@ -1966,11 +2034,16 @@ namespace jk
 				Transform* SMtr = Intro_SM->GetComponent<Transform>();
 				SMtr->SetPosition(_pos.x - 20, _pos.y - 50.f, _pos.z - 1);
 			}
+		
+			Golden_Meteor_Ef->SetState(eState::Active);
+			Transform* effectTR = Golden_Meteor_Ef->GetComponent<Transform>();
+			effectTR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			Golden_Meteor_Ef->SetSwitch(true);
+
 			_VerticalMeteorLandingSM = false;
 		}
 		if (_VerticalMeteorLanding == true)
 		{
-			_HitBox_Attack_On = false;
 			if (_Attacktime >= 1.f)
 			{
 				_LongHair_state = Layana_LongHair_State::Meteor_Vertical_End;
@@ -1979,8 +2052,7 @@ namespace jk
 					at->PlayAnimation(L"Long_hairMeteor_Vertical04_End", true);				
 				else			
 					at->PlayAnimation(L"Long_hairMeteor_Vertical04_EndR", true);
-				_Attacktime = 0;
-				_HitBox_Attack_On = false;
+				_Attacktime = 0;					
 			}
 		}
 	}
@@ -2331,7 +2403,7 @@ namespace jk
 	{
 		_RushSwitch = true;
 		_Rushnumber = 0;
-		if (_Playerdistance.x <= 30 && _Playerdistance.x >= -30)
+		if (_Playerdistance.x <= 80 && _Playerdistance.x >= -80)
 		{
 			_LongHair_state = Layana_LongHair_State::Rush_Ready;
 			if (_Dir == 1)
@@ -2609,6 +2681,8 @@ namespace jk
 		at->PlayAnimation(L"Long_hairMeteor_Vertical02_Attack", false);
 		_rigidbody->SetGround(false);
 		_rigidbody->SetVelocity(Vector2(0.f, -550.f));
+		_VerticalMeteorLanding = false;
+		_VerticalMeteor_Bullet = false;
 	}
 	void Layana_LongHair::Complete_VerticalEnd()
 	{
@@ -2656,12 +2730,30 @@ namespace jk
 
 
 	void Layana_LongHair::Skill_B_Combo()
-	{
-		_LongHair_state = Layana_LongHair_State::Skill_B_RisingPierce;
-		if (_Dir == 1)
-			at->PlayAnimation(L"Long_hairSkill_B_RisingPierce", false);
+	{		
+		if (_Playerdistance.x <= 30 && _Playerdistance.x >= -30)
+		{
+			_LongHair_state = Layana_LongHair_State::Skill_B_RisingPierce;
+			if (_Dir == 1)
+				at->PlayAnimation(L"Long_hairSkill_B_RisingPierce", false);
+			else
+				at->PlayAnimation(L"Long_hairSkill_B_RisingPierceR", false);
+
+			Transform* EFtr = RisingPierce_EF->GetComponent<Transform>();
+			EFtr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			RisingPierce_EF->SetDirection(1);
+			RisingPierce_EF->SetSwitch(true);
+			RisingPierce_EF->SetState(eState::Active);
+		}
 		else
-			at->PlayAnimation(L"Long_hairSkill_B_RisingPierceR", false);
+		{
+			_SkillB_Dash = true;
+			_LongHair_state = Layana_LongHair_State::Dash;
+			if (_Dir == 1)
+				at->PlayAnimation(L"Long_hairDash", true);
+			else
+				at->PlayAnimation(L"Long_hairDashR", true);
+		}		
 	}
 	void Layana_LongHair::Complete_Skill_B()
 	{
@@ -2728,7 +2820,7 @@ namespace jk
 	{
 		if (_Awaken_Switch == false)
 		{
-			_pos = Vector3(_LongHairCreatepos.x + 200, _LongHairCreatepos.y - 50, _LongHairCreatepos.z);
+			_pos = Vector3(_LongHairCreatepos.x + 200, _LongHairCreatepos.y - 50, -249);
 			tr->SetPosition(_pos);
 			_rigidbody->SetGround(false);
 			_Ground_check = false;

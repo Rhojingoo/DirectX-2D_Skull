@@ -14,8 +14,9 @@
 #include "Intro_Aura_Layana.h"
 #include "Layana_Dash_Smoke.h"
 #include "Layana_Meteor_GR_Smoke.h"
-
-
+#include "RisingPierce_Ready.h"
+#include "Golden_Meteor_Bullet.h"
+#include "Golden_Meteor_Effect_End.h"
 
 namespace jk
 {
@@ -38,9 +39,6 @@ namespace jk
 		enum class Layana_LongHair_State
 		{
 			Idle,
-
-			BackGround_Idle,
-			BackGround_Move,
 
 			Rush_Ready,
 			RushA,
@@ -85,9 +83,7 @@ namespace jk
 
 			Awaken,
 			AwakenJump,
-			AwakenReady,
-
-			Die,
+			AwakenReady,			
 		};
 
 
@@ -98,6 +94,7 @@ namespace jk
 			BackGround_Idle,
 			BackGround_Enter,
 			BackGround_Exit,
+			Die,
 		};
 
 
@@ -260,6 +257,9 @@ namespace jk
 		Intro_Aura_Layana* Intro_Ar = nullptr;
 		Layana_Dash_Smoke* Dash_SM = nullptr;
 		Layana_Meteor_GR_Smoke* MeteorGR_SM = nullptr;
+		RisingPierce_Ready* RisingPierce_EF = nullptr;
+		Golden_Meteor_Bullet* Golden_Meteor_Bl = nullptr;
+		Golden_Meteor_Effect_End* Golden_Meteor_Ef = nullptr;
 
 
 	private:
@@ -320,6 +320,8 @@ namespace jk
 		bool	_VerticalMeteorSwitch = false;
 		bool	_VerticalMeteorLanding = false;
 		bool	_VerticalMeteorLandingSM = false;
+		bool	_VerticalMeteor_Bullet = false;
+
 
 		bool	_SkillA_Switch = false;
 		bool	_SkillA_Landing = false;
@@ -330,6 +332,7 @@ namespace jk
 		Vector2   _HomingVector[3];
 
 		bool	_SkillB_Switch = false;
+		bool	_SkillB_Dash = false;
 
 		bool	_SkillC_Switch = false;
 
@@ -345,6 +348,8 @@ namespace jk
 		bool	_Joint_Attack = false;
 
 		int		_SelectAttack = 0;
+
+		bool	_DieOn = false;
 	};
 
 }

@@ -185,6 +185,8 @@
     <ClInclude Include="Face_UI.h" />
     <ClInclude Include="Fireball_Projectile_Hit.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Golden_Meteor_Bullet.h" />
+    <ClInclude Include="Golden_Meteor_Effect_End.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Attack_HitBox.h" />
     <ClInclude Include="Ground_and_Wall.h" />
@@ -256,6 +258,7 @@
     <ClInclude Include="Player_AfterImage.h" />
     <ClInclude Include="Player_Hit_Effect.h" />
     <ClInclude Include="practice.h" />
+    <ClInclude Include="RisingPierce_Ready.h" />
     <ClInclude Include="Sky_Ground.h" />
     <ClInclude Include="Slash_Effect.h" />
     <ClInclude Include="Stage1_BossDoor.h" />
@@ -378,6 +381,8 @@
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Face_UI.cpp" />
     <ClCompile Include="Fireball_Projectile_Hit.cpp" />
+    <ClCompile Include="Golden_Meteor_Bullet.cpp" />
+    <ClCompile Include="Golden_Meteor_Effect_End.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Attack_HitBox.cpp" />
     <ClCompile Include="Ground_and_Wall.cpp" />
@@ -450,6 +455,7 @@
     <ClCompile Include="Player_AfterImage.cpp" />
     <ClCompile Include="Player_Hit_Effect.cpp" />
     <ClCompile Include="practice.cpp" />
+    <ClCompile Include="RisingPierce_Ready.cpp" />
     <ClCompile Include="Sky_Ground.cpp" />
     <ClCompile Include="Slash_Effect.cpp" />
     <ClCompile Include="Stage1_BossDoor.cpp" />

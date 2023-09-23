@@ -130,6 +130,15 @@ namespace jk
 		static bool _Intro_ShortHair_END;
 
 	public:
+		static bool _First_Die;
+		static bool _LongHair_Die;
+		static bool _ShortHair_Die;
+		static bool _DarkLayana_Die;
+		static bool _ShortHair_Awaken;
+		static bool _LongHair_Awaken;
+
+
+	public:
 		bool _Sisters_Attack_On = false;
 		static int _Sisters_AttackType;
 
