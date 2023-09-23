@@ -78,6 +78,10 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushB", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushC", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushC1", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushC2", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushC3", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushC4", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet_End", this);
@@ -118,6 +122,10 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushA", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushB", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushC", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushC1", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushC2", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushC3", this,1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\RushC4", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet_Ready", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Skill_A_Bullet_End", this,1);
@@ -132,7 +140,13 @@ namespace jk
 		at->CompleteEvent(L"Long_hairRushA") = std::bind(&Layana_LongHair::Complete_Rush, this);
 		at->CompleteEvent(L"Long_hairRushB") = std::bind(&Layana_LongHair::Complete_Rush, this);
 		at->CompleteEvent(L"Long_hairRushC") = std::bind(&Layana_LongHair::Complete_Rush, this);
+
+		at->CompleteEvent(L"Long_hairRushC1") = std::bind(&Layana_LongHair::Complete_RushReady, this);
+		at->CompleteEvent(L"Long_hairRushC2") = std::bind(&Layana_LongHair::Complete_RushReady, this);
+		at->CompleteEvent(L"Long_hairRushC3") = std::bind(&Layana_LongHair::Complete_RushReady, this);
+		at->CompleteEvent(L"Long_hairRushC4") = std::bind(&Layana_LongHair::Complete_Rush, this);
 		at->CompleteEvent(L"Long_hairRush_End") = std::bind(&Layana_LongHair::Complete_RushReady, this);
+
 		at->CompleteEvent(L"Long_hairMeteor_Cross01_Ready") = std::bind(&Layana_LongHair::Complete_CrossJump, this);
 		at->CompleteEvent(L"Long_hairMeteor_Cross03_End") = std::bind(&Layana_LongHair::Complete_CrossEnd, this);
 		//at->CompleteEvent(L"Long_hairMeteor_Ground01_Ready") = std::bind(&Layana_LongHair::Complete_GroundLanding, this);
@@ -154,7 +168,14 @@ namespace jk
 		at->CompleteEvent(L"Long_hairRushAR") = std::bind(&Layana_LongHair::Complete_Rush, this);
 		at->CompleteEvent(L"Long_hairRushBR") = std::bind(&Layana_LongHair::Complete_Rush, this);
 		at->CompleteEvent(L"Long_hairRushCR") = std::bind(&Layana_LongHair::Complete_Rush, this);
+
+		at->CompleteEvent(L"Long_hairRushC1R") = std::bind(&Layana_LongHair::Complete_RushReady, this);
+		at->CompleteEvent(L"Long_hairRushC2R") = std::bind(&Layana_LongHair::Complete_RushReady, this);
+		at->CompleteEvent(L"Long_hairRushC3R") = std::bind(&Layana_LongHair::Complete_RushReady, this);
+		at->CompleteEvent(L"Long_hairRushC4R") = std::bind(&Layana_LongHair::Complete_Rush, this);
 		at->CompleteEvent(L"Long_hairRush_EndR") = std::bind(&Layana_LongHair::Complete_RushReady, this);
+
+
 		at->CompleteEvent(L"Long_hairMeteor_Cross01_ReadyR") = std::bind(&Layana_LongHair::Complete_CrossJump, this);
 		at->CompleteEvent(L"Long_hairMeteor_Cross03_EndR") = std::bind(&Layana_LongHair::Complete_CrossEnd, this);
 		//at->CompleteEvent(L"Long_hairMeteor_Ground01_ReadyR") = std::bind(&Layana_LongHair::Complete_GroundLanding, this);
@@ -366,9 +387,6 @@ namespace jk
 			_Death_Effect->SetState(eState::Paused);
 		}
 
-
-
-
 		at->PlayAnimation(L"Long_hairIdle", true);
 		GameObject::Initialize();
 	}
@@ -514,6 +532,22 @@ namespace jk
 
 			case jk::Layana_LongHair::Layana_LongHair_State::RushC:
 				Layana_LongHair::Rush_C();
+				break;
+
+			case jk::Layana_LongHair::Layana_LongHair_State::RushC1:
+				Layana_LongHair::Rush_C1();
+				break;
+
+			case jk::Layana_LongHair::Layana_LongHair_State::RushC2:
+				Layana_LongHair::Rush_C2();
+				break;
+
+			case jk::Layana_LongHair::Layana_LongHair_State::RushC3:
+				Layana_LongHair::Rush_C3();
+				break;
+
+			case jk::Layana_LongHair::Layana_LongHair_State::RushC4:
+				Layana_LongHair::Rush_C4();
 				break;
 
 			case jk::Layana_LongHair::Layana_LongHair_State::Rush_End:
@@ -694,14 +728,12 @@ namespace jk
 				else					//왼쪽으로 공격할때의 기준
 					HitBox_TR->SetPosition(Vector3(_pos.x-50, _pos.y-40, _pos.z));				
 			}
-
 			else if (_LongHair_state == Layana_LongHair_State::Meteor_Vertical_Landing)
 			{
 				Hit_Box->SetSize(Vector2(5.f, 55.f));
 				Hit_Box->SetState(eState::Active);
 				HitBox_TR->SetPosition(Vector3(_pos.x + 5, _pos.y - 50, _pos.z));
 			}
-
 			else if (_LongHair_state == Layana_LongHair_State::Meteor_Cross_Landing)
 			{
 				Hit_Box->SetSize(Vector2(5.f, 55.f));
@@ -718,6 +750,55 @@ namespace jk
 					HitBox_TR->SetPosition(Vector3(_pos.x - 30, _pos.y - 50, _pos.z));
 					HitBox_TR->SetRotationZ(-45 / (180.f / XM_PI));
 				}
+			}
+
+			else if (_LongHair_state == Layana_LongHair_State::RushA)
+			{
+				Hit_Box->SetSize(Vector2(55.f, 5.f));
+				Hit_Box->SetState(eState::Active);
+
+				if (_HitBox_Dir == 1)	//오른쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x + 90, _pos.y -25 , _pos.z));				
+				else					//왼쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x - 90, _pos.y -25, _pos.z));							
+			}
+			else if (_LongHair_state == Layana_LongHair_State::RushB)
+			{
+				Hit_Box->SetSize(Vector2(55.f, 5.f));
+				Hit_Box->SetState(eState::Active);
+
+				if (_HitBox_Dir == 1)	//오른쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x + 90, _pos.y - 35, _pos.z));
+				else					//왼쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x - 90, _pos.y - 35, _pos.z));
+			}
+			else if (_LongHair_state == Layana_LongHair_State::RushC1)
+			{
+				Hit_Box->SetSize(Vector2(55.f, 5.f));
+				Hit_Box->SetState(eState::Active);
+
+				if (_HitBox_Dir == 1)	//오른쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x + 90, _pos.y - 15, _pos.z));
+				else					//왼쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x - 90, _pos.y - 15, _pos.z));
+			}
+			else if (_LongHair_state == Layana_LongHair_State::RushC2)
+			{
+				Hit_Box->SetSize(Vector2(55.f, 5.f));
+				Hit_Box->SetState(eState::Active);
+				if (_HitBox_Dir == 1)	//오른쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x + 90, _pos.y - 25, _pos.z));
+				else					//왼쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x - 90, _pos.y - 25, _pos.z));
+			}
+			else if (_LongHair_state == Layana_LongHair_State::RushC3)
+			{
+				Hit_Box->SetSize(Vector2(55.f, 5.f));
+				Hit_Box->SetState(eState::Active);
+				if (_HitBox_Dir == 1)	//오른쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x + 90, _pos.y - 35, _pos.z));
+				else					//왼쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x - 90, _pos.y - 35, _pos.z));
 			}
 		}
 		else
@@ -1023,7 +1104,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_SelectAttack = random(0, 6);
-		_SelectAttack = 6;
+		_SelectAttack = 0;
 
 
 		if (_Intro_On == true)
@@ -1565,7 +1646,7 @@ namespace jk
 	//대쉬
 	void Layana_LongHair::Dash()
 	{
-		if (!(_Playerdistance.x <= 30 && _Playerdistance.x >= -30))
+		if (!(_Playerdistance.x <= 80 && _Playerdistance.x >= -80))
 		{
 			if (_Dir == 1)
 				_pos.x += 350.f * Time::DeltaTime();
@@ -1575,8 +1656,7 @@ namespace jk
 		else
 		{
 			if (_RushSwitch == true)
-			{
-				
+			{				
 				_LongHair_state = Layana_LongHair_State::Rush_Ready;
 				if (_Dir == 1)
 					at->PlayAnimation(L"Long_hairRush_Ready", true);
@@ -1736,6 +1816,18 @@ namespace jk
 	{
 	}
 	void Layana_LongHair::Rush_C()
+	{
+	}
+	void Layana_LongHair::Rush_C1()
+	{
+	}
+	void Layana_LongHair::Rush_C2()
+	{
+	}
+	void Layana_LongHair::Rush_C3()
+	{
+	}
+	void Layana_LongHair::Rush_C4()
 	{
 	}
 	void Layana_LongHair::Rush_End()
@@ -2258,7 +2350,8 @@ namespace jk
 	}
 	void Layana_LongHair::Complete_Rush()
 	{		
-		if (_Rushnumber >= 3)
+		_HitBox_Attack_On = false;
+		if (_Rushnumber >= 3 )
 		{
 			_LongHair_state = Layana_LongHair_State::Rush_End;
 			if (_Dir == 1)
@@ -2277,31 +2370,91 @@ namespace jk
 	}
 	void Layana_LongHair::Complete_RushReady()
 	{		
+		_HitBox_Attack_On = false;
 		if (_Rushnumber == 0)
 		{
+			_HitBox_Attack_On = true;
 			_LongHair_state = Layana_LongHair_State::RushA;
 			if (_Dir == 1)
+			{
 				at->PlayAnimation(L"Long_hairRushA", true);
+				_HitBox_Dir = 1;
+			}
 			else
+			{
 				at->PlayAnimation(L"Long_hairRushAR", true);
+				_HitBox_Dir = -1;
+			}
 		}
 		if (_Rushnumber == 1)
 		{
+			_HitBox_Attack_On = true;
 			_LongHair_state = Layana_LongHair_State::RushB;
 			if (_Dir == 1)
+			{
 				at->PlayAnimation(L"Long_hairRushB", true);
+				_HitBox_Dir = 1;
+			}
 			else
+			{
 				at->PlayAnimation(L"Long_hairRushBR", true);
+				_HitBox_Dir = -1;
+			}
 		}
 		if (_Rushnumber == 2)
 		{
-			_LongHair_state = Layana_LongHair_State::RushC;
+			_HitBox_Attack_On = true;
+			_LongHair_state = Layana_LongHair_State::RushC1;
 			if (_Dir == 1)
-				at->PlayAnimation(L"Long_hairRushC", true);
+			{
+				at->PlayAnimation(L"Long_hairRushC1", true);
+				_HitBox_Dir = 1;
+			}
 			else
-				at->PlayAnimation(L"Long_hairRushCR", true);
+			{
+				at->PlayAnimation(L"Long_hairRushC1R", true);
+				_HitBox_Dir = -1;
+			}
 		}
-		if (_Rushnumber >= 3)
+		if (_Rushnumber == 3)
+		{
+			_HitBox_Attack_On = true;
+			_LongHair_state = Layana_LongHair_State::RushC2;
+			if (_Dir == 1)
+			{
+				at->PlayAnimation(L"Long_hairRushC2", true);
+				_HitBox_Dir = 1;
+			}
+			else
+			{
+				at->PlayAnimation(L"Long_hairRushC2R", true);
+				_HitBox_Dir = -1;
+			}
+		}
+		if (_Rushnumber == 4)
+		{
+			_HitBox_Attack_On = true;
+			_LongHair_state = Layana_LongHair_State::RushC3;
+			if (_Dir == 1)
+			{
+				at->PlayAnimation(L"Long_hairRushC3", true);
+				_HitBox_Dir = 1;
+			}
+			else
+			{
+				at->PlayAnimation(L"Long_hairRushC3R", true);
+				_HitBox_Dir = -1;
+			}
+		}
+		if (_Rushnumber == 5)
+		{
+			_LongHair_state = Layana_LongHair_State::RushC4;
+			if (_Dir == 1)			
+				at->PlayAnimation(L"Long_hairRushC4", true);			
+			else			
+				at->PlayAnimation(L"Long_hairRushC4R", true);				
+		}
+		if (_Rushnumber >= 6)
 		{
 			_LongHair_state = Layana_LongHair_State::Idle;
 			if (_Dir == 1)

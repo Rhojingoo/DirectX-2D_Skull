@@ -41,6 +41,10 @@ namespace jk
 			RushA,
 			RushB,
 			RushC,
+			RushC1,
+			RushC2,
+			RushC3,
+			RushC4,
 			Rush_End,
 
 			Dash,
@@ -129,6 +133,10 @@ namespace jk
 		void Rush_A();
 		void Rush_B();
 		void Rush_C();
+		void Rush_C1();
+		void Rush_C2();
+		void Rush_C3();
+		void Rush_C4();
 		void Rush_End();
 		void Dash();
 		void FlyDash();

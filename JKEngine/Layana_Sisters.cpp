@@ -528,7 +528,7 @@ namespace jk
 			_Sisters_Attack_On = false;
 			Joint_Operation = false;
 			int select = random(0, 1);
-			select = 1;
+			select = 0;
 
 			if (select == 0)
 				longhair_change();
