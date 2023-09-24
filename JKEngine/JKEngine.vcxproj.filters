@@ -578,6 +578,18 @@
     <ClInclude Include="Golden_Meteor_Effect_End.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
     </ClInclude>
+    <ClInclude Include="Awaken_Ready_ElectricA.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Awaken_Ready_ElectricB.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Awaken_SmokeEffect.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Awaken_Electric.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1154,6 +1166,18 @@
     <ClCompile Include="Golden_Meteor_Effect_End.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
     </ClCompile>
+    <ClCompile Include="Awaken_Ready_ElectricA.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Awaken_Ready_ElectricB.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Awaken_SmokeEffect.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Awaken_Electric.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1425,6 +1449,9 @@
     </Filter>
     <Filter Include="Game_ob\Boss\Layana_Sisters\Somke">
       <UniqueIdentifier>{b6b762ad-c3ea-4853-95fe-c198cac2cb2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\ChangeEffect">
+      <UniqueIdentifier>{3f14251a-7a35-459b-872a-014970515e78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

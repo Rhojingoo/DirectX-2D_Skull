@@ -159,7 +159,7 @@ namespace jk
 		at->CompleteEvent(L"Long_hairIntro_Landing") = std::bind(&Layana_LongHair::Complete_IntroLanding, this);
 		at->CompleteEvent(L"Long_hairIntro_Landing_End") = std::bind(&Layana_LongHair::Complete_IntroLanding_END, this);
 		at->CompleteEvent(L"Long_hairAwaken") = std::bind(&Layana_LongHair::Complete_Awaken, this);
-		at->CompleteEvent(L"Long_hairAwakenReadyR") = std::bind(&Layana_LongHair::Complete_Awaken_Ready, this);
+		at->CompleteEvent(L"Long_hairAwakenReady") = std::bind(&Layana_LongHair::Complete_Awaken_Ready, this);
 
 		
 
@@ -413,6 +413,39 @@ namespace jk
 		}
 
 
+		// 체인지 이펙트관련
+		{
+			Awaken_Rd_ElectricA = new Awaken_Ready_ElectricA;
+			Awaken_Rd_ElectricA->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Awaken_Rd_ElectricA);
+			Awaken_Rd_ElectricA->SetState(eState::Paused);
+		}
+		{
+			Awaken_Rd_ElectricB = new Awaken_Ready_ElectricB;
+			Awaken_Rd_ElectricB->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Awaken_Rd_ElectricB);
+			Awaken_Rd_ElectricB->SetState(eState::Paused);
+		}
+		{
+			Awaken_Smoke_EF = new Awaken_SmokeEffect;
+			Awaken_Smoke_EF->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Awaken_Smoke_EF);
+			Awaken_Smoke_EF->SetState(eState::Paused);
+		}
+		{
+			Awaken_Elec_EF = new Awaken_Electric;
+			Awaken_Elec_EF->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Awaken_Elec_EF);
+			Awaken_Elec_EF->SetState(eState::Paused);
+		}
 
 
 		at->PlayAnimation(L"Long_hairIdle", true);
@@ -1052,15 +1085,42 @@ namespace jk
 					}
 				}
 				if (_LongHair_state == Layana_LongHair_State::AwakenJump)
-					_Awaken_Ready = true;
-				//if (_state == Layana_Sisters_State::Skill_A_Bullet_Ready)
-				//{
-				//	if (_Dir == 1)
-				//		at->PlayAnimation(L"Long_hairSkill_A_Bullet_Ready", true);
-				//	else
-				//		at->PlayAnimation(L"Long_hairSkill_A_Bullet_ReadyR", true);					
-				//	_SkillA_Landing = true;
-				//}
+				{
+					if (_Awaken_Ready == false)
+					{
+						if (_Awaken_Dir == 1)
+						{
+							Awaken_Rd_ElectricA->SetDirection(1);
+							Awaken_Rd_ElectricA->SetSwitch(true);
+							Transform* ElecA_Tr = Awaken_Rd_ElectricA->GetComponent<Transform>();
+							ElecA_Tr->SetPosition(Vector3(_pos.x, _pos.y-15, - 249));
+							Awaken_Rd_ElectricA->SetState(eState::Active);
+
+							Awaken_Rd_ElectricB->SetDirection(1);
+							Awaken_Rd_ElectricB->SetSwitch(true);
+							Transform* ElecB_Tr = Awaken_Rd_ElectricB->GetComponent<Transform>();
+							ElecB_Tr->SetPosition(Vector3(_pos.x+10, _pos.y-50, _pos.z - 1));
+							Awaken_Rd_ElectricB->SetState(eState::Active);
+						}
+						else
+						{					
+
+							Awaken_Rd_ElectricA->SetDirection(-1);
+							Awaken_Rd_ElectricA->SetSwitch(true);
+							Transform* ElecA_Tr = Awaken_Rd_ElectricA->GetComponent<Transform>();
+							ElecA_Tr->SetPosition(Vector3(_pos.x, _pos.y-15, -249));
+							Awaken_Rd_ElectricA->SetState(eState::Active);
+
+							Awaken_Rd_ElectricB->SetDirection(-1);
+							Awaken_Rd_ElectricB->SetSwitch(true);
+							Transform* ElecB_Tr = Awaken_Rd_ElectricB->GetComponent<Transform>();
+							ElecB_Tr->SetPosition(Vector3(_pos.x-10, _pos.y-50, _pos.z - 1));
+							Awaken_Rd_ElectricB->SetState(eState::Active);
+						}
+						_Awaken_Ready = true;
+					}
+				}
+
 
 
 				if (_state == Layana_Sisters_State::Intro_Fall)
@@ -2341,7 +2401,12 @@ namespace jk
 		if (_Awaken_Ready == true)
 		{
 			_LongHair_state = Layana_LongHair_State::AwakenReady;
-			at->PlayAnimation(L"Long_hairAwakenReadyR", true);
+
+			if (_Awaken_Dir == 1)			
+				at->PlayAnimation(L"Long_hairAwakenReady", true);			
+			else			
+				at->PlayAnimation(L"Long_hairAwakenReadyR", true);
+
 			_Awaken_Ready = false;
 		}
 	}
@@ -2365,7 +2430,13 @@ namespace jk
 			_Ground_check = false;			
 		}
 		else
+		{
+			if (_First_Die == false)
 			_pos.z = -100;
+			else
+				_pos.z = -200;
+		}
+			
 	}
 	void Layana_LongHair::BackGround_Enter()
 	{
@@ -2820,11 +2891,21 @@ namespace jk
 	{
 		if (_Awaken_Switch == false)
 		{
-			_pos = Vector3(_LongHairCreatepos.x + 200, _LongHairCreatepos.y - 50, -249);
+			if (ShortHairPos.x < _LongHairCreatepos.x)
+			{
+				_pos = Vector3(_LongHairCreatepos.x + 200, _LongHairCreatepos.y - 50, -200);
+				at->PlayAnimation(L"Long_hairAwakenJumpR", false);
+				_Awaken_Dir = -1;
+			}
+			else
+			{
+				_pos = Vector3(_LongHairCreatepos.x - 200, _LongHairCreatepos.y - 50, -200);
+				at->PlayAnimation(L"Long_hairAwakenJump", false);
+				_Awaken_Dir = 1;
+			}
 			tr->SetPosition(_pos);
 			_rigidbody->SetGround(false);
 			_Ground_check = false;
-			at->PlayAnimation(L"Long_hairAwakenJumpR", false);
 			_LongHair_state = Layana_LongHair_State::AwakenJump;
 			_Awaken_Switch = true;
 		}
@@ -2832,21 +2913,57 @@ namespace jk
 	void Layana_LongHair::Complete_Awaken_Ready()
 	{
 		_LongHair_state = Layana_LongHair_State::Awaken;
-		at->PlayAnimation(L"Long_hairAwakenR", true);
+		if (_Awaken_Dir == 1)
+		{
+			at->PlayAnimation(L"Long_hairAwaken", true);
+
+			Awaken_Smoke_EF->SetSwitch(true);
+			Awaken_Smoke_EF->SetDirection(1);
+			Awaken_Smoke_EF->SetState(eState::Active);
+			Transform* Smoke_EFtr = Awaken_Smoke_EF->GetComponent<Transform>();
+			Smoke_EFtr->SetPosition(Vector3(_pos.x, _pos.y-50, _pos.z - 1));
+
+
+			Awaken_Elec_EF->SetSwitch(true);
+			Awaken_Elec_EF->SetDirection(1);
+			Awaken_Elec_EF->SetState(eState::Active);
+			Transform* Elec_EFtr = Awaken_Elec_EF->GetComponent<Transform>();
+			Elec_EFtr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		}
+		else
+		{
+			at->PlayAnimation(L"Long_hairAwakenR", true);
+
+			Awaken_Smoke_EF->SetSwitch(true);
+			Awaken_Smoke_EF->SetDirection(-1);
+			Awaken_Smoke_EF->SetState(eState::Active);
+			Transform* Smoke_EFtr = Awaken_Smoke_EF->GetComponent<Transform>();
+			Smoke_EFtr->SetPosition(Vector3(_pos.x, _pos.y-50, _pos.z - 1));
+
+
+			Awaken_Elec_EF->SetSwitch(true);
+			Awaken_Elec_EF->SetDirection(1);
+			Awaken_Elec_EF->SetState(eState::Active);
+			Transform* Elec_EFtr = Awaken_Elec_EF->GetComponent<Transform>();
+			Elec_EFtr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		}
 	}
 	void Layana_LongHair::Complete_Awaken()
 	{
-		if (_Dir == 1)
-			at->PlayAnimation(L"Long_hairIdle", true);
-		else
-			at->PlayAnimation(L"Long_hairIdleR", true);
-		_LongHair_state = Layana_LongHair_State::Idle;
+		_Layana_change = true;
+		_LongHair_Awaken = true;
+		Awaken_Smoke_EF->SetState(eState::Paused);
+
+		if (_LongHair_Awaken == true && _Layana_change ==true)
+		{
+			SetLayana_List(LayanaSisters_List::Awaken_Darkmode, LayanaSisters_List::LonaHair, true, _Dir);
+			SetPos(_pos);
+		}
 	
-		// 나중에 각성보스 추가시 여기서 변경코드 넣으면됨
+		//// 나중에 각성보스 추가시 여기서 변경코드 넣으면됨
 		_time = 0.f;
 		_Attacktime = 0.f;
 		_Awaken_Switch = false;
-		_Awaken_Ready = false;
 	}
 
 

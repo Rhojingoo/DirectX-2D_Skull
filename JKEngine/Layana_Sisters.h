@@ -52,6 +52,13 @@ namespace jk
 			Sisters_Attack_D,		
 		};
 
+		enum class LayanaSisters_List
+		{
+			LonaHair,
+			ShortHair,
+			Awaken_Darkmode,
+			End,
+		};
 
 		void idle();
 
@@ -92,25 +99,34 @@ namespace jk
 		void AttackSwap();
 		int random(int a, int b);
 
+		static void SetLayana_List(LayanaSisters_List change, LayanaSisters_List current, bool ckeck, int direction)
+		{Layana_select = change, Layana_check = current, _Layana_change = ckeck, BossDir = direction;}
+
+		static void SetPos(Vector3 set) { AwakenDarkmode_Pos = set; }
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
 		static Vector3 GetPlayerPos() { return _playerpos; }		
 		float CalculateVelocity(float distance, float time) {return distance / time;}
 		
 	public:
 		static Layana_Sisters_State _state;	
+		static LayanaSisters_List Layana_select;
+		static LayanaSisters_List Layana_check;
 		static bool Joint_Operation;
 		static bool LongHair_Operation;
 		static bool LongHair_First_moving;
 		static bool ShortHair_Operation;
 		static bool ShortHair_First_moving;
+		static int BossDir;
 
 	public:
 		static Vector3 LongHairPos;
 		static Vector3 ShortHairPos;
+		static Vector3 AwakenDarkmode_Pos;
+		//static Vector3 BossPos;
 
 
 	private:
-		GameObject* _Gobjs[2];
+		GameObject* _Gobjs[3];
 		float _time = 0.f;
 		float _Attacktime = 0.f;
 
@@ -136,6 +152,8 @@ namespace jk
 		static bool _DarkLayana_Die;
 		static bool _ShortHair_Awaken;
 		static bool _LongHair_Awaken;
+		static bool _Layana_change;
+		static bool	_Awaken_Switch;
 
 
 	public:

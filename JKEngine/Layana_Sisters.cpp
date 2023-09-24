@@ -5,8 +5,14 @@
 namespace jk
 {
 	Layana_Sisters::Layana_Sisters_State Layana_Sisters::_state = Layana_Sisters_State();
+	Layana_Sisters::LayanaSisters_List Layana_Sisters::Layana_select = LayanaSisters_List();
+	Layana_Sisters::LayanaSisters_List Layana_Sisters::Layana_check = LayanaSisters_List();
+	int Layana_Sisters::BossDir = 1;
+	
 	Vector3 Layana_Sisters::LongHairPos = Vector3();;
 	Vector3 Layana_Sisters::ShortHairPos = Vector3();
+	Vector3 Layana_Sisters::AwakenDarkmode_Pos = Vector3();
+	
 
 	float Layana_Sisters::_Max_LongHair_Hp = 3000;
 	float Layana_Sisters::_Curren_LongHair_Hp = 3000;
@@ -25,7 +31,8 @@ namespace jk
 	bool Layana_Sisters::_DarkLayana_Die = false;
 	bool Layana_Sisters::_ShortHair_Awaken = false;
 	bool Layana_Sisters::_LongHair_Awaken = false;
-
+	bool Layana_Sisters::_Layana_change = false;
+	bool Layana_Sisters::_Awaken_Switch = false;
 
 
 	int Layana_Sisters::_SistersAttack_Number = 0;
@@ -109,13 +116,15 @@ namespace jk
 		_Gobjs[0]->Initialize();
 		_Gobjs[1] = new Layana_ShortHair;
 		_Gobjs[1]->Initialize();
-		//_Gobjs[2] = new Layana_Dark_Awaken;
-		//_Gobjs[2]->Initialize();
+		_Gobjs[2] = new Layana_Dark_Awaken;
+		_Gobjs[2]->Initialize();
+
 
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[0]);
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[1]);
-		//scene->AddGameObject(eLayerType::Boss, _Gobjs[2]);
+		scene->AddGameObject(eLayerType::Boss, _Gobjs[2]);
+		_Gobjs[2]->SetState(eState::Paused);
 
 
 		GameObject::Initialize();
@@ -124,6 +133,28 @@ namespace jk
 
 	void Layana_Sisters::Update()
 	{
+		if (_Layana_change == true)
+		{
+			if (Layana_select == LayanaSisters_List::Awaken_Darkmode)
+			{
+				if (Layana_check == LayanaSisters_List::LonaHair)
+				{
+					_Gobjs[(UINT)LayanaSisters_List::LonaHair]->SetState(eState::Paused);
+				}
+				else if (Layana_check == LayanaSisters_List::ShortHair)
+				{
+					_Gobjs[(UINT)LayanaSisters_List::ShortHair]->SetState(eState::Paused);
+				}
+
+				_Gobjs[(UINT)LayanaSisters_List::Awaken_Darkmode]->SetState(eState::Active);
+				Transform* tr = _Gobjs[(UINT)LayanaSisters_List::Awaken_Darkmode]->GetComponent<Transform>();
+				tr->SetPosition(AwakenDarkmode_Pos); Layana_Dark_Awaken::SetDirection(BossDir);
+			}
+			_Awaken_Switch = true;
+			_LongHair_Awaken = false;
+			_ShortHair_Awaken = false;
+			_Layana_change = false;
+		}
 
 		if(_First_Die == true)		
 			Joint_Operation = false;
@@ -546,7 +577,7 @@ namespace jk
 			_Sisters_Attack_On = false;
 			Joint_Operation = false;
 			int select = random(0, 1);
-			select = 0;
+			select = 1;
 
 			if (select == 0)
 				longhair_change();

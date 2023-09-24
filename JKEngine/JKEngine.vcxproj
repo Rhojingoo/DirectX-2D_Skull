@@ -164,6 +164,10 @@
     <ClInclude Include="Archer_Ultimate_Bye.h" />
     <ClInclude Include="Archer_Upward_Impact_Bullet.h" />
     <ClInclude Include="Archer_Utimate_Sign.h" />
+    <ClInclude Include="Awaken_Electric.h" />
+    <ClInclude Include="Awaken_Ready_ElectricA.h" />
+    <ClInclude Include="Awaken_Ready_ElectricB.h" />
+    <ClInclude Include="Awaken_SmokeEffect.h" />
     <ClInclude Include="BG.h" />
     <ClInclude Include="Blosome.h" />
     <ClInclude Include="Boss.h" />
@@ -361,6 +365,10 @@
     <ClCompile Include="Archer_Ultimate_Bye.cpp" />
     <ClCompile Include="Archer_Upward_Impact_Bullet.cpp" />
     <ClCompile Include="Archer_Utimate_Sign.cpp" />
+    <ClCompile Include="Awaken_Electric.cpp" />
+    <ClCompile Include="Awaken_Ready_ElectricA.cpp" />
+    <ClCompile Include="Awaken_Ready_ElectricB.cpp" />
+    <ClCompile Include="Awaken_SmokeEffect.cpp" />
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="Blosome.cpp" />
     <ClCompile Include="Boss.cpp" />

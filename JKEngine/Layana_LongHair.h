@@ -17,6 +17,11 @@
 #include "RisingPierce_Ready.h"
 #include "Golden_Meteor_Bullet.h"
 #include "Golden_Meteor_Effect_End.h"
+#include "Awaken_Ready_ElectricA.h"
+#include "Awaken_Ready_ElectricB.h"
+#include "Awaken_SmokeEffect.h"
+#include "Awaken_Electric.h"
+
 
 namespace jk
 {
@@ -262,6 +267,14 @@ namespace jk
 		Golden_Meteor_Effect_End* Golden_Meteor_Ef = nullptr;
 
 
+	private://체인지용 이펙트모음
+		Awaken_Ready_ElectricA* Awaken_Rd_ElectricA = nullptr;
+		Awaken_Ready_ElectricB* Awaken_Rd_ElectricB = nullptr;
+		Awaken_SmokeEffect* Awaken_Smoke_EF = nullptr;
+		Awaken_Electric* Awaken_Elec_EF = nullptr;
+
+
+
 	private:
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);
 		Vector3	_Playerpos = Vector3(0.f, 0.f, 0.f);
@@ -341,6 +354,7 @@ namespace jk
 
 		bool	_Awaken_Switch = false;
 		bool	_Awaken_Ready = false;
+		int		_Awaken_Dir = 1;
 
 		bool	_BackGround_Switch = false;
 		bool	_BackGround_Idle = false;

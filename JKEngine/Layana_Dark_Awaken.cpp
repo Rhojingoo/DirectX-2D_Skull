@@ -5,7 +5,7 @@ namespace jk
 {
 	bool Layana_Dark_Awaken::_AttackStageON = true;
 	Layana_Dark_Awaken::Layana_Dark_Awaken_State Layana_Dark_Awaken::_DarkMode_state = Layana_Dark_Awaken_State();
-
+	int Layana_Dark_Awaken::_Dir = 1;
 
 	Layana_Dark_Awaken::Layana_Dark_Awaken()
 	{
@@ -33,7 +33,7 @@ namespace jk
 		
 		
 		
-		at = AddComponent<Animator>();
+		at = AddComponent<Animator>(); 
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\AwakenEnd", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Backstep", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Dash", this);
@@ -114,7 +114,7 @@ namespace jk
 		
 		
 		//bind 부분
-		//at->CompleteEvent(L"Awaken_PowerAwakenEnd") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
+		at->CompleteEvent(L"Awaken_PowerAwakenEnd") = std::bind(&Layana_Dark_Awaken::Complete_AwakenEnd, this);
 		at->CompleteEvent(L"Awaken_PowerRush_Ready") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_1") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C1, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_2") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C2, this);
@@ -135,7 +135,7 @@ namespace jk
 		at->CompleteEvent(L"Awaken_PowerSkill_B_RisingPierce_End") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
 
 
-		//at->CompleteEvent(L"Awaken_PowerAwakenEndR") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
+		at->CompleteEvent(L"Awaken_PowerAwakenEndR") = std::bind(&Layana_Dark_Awaken::Complete_AwakenEnd, this);
 		at->CompleteEvent(L"Awaken_PowerRush_ReadyR") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_1R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C1, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_2R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C2, this);
@@ -414,7 +414,7 @@ namespace jk
 			_DimensionPierce_BulletEffect->SetState(eState::Paused);
 		}
 
-
+		
 		at->PlayAnimation(L"Awaken_PowerIdle", true);
 		GameObject::Initialize();
 	}
@@ -422,15 +422,28 @@ namespace jk
 	{
 		_Playerpos = Player::GetPlayer_Pos();
 		_velocity = _rigidbody->GetVelocity();
-		_Playerdistance.x = _Playerpos.x - _pos.x;
-		_Playerdistance.y = _Playerpos.y - _pos.y;
-		if (_Playerdistance.x >= 0)
-			_Dir = 1;
-		else
-			_Dir = -1;
 		_pos = tr->GetPosition();
 
-			
+		if (_Awaken_Switch == true) // 어웨이큰 On 만들어야함.★★★★★★★★★★★★★★★★★★★★
+		{
+			if (_Awaken_Ready == false)
+			{
+				Awaken_Combo();
+				_Awaken_Ready = true;
+			}
+		}
+		else
+		{
+			_Playerdistance.x = _Playerpos.x - _pos.x;
+			_Playerdistance.y = _Playerpos.y - _pos.y;
+			if (_Playerdistance.x >= 0)
+				_Dir = 1;
+			else
+				_Dir = -1;		
+		}
+
+
+
 
 		switch (_DarkMode_state)
 		{
@@ -755,9 +768,13 @@ namespace jk
 		//	_SelectAttack = 9;
 		//}
 
-		//if (_Intro_On == true) // 어웨이큰 On 만들어야함.★★★★★★★★★★★★★★★★★★★★
-		//	Awaken_Combo();
-		//else
+
+
+		if (_Awaken_Switch == true) // 어웨이큰 On 만들어야함.★★★★★★★★★★★★★★★★★★★★
+		{
+			//Awaken_Combo();
+		}
+		else
 		{
 			if (_time >= 3.0)
 			{
@@ -1645,9 +1662,6 @@ namespace jk
 	void Layana_Dark_Awaken::Complete_Telleport_Out()
 	{
 	}
-	void Layana_Dark_Awaken::Awaken_Combo()
-	{
-	}
 
 
 
@@ -1886,7 +1900,6 @@ namespace jk
 	}
 
 
-
 	void Layana_Dark_Awaken::Skill_C_Combo()
 	{
 		if (_Dir == 1)
@@ -1895,6 +1908,24 @@ namespace jk
 			at->PlayAnimation(L"Awaken_PowerSkill_C_DimensionPierceR", false);
 		_DarkMode_state = Layana_Dark_Awaken_State::Skill_C_DimensionPierce_Ready;
 		_SkillC_Switch = false;
+	}
+
+	void Layana_Dark_Awaken::Awaken_Combo()
+	{
+		_DarkMode_state = Layana_Dark_Awaken_State::Awaken_End;
+		if (_Dir == 1)
+			at->PlayAnimation(L"Awaken_PowerAwakenEnd", true);
+		else
+			at->PlayAnimation(L"Awaken_PowerAwakenEndR", true);
+	}
+	void Layana_Dark_Awaken::Complete_AwakenEnd()
+	{
+		if (_Dir == 1)
+			at->PlayAnimation(L"Awaken_PowerIdle", true);
+		else
+			at->PlayAnimation(L"Awaken_PowerIdleR", true);
+		_DarkMode_state = Layana_Dark_Awaken_State::Idle;
+		_Awaken_Switch = false;
 	}
 
 

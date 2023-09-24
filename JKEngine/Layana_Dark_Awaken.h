@@ -187,7 +187,7 @@ namespace jk
 		void Complete_Skill_A();
 		void Complete_Skill_B();
 
-
+		void Complete_AwakenEnd();
 
 	public:
 		void Rush_Combo();
@@ -199,7 +199,7 @@ namespace jk
 		void Skill_C_Combo();
 		void Awaken_Combo();
 
-
+		static void SetDirection(int set) { _Dir = set; }
 
 
 	public:
@@ -208,7 +208,7 @@ namespace jk
 
 	public:
 		static Layana_Dark_Awaken_State _DarkMode_state;
-
+		static int		_Dir;
 
 	private:
 		Animator* at = nullptr;
@@ -260,7 +260,7 @@ namespace jk
 
 
 	private:
-		int		_Dir = 1;							// 방향설정
+		//int		_Dir = 1;							// 방향설정
 		int		_BulletDir = 1;
 		float	_time = 0.f;						// 공격패턴시 사용중	
 		float	_Attacktime = 0.f;					// 공격패턴시 보조사용중
@@ -298,8 +298,7 @@ namespace jk
 
 		bool	_Intro_Switch = false;
 		bool	_Intro_Landing = false;
-
-		bool	_Awaken_Switch = false;
+			
 		bool	_Awaken_Ready = false;
 
 		bool	_BackGround_Switch = false;
