@@ -49,7 +49,7 @@ namespace jk
 	}
 	void Latana_Awake_Rush_Bullet::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.95f, 0.3f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}

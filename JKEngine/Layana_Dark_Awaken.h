@@ -17,7 +17,11 @@
 #include "Dark_DimensionPierce_Attack.h"
 #include "Dark_DimensionPierce_Sign.h"
 #include "Dark_DimensionPierce_BulletEffect.h"
+#include "HitBox_Layana.h"
 
+#include "Awaken_End_Electric.h"
+#include "Awaken_End_SmokeA.h"
+#include "Awaken_End_SmokeB2.h"
 
 namespace jk
 {
@@ -164,6 +168,9 @@ namespace jk
 		void Complete_Telleport_Out();
 
 		void Complete_RushReady();
+		void Complete_RushA();
+		void Complete_RushB();
+		void Complete_RushEnd();
 		void Complete_Rush_C1();
 		void Complete_Rush_C2();
 		void Complete_Rush_C3();
@@ -214,6 +221,9 @@ namespace jk
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
+		HitBox_Layana* Hit_Box = nullptr;
+		bool _HitBox_Attack_On = false;
+		int _HitBox_Dir = 1;
 		Transform* tr = nullptr;
 
 	private:
@@ -235,14 +245,14 @@ namespace jk
 		Dark_DimensionPierce_Sign* _DimensionPierce_Sign = nullptr;
 		Dark_DimensionPierce_BulletEffect* _DimensionPierce_BulletEffect = nullptr;
 
-
-
-	private:
-		//Rising_Pierce* Rising[19];
-		//Transform* Risingbullet_tr[19];
-		//RigidBody* risingbullet_rb[19];
+	
 
 	private:
+		Awaken_End_Electric* Awaken_End_ElecEF = nullptr;
+		Awaken_End_SmokeA* Awaken_End_SmA_EF = nullptr;
+		Awaken_End_SmokeB2* Awaken_End_SmB_EF = nullptr;
+
+private:
 		//Dimension_Pierce_BossEffect* Dimension_boss_effect = nullptr;
 		//Dimension_Pierce* Dimension_Bullet = nullptr;
 		//Dimension_Pierce_BulletEffect* Dimension_BulletEffect = nullptr;

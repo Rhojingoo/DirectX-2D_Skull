@@ -1777,6 +1777,35 @@ namespace jk
 			}
 		}
 		
+		if (Latana_Awake_Rush_Bullet* Bullet = dynamic_cast<Latana_Awake_Rush_Bullet*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
 
 		//Ground
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))

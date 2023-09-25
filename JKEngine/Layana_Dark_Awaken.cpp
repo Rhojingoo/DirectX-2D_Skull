@@ -111,11 +111,13 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_B_RisingPierce_End", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Skill_C_DimensionPierce", this,1);
 		
-		
-		
+
 		//bind 부분
 		at->CompleteEvent(L"Awaken_PowerAwakenEnd") = std::bind(&Layana_Dark_Awaken::Complete_AwakenEnd, this);
 		at->CompleteEvent(L"Awaken_PowerRush_Ready") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
+		at->CompleteEvent(L"Awaken_PowerRushA") = std::bind(&Layana_Dark_Awaken::Complete_RushA, this);
+		at->CompleteEvent(L"Awaken_PowerRushB") = std::bind(&Layana_Dark_Awaken::Complete_RushB, this);
+		at->CompleteEvent(L"Awaken_PowerRush_End") = std::bind(&Layana_Dark_Awaken::Complete_RushEnd, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_1") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C1, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_2") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C2, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_3") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C3, this);
@@ -123,7 +125,7 @@ namespace jk
 		at->CompleteEvent(L"Awaken_PowerRushC_5") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C5, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_6") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C6, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_7") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C7, this);
-		at->CompleteEvent(L"Awaken_PowerRush_End") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
+	
 		at->CompleteEvent(L"Awaken_PowerMeteor_Cross01_Ready") = std::bind(&Layana_Dark_Awaken::Complete_CrossJump, this);
 		at->CompleteEvent(L"Awaken_PowerMeteor_Cross03_End") = std::bind(&Layana_Dark_Awaken::Complete_CrossEnd, this);
 		at->CompleteEvent(L"Awaken_PowerMeteor_Ground04_End") = std::bind(&Layana_Dark_Awaken::Complete_GroundEnd, this);
@@ -137,6 +139,9 @@ namespace jk
 
 		at->CompleteEvent(L"Awaken_PowerAwakenEndR") = std::bind(&Layana_Dark_Awaken::Complete_AwakenEnd, this);
 		at->CompleteEvent(L"Awaken_PowerRush_ReadyR") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
+		at->CompleteEvent(L"Awaken_PowerRushAR") = std::bind(&Layana_Dark_Awaken::Complete_RushA, this);
+		at->CompleteEvent(L"Awaken_PowerRushBR") = std::bind(&Layana_Dark_Awaken::Complete_RushB, this);
+		at->CompleteEvent(L"Awaken_PowerRush_EndR") = std::bind(&Layana_Dark_Awaken::Complete_RushEnd, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_1R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C1, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_2R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C2, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_3R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C3, this);
@@ -144,7 +149,7 @@ namespace jk
 		at->CompleteEvent(L"Awaken_PowerRushC_5R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C5, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_6R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C6, this);
 		at->CompleteEvent(L"Awaken_PowerRushC_7R") = std::bind(&Layana_Dark_Awaken::Complete_Rush_C7, this);
-		at->CompleteEvent(L"Awaken_PowerRush_EndR") = std::bind(&Layana_Dark_Awaken::Complete_RushReady, this);
+		
 		at->CompleteEvent(L"Awaken_PowerMeteor_Cross01_ReadyR") = std::bind(&Layana_Dark_Awaken::Complete_CrossJump, this);
 		at->CompleteEvent(L"Awaken_PowerMeteor_Cross03_EndR") = std::bind(&Layana_Dark_Awaken::Complete_CrossEnd, this);
 		at->CompleteEvent(L"Awaken_PowerMeteor_Ground04_EndR") = std::bind(&Layana_Dark_Awaken::Complete_GroundEnd, this);
@@ -157,7 +162,15 @@ namespace jk
 		at->CompleteEvent(L"Awaken_PowerSkill_C_DimensionPierce") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
 		at->CompleteEvent(L"Awaken_PowerSkill_C_DimensionPierceR") = std::bind(&Layana_Dark_Awaken::Complete_Skill_B, this);
 
-		
+
+		{
+			Hit_Box = new HitBox_Layana();
+			Hit_Box->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetState(eState::Paused);
+		}
 
 		for (int i = 0; i < 7; i++)
 		{
@@ -391,8 +404,7 @@ namespace jk
 			Transform* boss_effect = _DimensionPierce_Bosseffect->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 			_DimensionPierce_Bosseffect->SetState(eState::Paused);
-		}
-		
+		}		
 		
 		{
 			_DimensionPierce_Sign = new  Dark_DimensionPierce_Sign;
@@ -412,6 +424,35 @@ namespace jk
 			Transform* boss_effect = _DimensionPierce_BulletEffect->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 			_DimensionPierce_BulletEffect->SetState(eState::Paused);
+		}
+
+		//어웨이큰
+		{
+			Awaken_End_ElecEF = new  Awaken_End_Electric;
+			Awaken_End_ElecEF->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Awaken_End_ElecEF);
+			Transform* boss_effect = Awaken_End_ElecEF->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			Awaken_End_ElecEF->SetState(eState::Paused);
+		}
+		{
+			Awaken_End_SmA_EF = new  Awaken_End_SmokeA;
+			Awaken_End_SmA_EF->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Awaken_End_SmA_EF);
+			Transform* boss_effect = Awaken_End_SmA_EF->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			Awaken_End_SmA_EF->SetState(eState::Paused);
+		}
+		{
+			Awaken_End_SmB_EF = new  Awaken_End_SmokeB2;
+			Awaken_End_SmB_EF->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Awaken_End_SmB_EF);
+			Transform* boss_effect = Awaken_End_SmB_EF->GetComponent<Transform>();
+			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+			Awaken_End_SmB_EF->SetState(eState::Paused);
 		}
 
 		
@@ -441,9 +482,6 @@ namespace jk
 			else
 				_Dir = -1;		
 		}
-
-
-
 
 		switch (_DarkMode_state)
 		{
@@ -640,12 +678,41 @@ namespace jk
 			break;
 		}		
 
-
 		tr->SetPosition(_pos);
 		GameObject::Update();
 	}
 	void Layana_Dark_Awaken::LateUpdate()
 	{
+		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
+		if (_HitBox_Attack_On == true)
+		{
+			if (_DarkMode_state == Layana_Dark_Awaken_State::RushA)
+			{
+				Hit_Box->SetSize(Vector2(55.f, 5.f));
+				Hit_Box->SetState(eState::Active);
+
+				if (_HitBox_Dir == 1)	//오른쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x + 90, _pos.y - 25, _pos.z));
+				else					//왼쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x - 90, _pos.y - 25, _pos.z));
+			}
+			else if (_DarkMode_state == Layana_Dark_Awaken_State::RushB)
+			{
+				Hit_Box->SetSize(Vector2(55.f, 5.f));
+				Hit_Box->SetState(eState::Active);
+
+				if (_HitBox_Dir == 1)	//오른쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x + 90, _pos.y - 35, _pos.z));
+				else					//왼쪽으로 공격할때의 기준				
+					HitBox_TR->SetPosition(Vector3(_pos.x - 90, _pos.y - 35, _pos.z));
+			}
+		}
+		else
+		{
+			HitBox_TR->SetRotationZ(0);
+			Hit_Box->SetState(eState::Paused);
+		}
+
 		_collider->SetSize(Vector2(0.1f, 0.55f));
 		_collider->SetCenter(Vector2(0.0f, -20.5f));
 		GameObject::LateUpdate();
@@ -761,13 +828,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_SelectAttack = random(0, 5);
-		//_SelectAttack = 4;
-
-		//if (Input::GetKeyDown(eKeyCode::K))
-		//{
-		//	_SelectAttack = 9;
-		//}
-
+		_SelectAttack = 1;
 
 
 		if (_Awaken_Switch == true) // 어웨이큰 On 만들어야함.★★★★★★★★★★★★★★★★★★★★
@@ -813,12 +874,12 @@ namespace jk
 			{
 				if (_Dir == 1)
 				{
-					_pos.x = _Playerpos.x - 15;
+					_pos.x = _Playerpos.x - 65;
 					_teleport_Rush = false;
 				}
 				else
 				{
-					_pos.x = _Playerpos.x + 15;					
+					_pos.x = _Playerpos.x + 65;					
 					_teleport_Rush = false;
 				}
 				_DarkMode_state = Layana_Dark_Awaken_State::Telleport_Out;
@@ -916,7 +977,7 @@ namespace jk
 
 	void Layana_Dark_Awaken::Dash()
 	{
-		if (!(_Playerdistance.x <= 30 && _Playerdistance.x >= -30))
+		if (!(_Playerdistance.x <= 80 && _Playerdistance.x >= -80))
 		{
 			if (_Dir == 1)
 				_pos.x += 450.f * Time::DeltaTime();
@@ -1011,17 +1072,7 @@ namespace jk
 	}
 	void Layana_Dark_Awaken::Rush_A()
 	{
-		_Attacktime += Time::DeltaTime();
-		if (_Attacktime > 0.5)
-		{
-			_DarkMode_state = Layana_Dark_Awaken_State::Rush_End;
-			if (_Dir == 1)
-				at->PlayAnimation(L"Awaken_PowerRush_End", true);
-			else
-				at->PlayAnimation(L"Awaken_PowerRush_EndR", true);
-			_Rushnumber = 1;
-			_Attacktime = 0;
-		}		
+	
 	}
 	void Layana_Dark_Awaken::Rush_B()
 	{
@@ -1216,13 +1267,6 @@ namespace jk
 	}
 	void Layana_Dark_Awaken::Rush_End()
 	{
-		if (_Rushnumber >= 3)
-		{
-			_RushSwitch = false;
-			_DarkMode_state = Layana_Dark_Awaken_State::Rush_Ready;
-		}
-		else
-			_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
 	}
 
 
@@ -1668,8 +1712,8 @@ namespace jk
 	void Layana_Dark_Awaken::Rush_Combo()
 	{
 		_RushSwitch = true;
-		_Rushnumber = 0;
-		if (_Playerdistance.x <= 30 && _Playerdistance.x >= -30)
+		_Rushnumber = 0;//Awaken_PowerDash
+		if (_Playerdistance.x <= 65 && _Playerdistance.x >= -65)
 		{
 			_DarkMode_state = Layana_Dark_Awaken_State::Rush_Ready;
 			if (_Dir == 1)
@@ -1681,7 +1725,7 @@ namespace jk
 		{
 			_teleport_Rush = true;
 			_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
-		}
+		}	
 	}
 	void Layana_Dark_Awaken::Complete_RushReady()
 	{
@@ -1689,22 +1733,36 @@ namespace jk
 		{
 			_DarkMode_state = Layana_Dark_Awaken_State::RushA;
 			if (_Dir == 1)
-				at->PlayAnimation(L"Awaken_PowerRushA", false);
+			{
+				_HitBox_Attack_On = true;
+				_HitBox_Dir = 1;
+				_BulletDir = 1;
+				at->PlayAnimation(L"Awaken_PowerRushA", true);
+			}
 			else
-				at->PlayAnimation(L"Awaken_PowerRushAR", false);
+			{
+				_HitBox_Attack_On = true;
+				_HitBox_Dir = -1;
+				_BulletDir = -1;
+				at->PlayAnimation(L"Awaken_PowerRushAR", true);
+			}
 		}
 		if (_Rushnumber == 1)
 		{
 			_DarkMode_state = Layana_Dark_Awaken_State::RushB;
 			if (_Dir == 1)
 			{
+				_HitBox_Attack_On = true;
+				_HitBox_Dir = 1;
 				_BulletDir = 1;
-				at->PlayAnimation(L"Awaken_PowerRushB", false);
+				at->PlayAnimation(L"Awaken_PowerRushB", true);
 			}
 			else
 			{
+				_HitBox_Attack_On = true;
+				_HitBox_Dir = -1;
 				_BulletDir = -1;
-				at->PlayAnimation(L"Awaken_PowerRushBR", false);
+				at->PlayAnimation(L"Awaken_PowerRushBR", true);
 			}
 		}
 		if (_Rushnumber == 2)
@@ -1715,6 +1773,61 @@ namespace jk
 			else
 				at->PlayAnimation(L"Awaken_PowerRushC_1R", true);
 		}
+	}
+	void Layana_Dark_Awaken::Complete_RushA()
+	{
+		_HitBox_Attack_On = false;
+		{
+			_DarkMode_state = Layana_Dark_Awaken_State::Rush_End;
+			if (_BulletDir == 1)
+				at->PlayAnimation(L"Awaken_PowerRush_End", true);
+			else
+				at->PlayAnimation(L"Awaken_PowerRush_EndR", true);
+			_Rushnumber = 1;			
+		}
+	}
+	void Layana_Dark_Awaken::Complete_RushB()
+	{
+		_HitBox_Attack_On = false;
+		{
+			_DarkMode_state = Layana_Dark_Awaken_State::Rush_End;
+			if (_BulletDir == 1)
+				at->PlayAnimation(L"Awaken_PowerRush_End", true);
+			else
+				at->PlayAnimation(L"Awaken_PowerRush_EndR", true);
+			_Rushnumber = 2;
+		}
+	}
+	void Layana_Dark_Awaken::Complete_RushEnd()
+	{
+		if (_Rushnumber == 1)
+		{
+			if (_Playerdistance.x <= 65 && _Playerdistance.x >= -65)
+			{
+				_DarkMode_state = Layana_Dark_Awaken_State::Rush_Ready;
+				if (_Dir == 1)
+					at->PlayAnimation(L"Awaken_PowerRush_Ready", true);
+				else
+					at->PlayAnimation(L"Awaken_PowerRush_ReadyR", true);
+			}
+			else
+			{
+				_teleport_Rush = true;
+				_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
+				if (_Dir == 1)
+					at->PlayAnimation(L"Awaken_PowerIdle", true);
+				else
+					at->PlayAnimation(L"Awaken_PowerIdleR", true);
+			}
+		}
+		if (_Rushnumber == 2)
+		{
+			_DarkMode_state = Layana_Dark_Awaken_State::Rush_Ready;
+			if (_BulletDir == 1)
+				at->PlayAnimation(L"Awaken_PowerRush_Ready", true);
+			else
+				at->PlayAnimation(L"Awaken_PowerRush_ReadyR", true);
+		}
 		if (_Rushnumber >= 3)
 		{
 			_DarkMode_state = Layana_Dark_Awaken_State::Idle;
@@ -1724,8 +1837,9 @@ namespace jk
 				at->PlayAnimation(L"Awaken_PowerIdleR", true);
 			_time = 0;
 			_Rushnumber = 0;
-		}	
+		}
 	}
+
 	void Layana_Dark_Awaken::Complete_Rush_C1()
 	{
 		if (_BulletDir == 1)
@@ -1914,9 +2028,52 @@ namespace jk
 	{
 		_DarkMode_state = Layana_Dark_Awaken_State::Awaken_End;
 		if (_Dir == 1)
+		{
+			Awaken_End_ElecEF->SetSwitch(true);
+			Awaken_End_ElecEF->SetDirection(1);
+			Awaken_End_ElecEF->SetState(eState::Active);
+			Transform* Ellect_EFtr = Awaken_End_ElecEF->GetComponent<Transform>();
+			Ellect_EFtr->SetPosition(Vector3(_pos.x-20, _pos.y+80, _pos.z - 1));
+
+			Awaken_End_SmA_EF->SetSwitch(true);
+			Awaken_End_SmA_EF->SetDirection(1);
+			Awaken_End_SmA_EF->SetState(eState::Active);
+			Transform* Ellect_SMAtr = Awaken_End_SmA_EF->GetComponent<Transform>();
+			Ellect_SMAtr->SetPosition(Vector3(_pos.x, _pos.y-40, _pos.z - 1));
+
+
+			Awaken_End_SmB_EF->SetSwitch(true);
+			Awaken_End_SmB_EF->SetDirection(1);
+			Awaken_End_SmB_EF->SetState(eState::Active);
+			Transform* Ellect_SMBtr = Awaken_End_SmB_EF->GetComponent<Transform>();
+			Ellect_SMBtr->SetPosition(Vector3(_pos.x, _pos.y - 60, _pos.z - 1));
+
 			at->PlayAnimation(L"Awaken_PowerAwakenEnd", true);
+		}
 		else
+		{
+			Awaken_End_ElecEF->SetSwitch(true);
+			Awaken_End_ElecEF->SetDirection(-1);
+			Awaken_End_ElecEF->SetState(eState::Active);
+			Transform* Ellect_EFtr = Awaken_End_ElecEF->GetComponent<Transform>();
+			Ellect_EFtr->SetPosition(Vector3(_pos.x-20, _pos.y+80, _pos.z - 1));
+
+
+			Awaken_End_SmA_EF->SetSwitch(true);
+			Awaken_End_SmA_EF->SetDirection(-1);
+			Awaken_End_SmA_EF->SetState(eState::Active);
+			Transform* Ellect_SMAtr = Awaken_End_SmA_EF->GetComponent<Transform>();
+			Ellect_SMAtr->SetPosition(Vector3(_pos.x, _pos.y - 40, _pos.z - 1));
+
+
+			Awaken_End_SmB_EF->SetSwitch(true);
+			Awaken_End_SmB_EF->SetDirection(-1);
+			Awaken_End_SmB_EF->SetState(eState::Active);
+			Transform* Ellect_SMBtr = Awaken_End_SmB_EF->GetComponent<Transform>();
+			Ellect_SMBtr->SetPosition(Vector3(_pos.x, _pos.y - 60, _pos.z - 1));
+
 			at->PlayAnimation(L"Awaken_PowerAwakenEndR", true);
+		}
 	}
 	void Layana_Dark_Awaken::Complete_AwakenEnd()
 	{

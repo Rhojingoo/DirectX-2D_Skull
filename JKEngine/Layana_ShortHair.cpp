@@ -2983,6 +2983,26 @@ namespace jk
 	{
 		_Layana_change = true;
 		_ShortHair_Awaken = true;
+		Awaken_Smoke_EF->SetState(eState::Paused);
+
+		if (_ChangeFadein == false)
+		{
+			Alpha_Blend* _Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+			_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
+			_Alpha->FadeIn_White_Transparent();
+			_Fadecheck = true;
+			_ChangeFadein = true;
+		}
+		if (_Fadecheck == true)
+		{
+			_Fadetime += 2.75 * Time::DeltaTime();
+			if (_Fadetime > 3)
+			{
+				_Fadecheck = false;
+				_Fadetime = 0;
+			}
+		}
+
 		if (_ShortHair_Awaken == true && _Layana_change == true)
 		{
 			SetLayana_List(LayanaSisters_List::Awaken_Darkmode, LayanaSisters_List::ShortHair, true, _Dir);

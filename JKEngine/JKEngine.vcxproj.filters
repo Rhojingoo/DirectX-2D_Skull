@@ -130,38 +130,29 @@
     <ClInclude Include="Yggdrsil_Energy_Corps.h">
       <Filter>Game_ob\Boss\Yggdrasil\_YggdrasilBullet</Filter>
     </ClInclude>
-    <ClInclude Include="Layana_Sisters.h">
-      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
-    </ClInclude>
-    <ClInclude Include="Layana_LongHair.h">
-      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
-    </ClInclude>
-    <ClInclude Include="Layana_ShortHair.h">
-      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
-    </ClInclude>
     <ClInclude Include="Homing_Pierce_LongHair.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Rising_Pierce.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Dimension_Pierce_BossEffect.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClInclude>
     <ClInclude Include="Dimension_Pierce.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Dimension_Pierce_BulletEffect.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClInclude>
     <ClInclude Include="Homing_Pierce_ShortHair.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="TwinMeteor_Effect.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClInclude>
     <ClInclude Include="TwinMeteor_Boss.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClInclude>
     <ClInclude Include="Knight_male_EnergeBall.h">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
@@ -292,56 +283,53 @@
     <ClInclude Include="Monster_Blossomeenct_Attack.h">
       <Filter>Game_ob\Monster\Monster_Blossom\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Layana_Dark_Awaken.h">
-      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
-    </ClInclude>
     <ClInclude Include="Layana_Awken_Rush_Sign.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Latana_Awake_Rush_Bullet.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Awaken_Meteoreffect.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Awaken_Ground_Sign.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Awaken_Ground_Thunder_Sign.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Awake_Ground_DashSmoke.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Ground_Thunder.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Awaken_GoldenMeteor_Effect.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Awaken_Meteor_Electric.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Awaken_Meteor_Projectile.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Dark_HomingPierce.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Dark_HomingPierce_Effect.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Awaken_Homing_Attac.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Dark_DimensionPierce_Attack.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Dark_DimensionPierce_Sign.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Dark_DimensionPierce_BulletEffect.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Ground_and_Wall.h">
       <Filter>Game_ob\BG\Tile\Image_Ground</Filter>
@@ -516,19 +504,19 @@
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrasil_Body.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss\Base</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrasil_Chin.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss\Base</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrasil_Face.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss\Base</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrasil_Hand_Left.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss\Base</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrasil_Hand_Right.h">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss\Base</Filter>
     </ClInclude>
     <ClInclude Include="Yggdrasil_FaceDead_Effect.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
@@ -548,47 +536,68 @@
     <ClInclude Include="Stage1_BossDoor.h">
       <Filter>Game_ob\Door</Filter>
     </ClInclude>
-    <ClInclude Include="Yggdrasil.h">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClInclude>
     <ClInclude Include="HitBox_Layana.h">
       <Filter>Game_ob\HitBox\Boss</Filter>
     </ClInclude>
     <ClInclude Include="Intro_Somke.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Somke</Filter>
     </ClInclude>
     <ClInclude Include="Homing_Impact.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClInclude>
     <ClInclude Include="Intro_Aura_Layana.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Dash_Smoke.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Somke</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Meteor_GR_Smoke.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Somke</Filter>
     </ClInclude>
     <ClInclude Include="RisingPierce_Ready.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClInclude>
     <ClInclude Include="Golden_Meteor_Bullet.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Golden_Meteor_Effect_End.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClInclude>
     <ClInclude Include="Awaken_Ready_ElectricA.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
     </ClInclude>
     <ClInclude Include="Awaken_Ready_ElectricB.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
     </ClInclude>
     <ClInclude Include="Awaken_SmokeEffect.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
     </ClInclude>
     <ClInclude Include="Awaken_Electric.h">
-      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Awaken_End_SmokeB2.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Awaken_End_Electric.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Awaken_End_SmokeA.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Sisters.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Stage2_Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_Dark_Awaken.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Stage2_Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_LongHair.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Stage2_Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Layana_ShortHair.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Stage2_Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Yggdrasil.h">
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -715,38 +724,29 @@
     <ClCompile Include="Yggdrsil_Energy_Corps.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\_YggdrasilBullet</Filter>
     </ClCompile>
-    <ClCompile Include="Layana_LongHair.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
-    </ClCompile>
-    <ClCompile Include="Layana_ShortHair.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
-    </ClCompile>
-    <ClCompile Include="Layana_Sisters.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
-    </ClCompile>
     <ClCompile Include="Homing_Pierce_LongHair.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Rising_Pierce.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Dimension_Pierce_BossEffect.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClCompile>
     <ClCompile Include="Dimension_Pierce.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Dimension_Pierce_BulletEffect.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClCompile>
     <ClCompile Include="Homing_Pierce_ShortHair.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="TwinMeteor_Boss.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClCompile>
     <ClCompile Include="TwinMeteor_Effect.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClCompile>
     <ClCompile Include="Knight_male_EnergeBall.cpp">
       <Filter>Game_ob\MiniBoss\Knight_male\Bullet</Filter>
@@ -877,56 +877,53 @@
     <ClCompile Include="Monster_Blossomeenct_Attack.cpp">
       <Filter>Game_ob\Monster\Monster_Blossom\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Layana_Dark_Awaken.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
-    </ClCompile>
     <ClCompile Include="Layana_Awken_Rush_Sign.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Latana_Awake_Rush_Bullet.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awaken_Meteoreffect.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awaken_Ground_Sign.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awaken_Ground_Thunder_Sign.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awake_Ground_DashSmoke.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Ground_Thunder.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awaken_GoldenMeteor_Effect.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awaken_Meteor_Electric.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awaken_Meteor_Projectile.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Dark_HomingPierce.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Dark_HomingPierce_Effect.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awaken_Homing_Attac.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Dark_DimensionPierce_Attack.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Dark_DimensionPierce_Sign.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Effect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Dark_DimensionPierce_BulletEffect.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Awaken_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Ground_and_Wall.cpp">
       <Filter>Game_ob\BG\Tile\Image_Ground</Filter>
@@ -1104,19 +1101,19 @@
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_Body.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss\Base</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_Chin.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss\Base</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_Face.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss\Base</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_Hand_Left.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss\Base</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_Hand_Right.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil\Base</Filter>
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss\Base</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_FaceDead_Effect.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Dead_Effect</Filter>
@@ -1136,47 +1133,68 @@
     <ClCompile Include="Stage1_BossDoor.cpp">
       <Filter>Game_ob\Door</Filter>
     </ClCompile>
-    <ClCompile Include="Yggdrasil.cpp">
-      <Filter>Game_ob\Boss\Yggdrasil</Filter>
-    </ClCompile>
     <ClCompile Include="HitBox_Layana.cpp">
       <Filter>Game_ob\HitBox\Boss</Filter>
     </ClCompile>
     <ClCompile Include="Intro_Somke.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Somke</Filter>
     </ClCompile>
     <ClCompile Include="Homing_Impact.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClCompile>
     <ClCompile Include="Intro_Aura_Layana.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Dash_Smoke.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Somke</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Meteor_GR_Smoke.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Somke</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Somke</Filter>
     </ClCompile>
     <ClCompile Include="RisingPierce_Ready.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClCompile>
     <ClCompile Include="Golden_Meteor_Bullet.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Bullet</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Golden_Meteor_Effect_End.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\Layana_Efeect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect</Filter>
     </ClCompile>
     <ClCompile Include="Awaken_Ready_ElectricA.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
     </ClCompile>
     <ClCompile Include="Awaken_Ready_ElectricB.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
     </ClCompile>
     <ClCompile Include="Awaken_SmokeEffect.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
     </ClCompile>
     <ClCompile Include="Awaken_Electric.cpp">
-      <Filter>Game_ob\Boss\Layana_Sisters\ChangeEffect</Filter>
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Awaken_End_Electric.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Awaken_End_SmokeA.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Awaken_End_SmokeB2.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Dark_Awaken.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Stage2_Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_LongHair.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Stage2_Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_ShortHair.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Stage2_Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_Sisters.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Stage2_Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Yggdrasil.cpp">
+      <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1288,12 +1306,6 @@
     <Filter Include="Game_ob\Boss\Layana_Sisters">
       <UniqueIdentifier>{b278c1ab-d77d-4228-adf2-25fc5790c541}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\Boss\Layana_Sisters\Layana_Efeect">
-      <UniqueIdentifier>{6b402006-6ee9-471a-a9f1-db88d72f624a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Boss\Layana_Sisters\Layana_Bullet">
-      <UniqueIdentifier>{2e3c30ec-81b4-430f-a41a-8d6e0d286d94}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game_ob\HitBox">
       <UniqueIdentifier>{8f10eb03-3a2e-4487-b072-cf659e2fb54c}</UniqueIdentifier>
     </Filter>
@@ -1326,12 +1338,6 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Monster_Blossom\Bullet">
       <UniqueIdentifier>{786a06a5-ccec-4fc1-ae1d-d4c0005a307c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Boss\Layana_Sisters\Awaken_Bullet">
-      <UniqueIdentifier>{fcc2ff5e-345c-4880-b700-b0cc24f1f24d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Boss\Layana_Sisters\Awaken_Effect">
-      <UniqueIdentifier>{b0c21f3d-63ad-40ab-bb76-4ca54f3971d6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game_ob\BG\Tile\Image_Ground">
       <UniqueIdentifier>{4bf91cc4-5e00-444c-98f0-89badab69c93}</UniqueIdentifier>
@@ -1444,14 +1450,41 @@
     <Filter Include="Game_ob\Boss\Yggdrasil\Effect\Attack_Effect">
       <UniqueIdentifier>{c578556d-368f-45fb-a0ed-f85b37364d00}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\Boss\Yggdrasil\Base">
-      <UniqueIdentifier>{b2b83813-6007-4e62-98df-16ddac787cb9}</UniqueIdentifier>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Effect">
+      <UniqueIdentifier>{91a2b40f-f647-4044-8021-63377c3081ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\Boss\Layana_Sisters\Somke">
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect">
+      <UniqueIdentifier>{de977dff-e448-4d51-a742-5aa85dce64a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Effect\Layana_Effeect">
+      <UniqueIdentifier>{6b402006-6ee9-471a-a9f1-db88d72f624a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Effect\Somke">
       <UniqueIdentifier>{b6b762ad-c3ea-4853-95fe-c198cac2cb2e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\Boss\Layana_Sisters\ChangeEffect">
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Effect\ChangeEffect">
       <UniqueIdentifier>{3f14251a-7a35-459b-872a-014970515e78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect">
+      <UniqueIdentifier>{b0c21f3d-63ad-40ab-bb76-4ca54f3971d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\BULLET">
+      <UniqueIdentifier>{5d4b7f54-3c6c-43c2-bca6-3dc4fb6f410e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\BULLET\Awaken_Bullet">
+      <UniqueIdentifier>{fcc2ff5e-345c-4880-b700-b0cc24f1f24d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\BULLET\Layana_Bullet">
+      <UniqueIdentifier>{2e3c30ec-81b4-430f-a41a-8d6e0d286d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Yggdrasil\Stage1_Boss">
+      <UniqueIdentifier>{7c3ff759-e089-4f46-8079-7ae073e84165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Yggdrasil\Stage1_Boss\Base">
+      <UniqueIdentifier>{b2b83813-6007-4e62-98df-16ddac787cb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Boss\Layana_Sisters\Stage2_Boss">
+      <UniqueIdentifier>{c3ae0253-7769-4c33-b686-05186d60963b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -272,7 +272,9 @@ namespace jk
 		Awaken_Ready_ElectricB* Awaken_Rd_ElectricB = nullptr;
 		Awaken_SmokeEffect* Awaken_Smoke_EF = nullptr;
 		Awaken_Electric* Awaken_Elec_EF = nullptr;
-
+		bool _ChangeFadein = false;
+		bool _Fadecheck = false;
+		float _Fadetime = 0.f;
 
 
 	private:
