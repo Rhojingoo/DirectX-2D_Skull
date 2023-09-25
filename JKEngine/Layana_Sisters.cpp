@@ -25,6 +25,14 @@ namespace jk
 	float Layana_Sisters::_MaxHp_ShortHair_scale = 0;
 	float Layana_Sisters::_CurrenHp_ShortHair_scale = 0;
 
+
+	float Layana_Sisters::_Max_Dark_Awaken_Hp = 4500;
+	float Layana_Sisters::_Curren_Dark_Awaken_Hp = 0;
+	float Layana_Sisters::_MaxHp_Dark_Awaken_scale = 0;
+	float Layana_Sisters::_CurrenHp_Dark_Awaken_scale = 0;
+
+
+
 	bool Layana_Sisters::_First_Die = false;
 	bool Layana_Sisters::_LongHair_Die = false;
 	bool Layana_Sisters::_ShortHair_Die = false;

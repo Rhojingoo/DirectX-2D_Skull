@@ -49,7 +49,7 @@ namespace jk
 	}
 	void Layana_Ground_Thunder::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.25f, 0.95f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}

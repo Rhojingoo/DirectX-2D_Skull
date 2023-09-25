@@ -19,7 +19,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce_Effect_Attac", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce_Effect_Attac", this, 0, 0.1, Vector2(0.06f, 0.0f));
 
 		at->CompleteEvent(L"BulletDark_HomingPierce_Effect_Attac") = std::bind(&Layana_Awaken_Homing_Attac::Compelete_Pierce, this);
 
@@ -32,7 +32,7 @@ namespace jk
 	}
 	void Layana_Awaken_Homing_Attac::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.9f, 0.2f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}

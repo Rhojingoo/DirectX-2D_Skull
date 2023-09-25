@@ -20,7 +20,8 @@ namespace jk
 
 		at = AddComponent<Animator>();
 		//미사일 생성
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\Dark_HomingPierce_Effect_Sign", this);
+	
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\Dark_HomingPierce_Effect_Sign", this,0, 0.1,Vector2(0.35f,0.f));
 
 		at->PlayAnimation(L"EffectDark_HomingPierce_Effect_Sign", false);
 		GameObject::Initialize();

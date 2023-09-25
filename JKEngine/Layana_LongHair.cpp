@@ -3074,7 +3074,6 @@ namespace jk
 			Homing[_HomingNumber]->SetDirection(1);
 			attackpoint = Vector2(_Playerpos.x, _Playerpos.y);
 			rotation = Vector2(set->GetPositionX(), set->GetPositionY());
-
 		}
 		else
 		{

@@ -63,7 +63,7 @@ namespace jk
 			Tile_map->SetName(L"Layana_Stage");
 			Transform* tr = Tile_map->GetComponent<Transform>();
 			Collider2D* cd = Tile_map->AddComponent<Collider2D>();
-			tr->SetPositionZ(-200.f);
+			tr->SetPositionZ(-190.f);
 			tr->AddPositionY(-185.f);
 			tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
 			TileMap::TileMap_Setting(Tile_map, L"Stage2_Boss", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Layana_Sisters_BossMaP.xml");

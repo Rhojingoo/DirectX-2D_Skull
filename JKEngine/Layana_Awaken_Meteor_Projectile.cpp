@@ -59,7 +59,7 @@ namespace jk
 	}
 	void Layana_Awaken_Meteor_Projectile::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.35f, 0.9f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}

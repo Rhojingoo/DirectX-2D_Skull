@@ -18,10 +18,24 @@
 #include "Dark_DimensionPierce_Sign.h"
 #include "Dark_DimensionPierce_BulletEffect.h"
 #include "HitBox_Layana.h"
+#include "Layana_AfterImage.h"
 
 #include "Awaken_End_Electric.h"
 #include "Awaken_End_SmokeA.h"
 #include "Awaken_End_SmokeB2.h"
+
+
+
+#include "Death_IntroEffect.h"
+#include "Death_Effect_First.h"
+#include "Death_Effect_Second.h"
+#include "Death_Elect_First.h"
+#include "Death_Elect_Second.h"
+
+
+
+
+
 
 namespace jk
 {
@@ -96,7 +110,11 @@ namespace jk
 			Skill_C_DimensionPierce_Ready,
 			Skill_C_DimensionPierce,
 
-			Die,
+			Look_Before_Dying,
+			Death,
+			Good_Bye_Layana,
+			Layana_End,
+
 		};
 
 		void idle();
@@ -160,8 +178,9 @@ namespace jk
 		void Skill_C();
 
 
-		void die();
+		void look_before_dying();
 		void death();
+		void GoodByeLayana();
 
 	public:
 		void Complete_Telleport_In();
@@ -196,6 +215,10 @@ namespace jk
 
 		void Complete_AwakenEnd();
 
+		void Complete_Death_00();
+		void Complete_Death_01();
+		void Complete_Death_02();
+
 	public:
 		void Rush_Combo();
 		void Meteor_Cross_Combo();
@@ -226,6 +249,19 @@ namespace jk
 		int _HitBox_Dir = 1;
 		Transform* tr = nullptr;
 
+	public: //체력관련
+		bool _EnergyChange = false;
+
+		static int	_HitType;
+		static int	_Dammege;
+		static Player_Hp_Bar* Player_Hp;
+		static Monster_Hit_Effect* _Hit_Effect;
+		static Player_Hit_Effect* _Hit_Effect_player;
+		static Hit_Sword* _Hit_Sword;
+		static Hit_Critical_Middle* _Critical_Middle;
+		static Hit_Critical_High* _Critical_High;
+		static Monster_Death_Effect* _Death_Effect;
+
 	private:
 		Layana_Awken_Rush_Sign* Rush_Sign[7] = {};
 		Latana_Awake_Rush_Bullet* Rush_Bullet[7] = {};
@@ -245,7 +281,22 @@ namespace jk
 		Dark_DimensionPierce_Sign* _DimensionPierce_Sign = nullptr;
 		Dark_DimensionPierce_BulletEffect* _DimensionPierce_BulletEffect = nullptr;
 
+
+	private:
+		Death_IntroEffect*	_Death_Intro = nullptr;
+		Death_Effect_First* _Death_EF_First = nullptr;
+		Death_Effect_Second* _Death_EF_Second = nullptr;
+		Death_Elect_First* _Death_Elect1 = nullptr;
+		Death_Elect_Second* _Death_Elect2 = nullptr;
+		bool Death_effect_connection = false;
+
 	
+
+	private://AfterImage
+			Layana_AfterImage* AfterImage[10] = {};
+			float timeSinceLastImage = 0.0f;  // 마지막 잔상 생성 후 경과 시간
+			const float delayBetweenImages = 0.03f;
+			float  afterimageangle = 0.f;
 
 	private:
 		Awaken_End_Electric* Awaken_End_ElecEF = nullptr;
@@ -270,10 +321,11 @@ private:
 
 
 	private:
-		//int		_Dir = 1;							// 방향설정
+		int		_DieDir = 1;							// 방향설정
 		int		_BulletDir = 1;
 		float	_time = 0.f;						// 공격패턴시 사용중	
 		float	_Attacktime = 0.f;					// 공격패턴시 보조사용중
+		float   _Picerwaitintime = 0.f;
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		bool	_BackGround_check = true;			// 백그라운드 아이들시 사용되는 변수
 		int		_Rushnumber = 0;					// 러쉬 공격시 1번 = a, 2번 = b, 3번 =c , 0 = 대기상태
@@ -303,6 +355,7 @@ private:
 		bool	_VerticalMeteorLanding = false;
 
 		bool	_SkillB_Switch = false;
+		bool	_SkillBWait = false;
 
 		bool	_SkillC_Switch = false;
 

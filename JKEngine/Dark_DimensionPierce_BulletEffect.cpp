@@ -49,7 +49,7 @@ namespace jk
 	}
 	void Dark_DimensionPierce_BulletEffect::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.95f, 0.25f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}

@@ -599,6 +599,24 @@
     <ClInclude Include="Yggdrasil.h">
       <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss</Filter>
     </ClInclude>
+    <ClInclude Include="Layana_AfterImage.h">
+      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
+    </ClInclude>
+    <ClInclude Include="Death_Elect_Second.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Death_Elect_First.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Death_Effect_First.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Death_Effect_Second.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Death_IntroEffect.h">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1195,6 +1213,24 @@
     </ClCompile>
     <ClCompile Include="Yggdrasil.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Stage1_Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_AfterImage.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters</Filter>
+    </ClCompile>
+    <ClCompile Include="Death_Elect_First.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Death_Elect_Second.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Death_Effect_First.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Death_Effect_Second.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Death_IntroEffect.cpp">
+      <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

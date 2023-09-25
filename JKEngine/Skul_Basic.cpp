@@ -1806,7 +1806,123 @@ namespace jk
 			}
 		}
 
+		if (Layana_Ground_Thunder* Bullet = dynamic_cast<Layana_Ground_Thunder*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
 
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Layana_Awaken_Meteor_Projectile* Bullet = dynamic_cast<Layana_Awaken_Meteor_Projectile*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Layana_Awaken_Homing_Attac* Bullet = dynamic_cast<Layana_Awaken_Homing_Attac*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Dark_DimensionPierce_BulletEffect* Bullet = dynamic_cast<Dark_DimensionPierce_BulletEffect*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+		
+		
 		//Ground
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{

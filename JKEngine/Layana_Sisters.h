@@ -222,10 +222,9 @@ namespace jk
 
 
 
-
-
-
-
-
+		static float _Max_Dark_Awaken_Hp;
+		static float _Curren_Dark_Awaken_Hp;
+		static float _MaxHp_Dark_Awaken_scale;
+		static float _CurrenHp_Dark_Awaken_scale;
 	};
 }

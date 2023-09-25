@@ -184,6 +184,11 @@
     <ClInclude Include="Dark_DimensionPierce_Attack.h" />
     <ClInclude Include="Dark_DimensionPierce_BulletEffect.h" />
     <ClInclude Include="Dark_DimensionPierce_Sign.h" />
+    <ClInclude Include="Death_Effect_First.h" />
+    <ClInclude Include="Death_Effect_Second.h" />
+    <ClInclude Include="Death_Elect_First.h" />
+    <ClInclude Include="Death_Elect_Second.h" />
+    <ClInclude Include="Death_IntroEffect.h" />
     <ClInclude Include="Dimension_Pierce_BossEffect.h" />
     <ClInclude Include="Dimension_Pierce.h" />
     <ClInclude Include="Dimension_Pierce_BulletEffect.h" />
@@ -220,6 +225,7 @@
     <ClInclude Include="jkStage2_MiniBoss.h" />
     <ClInclude Include="Kngiht_EnergyBall_Impact.h" />
     <ClInclude Include="Latana_Awake_Rush_Bullet.h" />
+    <ClInclude Include="Layana_AfterImage.h" />
     <ClInclude Include="Layana_Awaken_GoldenMeteor_Effect.h" />
     <ClInclude Include="Layana_Awaken_Ground_Sign.h" />
     <ClInclude Include="Layana_Awaken_Ground_Thunder_Sign.h" />
@@ -388,6 +394,11 @@
     <ClCompile Include="Dark_DimensionPierce_Attack.cpp" />
     <ClCompile Include="Dark_DimensionPierce_BulletEffect.cpp" />
     <ClCompile Include="Dark_DimensionPierce_Sign.cpp" />
+    <ClCompile Include="Death_Effect_First.cpp" />
+    <ClCompile Include="Death_Effect_Second.cpp" />
+    <ClCompile Include="Death_Elect_First.cpp" />
+    <ClCompile Include="Death_Elect_Second.cpp" />
+    <ClCompile Include="Death_IntroEffect.cpp" />
     <ClCompile Include="Dimension_Pierce_BossEffect.cpp" />
     <ClCompile Include="Dimension_Pierce.cpp" />
     <ClCompile Include="Dimension_Pierce_BulletEffect.cpp" />
@@ -423,6 +434,7 @@
     <ClCompile Include="jkStage2_MiniBoss.cpp" />
     <ClCompile Include="Kngiht_EnergyBall_Impact.cpp" />
     <ClCompile Include="Latana_Awake_Rush_Bullet.cpp" />
+    <ClCompile Include="Layana_AfterImage.cpp" />
     <ClCompile Include="Layana_Awaken_GoldenMeteor_Effect.cpp" />
     <ClCompile Include="Layana_Awaken_Ground_Sign.cpp" />
     <ClCompile Include="Layana_Awaken_Ground_Thunder_Sign.cpp" />
