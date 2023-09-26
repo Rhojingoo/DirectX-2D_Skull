@@ -373,8 +373,6 @@ namespace jk
 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
 		{
-
-
 			if (_Ground_check == false)
 			{
 				_rigidbody->SetGround(true);

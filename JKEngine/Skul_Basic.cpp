@@ -2197,9 +2197,7 @@ namespace jk
 					_rigidbody->SetGround(false);
 					_SkyGround_check = false;
 				}
-			}
-
-			
+			}			
 		}
 
 		if (Cleric_Veteran_Sanctuary* Bullet = dynamic_cast<Cleric_Veteran_Sanctuary*>(other->GetOwner()))
