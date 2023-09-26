@@ -14,6 +14,7 @@ namespace jk
 	{
 	}
 
+
 	void Monster_Hammer::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
@@ -51,6 +52,54 @@ namespace jk
 
 		at->PlayAnimation(L"HammerIdle", true);
 
+		//체력관련
+		{
+			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_BigFrame");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
+			Hpbar_Frame->SetName(L"hp_bar_frame");
+			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(85, 5, 0);
+			Hpbar_Frame->SetState(eState::Paused);
+		}
+
+		{
+			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
+			Monster_DamegeHp->SetName(L"warrior_hp_bar");
+			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
+			hp_tr->SetScale(80, 3, 0);
+			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
+			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
+			Monster_DamegeHp->Set_Type(1);
+			Monster_DamegeHp->SetState(eState::Paused);
+		}
+
+		{
+			Monster_Hp = new Monster_Hp_Bar(L"EnemyHealthBar");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
+			Monster_Hp->SetName(L"warrior_hp_bar");
+			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(80, 3, 0);
+			Monster_Hp->Set_Max_Hp(_MaxHp);
+			Monster_Hp->Set_Current_Hp(_MaxHp);
+			Monster_Hp->SetState(eState::Paused);
+		}
+
+
+
+
+
+
+
 		{
 			Hit_Box = new HitBox_Monster();
 			Hit_Box->Initialize();
@@ -58,20 +107,6 @@ namespace jk
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetState(eState::Paused); 
-		}
-
-		{
-			Player_Hp = new Player_Hp_Bar;
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Monster, Player_Hp);
-			Player_Hp->SetName(L"player_hp_bar");
-			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
-			hp_tr->SetScale(_MaxHp, 10, 0);
-			Player_Hp->Set_Max_Hp(_MaxHp);
-			Player_Hp->Set_Current_Hp(_MaxHp);
-			Player_Hp->SetState(eState::Active);
 		}
 
 		{
@@ -126,39 +161,12 @@ namespace jk
 	}
 	void Monster_Hammer::Update()
 	{
-		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp - _CurrenHp), _pos.y + 50, _pos.z - 1));
-		hp_tr->SetScale(_CurrenHp, 10, 0);
-		{
-			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
-			if (mDir == 1)
-				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 25, _pos.y, _pos.z - 1));
-			else
-				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 25, _pos.y, _pos.z - 1));
-		}
-		{
-			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
-			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
-		}
-
-		if (_hit_particle == true)
-		{
-			_particletime += Time::DeltaTime();
-			if (_particletime > 0.5)
-			{
-				Hit_Particle->SetState(eState::Paused);
-				_particletime = 0.f;
-				_hit_particle = false;
-			}
-		}
-
-
-
-		tr = GetComponent<Transform>();
-		_pos = tr->GetPosition();
-		_velocity = _rigidbody->GetVelocity();
 		SetDirection();
+		Particle_Control();
+		Hpcontrol();
+		Effect_Control();
 		SetEffect_pos();
+
 
 		switch (_state)
 		{
@@ -240,6 +248,7 @@ namespace jk
 		GameObject::Render();
 	}
 
+
 	void Monster_Hammer::OnCollisionEnter(Collider2D* other)
 	{		
 		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
@@ -268,16 +277,27 @@ namespace jk
 			if (_state == Monster_Hammer_State::Dead)
 				return;
 
+			_Damage = player->GetDamage();
+
 			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
+
+
 			if (!(_state == Monster_Hammer_State::Attack || _state == Monster_Hammer_State::Tackle))
 			{
 				if (mDir == 1)
 				{		
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+					tr->SetPosition(_pos);
+					Monster_Hp->_HitOn = true;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
 
-					_CurrenHp = _CurrenHp - 10;
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(10);
 
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(1);
@@ -292,10 +312,17 @@ namespace jk
 				if (mDir == -1)
 				{
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+					tr->SetPosition(_pos);
+					Monster_Hp->_HitOn = true;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
 
-					_CurrenHp = _CurrenHp - 10;
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(10);
 
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
@@ -330,10 +357,18 @@ namespace jk
 				if (mDir == 1)
 				{
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+					tr->SetPosition(_pos);
+					Monster_Hp->_HitOn = true;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
 
-					_CurrenHp = _CurrenHp - 10;
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(10);
+
 
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(1);
@@ -348,10 +383,17 @@ namespace jk
 				if (mDir == -1)
 				{
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+					tr->SetPosition(_pos);
+					Monster_Hp->_HitOn = true;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
 
-					_CurrenHp = _CurrenHp - 10;
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(10);
 
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
@@ -401,8 +443,8 @@ namespace jk
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 
 						_CurrenHp = _CurrenHp - 25;
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(25);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(25);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(1);
@@ -419,8 +461,8 @@ namespace jk
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 
 						_CurrenHp = _CurrenHp - 25;
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(25);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(25);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(-1);
@@ -466,8 +508,8 @@ namespace jk
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 
 						_CurrenHp = _CurrenHp - 25;
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(25);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(25);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(1);
@@ -484,8 +526,8 @@ namespace jk
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 
 						_CurrenHp = _CurrenHp - 25;
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(25);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(25);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(-1);
@@ -675,7 +717,6 @@ namespace jk
 			}
 		}
 	}
-
 	void Monster_Hammer::attack_ready()
 	{
 		_attacktime += Time::DeltaTime();
@@ -689,7 +730,6 @@ namespace jk
 			_attacktime = 0;
 		}
 	}
-
 	void Monster_Hammer::attack()
 	{	
 		_attack_Col = true;
@@ -701,7 +741,6 @@ namespace jk
 			Attack_Effect_Tr->SetPosition(_pos.x - 30, _pos.y - 50, _pos.z - 1);
 		_Hammer_Effect->SetState(eState::Active);
 	}
-
 	void Monster_Hammer::tackle_ready()
 	{
 		_attacktime += Time::DeltaTime();
@@ -726,7 +765,6 @@ namespace jk
 			Tackle_Flash->SetState(eState::Active);
 		}
 	}
-
 	void Monster_Hammer::tackle()
 	{
 		_rigidbody->ClearVelocityY();
@@ -745,7 +783,6 @@ namespace jk
 			Tackle_Flash->SetState(eState::Paused);
 		}		
 	}
-
 	void Monster_Hammer::tackle_end()
 	{
 		_attacktime += Time::DeltaTime();
@@ -762,7 +799,6 @@ namespace jk
 			_attacktime = 0;
 		}
 	}
-
 	void Monster_Hammer::walk()
 	{
 		if (_distance >= 0.f)
@@ -806,7 +842,6 @@ namespace jk
 		}			
 		tr->SetPosition(_pos);
 	}
-
 	void Monster_Hammer::walk_R()
 	{
 		if (_walkdistance > -100)
@@ -818,7 +853,6 @@ namespace jk
 			_time = 0; _walkdir *= -1;
 		}
 	}
-
 	void Monster_Hammer::walk_L()
 	{
 		if (_walkdistance < 100)
@@ -830,7 +864,6 @@ namespace jk
 			_time = 0; _walkdir *= -1;
 		}
 	}
-
 	void Monster_Hammer::dead()
 	{
 		Hit_Particle->SetState(eState::Paused);
@@ -840,6 +873,7 @@ namespace jk
 		Tackle_Flash->SetState(eState::Paused);
 		_Die = true;	
 	}
+
 
 	void Monster_Hammer::Complete_attack()
 	{
@@ -856,8 +890,13 @@ namespace jk
 		_AttackCheck++;
 	}
 
+
 	void Monster_Hammer::SetDirection()
 	{
+		tr = GetComponent<Transform>();
+		_pos = tr->GetPosition();
+		_velocity = _rigidbody->GetVelocity();
+
 		_distance = _playerpos.x - _pos.x;
 		if (_distance >= 0.f)
 			mDir = 1;
@@ -870,7 +909,72 @@ namespace jk
 		else
 			_walkdir = -1;
 	}
+	void Monster_Hammer::Hpcontrol()
+	{
+		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(_pos.x, _pos.y - 65, _pos.z - 2));
 
+		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
+		hpdamege_tr->SetPosition(Vector3(_pos.x, _pos.y - 65, _pos.z - 1.5));
+
+		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
+		hpfr_tr->SetPosition(Vector3(_pos.x, _pos.y - 65, _pos.z - 1));
+
+
+		if (_Hp_control == true)
+		{
+			if (Monster_DamegeHp->Get_Switch() == true)
+			{
+				_Hp_time += Time::DeltaTime();
+				if (_Hp_time > 2)
+				{
+					Hpbar_Frame->SetState(eState::Paused);
+					Monster_DamegeHp->SetState(eState::Paused);
+					Monster_Hp->SetState(eState::Paused);
+					Monster_DamegeHp->Set_Switch(false);
+					_Hp_control = false;
+					_Hp_time = 0.f;
+				}
+			}
+		}
+		if (_CurrenHp <= 0)
+		{
+			_hit_particle = false;
+			Hit_Particle->SetState(eState::Paused);
+			Hpbar_Frame->SetState(eState::Paused);
+			Monster_DamegeHp->SetState(eState::Paused);
+			Monster_Hp->SetState(eState::Paused);
+			_Die = true;
+			this->SetState(eState::Paused);
+		}
+	}
+	void Monster_Hammer::Particle_Control()
+	{
+		if (_hit_particle == true)
+		{
+			_particletime += Time::DeltaTime();
+			if (_particletime > 0.5)
+			{
+				Hit_Particle->SetState(eState::Paused);
+				_particletime = 0.f;
+				_hit_particle = false;
+			}
+		}
+	}
+	void Monster_Hammer::Effect_Control()
+	{
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 25, _pos.y, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 25, _pos.y, _pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		}
+	}
 	void Monster_Hammer::SetEffect_pos()
 	{
 		if (_attackdir == 1)

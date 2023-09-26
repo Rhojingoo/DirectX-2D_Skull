@@ -54,10 +54,7 @@ namespace jk
 	{
 		player_select;
 		player_check;
-		_Pos;
-		Current_player;
-		player_select;
-		
+		_Pos;		
 
 		Monster::SetPlayerPos(_Pos);
 

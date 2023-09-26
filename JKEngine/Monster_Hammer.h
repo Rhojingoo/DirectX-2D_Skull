@@ -1,11 +1,13 @@
 #pragma once
 #include "Include_Common.h"
 #include "Monster.h"
-#include "Player_Hp_Bar.h"
 #include "Monster_Hit_Effect.h"
 #include "Monster_Death_Effect.h"
 #include "Monster_Tackle_Flash_Effect.h"
 #include "Monster_Hammer_Effect.h"
+
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
 
 namespace jk
 {
@@ -57,6 +59,14 @@ namespace jk
 		float _MaxHp = 200;
 		float _CurrenHp = 200;
 
+	private:
+		HP_Frame* Hpbar_Frame = nullptr;
+		Monster_Hp_Bar* Monster_Hp = nullptr;
+		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		float _Damage = 0.f;
+		bool _Hp_control = false;
+		float _Hp_time = 0.f;
+
 
 	private:
 		GameObject* Hit_Particle = nullptr;
@@ -77,7 +87,6 @@ namespace jk
 
 	private:
 		HitBox_Monster* Hit_Box = nullptr;
-		Player_Hp_Bar* Player_Hp = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Death_Effect* _Death_Effect = nullptr;
 		Monster_Tackle_Flash_Effect* Tackle_Flash = nullptr;
@@ -103,8 +112,13 @@ namespace jk
 		bool	_attack_Col= false;
 
 	private:
-		void Complete_attack();
 		void SetDirection();
+		void Particle_Control();
+		void Hpcontrol();
+		void Effect_Control();
+
+
+		void Complete_attack();
 		void SetEffect_pos();
 	};
 }

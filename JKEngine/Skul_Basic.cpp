@@ -1378,6 +1378,29 @@ namespace jk
 			}		
 		}
 
+		if (Monster_Ent_GroundAttack* Bullet = dynamic_cast<Monster_Ent_GroundAttack*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(-1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+		}
+
 		//MiniBoss
 		if (Mini_Boss*  Boss = dynamic_cast<Mini_Boss*>(other->GetOwner()))
 		{
@@ -1924,8 +1947,7 @@ namespace jk
 		
 		//Ground
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
-		{
-			_Wall_check = true;
+		{			
 			_rigidbody->ClearVelocity();
 			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
 			Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
@@ -1935,7 +1957,7 @@ namespace jk
 			float Skul_halfsize = _collider->GetScale().y / 2;
 			float skul_footpos = pos.y - Skul_halfsize;
 		}
-
+		
 		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
 		{
 			_Wall_check = true;
@@ -1963,7 +1985,7 @@ namespace jk
 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
 		{			
-			{
+			{			
 				Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
 				Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
 				Vector3 Ground_pos = Ground_TR->GetPosition();
@@ -1997,15 +2019,13 @@ namespace jk
 		{
 			if (_Ground_check == false)
 			{
+				_Ground_On = true;
 				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
-				_Ground_check = true;
-				//mGround->_SkullOn = true;
-				_Ground_check = _rigidbody->GetGround();
+				_Ground_check = true;			
 
-
-
+				
 				if (_Firsrt_Ground == false)
 				{
 					firstGroundcheck = true;
@@ -2070,14 +2090,14 @@ namespace jk
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
+			_Ground_On = true;
 			if (_Ground_check == false)
 			{
 				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
 				_Ground_check = true;				
-				mGround->_SkullOn = true;
-				_Ground_check = _rigidbody->GetGround();
+				mGround->_SkullOn = true; // 캐슬아리어에서 땅밟고 다음신넘어갈때 필요한 변수				
 
 				if (_Firsrt_Ground == false)
 				{
@@ -2146,6 +2166,7 @@ namespace jk
 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
 		{
+			_Ground_On = true;
 			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
 			Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
 			Vector3 Ground_pos = Ground_TR->GetPosition();
@@ -2211,14 +2232,15 @@ namespace jk
 		{
 			_Wall_check = false;
 			_Rightmove_Lock = false;
-			_Leftmove_Lock = false;			
+			_Leftmove_Lock = false;		
+			_Ground_On = false;
 		}
 
 		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
 		{
 			_Wall_check = false;
 			_Rightmove_Lock = false;
-			_Leftmove_Lock = false;
+			_Leftmove_Lock = false;	
 		}
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
@@ -2227,6 +2249,7 @@ namespace jk
 			mGround->_SkullOn = false;
 			_rigidbody->SetGround(false);
 			_fall_check = true;
+			_Ground_On = false;
 		}
 		 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
@@ -2234,6 +2257,7 @@ namespace jk
 			_Ground_check = false;
 			mGround->_SkullOn = false;
 			_rigidbody->SetGround(false);
+			_Ground_On = false;
 		}
 
 

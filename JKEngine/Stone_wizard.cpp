@@ -54,19 +54,49 @@ namespace jk
 		at->PlayAnimation(L"Stone_wizardIdle", true);
 
 
+		//체력관련
 		{
-			Player_Hp = new Player_Hp_Bar;
+			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_Frame");
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Monster, Player_Hp);
-			Player_Hp->SetName(L"player_hp_bar");
-			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
+			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
+			Hpbar_Frame->SetName(L"hp_bar_frame");
+			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
-			hp_tr->SetScale(_MaxHp, 10, 0);
-			Player_Hp->Set_Max_Hp(_MaxHp);
-			Player_Hp->Set_Current_Hp(_MaxHp);
-			Player_Hp->SetState(eState::Active);
+			hp_tr->SetScale(50, 5, 0);
+			Hpbar_Frame->SetState(eState::Paused);
 		}
+
+		{
+			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
+			Monster_DamegeHp->SetName(L"warrior_hp_bar");
+			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1.5));
+			hp_tr->SetScale(44, 3, 0);
+			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
+			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
+			Monster_DamegeHp->Set_Type(1);
+			Monster_DamegeHp->SetState(eState::Paused);
+		}
+
+		{
+			Monster_Hp = new Monster_Hp_Bar(L"EnemyHealthBar");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
+			Monster_Hp->SetName(L"warrior_hp_bar");
+			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
+			hp_tr->SetScale(44, 3, 0);
+			Monster_Hp->Set_Max_Hp(_MaxHp);
+			Monster_Hp->Set_Current_Hp(_MaxHp);
+			Monster_Hp->SetState(eState::Paused);
+		}
+
+
 		
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
@@ -143,41 +173,9 @@ namespace jk
 		pos = tr->GetPosition();
 		_velocity = _rigidbody->GetVelocity();
 		SetDirection();
-
-		if (_hit_particle == true)
-		{		
-			_particletime += Time::DeltaTime();
-			if (_particletime > 0.5)
-			{
-				Hit_Particle->SetState(eState::Paused);
-				_particletime = 0.f;
-				_hit_particle = false;
-			}			
-		}
-
-		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(pos.x - (_MaxHp - _CurrenHp), pos.y + 50, pos.z - 1));
-		hp_tr->SetScale(_CurrenHp, 10, 0);
-
-		if (_CurrenHp <= 0)
-		{	
-			_hit_particle = false;
-			Hit_Particle->SetState(eState::Paused);
-			_Die = true;
-			this->SetState(eState::Paused);
-		}
-
-		{
-			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
-			if (mDir == 1)
-				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
-			else
-				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
-		}
-		{
-			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
-			_Effect_TR->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
-		}
+		Particle_Control();
+		Hpcontrol();		
+		Effect_Control();	
 
 
 		switch (_state)
@@ -239,6 +237,8 @@ namespace jk
 	{
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{	
+			_Damage = player->GetDamage();
+
 			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 
 			if (!(_state == Stone_wizard_State::Attack || _state == Stone_wizard_State::Attack_Ready))
@@ -249,9 +249,15 @@ namespace jk
 					at->PlayAnimation(L"Stone_wizardHit", false);
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 					tr->SetPosition(pos);
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(10);
-					_CurrenHp = _CurrenHp - 10;
+					Monster_Hp->_HitOn = true;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
 
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(1);
@@ -268,9 +274,15 @@ namespace jk
 					at->PlayAnimation(L"Stone_wizardHitR", false);
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					tr->SetPosition(pos);
-					_CurrenHp = _CurrenHp - 10;
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(10);
+					Monster_Hp->_HitOn = true;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
 
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
@@ -297,9 +309,15 @@ namespace jk
 				{
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 					tr->SetPosition(pos);
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(10);
-					_CurrenHp = _CurrenHp - 10;
+					Monster_Hp->_HitOn = true;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
 
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(1);
@@ -313,11 +331,18 @@ namespace jk
 				}
 				if (mDir == -1)
 				{				
+					at->PlayAnimation(L"Stone_wizardHitR", false);
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					tr->SetPosition(pos);
-					_CurrenHp = _CurrenHp - 10;
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(10);
+					Monster_Hp->_HitOn = true;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
 
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
@@ -354,8 +379,8 @@ namespace jk
 						at->PlayAnimation(L"Stone_wizardHit", false);
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 						tr->SetPosition(pos);
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(25);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(25);
 						_CurrenHp = _CurrenHp - 25;
 
 						_Hit_Effect->_effect_animation = true;
@@ -368,8 +393,8 @@ namespace jk
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 						tr->SetPosition(pos);
 						_CurrenHp = _CurrenHp - 25;
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(25);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(25);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(-1);
@@ -621,6 +646,73 @@ namespace jk
 			_teleportCheck = true;
 		}
 	}
+
+	void Stone_wizard::Particle_Control()
+	{
+		if (_hit_particle == true)
+		{
+			_particletime += Time::DeltaTime();
+			if (_particletime > 0.5)
+			{
+				Hit_Particle->SetState(eState::Paused);
+				_particletime = 0.f;
+				_hit_particle = false;
+			}
+		}
+	}
+	void Stone_wizard::Hpcontrol()
+	{
+		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(pos.x, pos.y - 40, pos.z - 2));
+
+		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
+		hpdamege_tr->SetPosition(Vector3(pos.x, pos.y - 40, pos.z - 1.5));
+
+		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
+		hpfr_tr->SetPosition(Vector3(pos.x, pos.y - 40, pos.z - 1));
+
+		if (_Hp_control == true)
+		{
+			if (Monster_DamegeHp->Get_Switch() == true)
+			{
+				_Hp_time += Time::DeltaTime();
+				if (_Hp_time > 2)
+				{
+					Hpbar_Frame->SetState(eState::Paused);
+					Monster_DamegeHp->SetState(eState::Paused);
+					Monster_Hp->SetState(eState::Paused);
+					Monster_DamegeHp->Set_Switch(false);
+					_Hp_control = false;
+					_Hp_time = 0.f;
+				}
+			}
+		}
+		if (_CurrenHp <= 0)
+		{
+			_hit_particle = false;
+			Hit_Particle->SetState(eState::Paused);
+			Hpbar_Frame->SetState(eState::Paused);
+			Monster_DamegeHp->SetState(eState::Paused);
+			Monster_Hp->SetState(eState::Paused);
+			_Die = true;		
+			this->SetState(eState::Paused);			
+		}
+	}
+	void Stone_wizard::Effect_Control()
+	{
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
+		}
+	}
+
 
 	void Stone_wizard::SetDirection()
 	{

@@ -172,6 +172,7 @@
     <ClInclude Include="Awaken_Ready_ElectricB.h" />
     <ClInclude Include="Awaken_SmokeEffect.h" />
     <ClInclude Include="BG.h" />
+    <ClInclude Include="BigEnt_EnergeBall_Bomb.h" />
     <ClInclude Include="Blosome.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Bullet.h" />
@@ -272,7 +273,6 @@
     <ClInclude Include="OutSide_CastleArea.h" />
     <ClInclude Include="Player_AfterImage.h" />
     <ClInclude Include="Player_Hit_Effect.h" />
-    <ClInclude Include="Player_Infomation.h" />
     <ClInclude Include="practice.h" />
     <ClInclude Include="RisingPierce_Ready.h" />
     <ClInclude Include="Sky_Ground.h" />
@@ -385,6 +385,7 @@
     <ClCompile Include="Awaken_Ready_ElectricB.cpp" />
     <ClCompile Include="Awaken_SmokeEffect.cpp" />
     <ClCompile Include="BG.cpp" />
+    <ClCompile Include="BigEnt_EnergeBall_Bomb.cpp" />
     <ClCompile Include="Blosome.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
@@ -485,7 +486,6 @@
     <ClCompile Include="OutSide_CastleArea.cpp" />
     <ClCompile Include="Player_AfterImage.cpp" />
     <ClCompile Include="Player_Hit_Effect.cpp" />
-    <ClCompile Include="Player_Infomation.cpp" />
     <ClCompile Include="practice.cpp" />
     <ClCompile Include="RisingPierce_Ready.cpp" />
     <ClCompile Include="Sky_Ground.cpp" />

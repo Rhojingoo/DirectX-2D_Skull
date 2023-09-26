@@ -1,10 +1,12 @@
 #pragma once
 #include "Include_Common.h"
-#include "Bullet.h"
+#include "Monster_Bullet.h"
+#include "BigEnt_EnergeBall_Bomb.h"
+
 
 namespace jk
 {
-	class Monster_BigEnt_EnergeBall : public Bullet
+	class Monster_BigEnt_EnergeBall : public Monster_Bullet
 	{
 	public:
 		Monster_BigEnt_EnergeBall();
@@ -31,7 +33,7 @@ namespace jk
 		int _dir = 1;
 
 	private:
-		//Kngiht_EnergyBall_Impact* Bullet_Effect;
+		BigEnt_EnergeBall_Bomb* _EnergeBall_Bomb = nullptr;
 
 	};
 }

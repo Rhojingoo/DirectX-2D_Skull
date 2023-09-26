@@ -51,6 +51,13 @@ namespace jk
 		float _CurrenHp = 100;
 		int	_bulletcheck = 0;
 
+	private:
+		HP_Frame* Hpbar_Frame = nullptr;
+		Monster_Hp_Bar* Monster_Hp = nullptr;
+		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		float _Damage = 0.f;
+		bool _Hp_control = false;
+		float _Hp_time = 0.f;
 
 	private:
 		Monster_warrior_State _state;
@@ -69,14 +76,9 @@ namespace jk
 
 	private:
 		HitBox_Monster* Hit_Box = nullptr;
-		HP_Frame* Hpbar_Frame = nullptr;
-		Monster_Hp_Bar* Monster_Hp = nullptr;
-		Monster_Hp_Bar* Monster_DamegeHp = nullptr;		
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Death_Effect* _Death_Effect = nullptr;
 		bool _followskul = false;
-		bool _Hp_control = false;
-		float _Damage = 0.f;
 
 
 	private:
@@ -91,6 +93,10 @@ namespace jk
 		bool	_attack_Col = false;
 
 	private:
+		void SetDirection();
+		void Particle_Control();
+		void Hpcontrol();
+		void Effect_Control();
 		void complete_attack();
 		void complete_hit();
 	};

@@ -4,6 +4,9 @@
 #include "Monster_Hit_Effect.h"
 #include "Monster_Death_Effect.h"
 
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+
 namespace jk
 {
 	class Monster_BlossomEnt : public Monster
@@ -46,9 +49,16 @@ namespace jk
 		float _CurrenHp = 100;
 		int	_bulletcheck = 0;
 
+	private:
+		HP_Frame* Hpbar_Frame = nullptr;
+		Monster_Hp_Bar* Monster_Hp = nullptr;
+		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		float _Damage = 0.f;
+		bool _Hp_control = false;
+		float _Hp_time = 0.f;
+
 
 	private:
-		Player_Hp_Bar* Player_Hp = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Death_Effect* _Death_Effect = nullptr;
 
@@ -84,6 +94,11 @@ namespace jk
 
 
 	private:
+		void SetDirection();
+		void Particle_Control();
+		void Hpcontrol();
+		void Effect_Control();
+
 		void attack_setting();
 		void attack_idle();
 	};

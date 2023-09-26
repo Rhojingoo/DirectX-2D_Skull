@@ -5,6 +5,8 @@
 #include "Monster_Hit_Effect.h"
 #include "Monster_Death_Effect.h"
 
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
 
 namespace jk
 {
@@ -51,7 +53,15 @@ namespace jk
 		int	_bulletcheck = 0;
 
 	private:
-		Player_Hp_Bar* Player_Hp = nullptr;
+		HP_Frame* Hpbar_Frame = nullptr;
+		Monster_Hp_Bar* Monster_Hp = nullptr;
+		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		float _Damage = 0.f;
+		bool _Hp_control = false;
+		float _Hp_time = 0.f;
+
+
+	private:
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Death_Effect* _Death_Effect = nullptr;
 	
@@ -92,6 +102,10 @@ namespace jk
 		bool	_followskul = false;
 
 	private:
+		void SetDirection();
+		void Particle_Control();
+		void Hpcontrol();
+		void Effect_Control();
 		void Complete_Attack();
 	};
 }

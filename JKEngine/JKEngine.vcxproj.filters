@@ -623,8 +623,8 @@
     <ClInclude Include="HP_Frame.h">
       <Filter>Game_ob\UI\Hp_BarFrame</Filter>
     </ClInclude>
-    <ClInclude Include="Player_Infomation.h">
-      <Filter>Game_ob\PLAYER</Filter>
+    <ClInclude Include="BigEnt_EnergeBall_Bomb.h">
+      <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1247,8 +1247,8 @@
     <ClCompile Include="HP_Frame.cpp">
       <Filter>Game_ob\UI\Hp_BarFrame</Filter>
     </ClCompile>
-    <ClCompile Include="Player_Infomation.cpp">
-      <Filter>Game_ob\PLAYER</Filter>
+    <ClCompile Include="BigEnt_EnergeBall_Bomb.cpp">
+      <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

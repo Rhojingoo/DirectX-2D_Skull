@@ -3,7 +3,10 @@
 #include "Monster_StoneWizard_Teleport.h"
 #include "Monster_StoneWizard_Icicle_Effect.h"
 #include "Monster_Stone_wizard_IcicleBullet.h"
-#include "Player_Hp_Bar.h"
+
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+
 #include "Monster_Hit_Effect.h"
 #include "Monster_Death_Effect.h"
 
@@ -47,11 +50,12 @@ namespace jk
 		void teleport_in();
 		void teleport_out();
 
+
+
 	private:
 		float _MaxHp = 100;
 		float _CurrenHp = 100;
 		int	_bulletcheck = 0;
-
 
 	private:
 		Stone_wizard_State _state;
@@ -65,10 +69,19 @@ namespace jk
 
 	private:
 		HitBox_Monster* Hit_Box = nullptr;
-		Player_Hp_Bar* Player_Hp = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Death_Effect* _Death_Effect = nullptr;
 		GameObject* Hit_Particle = nullptr;
+
+	private:
+		
+		HP_Frame* Hpbar_Frame = nullptr;
+		Monster_Hp_Bar* Monster_Hp = nullptr;
+		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		float _Damage = 0.f;
+		bool _Hp_control = false;
+		float _Hp_time = 0.f;
+
 
 	private:
 		Monster_StoneWizard_Teleport* Wizard_Teleport = nullptr;
@@ -94,6 +107,9 @@ namespace jk
 
 	private:
 		void SetDirection();
+		void Particle_Control();
+		void Hpcontrol();
+		void Effect_Control();
 		void complete_telleport_in();
 		void complete_telleport_out();
 

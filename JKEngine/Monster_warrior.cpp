@@ -48,6 +48,7 @@ namespace jk
 
 		at->PlayAnimation(L"WarriorIdle", true);
 
+		//체력관련
 		{
 			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_Frame");
 			Scene* scene = SceneManager::GetActiveScene();
@@ -130,67 +131,11 @@ namespace jk
 	}
 	void Monster_warrior::Update()
 	{
-		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(_pos.x, _pos.y - 40, _pos.z - 2));
-
-		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
-		hpdamege_tr->SetPosition(Vector3(_pos.x, _pos.y -40, _pos.z - 1.5));
-
-		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
-		hpfr_tr->SetPosition(Vector3(_pos.x, _pos.y - 40, _pos.z - 1));
-
-		if (_Hp_control == true)
-		{
-			if(Monster_DamegeHp->Get_Switch()==true) 
-			{ 
-				Hpbar_Frame->SetState(eState::Paused);
-				Monster_DamegeHp->SetState(eState::Paused);
-				Monster_Hp->SetState(eState::Paused); 
-				Monster_DamegeHp->Set_Switch(false);
-				_Hp_control = false;
-			}
-		}		
-		
-		{
-			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
-			if (mDir == 1)
-				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 15, _pos.y, _pos.z - 1));
-			else
-				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 15, _pos.y, _pos.z - 1)); 
-		}
-		{	
-			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
-			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
-		}
-
-		if (_hit_particle == true)
-		{
-			_particletime += Time::DeltaTime();
-			if (_particletime > 0.5)
-			{
-				Hit_Particle->SetState(eState::Paused);
-				_particletime = 0.f;
-				_hit_particle = false;
-			}
-		}
-
-
-		_tr = GetComponent<Transform>();
-		_pos = _tr->GetPosition();
-		_velocity = _rigidbody->GetVelocity();
-		_distance = _playerpos.x - _pos.x;
-		if (_distance >= 0.f)
-			mDir = 1;
-		else
-			mDir = -1;
-
-		_walkdistance = _first_place.x - _pos.x;
-		if (_walkdistance >= 0.f)
-			_walkdir = 1;
-		else
-			_walkdir = -1;
-
-
+		 SetDirection();
+		 Particle_Control();
+		 Hpcontrol();
+		 Effect_Control();
+		 
 
 		switch (_state)
 		{
@@ -276,6 +221,7 @@ namespace jk
 			_Damage = player->GetDamage();
 
 			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
+
 			if (!(_state == Monster_warrior_State::Attack || _state == Monster_warrior_State::Attack_Ready))
 			{
 				_state = Monster_warrior_State::Hit;
@@ -356,8 +302,14 @@ namespace jk
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 					_tr->SetPosition(_pos);
 					Monster_Hp->_HitOn = true;
-					Monster_Hp->SetHitDamage(10);
-					_CurrenHp = _CurrenHp - 10;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
 
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(1);
@@ -371,11 +323,19 @@ namespace jk
 				}
 				if (mDir == -1)
 				{					
+					at->PlayAnimation(L"WarriorHitR", false);
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					_tr->SetPosition(_pos);
 					Monster_Hp->_HitOn = true;
-					Monster_Hp->SetHitDamage(10);
-					_CurrenHp = _CurrenHp - 10;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
+
 
 					_Hit_Effect->_effect_animation = true;
 					_Hit_Effect->SetDirection(-1);
@@ -790,6 +750,90 @@ namespace jk
 			_state = Monster_warrior_State::Idle;
 			at->PlayAnimation(L"WarriorIdleR", true);
 			_time = 0; _walkdir *= -1;
+		}
+	}
+
+	void Monster_warrior::SetDirection()
+	{
+		_tr = GetComponent<Transform>();
+		_pos = _tr->GetPosition();
+		_velocity = _rigidbody->GetVelocity();
+		_distance = _playerpos.x - _pos.x;
+		if (_distance >= 0.f)
+			mDir = 1;
+		else
+			mDir = -1;
+
+		_walkdistance = _first_place.x - _pos.x;
+		if (_walkdistance >= 0.f)
+			_walkdir = 1;
+		else
+			_walkdir = -1;
+	}
+	void Monster_warrior::Particle_Control()
+	{
+		if (_hit_particle == true)
+		{
+			_particletime += Time::DeltaTime();
+			if (_particletime > 0.5)
+			{
+				Hit_Particle->SetState(eState::Paused);
+				_particletime = 0.f;
+				_hit_particle = false;
+			}
+		}
+	}
+	void Monster_warrior::Hpcontrol()
+	{
+		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(_pos.x, _pos.y - 40, _pos.z - 2));
+
+		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
+		hpdamege_tr->SetPosition(Vector3(_pos.x, _pos.y - 40, _pos.z - 1.5));
+
+		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
+		hpfr_tr->SetPosition(Vector3(_pos.x, _pos.y - 40, _pos.z - 1));
+
+
+		if (_Hp_control == true)
+		{
+			if (Monster_DamegeHp->Get_Switch() == true)
+			{
+				_Hp_time += Time::DeltaTime();
+				if (_Hp_time > 2)
+				{
+					Hpbar_Frame->SetState(eState::Paused);
+					Monster_DamegeHp->SetState(eState::Paused);
+					Monster_Hp->SetState(eState::Paused);
+					Monster_DamegeHp->Set_Switch(false);
+					_Hp_control = false;
+					_Hp_time = 0.f;
+				}
+			}
+		}
+		if (_CurrenHp <= 0)
+		{
+			_hit_particle = false;
+			Hit_Particle->SetState(eState::Paused);
+			Hpbar_Frame->SetState(eState::Paused);
+			Monster_DamegeHp->SetState(eState::Paused);
+			Monster_Hp->SetState(eState::Paused);
+			_Die = true;
+			this->SetState(eState::Paused);
+		}
+	}	
+	void Monster_warrior::Effect_Control()
+	{
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 15, _pos.y, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 15, _pos.y, _pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 		}
 	}
 	

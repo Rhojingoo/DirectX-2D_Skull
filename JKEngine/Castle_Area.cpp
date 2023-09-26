@@ -29,6 +29,7 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Boss, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::MiniBoss, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Hitbox, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Bullet, true);
 		CollisionManager::SetLayer(eLayerType::Boss, eLayerType::Hitbox, true);
 		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
@@ -70,9 +71,15 @@ namespace jk
 					_player->SetName(L"player_select");
 			#pragma endregion
 
-					Monster_warrior* test = object::Instantiate<Monster_warrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+			//Monster_warrior* test = object::Instantiate<Monster_warrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+			//Stone_wizard* test = object::Instantiate<Stone_wizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+			//Monster_GreenTree* test = object::Instantiate<Monster_GreenTree>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+			//Monster_BlossomEnt* test = object::Instantiate<Monster_BlossomEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+			//Monster_Hammer* test = object::Instantiate<Monster_Hammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+			//Monster_BigEnt* test = object::Instantiate<Monster_BigEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 
-
+			
+			
 			#pragma region Npc	
 
 			#pragma endregion
