@@ -19,7 +19,6 @@ namespace jk
 		virtual void OnEnter();
 		virtual void OnExit();
 
-	
 
 	private:
 		Player* _player = nullptr;
@@ -28,6 +27,6 @@ namespace jk
 		float _time = 0.f;
 		bool _Fadecheck = false;
 		Stage1_Door* Door1 = nullptr;
-
+		bool _changecheck = false;
 	};
 }

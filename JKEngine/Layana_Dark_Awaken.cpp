@@ -43,7 +43,7 @@ namespace jk
 		_Createpos = _pos;
 		tr->SetPosition(_pos);
 		
-
+		
 		at = AddComponent<Animator>(); 
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\AwakenEnd", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Backstep", this);
@@ -663,21 +663,21 @@ namespace jk
 
 
 
-		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Dash:
-			Layana_Dark_Awaken::Dash();
-			break;
+		//case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::Dash:
+		//	Layana_Dark_Awaken::Dash();
+		//	break;
 
-		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::FlyDash:
-			Layana_Dark_Awaken::FlyDash();
-			break;
+		//case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::FlyDash:
+		//	Layana_Dark_Awaken::FlyDash();
+		//	break;
 
 		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::LandingDash:
 			Layana_Dark_Awaken::LandingDash();
 			break;
 
-		case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::BackStep:
-			Layana_Dark_Awaken::BackStep();
-			break;
+		//case jk::Layana_Dark_Awaken::Layana_Dark_Awaken_State::BackStep:
+		//	Layana_Dark_Awaken::BackStep();
+		//	break;
 
 
 
@@ -1000,12 +1000,12 @@ namespace jk
 				}
 				//if (_HitType >= 6 && _HitType < 9)
 				//{
-				//	_Dammege = random(15, 25);
+				//	_Damage = random(15, 25);
 				//	attack_Cri_Mid = true;
 				//}
 				//if (_HitType >= 9 && _HitType <= 10)
 				//{
-				//	_Dammege = random(30, 45);
+				//	_Damage = random(30, 45);
 				//	attack_Cri_High = true;
 				//}
 
@@ -1400,22 +1400,22 @@ namespace jk
 		}
 		if (_pos.y >= _Createpos.y + 150.f)
 		{
-			if (_GroundMeteorSwitch == true)
-			{
-				_DarkMode_state = Layana_Dark_Awaken_State::LandingDash;
-				_Ground_check = false;
-				_rigidbody->SetGround(false);
-				if (_pos.x < _Createpos.x)
-				{
-					_rigidbody->SetVelocity(Vector2(650.f, -150.f));
-					at->PlayAnimation(L"Awaken_PowerDash", true);
-				}
-				else
-				{
-					_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
-					at->PlayAnimation(L"Awaken_PowerDashR", true);
-				}
-			}
+			//if (_GroundMeteorSwitch == true)
+			//{
+			//	_DarkMode_state = Layana_Dark_Awaken_State::LandingDash;
+			//	_Ground_check = false;
+			//	_rigidbody->SetGround(false);
+			//	if (_pos.x < _Createpos.x)
+			//	{
+			//		_rigidbody->SetVelocity(Vector2(650.f, -150.f));
+			//		at->PlayAnimation(L"Awaken_PowerDash", true);
+			//	}
+			//	else
+			//	{
+			//		_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
+			//		at->PlayAnimation(L"Awaken_PowerDashR", true);
+			//	}
+			//}
 			if (_VerticalMeteorSwitch == true)
 			{
 				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Vertical_Jump;
@@ -1816,8 +1816,8 @@ namespace jk
 			
 				if (index == 0)
 				{
-					at->PlayAnimation(L"Awaken_PowerMeteor_Cross03_End", true);
-					_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_End;
+					at->PlayAnimation(L"Awaken_PowerMeteor_Ground04_End", true);
+					_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_End;
 					_Attacktime = 0;
 				}
 			}	
@@ -1833,8 +1833,8 @@ namespace jk
 			
 				if (index == 6)
 				{
-					at->PlayAnimation(L"Awaken_PowerMeteor_Cross03_EndR", true);
-					_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_End;
+					at->PlayAnimation(L"Awaken_PowerMeteor_Ground04_EndR", true);
+					_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_End;
 					_Attacktime = 0;
 				}			
 			}

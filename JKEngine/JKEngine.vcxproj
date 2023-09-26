@@ -261,6 +261,8 @@
     <ClInclude Include="Monster_Hammer_Effect.h" />
     <ClInclude Include="Monster_Hit_Effect.h" />
     <ClInclude Include="MiniBoss_ObjCreate.h" />
+    <ClInclude Include="Monster_Hp_Bar.h" />
+    <ClInclude Include="HP_Frame.h" />
     <ClInclude Include="Monster_ObjPool.h" />
     <ClInclude Include="Monster_StoneWizard_Icicle_Effect.h" />
     <ClInclude Include="Monster_StoneWizard_Teleport.h" />
@@ -270,6 +272,7 @@
     <ClInclude Include="OutSide_CastleArea.h" />
     <ClInclude Include="Player_AfterImage.h" />
     <ClInclude Include="Player_Hit_Effect.h" />
+    <ClInclude Include="Player_Infomation.h" />
     <ClInclude Include="practice.h" />
     <ClInclude Include="RisingPierce_Ready.h" />
     <ClInclude Include="Sky_Ground.h" />
@@ -471,6 +474,8 @@
     <ClCompile Include="Monster_Hammer_Effect.cpp" />
     <ClCompile Include="Monster_Hit_Effect.cpp" />
     <ClCompile Include="MiniBoss_ObjCreate.cpp" />
+    <ClCompile Include="Monster_Hp_Bar.cpp" />
+    <ClCompile Include="HP_Frame.cpp" />
     <ClCompile Include="Monster_ObjPool.cpp" />
     <ClCompile Include="Monster_StoneWizard_Icicle_Effect.cpp" />
     <ClCompile Include="Monster_StoneWizard_Teleport.cpp" />
@@ -480,6 +485,7 @@
     <ClCompile Include="OutSide_CastleArea.cpp" />
     <ClCompile Include="Player_AfterImage.cpp" />
     <ClCompile Include="Player_Hit_Effect.cpp" />
+    <ClCompile Include="Player_Infomation.cpp" />
     <ClCompile Include="practice.cpp" />
     <ClCompile Include="RisingPierce_Ready.cpp" />
     <ClCompile Include="Sky_Ground.cpp" />

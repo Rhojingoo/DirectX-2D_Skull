@@ -4,12 +4,15 @@ namespace jk
 {
 	Player:: PlayerList Player::player_select = PlayerList::basic_Skul;
 	Player:: PlayerList Player::player_check = PlayerList::basic_Skul;
+	Player::PlayerList Player::Current_player = PlayerList::basic_Skul;
+	
 	Vector3 Player::_Pos = Vector3(0.f, 0.f, 0.f);
 	Vector3 Player::_Player_GRpos = Vector3(0.f, 0.f, 0.f);
 	bool Player:: _check_change = 0;
 	bool Player::_skulhead_check = false;
 	bool Player::_Ground_On = false;
 	bool Player::firstGroundcheck = false;
+	
 
 	int Player:: mDir = 1;
 
@@ -52,6 +55,9 @@ namespace jk
 		player_select;
 		player_check;
 		_Pos;
+		Current_player;
+		player_select;
+		
 
 		Monster::SetPlayerPos(_Pos);
 
@@ -61,7 +67,12 @@ namespace jk
 			{
 				_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::basic_Skul]->GetComponent<Transform>();
-				tr->SetPosition(_Pos); Skul_Basic::SetDirection(mDir, true);
+				if(_Switch ==false)
+					tr->SetPosition(_Pos), Skul_Basic::SetDirection(mDir, true);
+				else
+					tr->SetPosition(_Pos), Skul_Basic::SetDirection(mDir, false);
+				Current_player = PlayerList::basic_Skul;
+
 
 				if (player_check == PlayerList::wolf_Skul)
 					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
@@ -71,13 +82,23 @@ namespace jk
 					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
 				else if (player_check == PlayerList::thief_Skul)
 					_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
+
+				_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
+				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
+				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
+				_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
+				_Switch = false;
 			}
 
 			if (player_select == PlayerList::wolf_Skul)
 			{
 				_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::wolf_Skul]->GetComponent<Transform>();
-				tr->SetPosition(_Pos);  Skul_Wolf::SetDirection(mDir, true);
+				if (_Switch == false)
+					tr->SetPosition(_Pos), Skul_Wolf::SetDirection(mDir, true);
+				else
+					tr->SetPosition(_Pos), Skul_Wolf::SetDirection(mDir, false);
+				Current_player = PlayerList::wolf_Skul;
 
 				if (player_check == PlayerList::basic_Skul)
 					_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
@@ -87,13 +108,24 @@ namespace jk
 					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
 				else if (player_check == PlayerList::thief_Skul)
 					_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
+
+				_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
+				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
+				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
+				_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
+				_Switch = false;
 			}
 
 			if (player_select == PlayerList::spere_Skul)
 			{
 				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::spere_Skul]->GetComponent<Transform>();
-				tr->SetPosition(_Pos);  Skul_Spear::SetDirection(mDir, true);
+				if (_Switch == false)
+					tr->SetPosition(_Pos), Skul_Spear::SetDirection(mDir, true);
+				else				
+					tr->SetPosition(_Pos), Skul_Spear::SetDirection(mDir, false);
+				
+				Current_player = PlayerList::spere_Skul;
 
 				if (player_check == PlayerList::wolf_Skul)
 					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
@@ -103,6 +135,12 @@ namespace jk
 					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
 				else if (player_check == PlayerList::thief_Skul)
 					_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
+
+				_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
+				_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
+				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
+				_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
+				_Switch = false;
 			}
 
 			if (player_select == PlayerList::sowrd_Skul)

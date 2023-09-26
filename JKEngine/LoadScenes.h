@@ -3,10 +3,11 @@
 #include "Include_Common.h"
 #include "Monster_ObjPool.h"
 #include "Stge_Manager.h"
+#include "Player.h"
 
 namespace jk
 {
-	//extern Monster_ObjPool* Obj; 
+	extern Player* Player_INFO;
 	//extern Stage_Manager* Stage_MN;
 	//Monster_ObjPool* Obj;
 	//Stage_Manager* Stage_MN;

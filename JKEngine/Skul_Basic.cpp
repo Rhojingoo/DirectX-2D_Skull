@@ -223,7 +223,6 @@ namespace jk
 				at->PlayAnimation(L"Skul_BasicSwitchR", true);			
 		}
 
-
 		if (_Skulhead == true)
 		{
 			_skulhead_time += Time::DeltaTime();

@@ -21,11 +21,15 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		int random(int a, int b);
+		float GetDamage() { return _Damage; }
 
 	private:
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+		int		_HitType = 0;
+		float	_Damage = 0.f;
 
 	};
 }

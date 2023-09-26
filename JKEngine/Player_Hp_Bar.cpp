@@ -19,7 +19,7 @@ namespace jk
 	{
 		if (_HitOn == true)
 		{
-			_CurrentHp = _MaxHp - _Hit_Damage;
+			_CurrentHp = _CurrentHp - _Hit_Damage;
 			_HitOn = false;
 		}
 		GameObject::Update();
@@ -30,7 +30,7 @@ namespace jk
 	}
 	void Player_Hp_Bar::Render()
 	{
-		//BindConstantBuffer();
+		BindConstantBuffer();
 		GameObject::Render();
 	}
 	void Player_Hp_Bar::BindConstantBuffer()
@@ -42,6 +42,6 @@ namespace jk
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::HP_Bar];
 		cb->SetData(&trCB);
-		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::PS);
 	}
 }

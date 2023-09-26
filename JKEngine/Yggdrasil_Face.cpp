@@ -345,12 +345,12 @@ namespace jk
 			}
 			//if (_HitType >= 6 && _HitType < 9)
 			//{
-			//	_Dammege = random(15, 25);
+			//	_Damage = random(15, 25);
 			//	attack_Cri_Mid = true;
 			//}
 			//if (_HitType >= 9 && _HitType <= 10)
 			//{
-			//	_Dammege = random(30, 45);
+			//	_Damage = random(30, 45);
 			//	attack_Cri_High = true;
 			//}
 

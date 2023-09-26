@@ -15,9 +15,6 @@
     <ClInclude Include="BG.h">
       <Filter>Game_ob\BG</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Game_ob\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Player_State_UI.h">
       <Filter>Game_ob\UI\State</Filter>
     </ClInclude>
@@ -26,9 +23,6 @@
     </ClInclude>
     <ClInclude Include="Main_Camera.h">
       <Filter>Game_ob\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Game_ob\UI</Filter>
     </ClInclude>
     <ClInclude Include="jkToolScene.h">
       <Filter>Scene\practice</Filter>
@@ -617,6 +611,21 @@
     <ClInclude Include="Death_IntroEffect.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_Hp_Bar.h">
+      <Filter>Game_ob\UI\HP_bar</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Game_ob\UI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Game_ob\UI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="HP_Frame.h">
+      <Filter>Game_ob\UI\Hp_BarFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="Player_Infomation.h">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -628,9 +637,6 @@
     <ClCompile Include="BG.cpp">
       <Filter>Game_ob\BG</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Game_ob\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Player_State_UI.cpp">
       <Filter>Game_ob\UI\State</Filter>
     </ClCompile>
@@ -639,9 +645,6 @@
     </ClCompile>
     <ClCompile Include="UI_Camera.cpp">
       <Filter>Game_ob\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Game_ob\UI</Filter>
     </ClCompile>
     <ClCompile Include="jkToolScene.cpp">
       <Filter>Scene\practice</Filter>
@@ -1232,6 +1235,21 @@
     <ClCompile Include="Death_IntroEffect.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Effect\Dead _Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_Hp_Bar.cpp">
+      <Filter>Game_ob\UI\HP_bar</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Game_ob\UI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Game_ob\UI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="HP_Frame.cpp">
+      <Filter>Game_ob\UI\Hp_BarFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_Infomation.cpp">
+      <Filter>Game_ob\PLAYER</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1521,6 +1539,12 @@
     </Filter>
     <Filter Include="Game_ob\Boss\Layana_Sisters\Stage2_Boss">
       <UniqueIdentifier>{c3ae0253-7769-4c33-b686-05186d60963b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\UI\Base">
+      <UniqueIdentifier>{4ed64dc0-c57d-433f-8256-0dfe23078ca2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\UI\Hp_BarFrame">
+      <UniqueIdentifier>{65a078a5-83e4-46f3-9a0b-c8ea38f5afb1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

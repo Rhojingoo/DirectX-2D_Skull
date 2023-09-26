@@ -33,19 +33,29 @@ namespace jk
 		virtual void SetPlayer_Pos(Vector3 pos) { _Pos = pos; }
 		static void SetPlay_List(PlayerList change, PlayerList current, bool ckeck, int direction) 
 		{ player_select = change, player_check = current, _check_change = ckeck, mDir = direction; }
+		virtual PlayerList GetPlay_List() { return player_select;}
 		static void Setskillcheck(bool check_head) {_skulhead_check = check_head;}
 		static bool Get_Ground_On() { return _Ground_On; }
 		static Vector3 GetPlayer_GRPos() { return _Player_GRpos; }
 
+
+		static void SettingPlay_List(PlayerList set) { Current_player = set; }
+		static PlayerList GetCurrentPlay_List(){return	Current_player;}
+		static int GetDirection() { return	mDir; }
+		void SetSwitch(bool set = false) { _Switch = set; }
+
 		
 		Transform* PlayerTR = nullptr;
 		static PlayerList player_select;
+		static PlayerList player_check;
+		static PlayerList Current_player;
 		static Vector3 _Pos; 
 		static Vector3 _Player_GRpos;
 		static bool _Ground_On;
-		static bool firstGroundcheck;
+		static bool firstGroundcheck;	
+		bool _Switch = false;
+
 	private:
-		static PlayerList player_check;
 		GameObject* _Gobjs[5];
 		static bool _check_change;
 		static int mDir;

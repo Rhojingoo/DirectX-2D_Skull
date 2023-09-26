@@ -560,6 +560,10 @@ namespace jk::renderer
 
 	void LoadMaterial()
 	{
+		std::shared_ptr<Shader> TestShader
+			= Resources::Find<Shader>(L"TriangleShader");
+
+
 		std::shared_ptr<Shader> spriteShader
 			= Resources::Find<Shader>(L"SpriteShader");
 		std::shared_ptr<Shader> gridShader
@@ -609,7 +613,7 @@ namespace jk::renderer
 			Resources::Insert(L"GridMaterial", material);
 		#pragma endregion
 
-		#pragma region	UI	
+		#pragma region	UI_PlAYER	
 				#pragma region UI_PlayerState
 						texture = Resources::Load<Texture>(L"state_ui", L"..\\Resources\\Texture\\UI\\State_UI\\State_UI.png");
 						material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
@@ -634,6 +638,40 @@ namespace jk::renderer
 						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"DamageBar_Ui", material);
 				#pragma endregion
 		#pragma endregion
+
+		#pragma region	UI_Monster
+				#pragma region UI_Monster_HP
+										texture = Resources::Load<Texture>(L"enemyHealth_bar", L"..\\Resources\\Texture\\EnergeBar\\Monster_EnergeBar\\EnemyHealthBar.png");
+										material = std::make_shared<Material>(); material->SetShader(hp_bar_Shader);	material->SetTexture(texture);
+										material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"EnemyHealthBar", material);
+				#pragma endregion
+
+				#pragma region UI_Monster_HealthBar_Damage
+										texture = Resources::Load<Texture>(L"enemyHealthbar_damage", L"..\\Resources\\Texture\\EnergeBar\\Monster_EnergeBar\\EnemyHealthBar_Damage.png");
+										material = std::make_shared<Material>(); material->SetShader(hp_bar_Shader);	material->SetTexture(texture);
+										material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"EnemyHealthBar_Damage", material);
+				#pragma endregion
+
+				#pragma region UI_Monster_HealthBar_Base
+										texture = Resources::Load<Texture>(L"enemyHealthbar_base", L"..\\Resources\\Texture\\EnergeBar\\Monster_EnergeBar\\EnemyHealthBar_Base.png");
+										material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+										material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"EnemyHealthBar_Base", material);
+				#pragma endregion
+
+				#pragma region UI_Monster_HealthBar_Frame
+										texture = Resources::Load<Texture>(L"enemyHealthbar_frame", L"..\\Resources\\Texture\\EnergeBar\\Monster_EnergeBar\\EnemyHealthBar_Frame.png");
+										material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+										material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"EnemyHealthBar_Frame", material);
+				#pragma endregion
+
+				#pragma region UI_Monster_HealthBar_Frame
+										texture = Resources::Load<Texture>(L"enemyHealthbar_bigframe", L"..\\Resources\\Texture\\EnergeBar\\Monster_EnergeBar\\EnemyHealthBar_BigFrame.png");
+										material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+										material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"EnemyHealthBar_BigFrame", material);
+				#pragma endregion
+		#pragma endregion
+
+
 
 		#pragma region Player
 			#pragma region Skul_Base
@@ -702,41 +740,42 @@ namespace jk::renderer
 				Resources::Insert(L"SpriteMaterial02", material);
 #pragma endregion
 
-
 		#pragma endregion
 
-		std::shared_ptr<Texture> particleText
-			= Resources::Find<Texture>(L"CartoonSmoke");
-		material = std::make_shared<Material>();
-		material->SetShader(particleShader);
-		material->SetTexture(particleText);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert(L"ParticleMaterial", material);
 
-		std::shared_ptr<Texture> particleText2
-			= Resources::Find<Texture>(L"Blossom_Particle");
-		material = std::make_shared<Material>();
-		material->SetShader(particleShader);
-		material->SetTexture(particleText2);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert(L"ParticleMaterial2", material);
+		#pragma region Particle
+			std::shared_ptr<Texture> particleText
+				= Resources::Find<Texture>(L"CartoonSmoke");
+			material = std::make_shared<Material>();
+			material->SetShader(particleShader);
+			material->SetTexture(particleText);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"ParticleMaterial", material);
 
-		std::shared_ptr<Texture> particleText3
-			= Resources::Find<Texture>(L"Yggdrasil_Particle");
-		material = std::make_shared<Material>();
-		material->SetShader(particleShader);
-		material->SetTexture(particleText3);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert(L"Yggdrasil_Particle_Mt", material);
+			std::shared_ptr<Texture> particleText2
+				= Resources::Find<Texture>(L"Blossom_Particle");
+			material = std::make_shared<Material>();
+			material->SetShader(particleShader);
+			material->SetTexture(particleText2);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"ParticleMaterial2", material);
 
+			std::shared_ptr<Texture> particleText3
+				= Resources::Find<Texture>(L"Yggdrasil_Particle");
+			material = std::make_shared<Material>();
+			material->SetShader(particleShader);
+			material->SetTexture(particleText3);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"Yggdrasil_Particle_Mt", material);
 
-		std::shared_ptr<Texture> particleText4
-			= Resources::Find<Texture>(L"HIT_Particle");
-		material = std::make_shared<Material>();
-		material->SetShader(particleShader);
-		material->SetTexture(particleText4);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert(L"HITParticleMaterial", material);
+			std::shared_ptr<Texture> particleText4
+				= Resources::Find<Texture>(L"HIT_Particle");
+			material = std::make_shared<Material>();
+			material->SetShader(particleShader);
+			material->SetTexture(particleText4);
+			material->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"HITParticleMaterial", material);
+	#pragma endregion	
 
 		
 		#pragma region Title

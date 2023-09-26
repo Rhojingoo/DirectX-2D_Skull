@@ -1,5 +1,5 @@
 #include "OutSide_CastleArea.h"
-
+#include "LoadScenes.h"
 
 namespace jk
 {
@@ -13,13 +13,6 @@ namespace jk
 	}
 	void OutSide_CastleArea::Initialize()
 	{		
-
-
-		#pragma region Player		
-				_player = object::Instantiate<Player>(Vector3(0.f, 750.f, -250.f), eLayerType::Player);
-				_player->SetName(L"player_select");
-		#pragma endregion	
-
 
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
@@ -36,16 +29,19 @@ namespace jk
 			CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
 			CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 
-
-		#pragma region UI	
+#pragma region Player		
+			_player = object::Instantiate<Player>(Vector3(0.f, 750.f, -250.f), eLayerType::Player);
+			_player->SetName(L"player_select");
+#pragma endregion	
+				#pragma region UI	
 				//Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
 				//Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
 				//Player_State->SetName(L"playyer_state_inventory");
 
-				//Player_Hp_Bar* Player_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
-				//Player_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
-				//Player_Hp->SetName(L"player_hp_bar");
-				//Player_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+				//Player_Hp_Bar* Monster_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
+				//Monster_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
+				//Monster_Hp->SetName(L"player_hp_bar");
+				//Monster_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 
 				//Face_UI* Player_Face = object::Instantiate<Face_UI>(Vector3(-0.33f, 0.23f, -2.1f), eLayerType::UI);
 				//Player_Face->GetComponent<Transform>()->SetScale(Vector3(0.324f, 0.824f, 0.f));
@@ -72,7 +68,6 @@ namespace jk
 							NPC_by_stage* _npc_by_stage = object::Instantiate<NPC_by_stage>(Vector3(-90.f, -50.f, -249.f), eLayerType::Item);
 							_npc_by_stage->Set_Table_Allow(true);  _npc_by_stage->Set_End_Table(1);
 				#pragma endregion	
-
 
 				#pragma region CASTLE
 							Back_ground* out_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Out_Fore_GR");
@@ -157,12 +152,9 @@ namespace jk
 		Transform* PlayerTR = _player->GetComponent<Transform>();
 		Vector3 player_pos = PlayerTR->GetPosition();
 
-		if (player_pos.y < 50)
-		{
-			cameraComp->SetTarget(_player);
-			cameraComp->SetCamera = true;
-			cameraComp->SetCameraX = true;
-		}
+		if (player_pos.y < 50)		
+			cameraComp->SetTarget(_player);				
+		
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
@@ -182,6 +174,15 @@ namespace jk
 			}
 		}
 
+		if (_changecheck == true)
+		{
+			_player->SetPlayer_Pos(player_pos);
+			//_player->SetSwitch(true);
+			_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
+			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
+			_changecheck = false;
+		}
+
 		Scene::Update();
 	}
 	void OutSide_CastleArea::LateUpdate()
@@ -194,10 +195,13 @@ namespace jk
 	}
 	void OutSide_CastleArea::OnEnter()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+		_player->SetPlayer_Pos(player_pos);
+		_player->SetSwitch(true);
+		_changecheck = true;
 
-	//_player = GetPlayer();
-	//Transform* _playerTR = _player->GetComponent<Transform>();
-	//_playerTR->SetPosition(Vector3(0.f, 750.f, -250.f));
+
 
 #pragma region Cam & Mouse& Grid
 		//Main Camera			
@@ -206,6 +210,8 @@ namespace jk
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
+		cameraComp->SetCamera = true;
+		cameraComp->SetCameraX = true;
 		cameraComp->Set_MaxPlayerX(280.f);
 		cameraComp->Set_MinPlayerX(0.f);
 

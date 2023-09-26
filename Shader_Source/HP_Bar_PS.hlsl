@@ -17,26 +17,19 @@ struct VSOut
 
 float4 main(VSOut In) : SV_TARGET
 {
-    // float4 color = (float4) 0.0f;
+    float4 color = (float4) 0.0f;
+    float2 uv = In.UV;
 
-    //float2 uv = In.UV;
-    //color = albedoTexture.Sample(anisotropicSampler, uv);
-
-    //// HP 바의 너비를 조절합니다.
-    //// Damage.x는 현재 HP, Damage.y는 피해량입니다.
-    //float hpPercentage = (Damage.x - Damage.y) / Damage.x;
-    //if (uv.x > hpPercentage)
-    //{
-    //    color.a = 0;
-    //}
-
-    //return color;
-
-
-    float4 color = (float4) 0.0f;    
-     
-    float2 uv =In.UV;
     color = albedoTexture.Sample(anisotropicSampler, uv);
+
+    // HP 백분율 계산
+    float hpPercentage = Damage.y / Damage.x;
+
+    // uv.x가 hpPercentage보다 크면 픽셀을 투명하게 만듭니다.
+    if (uv.x > hpPercentage)
+    {
+        color.a = 0;
+    }
 
     return color;
 }

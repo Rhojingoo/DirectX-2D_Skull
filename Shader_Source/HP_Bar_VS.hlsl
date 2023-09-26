@@ -20,17 +20,17 @@ VSOut main(VSIn In)
 {
     VSOut Out = (VSOut) 0.0f;
     
+    //In.Pos.x = In.Pos.x * 20.f;
+    //In.Pos.y = In.Pos.y * 5.f;
+
     float4 world = mul(float4(In.Pos, 1.0f), WorldMatrix);
     float4 view = mul(world, ViewMatrix);
     float4 proj = mul(view, ProjectionMatrix);
 
     Out.Pos = proj;
     Out.Color = In.Color;
-
-    // HP 바의 너비를 조절합니다.
-    float hpPercentage = Damage.x / (Damage.x + Damage.y);
     Out.UV = In.UV;
-    Out.UV.x *= hpPercentage;
+    //Out.UV.y = In.UV.y*;
 
     return Out;
 }

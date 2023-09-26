@@ -3,7 +3,7 @@
 #include "jkParticleSystem.h"
 #include "jkPaintShader.h"
 #include "Blosome.h"
-
+#include "LoadScenes.h"
 
 
 namespace jk
@@ -39,10 +39,10 @@ namespace jk
 					//Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
 					//Player_State->SetName(L"playyer_state_inventory");
 
-					//Player_Hp_Bar* Player_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
-					//Player_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
-					//Player_Hp->SetName(L"player_hp_bar");
-					//Player_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+					//Player_Hp_Bar* Monster_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
+					//Monster_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
+					//Monster_Hp->SetName(L"player_hp_bar");
+					//Monster_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 
 					//Face_UI* Player_Face = object::Instantiate<Face_UI>(Vector3(-0.33f, 0.23f, -2.1f), eLayerType::UI);
 					//Player_Face->GetComponent<Transform>()->SetScale(Vector3(0.324f, 0.824f, 0.f));
@@ -69,6 +69,9 @@ namespace jk
 					_player = object::Instantiate<Player>(Vector3(0.f, -50.f, -250.f), eLayerType::Player);
 					_player->SetName(L"player_select");
 			#pragma endregion
+
+					Monster_warrior* test = object::Instantiate<Monster_warrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+
 
 			#pragma region Npc	
 
@@ -160,15 +163,15 @@ namespace jk
 			}
 
 
-
-
 			if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 			{
 				_Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
 				_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
 				_Alpha->Set_Black_Transparent();
 				_Fadecheck = true;
+				jk::Player_INFO->SettingPlay_List(_player->GetPlay_List());
 			}
+
 			if (out_GroundMap->Get_Turnon() == true)
 			{
 				if (_Fadecheck == false)

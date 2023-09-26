@@ -1,4 +1,7 @@
 #include "HitBox_Player.h"
+#include <iostream>
+#include <random>
+
 
 namespace jk
 {
@@ -20,6 +23,20 @@ namespace jk
 	}
 	void HitBox_Player::Update()
 	{
+		if (Player::GetCurrentPlay_List() == Player::PlayerList::basic_Skul)
+		{
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+				_Damage = random(10, 15);
+
+			if (_HitType >= 6 && _HitType < 9)
+				_Damage = random(22, 28);
+
+			if (_HitType >= 9 && _HitType <= 10)
+				_Damage = random(30, 45);
+		}
+
+
 		GameObject::Update();
 	}
 	void HitBox_Player::LateUpdate()
@@ -38,5 +55,13 @@ namespace jk
 	}
 	void HitBox_Player::OnCollisionExit(Collider2D* other)
 	{
+	}
+	int HitBox_Player::random(int a, int b)
+	{
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<int> distribution(a, b);
+		int abc = distribution(gen);
+		return abc;
 	}
 }
