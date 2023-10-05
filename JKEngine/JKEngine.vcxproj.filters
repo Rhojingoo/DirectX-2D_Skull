@@ -635,6 +635,9 @@
     <ClInclude Include="Yggdrasil_HpFrame.h">
       <Filter>Game_ob\UI\Hp_BarFrame</Filter>
     </ClInclude>
+    <ClInclude Include="Layana_HpFrame.h">
+      <Filter>Game_ob\UI\Hp_BarFrame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1266,6 +1269,9 @@
       <Filter>Game_ob\UI\Face\AdventureUI</Filter>
     </ClCompile>
     <ClCompile Include="Yggdrasil_HpFrame.cpp">
+      <Filter>Game_ob\UI\Hp_BarFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="Layana_HpFrame.cpp">
       <Filter>Game_ob\UI\Hp_BarFrame</Filter>
     </ClCompile>
   </ItemGroup>

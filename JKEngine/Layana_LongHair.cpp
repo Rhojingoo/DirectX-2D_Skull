@@ -9,8 +9,10 @@ namespace jk
 
 
 	int	Layana_LongHair::_HitType = 0;
-	int	Layana_LongHair::_Dammege = 0;
-	Player_Hp_Bar* Layana_LongHair::Player_Hp = nullptr;
+	float	Layana_LongHair::_Damage = 0;
+	Monster_Hp_Bar* Layana_LongHair::Longhair_Hp = nullptr;
+	Monster_Hp_Bar* Layana_LongHair::Longhair_Hp_Damage = nullptr;
+
 	Monster_Hit_Effect* Layana_LongHair::_Hit_Effect = nullptr;
 	Player_Hit_Effect* Layana_LongHair::_Hit_Effect_player = nullptr;
 	Hit_Sword* Layana_LongHair::_Hit_Sword = nullptr;
@@ -190,6 +192,37 @@ namespace jk
 		at->CompleteEvent(L"Long_hairAwakenR") = std::bind(&Layana_LongHair::Complete_Awaken, this);
 		at->CompleteEvent(L"Long_hairAwakenReadyR") = std::bind(&Layana_LongHair::Complete_Awaken_Ready, this);
 
+	
+		//hp관련
+		{
+			Longhair_Hp = new Monster_Hp_Bar(L"BossHealthBar_FirstPhase");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Longhair_Hp);
+			Transform* hp_tr = Longhair_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(65, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(127.5, 10, 0);
+			Longhair_Hp->Set_Max_Hp(_Max_LongHair_Hp);
+			Longhair_Hp->Set_Current_Hp(_Max_LongHair_Hp);
+			Longhair_Hp->SetState(eState::Active);
+		}
+		{
+			Longhair_Hp_Damage = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Longhair_Hp_Damage);
+			Transform* hp_tr = Longhair_Hp_Damage->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(65, _pos.y + 50, _pos.z - 1.5));
+			hp_tr->SetScale(127.5, 10, 0);
+			Longhair_Hp_Damage->Set_Max_Hp(_Max_LongHair_Hp);
+			Longhair_Hp_Damage->Set_Current_Hp(_Max_LongHair_Hp);
+			Longhair_Hp_Damage->Set_Type(1);
+			Longhair_Hp_Damage->SetState(eState::Active);
+		}
+
+
+
+
 
 		{
 			Hit_Box = new HitBox_Layana();
@@ -344,20 +377,7 @@ namespace jk
 
 
 
-		//hp관련
-		{
-			Player_Hp = new Player_Hp_Bar;
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Monster, Player_Hp);
-			Player_Hp->SetName(L"player_hp_bar");
-			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
-			hp_tr->SetScale(_Max_LongHair_Hp, 10, 0);
-			Player_Hp->Set_Max_Hp(_Max_LongHair_Hp);
-			Player_Hp->Set_Current_Hp(_Max_LongHair_Hp);
-			Player_Hp->SetState(eState::Active);
-		}
+
 
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
@@ -471,11 +491,14 @@ namespace jk
 		_pos = tr->GetPosition();
 		LongHairPos = _pos;
 
-		_MaxHp_LongHair_scale = _Max_LongHair_Hp / 100;
-		_CurrenHp_LongHair_scale = _Curren_LongHair_Hp / 100;
-		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp_LongHair_scale - _CurrenHp_LongHair_scale)+200 / 2, 150, _pos.z - 1));
-		hp_tr->SetScale(_CurrenHp_LongHair_scale, 10, 0);
+
+		Transform* _HpFrame_tr = _HpBarFrame->GetComponent<Transform>();
+		Transform* hp_tr = Longhair_Hp->GetComponent<Transform>();
+		Transform* hp_trDamege = Longhair_Hp_Damage->GetComponent<Transform>();
+		{
+			hp_tr->SetPosition(Vector3(73.5, _HpFrame_tr->GetPosition().y - 2.5, _HpFrame_tr->GetPosition().z - 2));
+			hp_trDamege->SetPosition(Vector3(73.5, _HpFrame_tr->GetPosition().y - 2.5, _HpFrame_tr->GetPosition().z - 1));
+		}
 
 		Transform* BulletTR = Golden_Meteor_Bl->GetComponent<Transform>();
 		BulletTR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -499,6 +522,8 @@ namespace jk
 
 		if (_ShortHair_Die == true)
 		{
+			Longhair_Hp->SetState(eState::Paused);
+			Longhair_Hp_Damage->SetState(eState::Paused);
 			LongHair_Operation = true;
 			Awaken_Combo();
 			_LongHair_Awaken = false;
@@ -900,26 +925,18 @@ namespace jk
 		{
 			if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 			{
-				bool attack = false;
-				bool attack_Cri_Mid = false;
-				bool attack_Cri_High = false;
+				_Damage = player->GetDamage();
+				bool attack = player->Geteffect();
+				bool attack_Cri_Mid = player->Geteffect_Mid();
+				bool attack_Cri_High = player->Geteffect_Hight();
+				_Damage = 2000;
 
-				_HitType = random(1, 6);
-				if (_HitType >= 1 && _HitType < 6)
-				{
-					_Dammege = 3000;
-					attack = true;
-				}
-				//if (_HitType >= 6 && _HitType < 9)
-				//{
-				//	_Damage = random(15, 25);
-				//	attack_Cri_Mid = true;
-				//}
-				//if (_HitType >= 9 && _HitType <= 10)
-				//{
-				//	_Damage = random(30, 45);
-				//	attack_Cri_High = true;
-				//}
+				_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Damage;
+				Longhair_Hp->_HitOn = true;
+				Longhair_Hp->SetHitDamage(_Damage);
+				Longhair_Hp_Damage->_HitOn = true;
+				Longhair_Hp_Damage->Set_Target(_Curren_LongHair_Hp);
+
 
 				{
 					_Hit_Effect->_effect_animation = true;
@@ -927,18 +944,12 @@ namespace jk
 					_Critical_High->_effect_animation = true;
 					if (_Dir == 1)
 					{
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
-						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
 						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
 						_Critical_High->SetDirection(-1);
 					}
 					else
 					{
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
-						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
 						_Hit_Sword->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
 						_Critical_High->SetDirection(1);
@@ -978,17 +989,17 @@ namespace jk
 				_HitType = random(1, 10);
 				if (_HitType >= 1 && _HitType < 6)
 				{
-					_Dammege = 25;
+					_Damage = 25;
 					attack = true;
 				}
 				if (_HitType >= 6 && _HitType < 9)
 				{
-					_Dammege = random(35, 40);
+					_Damage = random(35, 40);
 					attack_Cri_Mid = true;
 				}
 				if (_HitType >= 9 && _HitType <= 10)
 				{
-					_Dammege = random(50, 70);
+					_Damage = random(50, 70);
 					attack_Cri_High = true;
 				}
 
@@ -998,18 +1009,12 @@ namespace jk
 					_Critical_High->_effect_animation = true;
 					if (_Dir == 1)
 					{
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
-						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
 						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
 						_Critical_High->SetDirection(-1);
 					}
 					else
 					{
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
-						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
 						_Hit_Sword->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
 						_Critical_High->SetDirection(1);
@@ -1125,7 +1130,6 @@ namespace jk
 
 				if (_state == Layana_Sisters_State::Intro_Fall)
 				{					
-					//at->PlayAnimation(L"Long_hairIntro_LandingR", true);			
 					_Intro_Landing = true;
 					Intro_SM->SetState(eState::Active);
 					Intro_SM->SetSwitch(true);

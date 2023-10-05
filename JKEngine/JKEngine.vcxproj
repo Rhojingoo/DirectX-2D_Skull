@@ -176,6 +176,7 @@
     <ClInclude Include="BigEnt_EnergeBall_Bomb.h" />
     <ClInclude Include="Blosome.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="Layana_HpFrame.h" />
     <ClInclude Include="Yggdrasil_HpFrame.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Castle_Area.h" />
@@ -392,6 +393,7 @@
     <ClCompile Include="BigEnt_EnergeBall_Bomb.cpp" />
     <ClCompile Include="Blosome.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Layana_HpFrame.cpp" />
     <ClCompile Include="Yggdrasil_HpFrame.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Castle_Area.cpp" />

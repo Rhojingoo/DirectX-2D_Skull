@@ -7,7 +7,7 @@
 #include "Yggdrasil_HpFrame.h"
 #include "Monster_Hp_Bar.h"
 #include "HP_Frame.h"
-#include "MiniBoss_State_UI.h"
+
 
 namespace jk
 {

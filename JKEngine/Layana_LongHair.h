@@ -23,6 +23,8 @@
 #include "Awaken_Electric.h"
 
 
+#include "Monster_Hp_Bar.h"
+
 namespace jk
 {
 	class Layana_LongHair : public Layana_Sisters
@@ -303,8 +305,11 @@ namespace jk
 		
 	public:
 		static int	_HitType;
-		static int	_Dammege;
-		static Player_Hp_Bar* Player_Hp;
+		static float _Damage;
+		static	Monster_Hp_Bar* Longhair_Hp;
+		static	Monster_Hp_Bar* Longhair_Hp_Damage;
+
+	public:
 		static Monster_Hit_Effect* _Hit_Effect;
 		static Player_Hit_Effect* _Hit_Effect_player;
 		static Hit_Sword* _Hit_Sword;

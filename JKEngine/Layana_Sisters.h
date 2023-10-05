@@ -1,5 +1,6 @@
 #pragma once
 #include "Include_Common.h"
+#include "Layana_HpFrame.h"
 
 namespace jk
 {
@@ -209,6 +210,11 @@ namespace jk
 
 
 	public:
+		static Layana_HpFrame* _HpBarFrame;
+	private:
+		float _FrameDown = 230;
+
+	public:
 		static float _Max_LongHair_Hp;
 		static float _Curren_LongHair_Hp;
 		static float _MaxHp_LongHair_scale;
@@ -219,7 +225,6 @@ namespace jk
 		static float _Curren_ShortHair_Hp;
 		static float _MaxHp_ShortHair_scale;
 		static float _CurrenHp_ShortHair_scale;
-
 
 
 		static float _Max_Dark_Awaken_Hp;

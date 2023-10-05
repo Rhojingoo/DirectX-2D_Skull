@@ -13,21 +13,21 @@ namespace jk
 	Vector3 Layana_Sisters::ShortHairPos = Vector3();
 	Vector3 Layana_Sisters::AwakenDarkmode_Pos = Vector3();
 	
-
-	float Layana_Sisters::_Max_LongHair_Hp = 3000;
-	float Layana_Sisters::_Curren_LongHair_Hp = 3000;
+	Layana_HpFrame* Layana_Sisters::_HpBarFrame = nullptr;
+	float Layana_Sisters::_Max_LongHair_Hp = 2000;
+	float Layana_Sisters::_Curren_LongHair_Hp = 2000;
 	float Layana_Sisters::_MaxHp_LongHair_scale = 0;
 	float Layana_Sisters::_CurrenHp_LongHair_scale = 0;
 
 
-	float Layana_Sisters::_Max_ShortHair_Hp = 3000;
-	float Layana_Sisters::_Curren_ShortHair_Hp = 3000;
+	float Layana_Sisters::_Max_ShortHair_Hp = 2000;
+	float Layana_Sisters::_Curren_ShortHair_Hp = 2000;
 	float Layana_Sisters::_MaxHp_ShortHair_scale = 0;
 	float Layana_Sisters::_CurrenHp_ShortHair_scale = 0;
 
 
-	float Layana_Sisters::_Max_Dark_Awaken_Hp = 4500;
-	float Layana_Sisters::_Curren_Dark_Awaken_Hp = 0;
+	float Layana_Sisters::_Max_Dark_Awaken_Hp = 3000;
+	float Layana_Sisters::_Curren_Dark_Awaken_Hp = 3000;
 	float Layana_Sisters::_MaxHp_Dark_Awaken_scale = 0;
 	float Layana_Sisters::_CurrenHp_Dark_Awaken_scale = 0;
 
@@ -134,6 +134,18 @@ namespace jk
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[2]);
 		_Gobjs[2]->SetState(eState::Paused);
 
+		
+
+		{
+			_HpBarFrame = new Layana_HpFrame();
+			_HpBarFrame->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _HpBarFrame);
+			Transform* bullet_tr = _HpBarFrame->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(0.f, 170.f, -205.f));
+			_HpBarFrame->SetState(eState::Active);
+		}
 
 		GameObject::Initialize();
 	}
@@ -143,6 +155,8 @@ namespace jk
 	{
 		if (_Layana_change == true)
 		{
+			_HpBarFrame->Set_Animation(true);
+			_HpBarFrame->ChoicetHp_bar(1);
 			if (Layana_select == LayanaSisters_List::Awaken_Darkmode)
 			{
 				if (Layana_check == LayanaSisters_List::LonaHair)

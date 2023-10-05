@@ -38,10 +38,10 @@ namespace jk
 				//Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
 				//Player_State->SetName(L"playyer_state_inventory");
 
-				//Player_Hp_Bar* Monster_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
-				//Monster_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
-				//Monster_Hp->SetName(L"player_hp_bar");
-				//Monster_Hp->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+				//Player_Hp_Bar* Player_Hit_Effect = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
+				//Player_Hit_Effect->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
+				//Player_Hit_Effect->SetName(L"player_hp_bar");
+				//Player_Hit_Effect->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 
 				//Face_UI* Player_Face = object::Instantiate<Face_UI>(Vector3(-0.33f, 0.23f, -2.1f), eLayerType::UI);
 				//Player_Face->GetComponent<Transform>()->SetScale(Vector3(0.324f, 0.824f, 0.f));

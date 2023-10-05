@@ -562,8 +562,8 @@ namespace jk
 		if (_Changeon == false)
 			Attack_Sellect = random(0, 2);
 		else
-			Attack_Sellect = random(0, 3);
-		
+			Attack_Sellect = random(0, 3);		
+		//Attack_Sellect = 1;
 
 		if (_Intro == false)
 		{
@@ -587,7 +587,6 @@ namespace jk
 			Transform* hp_trDamege = Monster_DamegeHp->GetComponent<Transform>();
 			Transform* hp_trDamegeSecond= Monster_DamegeHp_Second->GetComponent<Transform>();
 			
-			//_HpFrame_tr->SetPosition(Vector3(_pos.x, 230, -205));
 			if (_First_Hp_on == false)
 			{
 				_HpFrame->SetState(eState::Active);
@@ -595,8 +594,6 @@ namespace jk
 				Monster_DamegeHp->SetState(eState::Active);
 				_First_Hp_on = true;
 			}
-
-			//hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
 
 			if (_FrameDown > 190)
 			{
@@ -614,9 +611,6 @@ namespace jk
 				hp_trDamege->SetPosition(Vector3(_HpFrame_tr->GetPosition().x + 1, _HpFrame_tr->GetPosition().y - 7, _HpFrame_tr->GetPosition().z - 1));
 				hp_trDamegeSecond->SetPosition(Vector3(_HpFrame_tr->GetPosition().x + 1, _HpFrame_tr->GetPosition().y - 7, _HpFrame_tr->GetPosition().z - 1));
 			}
-
-	
-			Attack_Sellect = 1;
 
 
 			if (_time > 3)

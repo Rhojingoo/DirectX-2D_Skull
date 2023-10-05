@@ -34,6 +34,8 @@
 
 
 
+#include "Monster_Hp_Bar.h"
+
 
 
 
@@ -251,10 +253,12 @@ namespace jk
 
 	public: //체력관련
 		bool _EnergyChange = false;
-
 		static int	_HitType;
-		static int	_Dammege;
-		static Player_Hp_Bar* Player_Hp;
+		static float _Damage;
+		static	Monster_Hp_Bar* Dark_Awaken_Hp;
+		static	Monster_Hp_Bar* Dark_Awaken_DamegeHP;
+
+	public:
 		static Monster_Hit_Effect* _Hit_Effect;
 		static Player_Hit_Effect* _Hit_Effect_player;
 		static Hit_Sword* _Hit_Sword;
@@ -370,5 +374,6 @@ private:
 		bool	_Joint_Attack = false;
 
 		int		_SelectAttack = 0;
+		bool _Switch_Hpbar = false;
 	};
 }

@@ -9,8 +9,10 @@ namespace jk
 
 
 	int	Layana_Dark_Awaken::_HitType = 0;
-	int	Layana_Dark_Awaken::_Dammege = 0;
-	Player_Hp_Bar* Layana_Dark_Awaken::Player_Hp = nullptr;
+	float	Layana_Dark_Awaken::_Damage = 0;
+	Monster_Hp_Bar* Layana_Dark_Awaken::Dark_Awaken_Hp = nullptr;
+	Monster_Hp_Bar* Layana_Dark_Awaken::Dark_Awaken_DamegeHP = nullptr;
+
 	Monster_Hit_Effect* Layana_Dark_Awaken::_Hit_Effect = nullptr;
 	Player_Hit_Effect* Layana_Dark_Awaken::_Hit_Effect_player = nullptr;
 	Hit_Sword* Layana_Dark_Awaken::_Hit_Sword = nullptr;
@@ -185,6 +187,37 @@ namespace jk
 		at->CompleteEvent(L"Awaken_PowerDeath_01R") = std::bind(&Layana_Dark_Awaken::Complete_Death_01, this);
 		at->CompleteEvent(L"Awaken_PowerDeath_02") = std::bind(&Layana_Dark_Awaken::Complete_Death_02, this);
 		at->CompleteEvent(L"Awaken_PowerDeath_02R") = std::bind(&Layana_Dark_Awaken::Complete_Death_02, this);		
+
+		//hp관련
+		{
+			Dark_Awaken_Hp = new Monster_Hp_Bar(L"BossHealthBar_SecondPhase");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Dark_Awaken_Hp);
+			Transform* hp_tr = Dark_Awaken_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(274, 10, 0);
+			Dark_Awaken_Hp->Set_Max_Hp(_Max_Dark_Awaken_Hp);
+			Dark_Awaken_Hp->Set_Current_Hp(_Max_Dark_Awaken_Hp);
+			Dark_Awaken_Hp->SetState(eState::Paused);
+		}
+		{
+			Dark_Awaken_DamegeHP = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Dark_Awaken_DamegeHP);
+			Transform* hp_tr = Dark_Awaken_DamegeHP->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
+			hp_tr->SetScale(274, 10, 0);
+			Dark_Awaken_DamegeHP->Set_Max_Hp(_Max_Dark_Awaken_Hp);
+			Dark_Awaken_DamegeHP->Set_Current_Hp(_Max_Dark_Awaken_Hp);
+			Dark_Awaken_DamegeHP->Set_Type(1);
+			Dark_Awaken_DamegeHP->SetState(eState::Paused);
+		}
+
+
+
+
 
 
 		{
@@ -490,20 +523,7 @@ namespace jk
 		}
 
 
-		//hp관련
-		{
-			Player_Hp = new Player_Hp_Bar;
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Monster, Player_Hp);
-			Player_Hp->SetName(L"player_hp_bar");
-			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
-			hp_tr->SetScale(_Max_LongHair_Hp, 10, 0);
-			Player_Hp->Set_Max_Hp(_Max_LongHair_Hp);
-			Player_Hp->Set_Current_Hp(_Max_LongHair_Hp);
-			Player_Hp->SetState(eState::Paused);
-		}
+
 
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
@@ -559,8 +579,6 @@ namespace jk
 		}
 
 
-
-
 		//데스이펙트
 		{
 			_Death_Intro = new Death_IntroEffect;
@@ -614,14 +632,22 @@ namespace jk
 
 		if (_EnergyChange == true)
 		{
-			_CurrenHp_Dark_Awaken_scale = 4500;
-			Player_Hp->SetState(eState::Active);
-			_MaxHp_Dark_Awaken_scale = _Max_Dark_Awaken_Hp / 100;
-			_CurrenHp_Dark_Awaken_scale = _Curren_Dark_Awaken_Hp / 100;
-			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp_Dark_Awaken_scale - _CurrenHp_Dark_Awaken_scale) + 200 / 2, 150, _pos.z - 1));
-			hp_tr->SetScale(_CurrenHp_Dark_Awaken_scale, 10, 0);
+			if (_Switch_Hpbar == false)
+			{
+				Dark_Awaken_Hp->SetState(eState::Active);
+				Dark_Awaken_DamegeHP->SetState(eState::Active);
+				_Switch_Hpbar = true;
+			}
+
+			Transform* _HpFrame_tr = _HpBarFrame->GetComponent<Transform>();
+			Transform* hp_tr = Dark_Awaken_Hp->GetComponent<Transform>();
+			Transform* hp_trDamege = Dark_Awaken_DamegeHP->GetComponent<Transform>();
+			{
+				hp_tr->SetPosition(Vector3(0, _HpFrame_tr->GetPosition().y - 3, _HpFrame_tr->GetPosition().z - 2));
+				hp_trDamege->SetPosition(Vector3(0, _HpFrame_tr->GetPosition().y - 3, _HpFrame_tr->GetPosition().z - 1));
+			}
 		}
+
 
 
 		if (_Awaken_Switch == true) // 어웨이큰 On 만들어야함.★★★★★★★★★★★★★★★★★★★★
@@ -988,26 +1014,16 @@ namespace jk
 
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 			{
-				bool attack = false;
-				bool attack_Cri_Mid = false;
-				bool attack_Cri_High = false;
+			_Damage = player->GetDamage();
+			bool attack = player->Geteffect();
+			bool attack_Cri_Mid = player->Geteffect_Mid();
+			bool attack_Cri_High = player->Geteffect_Hight();
 
-				_HitType = random(1, 6);
-				if (_HitType >= 1 && _HitType < 6)
-				{
-					_Dammege = 3000;
-					attack = true;
-				}
-				//if (_HitType >= 6 && _HitType < 9)
-				//{
-				//	_Damage = random(15, 25);
-				//	attack_Cri_Mid = true;
-				//}
-				//if (_HitType >= 9 && _HitType <= 10)
-				//{
-				//	_Damage = random(30, 45);
-				//	attack_Cri_High = true;
-				//}
+			_Curren_Dark_Awaken_Hp = _Curren_Dark_Awaken_Hp - _Damage;
+			Dark_Awaken_Hp->_HitOn = true;
+			Dark_Awaken_Hp->SetHitDamage(_Damage);
+			Dark_Awaken_DamegeHP->_HitOn = true;
+			Dark_Awaken_DamegeHP->Set_Target(_Curren_Dark_Awaken_Hp);
 
 				{
 					_Hit_Effect->_effect_animation = true;
@@ -1015,18 +1031,12 @@ namespace jk
 					_Critical_High->_effect_animation = true;
 					if (_Dir == 1)
 					{
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
-						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
 						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
 						_Critical_High->SetDirection(-1);
 					}
 					else
 					{
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
-						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
 						_Hit_Sword->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
 						_Critical_High->SetDirection(1);
@@ -1047,7 +1057,7 @@ namespace jk
 						_Critical_High->SetState(eState::Active);
 					}
 				}
-				if (_Curren_LongHair_Hp <= 0)
+				if (_Curren_Dark_Awaken_Hp <= 0)
 				{
 					if (_EnergyChange == true)
 					{
@@ -1075,17 +1085,17 @@ namespace jk
 				_HitType = random(1, 10);
 				if (_HitType >= 1 && _HitType < 6)
 				{
-					_Dammege = 25;
+					_Damage = 25;
 					attack = true;
 				}
 				if (_HitType >= 6 && _HitType < 9)
 				{
-					_Dammege = random(35, 40);
+					_Damage = random(35, 40);
 					attack_Cri_Mid = true;
 				}
 				if (_HitType >= 9 && _HitType <= 10)
 				{
-					_Dammege = random(50, 70);
+					_Damage = random(50, 70);
 					attack_Cri_High = true;
 				}
 
@@ -1095,18 +1105,13 @@ namespace jk
 					_Critical_High->_effect_animation = true;
 					if (_Dir == 1)
 					{
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
-						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
+
 						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
 						_Critical_High->SetDirection(-1);
 					}
 					else
 					{
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
-						_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Dammege;
 						_Hit_Sword->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
 						_Critical_High->SetDirection(1);
