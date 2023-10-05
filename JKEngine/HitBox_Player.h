@@ -24,6 +24,15 @@ namespace jk
 		int random(int a, int b);
 		float GetDamage() { return _Damage; }
 
+
+		bool Geteffect() { return attack; }
+		bool Geteffect_Mid() { return attack_Cri_Mid; }
+		bool Geteffect_Hight() { return attack_Cri_High; }
+
+		void Seteffect(bool set) { attack = set; }
+		void Seteffect_Mid(bool set) {  attack_Cri_Mid = set; }
+		void Seteffect_Hight(bool set) {  attack_Cri_High = set; }
+
 	private:
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
@@ -31,5 +40,8 @@ namespace jk
 		int		_HitType = 0;
 		float	_Damage = 0.f;
 
+		bool attack = false;
+		bool attack_Cri_Mid = false;
+		bool attack_Cri_High = false;
 	};
 }

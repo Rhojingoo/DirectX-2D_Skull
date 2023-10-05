@@ -14,22 +14,15 @@ namespace jk
 	Mage::~Mage()
 	{
 	}
+
+
 	void Mage::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(false);
-	
 
-		//Skul_Head = new Skul_head();
-		//Skul_Head->Initialize();
-		//Scene* scene = SceneManager::GetActiveScene();
-		//scene->AddGameObject(eLayerType::Item, Skul_Head);
-		//Transform* tr_head = Skul_Head->GetComponent<Transform>();
-		//tr_head->SetPosition(Vector3(pos.x, pos.y, -250.f));
-		//Skul_Head->GetComponent<Transform>()->SetScale(Vector3(15.f, 13.f, 0.f));
-		//Skul_Head->SetState(eState::Paused);
 
 		at = AddComponent<Animator>();
 
@@ -132,6 +125,102 @@ namespace jk
 		at->CompleteEvent(L"MageIntroR") = std::bind(&Mage::complete_intro, this);
 		at->CompleteEvent(L"MageIntro2") = std::bind(&Mage::complete_intro_end, this);
 		at->CompleteEvent(L"MageIntro2R") = std::bind(&Mage::complete_intro_end, this);
+
+		//UI 및 체력관련		
+		{
+			_MbossFace = new AdventureUI();
+			_MbossFace->Initialize();
+			_MbossFace->Set_animation(true);
+			_MbossFace->Set_UISelect(6);
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::UI, _MbossFace);
+			_MbossFace->SetName(L"_MbossFace");
+			Transform* face_tr = _MbossFace->GetComponent<Transform>();
+			face_tr->SetPosition(Vector3(762.f, 375.f, pos.z));
+			face_tr->SetScale(26 * 2, 26.f * 2, 0);
+		}
+
+		{
+			_State_UI = new MiniBoss_State_UI();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::UI, _State_UI);
+			_State_UI->SetName(L"hp_bar_frame");
+			Transform* hp_tr = _State_UI->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(685.f, 375.f, pos.z));
+			hp_tr->SetScale(108.f * 2, 30.f * 2, 0);
+		}
+		{
+			Monster_UIHp = new Monster_Hp_Bar(L"EnemyHealthBar");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::UI, Monster_UIHp);
+			Monster_UIHp->SetName(L"warrior_hp_bar");
+			Transform* hp_tr = Monster_UIHp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
+			hp_tr->SetScale(137, 12.5, 0);
+			Monster_UIHp->Set_Max_Hp(_MaxHp);
+			Monster_UIHp->Set_Current_Hp(_MaxHp);
+
+		}
+		{
+			Monster_UIDamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::UI, Monster_UIDamegeHp);
+			Monster_UIDamegeHp->SetName(L"warrior_hp_bar");
+			Transform* hp_tr = Monster_UIDamegeHp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1.5));
+			hp_tr->SetScale(137, 12.5, 0);
+			Monster_UIDamegeHp->Set_Max_Hp(_MaxHp);
+			Monster_UIDamegeHp->Set_Current_Hp(_MaxHp);
+			Monster_UIDamegeHp->Set_Type(1);
+		}
+
+		{
+			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_Frame");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
+			Hpbar_Frame->SetName(L"hp_bar_frame");
+			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 1));
+			hp_tr->SetScale(50, 5, 0);
+			Hpbar_Frame->SetState(eState::Paused);
+		}
+
+		{
+			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
+			Monster_DamegeHp->SetName(L"warrior_hp_bar");
+			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1.5));
+			hp_tr->SetScale(48, 3, 0);
+			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
+			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
+			Monster_DamegeHp->Set_Type(1);
+			Monster_DamegeHp->SetState(eState::Paused);
+		}
+
+		{
+			Monster_Hp = new Monster_Hp_Bar(L"EnemyHealthBar");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
+			Monster_Hp->SetName(L"warrior_hp_bar");
+			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
+			hp_tr->SetScale(48, 3, 0);
+			Monster_Hp->Set_Max_Hp(_MaxHp);
+			Monster_Hp->Set_Current_Hp(_MaxHp);
+			Monster_Hp->SetState(eState::Paused);
+		}
+
+
+
 
 
 		{
@@ -283,21 +372,6 @@ namespace jk
 			Phoenix_Landing_Land->SetState(eState::Paused);		
 		}
 
-
-		{
-			Player_Hp = new Player_Hp_Bar;
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Monster, Player_Hp);
-			Player_Hp->SetName(L"player_hp_bar");
-			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
-			hp_tr->SetScale(_MaxHp, 10, 0);
-			Player_Hp->Set_Max_Hp(_MaxHp);
-			Player_Hp->Set_Current_Hp(_MaxHp);
-			Player_Hp->SetState(eState::Active);
-		}
-		
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
@@ -357,48 +431,10 @@ namespace jk
 	}
 	void Mage::Update()
 	{
-		tr = GetComponent<Transform>();
-		pos = tr->GetPosition();
-		_velocity = _rigidbody->GetVelocity();
-		_playerpos = Player::GetPlayer_Pos();
-		_distance = _playerpos.x - pos.x;
-		if (_distance >= 0.f)
-			mDir = 1;
-		else
-			mDir = -1;
-
-
-		_MaxHp_scale = _MaxHp / 10;
-		_CurrenHp_scale = _CurrenHp / 10;
-		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(pos.x - (_MaxHp_scale - _CurrenHp_scale) / 2, pos.y + 50, pos.z - 1));
-		hp_tr->SetScale(_CurrenHp_scale, 10, 0);
-
-		{
-			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
-			if (mDir == 1)
-				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
-			else
-				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
-		}
-		{
-			Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
-			if (mDir == 1)
-				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
-			else
-				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
-		}
-		{
-			Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
-			if (mDir == 1)
-				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
-			else
-				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
-		}
-		{
-			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
-			_Effect_TR->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
-		}
+		SetDirection();
+		Particle_Control();
+		Hpcontrol();
+		Effect_Control();		
 
 		ground_distance_L = Left_Ground.x - pos.x;
 		ground_distance_R = Right_Ground.x - pos.x;
@@ -562,6 +598,8 @@ namespace jk
 	{
 		GameObject::Render();
 	}
+
+
 	void Mage::OnCollisionEnter(Collider2D* other)
 	{
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
@@ -569,84 +607,41 @@ namespace jk
 			if (_state == Mage_State::Die)
 				return;
 
-			bool attack = false;
-			bool attack_Cri_Mid = false;
-			bool attack_Cri_High = false;
-
-			_HitType = random(1, 10);
-			if (_HitType >= 1 && _HitType < 6)
-			{
-				_Dammege = 10;
-				attack = true;
-			}
-			if (_HitType >= 6 && _HitType < 9)
-			{
-				_Dammege = random(15, 25);
-				attack_Cri_Mid = true;
-			}
-			if (_HitType >= 9 && _HitType <= 10)
-			{
-				_Dammege = random(30, 45);
-				attack_Cri_High = true;
-			}
-
-			if ((_state == Mage_State::Finishing_Move_Ready) || (_state == Mage_State::WalkBack_L)|| (_state == Mage_State::WalkBack_R)|| (_state == Mage_State::WalkFront_L) || (_state == Mage_State::WalkFront_R))
-			{
-				_hit++;
-				_Hit_Effect->_effect_animation = true;
-				_Critical_Middle->_effect_animation = true;
-				_Critical_High->_effect_animation = true;
-				if (mDir == 1)
-				{
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_CurrenHp = _CurrenHp - _Dammege;
-					_Hit_Effect->SetDirection(-1);
-					_Critical_Middle->SetDirection(-1);
-					_Critical_High->SetDirection(-1);
-				}
-				else
-				{
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_CurrenHp = _CurrenHp - _Dammege;
-					_Hit_Sword->SetDirection(1);
-					_Critical_Middle->SetDirection(1);
-					_Critical_High->SetDirection(1);
-				}
-				if (attack == true)
-				{
-					_Hit_Effect->_effect_animation = true;
-					_Hit_Effect->SetState(eState::Active);
-				}
-				if (attack_Cri_Mid == true)
-				{
-					_Critical_Middle->_effect_animation = true;
-					_Critical_Middle->SetState(eState::Active);
-				}
-				if (attack_Cri_High == true)
-				{
-					_Critical_High->_effect_animation = true;
-					_Critical_High->SetState(eState::Active);
-				}
-			}
+			_Damage = player->GetDamage();
+			bool attack = player->Geteffect();
+			bool attack_Cri_Mid = player->Geteffect_Mid();
+			bool attack_Cri_High = player->Geteffect_Hight();
+			
+						
 			if (_state == Mage_State::Idle)
 			{
+				_hit++;
 				_state = Mage_State::Hit;
 				_Hit_Effect->_effect_animation = true;
 				_Critical_Middle->_effect_animation = true;
 				_Critical_High->_effect_animation = true;
+
+				_CurrenHp = _CurrenHp - _Damage;
+				Monster_Hp->_HitOn = true;
+				Monster_Hp->SetHitDamage(_Damage);
+				Monster_DamegeHp->_HitOn = true;
+				Monster_DamegeHp->Set_Target(_CurrenHp);
+
+				Monster_UIHp->_HitOn = true;
+				Monster_UIHp->SetHitDamage(_Damage);
+				Monster_UIDamegeHp->_HitOn = true;
+				Monster_UIDamegeHp->Set_Target(_CurrenHp);
+				_Hp_control = true;
+				Hpbar_Frame->SetState(eState::Active);
+				Monster_DamegeHp->SetState(eState::Active);
+				Monster_Hp->SetState(eState::Active);
+
+
 				if (mDir == 1)
 				{
 					at->PlayAnimation(L"MageHit", true);
 					if (_hit < 2)
 						_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
-					_hit++;
-
-
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_CurrenHp = _CurrenHp - _Dammege;
 					_Hit_Effect->SetDirection(-1);
 					_Critical_Middle->SetDirection(-1);
 					_Critical_High->SetDirection(-1);
@@ -657,75 +652,65 @@ namespace jk
 					at->PlayAnimation(L"MageHitR", true);
 					if (_hit < 2)
 						_rigidbody->SetVelocity(Vector2(50.f, 0.f));
-					_hit++;
-
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_CurrenHp = _CurrenHp - _Dammege;
 					_Hit_Effect->SetDirection(1);
 					_Critical_Middle->SetDirection(1);
 					_Critical_High->SetDirection(1);
 				}
-				if (attack == true)
-				{
-					_Hit_Effect->_effect_animation = true;
-					_Hit_Effect->SetState(eState::Active);
-				}
-				if (attack_Cri_Mid == true)
-				{
-					_Critical_Middle->_effect_animation = true;
-					_Critical_Middle->SetState(eState::Active);
-				}
-				if (attack_Cri_High == true)
-				{
-					_Critical_High->_effect_animation = true;
-					_Critical_High->SetState(eState::Active);
-				}
 			}
-			if (!((_state == Mage_State::Idle) || (_state == Mage_State::Finishing_Move_Ready) || (_state == Mage_State::WalkBack_L) || (_state == Mage_State::WalkBack_R) || (_state == Mage_State::WalkFront_L) || (_state == Mage_State::WalkFront_R)))
+			else
 			{
 				_hit++;
 				_Hit_Effect->_effect_animation = true;
 				_Critical_Middle->_effect_animation = true;
 				_Critical_High->_effect_animation = true;
+
+				_CurrenHp = _CurrenHp - _Damage;
+				Monster_Hp->_HitOn = true;
+				Monster_Hp->SetHitDamage(_Damage);
+				Monster_DamegeHp->_HitOn = true;
+				Monster_DamegeHp->Set_Target(_CurrenHp);
+
+				Monster_UIHp->_HitOn = true;
+				Monster_UIHp->SetHitDamage(_Damage);
+				Monster_UIDamegeHp->_HitOn = true;
+				Monster_UIDamegeHp->Set_Target(_CurrenHp);
+				_Hp_control = true;
+				Hpbar_Frame->SetState(eState::Active);
+				Monster_DamegeHp->SetState(eState::Active);
+				Monster_Hp->SetState(eState::Active);
+
+
 				if (mDir == 1)
 				{
-					_rigidbody->SetVelocity(Vector2(-20.f, 0.f));
-
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_CurrenHp = _CurrenHp - _Dammege;
 					_Hit_Effect->SetDirection(-1);
 					_Critical_Middle->SetDirection(-1);
 					_Critical_High->SetDirection(-1);
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(20.f, 0.f));
-
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_CurrenHp = _CurrenHp - _Dammege;
 					_Hit_Effect->SetDirection(1);
 					_Critical_Middle->SetDirection(1);
 					_Critical_High->SetDirection(1);
 				}
-				if (attack == true)
-				{
-					_Hit_Effect->_effect_animation = true;
-					_Hit_Effect->SetState(eState::Active);
-				}
-				if (attack_Cri_Mid == true)
-				{
-					_Critical_Middle->_effect_animation = true;
-					_Critical_Middle->SetState(eState::Active);
-				}
-				if (attack_Cri_High == true)
-				{
-					_Critical_High->_effect_animation = true;
-					_Critical_High->SetState(eState::Active);
-				}
 			}
+
+			if (attack == true)
+			{
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetState(eState::Active);
+			}
+			if (attack_Cri_Mid == true)
+			{
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetState(eState::Active);
+			}
+			if (attack_Cri_High == true)
+			{
+				_Critical_High->_effect_animation = true;
+				_Critical_High->SetState(eState::Active);
+			}
+
+
 			if (_CurrenHp <= 0)
 			{
 				_state = Mage_State::Die;
@@ -785,8 +770,8 @@ namespace jk
 
 					if (mDir == 1)
 					{
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
 						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
@@ -794,8 +779,8 @@ namespace jk
 					}
 					else
 					{
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
 						_Hit_Effect->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
@@ -830,8 +815,8 @@ namespace jk
 						if (_hit < 2)
 							_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
 						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
@@ -844,8 +829,8 @@ namespace jk
 						if (_hit < 2)
 							_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
 						_Hit_Effect->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
@@ -878,8 +863,8 @@ namespace jk
 					{
 						_rigidbody->SetVelocity(Vector2(-20.f, 0.f));
 
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
 						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
@@ -889,8 +874,8 @@ namespace jk
 					{
 						_rigidbody->SetVelocity(Vector2(20.f, 0.f));
 
-						Player_Hp->_HitOn = true;
-						Player_Hp->SetHitDamage(_Dammege);
+						Monster_Hp->_HitOn = true;
+						Monster_Hp->SetHitDamage(_Dammege);
 						_CurrenHp = _CurrenHp - _Dammege;
 						_Hit_Effect->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
@@ -971,7 +956,7 @@ namespace jk
 		else
 			_Ground_check = false;
 
-		Fly_or_Landing();;
+		Fly_or_Landing();
 
 		_swich_checkpoint = randomcount(0, 3);
 		//_swich_checkpoint = 3;
@@ -1034,8 +1019,7 @@ namespace jk
 						at->PlayAnimation(L"MageUltimate_Set", true);
 					if (mDir == -1)
 						at->PlayAnimation(L"MageUltimate_SetR", true);
-					_UltimateSet = false;
-					//_hit = 9;
+					_UltimateSet = false;					
 				}
 
 
@@ -1050,11 +1034,9 @@ namespace jk
 					if (mDir == -1)
 						at->PlayAnimation(L"MageAttack_D_ReadyR", true);
 				}
-
 			}
 		}
 	}	
-
 	void Mage::die()
 	{
 		Ultimate_Aura->SetState(eState::Paused);
@@ -1081,11 +1063,6 @@ namespace jk
 		Vector3 bulletpos = bullet_tr->GetPosition();
 		if (_firstcomplete == true)
 		{
-			//if(mDir == 1)
-			//	bullet_tr->SetPosition(Vector3(pos.x+20, pos.y-20, -205));
-			//else
-			//	bullet_tr->SetPosition(Vector3(pos.x-20, pos.y-20, -205));
-
 			FireBall[_attackA]->_bullet_animation = true;
 			Fire_Ball_Rotation(bullet_tr, bulletpos, _attackA);
 			FireBall[_attackA]->_bullet_On = true;
@@ -1536,6 +1513,7 @@ namespace jk
 			at->PlayAnimation(L"MageGroggy", true);
 		else
 			at->PlayAnimation(L"MageGroggyR", true);
+		_hit = 0;
 	}
 	void Mage::Finishing_Move()
 	{
@@ -1785,25 +1763,17 @@ namespace jk
 			if (_playerpos.x >= bulletpos.x)
 			{
 				On_Fire_Projectile[i]->SetDirection(-1);
-				Vector2 attackpoint = Vector2(tr->GetPositionX() - _playerpos.x, tr->GetPositionY() - _playerpos.y);
-				Vector2 rotation = Vector2(_playerpos.x, _playerpos.y);
+				Vector2 attackpoint = Vector2(tr->GetPositionX() - _playerpos.x, tr->GetPositionY() - _playerpos.y);		
 				attackpoint.Normalize();
-				rotation.Normalize();
-
-				Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
-				float angle = std::atan2(direction.y, direction.x);
+				float angle = std::atan2(attackpoint.y, attackpoint.x);
 				tr->AddRotationZ(angle);
 			}
 			else
 			{
 				On_Fire_Projectile[i]->SetDirection(-1);
 				Vector2 attackpoint = Vector2(tr->GetPositionX() - _playerpos.x, tr->GetPositionY() - _playerpos.y);
-				Vector2 rotation = Vector2(_playerpos.x, _playerpos.y);
 				attackpoint.Normalize();
-				rotation.Normalize();
-
-				Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
-				float angle = std::atan2(direction.y, direction.x);
+				float angle = std::atan2(attackpoint.y, attackpoint.x);
 				tr->AddRotationZ(angle);
 			}
 			On_Fire_Projectile[i]->_rotationswitch = true;
@@ -1818,10 +1788,8 @@ namespace jk
 		RigidBody* bullet_Rb = FireBall[i]->GetComponent<RigidBody>();
 		Vector2 attack_pos = Vector2(_playerpos.x -_FireBall_pos.x , _playerpos.y- _FireBall_pos.y);
 		attack_pos.Normalize();
-		//bullet_Rb->SetGround(false);
 		bullet_Rb->SetVelocity(Vector2(attack_pos.x * 250.f, attack_pos.y * 250));
 		int a = 0;
-
 	}
 	void Mage::Fire_Ball_Rotation(Transform* tr, Vector3 bulletpos, int i)
 	{
@@ -1831,27 +1799,133 @@ namespace jk
 			{
 				FireBall[i]->SetDirection(-1);
 				Vector2 attackpoint = Vector2(tr->GetPositionX() - _playerpos.x, tr->GetPositionY() - _playerpos.y);
-				Vector2 rotation = Vector2(_playerpos.x, _playerpos.y);
 				attackpoint.Normalize();
-				rotation.Normalize();
-
-				Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
-				float angle = std::atan2(direction.y, direction.x);
+				float angle = std::atan2(attackpoint.y, attackpoint.x);
 				tr->AddRotationZ(angle);
 			}
 			else
 			{
 				FireBall[i]->SetDirection(-1);
 				Vector2 attackpoint = Vector2(tr->GetPositionX() - _playerpos.x, tr->GetPositionY() - _playerpos.y);
-				Vector2 rotation = Vector2(_playerpos.x, _playerpos.y);
 				attackpoint.Normalize();
-				rotation.Normalize();
-
-				Vector2 direction = attackpoint - rotation; // 플레이어를 향하는 방향 벡터
-				float angle = std::atan2(direction.y, direction.x);
+				float angle = std::atan2(attackpoint.y, attackpoint.x);
 				tr->AddRotationZ(angle);
 			}
 			FireBall[i]->_rotationswitch = true;
+		}
+	}
+
+
+	void Mage::SetDirection()
+	{
+		tr = GetComponent<Transform>();
+		pos = tr->GetPosition();
+		_velocity = _rigidbody->GetVelocity();
+		_playerpos = Player::GetPlayer_Pos();
+		_distance = _playerpos.x - pos.x;
+		if (_distance >= 0.f)
+			mDir = 1;
+		else
+			mDir = -1;
+	}
+	void Mage::Particle_Control()
+	{
+	}
+	void Mage::Hpcontrol()
+	{
+		Transform* STATEUI_tr = _State_UI->GetComponent<Transform>();
+		Transform* STATEUIhp_tr1 = Monster_UIHp->GetComponent<Transform>();
+		Transform* STATEUIhp_tr2 = Monster_UIDamegeHp->GetComponent<Transform>();
+		Transform* face_tr = _MbossFace->GetComponent<Transform>();
+
+		if (_UIstate == 0)//1번
+		{
+			STATEUI_tr->SetPosition(Vector3(685.f, 375.f, 10));
+			STATEUIhp_tr1->SetPosition(Vector3(650.f, 354.f, 5));
+			STATEUIhp_tr2->SetPosition(Vector3(650.f, 354.f, 6));
+			face_tr->SetPosition(Vector3(762.f, 375.f, 1));
+		}
+		if (_UIstate == 1)//2번
+		{
+			STATEUI_tr->SetPosition(Vector3(685.f, 275.f, 10));
+			STATEUIhp_tr1->SetPosition(Vector3(650.f, 254.f, 5));
+			STATEUIhp_tr2->SetPosition(Vector3(650.f, 254.f, 6));
+			face_tr->SetPosition(Vector3(762.f, 275.f, 1));
+
+		}
+		if (_UIstate == 2)//3번
+		{
+			STATEUI_tr->SetPosition(Vector3(685.f, 175.f, 10));
+			STATEUIhp_tr1->SetPosition(Vector3(650.f, 154.f, 5));
+			STATEUIhp_tr2->SetPosition(Vector3(650.f, 154.f, 6));
+			face_tr->SetPosition(Vector3(762.f, 175.f, 1));
+		}
+
+
+
+		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
+		hp_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 2));
+
+		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
+		hpdamege_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 1.5));
+
+		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
+		hpfr_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 1));
+
+
+		if (_Hp_control == true)
+		{
+			if (Monster_DamegeHp->Get_Switch() == true)
+			{
+				_Hp_time += Time::DeltaTime();
+				if (_Hp_time > 2)
+				{
+					Hpbar_Frame->SetState(eState::Paused);
+					Monster_DamegeHp->SetState(eState::Paused);
+					Monster_Hp->SetState(eState::Paused);
+					Monster_DamegeHp->Set_Switch(false);
+					_Hp_control = false;
+					_Hp_time = 0.f;
+				}
+			}
+		}
+		if (_CurrenHp <= 0)
+		{
+			Hpbar_Frame->SetState(eState::Paused);
+			Monster_DamegeHp->SetState(eState::Paused);
+			Monster_Hp->SetState(eState::Paused);
+			_Die = true;
+			_attack_Col = false;
+			_MbossFace->Set_animation(true);
+			_MbossFace->Set_UISelect(7);
+		}
+	}
+	void Mage::Effect_Control()
+	{
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(pos.x, pos.y, pos.z - 1));
 		}
 	}
 
@@ -2004,8 +2078,6 @@ namespace jk
 		if (_sky == true)
 			_landingswich++;
 	}
-
-
 	void Mage::attack_d_ready_complete()
 	{
 		_state = Mage_State::Attack_D;
@@ -2046,14 +2118,14 @@ namespace jk
 			_ground = true;
 		}
 	}
-
 	int Mage::randomcount(int a, int b)
 	{
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_int_distribution<int> distribution(a, b);
-		_swich_checkpoint = distribution(gen);
-		
-		return _swich_checkpoint;
+		return distribution(gen);
+
+		//_swich_checkpoint = distribution(gen);		
+		//return _swich_checkpoint;
 	}
 }

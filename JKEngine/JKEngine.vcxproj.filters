@@ -626,6 +626,12 @@
     <ClInclude Include="BigEnt_EnergeBall_Bomb.h">
       <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="MiniBoss_State_UI.h">
+      <Filter>Game_ob\UI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="AdventureUI.h">
+      <Filter>Game_ob\UI\Face\AdventureUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1250,6 +1256,12 @@
     <ClCompile Include="BigEnt_EnergeBall_Bomb.cpp">
       <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="MiniBoss_State_UI.cpp">
+      <Filter>Game_ob\UI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="AdventureUI.cpp">
+      <Filter>Game_ob\UI\Face\AdventureUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1545,6 +1557,9 @@
     </Filter>
     <Filter Include="Game_ob\UI\Hp_BarFrame">
       <UniqueIdentifier>{65a078a5-83e4-46f3-9a0b-c8ea38f5afb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\UI\Face\AdventureUI">
+      <UniqueIdentifier>{003d06ae-f07d-4c92-84e1-cd9a03b4c8e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

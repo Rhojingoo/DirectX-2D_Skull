@@ -11,8 +11,13 @@
 #include "Knight_UltimateSkill_Projectile.h"
 
 
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "MiniBoss_State_UI.h"
+#include "AdventureUI.h"
+
+
 #include "HitBox_Knight.h"
-#include "Player_Hp_Bar.h"
 #include "Monster_Hit_Effect.h"
 #include "Monster_Death_Effect.h"
 
@@ -98,6 +103,19 @@ namespace jk
 		float _CurrenHp_scale = 0;
 		int	_bulletcheck = 0;
 
+	private:
+		AdventureUI* _MbossFace = nullptr;
+		MiniBoss_State_UI* _State_UI = nullptr;
+		Monster_Hp_Bar* Monster_UIHp = nullptr;
+		Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
+		HP_Frame* Hpbar_Frame = nullptr;
+		Monster_Hp_Bar* Monster_Hp = nullptr;
+		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		float _Damage = 0.f;
+		bool _Hp_control = false;
+		float _Hp_time = 0.f;
+		int _UIstate = 0;
+
 
 	private:
 		float ground_distance_L = 0.f;
@@ -117,9 +135,6 @@ namespace jk
 
 	private:
 		HitBox_Knight* Hit_Box = nullptr;
-
-
-		Player_Hp_Bar* Player_Hp = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Player_Hit_Effect* _Hit_Effect_player = nullptr;
 		Hit_Sword* _Hit_Sword = nullptr;
@@ -147,7 +162,7 @@ namespace jk
 		int		_attackorder = 0;			// 콤보공격의 경우 순서가 정해져 있어 해당 순서에 진행하도록 설정하는 변수 
 		int		_choicecombo = 0;			// 공격종류의 선택을 할수 있도록 설정하는 변수
 		int		_HitType = 0;
-		int		_Dammege = 0;
+
 
 
 		float	_Attacktime = 0.f;				
@@ -169,6 +184,10 @@ namespace jk
 		Knight_UltimateSkill_Projectile* UltimateSkill_Projectile = nullptr;
 
 	private:
+		void SetDirection();
+		void Particle_Control();
+		void Hpcontrol();
+		void Effect_Control();
 
 
 	private:

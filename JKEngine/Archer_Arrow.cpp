@@ -19,18 +19,9 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 
-
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Bullet\\Archer_Arrow", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Bullet\\Archer_Arrow", this,1);
-
-		//Bullet_Effect = new Kngiht_EnergyBall_Impact;
-		//Bullet_Effect->Initialize();
-		//Scene* scene = SceneManager::GetActiveScene();
-		//scene->AddGameObject(eLayerType::Bullet, Bullet_Effect);
-		//Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
-		//EffectTR->SetPosition(tr->GetPosition());
-		//Bullet_Effect->SetState(eState::Paused);
 
 		at->PlayAnimation(L"BulletArcher_Arrow", true);
 		GameObject::Initialize();

@@ -17,7 +17,6 @@ namespace jk
 	}
 	void Monster_Hp_Bar::Update()
 	{
-
 		if (_HitOn == true)
 		{
 			if (_Type == 1)

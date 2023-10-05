@@ -640,6 +640,14 @@ namespace jk::renderer
 		#pragma endregion
 
 		#pragma region	UI_Monster
+
+				#pragma region UI_MiniBoss_State
+										texture = Resources::Load<Texture>(L"adventurer_frame", L"..\\Resources\\Texture\\EnergeBar\\MiniBoss_EnergeBar\\AdventurerHealthBar_Frame.png");
+										material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+										material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Adventurer_Frame", material);
+				#pragma endregion
+
+
 				#pragma region UI_Monster_HP
 										texture = Resources::Load<Texture>(L"enemyHealth_bar", L"..\\Resources\\Texture\\EnergeBar\\Monster_EnergeBar\\EnemyHealthBar.png");
 										material = std::make_shared<Material>(); material->SetShader(hp_bar_Shader);	material->SetTexture(texture);

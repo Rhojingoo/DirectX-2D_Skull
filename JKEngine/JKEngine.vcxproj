@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AdventureUI.h" />
     <ClInclude Include="Alpha_Blend.h" />
     <ClInclude Include="Archer.h" />
     <ClInclude Include="Archer_Arrow.h" />
@@ -250,6 +251,7 @@
     <ClInclude Include="Mage_Phoenix_Landing_Land.h" />
     <ClInclude Include="MiniBoss_Bullet_Archer.h" />
     <ClInclude Include="MiniBoss_Bullet_Knight.h" />
+    <ClInclude Include="MiniBoss_State_UI.h" />
     <ClInclude Include="Monster_BigEnt_EnergeBall.h" />
     <ClInclude Include="Monster_Blossomeenct_Attack.h" />
     <ClInclude Include="Monster_Bullet.h" />
@@ -368,6 +370,7 @@
     <ClInclude Include="Yggdrsil_Energy_Corps.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AdventureUI.cpp" />
     <ClCompile Include="Alpha_Blend.cpp" />
     <ClCompile Include="Archer.cpp" />
     <ClCompile Include="Archer_Arrow.cpp" />
@@ -463,6 +466,7 @@
     <ClCompile Include="Mage_Phoenix_Landing_Land.cpp" />
     <ClCompile Include="MiniBoss_Bullet_Archer.cpp" />
     <ClCompile Include="MiniBoss_Bullet_Knight.cpp" />
+    <ClCompile Include="MiniBoss_State_UI.cpp" />
     <ClCompile Include="Monster_BigEnt_EnergeBall.cpp" />
     <ClCompile Include="Monster_Blossomeenct_Attack.cpp" />
     <ClCompile Include="Monster_Bullet.cpp" />

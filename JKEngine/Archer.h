@@ -15,6 +15,11 @@
 #include "Monster_Hit_Effect.h"
 #include "Monster_Death_Effect.h"
 
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "MiniBoss_State_UI.h"
+#include "AdventureUI.h"
+
 
 namespace jk
 {
@@ -84,6 +89,7 @@ namespace jk
 		void hit();
 		void intro();
 		void potion();
+		void SetUIstate(int set) { _UIstate = set; }
 
 	private:
 		float _MaxHp = 2000;
@@ -91,6 +97,20 @@ namespace jk
 		float _MaxHp_scale = 0;
 		float _CurrenHp_scale = 0;
 		int	_bulletcheck = 0;
+		
+
+	private:
+		AdventureUI* _MbossFace = nullptr;
+		MiniBoss_State_UI* _State_UI = nullptr;
+		Monster_Hp_Bar* Monster_UIHp = nullptr;
+		Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
+		HP_Frame* Hpbar_Frame = nullptr;
+		Monster_Hp_Bar* Monster_Hp = nullptr;
+		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		float _Damage = 0.f;
+		bool _Hp_control = false;
+		float _Hp_time = 0.f;
+		int _UIstate = 0;
 
 
 	private:
@@ -111,7 +131,6 @@ namespace jk
 
 	private:
 		HitBox_Monster* Hit_Box = nullptr;
-		Player_Hp_Bar* Player_Hp = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Hit_Sword* _Hit_Sword = nullptr;
 		Hit_Critical_Middle* _Critical_Middle = nullptr;
@@ -174,6 +193,11 @@ namespace jk
 	private:
 		Skul_Basic::Skul_Basic_State Skul_BasicState;
 
+	private:
+		void SetDirection();
+		void Particle_Control();
+		void Hpcontrol();
+		void Effect_Control();
 
 	private:
 		void choicecombo();

@@ -63,7 +63,7 @@ namespace jk
 	}
 	void Mage_FireBall::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.9f));
+		_collider->SetSize(Vector2(0.85f, 0.5f));
 		_collider->SetCenter(Vector2(0.0f, -0.07f));
 		GameObject::LateUpdate();
 	}

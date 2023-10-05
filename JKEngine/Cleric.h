@@ -6,6 +6,11 @@
 #include "Cleric_Ultimate_SkillEffect.h"
 #include "Public_Heal_Effect.h"
 
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "MiniBoss_State_UI.h"
+#include "AdventureUI.h"
+
 namespace jk
 {
 	class Cleric : public Mini_Boss
@@ -83,13 +88,26 @@ namespace jk
 
 
 	private:
+		AdventureUI* _MbossFace = nullptr;
+		MiniBoss_State_UI* _State_UI = nullptr;
+		Monster_Hp_Bar* Monster_UIHp = nullptr;
+		Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
+		HP_Frame* Hpbar_Frame = nullptr;
+		Monster_Hp_Bar* Monster_Hp = nullptr;
+		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		float _Damage = 0.f;
+		bool _Hp_control = false;
+		float _Hp_time = 0.f;
+		int _UIstate = 0;
+
+
+	private:
 		float ground_distance_L = 0.f;
 		float ground_distance_R = 0.f;
 
 
 	private:
 		HitBox_Monster* Hit_Box = nullptr;
-		Player_Hp_Bar* Player_Hp = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Hit_Sword* _Hit_Sword = nullptr;
 		Hit_Critical_Middle* _Critical_Middle = nullptr;
@@ -146,6 +164,14 @@ namespace jk
 
 	private:
 		Skul_Basic::Skul_Basic_State Skul_BasicState;
+
+
+	private:
+		void SetDirection();
+		void Particle_Control();
+		void Hpcontrol();
+		void Effect_Control();
+
 
 	private:
 		void complete_attack_a();

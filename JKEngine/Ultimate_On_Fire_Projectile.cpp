@@ -64,7 +64,7 @@ namespace jk
 	}
 	void Ultimate_On_Fire_Projectile::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.9f));
+		_collider->SetSize(Vector2(0.75f, 0.5f));
 		_collider->SetCenter(Vector2(0.0f, -0.07f));
 		GameObject::LateUpdate();
 	}
