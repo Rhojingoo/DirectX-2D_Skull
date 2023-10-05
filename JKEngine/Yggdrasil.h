@@ -4,6 +4,10 @@
 #include "Yggdrasil_Dead_Impact1.h"
 #include "Yggdrasil_Dead_Impact2.h"
 
+#include "Yggdrasil_HpFrame.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "MiniBoss_State_UI.h"
 
 namespace jk
 {
@@ -112,6 +116,7 @@ namespace jk
 		void die();
 
 		int random(int a, int b);
+		void Hpcontrol();
 
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
 		static Vector3 GetPlayerPos() { return _playerpos; }
@@ -127,7 +132,7 @@ namespace jk
 		static float _time;
 		static void SetChange_Yggdrasil(bool check) { _Change = check; }
 
-		static Player_Hp_Bar* Player_Hp;
+
 		static Monster_Hit_Effect* _Hit_Effect; 
 		static Player_Hit_Effect* _Hit_Effect_player;
 		static Hit_Sword* _Hit_Sword; 
@@ -136,8 +141,23 @@ namespace jk
 		static Monster_Death_Effect* _Death_Effect; 
 
 
+			
+		static	Yggdrasil_HpFrame* _HpFrame; 
+		static	Monster_Hp_Bar* Monster_Hp;
+		static	Monster_Hp_Bar* Monster_Hp_Second;
+		static	Monster_Hp_Bar* Monster_DamegeHp;
+		static	Monster_Hp_Bar* Monster_DamegeHp_Second;
+		static float _Damage;
+		static bool _Hp_control;
+		static float _Hp_time;
+		static bool _First_Hp_on;
+	private:	
+		float _FrameDown = 230;
+
+
+
+	public:
 		static int	_HitType;
-		static int	_Dammege;
 		static bool _FirstDie;
 		static int _Diecheck;			
 		static bool _DieON;
@@ -251,6 +271,9 @@ namespace jk
 		static bool _Die_Body_Down;
 		static bool _Die_Face_Down;
 		static bool _Die_Chin_Down;
+
+
+
 
 
 	public:

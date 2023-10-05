@@ -11,6 +11,8 @@
 #include "Yggdraisl_Groggy_StartImpact.h"
 #include "Yggdrasil_FaceDead_Effect.h"
 
+
+
 namespace jk
 {
 	class Yggdrasil_Face : public Yggdrasil
@@ -76,6 +78,8 @@ namespace jk
 		float UpdateVibration(float originalX, float amplitude, float frequency, float timeElapsed);
 
 		void Facepos_Setting();
+
+
 	private:
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
@@ -85,6 +89,7 @@ namespace jk
 		Vector2 _velocity = Vector2(0.f, 0.f);
 		Vector3 Yggdrasil_pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 Yggdrasil_rotation = Vector3(0.f, 0.f, 0.f);
+	
 
 	private:
 		Vector2 basic_pos[8];

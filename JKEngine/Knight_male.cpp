@@ -162,7 +162,6 @@ namespace jk
 		{
 			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
 			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
@@ -177,7 +176,6 @@ namespace jk
 		{
 			Monster_Hp = new Monster_Hp_Bar(L"EnemyHealthBar");
 			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();

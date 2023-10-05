@@ -16,19 +16,27 @@ namespace jk
 	bool Yggdrasil::_FirstDie = false;;
 	int Yggdrasil::_Diecheck = 0;  //Diecheck = 0에서 죽으면 각성, Diecheck =1 일때 에너지가 없으면 진짜죽음
 	bool Yggdrasil::_DieON = false;
-	int	Yggdrasil::_HitType = 0;
-	int	Yggdrasil::_Dammege = 0;
 	bool Yggdrasil::_BossDie = false;
 
 
-	float Yggdrasil::_MaxHp = 3000;
-	float Yggdrasil::_CurrenHp = 3000;
+	float Yggdrasil::_MaxHp = 2000;
+	float Yggdrasil::_CurrenHp = 2000;
 	float Yggdrasil::_MaxHp_scale = 0;
 	float Yggdrasil::_CurrenHp_scale = 0;
 	int	Yggdrasil::_bulletcheck = 0;
 
+	Yggdrasil_HpFrame* Yggdrasil::_HpFrame = nullptr;
+	Monster_Hp_Bar* Yggdrasil::Monster_Hp = nullptr;
+	Monster_Hp_Bar* Yggdrasil::Monster_Hp_Second = nullptr;		
+	Monster_Hp_Bar* Yggdrasil::Monster_DamegeHp = nullptr;
+	Monster_Hp_Bar* Yggdrasil::Monster_DamegeHp_Second = nullptr;
+	bool Yggdrasil::_First_Hp_on = false;
+	float Yggdrasil::_Damage = 0;
+	int	Yggdrasil::_HitType = 0;
+	bool Yggdrasil::_Hp_control = false;
+	float Yggdrasil::_Hp_time =0.f;
 
-	Player_Hp_Bar* Yggdrasil::Player_Hp = nullptr;
+
 	Monster_Hit_Effect* Yggdrasil::_Hit_Effect = nullptr;
 	Player_Hit_Effect* Yggdrasil::_Hit_Effect_player = nullptr;
 	Hit_Sword* Yggdrasil::_Hit_Sword = nullptr;
@@ -178,29 +186,69 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Boss, _Gobjs[i]);
 		}
-	
+
 		{
-			Player_Hp = new Player_Hp_Bar;
+			_HpFrame = new Yggdrasil_HpFrame;
+			_HpFrame->Initialize();
 			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Monster, Player_Hp);
-			Player_Hp->SetName(L"player_hp_bar");
-			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
-			hp_tr->SetScale(_MaxHp, 10, 0);
-			Player_Hp->Set_Max_Hp(_MaxHp);
-			Player_Hp->Set_Current_Hp(_MaxHp);
-			Player_Hp->SetState(eState::Active);
+			scene->AddGameObject(eLayerType::Effect, _HpFrame);
+			Transform* bullet_tr = _HpFrame->GetComponent<Transform>();
+			bullet_tr->SetPosition(Vector3(_pos.x, 230, -205));
+			_HpFrame->SetState(eState::Paused);
 		}
 
 		{
-			_Hit_Effect = new Monster_Hit_Effect;
-			_Hit_Effect->Initialize();
+			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
-			_Hit_Effect->SetState(eState::Paused);
+			scene->AddGameObject(eLayerType::Effect, Monster_DamegeHp);
+			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
+			hp_tr->SetScale(274, 10, 0);
+			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
+			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
+			Monster_DamegeHp->Set_Type(1);
+			Monster_DamegeHp->SetState(eState::Paused);
 		}
+
+		{
+			Monster_DamegeHp_Second = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Monster_DamegeHp_Second);
+			Transform* hp_tr = Monster_DamegeHp_Second->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
+			hp_tr->SetScale(274, 10, 0);
+			Monster_DamegeHp_Second->Set_Type(1);
+			Monster_DamegeHp_Second->SetState(eState::Paused);
+		}
+
+		
+		{
+			Monster_Hp = new Monster_Hp_Bar(L"BossHealthBar_FirstPhase");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Monster_Hp);
+			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(274, 10, 0);
+			Monster_Hp->Set_Max_Hp(_MaxHp);
+			Monster_Hp->Set_Current_Hp(_MaxHp);	
+			Monster_Hp->SetState(eState::Paused);
+		}
+
+		
+		{
+			Monster_Hp_Second = new Monster_Hp_Bar(L"BossHealthBar_SecondPhase");
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Monster_Hp_Second);
+			Transform* hp_tr = Monster_Hp_Second->GetComponent<Transform>();
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
+			hp_tr->SetScale(274, 10, 0);
+			Monster_Hp_Second->SetState(eState::Paused);
+		}
+
 
 		{
 			_Hit_Effect_player = new Player_Hit_Effect;
@@ -260,11 +308,7 @@ namespace jk
 			mDir = -1;	
 
 
-		_MaxHp_scale = _MaxHp / 10;
-		_CurrenHp_scale = _CurrenHp / 10;
-		Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(_pos.x - (_MaxHp_scale - _CurrenHp_scale) / 2, 150, _pos.z - 1));
-		hp_tr->SetScale(_CurrenHp_scale, 10, 0);
+		Hpcontrol();
 
 
 		if (_Change == true)
@@ -284,8 +328,14 @@ namespace jk
 				{
 					_Fadecheck = false;
 					_Fadetime = 0;
-					_MaxHp = 3500;
-					_CurrenHp = 3500;
+					_MaxHp = 3000;
+					_CurrenHp = 3000;
+					Monster_Hp_Second->Set_Max_Hp(_MaxHp);
+					Monster_Hp_Second->Set_Current_Hp(_MaxHp);
+					Monster_DamegeHp_Second->Set_Max_Hp(_MaxHp);
+					Monster_DamegeHp_Second->Set_Current_Hp(_MaxHp);
+					Monster_Hp_Second->SetState(eState::Active);
+					Monster_DamegeHp_Second->SetState(eState::Active);
 					Yggdrasil_Hand_Right::_Attackswitch = true;
 					Yggdrasil_Hand_Left::_Attackswitch = true;
 					_state = Yggdrasil_State::Change_Set;
@@ -315,6 +365,7 @@ namespace jk
 					_state = Yggdrasil_State::DieSet;
 				}
 			}
+			_HpFrame->SetState(eState::Paused);
 		}
 
 
@@ -529,19 +580,41 @@ namespace jk
 			_Groggy_RightHand_Up = false;
 			_Groggy_LeftHand_Up = false;
 
-			//if (_Change == true)
-			//{
-			//	Yggdrasil_Hand_Right::_Attackswitch = true;
-			//	Yggdrasil_Hand_Left::_Attackswitch = true;
-			//	_state = Yggdrasil_State::Change_Set;
-			//}
 
-			//if (_DieON == true)
-			//{
-			//	Yggdrasil_Hand_Right::_Attackswitch = true;
-			//	Yggdrasil_Hand_Left::_Attackswitch = true;
-			//	_state = Yggdrasil_State::DieSet;
-			//}
+			Transform* _HpFrame_tr = _HpFrame->GetComponent<Transform>();
+			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
+			Transform* hp_trSecond = Monster_Hp_Second->GetComponent<Transform>();
+			Transform* hp_trDamege = Monster_DamegeHp->GetComponent<Transform>();
+			Transform* hp_trDamegeSecond= Monster_DamegeHp_Second->GetComponent<Transform>();
+			
+			//_HpFrame_tr->SetPosition(Vector3(_pos.x, 230, -205));
+			if (_First_Hp_on == false)
+			{
+				_HpFrame->SetState(eState::Active);
+				Monster_Hp->SetState(eState::Active);
+				Monster_DamegeHp->SetState(eState::Active);
+				_First_Hp_on = true;
+			}
+
+			//hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
+
+			if (_FrameDown > 190)
+			{
+				_FrameDown -= 100 * Time::DeltaTime();
+				_HpFrame_tr->SetPosition(Vector3(0, _FrameDown, -205));
+
+				hp_tr->SetPosition(Vector3(_HpFrame_tr->GetPosition().x+1, _HpFrame_tr->GetPosition().y-7, _HpFrame_tr->GetPosition().z - 2));
+				hp_trDamege->SetPosition(Vector3(_HpFrame_tr->GetPosition().x + 1, _HpFrame_tr->GetPosition().y - 7, _HpFrame_tr->GetPosition().z - 1));
+			}
+			else
+			{
+				_HpFrame_tr->SetPosition(Vector3(0, 190, -205));
+				hp_tr->SetPosition(Vector3(_HpFrame_tr->GetPosition().x+1, _HpFrame_tr->GetPosition().y - 7, _HpFrame_tr->GetPosition().z - 2));
+				hp_trSecond->SetPosition(Vector3(_HpFrame_tr->GetPosition().x + 1, _HpFrame_tr->GetPosition().y - 7, _HpFrame_tr->GetPosition().z - 2));
+				hp_trDamege->SetPosition(Vector3(_HpFrame_tr->GetPosition().x + 1, _HpFrame_tr->GetPosition().y - 7, _HpFrame_tr->GetPosition().z - 1));
+				hp_trDamegeSecond->SetPosition(Vector3(_HpFrame_tr->GetPosition().x + 1, _HpFrame_tr->GetPosition().y - 7, _HpFrame_tr->GetPosition().z - 1));
+			}
+
 	
 			Attack_Sellect = 1;
 
@@ -994,5 +1067,13 @@ namespace jk
 		std::uniform_int_distribution<int> distribution(a, b);
 		int abc = distribution(gen);
 		return abc;
+	}
+	void Yggdrasil::Hpcontrol()
+	{
+		if (_CurrenHp <= 0)
+		{
+			Monster_DamegeHp->SetState(eState::Paused);
+			Monster_Hp->SetState(eState::Paused);
+		}
 	}
 }

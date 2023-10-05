@@ -632,6 +632,9 @@
     <ClInclude Include="AdventureUI.h">
       <Filter>Game_ob\UI\Face\AdventureUI</Filter>
     </ClInclude>
+    <ClInclude Include="Yggdrasil_HpFrame.h">
+      <Filter>Game_ob\UI\Hp_BarFrame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1262,6 +1265,9 @@
     <ClCompile Include="AdventureUI.cpp">
       <Filter>Game_ob\UI\Face\AdventureUI</Filter>
     </ClCompile>
+    <ClCompile Include="Yggdrasil_HpFrame.cpp">
+      <Filter>Game_ob\UI\Hp_BarFrame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1320,9 +1326,6 @@
     </Filter>
     <Filter Include="Scene\Base">
       <UniqueIdentifier>{342b9687-f343-41ab-86f1-3e50dd42f6f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Tilemap">
-      <UniqueIdentifier>{4f4880bc-5738-4f5e-9f43-3bced8e48c64}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game_ob\BG\Tile">
       <UniqueIdentifier>{c0334ba9-04dc-4b54-99f8-740c8bf0578c}</UniqueIdentifier>

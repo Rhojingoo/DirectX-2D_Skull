@@ -80,7 +80,7 @@ namespace jk
 
 			//Archer* test5 = object::Instantiate<Archer>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 			//Cleric* test5 = object::Instantiate<Cleric>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-			//Knight_male* test5 = object::Instantiate<Knight_male>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
+			Knight_male* test5 = object::Instantiate<Knight_male>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 			//Mage* test5 = object::Instantiate<Mage>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 
 			#pragma region Npc	

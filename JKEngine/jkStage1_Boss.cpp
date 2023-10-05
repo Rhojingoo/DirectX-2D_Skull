@@ -135,7 +135,7 @@ namespace jk
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		cameraComp = camera->AddComponent<Camera>();
-		cameraComp->TurnLayerMask(eLayerType::UI, true);
+		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
 		cameraComp->SetTarget(_player);

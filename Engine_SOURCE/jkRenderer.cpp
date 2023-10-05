@@ -679,6 +679,21 @@ namespace jk::renderer
 				#pragma endregion
 		#pragma endregion
 
+		#pragma region	UI_Boss
+
+				#pragma region UI_Monster_HP_First
+								texture = Resources::Load<Texture>(L"bossHealthBar_FirstPhase", L"..\\Resources\\Texture\\EnergeBar\\Boss_EnergeBar\\BossHealthBar_FirstPhase.png");
+								material = std::make_shared<Material>(); material->SetShader(hp_bar_Shader);	material->SetTexture(texture);
+								material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"BossHealthBar_FirstPhase", material);
+				#pragma endregion
+
+
+				#pragma region UI_Boss_HP_Second
+								texture = Resources::Load<Texture>(L"bossHealthBar_SecondPhase", L"..\\Resources\\Texture\\EnergeBar\\Boss_EnergeBar\\BossHealthBar_SecondPhase.png");
+								material = std::make_shared<Material>(); material->SetShader(hp_bar_Shader);	material->SetTexture(texture);
+								material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"BossHealthBar_SecondPhase", material);
+				#pragma 
+		#pragma endregion
 
 
 		#pragma region Player

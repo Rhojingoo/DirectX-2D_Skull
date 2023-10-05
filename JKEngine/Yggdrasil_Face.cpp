@@ -42,6 +42,10 @@ namespace jk
 		//at->CompleteEvent(L"ArcherAttack_A") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
+				
+
+
+
 		{
 			Energy_Bomb = new Yggdrasil_Energy_Bomb;
 			Energy_Bomb->Initialize();			
@@ -164,6 +168,7 @@ namespace jk
 			mDir = 1;
 		else
 			mDir = -1;
+
 
 
 		switch (_state)
@@ -333,65 +338,64 @@ namespace jk
 
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{
-			bool attack = false;
-			bool attack_Cri_Mid = false;
-			bool attack_Cri_High = false;
+			_Damage = player->GetDamage();
+			bool attack = player->Geteffect();
+			bool attack_Cri_Mid = player->Geteffect_Mid();
+			bool attack_Cri_High = player->Geteffect_Hight();
 
-			_HitType = random(1, 6);
-			if (_HitType >= 1 && _HitType < 6)
+				
+			//_Hit_Effect->_effect_animation = true;
+			_Critical_Middle->_effect_animation = true;
+			_Critical_High->_effect_animation = true;
+
+			if (_Changeon == false)
 			{
-				_Dammege = 3000;
-				attack = true;
+				_CurrenHp = _CurrenHp - _Damage;
+				Monster_Hp->_HitOn = true;
+				Monster_Hp->SetHitDamage(_Damage);
+				Monster_DamegeHp->_HitOn = true;
+				Monster_DamegeHp->Set_Target(_CurrenHp);
 			}
-			//if (_HitType >= 6 && _HitType < 9)
-			//{
-			//	_Damage = random(15, 25);
-			//	attack_Cri_Mid = true;
-			//}
-			//if (_HitType >= 9 && _HitType <= 10)
-			//{
-			//	_Damage = random(30, 45);
-			//	attack_Cri_High = true;
-			//}
+			else
+			{
+				_HpFrame->Set_Animation(true);
+				_HpFrame->ChoicetHp_bar(1);
+				_CurrenHp = _CurrenHp - _Damage;
+				Monster_Hp_Second->_HitOn = true;
+				Monster_Hp_Second->SetHitDamage(_Damage);
+				Monster_DamegeHp_Second->_HitOn = true;
+				Monster_DamegeHp_Second->Set_Target(_CurrenHp);
+			}
 
-			{	
-				_Hit_Effect->_effect_animation = true;
+			if (mDir == 1)
+			{
+				//_Hit_Effect->SetDirection(-1);
+				_Critical_Middle->SetDirection(-1);
+				_Critical_High->SetDirection(-1);
+			}
+			else
+			{
+				_Hit_Sword->SetDirection(1);
+				_Critical_Middle->SetDirection(1);
+				_Critical_High->SetDirection(1);
+			}
+			//if (attack == true)
+			//{
+			//	_Hit_Effect->_effect_animation = true;
+			//	_Hit_Effect->SetState(eState::Active);
+			//}
+			if (attack_Cri_Mid == true)
+			{
 				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetState(eState::Active);
+			}
+			if (attack_Cri_High == true)
+			{
 				_Critical_High->_effect_animation = true;
-				if (mDir == 1)
-				{
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_CurrenHp = _CurrenHp - _Dammege;
-					_Hit_Effect->SetDirection(-1);
-					_Critical_Middle->SetDirection(-1);
-					_Critical_High->SetDirection(-1);
-				}
-				else
-				{
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_CurrenHp = _CurrenHp - _Dammege;
-					_Hit_Sword->SetDirection(1);
-					_Critical_Middle->SetDirection(1);
-					_Critical_High->SetDirection(1);
-				}
-				if (attack == true)
-				{
-					_Hit_Effect->_effect_animation = true;
-					_Hit_Effect->SetState(eState::Active);
-				}
-				if (attack_Cri_Mid == true)
-				{
-					_Critical_Middle->_effect_animation = true;
-					_Critical_Middle->SetState(eState::Active);
-				}
-				if (attack_Cri_High == true)
-				{
-					_Critical_High->_effect_animation = true;
-					_Critical_High->SetState(eState::Active);
-				}
-			}	
+				_Critical_High->SetState(eState::Active);
+			}
+				
+
 			if (_CurrenHp <= 0)
 			{
 				if (_Diecheck == 0)
@@ -420,17 +424,17 @@ namespace jk
 			_HitType = random(1, 10);
 			if (_HitType >= 1 && _HitType < 6)
 			{
-				_Dammege = 25;
+				_Damage = 25;
 				attack = true;
 			}
 			if (_HitType >= 6 && _HitType < 9)
 			{
-				_Dammege = random(35, 40);
+				_Damage = random(35, 40);
 				attack_Cri_Mid = true;
 			}
 			if (_HitType >= 9 && _HitType <= 10)
 			{
-				_Dammege = random(50, 70);
+				_Damage = random(50, 70);
 				attack_Cri_High = true;
 			}
 
@@ -440,18 +444,18 @@ namespace jk
 				_Critical_High->_effect_animation = true;
 				if (mDir == 1)
 				{
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_CurrenHp = _CurrenHp - _Dammege;
+					Monster_Hp->_HitOn = true;
+					Monster_Hp->SetHitDamage(_Damage);
+					_CurrenHp = _CurrenHp - _Damage;
 					_Hit_Effect->SetDirection(-1);
 					_Critical_Middle->SetDirection(-1);
 					_Critical_High->SetDirection(-1);
 				}
 				else
 				{
-					Player_Hp->_HitOn = true;
-					Player_Hp->SetHitDamage(_Dammege);
-					_CurrenHp = _CurrenHp - _Dammege;
+					Monster_Hp->_HitOn = true;
+					Monster_Hp->SetHitDamage(_Damage);
+					_CurrenHp = _CurrenHp - _Damage;
 					_Hit_Sword->SetDirection(1);
 					_Critical_Middle->SetDirection(1);
 					_Critical_High->SetDirection(1);
