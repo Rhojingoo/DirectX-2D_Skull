@@ -125,6 +125,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -177,6 +178,7 @@
     <ClInclude Include="Blosome.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Layana_HpFrame.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Yggdrasil_HpFrame.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Castle_Area.h" />
@@ -394,6 +396,7 @@
     <ClCompile Include="Blosome.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Layana_HpFrame.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Yggdrasil_HpFrame.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Castle_Area.cpp" />

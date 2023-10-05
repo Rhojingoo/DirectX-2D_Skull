@@ -40,6 +40,12 @@ namespace jk
 			//Player_Hit_Effect->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 		}
 
+		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+		as = _BGSound->AddComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"Chapter1Sound", L"..\\Resources\\Sound\\Chapter1\\Chapter1.wav"));
+		as->SetLoop(true);
+
+
 		_player = object::Instantiate<Player>(Vector3(-700.f, -150.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 	
@@ -250,6 +256,8 @@ namespace jk
 
 	void Stage1_1::OnEnter()
 	{
+		as->Play();
+
 		#pragma region CollisionManager
 				CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 				CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
@@ -318,6 +326,7 @@ namespace jk
 	}
 	void Stage1_1::OnExit()
 	{
+		as->Stop();
 		monsterGroup1.clear();
 	}
 	void Stage1_1::CamareShooting()

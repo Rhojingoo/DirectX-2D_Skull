@@ -108,7 +108,7 @@ namespace jk
 			hp_tr->SetScale(137, 12.5, 0);
 			Monster_UIHp->Set_Max_Hp(_MaxHp);
 			Monster_UIHp->Set_Current_Hp(_MaxHp);
-			
+			Monster_UIHp->SetState(eState::Paused);
 		}
 		{
 			Monster_UIDamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
@@ -122,6 +122,7 @@ namespace jk
 			Monster_UIDamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_UIDamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_UIDamegeHp->Set_Type(1);
+			Monster_UIDamegeHp->SetState(eState::Paused);
 		}
 
 		{
@@ -1392,6 +1393,8 @@ namespace jk
 		Transform* STATEUIhp_tr1 = Monster_UIHp->GetComponent<Transform>();
 		Transform* STATEUIhp_tr2 = Monster_UIDamegeHp->GetComponent<Transform>();
 		Transform* face_tr = _MbossFace->GetComponent<Transform>();
+		Monster_UIHp->SetState(eState::Active);
+		Monster_UIDamegeHp->SetState(eState::Active);
 
 		if (_UIstate == 0)//1¹ø
 		{

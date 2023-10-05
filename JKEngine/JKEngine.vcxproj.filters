@@ -638,6 +638,9 @@
     <ClInclude Include="Layana_HpFrame.h">
       <Filter>Game_ob\UI\Hp_BarFrame</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Game_ob\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1274,6 +1277,9 @@
     <ClCompile Include="Layana_HpFrame.cpp">
       <Filter>Game_ob\UI\Hp_BarFrame</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Game_ob\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1569,6 +1575,9 @@
     </Filter>
     <Filter Include="Game_ob\UI\Face\AdventureUI">
       <UniqueIdentifier>{003d06ae-f07d-4c92-84e1-cd9a03b4c8e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Sound">
+      <UniqueIdentifier>{b7f594a8-ad24-47d5-b3e5-7ac6a2fa255d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

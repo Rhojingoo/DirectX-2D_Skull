@@ -29,10 +29,17 @@ namespace jk
 			CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
 			CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 
-#pragma region Player		
+			_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+			as = _BGSound->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"Chapter1Sound", L"..\\Resources\\Sound\\Chapter1\\Chapter1.wav"));
+			as->SetLoop(true);
+
+
+				#pragma region Player		
 			_player = object::Instantiate<Player>(Vector3(0.f, 750.f, -250.f), eLayerType::Player);
 			_player->SetName(L"player_select");
 #pragma endregion	
+
 				#pragma region UI	
 				//Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
 				//Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
@@ -193,8 +200,12 @@ namespace jk
 	{
 		Scene::Render();
 	}
+
+
 	void OutSide_CastleArea::OnEnter()
 	{
+		as->Play();
+
 		Transform* PlayerTR = _player->GetComponent<Transform>();
 		Vector3 player_pos = PlayerTR->GetPosition();
 		_player->SetPlayer_Pos(player_pos);
@@ -251,5 +262,6 @@ namespace jk
 	}
 	void OutSide_CastleArea::OnExit()
 	{
+		as->Stop();
 	}
 }

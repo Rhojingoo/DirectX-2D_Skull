@@ -929,7 +929,7 @@ namespace jk
 				bool attack = player->Geteffect();
 				bool attack_Cri_Mid = player->Geteffect_Mid();
 				bool attack_Cri_High = player->Geteffect_Hight();
-				_Damage = 2000;
+				//_Damage = 2000;
 
 				_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Damage;
 				Longhair_Hp->_HitOn = true;

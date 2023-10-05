@@ -4,6 +4,9 @@
 #include "jkPlayScene.h"
 #include "Monster_ObjPool.h"
 #include "Stge_Manager.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
+
 
 namespace jk
 {
@@ -28,9 +31,16 @@ namespace jk
 
 		bool Monsters_check = false;
 		float time = 0.f;
+
+	private:
+		AudioSource* as = nullptr;
+		Sound* _BGSound = nullptr;
+
 	private:
 		Camera* cameraComp = nullptr;
 		Player* _player = nullptr;		
+
+
 
 		Stage1_Door* Door1 = nullptr;
 		bool first_groundturch = false;;

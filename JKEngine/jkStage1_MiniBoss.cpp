@@ -40,6 +40,11 @@ namespace jk
 		OBJPOOL = new MiniBoss_ObjCreate(1);
 		CreateMiniboss(1);
 
+		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+		as = _BGSound->AddComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"AdventurerSound", L"..\\Resources\\Sound\\Adventurer\\Adventurer.wav"));
+		as->SetLoop(true);
+
 		_player = object::Instantiate<Player>(Vector3(-600.f, -50.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 
@@ -134,6 +139,7 @@ namespace jk
 				{
 					for (Mini_Boss* mon : mBossGroup)
 					{
+						as->Play();
 						mon->SetState(GameObject::eState::Active);
 					}
 					_MiniBoss_Create = true;
@@ -176,6 +182,7 @@ namespace jk
 
 	void Stage1_MiniBoss::OnEnter()
 	{		
+
 		_player->firstGroundcheck = false;
 
 		#pragma region Cam & Mouse& Grid
@@ -231,6 +238,7 @@ namespace jk
 	}
 	void Stage1_MiniBoss::OnExit()
 	{
+		as->Stop();
 	}
 
 

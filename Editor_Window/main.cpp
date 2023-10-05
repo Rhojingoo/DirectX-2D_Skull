@@ -4,6 +4,8 @@
 #include "framework.h"
 #include "Editor_Window.h"
 
+
+#include "..\Engine_SOURCE\jkFmod.h"
 #include "..\Engine_SOURCE\jkApplication.h"
 #include "..\Engine_SOURCE\jkRenderer.h"
 #include "..\Engine_SOURCE\jkResources.h"
@@ -85,6 +87,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
     jk::renderer::Release();
     jk::SceneManager::Release();
+    jk::Fmod::Release();
     gui::Editor::Release();
     jk::Release();
 

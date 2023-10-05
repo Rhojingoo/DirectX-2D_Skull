@@ -2,6 +2,8 @@
 #include "Include_Common.h"
 #include "..\Engine_SOURCE\jkScene.h"
 #include "jkPlayScene.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
 
 namespace jk
 {
@@ -23,10 +25,14 @@ namespace jk
 	private:
 		Player* _player = nullptr;
 		Camera* cameraComp = nullptr;
+		AudioSource* as = nullptr; 
+		Sound* _BGSound = nullptr;
 		Alpha_Blend* _Alpha = nullptr;
+		Stage1_Door* Door1 = nullptr;
+
+	private:
 		float _time = 0.f;
 		bool _Fadecheck = false;
-		Stage1_Door* Door1 = nullptr;
 		bool _changecheck = false;
 	};
 }

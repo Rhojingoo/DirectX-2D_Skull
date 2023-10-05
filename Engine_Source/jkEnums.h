@@ -16,6 +16,8 @@ namespace jk::enums
 		Animator,
 		Camera,
 		Script,
+		AudioListener,
+		AudioSource,
 		End,
 	};
 
@@ -48,6 +50,7 @@ namespace jk::enums
 		Animation,
 		Image,
 		ComputeShader,
+		AudioClip,
 		End,
 	};
 

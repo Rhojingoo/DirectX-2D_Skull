@@ -4,6 +4,8 @@
 
 #include "Monster_ObjPool.h"
 #include "Stge_Manager.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
 
 namespace jk
 {
@@ -24,6 +26,10 @@ namespace jk
 		void CamareShooting();
 		void SetMonOBJ();
 		bool AreAllMonstersDead(const std::vector<Monster*>& monsterGroup, bool check);
+
+	private:
+		AudioSource* as = nullptr;
+		Sound* _BGSound = nullptr;
 
 	private:
 		Stage1_Door* Door1 = nullptr;

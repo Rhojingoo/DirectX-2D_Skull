@@ -7,6 +7,10 @@
 #include "Stge_Manager.h"
 #include "Mini_Boss.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
+
+
 namespace jk
 {
 	class Stage1_MiniBoss : public Scene
@@ -30,11 +34,14 @@ namespace jk
 		bool AreAllMiniBossDead(const std::vector<Mini_Boss*>& monsterGroup);
 
 	private:
+		AudioSource* as = nullptr;
+		Sound* _BGSound = nullptr;
+
+	private:
 		Camera* cameraComp = nullptr;
 		Player* _player = nullptr;
 		Mini_Boss* Mboss = nullptr;
 		Stage1_Door* Door1 = nullptr;
-
 
 
 		MiniBoss_ObjCreate* OBJPOOL = nullptr;

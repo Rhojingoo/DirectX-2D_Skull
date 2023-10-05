@@ -4,6 +4,7 @@
 #include "jkRenderer.h"
 #include "jkSceneManager.h"
 #include "jkCollisionManager.h"
+#include "jkFmod.h"
 
 namespace jk
 {
@@ -36,6 +37,7 @@ namespace jk
 	{
 		Time::Initiailize();
 		Input::Initialize();
+		Fmod::Initialize();
 
 		renderer::Initialize();
 		SceneManager::Initialize();

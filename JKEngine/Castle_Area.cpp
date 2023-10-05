@@ -4,6 +4,9 @@
 #include "jkPaintShader.h"
 #include "Blosome.h"
 #include "LoadScenes.h"
+#include "jkAudioListener.h"
+#include "jkAudioClip.h"
+#include "jkAudioSource.h"
 
 
 namespace jk
@@ -35,36 +38,31 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 	
 
-			#pragma region UI	
-					Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-620.f, -300.f, 1.f), eLayerType::UI);
-					Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f*2, 66.f*2, 0.f));
-					Player_State->SetName(L"playyer_state_inventory");
+		#pragma region UI	
+			Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-620.f, -300.f, 1.f), eLayerType::UI);
+			Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f*2, 66.f*2, 0.f));
+			Player_State->SetName(L"playyer_state_inventory");
 
-					Player_Hp_Bar* Monster_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
-					Monster_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
-					Monster_Hp->SetName(L"player_hp_bar");
-					//Player_Hit_Effect->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+			Player_Hp_Bar* Monster_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
+			Monster_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
+			Monster_Hp->SetName(L"player_hp_bar");
+			//Player_Hit_Effect->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 
-					Face_UI* Player_Face = object::Instantiate<Face_UI>(Vector3(-0.33f, 0.23f, -2.1f), eLayerType::UI);
-					Player_Face->GetComponent<Transform>()->SetScale(Vector3(0.324f, 0.824f, 0.f));
-					Player_Face->SetName(L"player_head");
-					//Player_Face->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+			Face_UI* Player_Face = object::Instantiate<Face_UI>(Vector3(-0.33f, 0.23f, -2.1f), eLayerType::UI);
+			Player_Face->GetComponent<Transform>()->SetScale(Vector3(0.324f, 0.824f, 0.f));
+			Player_Face->SetName(L"player_head");
+			//Player_Face->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
+		#pragma endregion	
 
-			#pragma endregion	
+		std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+		std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexuture");
+		paintShader->SetTarget(paintTexture);
+		paintShader->OnExcute();		
 
-			std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
-			std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexuture");
-			paintShader->SetTarget(paintTexture);
-			paintShader->OnExcute();
-
-
-		//{//파티클 성공
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"Particle");
-		//	AddGameObject(eLayerType::Monster, player);
-		//	ParticleSystem* mr = player->AddComponent<ParticleSystem>();
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -249.0f));
-		//}
+		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+		as = _BGSound->AddComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"DemonCastleSound", L"..\\Resources\\Sound\\DemonCastle\\DemonCastle.wav"));
+		as->SetLoop(true);
 
 			#pragma region Player				
 					_player = object::Instantiate<Player>(Vector3(0.f, -50.f, -250.f), eLayerType::Player);
@@ -80,7 +78,7 @@ namespace jk
 
 			//Archer* test5 = object::Instantiate<Archer>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 			//Cleric* test5 = object::Instantiate<Cleric>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-			Knight_male* test5 = object::Instantiate<Knight_male>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
+			//Knight_male* test5 = object::Instantiate<Knight_male>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 			//Mage* test5 = object::Instantiate<Mage>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 
 			#pragma region Npc	
@@ -132,8 +130,8 @@ namespace jk
 						static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
 						Tile_map->SetName(L"Tile_Map");
 						Transform* tr = Tile_map->GetComponent<Transform>();
-						Collider2D* cd = Tile_map->AddComponent<Collider2D>();							
-						//tr->SetPositionZ(-200.f);
+						Collider2D* cd = Tile_map->AddComponent<Collider2D>();				
+			
 						tr->SetPositionZ(-200.f);
 						tr->AddPositionY(-280.f);
 						tr->SetPositionX(-300.f);
@@ -149,6 +147,9 @@ namespace jk
 		{
 			Transform* PlayerTR = _player->GetComponent<Transform>();
 			Vector3 player_pos = PlayerTR->GetPosition();
+			Transform* SoundTR = _BGSound->GetComponent<Transform>();
+			SoundTR->SetPosition(PlayerTR->GetPosition().x, PlayerTR->GetPosition().y, -10);
+
 
 			if (player_pos.x < 975 && player_pos.y < -122)
 				cameraComp->SetCameraXY = false;
@@ -217,14 +218,13 @@ namespace jk
 	}
 	void Castle_Area::OnEnter()
 	{
-		//_player = GetPlayer();
-		//Transform* _playerTR = _player->GetComponent<Transform>();
-		//_playerTR->SetPosition(Vector3(0.f, -120.f, -250.f));
+		as->Play();
 
 	#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		cameraComp = camera->AddComponent<Camera>();
+		camera->AddComponent<AudioListener>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
@@ -274,5 +274,6 @@ namespace jk
 	}
 	void Castle_Area::OnExit()
 	{
+		as->Stop();
 	}
 }
