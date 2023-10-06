@@ -21,11 +21,13 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		int random(int a, int b);
 		void SetDirection(int dir) { mDir = dir; }
 		void Setattack(bool check) { _attack = check; }
 		RigidBody* Getrigidbody() {return _rigidbody;}
 		void Setgroundcheck(bool check) { _Ground_check = check; }
 		void SetBeforeAttackPos(Vector3 set) { _Before_Attack_Pos = set; }
+
 
 		bool SetHead = false;
 		bool _Head_Rotation = false;
@@ -33,6 +35,15 @@ namespace jk
 		bool _Head_Attack = false;
 		bool Head_Life = false;
 		bool _Ground_check = false;
+
+		float GetDamage() { return _Damage; }
+		bool Geteffect() { return attack; }
+		bool Geteffect_Mid() { return attack_Cri_Mid; }
+		bool Geteffect_Hight() { return attack_Cri_High; }
+		void Seteffect(bool set) { attack = set; }
+		void Seteffect_Mid(bool set) { attack_Cri_Mid = set; }
+		void Seteffect_Hight(bool set) { attack_Cri_High = set; }
+
 
 	private:
 		Animator* at = nullptr;
@@ -44,10 +55,14 @@ namespace jk
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:
-		//Skul_Head_State _state = Skul_Head_State::Move;
 		int mDir = 1;
 		float _time = 0.f;
 		bool _attack = false;
-		//bool _Ground_check = false;
+		int		_HitType = 0;
+		float	_Damage = 0.f;
+		bool attack = false;
+		bool attack_Cri_Mid = false;
+		bool attack_Cri_High = false;
+
 	};
 }

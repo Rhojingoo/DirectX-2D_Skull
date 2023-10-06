@@ -123,6 +123,9 @@ namespace jk
 
 	void Stage1_MiniBoss::Update()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+
 		if (_player->firstGroundcheck == true)
 		{
 			if (_first_groundturch == false)
@@ -152,6 +155,7 @@ namespace jk
 		{
 			if (_Door_Open == false)
 			{
+				as->Stop();
 				cameraComp->SetCameraXY = true;
 				Door1->Set_Door_Allow(true);
 				Door1->Set_Stage1_Door(1);
@@ -167,6 +171,14 @@ namespace jk
 		{
 			SceneManager::LoadScene(L"Stage1_2");
 		}
+
+		if (_changecheck == true)
+		{
+			_player->SetPlayer_Pos(player_pos);
+			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
+			_changecheck = false;
+		}
+
 		Scene::Update();
 	}
 	void Stage1_MiniBoss::LateUpdate()
@@ -179,9 +191,13 @@ namespace jk
 	}
 
 
-
 	void Stage1_MiniBoss::OnEnter()
 	{		
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+		_player->SetPlayer_Pos(player_pos);
+		_player->SetSwitch(true);
+		_changecheck = true;
 
 		_player->firstGroundcheck = false;
 
@@ -238,9 +254,9 @@ namespace jk
 	}
 	void Stage1_MiniBoss::OnExit()
 	{
-		as->Stop();
+		_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
+		//as->Stop();
 	}
-
 
 
 	void Stage1_MiniBoss::CamareShooting()

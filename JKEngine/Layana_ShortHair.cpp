@@ -987,8 +987,23 @@ namespace jk
 
 			if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
 			{
-
+				if (player->_Head_Attack == false && _bulletcheck == 0)
 				{
+					if (player->_Ground_check == true)
+						return;
+
+					_Damage = player->GetDamage();
+					bool attack = player->Geteffect();
+					bool attack_Cri_Mid = player->Geteffect_Mid();
+					bool attack_Cri_High = player->Geteffect_Hight();
+
+					_Curren_ShortHair_Hp = _Curren_ShortHair_Hp - _Damage;
+					ShortHair_Hp->_HitOn = true;
+					ShortHair_Hp->SetHitDamage(_Damage);
+					ShortHair_Hp_Damage->_HitOn = true;
+					ShortHair_Hp_Damage->Set_Target(_Curren_ShortHair_Hp);
+
+
 					_Hit_Effect->_effect_animation = true;
 					_Critical_Middle->_effect_animation = true;
 					_Critical_High->_effect_animation = true;
@@ -1004,29 +1019,31 @@ namespace jk
 						_Critical_Middle->SetDirection(1);
 						_Critical_High->SetDirection(1);
 					}
-					//if (attack == true)
-					//{
-					//	_Hit_Effect->_effect_animation = true;
-					//	_Hit_Effect->SetState(eState::Active);
-					//}
-					//if (attack_Cri_Mid == true)
-					//{
-					//	_Critical_Middle->_effect_animation = true;
-					//	_Critical_Middle->SetState(eState::Active);
-					//}
-					//if (attack_Cri_High == true)
-					//{
-					//	_Critical_High->_effect_animation = true;
-					//	_Critical_High->SetState(eState::Active);
-					//}
-				}
-				if (_Curren_LongHair_Hp <= 0)
-				{
-					if (_First_Die == false)
+					if (attack == true)
 					{
-						_First_Die = true;
-						_ShortHair_Die = true;
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetState(eState::Active);
 					}
+					if (attack_Cri_Mid == true)
+					{
+						_Critical_Middle->_effect_animation = true;
+						_Critical_Middle->SetState(eState::Active);
+					}
+					if (attack_Cri_High == true)
+					{
+						_Critical_High->_effect_animation = true;
+						_Critical_High->SetState(eState::Active);
+					}
+
+					if (_Curren_LongHair_Hp <= 0)
+					{
+						if (_First_Die == false)
+						{
+							_First_Die = true;
+							_ShortHair_Die = true;
+						}
+					}
+					_bulletcheck++;
 				}
 			}
 		}
@@ -1172,6 +1189,10 @@ namespace jk
 	}
 	void Layana_ShortHair::OnCollisionExit(Collider2D* other)
 	{
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			_bulletcheck = 0;
+		}
 	}
 
 
@@ -1180,7 +1201,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_SelectAttack = random(0, 6);
-		_SelectAttack = 3;
+		//_SelectAttack = 3;
 
 		if (_Intro_On == true)
 			Intro_Combo();

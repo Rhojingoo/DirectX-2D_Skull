@@ -296,7 +296,7 @@ namespace jk
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 		bool	_BackGround_check = true;			// 백그라운드 아이들시 사용되는 변수
 		int		_Rushnumber = 0;					// 러쉬 공격시 1번 = a, 2번 = b, 3번 =c , 0 = 대기상태
-
+		int		_bulletcheck = 0;
 
 		 
 	public:

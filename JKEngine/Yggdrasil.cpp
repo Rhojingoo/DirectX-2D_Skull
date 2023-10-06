@@ -249,6 +249,15 @@ namespace jk
 			Monster_Hp_Second->SetState(eState::Paused);
 		}
 
+		{
+			_Hit_Effect = new Monster_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+
 
 		{
 			_Hit_Effect_player = new Player_Hit_Effect;

@@ -30,6 +30,8 @@ namespace jk
 		bool _first_groundturch = false;;
 		bool _Boss_Create = false;;
 		bool _Boss_Dead = false;;
+		bool _changecheck = false;
+
 
 		float _time = 0.f;
 		bool _Fadein = false;

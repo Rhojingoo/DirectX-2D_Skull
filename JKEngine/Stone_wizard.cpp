@@ -366,6 +366,8 @@ namespace jk
 
 		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
 		{
+			_Damage = player->GetDamage();
+
 			if (!(_state == Stone_wizard_State::Attack || _state == Stone_wizard_State::Attack_Ready))
 			{
 				if (player->_Head_Attack == false && _bulletcheck == 0)
@@ -378,10 +380,15 @@ namespace jk
 					{
 						at->PlayAnimation(L"Stone_wizardHit", false);
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
-						tr->SetPosition(pos);
 						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(25);
-						_CurrenHp = _CurrenHp - 25;
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(1);
@@ -391,10 +398,69 @@ namespace jk
 					{
 						at->PlayAnimation(L"Stone_wizardHitR", false);
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
-						tr->SetPosition(pos);
-						_CurrenHp = _CurrenHp - 25;
 						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(25);
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
+
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetDirection(-1);
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (_CurrenHp <= 0)
+					{
+						_state = Stone_wizard_State::Dead;
+						_Hit_Effect->_effect_animation = true;
+						_Death_Effect->SetState(eState::Active);
+						_CurrenHp = 0;
+					}
+					_bulletcheck++;
+				}
+			}
+
+
+			if ((_state == Stone_wizard_State::Attack || _state == Stone_wizard_State::Attack_Ready))
+			{
+				if (player->_Head_Attack == false && _bulletcheck == 0)
+				{
+					if (player->_Ground_check == true)
+						return;
+
+					_state = Stone_wizard_State::Hit;
+					if (mDir == 1)
+					{
+						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
+						Monster_Hp->_HitOn = true;
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
+
+						_Hit_Effect->_effect_animation = true;
+						_Hit_Effect->SetDirection(1);
+						_Hit_Effect->SetState(eState::Active);
+					}
+					if (mDir == -1)
+					{
+						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
+						Monster_Hp->_HitOn = true;
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(-1);
@@ -476,6 +542,10 @@ namespace jk
 		{
 			_rigidbody->SetGround(false);
 			_Ground_check = false;
+		}
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			_bulletcheck = 0;
 		}
 
 	}

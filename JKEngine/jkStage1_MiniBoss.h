@@ -42,7 +42,7 @@ namespace jk
 		Player* _player = nullptr;
 		Mini_Boss* Mboss = nullptr;
 		Stage1_Door* Door1 = nullptr;
-
+		bool _changecheck = false;
 
 		MiniBoss_ObjCreate* OBJPOOL = nullptr;
 		std::vector<Mini_Boss*> mBossGroup;

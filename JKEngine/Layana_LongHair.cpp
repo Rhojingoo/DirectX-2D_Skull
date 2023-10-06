@@ -982,28 +982,22 @@ namespace jk
 
 			if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
 			{
-				bool attack = false;
-				bool attack_Cri_Mid = false;
-				bool attack_Cri_High = false;
+				if (player->_Head_Attack == false && _bulletcheck == 0)
+				{
+					if (player->_Ground_check == true)
+						return;
 
-				_HitType = random(1, 10);
-				if (_HitType >= 1 && _HitType < 6)
-				{
-					_Damage = 25;
-					attack = true;
-				}
-				if (_HitType >= 6 && _HitType < 9)
-				{
-					_Damage = random(35, 40);
-					attack_Cri_Mid = true;
-				}
-				if (_HitType >= 9 && _HitType <= 10)
-				{
-					_Damage = random(50, 70);
-					attack_Cri_High = true;
-				}
+					_Damage = player->GetDamage();
+					bool attack = player->Geteffect();
+					bool attack_Cri_Mid = player->Geteffect_Mid();
+					bool attack_Cri_High = player->Geteffect_Hight();
 
-				{
+					_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Damage;
+					Longhair_Hp->_HitOn = true;
+					Longhair_Hp->SetHitDamage(_Damage);
+					Longhair_Hp_Damage->_HitOn = true;
+					Longhair_Hp_Damage->Set_Target(_Curren_LongHair_Hp);
+
 					_Hit_Effect->_effect_animation = true;
 					_Critical_Middle->_effect_animation = true;
 					_Critical_High->_effect_animation = true;
@@ -1034,14 +1028,16 @@ namespace jk
 						_Critical_High->_effect_animation = true;
 						_Critical_High->SetState(eState::Active);
 					}
-				}
-				if (_Curren_LongHair_Hp <= 0)
-				{
-					if (_First_Die == false)
+
+					if (_Curren_LongHair_Hp <= 0)
 					{
-						_First_Die = true;
-						_LongHair_Die = true;
+						if (_First_Die == false)
+						{
+							_First_Die = true;
+							_LongHair_Die = true;
+						}
 					}
+					_bulletcheck++;
 				}
 			}
 		}
@@ -1189,6 +1185,10 @@ namespace jk
 	}
 	void Layana_LongHair::OnCollisionExit(Collider2D* other)
 	{
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			_bulletcheck = 0;
+		}
 	}	
 
 	
@@ -1196,7 +1196,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_SelectAttack = random(0, 6);
-		_SelectAttack = 3;
+		//_SelectAttack = 3;
 
 
 		if (_Intro_On == true)

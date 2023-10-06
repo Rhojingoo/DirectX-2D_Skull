@@ -1,5 +1,5 @@
 #include "Skul_Wolf.h"
-
+#include "Particle_DamageEffect.h"
 
 
 namespace jk
@@ -14,9 +14,6 @@ namespace jk
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"Basic_Skul"));
-
-		//Vector2 mSize = mr->GetMaterial()->GetTexture()->GetTexSize();
-		//GetComponent<Transform>()->SetScale(Vector3(mSize.x, mSize.y, 1.0f));
 	}
 	Skul_Wolf::~Skul_Wolf()
 	{
@@ -28,10 +25,9 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		
-		
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this,0,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this,0,0.065);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Fall", this);
@@ -45,8 +41,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Walk", this);
 
 
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this, 1,0.07);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this, 1,0.07);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Fall", this, 1);
@@ -70,6 +66,8 @@ namespace jk
 		at->CompleteEvent(L"WolfSkillAR") = std::bind(&Skul_Wolf::attack_choice, this);
 		at->CompleteEvent(L"WolfSkillB") = std::bind(&Skul_Wolf::attack_choice, this);
 		at->CompleteEvent(L"WolfSkillBR") = std::bind(&Skul_Wolf::attack_choice, this);
+		at->CompleteEvent(L"WolfJumpAttack") = std::bind(&Skul_Wolf::attack_choice, this);
+		at->CompleteEvent(L"WolfJumpAttackR") = std::bind(&Skul_Wolf::attack_choice, this);
 		at->CompleteEvent(L"WolfDash") = std::bind(&Skul_Wolf::dash_check, this);
 		at->CompleteEvent(L"WolfDashR") = std::bind(&Skul_Wolf::dash_check, this);
 
@@ -85,8 +83,71 @@ namespace jk
 				AfterImage_TEST[i]->SetState(eState::Paused);
 			}
 		}
+		{
+			Hit_Box = new HitBox_Player();
+			Hit_Box->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetState(eState::Paused);
+		}
 
 
+
+
+		{
+			_Hit_Effect = new Player_Hit_Effect;
+			_Hit_Effect->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
+			_Hit_Effect->SetState(eState::Paused);
+		}
+		{
+			_Hit_Sword = new Hit_Sword;
+			_Hit_Sword->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
+			_Hit_Sword->SetState(eState::Paused);
+		}
+		{
+			_Critical_Middle = new Hit_Critical_Middle;
+			_Critical_Middle->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
+			_Critical_Middle->SetState(eState::Paused);
+		}
+		{
+			_Critical_High = new Hit_Critical_High;
+			_Critical_High->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Critical_High);
+			_Critical_High->SetState(eState::Paused);
+		}
+		{
+			_Knight_Slash = new Slash_Effect;
+			_Knight_Slash->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _Knight_Slash);
+			_Knight_Slash->SetState(eState::Paused);
+		}
+		{
+			_DarkKnight = new Hit_DarkPaladin;
+			_DarkKnight->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, _DarkKnight);
+			_DarkKnight->SetState(eState::Paused);
+		}
+		{
+			Hit_Particle = new GameObject();
+			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
+			Hit_Particle->SetState(eState::Paused);
+		}
 
 		GameObject::Initialize();
 	}
@@ -169,6 +230,40 @@ namespace jk
 	}
 	void Skul_Wolf::LateUpdate()
 	{
+		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
+		if (_attack_Acheck == true)
+		{
+			Hit_Box->SetSize(Vector2(75.f, 75.f));
+			Hit_Box->SetState(eState::Active);
+			if (mDir == 1)
+				HitBox_TR->SetPosition(Vector3(pos.x + 20, pos.y, pos.z));
+			else
+				HitBox_TR->SetPosition(Vector3(pos.x - 20, pos.y, pos.z));
+		}
+		else if (_attack_Bcheck == true)
+		{
+			Hit_Box->SetSize(Vector2(75.f, 75.f));
+			Hit_Box->SetState(eState::Active);
+			if (mDir == 1)
+				HitBox_TR->SetPosition(Vector3(pos.x + 20, pos.y, pos.z));
+			else
+				HitBox_TR->SetPosition(Vector3(pos.x - 20, pos.y, pos.z));
+		}
+		else if (_attack_Ccheck == true)
+		{
+			Hit_Box->SetSize(Vector2(110.f, 75.f));
+			Hit_Box->SetState(eState::Active);
+			if (mDir == 1)
+				HitBox_TR->SetPosition(Vector3(pos.x , pos.y, pos.z));
+			else
+				HitBox_TR->SetPosition(Vector3(pos.x , pos.y, pos.z));
+		}
+		else
+		{
+			Hit_Box->SetState(eState::Paused);
+		}
+
+
 		_collider->SetSize(Vector2(0.35f, 0.55f));
 		_collider->SetCenter(Vector2(0.0f, -0.1f));
 		GameObject::LateUpdate();
@@ -596,6 +691,8 @@ namespace jk
 
 	void Skul_Wolf::attack_a()
 	{
+		_attack_Acheck = true;
+
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
 			_attack = true;
@@ -612,6 +709,7 @@ namespace jk
 
 	void Skul_Wolf::attack_b()
 	{
+		_attack_Bcheck = true;
 		_attack = false;
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
 		{
@@ -625,6 +723,7 @@ namespace jk
 
 	void Skul_Wolf::jumpattack()
 	{
+		_attack_Ccheck = true;
 	}
 
 	void Skul_Wolf::skill_a()
@@ -661,8 +760,673 @@ namespace jk
 	{
 	}
 
+	void Skul_Wolf::stun()
+	{
+		_attack_time += Time::DeltaTime();
+		if (_attack_time > 1.0)
+		{
+			_State = Skul_Wolf_State::Idle;
+			_attack_time = 0;
+			_Leftmove_Lock = false;
+			_Rightmove_Lock = false;
+		}
+	}
+
+	void Skul_Wolf::hit()
+	{
+	}
+
 	void Skul_Wolf::OnCollisionEnter(Collider2D* other)
 	{
+		//Monster
+		if (HitBox_Monster* _Monster = dynamic_cast<HitBox_Monster*>(other->GetOwner()))
+		{
+			Transform* hittr = _Monster->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(-1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+		}
+
+		if (Monster_Hammer* Hammer = dynamic_cast<Monster_Hammer*>(other->GetOwner()))
+		{
+			hammer_st = Hammer->GetState();
+			if (hammer_st == Monster_Hammer::Monster_Hammer_State::Tackle)
+			{
+				Transform* hittr = Hammer->GetComponent<Transform>();
+				Vector3 hitpos = hittr->GetPosition();
+				if (hitpos.x > pos.x)
+				{
+					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+				else
+				{
+					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+			}
+		}
+
+		if (Monster_GoldHammer* GoldHammer = dynamic_cast<Monster_GoldHammer*>(other->GetOwner()))
+		{
+			Goldham_st = GoldHammer->GetState();
+			if (Goldham_st == Monster_GoldHammer::Monster_GoldHammer_State::Tackle)
+			{
+				Transform* hittr = GoldHammer->GetComponent<Transform>();
+				Vector3 hitpos = hittr->GetPosition();
+				if (hitpos.x > pos.x)
+				{
+					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+				else
+				{
+					_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
+				}
+			}
+		}
+
+		if (Monster_Bullet* Bullet = dynamic_cast<Monster_Bullet*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(-1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+		}
+
+		if (Monster_Ent_GroundAttack* Bullet = dynamic_cast<Monster_Ent_GroundAttack*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(-1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+		}
+
+		//MiniBoss
+		if (MiniBoss_Bullet_Archer* Bullet = dynamic_cast<MiniBoss_Bullet_Archer*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Sword->_effect_animation = true;
+				_Hit_Sword->SetDirection(-1);
+				_Hit_Sword->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Hit_Sword->_effect_animation = true;
+				_Hit_Sword->SetDirection(1);
+				_Hit_Sword->SetState(eState::Active);
+			}
+		}
+
+		if (Archer_Trap* Bullet = dynamic_cast<Archer_Trap*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+			else
+			{
+				_State = Skul_Wolf_State::Stun;
+				_Leftmove_Lock = true;
+				_Rightmove_Lock = true;
+				if (mDir == 1)
+					at->PlayAnimation(L"Skul_BasicIdle", true);
+				else
+					at->PlayAnimation(L"Skul_BasicIdleR", true);
+			}
+		}
+
+		if (HitBox_Knight* HitBox = dynamic_cast<HitBox_Knight*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = HitBox->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Knight_Slash->SetDirection(1);
+				_Knight_Slash->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Knight_Slash->_effect_animation = true;
+				_Knight_Slash->SetDirection(-1);
+				_Knight_Slash->SetState(eState::Active);
+			}
+		}
+
+		if (MiniBoss_Bullet_Knight* Bullet = dynamic_cast<MiniBoss_Bullet_Knight*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Sword->_effect_animation = true;
+				_Hit_Sword->SetDirection(-1);
+				_Hit_Sword->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Hit_Sword->_effect_animation = true;
+				_Hit_Sword->SetDirection(1);
+				_Hit_Sword->SetState(eState::Active);
+			}
+		}
+
+		if (Knight_Energe_Blast* Bullet = dynamic_cast<Knight_Energe_Blast*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				HitDir = -1;
+			else
+				HitDir = 1;
+			_State = Skul_Wolf_State::Hit;
+		}
+
+		if (Knight_UltimateSkill_Projectile* Bullet = dynamic_cast<Knight_UltimateSkill_Projectile*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				HitDir = -1;
+				_rigidbody->SetVelocity(Vector2(-50.f, 50.f));
+
+				_DarkKnight->_effect_animation = true;
+				_DarkKnight->SetDirection(-1);
+				_DarkKnight->SetState(eState::Active);
+			}
+			else
+			{
+				HitDir = 1;
+				_rigidbody->SetVelocity(Vector2(50.f, 50.f));
+
+				_DarkKnight->_effect_animation = true;
+				_DarkKnight->SetDirection(1);
+				_DarkKnight->SetState(eState::Active);
+			}
+			_State = Skul_Wolf_State::Hit;
+		}
+
+		if (Cleric_HolyThunder* Bullet = dynamic_cast<Cleric_HolyThunder*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				HitDir = -1;
+			else
+				HitDir = 1;
+			_State = Skul_Wolf_State::Hit;
+		}
+
+		if (HitBox_Mage* Bullet = dynamic_cast<HitBox_Mage*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				HitDir = -1;
+			else
+				HitDir = 1;
+			_State = Skul_Wolf_State::Hit;
+		}
+
+		if (Mage_FireBoom* Bullet = dynamic_cast<Mage_FireBoom*>(other->GetOwner()))
+		{
+
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				HitDir = -1;
+			else
+				HitDir = 1;
+			_State = Skul_Wolf_State::Hit;
+		}
+
+		if (Mage_FireBall* Bullet = dynamic_cast<Mage_FireBall*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+			else
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+		}
+
+		if (Ultimate_On_Fire_Projectile* Bullet = dynamic_cast<Ultimate_On_Fire_Projectile*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+			else
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+		}
+
+
+		//Boss_YggDrasil
+		if (HitBox_YggDrasil* Hit_Boss = dynamic_cast<HitBox_YggDrasil*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Hit_Boss->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				HitDir = -1;
+			else
+				HitDir = 1;
+
+			_State = Skul_Wolf_State::Hit;
+		}
+
+
+		//Boss_Layana
+		if (HitBox_Layana* Hit_Boss = dynamic_cast<HitBox_Layana*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Hit_Boss->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+		}
+
+		if (Homing_Pierce_LongHair* Bullet = dynamic_cast<Homing_Pierce_LongHair*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+			else
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+		}
+
+		if (Homing_Pierce_ShortHair* Bullet = dynamic_cast<Homing_Pierce_ShortHair*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+			else
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+		}
+
+		if (TwinMeteor_Effect* Bullet = dynamic_cast<TwinMeteor_Effect*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Dimension_Pierce_BulletEffect* Bullet = dynamic_cast<Dimension_Pierce_BulletEffect*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Rising_Pierce* Bullet = dynamic_cast<Rising_Pierce*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Golden_Meteor_Bullet* Bullet = dynamic_cast<Golden_Meteor_Bullet*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Latana_Awake_Rush_Bullet* Bullet = dynamic_cast<Latana_Awake_Rush_Bullet*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Layana_Ground_Thunder* Bullet = dynamic_cast<Layana_Ground_Thunder*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Layana_Awaken_Meteor_Projectile* Bullet = dynamic_cast<Layana_Awaken_Meteor_Projectile*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Layana_Awaken_Homing_Attac* Bullet = dynamic_cast<Layana_Awaken_Homing_Attac*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+		if (Dark_DimensionPierce_BulletEffect* Bullet = dynamic_cast<Dark_DimensionPierce_BulletEffect*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			Transform* hittr = Bullet->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x + 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+
+				_Critical_Middle->_effect_animation = true;
+				_Critical_Middle->SetDirection(-1);
+				Transform* bulltr = _Critical_Middle->GetComponent<Transform>();
+				bulltr->SetPosition(Vector3(pos.x - 20, pos.y, pos.z - 1));
+				_Critical_Middle->SetState(eState::Active);
+			}
+		}
+
+
+
+
+
+
+
+
+
 		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
 		{
 			_Wall_check = true;
@@ -717,10 +1481,14 @@ namespace jk
 		{
 			if (_Ground_check == false)
 			{
+				_Ground_On = true;
+				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
-				_Ground_check = _rigidbody->GetGround();
+				_Ground_check = true;
 				_rigidbody->ClearVelocity();
+
+
 				_State = Skul_Wolf_State::Idle;
 				if (mDir == 1)
 					at->PlayAnimation(L"WolfIdle", true);
@@ -729,6 +1497,16 @@ namespace jk
 			}
 			else
 			{			
+				if (_State == Skul_Wolf_State::Hit)
+				{
+					_Ground_check = false;
+					_rigidbody->SetGround(false);
+					if (HitDir == 1)
+						_rigidbody->SetVelocity(Vector2(-75.f, 175.f));
+
+					if (HitDir == -1)
+						_rigidbody->SetVelocity(Vector2(75.f, 175.f));
+				}
 			}
 		}
 		
@@ -736,10 +1514,14 @@ namespace jk
 		{
 			if (_Ground_check == false)
 			{
+				_Ground_On = true;
+				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
-				_Ground_check = _rigidbody->GetGround();
+				_Ground_check = true;
 				_rigidbody->ClearVelocity();
+
+
 				_State = Skul_Wolf_State::Idle;
 				if (mDir == 1)
 					at->PlayAnimation(L"WolfIdle", true);
@@ -748,6 +1530,16 @@ namespace jk
 			}
 			else
 			{
+				if (_State == Skul_Wolf_State::Hit)
+				{
+					_Ground_check = false;
+					_rigidbody->SetGround(false);
+					if (HitDir == 1)
+						_rigidbody->SetVelocity(Vector2(-75.f, 175.f));
+
+					if (HitDir == -1)
+						_rigidbody->SetVelocity(Vector2(75.f, 175.f));
+				}
 			}
 		}
 		
@@ -765,8 +1557,14 @@ namespace jk
 			{
 				if (skul_footpos > Gr_Top_pos)
 				{
+					_Ground_On = true;
+					_Player_GRpos = pos;
+					_fallcheck = 0;	_jump = 0;
+					_rigidbody->ClearVelocity();
 					_Ground_check = true;
 					_rigidbody->SetGround(true);
+					mGround->_SkullOn = true;
+					_Ground_check = true;
 				}
 			}
 			else
@@ -776,6 +1574,16 @@ namespace jk
 					_rigidbody->SetVelocity(Vector2(0.f, -150.f));
 					_Ground_check = false;
 					_rigidbody->SetGround(false);
+				}
+				if (_State == Skul_Wolf_State::Hit)
+				{
+					_Ground_check = false;
+					_rigidbody->SetGround(false);
+					if (HitDir == 1)
+						_rigidbody->SetVelocity(Vector2(-75.f, 175.f));
+
+					if (HitDir == -1)
+						_rigidbody->SetVelocity(Vector2(75.f, 175.f));
 				}
 			}
 
@@ -799,6 +1607,10 @@ namespace jk
 
 	void Skul_Wolf::attack_choice()
 	{
+		_attack_Acheck = false;
+		_attack_Bcheck = false;
+		_attack_Ccheck = false;
+		Hit_Box->SetState(eState::Paused);
 		if (_attack == true)
 		{
 			_State = Skul_Wolf_State::Attack_B;

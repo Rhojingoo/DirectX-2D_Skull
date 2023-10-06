@@ -60,19 +60,6 @@ namespace jk
 			Hit_Box->SetState(eState::Active);
 		}
 
-		{
-			Player_Hp = new Player_Hp_Bar;
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
-			scene->AddGameObject(eLayerType::Monster, Player_Hp);
-			Player_Hp->SetName(L"player_hp_bar");
-			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
-			hp_tr->SetScale(_MaxHp, 10, 0);
-			Player_Hp->Set_Max_Hp(_MaxHp);
-			Player_Hp->Set_Current_Hp(_MaxHp);
-			Player_Hp->SetState(eState::Active);
-		}
 
 		{
 			_Hit_Effect = new Monster_Hit_Effect;

@@ -594,26 +594,10 @@ namespace jk
 			if (_state == Archer_State::Die)
 				return;
 
-			bool attack = false;
-			bool attack_Cri_Mid = false;
-			bool attack_Cri_High = false;
-
-			_HitType = random(1, 10);
-			if (_HitType >= 1 && _HitType < 6)
-			{
-				_Dammege = 25;
-				attack = true;
-			}
-			if (_HitType >= 6 && _HitType < 9)
-			{
-				_Dammege = random(35, 40);
-				attack_Cri_Mid = true;
-			}
-			if (_HitType >= 9 && _HitType <= 10)
-			{
-				_Dammege = random(50, 70);
-				attack_Cri_High = true;
-			}
+			_Damage = player->GetDamage();
+			bool attack = player->Geteffect();
+			bool attack_Cri_Mid = player->Geteffect_Mid();
+			bool attack_Cri_High = player->Geteffect_Hight();
 
 
 			if (player->_Head_Attack == false && _bulletcheck == 0)
@@ -621,47 +605,6 @@ namespace jk
 				if (player->_Ground_check == true)
 					return;
 
-				if ((_state == Archer_State::Finishing_Move_Ready) || (_state == Archer_State::BackDash))
-				{
-					_hit++;
-					_Hit_Effect->_effect_animation = true;
-					_Critical_Middle->_effect_animation = true;
-					_Critical_High->_effect_animation = true;
-
-					if (mDir == 1)
-					{
-						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(_Dammege);
-						_CurrenHp = _CurrenHp - _Dammege;
-						_Hit_Effect->SetDirection(-1);
-						_Critical_Middle->SetDirection(-1);
-						_Critical_High->SetDirection(-1);
-					}
-					else
-					{
-						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(_Dammege);
-						_CurrenHp = _CurrenHp - _Dammege;
-						_Hit_Effect->SetDirection(1);
-						_Critical_Middle->SetDirection(1);
-						_Critical_High->SetDirection(1);
-					}
-					if (attack == true)
-					{
-						_Hit_Effect->_effect_animation = true;
-						_Hit_Effect->SetState(eState::Active);
-					}
-					if (attack_Cri_Mid == true)
-					{
-						_Critical_Middle->_effect_animation = true;
-						_Critical_Middle->SetState(eState::Active);
-					}
-					if (attack_Cri_High == true)
-					{
-						_Critical_High->_effect_animation = true;
-						_Critical_High->SetState(eState::Active);
-					}
-				}
 				if (_state == Archer_State::Idle)
 				{
 					_hit_switch = true;	_hit++;
@@ -676,8 +619,19 @@ namespace jk
 							_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
 
 						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(_Dammege);
-						_CurrenHp = _CurrenHp - _Dammege;
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						Monster_UIHp->_HitOn = true;
+						Monster_UIHp->SetHitDamage(_Damage);
+						Monster_UIDamegeHp->_HitOn = true;
+						Monster_UIDamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
+
 						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
 						_Critical_High->SetDirection(-1);
@@ -688,10 +642,20 @@ namespace jk
 						at->PlayAnimation(L"ArcherHitR", true);
 						if (_hit < 2)
 							_rigidbody->SetVelocity(Vector2(50.f, 0.f));
-
 						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(_Dammege);
-						_CurrenHp = _CurrenHp - _Dammege;
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						Monster_UIHp->_HitOn = true;
+						Monster_UIHp->SetHitDamage(_Damage);
+						Monster_UIDamegeHp->_HitOn = true;
+						Monster_UIDamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
+
 						_Hit_Effect->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
 						_Critical_High->SetDirection(1);
@@ -711,8 +675,9 @@ namespace jk
 						_Critical_High->_effect_animation = true;
 						_Critical_High->SetState(eState::Active);
 					}
+				
 				}
-				if (!((_state == Archer_State::Idle) || (_state == Archer_State::Finishing_Move_Ready) || (_state == Archer_State::BackDash)))
+				else
 				{
 					_hit++;
 					_Hit_Effect->_effect_animation = true;
@@ -722,21 +687,39 @@ namespace jk
 					if (mDir == 1)
 					{
 						_rigidbody->SetVelocity(Vector2(-20.f, 0.f));						
-
 						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(_Dammege);
-						_CurrenHp = _CurrenHp - _Dammege;
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						Monster_UIHp->_HitOn = true;
+						Monster_UIHp->SetHitDamage(_Damage);
+						Monster_UIDamegeHp->_HitOn = true;
+						Monster_UIDamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
 						_Hit_Effect->SetDirection(-1);
 						_Critical_Middle->SetDirection(-1);
 						_Critical_High->SetDirection(-1);
 					}
 					else
 					{
-						_rigidbody->SetVelocity(Vector2(20.f, 0.f));					
-
+						_rigidbody->SetVelocity(Vector2(20.f, 0.f));	
 						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(_Dammege);
-						_CurrenHp = _CurrenHp - _Dammege;
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						Monster_UIHp->_HitOn = true;
+						Monster_UIHp->SetHitDamage(_Damage);
+						Monster_UIDamegeHp->_HitOn = true;
+						Monster_UIDamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
 						_Hit_Effect->SetDirection(1);
 						_Critical_Middle->SetDirection(1);
 						_Critical_High->SetDirection(1);
@@ -773,6 +756,7 @@ namespace jk
 					}
 					_Death_Effect->SetState(eState::Active);
 				}
+				_bulletcheck++;
 			}
 		}		
 
@@ -818,6 +802,10 @@ namespace jk
 	}
 	void Archer::OnCollisionExit(Collider2D* other)
 	{
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			_bulletcheck = 0;
+		}
 	}
 
 

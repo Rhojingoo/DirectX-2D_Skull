@@ -250,6 +250,7 @@ namespace jk
 		bool _HitBox_Attack_On = false;
 		int _HitBox_Dir = 1;
 		Transform* tr = nullptr;
+		int		_bulletcheck = 0;
 
 	public: //체력관련
 		bool _EnergyChange = false;

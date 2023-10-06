@@ -44,12 +44,36 @@ namespace jk
 				attack_Cri_High = true;
 			}
 		}
+		if (Player::GetCurrentPlay_List() == Player::PlayerList::wolf_Skul)
+		{
+			_HitType = random(1, 10);
+			if (_HitType >= 1 && _HitType < 6)
+			{
+				_Damage = random(30, 35);
+				attack = true;
+			}
+
+			if (_HitType >= 6 && _HitType < 9)
+			{
+				_Damage = random(40, 55);
+				attack_Cri_Mid = true;
+			}
+
+			if (_HitType >= 9 && _HitType <= 10)
+			{
+				_Damage = random(55, 79);
+				attack_Cri_High = true;
+			}
+		}
 
 
 		GameObject::Update();
 	}
 	void HitBox_Player::LateUpdate()
 	{
+		_Center.y = -15;
+		_collider->SetSize(_Size);
+		_collider->SetPosition(_Center);
 		GameObject::LateUpdate();
 	}
 	void HitBox_Player::Render()

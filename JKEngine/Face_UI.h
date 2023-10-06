@@ -6,7 +6,7 @@ namespace jk
 	class Face_UI : public GameObject
 	{
 	public:
-		Face_UI();
+		Face_UI(const std::wstring& path);
 		virtual ~Face_UI();
 
 		virtual void Initialize()	override;

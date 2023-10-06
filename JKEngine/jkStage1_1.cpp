@@ -23,22 +23,9 @@ namespace jk
 	void Stage1_1::Initialize()
 	{
 		OBJPOOL = new Monster_ObjPool(1, 15, 30, 10);
-		//StageMn = new Stage_Manager(OBJPOOL);
 
 		SetMonOBJ();
 
-		//ui
-		{
-			//UI
-			//Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
-			//Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
-			//Player_State->SetName(L"playyer_state_inventory");
-
-			//Player_Hp_Bar* Player_Hit_Effect = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
-			////Player_Hit_Effect->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
-			//Player_Hit_Effect->SetName(L"player_hp_bar");
-			//Player_Hit_Effect->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
-		}
 
 		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
 		as = _BGSound->AddComponent<AudioSource>();
@@ -48,9 +35,7 @@ namespace jk
 
 		_player = object::Instantiate<Player>(Vector3(-700.f, -150.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
-	
 
-		//Stage_MN->spawnNextGroup();
 
 		#pragma region Door
 				Door1 = object::Instantiate<Stage1_Door>(Vector3(-70.f, 290.f, -245.f), eLayerType::BACK_GROUND);
@@ -155,6 +140,9 @@ namespace jk
 
 	void Stage1_1::Update()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+
 		if (_player->firstGroundcheck == true)
 		{
 			if (first_groundturch == false)
@@ -240,6 +228,13 @@ namespace jk
 			Door1->Set_Stage1_Door(2);
 		}
 
+		if (_changecheck == true)
+		{
+			_player->SetPlayer_Pos(player_pos);
+			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
+			_changecheck = false;
+		}
+
 
 		Scene::Update();
 	}
@@ -257,6 +252,11 @@ namespace jk
 	void Stage1_1::OnEnter()
 	{
 		as->Play();
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+		_player->SetPlayer_Pos(player_pos);
+		_player->SetSwitch(true);
+		_changecheck = true;
 
 		#pragma region CollisionManager
 				CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);

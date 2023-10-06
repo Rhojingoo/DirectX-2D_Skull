@@ -24,6 +24,7 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Bullet, eLayerType::BACK_GROUND, true);
@@ -38,22 +39,6 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 	
 
-		#pragma region UI	
-			Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-620.f, -300.f, 1.f), eLayerType::UI);
-			Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f*2, 66.f*2, 0.f));
-			Player_State->SetName(L"playyer_state_inventory");
-
-			Player_Hp_Bar* Monster_Hp = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
-			Monster_Hp->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
-			Monster_Hp->SetName(L"player_hp_bar");
-			//Player_Hit_Effect->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
-
-			Face_UI* Player_Face = object::Instantiate<Face_UI>(Vector3(-0.33f, 0.23f, -2.1f), eLayerType::UI);
-			Player_Face->GetComponent<Transform>()->SetScale(Vector3(0.324f, 0.824f, 0.f));
-			Player_Face->SetName(L"player_head");
-			//Player_Face->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
-		#pragma endregion	
-
 		std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
 		std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexuture");
 		paintShader->SetTarget(paintTexture);
@@ -64,22 +49,22 @@ namespace jk
 		as->SetClip(Resources::Load<AudioClip>(L"DemonCastleSound", L"..\\Resources\\Sound\\DemonCastle\\DemonCastle.wav"));
 		as->SetLoop(true);
 
-			#pragma region Player				
-					_player = object::Instantiate<Player>(Vector3(0.f, -50.f, -250.f), eLayerType::Player);
-					_player->SetName(L"player_select");
-			#pragma endregion
+		#pragma region Player				
+				_player = object::Instantiate<Player>(Vector3(0.f, -50.f, -250.f), eLayerType::Player);
+				_player->SetName(L"player_select");
+		#pragma endregion
 
-			//Monster_warrior* test = object::Instantiate<Monster_warrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-			//Stone_wizard* test1 = object::Instantiate<Stone_wizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-			//Monster_GreenTree* test2 = object::Instantiate<Monster_GreenTree>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-			//Monster_BlossomEnt* test3 = object::Instantiate<Monster_BlossomEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-			//Monster_Hammer* test4 = object::Instantiate<Monster_Hammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-			//Monster_BigEnt* test5 = object::Instantiate<Monster_BigEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		Monster_warrior* test = object::Instantiate<Monster_warrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		//Stone_wizard* test1 = object::Instantiate<Stone_wizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		//Monster_GreenTree* test2 = object::Instantiate<Monster_GreenTree>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		//Monster_BlossomEnt* test3 = object::Instantiate<Monster_BlossomEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		//Monster_Hammer* test4 = object::Instantiate<Monster_Hammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		//Monster_BigEnt* test5 = object::Instantiate<Monster_BigEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 
-			//Archer* test5 = object::Instantiate<Archer>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-			//Cleric* test5 = object::Instantiate<Cleric>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-			//Knight_male* test5 = object::Instantiate<Knight_male>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-			//Mage* test5 = object::Instantiate<Mage>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
+		//Archer* test5 = object::Instantiate<Archer>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
+		//Cleric* test5 = object::Instantiate<Cleric>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
+		//Knight_male* test5 = object::Instantiate<Knight_male>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
+		//Mage* test5 = object::Instantiate<Mage>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 
 			#pragma region Npc	
 
@@ -147,9 +132,6 @@ namespace jk
 		{
 			Transform* PlayerTR = _player->GetComponent<Transform>();
 			Vector3 player_pos = PlayerTR->GetPosition();
-			Transform* SoundTR = _BGSound->GetComponent<Transform>();
-			SoundTR->SetPosition(PlayerTR->GetPosition().x, PlayerTR->GetPosition().y, -10);
-
 
 			if (player_pos.x < 975 && player_pos.y < -122)
 				cameraComp->SetCameraXY = false;
@@ -180,7 +162,7 @@ namespace jk
 				_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
 				_Alpha->Set_Black_Transparent();
 				_Fadecheck = true;
-				jk::Player_INFO->SettingPlay_List(_player->GetPlay_List());
+				_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
 			}
 
 			if (out_GroundMap->Get_Turnon() == true)
@@ -201,8 +183,6 @@ namespace jk
 					SceneManager::LoadScene(L"OutSide_Castle");
 					_time = 0;
 					_Fadecheck = false;	
-					//Transform* _playerTR = _player->GetComponent<Transform>();
-					//_playerTR->SetPosition(Vector3(0.f, 750.f, -250.f));
 				}
 			}
 		}
@@ -219,8 +199,7 @@ namespace jk
 	void Castle_Area::OnEnter()
 	{
 		as->Play();
-
-	#pragma region Cam & Mouse& Grid
+		#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		cameraComp = camera->AddComponent<Camera>();
@@ -274,6 +253,9 @@ namespace jk
 	}
 	void Castle_Area::OnExit()
 	{
+		_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
+		//jk::Player_INFO->Set_HP_Bar(_player->Get_HP_Bar());
+		//jk::Player_INFO->Set_DamageHP_Bar(_player->Get_DamageHP_Bar());
 		as->Stop();
 	}
 }

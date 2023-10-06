@@ -1,4 +1,6 @@
 #include "jkStage1_2.h"
+#include "LoadScenes.h"
+
 
 namespace jk
 {
@@ -153,6 +155,9 @@ namespace jk
 
 	void Stage1_2::Update()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+
 		CamareShooting();
 
 
@@ -192,13 +197,18 @@ namespace jk
 			}
 		}
 
-
-
-
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(L"Stage1_Boss"); 
 		}
+
+		if (_changecheck == true)
+		{
+			_player->SetPlayer_Pos(player_pos);
+			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
+			_changecheck = false;
+		}
+
 		Scene::Update();
 	}
 
@@ -215,6 +225,12 @@ namespace jk
 	void Stage1_2::OnEnter()
 	{
 		as->Play();
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+		_player->SetPlayer_Pos(player_pos);
+		_player->SetSwitch(true);
+		_changecheck = true;
+
 
 		#pragma region Cam & Mouse& Grid
 		//Main Camera			
@@ -270,6 +286,7 @@ namespace jk
 
 	void Stage1_2::OnExit()
 	{
+		_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
 		as->Stop();
 	}
 

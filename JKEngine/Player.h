@@ -1,5 +1,7 @@
 #pragma once
 #include "Include_Common.h"
+#include "Face_UI.h"
+#include "Player_Hp_Bar.h"
 
 namespace jk
 {	
@@ -31,8 +33,8 @@ namespace jk
 	public:
 		static Vector3 GetPlayer_Pos() { return _Pos; }
 		virtual void SetPlayer_Pos(Vector3 pos) { _Pos = pos; }
-		static void SetPlay_List(PlayerList change, PlayerList current, bool ckeck, int direction) 
-		{ player_select = change, player_check = current, _check_change = ckeck, mDir = direction; }
+		static void SetPlay_List(PlayerList change, PlayerList current, bool ckeck, int direction)
+		{player_select = change, player_check = current, _check_change = ckeck, mDir = direction;}
 		virtual PlayerList GetPlay_List() { return player_select;}
 		static void Setskillcheck(bool check_head) {_skulhead_check = check_head;}
 		static bool Get_Ground_On() { return _Ground_On; }
@@ -43,6 +45,13 @@ namespace jk
 		static PlayerList GetCurrentPlay_List(){return	Current_player;}
 		static int GetDirection() { return	mDir; }
 		void SetSwitch(bool set = false) { _Switch = set; }
+
+
+		static Player_Hp_Bar* Get_HP_Bar() {	return Player_Hp;}
+		static Player_Hp_Bar* Get_DamageHP_Bar() { return Player_Hp_Damage; }
+		void Set_HP_Bar(Player_Hp_Bar* SET) { Player_Hp = SET; }
+		void Set_DamageHP_Bar(Player_Hp_Bar* SET) { Player_Hp_Damage = SET; }
+
 
 		
 		Transform* PlayerTR = nullptr;
@@ -61,5 +70,16 @@ namespace jk
 		static int mDir;
 		static bool _skulhead_check;
 	
+
+	private:
+		Face_UI* Basic_Face = nullptr;
+		Face_UI* Wolf_Face = nullptr;
+		Face_UI* Spear_Face = nullptr;
+
+	public:
+		static	Player_Hp_Bar* Player_Hp;
+		static	Player_Hp_Bar* Player_Hp_Damage;
+		static float _Max_Player_Hp;
+		static float _Curren_Player_Hp;
 	};
 }

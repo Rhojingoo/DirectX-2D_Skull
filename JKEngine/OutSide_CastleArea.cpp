@@ -170,6 +170,7 @@ namespace jk
 			_Alpha->Set_Black_Transparent();
 			_Fadecheck = true;
 		}
+
 		if (_Fadecheck == true)
 		{
 			_time += 2.75 * Time::DeltaTime();
@@ -184,10 +185,8 @@ namespace jk
 		if (_changecheck == true)
 		{
 			_player->SetPlayer_Pos(player_pos);
-			//_player->SetSwitch(true);
-			_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
 			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
-			_changecheck = false;
+			_changecheck = false;		
 		}
 
 		Scene::Update();
@@ -205,13 +204,13 @@ namespace jk
 	void OutSide_CastleArea::OnEnter()
 	{
 		as->Play();
-
 		Transform* PlayerTR = _player->GetComponent<Transform>();
 		Vector3 player_pos = PlayerTR->GetPosition();
 		_player->SetPlayer_Pos(player_pos);
 		_player->SetSwitch(true);
 		_changecheck = true;
-
+		//_player->Set_HP_Bar(Player_INFO->Get_HP_Bar());
+		//_player->Set_DamageHP_Bar(Player_INFO->Get_DamageHP_Bar());
 
 
 #pragma region Cam & Mouse& Grid
@@ -262,6 +261,7 @@ namespace jk
 	}
 	void OutSide_CastleArea::OnExit()
 	{
+		jk::Player_INFO->SettingPlay_List(_player->GetPlay_List());
 		as->Stop();
 	}
 }

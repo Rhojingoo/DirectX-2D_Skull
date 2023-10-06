@@ -35,6 +35,7 @@ namespace jk
 		Stage1_Door* Door1 = nullptr;
 		Camera* cameraComp = nullptr;
 		Player* _player = nullptr;
+		bool _changecheck = false;
 
 	private:
 		Monster_ObjPool* OBJPOOL = nullptr;

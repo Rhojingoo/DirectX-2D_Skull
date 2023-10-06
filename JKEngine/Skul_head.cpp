@@ -33,6 +33,26 @@ namespace jk
 		pos = tr->GetPosition();
 		float CurrentPos = pos.x - _Before_Attack_Pos.x;
 
+		_HitType = random(1, 10);
+		if (_HitType >= 1 && _HitType < 6)
+		{
+			_Damage = random(20, 31);
+			attack = true;
+		}
+
+		if (_HitType >= 6 && _HitType < 9)
+		{
+			_Damage = random(33, 40);
+			attack_Cri_Mid = true;
+		}
+
+		if (_HitType >= 9 && _HitType <= 10)
+		{
+			_Damage = random(40, 55);
+			attack_Cri_High = true;
+		}
+
+
 		if (SetHead == true)
 		{
 			if (mDir == 1)
@@ -196,5 +216,14 @@ namespace jk
 		{
 			_Ground_check = false;
 		}
+	}
+
+	int Skul_head::random(int a, int b)
+	{
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<int> distribution(a, b);
+		int abc = distribution(gen);
+		return abc;
 	}
 }

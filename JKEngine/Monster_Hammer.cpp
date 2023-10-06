@@ -429,6 +429,8 @@ namespace jk
 			if (_state == Monster_Hammer_State::Dead)
 				return;
 
+			_Damage = player->GetDamage();
+
 			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 			if (!(_state == Monster_Hammer_State::Attack || _state == Monster_Hammer_State::Tackle))
 			{
@@ -441,10 +443,15 @@ namespace jk
 					if (mDir == 1)
 					{
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
-
-						_CurrenHp = _CurrenHp - 25;
 						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(25);
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(1);
@@ -459,10 +466,15 @@ namespace jk
 					if (mDir == -1)
 					{
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
-
-						_CurrenHp = _CurrenHp - 25;
 						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(25);
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(-1);
@@ -506,10 +518,15 @@ namespace jk
 					if (mDir == 1)
 					{
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
-
-						_CurrenHp = _CurrenHp - 25;
 						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(25);
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(1);
@@ -524,10 +541,15 @@ namespace jk
 					if (mDir == -1)
 					{
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
-
-						_CurrenHp = _CurrenHp - 25;
 						Monster_Hp->_HitOn = true;
-						Monster_Hp->SetHitDamage(25);
+						_CurrenHp = _CurrenHp - _Damage;
+						Monster_Hp->SetHitDamage(_Damage);
+						Monster_DamegeHp->_HitOn = true;
+						Monster_DamegeHp->Set_Target(_CurrenHp);
+						_Hp_control = true;
+						Hpbar_Frame->SetState(eState::Active);
+						Monster_DamegeHp->SetState(eState::Active);
+						Monster_Hp->SetState(eState::Active);
 
 						_Hit_Effect->_effect_animation = true;
 						_Hit_Effect->SetDirection(-1);

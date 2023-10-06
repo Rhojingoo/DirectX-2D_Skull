@@ -28,6 +28,14 @@ namespace jk
 
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
+
+		GameObject* akt1 = object::Instantiate<GameObject>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+		as = AddComponent<AudioSource>();	
+		as->AddClip("Skul_Atk1", Resources::Load<AudioClip>(L"Skul_Atk1", L"..\\Resources\\Sound\\Skul\\Skul_Atk1.wav"));
+		as->AddClip("Skul_Atk2", Resources::Load<AudioClip>(L"Skul_Atk2", L"..\\Resources\\Sound\\Skul\\Skul_Atk2.wav"));
+		as->AddClip("Default_Dash", Resources::Load<AudioClip>(L"Default_Dash", L"..\\Resources\\Sound\\Skul\\Common\\Default_Dash.wav"));
+
+
 		{
 			Skul_Head = new Skul_head();
 			Skul_Head->Initialize();
@@ -44,8 +52,10 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
-			Hit_Box->SetState(eState::Active);
+			Hit_Box->SetState(eState::Paused);
 		}
+
+
 		{
 			_Hit_Effect = new Player_Hit_Effect;
 			_Hit_Effect->Initialize();
@@ -61,8 +71,7 @@ namespace jk
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
 			_Hit_Sword->SetState(eState::Paused);
-		}
-		 
+		}		 
 		{
 			_Critical_Middle = new Hit_Critical_Middle;
 			_Critical_Middle->Initialize();
@@ -93,6 +102,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, _DarkKnight);
 			_DarkKnight->SetState(eState::Paused);
 		}
+
+
 		{
 			for (int i = 0; i < 10; i++)
 			{
@@ -110,8 +121,10 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
 			Hit_Particle->SetState(eState::Paused);
-		}
-		
+		}	
+
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackB", this) ;
@@ -220,7 +233,7 @@ namespace jk
 			if (mDir == 1)		
 				at->PlayAnimation(L"Skul_BasicSwitch", true);			
 			else
-				at->PlayAnimation(L"Skul_BasicSwitchR", true);			
+				at->PlayAnimation(L"Skul_BasicSwitchR", true);		
 		}
 
 		if (_Skulhead == true)
@@ -301,20 +314,22 @@ namespace jk
 	{
 		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
 		if (_attack_Acheck==true)
-		{	
+		{		
+			Hit_Box->SetSize(Vector2(50.f, 60.f));
 			Hit_Box->SetState(eState::Active);
 			if (mDir == 1)			
-				HitBox_TR->SetPosition(Vector3(pos.x + 50, pos.y, pos.z));			
+				HitBox_TR->SetPosition(Vector3(pos.x + 20, pos.y, pos.z));			
 			else			
-				HitBox_TR->SetPosition(Vector3(pos.x - 50, pos.y, pos.z));			
+				HitBox_TR->SetPosition(Vector3(pos.x - 20, pos.y, pos.z));			
 		}
 		else if (_attack_Bcheck==true)
 		{
+			Hit_Box->SetSize(Vector2(50.f, 60.f));
 			Hit_Box->SetState(eState::Active);
 			if (mDir == 1)
-				HitBox_TR->SetPosition(Vector3(pos.x + 50, pos.y, pos.z));
+				HitBox_TR->SetPosition(Vector3(pos.x + 20, pos.y, pos.z));
 			else
-				HitBox_TR->SetPosition(Vector3(pos.x - 50, pos.y, pos.z));
+				HitBox_TR->SetPosition(Vector3(pos.x - 20, pos.y, pos.z));
 		}
 		else
 		{
@@ -327,8 +342,7 @@ namespace jk
 		else
 			_collider->SetCenter(Vector2(-5.0f, -2.5f));
 
-		GameObject::LateUpdate();
-		
+		GameObject::LateUpdate();		
 	}
 
 	void Skul_Basic::Render()
@@ -408,6 +422,7 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
+
 			_State = Skul_Basic_State::Dash;
 
 			if (mDir == 1)
@@ -1102,7 +1117,8 @@ namespace jk
 	}
 
 	void Skul_Basic::dash()
-	{		
+	{
+		//as->Play("Default_Dash");
 		_Leftmove_Lock = false;
 		_Rightmove_Lock = false;
 		_Ground_check = false;
@@ -1153,15 +1169,12 @@ namespace jk
 	void Skul_Basic::attack_a()
 	{		
 		_attack_Acheck = true;
-
-/*		Hit_Particle->SetState(eState::Active);
-		Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
-		mr->SetPosition(pos);
-		mr->Setpos_siwtch(true);	*/	
+		//as->Play("Skul_Atk1");
+	
 
 		if (Input::GetKeyDown(eKeyCode::X))
 		{			
-			_attack = true;	
+			_attack = true;				
 		}
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
 		{			
@@ -1173,13 +1186,11 @@ namespace jk
 		}
 	}
 	void Skul_Basic::attack_b()
-	{	
+	{			
+		//as->Play("Skul_Atk2");
 		_attack = false;
 		_attack_Bcheck = true;
-		//if (Input::GetKeyDown(eKeyCode::X))
-		//{
-		//	_attack = true;
-		//}
+
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
 		{
 			mDir = 1;
@@ -1193,7 +1204,6 @@ namespace jk
 	{
 		_attack_Acheck = true;
 	}
-
 
 	void Skul_Basic::skill_a()
 	{
@@ -1225,7 +1235,7 @@ namespace jk
 	void Skul_Basic::stun()
 	{
 		_attack_time += Time::DeltaTime();
-		if (_attack_time > 1.5)
+		if (_attack_time > 1)
 		{
 			_State = Skul_Basic_State::Idle;
 			_attack_time = 0;
@@ -1233,7 +1243,6 @@ namespace jk
 			_Rightmove_Lock = false;
 		}
 	}
-
 
 	void Skul_Basic::change()
 	{
@@ -1255,12 +1264,10 @@ namespace jk
 
 	}
 
-
 	void Skul_Basic::hit()
 	{
 		/*_Ground_check = false;*/
 	}
-
 
 	void Skul_Basic::OnCollisionEnter(Collider2D* other)
 	{		
@@ -2261,7 +2268,6 @@ namespace jk
 
 	}
 
-
 	void Skul_Basic::attack_choice()
 	{
 		_attack_Acheck = false;
@@ -2406,6 +2412,7 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
+			Hit_Box->SetState(eState::Paused);
 			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::sowrd_Skul, PlayerList::basic_Skul, true, mDir);

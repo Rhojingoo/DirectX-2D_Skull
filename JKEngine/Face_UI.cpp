@@ -2,11 +2,11 @@
 
 namespace jk
 {
-	Face_UI::Face_UI()
+	Face_UI::Face_UI(const std::wstring& path)
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"Skul_UI"));
+		mr->SetMaterial(Resources::Find<Material>(path));
 	}
 	Face_UI::~Face_UI()
 	{

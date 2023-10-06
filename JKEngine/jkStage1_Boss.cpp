@@ -1,5 +1,5 @@
 #include "jkStage1_Boss.h"
-
+#include "LoadScenes.h"
 
 namespace jk
 {
@@ -81,6 +81,9 @@ namespace jk
 	}
 	void Stage1_Boss::Update()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+
 		if (_player->firstGroundcheck == true)
 		{
 			if (_first_groundturch == false)
@@ -119,6 +122,13 @@ namespace jk
 		{
 			SceneManager::LoadScene(L"Stage2_1");
 		}
+
+		if (_changecheck == true)
+		{
+			_player->SetPlayer_Pos(player_pos);
+			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
+			_changecheck = false;
+		}
 		Scene::Update();
 	}
 	void Stage1_Boss::LateUpdate()
@@ -131,6 +141,11 @@ namespace jk
 	}
 	void Stage1_Boss::OnEnter()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+		_player->SetPlayer_Pos(player_pos);
+		_player->SetSwitch(true);
+		_changecheck = true;
 		#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -181,6 +196,7 @@ namespace jk
 	}
 	void Stage1_Boss::OnExit()
 	{
+		_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
 	}
 
 

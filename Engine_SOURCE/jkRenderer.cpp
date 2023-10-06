@@ -620,11 +620,24 @@ namespace jk::renderer
 						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"State_UI", material);
 				#pragma endregion
 
-				#pragma region UI_PlaerFace
+				#pragma region UI_PlaterFace
 						texture = Resources::Load<Texture>(L"skul_ui", L"..\\Resources\\Texture\\UI\\Face_UI\\Skul_UI.png");
 						material = std::make_shared<Material>();material->SetShader(spriteShader);	material->SetTexture(texture);
 						material->SetRenderingMode(eRenderingMode::Transparent);Resources::Insert(L"Skul_UI", material);
 				#pragma endregion
+
+				#pragma region UI_WolfFace
+						texture = Resources::Load<Texture>(L"wolf_ui", L"..\\Resources\\Texture\\UI\\Face_UI\\Wolf_UI.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Wolf_UI", material);
+				#pragma endregion
+
+				#pragma region UI_SpeaFace
+						texture = Resources::Load<Texture>(L"spear_ui", L"..\\Resources\\Texture\\UI\\Face_UI\\Spear_UI.png");
+						material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Spear_UI", material);
+				#pragma endregion
+						
 
 				#pragma region UI_Player_HP_Clean
 						texture = Resources::Load<Texture>(L"healthbar_ui", L"..\\Resources\\Texture\\UI\\Hp_Bar\\Player_HealthBar.png");
@@ -634,7 +647,7 @@ namespace jk::renderer
 
 				#pragma region UI_Player_HP_Damege
 						texture = Resources::Load<Texture>(L"damagebar_ui", L"..\\Resources\\Texture\\UI\\Hp_Bar\\Player_HealthBar_Damage.png");
-						material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+						material = std::make_shared<Material>(); material->SetShader(hp_bar_Shader);	material->SetTexture(texture);
 						material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"DamageBar_Ui", material);
 				#pragma endregion
 		#pragma endregion

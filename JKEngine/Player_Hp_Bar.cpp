@@ -2,11 +2,11 @@
 
 namespace jk
 {
-	Player_Hp_Bar::Player_Hp_Bar()
+	Player_Hp_Bar::Player_Hp_Bar(const std::wstring& path)
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"HealthUar_Ui"));
+		mr->SetMaterial(Resources::Find<Material>(path));
 	}
 	Player_Hp_Bar::~Player_Hp_Bar()
 	{
@@ -19,8 +19,22 @@ namespace jk
 	{
 		if (_HitOn == true)
 		{
-			_CurrentHp = _CurrentHp - _Hit_Damage;
-			_HitOn = false;
+			if (_Type == 1)
+			{
+				if (_target_point < _CurrentHp)
+					_CurrentHp -= 50 * Time::DeltaTime();
+				else
+				{
+					_CurrentHp = _target_point;
+					_HitOn = false;
+					_DageSwitch = true;
+				}
+			}
+			else
+			{
+				_CurrentHp = _CurrentHp - _Hit_Damage;
+				_HitOn = false;
+			}
 		}
 		GameObject::Update();
 	}
@@ -36,7 +50,6 @@ namespace jk
 	void Player_Hp_Bar::BindConstantBuffer()
 	{
 		renderer::HP_BarCB trCB = {};
-		//trCB._Damage.x = _CurrentHp /_MaxHp;
 		trCB._Damage.x = _MaxHp;
 		trCB._Damage.y = _CurrentHp;
 

@@ -342,7 +342,7 @@ namespace jk
 			bool attack = player->Geteffect();
 			bool attack_Cri_Mid = player->Geteffect_Mid();
 			bool attack_Cri_High = player->Geteffect_Hight();
-
+			_Damage = 700;
 				
 			//_Hit_Effect->_effect_animation = true;
 			_Critical_Middle->_effect_animation = true;
@@ -417,45 +417,48 @@ namespace jk
 
 		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
 		{
-			bool attack = false;
-			bool attack_Cri_Mid = false;
-			bool attack_Cri_High = false;
+			_Damage = player->GetDamage();
+			bool attack = player->Geteffect();
+			bool attack_Cri_Mid = player->Geteffect_Mid();
+			bool attack_Cri_High = player->Geteffect_Hight();
 
-			_HitType = random(1, 10);
-			if (_HitType >= 1 && _HitType < 6)
+			if (player->_Head_Attack == false && _bulletcheck == 0)
 			{
-				_Damage = 25;
-				attack = true;
-			}
-			if (_HitType >= 6 && _HitType < 9)
-			{
-				_Damage = random(35, 40);
-				attack_Cri_Mid = true;
-			}
-			if (_HitType >= 9 && _HitType <= 10)
-			{
-				_Damage = random(50, 70);
-				attack_Cri_High = true;
-			}
-
-			{
+				if (player->_Ground_check == true)
+					return;
+				
 				_Hit_Effect->_effect_animation = true;
 				_Critical_Middle->_effect_animation = true;
 				_Critical_High->_effect_animation = true;
-				if (mDir == 1)
+
+				if (_Changeon == false)
 				{
+					_CurrenHp = _CurrenHp - _Damage;
 					Monster_Hp->_HitOn = true;
 					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+				}
+				else
+				{
+					_HpFrame->Set_Animation(true);
+					_HpFrame->ChoicetHp_bar(1);
 					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp_Second->_HitOn = true;
+					Monster_Hp_Second->SetHitDamage(_Damage);
+					Monster_DamegeHp_Second->_HitOn = true;
+					Monster_DamegeHp_Second->Set_Target(_CurrenHp);
+				}
+
+
+				if (mDir == 1)
+				{
 					_Hit_Effect->SetDirection(-1);
 					_Critical_Middle->SetDirection(-1);
 					_Critical_High->SetDirection(-1);
 				}
 				else
 				{
-					Monster_Hp->_HitOn = true;
-					Monster_Hp->SetHitDamage(_Damage);
-					_CurrenHp = _CurrenHp - _Damage;
 					_Hit_Sword->SetDirection(1);
 					_Critical_Middle->SetDirection(1);
 					_Critical_High->SetDirection(1);
@@ -475,6 +478,7 @@ namespace jk
 					_Critical_High->_effect_animation = true;
 					_Critical_High->SetState(eState::Active);
 				}
+				
 			}
 			if (_CurrenHp <= 0)
 			{
@@ -493,6 +497,8 @@ namespace jk
 					Yggdrasil::_FirstDie = true;
 				}
 			}
+
+			_bulletcheck++;
 		}
 	}
 	void Yggdrasil_Face::OnCollisionStay(Collider2D* other)
@@ -500,6 +506,10 @@ namespace jk
 	}
 	void Yggdrasil_Face::OnCollisionExit(Collider2D* other)
 	{
+		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
+		{
+			_bulletcheck = 0;
+		}
 	}
 
 

@@ -24,6 +24,8 @@ namespace jk
 		int random(int a, int b);
 		float GetDamage() { return _Damage; }
 
+		void SetSize(Vector2 set) { _Size = set; }
+		void SetCenter(Vector3 set) { _Center = set; }
 
 		bool Geteffect() { return attack; }
 		bool Geteffect_Mid() { return attack_Cri_Mid; }
@@ -39,6 +41,8 @@ namespace jk
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		int		_HitType = 0;
 		float	_Damage = 0.f;
+		Vector2 _Size = Vector2(150.f, 150.f);
+		Vector3 _Center = Vector3(0.f, 0.f, -250.f);
 
 		bool attack = false;
 		bool attack_Cri_Mid = false;

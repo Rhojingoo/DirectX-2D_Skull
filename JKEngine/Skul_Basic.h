@@ -11,6 +11,10 @@
 #include "Hit_DarkPaladin.h"
 #include "Slash_Effect.h"
 #include "Player_AfterImage.h"
+#include "HitBox_Player.h"
+
+
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -93,10 +97,12 @@ namespace jk
 		
 			
 	private:
+
 		Skul_Basic_State _State;
 		Skul_head* Skul_Head;
 		GameObject* Attack_Skul;
-		GameObject* Hit_Box;
+		HitBox_Player* Hit_Box;
+		AudioSource* as = nullptr;
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;

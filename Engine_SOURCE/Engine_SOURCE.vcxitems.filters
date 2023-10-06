@@ -264,6 +264,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Particle_DamageEffect.h">
       <Filter>GameObject\Component\ParticleSystem\Particle_Damege</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioClip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkFmod.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -389,6 +393,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Particle_DamageEffect.cpp">
       <Filter>GameObject\Component\ParticleSystem\Particle_Damege</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioClip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkFmod.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioSource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioListener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl">

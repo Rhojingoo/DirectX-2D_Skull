@@ -39,7 +39,7 @@ namespace jk
 	private:
 		Camera* cameraComp = nullptr;
 		Player* _player = nullptr;		
-
+		bool _changecheck = false;
 
 
 		Stage1_Door* Door1 = nullptr;
