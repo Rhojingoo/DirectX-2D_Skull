@@ -546,6 +546,7 @@ namespace jk
 			Hpbar_Frame->SetState(eState::Paused);
 			Monster_DamegeHp->SetState(eState::Paused);
 			Monster_Hp->SetState(eState::Paused);
+			Hit_Box->SetState(eState::Paused);
 			_Die = true;
 			this->SetState(eState::Paused);
 		}

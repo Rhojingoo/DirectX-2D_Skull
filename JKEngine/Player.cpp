@@ -18,6 +18,9 @@ namespace jk
 	bool Player::_Ground_On = false;
 	bool Player::firstGroundcheck = false;
 	
+	bool Player::_skul_act = false;
+	bool Player::_wolf_act = false;
+	bool Player::_spear_act = false;
 
 	int Player:: mDir = 1;
 
@@ -125,6 +128,7 @@ namespace jk
 		{
 			if (player_select == PlayerList::basic_Skul)
 			{
+				_skul_act = true; 	_wolf_act = false; 	_spear_act = false;
 				_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::basic_Skul]->GetComponent<Transform>();
 				if(_Switch ==false)
@@ -154,6 +158,7 @@ namespace jk
 
 			if (player_select == PlayerList::wolf_Skul)
 			{
+				_skul_act = false; 	_wolf_act = true; 	_spear_act = false;
 				_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::wolf_Skul]->GetComponent<Transform>();
 				if (_Switch == false)
@@ -184,6 +189,7 @@ namespace jk
 
 			if (player_select == PlayerList::spere_Skul)
 			{
+				_skul_act = false; 	_wolf_act = false; 	_spear_act = true;
 				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Active);
 				Transform* tr = _Gobjs[(UINT)PlayerList::spere_Skul]->GetComponent<Transform>();
 				if (_Switch == false)

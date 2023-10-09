@@ -1482,6 +1482,8 @@ namespace jk
 			if (_Ground_check == false)
 			{
 				_Ground_On = true;
+				mGround->_SkullOn = true;
+				
 				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
@@ -1515,6 +1517,7 @@ namespace jk
 			if (_Ground_check == false)
 			{
 				_Ground_On = true;
+				mGround->_SkullOn = true;
 				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
@@ -1558,6 +1561,7 @@ namespace jk
 				if (skul_footpos > Gr_Top_pos)
 				{
 					_Ground_On = true;
+					mGround->_SkullOn = true;
 					_Player_GRpos = pos;
 					_fallcheck = 0;	_jump = 0;
 					_rigidbody->ClearVelocity();
@@ -1598,10 +1602,34 @@ namespace jk
 			_Rightmove_Lock = false;
 			_Leftmove_Lock = false;
 		}
-		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+
+		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
+		{
+			_Wall_check = false;
+			_Rightmove_Lock = false;
+			_Leftmove_Lock = false;
+			_Ground_On = false;
+
+			if(_wolf_act == true)
+				mGround->_SkullOn = false;
+		}
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			_Ground_check = false;
 			_rigidbody->SetGround(false);
+			_Ground_On = false;
+
+			if (_wolf_act == true)
+				mGround->_SkullOn = false;
+		}
+		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
+		{
+			_Ground_On = false;
+			_Ground_check = false;
+			_rigidbody->SetGround(false);
+
+			if (_wolf_act == true)
+				mGround->_SkullOn = false;
 		}
 	}
 

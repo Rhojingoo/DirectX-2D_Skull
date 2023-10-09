@@ -117,8 +117,6 @@ namespace jk
 		void Hpcontrol();
 		void Effect_Control();
 
-
 		void Complete_attack();
-		void SetEffect_pos();
 	};
 }

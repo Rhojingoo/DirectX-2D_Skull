@@ -64,12 +64,19 @@ namespace jk
 		static bool firstGroundcheck;	
 		bool _Switch = false;
 
+
+	public:
+		static bool _skul_act;
+		static bool _wolf_act;
+		static bool _spear_act;
+
 	private:
 		GameObject* _Gobjs[5];
 		static bool _check_change;
 		static int mDir;
 		static bool _skulhead_check;
 	
+
 
 	private:
 		Face_UI* Basic_Face = nullptr;

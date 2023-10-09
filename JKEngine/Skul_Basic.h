@@ -141,6 +141,7 @@ namespace jk
 		bool _fall_check = false;
 		bool _HitUP = true;
 		int HitDir = 1;
+		bool _Active = false;
 
 	private:
 		void attack_choice();

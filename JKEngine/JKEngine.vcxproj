@@ -178,6 +178,8 @@
     <ClInclude Include="Blosome.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Layana_HpFrame.h" />
+    <ClInclude Include="Monster_LionSpear.h" />
+    <ClInclude Include="Monster_LionWarrior.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Yggdrasil_HpFrame.h" />
     <ClInclude Include="Bullet.h" />
@@ -396,6 +398,8 @@
     <ClCompile Include="Blosome.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Layana_HpFrame.cpp" />
+    <ClCompile Include="Monster_LionSpear.cpp" />
+    <ClCompile Include="Monster_LionWarrior.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Yggdrasil_HpFrame.cpp" />
     <ClCompile Include="Bullet.cpp" />

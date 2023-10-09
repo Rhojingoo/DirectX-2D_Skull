@@ -191,7 +191,7 @@ namespace jk
 	}
 
 	void Skul_Basic::Update()
-	{
+	{	
 		tr = GetComponent<Transform>();
 		pos = tr->GetPosition();		
 		_velocity = _rigidbody->GetVelocity();
@@ -2023,14 +2023,15 @@ namespace jk
 	void Skul_Basic::OnCollisionStay(Collider2D* other)
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
-		{
+		{			
 			if (_Ground_check == false)
 			{
-				_Ground_On = true;
 				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
-				_Ground_check = true;			
+				_Ground_check = true;	
+				_Ground_On = true;
+				mGround->_SkullOn = true; // 캐슬아리어에서 땅밟고 다음신넘어갈때 필요 및 몬스터들이 달려오는 기준	
 
 				
 				if (_Firsrt_Ground == false)
@@ -2104,7 +2105,7 @@ namespace jk
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
 				_Ground_check = true;				
-				mGround->_SkullOn = true; // 캐슬아리어에서 땅밟고 다음신넘어갈때 필요한 변수				
+				mGround->_SkullOn = true; // 캐슬아리어에서 땅밟고 다음신넘어갈때 필요 및 몬스터들이 달려오는 기준				
 
 				if (_Firsrt_Ground == false)
 				{
@@ -2239,6 +2240,8 @@ namespace jk
 			_Rightmove_Lock = false;
 			_Leftmove_Lock = false;		
 			_Ground_On = false;
+			if (_skul_act == true)
+				mGround->_SkullOn = false;			
 		}
 
 		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
@@ -2251,18 +2254,20 @@ namespace jk
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
 			_Ground_check = false;
-			mGround->_SkullOn = false;
 			_rigidbody->SetGround(false);
 			_fall_check = true;
 			_Ground_On = false;
+			if (_skul_act == true)
+				mGround->_SkullOn = false;
 		}
 		 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
 		{
 			_Ground_check = false;
-			mGround->_SkullOn = false;
 			_rigidbody->SetGround(false);
 			_Ground_On = false;
+			if (_skul_act == true)
+				mGround->_SkullOn = false;
 		}
 
 

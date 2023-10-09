@@ -1,6 +1,9 @@
 #pragma once
 #include "Include_Common.h"
 #include "Player_Hp_Bar.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+
 #include "Monster_Hit_Effect.h"
 #include "Monster_Death_Effect.h"
 
@@ -49,6 +52,15 @@ namespace jk
 		int	_bulletcheck = 0;
 
 	private:
+		HP_Frame* Hpbar_Frame = nullptr;
+		Monster_Hp_Bar* Monster_Hp = nullptr;
+		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		float _Damage = 0.f;
+		bool _Hp_control = false;
+		float _Hp_time = 0.f;
+
+
+	private:
 		GameObject* Hit_Particle = nullptr;
 		bool	_hit_particle = false;
 		float	_particletime = 0.f;
@@ -65,7 +77,6 @@ namespace jk
 
 	private:
 		HitBox_Monster* Hit_Box = nullptr;
-		Player_Hp_Bar* Player_Hp = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Monster_Death_Effect* _Death_Effect = nullptr;
 		bool _followskul = false;
@@ -82,6 +93,12 @@ namespace jk
 		bool	_attack_Col = false;
 
 	private:
+		void SetDirection();
+		void Particle_Control();
+		void Hpcontrol();
+		void Effect_Control();
+
+
 		void complete_attack();
 		void complete_hit();
 	};

@@ -8,7 +8,8 @@
 #include "jkAudioClip.h"
 #include "jkAudioSource.h"
 
-
+#include "Monster_LionWarrior.h"
+#include "Monster_LionSpear.h"
 namespace jk
 {
 	Castle_Area::Castle_Area()
@@ -54,12 +55,20 @@ namespace jk
 				_player->SetName(L"player_select");
 		#pragma endregion
 
-		Monster_warrior* test = object::Instantiate<Monster_warrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		//Monster_warrior* test = object::Instantiate<Monster_warrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 		//Stone_wizard* test1 = object::Instantiate<Stone_wizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 		//Monster_GreenTree* test2 = object::Instantiate<Monster_GreenTree>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 		//Monster_BlossomEnt* test3 = object::Instantiate<Monster_BlossomEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 		//Monster_Hammer* test4 = object::Instantiate<Monster_Hammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 		//Monster_BigEnt* test5 = object::Instantiate<Monster_BigEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+
+
+		//Monster_Goldwarrior* test11 = object::Instantiate<Monster_Goldwarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		//Monster_GoldHammer* test12 = object::Instantiate<Monster_GoldHammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		Monster_LionWarrior* test13 = object::Instantiate<Monster_LionWarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		Monster_LionSpear* test14 = object::Instantiate<Monster_LionSpear>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+
+
 
 		//Archer* test5 = object::Instantiate<Archer>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 		//Cleric* test5 = object::Instantiate<Cleric>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);

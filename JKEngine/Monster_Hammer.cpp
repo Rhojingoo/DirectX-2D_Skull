@@ -165,7 +165,6 @@ namespace jk
 		Particle_Control();
 		Hpcontrol();
 		Effect_Control();
-		SetEffect_pos();
 
 
 		switch (_state)
@@ -287,7 +286,6 @@ namespace jk
 				if (mDir == 1)
 				{		
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
-					tr->SetPosition(_pos);
 					Monster_Hp->_HitOn = true;
 					_CurrenHp = _CurrenHp - _Damage;
 					Monster_Hp->SetHitDamage(_Damage);
@@ -312,7 +310,6 @@ namespace jk
 				if (mDir == -1)
 				{
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
-					tr->SetPosition(_pos);
 					Monster_Hp->_HitOn = true;
 					_CurrenHp = _CurrenHp - _Damage;
 					Monster_Hp->SetHitDamage(_Damage);
@@ -966,6 +963,7 @@ namespace jk
 			Hpbar_Frame->SetState(eState::Paused);
 			Monster_DamegeHp->SetState(eState::Paused);
 			Monster_Hp->SetState(eState::Paused);
+			Hit_Box->SetState(eState::Paused);
 			_Die = true;
 			this->SetState(eState::Paused);
 		}
@@ -996,9 +994,7 @@ namespace jk
 			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
 			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 		}
-	}
-	void Monster_Hammer::SetEffect_pos()
-	{
+
 		if (_attackdir == 1)
 		{
 			_Effect_pos.x = _pos.x - 50;

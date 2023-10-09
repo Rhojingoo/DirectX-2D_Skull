@@ -22,10 +22,18 @@ namespace jk
 
 		void CreateAnimation() {};
 
+		void Set_StageTurn(bool set) { _StageTurn = set; }
+		bool Get_Turnon() { return _turnon; }
+
+		bool _SkullOn = false;
+		bool _StageTurn = false;
+		bool _turnon = false;
+
 	private:
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+
 	
 
 	};

@@ -229,7 +229,6 @@ namespace jk
 				{
 					at->PlayAnimation(L"WarriorHit", false);					
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
-					_tr->SetPosition(_pos);					
 					Monster_Hp->_HitOn = true;
 					_CurrenHp = _CurrenHp - _Damage;
 					Monster_Hp->SetHitDamage(_Damage);
@@ -255,7 +254,6 @@ namespace jk
 				{
 					at->PlayAnimation(L"WarriorHitR", false);				
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
-					_tr->SetPosition(_pos);
 					Monster_Hp->_HitOn = true;
 					_CurrenHp = _CurrenHp - _Damage;
 					Monster_Hp->SetHitDamage(_Damage);
@@ -300,7 +298,6 @@ namespace jk
 				if (mDir == 1)
 				{				
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
-					_tr->SetPosition(_pos);
 					Monster_Hp->_HitOn = true;
 					_CurrenHp = _CurrenHp - _Damage;
 					Monster_Hp->SetHitDamage(_Damage);
@@ -325,7 +322,6 @@ namespace jk
 				{					
 					at->PlayAnimation(L"WarriorHitR", false);
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
-					_tr->SetPosition(_pos);
 					Monster_Hp->_HitOn = true;
 					_CurrenHp = _CurrenHp - _Damage;
 					Monster_Hp->SetHitDamage(_Damage);
@@ -527,6 +523,12 @@ namespace jk
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
+			if (mGround->_SkullOn == true)
+				_followskul = true;
+			if (mGround->_SkullOn == false)
+				_followskul = false;
+
+
 			if (_Ground_check == false)
 			{
 				_rigidbody->SetGround(true);
@@ -840,6 +842,7 @@ namespace jk
 			Hpbar_Frame->SetState(eState::Paused);
 			Monster_DamegeHp->SetState(eState::Paused);
 			Monster_Hp->SetState(eState::Paused);
+			Hit_Box->SetState(eState::Paused);
 			_Die = true;
 			this->SetState(eState::Paused);
 		}

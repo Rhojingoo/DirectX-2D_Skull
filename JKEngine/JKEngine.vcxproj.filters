@@ -89,19 +89,19 @@
       <Filter>Game_ob\MiniBoss\Archer</Filter>
     </ClInclude>
     <ClInclude Include="Monster_Hammer.h">
-      <Filter>Game_ob\Monster\Monster_Hammer</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Hammer</Filter>
     </ClInclude>
     <ClInclude Include="Monster_warrior.h">
-      <Filter>Game_ob\Monster\Monster_warrior</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_warrior</Filter>
     </ClInclude>
     <ClInclude Include="Monster_BigEnt.h">
-      <Filter>Game_ob\Monster\Monster_BigEnt</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_BigEnt</Filter>
     </ClInclude>
     <ClInclude Include="Monster_GreenTree.h">
-      <Filter>Game_ob\Monster\Monster_GreenTree</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_GreenTree</Filter>
     </ClInclude>
     <ClInclude Include="Monster_BlossomEnt.h">
-      <Filter>Game_ob\Monster\Monster_Blossom</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Blossom</Filter>
     </ClInclude>
     <ClInclude Include="Mage.h">
       <Filter>Game_ob\MiniBoss\Mage</Filter>
@@ -254,28 +254,28 @@
       <Filter>Game_ob\Monster\Public\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Monster_StoneWizard_Teleport.h">
-      <Filter>Game_ob\Monster\Monster_Stone_wizard\Effect</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Stone_wizard\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Monster_StoneWizard_Icicle_Effect.h">
-      <Filter>Game_ob\Monster\Monster_Stone_wizard\Effect</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Stone_wizard\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Monster_Stone_wizard_IcicleBullet.h">
-      <Filter>Game_ob\Monster\Monster_Stone_wizard\Bullet</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Stone_wizard\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Monster_BigEnt_EnergeBall.h">
-      <Filter>Game_ob\Monster\Monster_BigEnt\Bullet</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_BigEnt\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Monster_GiganticEnt_Stamp.h">
-      <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_BigEnt\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Monster_GroundAttack_Sign.h">
       <Filter>Game_ob\Monster\Public\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Monster_Ent_GroundAttack.h">
-      <Filter>Game_ob\Monster\Monster_GreenTree\Bullet</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_GreenTree\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Monster_Blossomeenct_Attack.h">
-      <Filter>Game_ob\Monster\Monster_Blossom\Bullet</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Blossom\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Layana_Awken_Rush_Sign.h">
       <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
@@ -344,7 +344,7 @@
       <Filter>Scene\Stage2</Filter>
     </ClInclude>
     <ClInclude Include="Monster_Goldwarrior.h">
-      <Filter>Game_ob\Monster\Monster_Goldwarrior</Filter>
+      <Filter>Game_ob\Monster\Stage2\Monster_Goldwarrior</Filter>
     </ClInclude>
     <ClInclude Include="Monster_Hit_Effect.h">
       <Filter>Game_ob\Monster\Public\Effect</Filter>
@@ -359,7 +359,7 @@
       <Filter>Game_ob\Monster\Public\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Monster_GoldHammer.h">
-      <Filter>Game_ob\Monster\Monster_GoldHammer</Filter>
+      <Filter>Game_ob\Monster\Stage2\Monster_GoldHammer</Filter>
     </ClInclude>
     <ClInclude Include="Hit_Sword.h">
       <Filter>Game_ob\PLAYER\Effect</Filter>
@@ -452,7 +452,7 @@
       <Filter>Game_ob\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Stone_wizard.h">
-      <Filter>Game_ob\Monster\Monster_Stone_wizard</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Stone_wizard</Filter>
     </ClInclude>
     <ClInclude Include="Player_AfterImage.h">
       <Filter>Game_ob\PLAYER</Filter>
@@ -624,7 +624,7 @@
       <Filter>Game_ob\UI\Hp_BarFrame</Filter>
     </ClInclude>
     <ClInclude Include="BigEnt_EnergeBall_Bomb.h">
-      <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_BigEnt\Effect</Filter>
     </ClInclude>
     <ClInclude Include="MiniBoss_State_UI.h">
       <Filter>Game_ob\UI\State</Filter>
@@ -640,6 +640,12 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Game_ob\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_LionWarrior.h">
+      <Filter>Game_ob\Monster\Stage2\Monster_LionWarrior</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster_LionSpear.h">
+      <Filter>Game_ob\Monster\Stage2\Monster_LionSpear</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -725,19 +731,19 @@
       <Filter>Game_ob\MiniBoss\Archer</Filter>
     </ClCompile>
     <ClCompile Include="Monster_Hammer.cpp">
-      <Filter>Game_ob\Monster\Monster_Hammer</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Hammer</Filter>
     </ClCompile>
     <ClCompile Include="Monster_warrior.cpp">
-      <Filter>Game_ob\Monster\Monster_warrior</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_warrior</Filter>
     </ClCompile>
     <ClCompile Include="Monster_BigEnt.cpp">
-      <Filter>Game_ob\Monster\Monster_BigEnt</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_BigEnt</Filter>
     </ClCompile>
     <ClCompile Include="Monster_GreenTree.cpp">
-      <Filter>Game_ob\Monster\Monster_GreenTree</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_GreenTree</Filter>
     </ClCompile>
     <ClCompile Include="Monster_BlossomEnt.cpp">
-      <Filter>Game_ob\Monster\Monster_Blossom</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Blossom</Filter>
     </ClCompile>
     <ClCompile Include="Mage.cpp">
       <Filter>Game_ob\MiniBoss\Mage</Filter>
@@ -890,28 +896,28 @@
       <Filter>Game_ob\Monster\Public\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Monster_StoneWizard_Teleport.cpp">
-      <Filter>Game_ob\Monster\Monster_Stone_wizard\Effect</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Stone_wizard\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Monster_StoneWizard_Icicle_Effect.cpp">
-      <Filter>Game_ob\Monster\Monster_Stone_wizard\Effect</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Stone_wizard\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Monster_Stone_wizard_IcicleBullet.cpp">
-      <Filter>Game_ob\Monster\Monster_Stone_wizard\Bullet</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Stone_wizard\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Monster_BigEnt_EnergeBall.cpp">
-      <Filter>Game_ob\Monster\Monster_BigEnt\Bullet</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_BigEnt\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Monster_GiganticEnt_Stamp.cpp">
-      <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_BigEnt\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Monster_GroundAttack_Sign.cpp">
       <Filter>Game_ob\Monster\Public\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Monster_Ent_GroundAttack.cpp">
-      <Filter>Game_ob\Monster\Monster_GreenTree\Bullet</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_GreenTree\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Monster_Blossomeenct_Attack.cpp">
-      <Filter>Game_ob\Monster\Monster_Blossom\Bullet</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Blossom\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Layana_Awken_Rush_Sign.cpp">
       <Filter>Game_ob\Boss\Layana_Sisters\Effect\Awaken_Effect</Filter>
@@ -980,7 +986,7 @@
       <Filter>Scene\Stage2</Filter>
     </ClCompile>
     <ClCompile Include="Monster_Goldwarrior.cpp">
-      <Filter>Game_ob\Monster\Monster_Goldwarrior</Filter>
+      <Filter>Game_ob\Monster\Stage2\Monster_Goldwarrior</Filter>
     </ClCompile>
     <ClCompile Include="Monster_Hit_Effect.cpp">
       <Filter>Game_ob\Monster\Public\Effect</Filter>
@@ -995,7 +1001,7 @@
       <Filter>Game_ob\Monster\Public\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Monster_GoldHammer.cpp">
-      <Filter>Game_ob\Monster\Monster_GoldHammer</Filter>
+      <Filter>Game_ob\Monster\Stage2\Monster_GoldHammer</Filter>
     </ClCompile>
     <ClCompile Include="Hit_Sword.cpp">
       <Filter>Game_ob\PLAYER\Effect</Filter>
@@ -1088,7 +1094,7 @@
       <Filter>Game_ob\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Stone_wizard.cpp">
-      <Filter>Game_ob\Monster\Monster_Stone_wizard</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_Stone_wizard</Filter>
     </ClCompile>
     <ClCompile Include="Player_AfterImage.cpp">
       <Filter>Game_ob\PLAYER</Filter>
@@ -1263,7 +1269,7 @@
       <Filter>Game_ob\UI\Hp_BarFrame</Filter>
     </ClCompile>
     <ClCompile Include="BigEnt_EnergeBall_Bomb.cpp">
-      <Filter>Game_ob\Monster\Monster_BigEnt\Effect</Filter>
+      <Filter>Game_ob\Monster\Stage1\Monster_BigEnt\Effect</Filter>
     </ClCompile>
     <ClCompile Include="MiniBoss_State_UI.cpp">
       <Filter>Game_ob\UI\State</Filter>
@@ -1279,6 +1285,12 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Game_ob\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_LionWarrior.cpp">
+      <Filter>Game_ob\Monster\Stage2\Monster_LionWarrior</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster_LionSpear.cpp">
+      <Filter>Game_ob\Monster\Stage2\Monster_LionSpear</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1351,26 +1363,8 @@
     <Filter Include="Game_ob\Monster">
       <UniqueIdentifier>{55f18709-efce-4720-87ef-a948fa68e4f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\Monster\Monster_Hammer">
-      <UniqueIdentifier>{9d583fd2-8c1a-43c7-8372-ae8327d385f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_warrior">
-      <UniqueIdentifier>{1c34e756-c8da-4dff-b5f2-c9e9e8da643e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game_ob\Boss\Yggdrasil">
       <UniqueIdentifier>{30793699-4c54-48e5-82ec-64db7beb560a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_BigEnt">
-      <UniqueIdentifier>{7a4ce52a-f3ba-44d0-b29e-53d37461596c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_Stone_wizard">
-      <UniqueIdentifier>{38af4b08-f4c1-43b3-9bb2-9805767f4793}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_GreenTree">
-      <UniqueIdentifier>{1d62fcd7-c472-473d-9ead-9c20a9011d36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_Blossom">
-      <UniqueIdentifier>{798f4644-0aa9-4be0-a3b6-1f37d1717f63}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game_ob\Bullet">
       <UniqueIdentifier>{d10b068c-df2b-4522-a283-c5efb2811418}</UniqueIdentifier>
@@ -1405,32 +1399,11 @@
     <Filter Include="Game_ob\Monster\Public\Effect">
       <UniqueIdentifier>{56689061-2850-45f8-8701-33250a23fb9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\Monster\Monster_Stone_wizard\Effect">
-      <UniqueIdentifier>{ac628dbc-7d97-4359-a248-a785828e52b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_Stone_wizard\Bullet">
-      <UniqueIdentifier>{5c29a7ce-b6bc-4cde-9542-bd31453f6eab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_BigEnt\Bullet">
-      <UniqueIdentifier>{5cffc078-e3da-4766-9617-5a0765f81ea1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_GreenTree\Bullet">
-      <UniqueIdentifier>{528ea950-ff5b-4ab0-a598-fab8d797a06d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_Blossom\Bullet">
-      <UniqueIdentifier>{786a06a5-ccec-4fc1-ae1d-d4c0005a307c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game_ob\BG\Tile\Image_Ground">
       <UniqueIdentifier>{4bf91cc4-5e00-444c-98f0-89badab69c93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game_ob\Monster\Monster_Goldwarrior">
-      <UniqueIdentifier>{89dcdaf9-766c-455b-a0f6-331f9ddbf8c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game_ob\PLAYER\Effect">
       <UniqueIdentifier>{03066486-b7dc-41c1-842d-ebeedc091a57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_GoldHammer">
-      <UniqueIdentifier>{37ac02d8-13be-489c-87bc-e6d857ab7e4d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game_ob\PLAYER\Chatacter">
       <UniqueIdentifier>{a6c42fbf-1807-4e1a-b1f8-b59e7b7b390d}</UniqueIdentifier>
@@ -1482,9 +1455,6 @@
     </Filter>
     <Filter Include="Game_ob\MiniBoss\Public\Effect">
       <UniqueIdentifier>{0cb0aa98-d67a-4d3b-8040-7341ad994671}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game_ob\Monster\Monster_BigEnt\Effect">
-      <UniqueIdentifier>{1f92947f-dd7d-4ad1-a41d-211de61a1f78}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game_ob\Door">
       <UniqueIdentifier>{f8b791aa-e881-4634-987f-2054405149cd}</UniqueIdentifier>
@@ -1578,6 +1548,63 @@
     </Filter>
     <Filter Include="Game_ob\Sound">
       <UniqueIdentifier>{b7f594a8-ad24-47d5-b3e5-7ac6a2fa255d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1">
+      <UniqueIdentifier>{d36c5856-05fd-40b4-af9b-8a5eb97ccdc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_warrior">
+      <UniqueIdentifier>{1c34e756-c8da-4dff-b5f2-c9e9e8da643e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_Stone_wizard">
+      <UniqueIdentifier>{38af4b08-f4c1-43b3-9bb2-9805767f4793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_Stone_wizard\Effect">
+      <UniqueIdentifier>{ac628dbc-7d97-4359-a248-a785828e52b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_Stone_wizard\Bullet">
+      <UniqueIdentifier>{5c29a7ce-b6bc-4cde-9542-bd31453f6eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_Hammer">
+      <UniqueIdentifier>{9d583fd2-8c1a-43c7-8372-ae8327d385f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_GreenTree">
+      <UniqueIdentifier>{1d62fcd7-c472-473d-9ead-9c20a9011d36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_GreenTree\Bullet">
+      <UniqueIdentifier>{528ea950-ff5b-4ab0-a598-fab8d797a06d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_Blossom">
+      <UniqueIdentifier>{798f4644-0aa9-4be0-a3b6-1f37d1717f63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_Blossom\Bullet">
+      <UniqueIdentifier>{786a06a5-ccec-4fc1-ae1d-d4c0005a307c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_BigEnt">
+      <UniqueIdentifier>{7a4ce52a-f3ba-44d0-b29e-53d37461596c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_BigEnt\Bullet">
+      <UniqueIdentifier>{5cffc078-e3da-4766-9617-5a0765f81ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage1\Monster_BigEnt\Effect">
+      <UniqueIdentifier>{1f92947f-dd7d-4ad1-a41d-211de61a1f78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage2">
+      <UniqueIdentifier>{ab3120d1-08ef-42f3-ba99-f237f4922ec4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage2\Monster_LionSpear">
+      <UniqueIdentifier>{934cecea-764c-421e-8a46-85bc11191e05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage2\Monster_GoldHammer">
+      <UniqueIdentifier>{37ac02d8-13be-489c-87bc-e6d857ab7e4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage2\Monster_Goldwarrior">
+      <UniqueIdentifier>{89dcdaf9-766c-455b-a0f6-331f9ddbf8c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage2\Monster_LionWarrior">
+      <UniqueIdentifier>{77f72e84-5394-458c-8c48-8877fa0375ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage2\Monster_LionWizard">
+      <UniqueIdentifier>{04290cd5-bf05-4615-b3db-82130908eeb7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
