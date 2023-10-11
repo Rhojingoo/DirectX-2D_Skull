@@ -647,6 +647,27 @@
     <ClInclude Include="Monster_LionSpear.h">
       <Filter>Game_ob\Monster\Stage2\Monster_LionSpear</Filter>
     </ClInclude>
+    <ClInclude Include="Monster_LionWizard.h">
+      <Filter>Game_ob\Monster\Stage2\Monster_LionWizard</Filter>
+    </ClInclude>
+    <ClInclude Include="LionWizard_Bullet.h">
+      <Filter>Game_ob\Monster\Stage2\Monster_LionWizard\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="LionWizard_Bullet_Create.h">
+      <Filter>Game_ob\Monster\Stage2\Monster_LionWizard\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom_Spring.h">
+      <Filter>Game_ob\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_Effect.h">
+      <Filter>Game_ob\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage2_Door.h">
+      <Filter>Game_ob\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="Sofa_Spring.h">
+      <Filter>Game_ob\Spring</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1292,6 +1313,27 @@
     <ClCompile Include="Monster_LionSpear.cpp">
       <Filter>Game_ob\Monster\Stage2\Monster_LionSpear</Filter>
     </ClCompile>
+    <ClCompile Include="Monster_LionWizard.cpp">
+      <Filter>Game_ob\Monster\Stage2\Monster_LionWizard</Filter>
+    </ClCompile>
+    <ClCompile Include="LionWizard_Bullet.cpp">
+      <Filter>Game_ob\Monster\Stage2\Monster_LionWizard\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="LionWizard_Bullet_Create.cpp">
+      <Filter>Game_ob\Monster\Stage2\Monster_LionWizard\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom_Spring.cpp">
+      <Filter>Game_ob\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_Effect.cpp">
+      <Filter>Game_ob\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage2_Door.cpp">
+      <Filter>Game_ob\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="Sofa_Spring.cpp">
+      <Filter>Game_ob\Spring</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1605,6 +1647,12 @@
     </Filter>
     <Filter Include="Game_ob\Monster\Stage2\Monster_LionWizard">
       <UniqueIdentifier>{04290cd5-bf05-4615-b3db-82130908eeb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Monster\Stage2\Monster_LionWizard\Bullet">
+      <UniqueIdentifier>{c32a55e4-956e-4c7d-a3aa-0d42d4fc6a14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Spring">
+      <UniqueIdentifier>{4053523c-9db1-4231-9cc8-4c5f25c3220a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

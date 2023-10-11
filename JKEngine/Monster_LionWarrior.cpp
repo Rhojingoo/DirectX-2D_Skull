@@ -116,7 +116,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
-			Hit_Box->SetState(eState::Active);
+			Hit_Box->SetState(eState::Paused);
 		}
 		{
 			Hit_Particle = new GameObject();

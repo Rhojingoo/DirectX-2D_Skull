@@ -78,6 +78,7 @@ namespace jk
 		void potion();
 		void teleport_in();
 		void teleport_out();
+		void SetUIstate(int set) { _UIstate = set; }
 
 	private:
 		float _MaxHp = 2000;

@@ -10,6 +10,9 @@
 
 #include "Monster_LionWarrior.h"
 #include "Monster_LionSpear.h"
+#include "Monster_LionWizard.h"
+#include "Mushroom_Spring.h"
+
 namespace jk
 {
 	Castle_Area::Castle_Area()
@@ -65,10 +68,11 @@ namespace jk
 
 		//Monster_Goldwarrior* test11 = object::Instantiate<Monster_Goldwarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 		//Monster_GoldHammer* test12 = object::Instantiate<Monster_GoldHammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		Monster_LionWarrior* test13 = object::Instantiate<Monster_LionWarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		Monster_LionSpear* test14 = object::Instantiate<Monster_LionSpear>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		//Monster_LionWarrior* test13 = object::Instantiate<Monster_LionWarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		//Monster_LionSpear* test14 = object::Instantiate<Monster_LionSpear>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+		//Monster_LionWizard* test15 = object::Instantiate<Monster_LionWizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 
-
+		//Mushroom_Spring* test16 = object::Instantiate<Mushroom_Spring>(Vector3(150.f, -80.f, -249.f), eLayerType::Monster);
 
 		//Archer* test5 = object::Instantiate<Archer>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 		//Cleric* test5 = object::Instantiate<Cleric>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
@@ -207,7 +211,7 @@ namespace jk
 	}
 	void Castle_Area::OnEnter()
 	{
-		as->Play();
+		//as->Play();
 		#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);

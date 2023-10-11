@@ -106,6 +106,7 @@ namespace jk
 		void walkBack_L();
 		void WalkFront_R();
 		void WalkFront_L();
+		void SetUIstate(int set) { _UIstate = set; }
 
 	private:
 		float _MaxHp = 2000;

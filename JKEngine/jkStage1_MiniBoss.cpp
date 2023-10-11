@@ -345,7 +345,7 @@ namespace jk
 
 				if (currentMonster == 0)
 				{
-					Mini_Boss* _Gobjs = OBJPOOL->Get_Knight_male();
+					Knight_male* _Gobjs = OBJPOOL->Get_Knight_male();
 					_Gobjs->Initialize();
 					Scene* scene = SceneManager::GetActiveScene();
 					scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
@@ -353,10 +353,18 @@ namespace jk
 					Transform* tr = _Gobjs->GetComponent<Transform>();
 					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
 					mBossGroup.push_back(_Gobjs);
+
+
+					if (a == 0)
+						_Gobjs->SetUIstate(0);
+					else if (a == 1)
+						_Gobjs->SetUIstate(1);
+					else if (a == 2)
+						_Gobjs->SetUIstate(2);
 				}
 				else if (currentMonster == 1)
 				{
-					Mini_Boss* _Gobjs = OBJPOOL->Get_Archer();
+					Archer* _Gobjs = OBJPOOL->Get_Archer();
 					_Gobjs->Initialize();
 					Scene* scene = SceneManager::GetActiveScene();
 					scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
@@ -364,10 +372,17 @@ namespace jk
 					Transform* tr = _Gobjs->GetComponent<Transform>();
 					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
 					mBossGroup.push_back(_Gobjs);
+
+					if (a == 0)
+						_Gobjs->SetUIstate(0);
+					else if (a == 1)
+						_Gobjs->SetUIstate(1);
+					else if (a == 2)
+						_Gobjs->SetUIstate(2);
 				}
 				else if (currentMonster == 2)
 				{
-					Mini_Boss* _Gobjs = OBJPOOL->Get_Mage();
+					Mage* _Gobjs = OBJPOOL->Get_Mage();
 					_Gobjs->Initialize();
 					Scene* scene = SceneManager::GetActiveScene();
 					scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
@@ -375,10 +390,17 @@ namespace jk
 					Transform* tr = _Gobjs->GetComponent<Transform>();
 					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
 					mBossGroup.push_back(_Gobjs);
+
+					if (a == 0)
+						_Gobjs->SetUIstate(0);
+					else if (a == 1)
+						_Gobjs->SetUIstate(1);
+					else if (a == 2)
+						_Gobjs->SetUIstate(2);
 				}
 				else if (currentMonster == 3)
 				{
-					Mini_Boss* _Gobjs = OBJPOOL->Get_Cleric();
+					Cleric* _Gobjs = OBJPOOL->Get_Cleric();
 					_Gobjs->Initialize();
 					Scene* scene = SceneManager::GetActiveScene();
 					scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
@@ -386,6 +408,13 @@ namespace jk
 					Transform* tr = _Gobjs->GetComponent<Transform>();
 					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
 					mBossGroup.push_back(_Gobjs);
+
+					if (a == 0)
+						_Gobjs->SetUIstate(0);
+					else if (a == 1)
+						_Gobjs->SetUIstate(1);
+					else if (a == 2)
+						_Gobjs->SetUIstate(2);
 				}
 			}
 		}

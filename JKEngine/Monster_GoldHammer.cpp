@@ -103,7 +103,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
-			Hit_Box->SetState(eState::Active);
+			Hit_Box->SetState(eState::Paused);
 		}
 
 		{
@@ -874,6 +874,7 @@ namespace jk
 
 	void Monster_GoldHammer::dead()
 	{
+		Tackle_Flash->SetState(eState::Paused);
 	}
 
 	void Monster_GoldHammer::Complete_attack()
@@ -945,6 +946,7 @@ namespace jk
 					Monster_DamegeHp->SetState(eState::Paused);
 					Monster_Hp->SetState(eState::Paused);
 					Monster_DamegeHp->Set_Switch(false);
+					Tackle_Flash->SetState(eState::Paused);
 					_Hp_control = false;
 					_Hp_time = 0.f;
 				}

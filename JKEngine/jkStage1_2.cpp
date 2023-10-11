@@ -86,7 +86,6 @@ namespace jk
 
 				Back_ground* Ground_Assistment = object::Instantiate<Back_ground>(Vector3(45.f, -100.f, -199.f), eLayerType::Fore_Ground, L"Map1_2");
 				Ground_Assistment->GetComponent<Transform>()->SetScale(Vector3(1920.f, 960.f, 0.f));	Ground_Assistment->SetName(L"Map1_2_assist");
-
 			}
 	#pragma endregion
 

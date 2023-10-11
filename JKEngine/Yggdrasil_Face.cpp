@@ -1033,10 +1033,11 @@ namespace jk
 	void Yggdrasil_Face::Energy_Bombattack()
 	{
 		Transform* bullet_tr = Energy_Bomb->GetComponent<Transform>();
+		Vector3 _Bullet_pos = bullet_tr->GetPosition();
 		RigidBody* bullet_Rb = Energy_Bomb->GetComponent<RigidBody>();
 		_playerpos.x;
 		_playerpos.y;		
-		Vector2 attack_pos = Vector2(_playerpos.x, _playerpos.y);
+		Vector2 attack_pos = Vector2(_playerpos.x- _Bullet_pos.x, _playerpos.y-_Bullet_pos.y);
 		attack_pos.Normalize();
 		bullet_Rb->SetGround(false);
 		bullet_Rb->SetVelocity(Vector2(attack_pos.x * 300.f, attack_pos.y*400));
@@ -1045,10 +1046,12 @@ namespace jk
 	{
 		for (int i = 0; i < 15; i++)
 		{						
+			Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
+			Vector3 _Bullet_pos = bullet_tr->GetPosition();
 			RigidBody* bullet_Rb = Energy_Corps[i]->GetComponent<RigidBody>();
 			_playerpos.x;
 			_playerpos.y;
-			Vector2 attack_pos = Vector2(_playerpos.x, _playerpos.y);
+			Vector2 attack_pos = Vector2(_playerpos.x - _Bullet_pos.x, _playerpos.y - _Bullet_pos.y);
 			attack_pos.Normalize();
 			bullet_Rb->SetGround(false);
 			bullet_Rb->SetVelocity(Vector2(attack_pos.x * 50.f, attack_pos.y * 250));

@@ -951,6 +951,7 @@ namespace jk
 					Monster_DamegeHp->SetState(eState::Paused);
 					Monster_Hp->SetState(eState::Paused);
 					Monster_DamegeHp->Set_Switch(false);
+					Tackle_Flash->SetState(eState::Paused);
 					_Hp_control = false;
 					_Hp_time = 0.f;
 				}

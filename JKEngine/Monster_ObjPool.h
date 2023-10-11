@@ -48,6 +48,7 @@ namespace jk
 
             if (StageSelect == 2)
             {
+
                 for (int i = 0; i < Lots_of_monsters; ++i)
                 {
                     Goldwarrior_pool.push_back(new Monster_Goldwarrior());
@@ -59,11 +60,26 @@ namespace jk
                     wizard_pool.push_back(new Stone_wizard());
                 }
 
-
+                //덩어리몬스터
                 for (int i = 0; i < Number_of_Big_Monsters; ++i)
                 {
                     GoldHammer_pool.push_back(new Monster_GoldHammer());
                 }
+
+                for (int i = 0; i < Number_of_Big_Monsters; ++i)
+                {
+                    LionSpear_pool.push_back(new Monster_LionSpear());
+                }
+
+                for (int i = 0; i < Number_of_Big_Monsters; ++i)
+                {
+                    LionWarrior_pool.push_back(new Monster_LionWarrior());
+                }
+                for (int i = 0; i < Number_of_Big_Monsters; ++i)
+                {
+                    LionWizard_pool.push_back(new Monster_LionWizard());
+                }
+
             }
         }
 
@@ -139,6 +155,7 @@ namespace jk
 
         #pragma region 몬스터 받기함수
 
+                #pragma region stage1
                    Monster_warrior* Get_Monster_warrior()
                    {
                        if (!warrior_pool.empty())
@@ -206,7 +223,9 @@ namespace jk
                        }
                        return nullptr;
                    }
+            #pragma endregion  
 
+                #pragma region stage2
                    Monster_Goldwarrior* Get_Goldwarrior()
                    {
                        if (!Goldwarrior_pool.empty())
@@ -228,6 +247,41 @@ namespace jk
                        }
                        return nullptr;
                    }    
+
+                   Monster_LionSpear* Get_LionSpear()
+                   {
+                       if (!LionSpear_pool.empty())
+                       {
+                           Monster_LionSpear* monster = LionSpear_pool.back();
+                           LionSpear_pool.pop_back();
+                           return monster;
+                       }
+                       return nullptr;
+                   }
+
+                   Monster_LionWarrior* Get_LionWarrior()
+                   {
+                       if (!LionWarrior_pool.empty())
+                       {
+                           Monster_LionWarrior* monster = LionWarrior_pool.back();
+                           LionWarrior_pool.pop_back();
+                           return monster;
+                       }
+                       return nullptr;
+                   }
+
+                   Monster_LionWizard* Get_LionWizard()
+                   {
+                       if (!LionWizard_pool.empty())
+                       {
+                           Monster_LionWizard* monster = LionWizard_pool.back();
+                           LionWizard_pool.pop_back();
+                           return monster;
+                       }
+                       return nullptr;
+                   }
+
+                #pragma endregion  
         #pragma endregion  
 
         #pragma region 몬스터 리턴함수
@@ -308,6 +362,9 @@ namespace jk
     private:
         std::vector<Monster_Goldwarrior*> Goldwarrior_pool;
         std::vector<Monster_GoldHammer*> GoldHammer_pool;
+        std::vector<Monster_LionSpear*> LionSpear_pool;
+        std::vector<Monster_LionWarrior*> LionWarrior_pool;
+        std::vector<Monster_LionWizard*> LionWizard_pool;
         int capacity1;
         int capacity2;
         int capacity3;

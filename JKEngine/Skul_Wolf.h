@@ -12,6 +12,8 @@
 #include "Hit_Critical_High.h"
 #include "Hit_DarkPaladin.h"
 #include "Slash_Effect.h"
+#include "Mushroom_Spring.h"
+#include "Sofa_Spring.h"
 
 
 namespace jk
@@ -111,7 +113,7 @@ namespace jk
 		bool _Wall_check = false;
 		bool _Rightmove_Lock = false;
 		bool _Leftmove_Lock = false;
-
+		bool _Firsrt_Ground = false;
 
 	private:
 		bool _attack_Acheck = false;				//캐릭터의 어택상황을 체크하기 위해 필요한 변수

@@ -117,6 +117,13 @@
 #include "Monster_Goldwarrior.h"
 #include "Monster_GoldHammer.h"
 
+#include "Monster_GoldHammer.h"
+#include "Monster_Goldwarrior.h"
+#include "Monster_LionSpear.h"
+#include "Monster_LionWarrior.h"
+#include "Monster_LionWizard.h"
+
+
 
 //πÃªÁ¿œ
 #include "Bullet.h"

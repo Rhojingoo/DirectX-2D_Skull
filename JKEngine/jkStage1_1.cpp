@@ -3,7 +3,7 @@
 #include "jkPaintShader.h"
 #include "LoadScenes.h"
 
-
+#include "Mushroom_Spring.h"
 
 namespace jk
 {
@@ -36,6 +36,8 @@ namespace jk
 		_player = object::Instantiate<Player>(Vector3(-700.f, -150.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 
+
+		Mushroom_Spring* Spring = object::Instantiate<Mushroom_Spring>(Vector3(600.f, -85.f, -249.f), eLayerType::Monster);
 
 		#pragma region Door
 				Door1 = object::Instantiate<Stage1_Door>(Vector3(-70.f, 290.f, -245.f), eLayerType::BACK_GROUND);
@@ -163,19 +165,12 @@ namespace jk
 				}
 				first_MonsterCreate = true;
 			}
-		}
-
-
-	
+		}	
 		firstMonsters = AreAllMonstersDead(monsterGroup1, firstMonsters);
 		if (firstMonsters == true)
 		{			
-			if (change_monster1 == false)				//for (Monster* mon : monsterGroup1)
-				//{
-				//	GetLayer(eLayerType::Monster).ReturnMonster(mon);
-				//}
+			if (change_monster1 == false)				
 			{
-
 				for (Monster* mon : monsterGroup2)
 				{
 					mon->SetState(GameObject::eState::Active);
@@ -183,15 +178,13 @@ namespace jk
 				change_monster1 = true;
 			}
 		}
+
+
 		secondMonsters = AreAllMonstersDead(monsterGroup2, secondMonsters);
 		if (secondMonsters == true)
 		{
 			if (change_monster2 == false)
 			{
-				//for (Monster* mon : monsterGroup2)
-				//{
-				//	GetLayer(eLayerType::Monster).ReturnMonster(mon);
-				//}
 				for (Monster* mon : monsterGroup3)
 				{
 					mon->SetState(GameObject::eState::Active);
@@ -200,15 +193,12 @@ namespace jk
 			}
 		}	
 
+
 		thirdMonsters = AreAllMonstersDead(monsterGroup3, thirdMonsters);
 		if (thirdMonsters == true)
 		{
 			if (change_monster3 == false)
 			{
-				//for (Monster* mon : monsterGroup3)
-				//{
-				//	GetLayer(eLayerType::Monster).ReturnMonster(mon);
-				//}
 				change_monster3 = true;
 			}
 		}
@@ -219,14 +209,15 @@ namespace jk
 				mon->SetState(GameObject::eState::Active);
 			}
 		}
-		
-		
+				
+
 		fourthMonsters = AreAllMonstersDead(monsterGroup4, fourthMonsters);
 		if (fourthMonsters == true)
 		{
 			Door1->Set_Door_Allow(true);
 			Door1->Set_Stage1_Door(2);
 		}
+
 
 		if (_changecheck == true)
 		{

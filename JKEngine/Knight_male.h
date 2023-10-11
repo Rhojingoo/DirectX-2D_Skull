@@ -95,6 +95,7 @@ namespace jk
 		void potion();
 		void stinger();
 		void stinger_Ready();
+		void SetUIstate(int set) { _UIstate = set; }
 
 	private:
 		float _MaxHp = 2000;

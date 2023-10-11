@@ -124,7 +124,6 @@ namespace jk
 		}	
 
 
-
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Skul_Basic\\AttackB", this) ;
@@ -1293,6 +1292,79 @@ namespace jk
 			}
 		}
 
+		//spring
+		if (Mushroom_Spring* _Spring = dynamic_cast<Mushroom_Spring*>(other->GetOwner()))
+		{
+				Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+				Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
+				Vector3 Ground_pos = Ground_TR->GetPosition();
+				float Gr_Size = Ground_Col->GetScale().y / 2;
+				float Gr_Top_pos = Ground_pos.y + Gr_Size;
+
+				float Skul_halfsize = _collider->GetScale().y / 2;
+				float skul_footpos = pos.y - Skul_halfsize;
+
+				if (skul_footpos > Gr_Top_pos)
+				{
+					_rigidbody->ClearVelocity();
+					_Ground_check = true;
+					_rigidbody->SetGround(false);
+					_rigidbody->SetVelocity(Vector2(0.f, 950.f));
+							
+					_State = Skul_Basic_State::Jump;
+					if (mDir == 1)
+					{
+						at->PlayAnimation(L"Skul_BasicJump", true);
+							
+						if (_Skulhead == true)
+							at->PlayAnimation(L"NoHeadJump", true);
+					}
+					else
+					{
+						at->PlayAnimation(L"Skul_BasicJumpR", true);
+							
+						if (_Skulhead == true)
+							at->PlayAnimation(L"NoHeadJumpR", true);
+					}					
+				}
+		}
+
+		if (Sofa_Spring* _Spring = dynamic_cast<Sofa_Spring*>(other->GetOwner()))
+		{
+			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+			Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
+			Vector3 Ground_pos = Ground_TR->GetPosition();
+			float Gr_Size = Ground_Col->GetScale().y / 2;
+			float Gr_Top_pos = Ground_pos.y + Gr_Size;
+
+			float Skul_halfsize = _collider->GetScale().y / 2;
+			float skul_footpos = pos.y - Skul_halfsize;
+
+			if (skul_footpos > Gr_Top_pos)
+			{
+				_rigidbody->ClearVelocity();
+				_Ground_check = true;
+				_rigidbody->SetGround(false);
+				_rigidbody->SetVelocity(Vector2(0.f, 700.f));
+
+				_State = Skul_Basic_State::Jump;
+				if (mDir == 1)
+				{
+					at->PlayAnimation(L"Skul_BasicJump", true);
+
+					if (_Skulhead == true)
+						at->PlayAnimation(L"NoHeadJump", true);
+				}
+				else
+				{
+					at->PlayAnimation(L"Skul_BasicJumpR", true);
+
+					if (_Skulhead == true)
+						at->PlayAnimation(L"NoHeadJumpR", true);
+				}
+			}
+		}
+
 		//Monster
 		if (HitBox_Monster* _Monster = dynamic_cast<HitBox_Monster*>(other->GetOwner()))
 		{		
@@ -2424,6 +2496,7 @@ namespace jk
 			//SetPlay_List(PlayerList::thief_Skul, PlayerList::basic_Skul, true, mDir);
 			pos.y = pos.y + 5;
 			SetPlayer_Pos(pos);
+			Hit_Box->SetState(eState::Paused);
 		}
 	}
 	void Skul_Basic::switch_on_off()

@@ -25,7 +25,7 @@ namespace jk
 				AddGameObject(eLayerType::Player, player);
 				as = player->AddComponent<AudioSource>();
 				as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\Title\\MainTitle_Hardmode.wav"));
-				as->Play();
+				//as->Play();
 
 
 				//Main Camera

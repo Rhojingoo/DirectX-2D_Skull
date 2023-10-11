@@ -24,7 +24,26 @@ void jk::Stage2_MiniBoss::Initialize()
 			CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
 			CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 		#pragma endregion 
+			
+		OBJPOOL = new MiniBoss_ObjCreate(1);
+		CreateMiniboss(2);
 
+		_player = object::Instantiate<Player>(Vector3(-700.f, 10.f, -250.f), eLayerType::Player);
+		_player->SetName(L"player_select");
+
+
+		#pragma region Door
+				Door1 = object::Instantiate<Stage2_Door>(Vector3(587.f,-6.f, -249.f), eLayerType::BACK_GROUND);
+				Door1->Set_Door_Allow(true); Door1->Set_Stage2_Door(5);	Door1->Set_NextStage(L"Stage2_2");
+
+
+				Stage2_Door* Door2 = object::Instantiate<Stage2_Door>(Vector3(857.f, -6.f, -249.f), eLayerType::BACK_GROUND);
+				Door2->Set_Door_Allow(true); Door2->Set_Stage2_Door(9); Door2->Set_NextStage(L"Stage2_2");
+
+
+				Stage_end_wall* Door_Wall = object::Instantiate<Stage_end_wall>(Vector3(720.f, -6.f, -248.f), eLayerType::BACK_GROUND);
+				Door_Wall->Set_Wall_Allow(true);  Door_Wall->Set_Wall_Stage(1);
+		#pragma endregion	
 
 		#pragma region BackGround
 				{
@@ -52,9 +71,31 @@ void jk::Stage2_MiniBoss::Initialize()
 					cloud->GetComponent<Transform>()->SetScale(Vector3(1860.f, 222.f, 0.f)); cloud->SetName(L"stage2_cloud");
 				}
 				{
-					Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 50.f), eLayerType::Fore_Ground, L"BackGround_Stage2_01");
+					Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 55.f), eLayerType::Fore_Ground, L"BackGround_Stage2_01");
 					Back_Ground->GetComponent<Transform>()->SetScale(Vector3(1920.f, 800.f, 0.0f));
 				}
+
+				{
+					Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(0.f, 200.f, 40.f), eLayerType::Fore_Ground, L"BackGround_Stage2_02");
+					Back_Ground->GetComponent<Transform>()->SetScale(Vector3(1905.f, 402.f, 0.0f));
+				}
+
+				{
+					Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(0.f, -90.f, 45.f), eLayerType::Fore_Ground, L"Miniboss_01");
+					Back_Ground->GetComponent<Transform>()->SetScale(Vector3(183.f, 257.f, 0.0f));
+				}
+
+				{
+					Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(-650.f, 150.f, 50.f), eLayerType::Fore_Ground, L"Miniboss_03");
+					Back_Ground->GetComponent<Transform>()->SetScale(Vector3(267, 357.f * 1.5, 0.f));
+				}
+
+				{
+					Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(750.f, 150.f, 50.f), eLayerType::Fore_Ground, L"Miniboss_03");
+					Back_Ground->GetComponent<Transform>()->SetScale(Vector3(267, 357.f * 1.5, 0.f));
+				}
+
+
 
 			#pragma region Tile		
 				{
@@ -90,11 +131,64 @@ void jk::Stage2_MiniBoss::Initialize()
 					TileMap::TileMap_Setting(Tile_map, L"Stage2_Tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Stage2_MiniBoss.xml");
 				}
 			#pragma endregion
+
 		#pragma endregion 	
 }
 
 void jk::Stage2_MiniBoss::Update()
 {
+	Transform* PlayerTR = _player->GetComponent<Transform>();
+	Vector3 player_pos = PlayerTR->GetPosition();
+
+	if (_player->firstGroundcheck == true)
+	{
+		if (_first_groundturch == false)
+		{
+			_first_groundturch = true;
+			_MiniBoss_groundturch = true;
+		}
+	}
+
+	if (_first_groundturch == true)
+	{
+		if (_MiniBoss_groundturch == true)
+		{
+			if (_MiniBoss_Create == false)
+			{
+				for (Mini_Boss* mon : mBossGroup)
+				{
+					//as->Play();
+					mon->SetState(GameObject::eState::Active);
+				}
+				_MiniBoss_Create = true;
+			}
+		}
+	}
+
+	AreAllMiniBossDead(mBossGroup);
+	if (_MiniBoss_Dead == true)
+	{
+		if (_Door_Open == false)
+		{
+			//as->Stop();
+			//cameraComp->SetCameraXY = true;
+			Door1->Set_Door_Allow(true);
+			Door1->Set_Stage2_Door(1);
+			_Door_Open = true;
+			int a = 0;
+		}
+	}
+
+
+
+	if (_changecheck == true)
+	{
+		_player->SetPlayer_Pos(player_pos);
+		_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
+		_changecheck = false;
+	}
+
+
 	if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 	{
 		SceneManager::LoadScene(L"Stage2_2");
@@ -114,7 +208,15 @@ void jk::Stage2_MiniBoss::Render()
 
 void jk::Stage2_MiniBoss::OnEnter()
 {
-#pragma region Camera & Grid
+	Transform* PlayerTR = _player->GetComponent<Transform>();
+	Vector3 player_pos = PlayerTR->GetPosition();
+	_player->SetPlayer_Pos(player_pos);
+	_player->SetSwitch(true);
+	_changecheck = true;
+
+	_player->firstGroundcheck = false;
+	
+	#pragma region Camera & Grid
 
 	//Main Camera
 	Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -152,4 +254,208 @@ void jk::Stage2_MiniBoss::OnEnter()
 
 void jk::Stage2_MiniBoss::OnExit()
 {
+}
+
+void jk::Stage2_MiniBoss::CamareShooting()
+{
+}
+
+void jk::Stage2_MiniBoss::CreateMiniboss(int stage)
+{
+	if (stage == 1)
+	{
+		_Randomcheck = Mboss->random(0, 3);
+		if (_Randomcheck == 0)
+		{
+			Mini_Boss* _Gobjs = OBJPOOL->Get_Knight_male();
+			_Gobjs->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+			_Gobjs->SetState(GameObject::eState::Paused);
+			Transform* tr = _Gobjs->GetComponent<Transform>();
+			tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+			mBossGroup.push_back(_Gobjs);
+		}
+		if (_Randomcheck == 1)
+		{
+			Mini_Boss* _Gobjs = OBJPOOL->Get_Archer();
+			_Gobjs->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+			_Gobjs->SetState(GameObject::eState::Paused);
+			Transform* tr = _Gobjs->GetComponent<Transform>();
+			tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+			mBossGroup.push_back(_Gobjs);
+		}
+		if (_Randomcheck == 2)
+		{
+			Mini_Boss* _Gobjs = OBJPOOL->Get_Mage();
+			_Gobjs->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+			_Gobjs->SetState(GameObject::eState::Paused);
+			Transform* tr = _Gobjs->GetComponent<Transform>();
+			tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+			mBossGroup.push_back(_Gobjs);
+		}
+		if (_Randomcheck == 3)
+		{
+			Mini_Boss* _Gobjs = OBJPOOL->Get_Cleric();
+			_Gobjs->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+			_Gobjs->SetState(GameObject::eState::Paused);
+			Transform* tr = _Gobjs->GetComponent<Transform>();
+			tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+			mBossGroup.push_back(_Gobjs);
+		}
+	}
+	if (stage == 2)
+	{
+		std::vector<int> selectedMonsters;
+		for (int a = 0; a < 3; a++)
+		{
+			do
+			{
+				_Randomcheck = Mboss->random(0, 3);
+			} while (std::find(selectedMonsters.begin(), selectedMonsters.end(), _Randomcheck) != selectedMonsters.end()); // 이미 선택된 몬스터 번호가 아닐 때까지 반복
+			selectedMonsters.push_back(_Randomcheck); // 선택된 몬스터 번호 저장				
+		}
+		for (int a = 0; a < 3; a++)
+		{
+			int currentMonster = selectedMonsters[a]; // 백터에서 몬스터 번호 꺼내기
+
+			if (currentMonster == 0)
+			{
+				Knight_male* _Gobjs = OBJPOOL->Get_Knight_male();
+				_Gobjs->Initialize();				
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+				_Gobjs->SetState(GameObject::eState::Paused);
+				Transform* tr = _Gobjs->GetComponent<Transform>();
+				mBossGroup.push_back(_Gobjs);
+
+
+				if (a == 0)
+				{
+					tr->SetPosition(Vector3(100.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(0);
+				}
+				else if (a == 1)
+				{
+					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(1);
+				}
+				else if (a == 2)
+				{
+					tr->SetPosition(Vector3(300.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(2);
+				}
+			}
+			else if (currentMonster == 1)
+			{
+				Archer* _Gobjs = OBJPOOL->Get_Archer();
+				_Gobjs->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+				_Gobjs->SetState(GameObject::eState::Paused);
+				Transform* tr = _Gobjs->GetComponent<Transform>();
+				tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+				mBossGroup.push_back(_Gobjs);
+
+				if (a == 0)
+				{
+					tr->SetPosition(Vector3(100.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(0);
+				}
+				else if (a == 1)
+				{
+					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(1);
+				}
+				else if (a == 2)
+				{
+					tr->SetPosition(Vector3(300.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(2);
+				}
+			}
+			else if (currentMonster == 2)
+			{
+				Mage* _Gobjs = OBJPOOL->Get_Mage();
+				_Gobjs->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+				_Gobjs->SetState(GameObject::eState::Paused);
+				Transform* tr = _Gobjs->GetComponent<Transform>();
+				tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+				mBossGroup.push_back(_Gobjs);
+
+				if (a == 0)
+				{
+					tr->SetPosition(Vector3(100.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(0);
+				}
+				else if (a == 1)
+				{
+					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(1);
+				}
+				else if (a == 2)
+				{
+					tr->SetPosition(Vector3(300.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(2);
+				}
+			}
+			else if (currentMonster == 3)
+			{
+				Cleric* _Gobjs = OBJPOOL->Get_Cleric();
+				_Gobjs->Initialize();
+				Scene* scene = SceneManager::GetActiveScene();
+				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+				_Gobjs->SetState(GameObject::eState::Paused);
+				Transform* tr = _Gobjs->GetComponent<Transform>();
+				tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+				mBossGroup.push_back(_Gobjs);
+
+				if (a == 0)
+				{
+					tr->SetPosition(Vector3(100.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(0);
+				}
+				else if (a == 1)
+				{
+					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(1);
+				}
+				else if (a == 2)
+				{
+					tr->SetPosition(Vector3(300.f, 0.f, -250.f));
+					_Gobjs->SetUIstate(2);
+				}
+			}
+		}
+	}
+}
+int jk::Stage2_MiniBoss::random(int a, int b)
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distribution(a, b);
+	int answer_random = distribution(gen);
+	return answer_random;
+}
+bool jk::Stage2_MiniBoss::AreAllMiniBossDead(const std::vector<Mini_Boss*>& monsterGroup)
+{
+	for (const Mini_Boss* monster : monsterGroup)
+	{
+		if (!monster->_Die)
+		{
+			_MiniBoss_Dead = false;
+			// 하나라도 살아있는 몬스터가 있으면 false 반환
+			return _MiniBoss_Dead;
+		}
+	}
+	// 모든 몬스터가 죽었다면 true 반환
+	_MiniBoss_Dead = true;
+	return _MiniBoss_Dead;
 }

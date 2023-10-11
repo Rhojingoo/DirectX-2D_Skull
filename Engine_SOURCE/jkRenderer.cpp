@@ -1224,6 +1224,97 @@ namespace jk::renderer
 				}
 
 				{
+					texture = Resources::Load<Texture>(L"backGround_stage2_02", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\BackGround_Stage2_02.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"BackGround_Stage2_02", material);
+				}
+
+				{
+					texture = Resources::Load<Texture>(L"backGround_stage2_03", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\BackGround_Stage2_03.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"BackGround_Stage2_03", material);
+				}
+
+				{
+					texture = Resources::Load<Texture>(L"backGround_stage2_04", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\BackGround_Stage2_04.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"BackGround_Stage2_04", material);
+				}
+
+				{
+					texture = Resources::Load<Texture>(L"backGround_stage2_05", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\BackGround_Stage2_05.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"BackGround_Stage2_05", material);
+				}
+
+
+
+
+
+
+
+
+
+
+				{
+					texture = Resources::Load<Texture>(L"miniboss_01", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\Miniboss_01.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"Miniboss_01", material);
+				}
+
+				{
+					texture = Resources::Load<Texture>(L"miniboss_02", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\Miniboss_02.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"Miniboss_02", material);
+				}
+
+				{
+					texture = Resources::Load<Texture>(L"miniboss_03", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\Miniboss_03.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"Miniboss_03", material);
+				}
+
+				{
+					texture = Resources::Load<Texture>(L"miniboss_04", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\Miniboss_04.png");
+					material = std::make_shared<Material>();
+					material->SetShader(spriteShader);
+					material->SetTexture(texture);
+					material->SetRenderingMode(eRenderingMode::Transparent);
+					Resources::Insert(L"Miniboss_04", material);
+				}
+
+
+
+
+
+
+
+
+
+
+
+				{
 					texture = Resources::Load<Texture>(L"foreGround_stage2_00", L"..\\Resources\\Texture\\Stage2\\PUBLC_BG\\ForeGround_Stage2_00.png");
 					material = std::make_shared<Material>();
 					material->SetShader(spriteShader);

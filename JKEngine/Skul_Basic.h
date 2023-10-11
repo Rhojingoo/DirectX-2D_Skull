@@ -12,7 +12,8 @@
 #include "Slash_Effect.h"
 #include "Player_AfterImage.h"
 #include "HitBox_Player.h"
-
+#include "Mushroom_Spring.h"
+#include "Sofa_Spring.h"
 
 #include "..\Engine_SOURCE\jkAudioSource.h"
 

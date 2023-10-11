@@ -12,6 +12,12 @@ namespace jk
 
 	void Stage2_1::Initialize()
 	{
+
+		OBJPOOL = new Monster_ObjPool(2, 10, 20, 10);
+
+		SetMonOBJ();
+
+
 		#pragma region CollisionManager
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 			CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
@@ -27,11 +33,24 @@ namespace jk
 			CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 		#pragma endregion 
 
-				Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
-				_player->SetName(L"player_select");
+			_player = object::Instantiate<Player>(Vector3(-820.f, 150.f, -250.f), eLayerType::Player);
+			_player->SetName(L"player_select");
 
-				//Layana_Sisters* testboss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
-				//testboss->SetName(L"test_BOSS");
+
+
+		#pragma region Door
+					Door1 = object::Instantiate<Stage2_Door>(Vector3(567.f, 65.f, -249.f), eLayerType::BACK_GROUND);
+					Door1->Set_Door_Allow(true); Door1->Set_Stage2_Door(6);	Door1->Set_NextStage(L"Stage2_mBoss");
+
+
+					Stage2_Door* Door2 = object::Instantiate<Stage2_Door>(Vector3(837.f, 65.f, -249.f), eLayerType::BACK_GROUND);
+					Door2->Set_Door_Allow(true); Door2->Set_Stage2_Door(9); Door2->Set_NextStage(L"Stage2_mBoss");
+
+
+					Stage_end_wall* Door_Wall = object::Instantiate<Stage_end_wall>(Vector3(700.f, 65.f, -248.f), eLayerType::BACK_GROUND);
+					Door_Wall->Set_Wall_Allow(true);  Door_Wall->Set_Wall_Stage(1);
+		#pragma endregion	
+
 
 
 		#pragma region BackGround &Tile
@@ -64,6 +83,19 @@ namespace jk
 						Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 50.f), eLayerType::Fore_Ground, L"BackGround_Stage2_01");
 						Back_Ground->GetComponent<Transform>()->SetScale(Vector3(1920.f, 800.f, 0.0f));
 					}	
+
+					{
+						Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(85.f, 0.f, 42.f), eLayerType::Fore_Ground, L"BackGround_Stage2_03");
+						Back_Ground->GetComponent<Transform>()->SetScale(Vector3(1676.f, 960.f, 0.0f));
+					}
+
+					{
+						Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 41.f), eLayerType::Fore_Ground, L"BackGround_Stage2_05");
+						Back_Ground->GetComponent<Transform>()->SetScale(Vector3(1920.f, 800.f, 0.0f));
+					}
+
+
+
 			#pragma endregion
 			#pragma region Tile & Ground_Col
 					{
@@ -121,18 +153,87 @@ namespace jk
 						TileMap::TileMap_Setting(Tile_map, L"Stage2_Tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Stage2_1.xml");
 					}
 			#pragma endregion
-		#pragma endregion 
-
-
-	
+		#pragma endregion 	
 	}
 
 	void Stage2_1::Update()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+
+		if (_player->firstGroundcheck == true)
+		{
+			if (first_groundturch == false)
+			{
+				first_groundturch = true;
+			}
+		}
+
+		if (first_groundturch == true)
+		{
+			if (first_MonsterCreate == false)
+			{
+				for (Monster* mon : monsterGroup1)
+				{
+					mon->SetState(GameObject::eState::Active);
+				}
+				first_MonsterCreate = true;
+			}
+		}
+		firstMonsters = AreAllMonstersDead(monsterGroup1, firstMonsters);
+		if (firstMonsters == true)
+		{
+			if (change_monster1 == false)
+			{
+				for (Monster* mon : monsterGroup2)
+				{
+					mon->SetState(GameObject::eState::Active);
+				}
+				change_monster1 = true;
+			}
+		}
+
+		secondMonsters = AreAllMonstersDead(monsterGroup2, secondMonsters);
+		if (secondMonsters == true)
+		{
+			if (change_monster2 == false)
+			{
+				for (Monster* mon : monsterGroup3)
+				{
+					mon->SetState(GameObject::eState::Active);
+				}
+				change_monster2 = true;
+			}
+		}
+
+		thirdMonsters = AreAllMonstersDead(monsterGroup3, thirdMonsters);
+		if (thirdMonsters == true)
+		{
+			if (change_monster3 == false)
+			{
+				change_monster3 = true;
+			}
+		}
+		if (change_monster3 == true)
+		{
+			Door1->Set_Door_Allow(true);
+			Door1->Set_Stage2_Door(2);
+		}
+
+
+		if (_changecheck == true)
+		{
+			_player->SetPlayer_Pos(player_pos);
+			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
+			_changecheck = false;
+		}
+
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(L"Stage2_mBoss");
 		}
+
 		Scene::Update();
 	}
 
@@ -146,8 +247,16 @@ namespace jk
 		Scene::Render();
 	}
 	void Stage2_1::OnEnter()
-	{
-#pragma region Cam & Mouse& Grid
+	{	
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+		_player->SetPlayer_Pos(player_pos);
+		_player->SetSwitch(true);
+		_changecheck = true;
+
+		_player->firstGroundcheck = false;
+
+		#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		Camera* cameraComp = camera->AddComponent<Camera>();
@@ -190,5 +299,135 @@ namespace jk
 	}
 	void Stage2_1::OnExit()
 	{
+		//_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
+	}
+	void Stage2_1::CamareShooting()
+	{
+	}
+	void Stage2_1::SetMonOBJ()
+	{
+		//monsterGroup1
+		for (int i = 0; i < 7; i++)
+		{
+			Monster* _warrior = OBJPOOL->Get_Goldwarrior();
+			_warrior->Initialize();
+			Transform* ttr = _warrior->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(-460 + i * 120, -190, -249));
+			AddMonster(_warrior);
+			_warrior->SetState(GameObject::eState::Paused);
+			monsterGroup1.push_back(_warrior);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* _warrior = OBJPOOL->Get_GoldHammer();
+			_warrior->Initialize();
+			Transform* ttr = _warrior->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(-350 + i * 300, -190, -249));
+			AddMonster(_warrior);
+			_warrior->SetState(GameObject::eState::Paused);
+			monsterGroup1.push_back(_warrior);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* _warrior = OBJPOOL->Get_wizard();
+			_warrior->Initialize();
+			Transform* ttr = _warrior->GetComponent<Transform>();
+			ttr->SetPosition(Vector3( -100+ i * 200, -190, -249));
+			AddMonster(_warrior);
+			_warrior->SetState(GameObject::eState::Paused);
+			monsterGroup1.push_back(_warrior);
+		}
+
+
+		//monsterGroup2
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = OBJPOOL->Get_Goldwarrior();
+			newMonster->Initialize();
+			Transform* ttr = newMonster->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(-400 + i * 100, -190, -249));
+			AddMonster(newMonster);
+			newMonster->SetState(GameObject::eState::Paused);
+			monsterGroup2.push_back(newMonster);
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			Monster* newMonster = OBJPOOL->Get_wizard();
+			newMonster->Initialize();
+			Transform* ttr = newMonster->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(-100 + i * 150, -190, -249));
+			AddMonster(newMonster);
+			newMonster->SetState(GameObject::eState::Paused);
+			monsterGroup2.push_back(newMonster);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Monster* newMonster = OBJPOOL->Get_GoldHammer();
+			newMonster->Initialize();
+			Transform* ttr = newMonster->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(0 + i * 150, -190, -249));
+			AddMonster(newMonster);
+			newMonster->SetState(GameObject::eState::Paused);
+			monsterGroup2.push_back(newMonster);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Monster* newMonster = OBJPOOL->Get_LionSpear();
+			newMonster->Initialize();
+			Transform* ttr = newMonster->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(0 + i * 150, -190, -249));
+			AddMonster(newMonster);
+			newMonster->SetState(GameObject::eState::Paused);
+			monsterGroup2.push_back(newMonster);
+		}
+
+		//monsterGroup3
+		for (int i = 0; i < 10; i++)
+		{
+			Monster* newMonster = OBJPOOL->Get_Goldwarrior();
+			newMonster->Initialize();
+			Transform* ttr = newMonster->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(-400 + i * 75, -190, -249));
+			AddMonster(newMonster);
+			newMonster->SetState(GameObject::eState::Paused);
+			monsterGroup3.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = OBJPOOL->Get_LionSpear();
+			newMonster->Initialize();
+			Transform* ttr = newMonster->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(-300 + i * 300, -190, -249));
+			AddMonster(newMonster);
+			newMonster->SetState(GameObject::eState::Paused);
+			monsterGroup3.push_back(newMonster);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			Monster* newMonster = OBJPOOL->Get_LionWarrior();
+			newMonster->Initialize();
+			Transform* ttr = newMonster->GetComponent<Transform>();
+			ttr->SetPosition(Vector3(-150 + i * 150, -190, -249));
+			AddMonster(newMonster);
+			newMonster->SetState(GameObject::eState::Paused);
+			monsterGroup3.push_back(newMonster);
+		}
+
+
+	}
+	bool Stage2_1::AreAllMonstersDead(const std::vector<Monster*>& monsterGroup, bool check)
+	{
+		for (const Monster* monster : monsterGroup)
+		{
+			if (!monster->_Die)
+			{
+				check = false;
+				// 하나라도 살아있는 몬스터가 있으면 false 반환
+				return check;
+			}
+		}
+		// 모든 몬스터가 죽었다면 true 반환
+		check = true;
+		return check;
 	}
 }

@@ -330,8 +330,7 @@ namespace jk
 					_hit_particle = true;
 				}
 				if (mDir == -1)
-				{				
-					at->PlayAnimation(L"Stone_wizardHitR", false);
+				{		
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					tr->SetPosition(pos);
 					Monster_Hp->_HitOn = true;
@@ -561,7 +560,7 @@ namespace jk
 
 		if (_time > 2.5f)
 		{
-			if ((_distance >= 100 || _distance <= -100))
+			if ((_distance < 200 && _distance > -200))
 			{
 				_state = Stone_wizard_State::Attack_Ready;
 				if (mDir == 1)

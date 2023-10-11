@@ -157,6 +157,37 @@ namespace jk
 		pos = tr->GetPosition();
 		_velocity = _rigidbody->GetVelocity();
 
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Hit_Sword->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Knight_Slash->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _DarkKnight->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
+		}
+
+
+
 		 if (_switch == true)
 		 {
 			 _State = Skul_Wolf::Skul_Wolf_State::Switch;
@@ -217,6 +248,9 @@ namespace jk
 			break;
 
 		case jk::Skul_Wolf::Skul_Wolf_State::Death:death();
+			break;
+
+		case jk::Skul_Wolf::Skul_Wolf_State::Stun:stun();
 			break;
 
 		default:
@@ -778,6 +812,62 @@ namespace jk
 
 	void Skul_Wolf::OnCollisionEnter(Collider2D* other)
 	{
+		//spring
+		if (Mushroom_Spring* _Spring = dynamic_cast<Mushroom_Spring*>(other->GetOwner()))
+		{
+			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+			Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
+			Vector3 Ground_pos = Ground_TR->GetPosition();
+			float Gr_Size = Ground_Col->GetScale().y / 2;
+			float Gr_Top_pos = Ground_pos.y + Gr_Size;
+
+			float Skul_halfsize = _collider->GetScale().y / 2;
+			float skul_footpos = pos.y - Skul_halfsize;
+
+			if (skul_footpos > Gr_Top_pos)
+			{
+				_rigidbody->ClearVelocity();
+				_Ground_check = true;
+				_rigidbody->SetGround(false);
+				_rigidbody->SetVelocity(Vector2(0.f, 950.f));
+
+
+				_State = Skul_Wolf_State::Jump;
+				if (mDir == 1)			
+					at->PlayAnimation(L"WolfJump", true);					
+				else					
+					at->PlayAnimation(L"WolfJumpR", true);				
+			}
+		}
+
+		if (Sofa_Spring* _Spring = dynamic_cast<Sofa_Spring*>(other->GetOwner()))
+		{
+			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
+			Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
+			Vector3 Ground_pos = Ground_TR->GetPosition();
+			float Gr_Size = Ground_Col->GetScale().y / 2;
+			float Gr_Top_pos = Ground_pos.y + Gr_Size;
+
+			float Skul_halfsize = _collider->GetScale().y / 2;
+			float skul_footpos = pos.y - Skul_halfsize;
+
+			if (skul_footpos > Gr_Top_pos)
+			{
+				_rigidbody->ClearVelocity();
+				_Ground_check = true;
+				_rigidbody->SetGround(false);
+				_rigidbody->SetVelocity(Vector2(0.f, 750.f));
+
+
+				_State = Skul_Wolf_State::Jump;
+				if (mDir == 1)
+					at->PlayAnimation(L"WolfJump", true);
+				else
+					at->PlayAnimation(L"WolfJumpR", true);
+			}
+		}
+
+
 		//Monster
 		if (HitBox_Monster* _Monster = dynamic_cast<HitBox_Monster*>(other->GetOwner()))
 		{
@@ -1491,6 +1581,13 @@ namespace jk
 				_rigidbody->ClearVelocity();
 
 
+				if (_Firsrt_Ground == false)
+				{
+					firstGroundcheck = true;
+					_Firsrt_Ground = true;
+				}
+
+
 				_State = Skul_Wolf_State::Idle;
 				if (mDir == 1)
 					at->PlayAnimation(L"WolfIdle", true);
@@ -1523,6 +1620,12 @@ namespace jk
 				_rigidbody->SetGround(true);
 				_Ground_check = true;
 				_rigidbody->ClearVelocity();
+
+				if (_Firsrt_Ground == false)
+				{
+					firstGroundcheck = true;
+					_Firsrt_Ground = true;
+				}
 
 
 				_State = Skul_Wolf_State::Idle;
@@ -1738,8 +1841,9 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SetPlay_List(PlayerList::basic_Skul,PlayerList::wolf_Skul, true, mDir);
+			SetPlay_List(PlayerList::basic_Skul, PlayerList::wolf_Skul, true, mDir);
 			SetPlayer_Pos(pos);
+			Hit_Box->SetState(eState::Paused);
 		}
 	}
 }

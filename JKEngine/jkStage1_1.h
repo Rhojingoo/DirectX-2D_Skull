@@ -46,6 +46,7 @@ namespace jk
 		bool first_groundturch = false;;
 		bool first_MonsterCreate = false;;
 
+	private:
 		Monster_ObjPool* OBJPOOL = nullptr;
 		Stage_Manager* StageMn = nullptr;
 		bool firstMonsters = false;
