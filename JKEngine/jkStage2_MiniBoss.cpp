@@ -6,6 +6,10 @@ jk::Stage2_MiniBoss::Stage2_MiniBoss()
 
 jk::Stage2_MiniBoss::~Stage2_MiniBoss()
 {
+	delete OBJPOOL;
+	OBJPOOL = nullptr;
+
+	mBossGroup.clear();
 }
 
 void jk::Stage2_MiniBoss::Initialize()
@@ -142,16 +146,17 @@ void jk::Stage2_MiniBoss::Update()
 
 	if (_player->firstGroundcheck == true)
 	{
-		if (_first_groundturch == false)
+		if (_first_groundtouch == false)
 		{
-			_first_groundturch = true;
-			_MiniBoss_groundturch = true;
+			_first_groundtouch = true;
 		}
 	}
 
-	if (_first_groundturch == true)
+	CamareShooting();
+
+	if (_first_groundtouch == true)
 	{
-		if (_MiniBoss_groundturch == true)
+		if (_MiniBoss_groundtouch == true)
 		{
 			if (_MiniBoss_Create == false)
 			{
@@ -171,7 +176,7 @@ void jk::Stage2_MiniBoss::Update()
 		if (_Door_Open == false)
 		{
 			//as->Stop();
-			//cameraComp->SetCameraXY = true;
+			cameraComp->SetCameraXY = true;
 			Door1->Set_Door_Allow(true);
 			Door1->Set_Stage2_Door(1);
 			_Door_Open = true;
@@ -213,18 +218,29 @@ void jk::Stage2_MiniBoss::OnEnter()
 	_player->SetPlayer_Pos(player_pos);
 	_player->SetSwitch(true);
 	_changecheck = true;
-
 	_player->firstGroundcheck = false;
+
+	Mini_Boss::Left_Ground = (Vector3(-480.f, 0.f, 0.f));
+	Mini_Boss::Right_Ground = (Vector3(480.f, 0.f, 0.f));
 	
 	#pragma region Camera & Grid
 
 	//Main Camera
 	Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-	Camera* cameraComp = camera->AddComponent<Camera>();
+	cameraComp = camera->AddComponent<Camera>();
 	cameraComp->TurnLayerMask(eLayerType::UI, false);
 	camera->AddComponent<CameraScript>();
 	renderer::cameras.push_back(cameraComp);
 	renderer::mainCamera = cameraComp;
+	cameraComp->SetCamera = true;
+	Transform* camTR = camera->GetComponent<Transform>();
+	camTR->SetPosition(Vector3(player_pos.x + 180, player_pos.y, -60.f));
+	cameraComp->Set_MaxPlayerX(600.f);
+	cameraComp->Set_MinPlayerX(-650.f);
+	cameraComp->Set_MaxPlayerY(400.f);
+	cameraComp->Set_MinPlayerY(-360.f);
+
+
 
 	//UI Camera		
 	UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -258,6 +274,32 @@ void jk::Stage2_MiniBoss::OnExit()
 
 void jk::Stage2_MiniBoss::CamareShooting()
 {
+	Transform* PlayerTR = _player->GetComponent<Transform>();
+	Vector3 player_pos = PlayerTR->GetPosition();
+
+	if (_MiniBoss_Create == false)
+	{
+		if (player_pos.x <= -490 && player_pos.x > -550)
+		{
+			cameraComp->SetTarget(_player);
+			cameraComp->SetCameraXY = true;
+		}	
+
+		if (player_pos.x >= -10)
+		{
+			_MiniBoss_groundtouch = true;
+		}
+	}
+	else
+	{
+		if (_Door_Open == false)
+		{
+			cameraComp->SetCameraXY = false;
+			cameraComp->SetCameraX = true;
+			if (player_pos.x >= 175 || player_pos.x < -170)
+				cameraComp->SetCameraX = false;
+		}
+	}
 }
 
 void jk::Stage2_MiniBoss::CreateMiniboss(int stage)
@@ -317,7 +359,7 @@ void jk::Stage2_MiniBoss::CreateMiniboss(int stage)
 		{
 			do
 			{
-				_Randomcheck = Mboss->random(0, 3);
+				_Randomcheck = Mboss->random(0, 2);
 			} while (std::find(selectedMonsters.begin(), selectedMonsters.end(), _Randomcheck) != selectedMonsters.end()); // 이미 선택된 몬스터 번호가 아닐 때까지 반복
 			selectedMonsters.push_back(_Randomcheck); // 선택된 몬스터 번호 저장				
 		}

@@ -11,7 +11,7 @@ namespace jk
 	}
 	void Stage2_Boss::Initialize()
 	{
-#pragma region CollisionManager
+		#pragma region CollisionManager
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Item, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Player, true);
@@ -27,15 +27,13 @@ namespace jk
 #pragma endregion 
 
 
-		Player* _player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+		_player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 
 		_Layana_Boss = object::Instantiate<Layana_Sisters>(Vector3(0.f, 0.f, -250.f), eLayerType::Boss);
 		_Layana_Boss->SetName(L"_Layana_Boss");
 
-
-
-#pragma region BackGround
+		#pragma region BackGround
 
 		{
 			Back_ground* Back_Ground = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 10.f), eLayerType::BACK_GROUND, L"Layana_Sisters_Map");
@@ -70,11 +68,29 @@ namespace jk
 		}
 #pragma endregion
 #pragma endregion 
-
-
 	}
 	void Stage2_Boss::Update()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+
+		if (_player->firstGroundcheck == true)
+		{
+			if (first_groundtouch == false)
+			{
+				first_groundtouch = true;
+			}
+		}
+
+		CamareShooting();
+
+		if (_changecheck == true)
+		{
+			_player->SetPlayer_Pos(player_pos);
+			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
+			_changecheck = false;
+		}
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(L"TitleScene");
@@ -91,15 +107,31 @@ namespace jk
 	}
 	void Stage2_Boss::OnEnter()
 	{
-#pragma region Camera & Grid
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+		_player->SetPlayer_Pos(player_pos);
+		_player->SetSwitch(true);
+		_changecheck = true;
+		_player->firstGroundcheck = false;
 
+#pragma region Camera & Grid
 		//Main Camera
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
+		cameraComp->SetTarget(_player);
+		cameraComp->SetCamera = true;
+		cameraComp->SetLayanaCamera = true;
+		//cameraComp->SetYggdrasilCamera = true;
+		
+		cameraComp->SetCameraXY = true;
+		cameraComp->Set_MaxPlayerX(112.f);
+		cameraComp->Set_MinPlayerX(-112.f);
+		cameraComp->Set_MaxPlayerY(400.f);
+		cameraComp->Set_MinPlayerY(-360.f);
 
 		//UI Camera		
 		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -128,5 +160,17 @@ namespace jk
 	}
 	void Stage2_Boss::OnExit()
 	{
+	}
+	void Stage2_Boss::CamareShooting()
+	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+
+		if (first_groundtouch == true)
+		{
+			cameraComp->SetCameraXY = false;
+			//if(player_pos.x<=112 && player_pos.x>=-112)
+			//	cameraComp->SetCameraX = true;
+		}
 	}
 }

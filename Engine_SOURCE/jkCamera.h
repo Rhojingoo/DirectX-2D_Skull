@@ -69,6 +69,7 @@ namespace jk
 
 		bool SetCamera = false;
 		bool SetYggdrasilCamera = false;
+		bool SetLayanaCamera = false;
 		bool SetCameraXY = false;
 		bool SetCameraX = false;
 		bool SetCameraY = false;

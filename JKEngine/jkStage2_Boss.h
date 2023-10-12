@@ -18,10 +18,21 @@ namespace jk
 		virtual void OnEnter();
 		virtual void OnExit();
 
+		void CamareShooting();
+
 	private:
 		Camera* cameraComp = nullptr;
 		Player* _player = nullptr;
 		Layana_Sisters* _Layana_Boss = nullptr;
+
+	private:
+		float _time = 0.f;
+		bool _Fadecheck = false;
+		bool _changecheck = false;
+
+	private:
+		bool first_groundtouch = false;
+		bool first_MonsterCreate = false;
 
 	};
 }

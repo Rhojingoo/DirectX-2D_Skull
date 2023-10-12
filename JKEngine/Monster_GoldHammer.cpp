@@ -612,6 +612,31 @@ namespace jk
 				_rigidbody->ClearVelocity();
 			}
 		}
+
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			Transform* GRTR = mGround->GetComponent<Transform>();
+			Vector3 GRpos = GRTR->GetPosition();
+
+			if (GRpos.x > _pos.x)
+			{
+				_rigidbody->ClearVelocity();
+				if (_state == Monster_GoldHammer_State::WalkR)
+				{
+					_state = Monster_GoldHammer_State::WalkL;
+					at->PlayAnimation(L"GoldHammerWalkR", true);
+				}
+			}
+			else if (GRpos.x < _pos.x)
+			{
+				_rigidbody->ClearVelocity();
+				if (_state == Monster_GoldHammer_State::WalkL)
+				{
+					_state = Monster_GoldHammer_State::WalkR;
+					at->PlayAnimation(L"GoldHammerWalk", true);
+				}
+			}
+		}
 	}
 	void Monster_GoldHammer::OnCollisionExit(Collider2D* other)
 	{

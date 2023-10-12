@@ -53,7 +53,9 @@ namespace jk
 		bool change_monster2 = false;
 		bool change_monster3 = false;
 	private:
-		bool first_groundturch = false;;
+		bool first_groundtouch = false;;
 		bool first_MonsterCreate = false;;
+		bool _Monster_Start = false;
+		bool _CamFirstSet = false;
 	};
 }

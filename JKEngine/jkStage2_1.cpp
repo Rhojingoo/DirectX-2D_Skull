@@ -8,6 +8,12 @@ namespace jk
 
 	Stage2_1::~Stage2_1()
 	{
+		delete OBJPOOL;
+		OBJPOOL = nullptr;
+
+		monsterGroup1.clear();
+		monsterGroup2.clear();
+		monsterGroup3.clear();
 	}
 
 	void Stage2_1::Initialize()
@@ -161,15 +167,18 @@ namespace jk
 		Transform* PlayerTR = _player->GetComponent<Transform>();
 		Vector3 player_pos = PlayerTR->GetPosition();
 
+
 		if (_player->firstGroundcheck == true)
 		{
-			if (first_groundturch == false)
+			if (first_groundtouch == false)
 			{
-				first_groundturch = true;
+				first_groundtouch = true;
 			}
 		}
 
-		if (first_groundturch == true)
+		CamareShooting();
+
+		if (_Monster_Start == true)
 		{
 			if (first_MonsterCreate == false)
 			{
@@ -236,12 +245,10 @@ namespace jk
 
 		Scene::Update();
 	}
-
 	void Stage2_1::LateUpdate()
 	{
 		Scene::LateUpdate();
 	}
-
 	void Stage2_1::Render()
 	{
 		Scene::Render();
@@ -259,11 +266,20 @@ namespace jk
 		#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
+		cameraComp->SetCamera = true;
+		Transform* camTR = camera->GetComponent<Transform>();
+		camTR->SetPosition(Vector3(player_pos.x+180, player_pos.y, -10.f));
+		cameraComp->Set_MaxPlayerX(600.f);
+		cameraComp->Set_MinPlayerX(-650.f);
+		cameraComp->Set_MaxPlayerY(400.f);
+		cameraComp->Set_MinPlayerY(-360.f);
+
+
 
 		//UI Camera		
 		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -303,6 +319,27 @@ namespace jk
 	}
 	void Stage2_1::CamareShooting()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+
+		if (first_groundtouch == true)
+		{
+			if (_CamFirstSet == false)
+			{
+				cameraComp->SetTarget(_player);
+				cameraComp->SetCameraY = true;
+				_CamFirstSet = true;
+				
+			}
+		}
+
+		if (player_pos.x <= -450 && player_pos.y <= -220)
+		{
+			cameraComp->Set_MinPlayerX(-600.f);
+			cameraComp->SetCameraX = true;
+			_Monster_Start = true;
+		}
+	
 	}
 	void Stage2_1::SetMonOBJ()
 	{

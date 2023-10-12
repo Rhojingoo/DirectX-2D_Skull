@@ -1060,6 +1060,34 @@ namespace jk
 			}
 			else
 			{
+
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				float CheckPos = fabs(_pos.y - GRpos.y);
+				if (95 > CheckPos)
+				{
+					_pos.y = GRpos.y + 95;
+					tr->SetPosition(_pos);
+				}
+				//Transform* GRTR = mGround->GetComponent<Transform>();
+				//Vector3 GRpos = GRTR->GetPosition();
+				//{
+				//	Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+				//	float GrColsize = GRCol->GetScale().y / 2;
+				//	float playercolsize = _collider->GetScale().y / 2;
+				//	float Sizecheck = playercolsize + GrColsize;
+
+
+				//	float CheckPos = fabs(_pos.y - GRpos.y);
+				//	if (Sizecheck > CheckPos)
+				//	{
+				//		_pos.y = GRpos.y + Sizecheck;
+				//		tr->SetPosition(_pos);
+				//	}
+				//}
+
+
+
 				if (_ShortHair_state == Layana_ShortHair_State::Meteor_Cross_Landing)
 				{
 					_HitBox_Attack_On = false;
@@ -1270,8 +1298,6 @@ namespace jk
 		}
 	}
 
-
-
 	void Layana_ShortHair::Intro_Dash()
 	{
 		_Attacktime += Time::DeltaTime();
@@ -1314,8 +1340,6 @@ namespace jk
 			Dash_SM->SetState(eState::Active);
 		}
 	}
-
-
 
 	void Layana_ShortHair::Sisters_Attack_Set()
 	{
@@ -1451,13 +1475,13 @@ namespace jk
 				_rigidbody->SetGround(false);
 				if (_pos.x < _ShortHairCreatepos.x)
 				{
-					_rigidbody->SetVelocity(Vector2(700.f, -350.f));
+					_rigidbody->SetVelocity(Vector2(850.f, -350.f));
 					at->PlayAnimation(L"Short_hairDash_S", true);
 					_HitBox_Dir = 1;
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(-700.f, -350.f));
+					_rigidbody->SetVelocity(Vector2(-850.f, -350.f));
 					at->PlayAnimation(L"Short_hairDash_SR", true);
 					_HitBox_Dir = -1;
 				}
@@ -1477,8 +1501,6 @@ namespace jk
 			}
 		}
 	}
-
-
 
 	void Layana_ShortHair::Sisters_Attack_A_Ready()
 	{
@@ -1566,7 +1588,6 @@ namespace jk
 			_HitBox_Attack_On = false;
 		}
 	}
-
 
 
 	void Layana_ShortHair::Sisters_Attack_B_Ready()
@@ -1846,13 +1867,13 @@ namespace jk
 				_rigidbody->SetGround(false);
 				if (_pos.x < _ShortHairCreatepos.x)
 				{
-					_rigidbody->SetVelocity(Vector2(700.f, -350.f));
+					_rigidbody->SetVelocity(Vector2(850.f, -350.f));
 					at->PlayAnimation(L"Short_hairDash_S", true);
 					_HitBox_Dir = 1;
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(-700.f, -350.f));
+					_rigidbody->SetVelocity(Vector2(-850.f, -350.f));
 					at->PlayAnimation(L"Short_hairDash_SR", true);
 					_HitBox_Dir = -1;
 				}

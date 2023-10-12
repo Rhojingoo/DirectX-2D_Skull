@@ -925,6 +925,13 @@ namespace jk
 				}
 			}
 		}
+
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			Transform* GRTR = mGround->GetComponent<Transform>();
+			Vector3 GRpos = GRTR->GetPosition();
+			_rigidbody->ClearVelocity();
+		}
 	}
 	void Mage::OnCollisionExit(Collider2D* other)
 	{

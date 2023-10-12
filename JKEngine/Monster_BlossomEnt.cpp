@@ -465,6 +465,25 @@ namespace jk
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
 			}
+			else
+			{
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize + 5;
+
+
+					float CheckPos = fabs(_pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						_pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(_pos);
+					}
+				}
+			}
 		}
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
@@ -476,6 +495,25 @@ namespace jk
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
 			}
+			else
+			{
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize + 5;
+
+
+					float CheckPos = fabs(_pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						_pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(_pos);
+					}
+				}
+			}
 		}
 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
@@ -486,6 +524,25 @@ namespace jk
 				_Ground_check = true;
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
+			}
+			else
+			{
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize + 5;
+
+
+					float CheckPos = fabs(_pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						_pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(_pos);
+					}
+				}
 			}
 		}
 	}

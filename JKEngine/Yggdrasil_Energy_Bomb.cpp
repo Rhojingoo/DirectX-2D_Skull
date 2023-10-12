@@ -72,6 +72,22 @@ namespace jk
 				_effect_switch = false;
 			}
 		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+
+			if (_EffectSwitch == true)
+			{
+				Transform* EffectTR = BulletEffect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition().x, tr->GetPosition().y - 20, tr->GetPosition().z);
+				BulletEffect->SetState(eState::Active);
+				_EffectSwitch = false;
+				_effect_switch = false;
+			}
+		}
+
 	}
 	void Yggdrasil_Energy_Bomb::OnCollisionExit(Collider2D* other)
 	{

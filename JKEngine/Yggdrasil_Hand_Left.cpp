@@ -292,6 +292,7 @@ namespace jk
 
 	void Yggdrasil_Hand_Left::OnCollisionEnter(Collider2D* other)
 	{
+		
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
 			if (_Ground_check == false)
@@ -322,6 +323,40 @@ namespace jk
 			else
 			{			
 				if(FistSlam_Smoke->_EffectOn == false)
+					FistSlam_Smoke->SetState(eState::Paused);
+			}
+		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			if (_Ground_check == false)
+			{
+				_rigidbody->SetGround(true);
+				_rigidbody->ClearVelocity();
+				_Ground_check = true;
+				_time += Time::DeltaTime();
+				_Attackswitch = true;
+				_NumberofAttack++;
+
+				if (_state == Yggdrasil_State::Attack_A_Left)
+				{
+					FistSlam_Smoke->SetState(eState::Active);
+					FistSlam_Smoke->_EffectOn = true;
+					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 60, _playerpos.z - 1));
+					_HitBox_Attack_On = false;
+				}
+				if (_state == Yggdrasil_State::Attack_D)
+				{
+					FistSlam_Smoke->SetState(eState::Active);
+					FistSlam_Smoke->_EffectOn = true;
+					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 100, _pos.z - 1));
+				}
+			}
+			else
+			{
+				if (FistSlam_Smoke->_EffectOn == false)
 					FistSlam_Smoke->SetState(eState::Paused);
 			}
 		}

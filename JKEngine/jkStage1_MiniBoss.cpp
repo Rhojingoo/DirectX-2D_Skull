@@ -128,15 +128,15 @@ namespace jk
 
 		if (_player->firstGroundcheck == true)
 		{
-			if (_first_groundturch == false)
+			if (_first_groundtouch == false)
 			{
-				_first_groundturch = true;
+				_first_groundtouch = true;
 			}
 		}
 
-		if (_first_groundturch == true)
+		if (_first_groundtouch == true)
 		{
-			if (_MiniBoss_groundturch == true)
+			if (_MiniBoss_groundtouch == true)
 			{
 				if (_MiniBoss_Create == false)
 				{
@@ -198,8 +198,10 @@ namespace jk
 		_player->SetPlayer_Pos(player_pos);
 		_player->SetSwitch(true);
 		_changecheck = true;
-
 		_player->firstGroundcheck = false;
+
+		Mini_Boss::Left_Ground = (Vector3(-320.f, 0.f, 0.f));
+		Mini_Boss::Right_Ground = (Vector3(320.f, 0.f, 0.f));
 
 		#pragma region Cam & Mouse& Grid
 				//Main Camera			
@@ -249,8 +251,6 @@ namespace jk
 				gridSc->SetCamera(cameraComp);
 		#pragma endregion	
 
-		Mini_Boss::Left_Ground = (Vector3(-320.f, 0.f, 0.f));
-		Mini_Boss::Right_Ground = (Vector3(320.f, 0.f, 0.f));
 	}
 	void Stage1_MiniBoss::OnExit()
 	{
@@ -273,7 +273,7 @@ namespace jk
 			if (player_pos.x > -10)
 			{
 				cameraComp->SetCameraXY = false;
-				_MiniBoss_groundturch = true;				
+				_MiniBoss_groundtouch = true;				
 			}
 		}
 	}
@@ -282,7 +282,7 @@ namespace jk
 	{
 		if (stage == 1)
 		{
-			_Randomcheck = Mboss->random(0, 3);
+			_Randomcheck = Mboss->random(0, 2);
 			if (_Randomcheck == 0)
 			{
 				Mini_Boss* _Gobjs = OBJPOOL->Get_Knight_male();
@@ -291,7 +291,7 @@ namespace jk
 				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
 				_Gobjs->SetState(GameObject::eState::Paused);
 				Transform* tr = _Gobjs->GetComponent<Transform>();
-				tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+				tr->SetPosition(Vector3(200.f, -200.f, -250.f));
 				mBossGroup.push_back(_Gobjs);
 			}
 			if (_Randomcheck == 1)
@@ -302,7 +302,7 @@ namespace jk
 				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
 				_Gobjs->SetState(GameObject::eState::Paused);
 				Transform* tr = _Gobjs->GetComponent<Transform>();
-				tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+				tr->SetPosition(Vector3(200.f, -200.f, -250.f));
 				mBossGroup.push_back(_Gobjs);
 			}
 			if (_Randomcheck == 2)
@@ -313,7 +313,7 @@ namespace jk
 				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
 				_Gobjs->SetState(GameObject::eState::Paused);
 				Transform* tr = _Gobjs->GetComponent<Transform>();
-				tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+				tr->SetPosition(Vector3(200.f, -200.f, -250.f));
 				mBossGroup.push_back(_Gobjs);
 			}
 			if (_Randomcheck == 3)
@@ -324,7 +324,7 @@ namespace jk
 				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
 				_Gobjs->SetState(GameObject::eState::Paused);
 				Transform* tr = _Gobjs->GetComponent<Transform>();
-				tr->SetPosition(Vector3(200.f, 0.f, -250.f));
+				tr->SetPosition(Vector3(200.f, -200.f, -250.f));
 				mBossGroup.push_back(_Gobjs);
 			}
 		}

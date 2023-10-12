@@ -151,6 +151,27 @@ namespace jk
                     continue;
                 delete monster;
             }
+            //
+            for (Monster_LionSpear* monster : LionSpear_pool)
+            {
+                if (monster == nullptr)
+                    continue;
+                delete monster;
+            }
+
+            for (Monster_LionWarrior* monster : LionWarrior_pool)
+            {
+                if (monster == nullptr)
+                    continue;
+                delete monster;
+            }
+
+            for (Monster_LionWizard* monster : LionWizard_pool)
+            {
+                if (monster == nullptr)
+                    continue;
+                delete monster;
+            }
         }
 
         #pragma region 몬스터 받기함수

@@ -53,6 +53,7 @@ namespace jk
 			if (_time > 3)
 			{
 				SceneManager::LoadScene(L"Start_Scene");
+				//SceneManager::LoadScene(L"Stage2_Boss");
 				_time = 0;
 				_Fadecheck = false;				
 			}

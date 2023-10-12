@@ -320,6 +320,40 @@ namespace jk
 					FistSlam_Smoke->SetState(eState::Paused);
 			}
 		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+
+			if (_Ground_check == false)
+			{
+				_rigidbody->SetGround(true);
+				_rigidbody->ClearVelocity();
+				_Ground_check = true;
+				_Attackswitch = true;
+				_NumberofAttack++;
+
+				if (_state == Yggdrasil_State::Attack_A_Right)
+				{
+					FistSlam_Smoke->SetState(eState::Active);
+					FistSlam_Smoke->_EffectOn = true;
+					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 60, _playerpos.z - 1));
+					_HitBox_Attack_On = false;
+				}
+				if (_state == Yggdrasil_State::Attack_D)
+				{
+					FistSlam_Smoke->SetState(eState::Active);
+					FistSlam_Smoke->_EffectOn = true;
+					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 100, _pos.z - 1.5));
+				}
+			}
+			else
+			{
+				if (FistSlam_Smoke->_EffectOn == false)
+					FistSlam_Smoke->SetState(eState::Paused);
+			}
+		}
 	}
 
 	void Yggdrasil_Hand_Right::OnCollisionStay(Collider2D* other)

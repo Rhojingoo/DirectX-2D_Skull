@@ -748,6 +748,13 @@ namespace jk
 			_Ground_check = _rigidbody->GetGround();
 			_rigidbody->ClearVelocity();
 		}
+
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			Transform* GRTR = mGround->GetComponent<Transform>();
+			Vector3 GRpos = GRTR->GetPosition();
+			_rigidbody->ClearVelocity();
+		}
 	}
 	void Cleric::OnCollisionExit(Collider2D* other)
 	{

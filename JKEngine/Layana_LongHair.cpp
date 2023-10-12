@@ -1054,6 +1054,34 @@ namespace jk
 			}
 			else
 			{
+
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				float CheckPos = fabs(_pos.y - GRpos.y);
+				if (95 > CheckPos)
+				{
+					_pos.y = GRpos.y + 95;
+					tr->SetPosition(_pos);
+				}
+
+				//Transform* GRTR = mGround->GetComponent<Transform>();
+				//Vector3 GRpos = GRTR->GetPosition();
+				//{
+				//	Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+				//	float GrColsize = GRCol->GetScale().y / 2;
+				//	float playercolsize = _collider->GetScale().y / 2;
+				//	float Sizecheck = playercolsize + GrColsize;
+
+
+				//	float CheckPos = fabs(_pos.y - GRpos.y);
+				//	if (Sizecheck > CheckPos)
+				//	{
+				//		_pos.y = GRpos.y + Sizecheck;
+				//		tr->SetPosition(_pos);
+				//	}
+				//}
+
+
 				if (_LongHair_state == Layana_LongHair_State::Meteor_Cross_Landing)
 				{						
 					_HitBox_Attack_On = false;
@@ -1446,13 +1474,13 @@ namespace jk
 				_rigidbody->SetGround(false);
 				if (_pos.x < _LongHairCreatepos.x)
 				{
-					_rigidbody->SetVelocity(Vector2(700.f, -350.f));
+					_rigidbody->SetVelocity(Vector2(850.f, -350.f));
 					at->PlayAnimation(L"Long_hairDash", true);
 					_HitBox_Dir = 1;
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(-700.f, -350.f));
+					_rigidbody->SetVelocity(Vector2(-850.f, -350.f));
 					at->PlayAnimation(L"Long_hairDashR", true);
 					_HitBox_Dir = -1;
 				}
@@ -1833,13 +1861,13 @@ namespace jk
 				_rigidbody->SetGround(false);
 				if (_pos.x < _LongHairCreatepos.x)
 				{
-					_rigidbody->SetVelocity(Vector2(900.f, -350.f));
+					_rigidbody->SetVelocity(Vector2(850.f, -350.f));
 					at->PlayAnimation(L"Long_hairDash", true);
 					_HitBox_Dir = 1;
 				}
 				else
 				{
-					_rigidbody->SetVelocity(Vector2(-900.f, -350.f));
+					_rigidbody->SetVelocity(Vector2(-850.f, -350.f));
 					at->PlayAnimation(L"Long_hairDashR", true);
 					_HitBox_Dir = -1;
 				}

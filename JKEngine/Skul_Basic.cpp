@@ -2134,6 +2134,25 @@ namespace jk
 			}
 			else
 			{
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize + 2;
+
+
+					float CheckPos = fabs(pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(pos);
+					}
+				}
+
+
+
 				_Player_GRpos = pos;
 				if (Input::GetKeyDown(eKeyCode::Z))
 				{
@@ -2210,6 +2229,23 @@ namespace jk
 			}
 			else
 			{
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize + 2;
+
+					float CheckPos = fabs(pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(pos);
+					}
+				}
+
+
 				_Player_GRpos = pos;
 				if (Input::GetKeyDown(eKeyCode::Z))
 				{
@@ -2257,6 +2293,26 @@ namespace jk
 
 			if (_SkyGround_check == true)
 			{
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize + 2;
+
+
+					float CheckPos = fabs(pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(pos);
+					}
+				}
+
+
+
+
 				_Player_GRpos = pos;
 				mGround->_SkullOn = true;
 				_Ground_check = true;		
@@ -2495,8 +2551,7 @@ namespace jk
 			//SetPlay_List(PlayerList::sowrd_Skul, PlayerList::basic_Skul, true, mDir);
 			//SetPlay_List(PlayerList::thief_Skul, PlayerList::basic_Skul, true, mDir);
 			pos.y = pos.y + 5;
-			SetPlayer_Pos(pos);
-			Hit_Box->SetState(eState::Paused);
+			SetPlayer_Pos(pos);	
 		}
 	}
 	void Skul_Basic::switch_on_off()

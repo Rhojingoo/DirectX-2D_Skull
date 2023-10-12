@@ -818,6 +818,13 @@ namespace jk
 					_BackDash = false;
 			}
 		}
+
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			Transform* GRTR = mGround->GetComponent<Transform>();
+			Vector3 GRpos = GRTR->GetPosition();
+			_rigidbody->ClearVelocity();
+		}
 	}
 	void Knight_male::OnCollisionExit(Collider2D* other)
 	{

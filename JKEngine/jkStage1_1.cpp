@@ -248,6 +248,7 @@ namespace jk
 		_player->SetPlayer_Pos(player_pos);
 		_player->SetSwitch(true);
 		_changecheck = true;
+		_player->firstGroundcheck = false;
 
 		#pragma region CollisionManager
 				CollisionManager::SetLayer(eLayerType::Player, eLayerType::BACK_GROUND, true);
@@ -265,8 +266,6 @@ namespace jk
 				CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
 				CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 		#pragma endregion 
-
-		_player->firstGroundcheck = false;
 
 		#pragma region Cam & Mouse& Grid
 				//Main Camera			
@@ -318,7 +317,6 @@ namespace jk
 	void Stage1_1::OnExit()
 	{
 		as->Stop();
-		monsterGroup1.clear();
 	}
 	void Stage1_1::CamareShooting()
 	{

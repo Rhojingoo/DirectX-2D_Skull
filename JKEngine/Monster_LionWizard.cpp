@@ -502,6 +502,22 @@ namespace jk
 			}
 			else
 			{
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize + 5;
+
+
+					float CheckPos = fabs(pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(pos);
+					}
+				}
 			}
 		}
 
@@ -531,6 +547,13 @@ namespace jk
 			else
 			{
 			}
+		}
+
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			Transform* GRTR = mGround->GetComponent<Transform>();
+			Vector3 GRpos = GRTR->GetPosition();
+			_rigidbody->ClearVelocity();
 		}
 	}
 	void Monster_LionWizard::OnCollisionExit(Collider2D* other)
@@ -774,6 +797,10 @@ namespace jk
 			Monster_DamegeHp->SetState(eState::Paused);
 			Monster_Hp->SetState(eState::Paused);
 			_Die = true;
+			for (int i = 0; i < 3; i++)
+			{
+				LionBullet[i]->SetState(eState::Paused);
+			}
 			this->SetState(eState::Paused);
 		}
 	}

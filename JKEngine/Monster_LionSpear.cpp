@@ -575,6 +575,31 @@ namespace jk
 				_rigidbody->ClearVelocity();
 			}
 		}
+
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			Transform* GRTR = mGround->GetComponent<Transform>();
+			Vector3 GRpos = GRTR->GetPosition();
+
+			if (GRpos.x > _pos.x)
+			{
+				_rigidbody->ClearVelocity();
+				if (_state == Monster_Lion_State::WalkR)
+				{
+					_state = Monster_Lion_State::WalkL;
+					at->PlayAnimation(L"Lion_SpearWalkR", true);
+				}
+			}
+			else if (GRpos.x < _pos.x)
+			{
+				_rigidbody->ClearVelocity();
+				if (_state == Monster_Lion_State::WalkL)
+				{
+					_state = Monster_Lion_State::WalkR;
+					at->PlayAnimation(L"Lion_SpearWalk", true);
+				}
+			}
+		}
 	}
 	void Monster_LionSpear::OnCollisionExit(Collider2D* other)
 	{

@@ -1595,7 +1595,25 @@ namespace jk
 					at->PlayAnimation(L"WolfIdleR", true);
 			}
 			else
-			{			
+			{		
+				
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize;
+
+
+					float CheckPos = fabs(pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(pos);
+					}
+				}
+
 				if (_State == Skul_Wolf_State::Hit)
 				{
 					_Ground_check = false;
@@ -1636,6 +1654,26 @@ namespace jk
 			}
 			else
 			{
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize;
+
+
+					float CheckPos = fabs(pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(pos);
+					}
+				}
+
+
+
+
 				if (_State == Skul_Wolf_State::Hit)
 				{
 					_Ground_check = false;
@@ -1676,6 +1714,24 @@ namespace jk
 			}
 			else
 			{
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize;
+
+
+					float CheckPos = fabs(pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(pos);
+					}
+				}
+
+
 				if (Input::GetKey(eKeyCode::V))
 				{
 					_rigidbody->SetVelocity(Vector2(0.f, -150.f));
@@ -1712,6 +1768,7 @@ namespace jk
 			_Rightmove_Lock = false;
 			_Leftmove_Lock = false;
 			_Ground_On = false;
+			_rigidbody->SetGround(false);
 
 			if(_wolf_act == true)
 				mGround->_SkullOn = false;

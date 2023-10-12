@@ -41,13 +41,14 @@ namespace jk
 		float _time = 0.f;
 		bool _Fadecheck = false;
 		bool _changecheck = false;
+		bool _mbosscreate = false;
 
 	private:
 		MiniBoss_ObjCreate* OBJPOOL = nullptr;
 		std::vector<Mini_Boss*> mBossGroup;
 
-		bool _first_groundturch = false;;
-		bool _MiniBoss_groundturch = false;
+		bool _first_groundtouch = false;;
+		bool _MiniBoss_groundtouch = false;
 		bool _MiniBoss_Create = false;;
 		bool _MiniBoss_Dead = false;;
 		bool _Door_Open = false;

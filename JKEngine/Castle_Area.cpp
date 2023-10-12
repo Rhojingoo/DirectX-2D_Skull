@@ -58,11 +58,13 @@ namespace jk
 				_player->SetName(L"player_select");
 		#pragma endregion
 
-		//Monster_warrior* test = object::Instantiate<Monster_warrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		//Stone_wizard* test1 = object::Instantiate<Stone_wizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		//Monster_GreenTree* test2 = object::Instantiate<Monster_GreenTree>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		//Monster_BlossomEnt* test3 = object::Instantiate<Monster_BlossomEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		//Monster_Hammer* test4 = object::Instantiate<Monster_Hammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+
+
+	//	Monster_warrior* test = object::Instantiate<Monster_warrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+	//	Stone_wizard* test1 = object::Instantiate<Stone_wizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+	//	Monster_GreenTree* test2 = object::Instantiate<Monster_GreenTree>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+	//	Monster_BlossomEnt* test3 = object::Instantiate<Monster_BlossomEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+	//	Monster_Hammer* test4 = object::Instantiate<Monster_Hammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 		//Monster_BigEnt* test5 = object::Instantiate<Monster_BigEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 
 

@@ -39,7 +39,8 @@ namespace jk
 		float _time = 0.f;
 		bool _Fadecheck = false;
 		bool _changecheck = false;
-
+		bool _CamFirstSet = false;
+		bool _Monster_Start = false;
 
 	private:
 		Monster_ObjPool* OBJPOOL = nullptr;
@@ -53,9 +54,11 @@ namespace jk
 		bool change_monster1 = false;
 		bool change_monster2 = false;
 		bool change_monster3 = false;
+
+
 	private:
-		bool first_groundturch = false;;
-		bool first_MonsterCreate = false;;
+		bool first_groundtouch = false;
+		bool first_MonsterCreate = false;
 
 
 	};

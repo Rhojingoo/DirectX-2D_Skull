@@ -336,6 +336,17 @@ namespace jk
 			}
 		}
 
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			if (_state == Yggdrasil_State::Groggy_Start || _state == Yggdrasil_State::Groggy_End)
+			{
+				Transform* bullet_tr = Groggy_impact->GetComponent<Transform>();
+				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y - 50, _pos.z - 1));
+				Groggy_impact->SetState(eState::Active);
+			}
+		}
+
+
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{
 			_Damage = player->GetDamage();
@@ -1051,7 +1062,7 @@ namespace jk
 			RigidBody* bullet_Rb = Energy_Corps[i]->GetComponent<RigidBody>();
 			_playerpos.x;
 			_playerpos.y;
-			Vector2 attack_pos = Vector2(_playerpos.x - _Bullet_pos.x, _playerpos.y - _Bullet_pos.y);
+			Vector2 attack_pos = Vector2(_playerpos.x , _playerpos.y );
 			attack_pos.Normalize();
 			bullet_Rb->SetGround(false);
 			bullet_Rb->SetVelocity(Vector2(attack_pos.x * 50.f, attack_pos.y * 250));

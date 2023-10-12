@@ -15,6 +15,7 @@ namespace jk
 	void Yggdrsil_Energy_Corps::Initialize()
 	{
 		_collider = AddComponent<Collider2D>();
+		_collider->SetType(eColliderType::Circle);
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
@@ -45,7 +46,7 @@ namespace jk
 	}
 	void Yggdrsil_Energy_Corps::LateUpdate()
 	{
-		_collider->SetSize(Vector2(0.05f, 0.1f));
+		_collider->SetSize(Vector2(0.75f, 0.75f));
 		_collider->SetCenter(Vector2(0.0f, -0.05f));
 		GameObject::LateUpdate();
 	}
@@ -69,6 +70,21 @@ namespace jk
 				EffectTR->SetPosition(tr->GetPosition());
 				BulletEffect->SetState(eState::Active);
 				_EffectSwitch = false;	
+				_effect_switch = false;
+			}
+		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+
+			if (_EffectSwitch == true)
+			{
+				Transform* EffectTR = BulletEffect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				BulletEffect->SetState(eState::Active);
+				_EffectSwitch = false;
 				_effect_switch = false;
 			}
 		}

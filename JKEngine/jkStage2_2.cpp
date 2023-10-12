@@ -8,6 +8,12 @@ namespace jk
 	}
 	Stage2_2::~Stage2_2()
 	{
+		delete OBJPOOL;
+		OBJPOOL = nullptr;
+
+		monsterGroup1.clear();
+		monsterGroup2.clear();
+		monsterGroup3.clear();
 	}
 	void Stage2_2::Initialize()
 	{
@@ -28,9 +34,9 @@ namespace jk
 
 			OBJPOOL = new Monster_ObjPool(2, 0, 10, 8);
 
-			//SetMonOBJ();
+			SetMonOBJ();
 
-			_player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
+			_player = object::Instantiate<Player>(Vector3(-770.f, -90.f, -250.f), eLayerType::Player);
 			_player->SetName(L"player_select");
 
 
@@ -136,13 +142,15 @@ namespace jk
 
 		if (_player->firstGroundcheck == true)
 		{
-			if (first_groundturch == false)
+			if (first_groundtouch == false)
 			{
-				first_groundturch = true;
+				first_groundtouch = true;
 			}
 		}
 
-		if (first_groundturch == true)
+		CamareShooting();
+
+		if (_Monster_Start == true)
 		{
 			if (first_MonsterCreate == false)
 			{
@@ -229,11 +237,19 @@ namespace jk
 
 		//Main Camera
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
-		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		camera->AddComponent<CameraScript>();
 		renderer::cameras.push_back(cameraComp);
 		renderer::mainCamera = cameraComp;
+		cameraComp->SetCamera = true;
+		Transform* camTR = camera->GetComponent<Transform>();
+		camTR->SetPosition(Vector3(player_pos.x + 180, player_pos.y, -10.f));
+		cameraComp->Set_MaxPlayerX(600.f);
+		cameraComp->Set_MinPlayerX(-650.f);
+		cameraComp->Set_MaxPlayerY(400.f);
+		cameraComp->Set_MinPlayerY(-360.f);
+
 
 		//UI Camera		
 		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -266,6 +282,26 @@ namespace jk
 
 	void Stage2_2::CamareShooting()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+
+		if (first_groundtouch == true)
+		{
+			if (player_pos.x >= -580)
+			{
+				cameraComp->SetTarget(_player);
+				cameraComp->SetCameraXY = true;			
+				_CamFirstSet = true;
+			}
+		}
+
+		
+		if (player_pos.x >= -50)
+		{
+			cameraComp->Set_MinPlayerX(-600.f);
+
+			_Monster_Start = true;
+		}
 	}
 	void Stage2_2::SetMonOBJ()
 	{		//monsterGroup1
@@ -317,7 +353,7 @@ namespace jk
 			Monster* newMonster = OBJPOOL->Get_LionWarrior();
 			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
-			ttr->SetPosition(Vector3(0 + i * 50, -165, -249));
+			ttr->SetPosition(Vector3(-40 + i * 50, -165, -249));
 			AddMonster(newMonster);
 			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup2.push_back(newMonster);
@@ -327,7 +363,7 @@ namespace jk
 			Monster* newMonster = OBJPOOL->Get_LionSpear();
 			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
-			ttr->SetPosition(Vector3(210 + i * 150, -165, -249));
+			ttr->SetPosition(Vector3(-100 + i * 50, -165, -249));
 			AddMonster(newMonster);
 			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup2.push_back(newMonster);
@@ -351,7 +387,7 @@ namespace jk
 			Monster* newMonster = OBJPOOL->Get_LionWarrior();
 			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
-			ttr->SetPosition(Vector3(0 + i * 50, -165, -249));
+			ttr->SetPosition(Vector3(-60 + i * 50, -165, -249));
 			AddMonster(newMonster);
 			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);
@@ -361,7 +397,7 @@ namespace jk
 			Monster* newMonster = OBJPOOL->Get_LionSpear();
 			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
-			ttr->SetPosition(Vector3(210 + i * 150, -165, -249));
+			ttr->SetPosition(Vector3(-120 + i * 45, -165, -249));
 			AddMonster(newMonster);
 			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);

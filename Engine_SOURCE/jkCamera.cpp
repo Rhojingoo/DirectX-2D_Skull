@@ -68,13 +68,23 @@ namespace jk
 			Vector3 _pos = PlayerTR->GetPosition();			
 
 			if(StayCamera == false)
-			{
+			{				
 				if (SetCameraXY == true)
 					pos = Vector3(_pos.x, _pos.y + 65, -10);
 				if (SetCameraX == true)
 					pos.x = _pos.x;
 				if (SetCameraY == true)
 					pos.y = _pos.y + 65;
+
+				if (SetLayanaCamera == true)
+				{
+					if (SetCameraXY == true)
+						pos = Vector3(_pos.x, _pos.y + 110, -10);
+					if (SetCameraX == true)
+						pos.x = _pos.x;
+					if (SetCameraY == true)
+						pos.y = _pos.y + 110;				
+				}
 
 				if (_MaxPlayerX < pos.x)
 					StayCamera = true;
@@ -206,11 +216,12 @@ namespace jk
 		{
 			float OrthorGraphicRatio = mSize;
 			if (SetCamera == true)
-			{
-				//OrthorGraphicRatio = mSize / 2.0;
+			{		
 
 				if (SetYggdrasilCamera == true)
 					OrthorGraphicRatio = mSize / 2.0;
+				else if (SetLayanaCamera == true)
+					OrthorGraphicRatio = mSize / 2.2;
 				else
 				OrthorGraphicRatio = mSize / 2.5;
 			}

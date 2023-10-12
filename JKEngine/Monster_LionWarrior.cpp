@@ -554,6 +554,31 @@ namespace jk
 				_rigidbody->ClearVelocity();
 			}
 		}
+
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			Transform* GRTR = mGround->GetComponent<Transform>();
+			Vector3 GRpos = GRTR->GetPosition();
+
+			if (GRpos.x > _pos.x)
+			{
+				_rigidbody->ClearVelocity();
+				if (_state == Monster_LionWarrior_State::WalkR)
+				{
+					_state = Monster_LionWarrior_State::WalkL;
+					at->PlayAnimation(L"Lion_WarriorAttackR", true);
+				}
+			}
+			else if (GRpos.x < _pos.x)
+			{
+				_rigidbody->ClearVelocity();
+				if (_state == Monster_LionWarrior_State::WalkL)
+				{
+					_state = Monster_LionWarrior_State::WalkR;
+					at->PlayAnimation(L"Lion_WarriorAttack", true);
+				}
+			}
+		}
 	}
 	void Monster_LionWarrior::OnCollisionExit(Collider2D* other)
 	{

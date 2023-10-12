@@ -598,6 +598,23 @@ namespace jk
 			}
 			else
 			{
+	
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize + 7.5;
+
+
+					float CheckPos = fabs(_pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						_pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(_pos);		
+					}
+				}
 			}
 		}
 
@@ -615,6 +632,26 @@ namespace jk
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
 			}
+			else
+			{
+
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize + 7.5;
+
+
+					float CheckPos = fabs(_pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						_pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(_pos);
+					}
+				}
+			}
 		}
 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
@@ -630,6 +667,50 @@ namespace jk
 				_Ground_check = true;
 				_Ground_check = _rigidbody->GetGround();
 				_rigidbody->ClearVelocity();
+			}
+			else
+			{
+				Transform* GRTR = mGround->GetComponent<Transform>();
+				Vector3 GRpos = GRTR->GetPosition();
+				{
+					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
+					float GrColsize = GRCol->GetScale().y / 2;
+					float playercolsize = _collider->GetScale().y / 2;
+					float Sizecheck = playercolsize + GrColsize + 7.5;
+
+
+					float CheckPos = fabs(_pos.y - GRpos.y);
+					if (Sizecheck > CheckPos)
+					{
+						_pos.y = GRpos.y + Sizecheck;
+						tr->SetPosition(_pos);
+					}
+				}
+			}
+		}
+
+		if (Ground_and_Wall* mGround = dynamic_cast<Ground_and_Wall*>(other->GetOwner()))
+		{
+			Transform* GRTR = mGround->GetComponent<Transform>();
+			Vector3 GRpos = GRTR->GetPosition();
+
+			if (GRpos.x > _pos.x)
+			{
+				_rigidbody->ClearVelocity();
+				if (_state == Monster_Hammer_State::WalkR)
+				{
+					_state = Monster_Hammer_State::WalkL;
+					at->PlayAnimation(L"HammerWalkR", true);
+				}
+			}
+			else if (GRpos.x < _pos.x)
+			{
+				_rigidbody->ClearVelocity();
+				if (_state == Monster_Hammer_State::WalkL)
+				{
+					_state = Monster_Hammer_State::WalkR;
+					at->PlayAnimation(L"HammerWalk", true);
+				}
 			}
 		}
 	}

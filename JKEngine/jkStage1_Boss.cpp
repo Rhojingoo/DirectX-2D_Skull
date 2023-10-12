@@ -68,9 +68,14 @@ namespace jk
 			Ground_and_Wall* MinibossWall = object::Instantiate<Ground_and_Wall>(Vector3(878.f, -90.f, -205.f), eLayerType::BACK_GROUND);
 			MinibossWall->GetComponent<Transform>()->SetScale(Vector3(30, 175.f, 0.f));	MinibossWall->SetName(L"ST1boss_Wall00");
 
-			Collider2D* cd = Tile_map->AddComponent<Collider2D>();
-			cd->SetSize(Vector2(1.f, 0.5f));
-			cd->SetCenter(Vector2(-955.f, -45.f));
+
+			Ground_Map* MinibossMapbottom = object::Instantiate<Ground_Map>(Vector3(0, -300.f, -205.f), eLayerType::BACK_GROUND);
+			MinibossMapbottom->GetComponent<Transform>()->SetScale(Vector3(3000, 300.f, 0.f));	MinibossMapbottom->SetName(L"ST1boss_groundbottom");
+
+
+			//Collider2D* cd = Tile_map->AddComponent<Collider2D>();
+			//cd->SetSize(Vector2(1.f, 0.5f));
+			//cd->SetCenter(Vector2(-955.f, -45.f));
 
 
 
