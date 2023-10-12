@@ -493,7 +493,7 @@ namespace jk
 		_pos = tr->GetPosition();
 		ShortHairPos = _pos;
 
-
+		HitEffect();
 
 		Transform* _HpFrame_tr = _HpBarFrame->GetComponent<Transform>();
 		Transform* hp_tr = ShortHair_Hp->GetComponent<Transform>();
@@ -510,29 +510,22 @@ namespace jk
 	
 
 
-		if (_ShortHair_Die == true)
-		{
-			if (LongHair_Operation == true)
-			{
-				if (_DieOn == false)
-				{
-					Background_state = Layana_Short_Background::Die;
-					if (_pos.x < _ShortHairCreatepos.x)
-						at->PlayAnimation(L"Short_hairDie_S", false);
-					else
-						at->PlayAnimation(L"Short_hairDie_SR", false);
-					_DieOn = true;
-				}
-			}
-		}
-		if (_LongHair_Die == true)
-		{		
-			ShortHair_Hp->SetState(eState::Paused);
-			ShortHair_Hp_Damage->SetState(eState::Paused);
-			ShortHair_Operation = true;
-			Awaken_Combo();
-			_ShortHair_Awaken = false;			
-		}
+		//if (_ShortHair_Die == true)
+		//{
+		//	if (LongHair_Operation == true)
+		//	{
+		//		if (_DieOn == false)
+		//		{
+		//			Background_state = Layana_Short_Background::Die;
+		//			if (_pos.x < _ShortHairCreatepos.x)
+		//				at->PlayAnimation(L"Short_hairDie_S", false);
+		//			else
+		//				at->PlayAnimation(L"Short_hairDie_SR", false);
+		//			_DieOn = true;
+		//		}
+		//	}
+		//}
+
 
 
 		if (Joint_Operation == true)
@@ -822,6 +815,31 @@ namespace jk
 					break;
 			}			
 		}
+
+		if (_ShortHair_Die == true)
+		{
+			if (LongHair_Operation == true)
+			{
+				if (_DieOn == false)
+				{
+					Background_state = Layana_Short_Background::Die;
+					if (_pos.x < _ShortHairCreatepos.x)
+						at->PlayAnimation(L"Short_hairDie_S", false);
+					else
+						at->PlayAnimation(L"Short_hairDie_SR", false);
+					_DieOn = true;
+				}
+			}
+		}
+		if (_LongHair_Die == true)
+		{
+			ShortHair_Hp->SetState(eState::Paused);
+			ShortHair_Hp_Damage->SetState(eState::Paused);
+			ShortHair_Operation = true;
+			Awaken_Combo();
+			_ShortHair_Awaken = false;
+		}
+
 
 		tr->SetPosition(_pos);
 
@@ -3052,6 +3070,35 @@ namespace jk
 			at->PlayAnimation(L"Short_hairDash_S", true);
 		else
 			at->PlayAnimation(L"Short_hairDash_SR", true);
+	}
+
+	void Layana_ShortHair::HitEffect()
+	{
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (_Dir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
+			if (_Dir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
+			if (_Dir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		}
 	}
 
 

@@ -492,6 +492,9 @@ namespace jk
 		LongHairPos = _pos;
 
 
+		HitEffect();
+
+
 		Transform* _HpFrame_tr = _HpBarFrame->GetComponent<Transform>();
 		Transform* hp_tr = Longhair_Hp->GetComponent<Transform>();
 		Transform* hp_trDamege = Longhair_Hp_Damage->GetComponent<Transform>();
@@ -504,30 +507,7 @@ namespace jk
 		BulletTR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 
 
-		if (_LongHair_Die == true)
-		{			
-			if (ShortHair_Operation == true)
-			{
-				if (_DieOn == false)
-				{
-					Background_state = Layana_Long_Background::Die;
-					if (_pos.x < _LongHairCreatepos.x)
-						at->PlayAnimation(L"Long_hairDie", false);
-					else
-						at->PlayAnimation(L"Long_hairDieR", false);
-					_DieOn = true;
-				}
-			}
-		}
 
-		if (_ShortHair_Die == true)
-		{
-			Longhair_Hp->SetState(eState::Paused);
-			Longhair_Hp_Damage->SetState(eState::Paused);
-			LongHair_Operation = true;
-			Awaken_Combo();
-			_LongHair_Awaken = false;
-		}
 
 
 		if (Joint_Operation == true)
@@ -817,6 +797,31 @@ namespace jk
 				break;
 			}
 
+		}
+
+		if (_LongHair_Die == true)
+		{
+			if (ShortHair_Operation == true)
+			{
+				if (_DieOn == false)
+				{
+					Background_state = Layana_Long_Background::Die;
+					if (_pos.x < _LongHairCreatepos.x)
+						at->PlayAnimation(L"Long_hairDie", false);
+					else
+						at->PlayAnimation(L"Long_hairDieR", false);
+					_DieOn = true;
+				}
+			}
+		}
+
+		if (_ShortHair_Die == true)
+		{
+			Longhair_Hp->SetState(eState::Paused);
+			Longhair_Hp_Damage->SetState(eState::Paused);
+			LongHair_Operation = true;
+			Awaken_Combo();
+			_LongHair_Awaken = false;
 		}
 
 
@@ -3026,6 +3031,35 @@ namespace jk
 			at->PlayAnimation(L"Long_hairDash", true);
 		else
 			at->PlayAnimation(L"Long_hairDashR", true);
+	}
+
+	void Layana_LongHair::HitEffect()
+	{
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (_Dir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
+			if (_Dir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
+			if (_Dir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 20, _pos.y - 30, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 20, _pos.y - 30, _pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		}
 	}
 
 

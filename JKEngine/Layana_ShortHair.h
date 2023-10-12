@@ -221,7 +221,7 @@ namespace jk
 		void Intro_Combo();
 		void Awaken_Combo();
 		void BackGround_Combo();
-
+		void HitEffect();
 
 	public:
 		void CreateHoming();

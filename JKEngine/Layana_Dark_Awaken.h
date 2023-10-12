@@ -183,6 +183,7 @@ namespace jk
 		void look_before_dying();
 		void death();
 		void GoodByeLayana();
+		void HitEffect();
 
 	public:
 		void Complete_Telleport_In();

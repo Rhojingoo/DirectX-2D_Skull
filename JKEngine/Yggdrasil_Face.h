@@ -78,6 +78,7 @@ namespace jk
 		float UpdateVibration(float originalX, float amplitude, float frequency, float timeElapsed);
 
 		void Facepos_Setting();
+		void EffectSetting();
 
 
 	private:
@@ -89,6 +90,7 @@ namespace jk
 		Vector2 _velocity = Vector2(0.f, 0.f);
 		Vector3 Yggdrasil_pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 Yggdrasil_rotation = Vector3(0.f, 0.f, 0.f);
+		Vector3 HitBospos = Vector3(0.f, 0.f, 0.f);
 	
 
 	private:

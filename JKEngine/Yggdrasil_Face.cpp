@@ -161,7 +161,6 @@ namespace jk
 		Yggdrasil_rotation = GetRotations();
 		Yggdrasil_pos = Yggdrasil::GetPos();
 		Facepos_Setting();
-					
 
 		_distance = _playerpos.x - _pos.x;
 		if (_distance >= 0.f)
@@ -169,7 +168,7 @@ namespace jk
 		else
 			mDir = -1;
 
-
+		EffectSetting();
 
 		switch (_state)
 		{
@@ -349,6 +348,10 @@ namespace jk
 
 		if (HitBox_Player* player = dynamic_cast<HitBox_Player*>(other->GetOwner()))
 		{
+			Transform* hitTR = player->GetComponent<Transform>();
+			HitBospos = hitTR->GetPosition();
+
+
 			_Damage = player->GetDamage();
 			bool attack = player->Geteffect();
 			bool attack_Cri_Mid = player->Geteffect_Mid();
@@ -428,6 +431,9 @@ namespace jk
 
 		if (Skul_head* player = dynamic_cast<Skul_head*>(other->GetOwner()))
 		{
+			Transform* hitTR = player->GetComponent<Transform>();
+			HitBospos = hitTR->GetPosition();
+
 			_Damage = player->GetDamage();
 			bool attack = player->Geteffect();
 			bool attack_Cri_Mid = player->Geteffect_Mid();
@@ -1131,5 +1137,33 @@ namespace jk
 			_pos = Vector3(Yggdrasil_pos.x, _pos.y, -201.f);		
 		if ((_state == Yggdrasil_State::Attack_B_Ready) || (_state == Yggdrasil_State::Attack_B_Right) || (_state == Yggdrasil_State::Attack_B_Left))
 			_pos = Vector3(Yggdrasil_pos.x, Yggdrasil_pos.y+50, -201.f);
-	}		
+	}
+	void Yggdrasil_Face::EffectSetting()
+	{
+		{
+			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(HitBospos.x , HitBospos.y , _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(HitBospos.x , HitBospos.y , _pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(HitBospos.x , HitBospos.y , _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(HitBospos.x , HitBospos.y , _pos.z - 1));
+		}
+		{
+			Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
+			if (mDir == 1)
+				_Hit_Effect_TR->SetPosition(Vector3(HitBospos.x , HitBospos.y - 30, _pos.z - 1));
+			else
+				_Hit_Effect_TR->SetPosition(Vector3(HitBospos.x , HitBospos.y - 30, _pos.z - 1));
+		}
+		{
+			Transform* _Effect_TR = _Death_Effect->GetComponent<Transform>();
+			_Effect_TR->SetPosition(Vector3(HitBospos.x, HitBospos.y, _pos.z - 1));
+		}
+	}
 }
