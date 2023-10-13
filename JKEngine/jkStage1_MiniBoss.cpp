@@ -11,7 +11,6 @@ namespace jk
 	Stage1_MiniBoss::Stage1_MiniBoss()
 	{
 	}
-
 	Stage1_MiniBoss::~Stage1_MiniBoss()
 	{
 		delete OBJPOOL;
@@ -19,6 +18,7 @@ namespace jk
 
 		mBossGroup.clear();
 	}
+
 
 	void Stage1_MiniBoss::Initialize()
 	{
@@ -40,10 +40,10 @@ namespace jk
 		OBJPOOL = new MiniBoss_ObjCreate(1);
 		CreateMiniboss(1);
 
-		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
-		as = _BGSound->AddComponent<AudioSource>();
-		as->SetClip(Resources::Load<AudioClip>(L"AdventurerSound", L"..\\Resources\\Sound\\Adventurer\\Adventurer.wav"));
-		as->SetLoop(true);
+		//_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+		//as = _BGSound->AddComponent<AudioSource>();
+		//as->SetClip(Resources::Load<AudioClip>(L"AdventurerSound", L"..\\Resources\\Sound\\Adventurer\\Adventurer.wav"));
+		//as->SetLoop(true);
 
 		_player = object::Instantiate<Player>(Vector3(-600.f, -50.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
@@ -120,7 +120,6 @@ namespace jk
 				}
 		#pragma endregion	
 	}
-
 	void Stage1_MiniBoss::Update()
 	{
 		Transform* PlayerTR = _player->GetComponent<Transform>();
@@ -142,7 +141,7 @@ namespace jk
 				{
 					for (Mini_Boss* mon : mBossGroup)
 					{
-						as->Play();
+						//as->Play();
 						mon->SetState(GameObject::eState::Active);
 					}
 					_MiniBoss_Create = true;
@@ -155,7 +154,7 @@ namespace jk
 		{
 			if (_Door_Open == false)
 			{
-				as->Stop();
+				//as->Stop();
 				cameraComp->SetCameraXY = true;
 				Door1->Set_Door_Allow(true);
 				Door1->Set_Stage1_Door(1);
@@ -277,7 +276,6 @@ namespace jk
 			}
 		}
 	}
-
 	void Stage1_MiniBoss::CreateMiniboss(int stage)
 	{
 		if (stage == 1)

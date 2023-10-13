@@ -249,7 +249,6 @@ namespace FMOD
         FMOD_RESULT F_API getUserData            (void **userdata);
     };
 
-
     /*
         'ChannelControl API'.   This is a base class for Channel and ChannelGroup so they can share the same functionality.  This cannot be used or instansiated explicitly.
     */

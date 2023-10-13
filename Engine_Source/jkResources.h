@@ -24,7 +24,7 @@ namespace jk
 			//데이터 없다면 널을 반환
 			return nullptr;
 		}
-
+		
 		template <typename T>
 		static std::shared_ptr<T> Load(const std::wstring& key, const std::wstring& path)
 		{
@@ -49,6 +49,34 @@ namespace jk
 
 			return std::dynamic_pointer_cast<T>(resource);
 		}
+
+
+		template <typename T>
+		static std::shared_ptr<T> Load(const std::wstring& key, const std::wstring& path, const std::string& soundID)
+		{
+			// 키값으로 탐색
+			std::shared_ptr<T> resource = Resources::Find<T>(key);
+			if (resource != nullptr)
+			{
+				return resource;
+			}
+
+			// 해당 리소스가 없다면
+			resource = std::make_shared<T>();
+			if (FAILED(resource->Load(path, soundID)))
+			{
+				assert(false);
+				return nullptr;
+			}
+
+			resource->SetKey(key);
+			resource->SetPath(path);
+			mResources.insert(std::make_pair(key, resource));
+
+			return std::dynamic_pointer_cast<T>(resource);
+		}
+
+
 
 		template <typename T>
 		static void Insert(const std::wstring& key, std::shared_ptr<T> resource)

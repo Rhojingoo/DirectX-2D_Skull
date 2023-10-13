@@ -124,6 +124,9 @@
     <Filter Include="GameObject\Component\ParticleSystem\Particle_Damege">
       <UniqueIdentifier>{66f61da7-1e3b-4606-a56f-db79df625ca2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fmod">
+      <UniqueIdentifier>{8215aced-be0a-40a2-8c64-45eeffde3417}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)jkEntity.h">
@@ -264,11 +267,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Particle_DamageEffect.h">
       <Filter>GameObject\Component\ParticleSystem\Particle_Damege</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioClip.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkFmod.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioSource.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkFontWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioClip.h">
+      <Filter>Fmod</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioListener.h">
+      <Filter>Fmod</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioSource.h">
+      <Filter>Fmod</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkFmod.h">
+      <Filter>Fmod</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -394,11 +405,19 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Particle_DamageEffect.cpp">
       <Filter>GameObject\Component\ParticleSystem\Particle_Damege</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioClip.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkFmod.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioSource.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioListener.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkFontWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioClip.cpp">
+      <Filter>Fmod</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioListener.cpp">
+      <Filter>Fmod</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioSource.cpp">
+      <Filter>Fmod</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkFmod.cpp">
+      <Filter>Fmod</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl">

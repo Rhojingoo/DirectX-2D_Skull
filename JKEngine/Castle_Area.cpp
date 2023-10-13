@@ -50,7 +50,7 @@ namespace jk
 
 		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
 		as = _BGSound->AddComponent<AudioSource>();
-		as->SetClip(Resources::Load<AudioClip>(L"DemonCastleSound", L"..\\Resources\\Sound\\DemonCastle\\DemonCastle.wav"));
+		as->SetClip(Resources::Load<AudioClip>(L"DemonCastleSound", L"..\\Resources\\Sound\\DemonCastle\\DemonCastle.wav","DemonCastleSound"));
 		as->SetLoop(true);
 
 		#pragma region Player				
@@ -213,7 +213,7 @@ namespace jk
 	}
 	void Castle_Area::OnEnter()
 	{
-		//as->Play();
+		as->Play("DemonCastleSound");
 		#pragma region Cam & Mouse& Grid
 		//Main Camera			
 		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
@@ -271,6 +271,6 @@ namespace jk
 		_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
 		//jk::Player_INFO->Set_HP_Bar(_player->Get_HP_Bar());
 		//jk::Player_INFO->Set_DamageHP_Bar(_player->Get_DamageHP_Bar());
-		as->Stop();
+		//as->Stop();
 	}
 }

@@ -31,9 +31,12 @@ namespace jk
 
 		GameObject* akt1 = object::Instantiate<GameObject>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
 		as = AddComponent<AudioSource>();	
-		as->AddClip("Skul_Atk1", Resources::Load<AudioClip>(L"Skul_Atk1", L"..\\Resources\\Sound\\Skul\\Skul_Atk1.wav"));
-		as->AddClip("Skul_Atk2", Resources::Load<AudioClip>(L"Skul_Atk2", L"..\\Resources\\Sound\\Skul\\Skul_Atk2.wav"));
-		as->AddClip("Default_Dash", Resources::Load<AudioClip>(L"Default_Dash", L"..\\Resources\\Sound\\Skul\\Common\\Default_Dash.wav"));
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Skul_Atk1.wav", "Skul_Atk1");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Skul_Atk2.wav", "Skul_Atk2");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Dash.wav", "Default_Dash");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Jump.wav", "Default_Jump");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Jump_Air.wav", "Default_Jump_Air");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Switch.wav", "Default_Switch");
 
 
 		{
@@ -228,6 +231,7 @@ namespace jk
 		
 		if (_switch == true)
 		{
+			as->Play("Default_Switch");
 			_State = Skul_Basic::Skul_Basic_State::Switch;
 			if (mDir == 1)		
 				at->PlayAnimation(L"Skul_BasicSwitch", true);			
@@ -692,6 +696,7 @@ namespace jk
 
 	void Skul_Basic::jump()
 	{		
+		as->Play("Default_Jump");
 		_Ground_check = false;
 		_SkyGround_check = false;
 		if((_velocity.y <= 0.f)||(_jump>=2))
@@ -718,6 +723,7 @@ namespace jk
 		{
 			if (Input::GetKeyDown(eKeyCode::C))
 			{
+				as->Play("Default_Jump_Air");
 				if (mDir == 1)
 				{
 					at->PlayAnimation(L"Skul_BasicJump", true);
@@ -1117,7 +1123,7 @@ namespace jk
 
 	void Skul_Basic::dash()
 	{
-		//as->Play("Default_Dash");
+		as->Play("Default_Dash");
 		_Leftmove_Lock = false;
 		_Rightmove_Lock = false;
 		_Ground_check = false;
@@ -1167,12 +1173,12 @@ namespace jk
 
 	void Skul_Basic::attack_a()
 	{		
-		_attack_Acheck = true;
-		//as->Play("Skul_Atk1");
+		_attack_Acheck = true;		
+		as->Play("Skul_Atk1");
 	
 
 		if (Input::GetKeyDown(eKeyCode::X))
-		{			
+		{						
 			_attack = true;				
 		}
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
@@ -1186,7 +1192,7 @@ namespace jk
 	}
 	void Skul_Basic::attack_b()
 	{			
-		//as->Play("Skul_Atk2");
+		as->Play("Skul_Atk2");
 		_attack = false;
 		_attack_Bcheck = true;
 
@@ -2403,10 +2409,11 @@ namespace jk
 
 	void Skul_Basic::attack_choice()
 	{
+		as->Stop("Skul_Atk1");
+		as->Stop("Skul_Atk2");
 		_attack_Acheck = false;
 		_attack_Bcheck = false;
 		Hit_Box->SetState(eState::Paused);	
-		//Hit_Particle->SetState(eState::Paused);
 		if (_attack == true)
 		{		
 			_State = Skul_Basic_State::Attack_B;

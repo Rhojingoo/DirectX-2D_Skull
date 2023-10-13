@@ -27,10 +27,10 @@ namespace jk
 		SetMonOBJ();
 
 
-		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
-		as = _BGSound->AddComponent<AudioSource>();
-		as->SetClip(Resources::Load<AudioClip>(L"Chapter1Sound", L"..\\Resources\\Sound\\Chapter1\\Chapter1.wav"));
-		as->SetLoop(true);
+		//_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+		//as = _BGSound->AddComponent<AudioSource>();
+		//as->SetClip(Resources::Load<AudioClip>(L"Chapter1Sound", L"..\\Resources\\Sound\\Chapter1\\Chapter1.wav"));
+		//as->SetLoop(true);
 
 
 		_player = object::Instantiate<Player>(Vector3(-700.f, -150.f, -250.f), eLayerType::Player);
@@ -242,7 +242,7 @@ namespace jk
 
 	void Stage1_1::OnEnter()
 	{
-		as->Play();
+		//as->Play();
 		Transform* PlayerTR = _player->GetComponent<Transform>();
 		Vector3 player_pos = PlayerTR->GetPosition();
 		_player->SetPlayer_Pos(player_pos);
@@ -316,7 +316,7 @@ namespace jk
 	}
 	void Stage1_1::OnExit()
 	{
-		as->Stop();
+		//as->Stop();
 	}
 	void Stage1_1::CamareShooting()
 	{

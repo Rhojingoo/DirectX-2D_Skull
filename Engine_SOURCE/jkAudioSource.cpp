@@ -37,48 +37,28 @@ namespace jk
 		{
 			mAudioClip->Set3DAttributes(pos, forward);
 		}
-
-
-		for (auto& pair : mAudioClips)
-		{
-			std::shared_ptr<AudioClip> clip = pair.second;
-			if (clip)
-			{
-				clip->Set3DAttributes(pos, forward);
-			}
-		}
 	}
 
 	void AudioSource::Render()
 	{
 	}
 
-	void AudioSource::Play()
+	void AudioSource::Play(const std::string& soundID)
 	{
-		mAudioClip->Play();
-	}
-	void AudioSource::Play(const std::string& name, bool loop)
-	{
-		auto it = mAudioClips.find(name);
-		if (it != mAudioClips.end())
-		{
-			it->second->Play();
-			it->second->SetLoop(loop);
-		}
+		mAudioClip->Play(soundID);
 	}
 
-
-	void AudioSource::Stop()
+	void AudioSource::Stop(const std::string& soundID)
 	{
-		mAudioClip->Stop();
+		mAudioClip->Stop(soundID);
 	}
-	void AudioSource::Stop(const std::string& name)
+
+	void AudioSource::SetClipAndLoad(const std::wstring& path, const std::string& soundID)
 	{
-		auto it = mAudioClips.find(name);
-		if (it != mAudioClips.end())
-		{
-			it->second->Stop();
+		if (!mAudioClip) {
+			mAudioClip = std::make_shared<AudioClip>();
 		}
+		mAudioClip->Load(path, soundID);
 	}
 
 	void AudioSource::SetLoop(bool loop)
