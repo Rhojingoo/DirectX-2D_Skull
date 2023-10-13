@@ -2,6 +2,8 @@
 #include "jkAudioListener.h"
 #include "jkAudioClip.h"
 #include "jkAudioSource.h"
+#include "jkFontWrapper.h"
+
 
 namespace jk
 {
@@ -26,6 +28,9 @@ namespace jk
 				as = player->AddComponent<AudioSource>();
 				as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\Title\\MainTitle_Hardmode.wav"));
 				//as->Play();
+
+
+				//jkFont* Font = object::Instantiate<jkFont>(Vector3(0.f, 0.f, -20.f), eLayerType::BACK_GROUND);
 
 
 				//Main Camera
@@ -53,7 +58,6 @@ namespace jk
 			if (_time > 3)
 			{
 				SceneManager::LoadScene(L"Start_Scene");
-				//SceneManager::LoadScene(L"Stage2_Boss");
 				_time = 0;
 				_Fadecheck = false;				
 			}

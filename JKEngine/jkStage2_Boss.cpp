@@ -1,5 +1,5 @@
 #include "jkStage2_Boss.h"
-
+#include "jkFont.h"
 
 namespace jk
 {
@@ -113,6 +113,11 @@ namespace jk
 		_player->SetSwitch(true);
 		_changecheck = true;
 		_player->firstGroundcheck = false;
+
+		//jkFont::setText(L"레이아나 자매", 755, -8, 15, true);
+		//jkFont::setText2(L"황금기사단 부관", 748, -75, 15, true);
+		jkFont::setText(L"레이아나 자매", 755, -8, 15, true);
+		jkFont::setText2(L"황금기사단 부관", 748, -75, 15, true);
 
 #pragma region Camera & Grid
 		//Main Camera

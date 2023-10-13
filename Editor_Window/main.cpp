@@ -6,6 +6,7 @@
 
 
 #include "..\Engine_SOURCE\jkFmod.h"
+#include "..\Engine_SOURCE\jkFontWrapper.h"
 #include "..\Engine_SOURCE\jkApplication.h"
 #include "..\Engine_SOURCE\jkRenderer.h"
 #include "..\Engine_SOURCE\jkResources.h"
@@ -88,6 +89,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     jk::renderer::Release();
     jk::SceneManager::Release();
     jk::Fmod::Release();
+    jk::FontWrapper::Release();
     gui::Editor::Release();
     jk::Release();
 

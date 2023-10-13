@@ -668,6 +668,9 @@
     <ClInclude Include="Sofa_Spring.h">
       <Filter>Game_ob\Spring</Filter>
     </ClInclude>
+    <ClInclude Include="jkFont.h">
+      <Filter>Game_ob\jkFont</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1334,6 +1337,9 @@
     <ClCompile Include="Sofa_Spring.cpp">
       <Filter>Game_ob\Spring</Filter>
     </ClCompile>
+    <ClCompile Include="jkFont.cpp">
+      <Filter>Game_ob\jkFont</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1653,6 +1659,12 @@
     </Filter>
     <Filter Include="Game_ob\Spring">
       <UniqueIdentifier>{4053523c-9db1-4231-9cc8-4c5f25c3220a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\Font">
+      <UniqueIdentifier>{ddc612fc-4f0c-4dcc-bab0-f2e3450ca887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game_ob\jkFont">
+      <UniqueIdentifier>{385a64ec-fd7c-479e-b12b-a396b55088ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

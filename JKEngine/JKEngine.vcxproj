@@ -177,6 +177,7 @@
     <ClInclude Include="BigEnt_EnergeBall_Bomb.h" />
     <ClInclude Include="Blosome.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="jkFont.h" />
     <ClInclude Include="Layana_HpFrame.h" />
     <ClInclude Include="LionWizard_Bullet.h" />
     <ClInclude Include="LionWizard_Bullet_Create.h" />
@@ -404,6 +405,7 @@
     <ClCompile Include="BigEnt_EnergeBall_Bomb.cpp" />
     <ClCompile Include="Blosome.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="jkFont.cpp" />
     <ClCompile Include="Layana_HpFrame.cpp" />
     <ClCompile Include="LionWizard_Bullet.cpp" />
     <ClCompile Include="LionWizard_Bullet_Create.cpp" />

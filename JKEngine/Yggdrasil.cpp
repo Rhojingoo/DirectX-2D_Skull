@@ -2,6 +2,7 @@
 #include <iostream>
 #include <random>
 #include "jkParticleSystem.h"
+#include "jkFont.h"
 
 namespace jk
 {
@@ -375,6 +376,8 @@ namespace jk
 				}
 			}
 			_HpFrame->SetState(eState::Paused);
+			Monster_DamegeHp_Second -> SetState(eState::Paused);
+			jkFont::textoff();
 		}
 
 
@@ -619,6 +622,9 @@ namespace jk
 				hp_trSecond->SetPosition(Vector3(_HpFrame_tr->GetPosition().x + 1, _HpFrame_tr->GetPosition().y - 7, _HpFrame_tr->GetPosition().z - 2));
 				hp_trDamege->SetPosition(Vector3(_HpFrame_tr->GetPosition().x + 1, _HpFrame_tr->GetPosition().y - 7, _HpFrame_tr->GetPosition().z - 1));
 				hp_trDamegeSecond->SetPosition(Vector3(_HpFrame_tr->GetPosition().x + 1, _HpFrame_tr->GetPosition().y - 7, _HpFrame_tr->GetPosition().z - 1));
+			
+				jkFont::setText(L"위그드라실", 763,-32,15,true);
+				jkFont::setText2(L"장로엔트", 770, -103, 15, true);
 			}
 
 

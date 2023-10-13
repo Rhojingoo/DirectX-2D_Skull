@@ -1,6 +1,7 @@
 #include "Layana_Sisters.h"
 #include <iostream>
 #include <random>
+#include "jkFont.h"
 
 namespace jk
 {

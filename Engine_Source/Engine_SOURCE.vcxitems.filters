@@ -268,6 +268,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)jkFmod.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)jkAudioListener.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)jkFontWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)jkEntity.cpp">
@@ -397,6 +398,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)jkFmod.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioSource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)jkAudioListener.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)jkFontWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)jkMath.inl">
