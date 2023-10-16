@@ -18,6 +18,11 @@ namespace jk
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
+		
+		void Setsound(int set) { bulletsound = set; }
+		int Getsound() {return bulletsound;}
+
+		int bulletsound = 0;
 
 	};
 }

@@ -23,6 +23,16 @@ namespace jk
 		_pos = tr->GetPosition();
 		_first_place = _pos;
 
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\GreenTree\\OldTreeEnt_Atk_Ready.wav", "OldTreeEnt_Atk_Ready");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\GreenTree\\OldTreeEnt_Attack.wav", "OldTreeEnt_Attack");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Dead\\Enemy_Dead.wav", "Enemy_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+
 		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GreenTree\\Attack_Ready", this);
@@ -270,6 +280,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_GreenTree_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Death_Effect->_effect_animation = true;
 					_Death_Effect->SetState(eState::Active);
 				}
@@ -328,6 +339,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_GreenTree_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Death_Effect->_effect_animation = true;
 					_Death_Effect->SetState(eState::Active);
 				}
@@ -349,6 +361,7 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 
+					as->Play("Hit_Blunt_Small");
 					_state = Monster_GreenTree_State::Hit;
 					if (mDir == 1)
 					{
@@ -401,6 +414,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_GreenTree_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Death_Effect->_effect_animation = true;
 						_Death_Effect->SetState(eState::Active);
 					}
@@ -415,6 +429,8 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 									
+
+					as->Play("Hit_Blunt_Small");
 					if (mDir == 1)
 					{						
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
@@ -464,6 +480,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_GreenTree_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Death_Effect->_effect_animation = true;
 						_Death_Effect->SetState(eState::Active);
 					}
@@ -649,6 +666,8 @@ namespace jk
 				Transform* bullet_tr = GroundAttack->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(_Attack_place));
 				GroundAttack->SetState(eState::Active);
+				as->Play("OldTreeEnt_Atk_Ready");
+				as->Play("OldTreeEnt_Attack");
 
 				_state = Monster_GreenTree_State::Attack;
 				if (_attackdir == 1)

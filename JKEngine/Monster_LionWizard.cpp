@@ -24,6 +24,24 @@ namespace jk
 		_rigidbody->SetGround(false);
 		tr = GetComponent<Transform>();
 
+
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\GiganticEnt\\GiganticEnt_RangeAttackReady.wav", "GiganticEnt_RangeAttackReady");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\GiganticEnt\\GiganticEnt_RangeAttack.wav", "GiganticEnt_RangeAttack");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Dead\\Enemy_Dead.wav", "Enemy_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+		//as->Play("Recruit_Atk_Ready01");
+		//as->Play("Recruit_Atk_Ready02");
+		//as->Play("Recruit_Atk_Ready03");
+		//as->Play("Recruit_Atk_Ready04");
+		//as->Play("Atk_Sword_wariior");
+
+
+
 		at = AddComponent<Animator>(); 
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_wizard\\Attack_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_wizard\\Attack_Waiting", this);
@@ -305,6 +323,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = LionWizard_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Death_Effect->_effect_animation = true;
 					_Death_Effect->SetState(eState::Active);
 					_CurrenHp = 0;
@@ -364,6 +383,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = LionWizard_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
 					_Death_Effect->SetState(eState::Active);
 					_CurrenHp = 0;
@@ -382,6 +402,7 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 
+					as->Play("Hit_Blunt_Small");
 					_state = LionWizard_State::Hit;
 					if (mDir == 1)
 					{
@@ -422,6 +443,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = LionWizard_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						_Death_Effect->SetState(eState::Active);
 						_CurrenHp = 0;
@@ -438,6 +460,7 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 
+					as->Play("Hit_Blunt_Small");
 					_state = LionWizard_State::Hit;
 					if (mDir == 1)
 					{
@@ -476,6 +499,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = LionWizard_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						_Death_Effect->SetState(eState::Active);
 						_CurrenHp = 0;
@@ -640,6 +664,7 @@ namespace jk
 			
 			_attack_ready = false;
 			_state = LionWizard_State::Attack_Waiting;
+			as->Play("GiganticEnt_RangeAttackReady");
 			_attack = true;
 		}
 	}
@@ -669,7 +694,7 @@ namespace jk
 					break;
 				}
 			}
-
+			as->Play("GiganticEnt_RangeAttack");
 			_state = LionWizard_State::Attack;
 			BulletCreate->_endanimation = false;
 		}

@@ -22,6 +22,8 @@ namespace jk
 
 		void SetSize(Vector2 set) { _Size = set; }
 		void SetCenter(Vector3 set) { _Center = set; }
+		void SetSound(int set) { hitsound = set; }
+		int GetSound() { return hitsound; }
 
 	private:
 		Collider2D* _collider = nullptr;
@@ -29,6 +31,7 @@ namespace jk
 
 		Vector2 _Size = Vector2(150.f, 150.f);
 		Vector3 _Center = Vector3(0.f, 0.f, -250.f);
+		int hitsound = 0;
 
 	};
 }

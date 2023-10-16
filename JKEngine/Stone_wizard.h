@@ -11,6 +11,8 @@
 #include "Monster_Death_Effect.h"
 
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 namespace jk
 {
 	class Stone_wizard : public Monster
@@ -60,6 +62,7 @@ namespace jk
 	private:
 		Stone_wizard_State _state;
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

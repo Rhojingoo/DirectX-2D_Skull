@@ -24,6 +24,26 @@ namespace jk
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
+
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Wolf\\Attack_Base\\Atk_Sword_Small_1.wav", "Atk_Sword_Small_1");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Wolf\\Attack_Base\\Atk_Sword_Small_2.wav", "Atk_Sword_Small_2");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Wolf\\SkillA\\Atk_Sword_Large.wav", "Atk_Sword_Large");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Wolf\\SkillB\\Common_bite_strong.wav", "Common_bite_strong");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Skul_Jump_Atk.wav", "Skul_Jump_Atk");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Dash.wav", "Default_Dash");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Jump.wav", "Default_Jump");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Jump_Air.wav", "Default_Jump_Air");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Switch.wav", "Default_Switch");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Blunt_Large.wav", "Hit_Blunt_Large");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Energy_Medium.wav", "Hit_Energy_Medium");
+
+
 		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this,0,0.065);
@@ -34,24 +54,24 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\FallRepeat", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Jump", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\JumpAttack", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillA", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillB", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\JumpAttack", this,0,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillA", this,0,0.07);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillB", this,0,0.065);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Switch", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Walk", this);
 
 
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this, 1,0.07);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this, 1,0.07);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this, 1,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this, 1,0.065);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Fall", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\FallRepeat", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Idle", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Jump", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\JumpAttack", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillA", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillB", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\JumpAttack", this, 1,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillA", this, 1,0.07);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillB", this, 1,0.065);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Switch", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Walk", this, 1);
 	
@@ -191,6 +211,7 @@ namespace jk
 		 if (_switch == true)
 		 {
 			 _State = Skul_Wolf::Skul_Wolf_State::Switch;
+			 as->Play("Default_Switch");
 			 if (mDir == 1)
 			 {
 				 _rigidbody->SetVelocity(Vector2(350.f, 250.f));
@@ -480,6 +501,7 @@ namespace jk
 	void Skul_Wolf::jump()
 	{
 		_Ground_check = false;
+		as->Play("Default_Jump");
 		if ((_velocity.y <= 0.f) || (_jump >= 2))
 		{
 			_State = Skul_Wolf_State::Fall;
@@ -500,6 +522,7 @@ namespace jk
 		{
 			if (Input::GetKeyDown(eKeyCode::C))
 			{
+				as->Play("Default_Jump_Air");
 				_State = Skul_Wolf_State::Jump;
 				if (mDir == 1)
 				{
@@ -628,7 +651,6 @@ namespace jk
 
 	void Skul_Wolf::falling()
 	{
-
 		if (_jump < 3)
 		{
 			if (Input::GetKeyDown(eKeyCode::C))
@@ -689,6 +711,7 @@ namespace jk
 	void Skul_Wolf::dash()
 	{
 		_dash = true;
+		as->Play("Default_Dash");
 		_Ground_check = false;
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{			
@@ -726,6 +749,7 @@ namespace jk
 	void Skul_Wolf::attack_a()
 	{
 		_attack_Acheck = true;
+		as->Play("Atk_Sword_Small_1");
 
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
@@ -744,6 +768,7 @@ namespace jk
 	void Skul_Wolf::attack_b()
 	{
 		_attack_Bcheck = true;
+		as->Play("Atk_Sword_Small_2");
 		_attack = false;
 		if (Input::GetKeyDown(eKeyCode::RIGHT))
 		{
@@ -757,15 +782,18 @@ namespace jk
 
 	void Skul_Wolf::jumpattack()
 	{
+		as->Play("Atk_Sword_Small_2");
 		_attack_Ccheck = true;
 	}
 
 	void Skul_Wolf::skill_a()
 	{
+		as->Play("Atk_Sword_Large");
 	}
 
 	void Skul_Wolf::skill_b()
 	{
+		as->Play("Common_bite_strong");
 	}
 
 	void Skul_Wolf::change()
@@ -871,8 +899,18 @@ namespace jk
 		//Monster
 		if (HitBox_Monster* _Monster = dynamic_cast<HitBox_Monster*>(other->GetOwner()))
 		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
 			Transform* hittr = _Monster->GetComponent<Transform>();
-			Vector3 hitpos = hittr->GetPosition();
+			Vector3 hitpos = hittr->GetPosition();			
+
+			if (_Monster->GetSound() == 1)
+				as->Play("Hit_Blunt_Large");
+			else
+				as->Play("Hit_Sword_Small");
+
+
 			if (hitpos.x > pos.x)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -891,11 +929,15 @@ namespace jk
 
 		if (Monster_Hammer* Hammer = dynamic_cast<Monster_Hammer*>(other->GetOwner()))
 		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
 			hammer_st = Hammer->GetState();
 			if (hammer_st == Monster_Hammer::Monster_Hammer_State::Tackle)
 			{
 				Transform* hittr = Hammer->GetComponent<Transform>();
 				Vector3 hitpos = hittr->GetPosition();
+				as->Play("Hit_Blunt_Large");
 				if (hitpos.x > pos.x)
 				{
 					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -915,6 +957,9 @@ namespace jk
 
 		if (Monster_GoldHammer* GoldHammer = dynamic_cast<Monster_GoldHammer*>(other->GetOwner()))
 		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+			
 			Goldham_st = GoldHammer->GetState();
 			if (Goldham_st == Monster_GoldHammer::Monster_GoldHammer_State::Tackle)
 			{
@@ -941,6 +986,12 @@ namespace jk
 		{
 			if (_State == Skul_Wolf_State::Dash)
 				return;
+
+
+			if (Bullet->Getsound() == 0)
+				as->Play("Hit_Energy_Medium");
+			else if (Bullet->Getsound() == 1)
+				as->Play("Hit_Ice");
 
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
@@ -1795,6 +1846,11 @@ namespace jk
 
 	void Skul_Wolf::attack_choice()
 	{
+		as->Stop("Atk_Sword_Small_1");
+		as->Stop("Atk_Sword_Small_2");
+		as->Stop("Atk_Sword_Large");
+		as->Stop("Common_bite_strong");
+
 		_attack_Acheck = false;
 		_attack_Bcheck = false;
 		_attack_Ccheck = false;

@@ -10,6 +10,8 @@
 #include "Monster_Hp_Bar.h"
 #include "HP_Frame.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 namespace jk
 {
 	class Monster_GoldHammer : public Monster
@@ -58,8 +60,8 @@ namespace jk
 		Monster_GoldHammer_State GetState() { return _state; }
 
 	private:
-		float _MaxHp = 200;
-		float _CurrenHp = 200;
+		float _MaxHp = 350;
+		float _CurrenHp = 350;
 
 	private:
 		HP_Frame* Hpbar_Frame = nullptr;
@@ -78,6 +80,7 @@ namespace jk
 	private:
 		Monster_GoldHammer_State _state = {};
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

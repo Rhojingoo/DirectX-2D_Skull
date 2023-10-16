@@ -19,6 +19,12 @@ namespace jk
 		_collider = AddComponent<Collider2D>();
 		_collider->SetSize(Vector2(150.f, 150.f));
 		_collider->SetPosition(Vector3(0.f, 0.f, -250.f));
+		
+		
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
 		GameObject::Initialize();
 	}
 	void HitBox_Player::Update()
@@ -82,6 +88,17 @@ namespace jk
 	}
 	void HitBox_Player::OnCollisionEnter(Collider2D* other)
 	{
+		if (Monster* mon = dynamic_cast<Monster*>(other->GetOwner()))
+		{
+			if (Player::GetCurrentPlay_List() == Player::PlayerList::basic_Skul)
+			{
+				as->Play("Hit_Blunt_Small");
+			}
+			if (Player::GetCurrentPlay_List() == Player::PlayerList::wolf_Skul)
+			{
+				as->Play("Hit_Sword_Small");
+			}
+		}
 	}
 	void HitBox_Player::OnCollisionStay(Collider2D* other)
 	{

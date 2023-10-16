@@ -8,6 +8,9 @@
 #include "Monster_Hp_Bar.h"
 #include "HP_Frame.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
+
 namespace jk
 {
 	class Monster_BigEnt : public Monster
@@ -50,8 +53,8 @@ namespace jk
 		void walk();
 
 	private:
-		float _MaxHp = 200;
-		float _CurrenHp = 200;
+		float _MaxHp = 400;
+		float _CurrenHp = 400;
 		int	_bulletcheck = 0;
 
 	private:
@@ -75,6 +78,7 @@ namespace jk
 	private:
 		Monster_BigEnt_State _state = {};
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

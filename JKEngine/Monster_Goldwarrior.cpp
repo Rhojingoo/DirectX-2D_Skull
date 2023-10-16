@@ -22,6 +22,25 @@ namespace jk
 		_tr = GetComponent<Transform>();
 		_pos = _tr->GetPosition();
 		_first_place = _pos;
+
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready01.wav", "Recruit_Atk_Ready01");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready02.wav", "Recruit_Atk_Ready02");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready03.wav", "Recruit_Atk_Ready03");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready04.wav", "Recruit_Atk_Ready04");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Atk_Sword_wariior.wav", "Atk_Sword_wariior");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Dead\\Enemy_Dead.wav", "Enemy_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+		//as->Play("Recruit_Atk_Ready01");
+		//as->Play("Recruit_Atk_Ready02");
+		//as->Play("Recruit_Atk_Ready03");
+		//as->Play("Recruit_Atk_Ready04");
+		//as->Play("Atk_Sword_wariior");
+
 		
 
 		at = AddComponent<Animator>();
@@ -272,6 +291,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_Goldwarrior_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
 					if (mDir == 1)
 					{
@@ -338,6 +358,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_Goldwarrior_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
 					if (mDir == 1)
 					{
@@ -364,6 +385,7 @@ namespace jk
 			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 			if (!(_state == Monster_Goldwarrior_State::Attack || _state == Monster_Goldwarrior_State::Attack_Ready))
 			{	
+				as->Play("Hit_Blunt_Small");
 				Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 				if (player->_Head_Attack == false && _bulletcheck == 0)
 				{
@@ -423,6 +445,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_Goldwarrior_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						if (mDir == 1)
 						{
@@ -442,6 +465,7 @@ namespace jk
 
 			if ((_state == Monster_Goldwarrior_State::Attack || _state == Monster_Goldwarrior_State::Attack_Ready))
 			{
+				as->Play("Hit_Blunt_Small");
 				Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 				if (player->_Head_Attack == false && _bulletcheck == 0)
 				{
@@ -498,6 +522,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_Goldwarrior_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						if (mDir == 1)
 						{
@@ -657,6 +682,7 @@ namespace jk
 	}
 	void Monster_Goldwarrior::attack()
 	{
+		as->Play("Atk_Sword_wariior");
 		_attack_Col = true;
 	}
 	void Monster_Goldwarrior::attack_ready()
@@ -665,6 +691,7 @@ namespace jk
 		if (_attacktime >= 1)
 		{
 			_state = Monster_Goldwarrior_State::Attack;
+			as->Play("Recruit_Atk_Ready02");
 			if (_attackdir == 1)
 			{
 				at->PlayAnimation(L"Gold_WarriorAttack", true);
@@ -836,6 +863,7 @@ namespace jk
 	{
 		_attack_Col = false;
 		_rigidbody->ClearVelocity();
+		as->Stop("Atk_Sword_wariior");
 		_state = Monster_Goldwarrior_State::Idle;
 		if (mDir == 1)
 			at->PlayAnimation(L"Gold_WarriorIdle", true);

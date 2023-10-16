@@ -26,8 +26,21 @@ namespace jk
 		_first_place = _pos;		
 		
 
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\HeavyInfanity\\charge\\Atk_Flame_Large.wav", "Atk_Flame_Large");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\HeavyInfanity\\charge\\MAA_Tackle_Ready.wav", "MAA_Tackle_Ready");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\HeavyInfanity\\hmmer_atk\\Atk_Stomp_Medium.wav", "Atk_Stomp_Medium");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\HeavyInfanity\\hmmer_atk\\MAA_Atk_Ready.wav", "MAA_Atk_Ready");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Dead\\Enemy_Dead.wav", "Enemy_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+
+
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this,0,0.05);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Dead", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Idle", this);
@@ -37,7 +50,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Walk", this);
 
 		
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this, 1);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this, 1,0.05);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack_Ready", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Dead", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Idle", this, 1);
@@ -106,6 +119,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetSound(1);
 			Hit_Box->SetState(eState::Paused); 
 		}
 
@@ -334,6 +348,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_Hammer_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
 					if (_attackdir == 1)
 					{
@@ -405,6 +420,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_Hammer_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
 					if (_attackdir == 1)
 					{
@@ -437,6 +453,8 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 
+
+					as->Play("Hit_Blunt_Small");
 					if (mDir == 1)
 					{
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
@@ -486,6 +504,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_Hammer_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						if (_attackdir == 1)
 						{
@@ -512,6 +531,8 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 
+
+					as->Play("Hit_Blunt_Small");
 					if (mDir == 1)
 					{
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
@@ -561,6 +582,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_Hammer_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						if (_attackdir == 1)
 						{
@@ -584,10 +606,10 @@ namespace jk
 	{
 		if (Tile_Ground* mGround = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
-			//if (mGround->_SkullOn == true)
-			//	_followskul = true;
-			//if (mGround->_SkullOn == false)
-			//	_followskul = false;
+			if (mGround->_SkullOn == true)
+				_followskul = true;
+			if (mGround->_SkullOn == false)
+				_followskul = false;
 
 			if (_Ground_check == false)
 			{
@@ -823,6 +845,7 @@ namespace jk
 		if (_attacktime > 1)
 		{
 			_state = Monster_Hammer_State::Attack;
+			as->Play("MAA_Atk_Ready");
 			if (_attackdir == 1)			
 				at->PlayAnimation(L"HammerAttack", true);				
 			else			
@@ -833,7 +856,6 @@ namespace jk
 	void Monster_Hammer::attack()
 	{	
 		_attack_Col = true;
-
 		Transform* Attack_Effect_Tr = _Hammer_Effect->GetComponent<Transform>();
 		if (_attackdir == 1)
 			Attack_Effect_Tr->SetPosition(_pos.x + 30, _pos.y - 50, _pos.z - 1);
@@ -847,6 +869,8 @@ namespace jk
 		if (_attacktime > 2.f)
 		{
 			_state = Monster_Hammer_State::Tackle;
+			as->Play("MAA_Tackle_Ready");
+			as->Play("Atk_Flame_Large");
 			if (_attackdir == 1)
 			{
 				at->PlayAnimation(L"HammerTackle", true);
@@ -978,6 +1002,7 @@ namespace jk
 	void Monster_Hammer::Complete_attack()
 	{
 		_attack_Col = false;
+		as->Play("Atk_Stomp_Medium");
 
 		if (_attack_Col == false)
 			_state = Monster_Hammer_State::Idle;

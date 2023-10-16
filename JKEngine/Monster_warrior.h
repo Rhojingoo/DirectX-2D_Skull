@@ -6,6 +6,8 @@
 #include "Monster_Hit_Effect.h"
 #include "Monster_Death_Effect.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 namespace jk
 {
 	class Monster_warrior : public Monster
@@ -62,6 +64,7 @@ namespace jk
 	private:
 		Monster_warrior_State _state;
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* _tr = nullptr;

@@ -29,14 +29,20 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 
-		GameObject* akt1 = object::Instantiate<GameObject>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
 		as = AddComponent<AudioSource>();	
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Skul_Atk1.wav", "Skul_Atk1");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Skul_Atk2.wav", "Skul_Atk2");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Skul_Jump_Atk.wav", "Skul_Jump_Atk");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Atk_BluntWeapon_Small1.wav", "Atk_BluntWeapon_Small1");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Dash.wav", "Default_Dash");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Jump.wav", "Default_Jump");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Jump_Air.wav", "Default_Jump_Air");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Switch.wav", "Default_Switch");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Blunt_Large.wav", "Hit_Blunt_Large");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Energy_Medium.wav", "Hit_Energy_Medium");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Ice.wav", "Hit_Ice");
 
 
 		{
@@ -1174,9 +1180,8 @@ namespace jk
 	void Skul_Basic::attack_a()
 	{		
 		_attack_Acheck = true;		
-		as->Play("Skul_Atk1");
-	
-
+		as->Play("Skul_Atk1");		
+		
 		if (Input::GetKeyDown(eKeyCode::X))
 		{						
 			_attack = true;				
@@ -1207,31 +1212,13 @@ namespace jk
 	}
 	void Skul_Basic::jumpattack()
 	{
+		as->Play("Skul_Atk2");
 		_attack_Acheck = true;
 	}
 
 	void Skul_Basic::skill_a()
 	{
-		//Transform* tr_head = Skul_Head->GetComponent<Transform>();
-		//Vector3 currenthead = tr_head->GetPosition();
-		//RigidBody* head_rjg = Skul_Head->Getrigidbody();
-		//head_rjg->ClearVelocityY();
-		//Vector2 _velocity_head = head_rjg->GetVelocity();
-		//Skul_Head->Setgroundcheck(false);
-		
-		//float Headdis =_skulheadtemp.x - currenthead.x;		
-		//if (mDir == 1 && Headdis <= -500)
-		//{			
-		//	head_rjg->SetGround(false);
-		//	head_rjg->ClearVelocityX();
-		//	mDir = 1;
-		//}
-		//else if (mDir == -1 && Headdis >= 500.0)
-		//{
-		//	head_rjg->SetGround(false);
-		//	head_rjg->ClearVelocityX();
-		//	mDir = -1;
-		//}
+		as->Play("Hit_Blunt_Small");
 	}
 	void Skul_Basic::skill_b()
 	{
@@ -1374,8 +1361,17 @@ namespace jk
 		//Monster
 		if (HitBox_Monster* _Monster = dynamic_cast<HitBox_Monster*>(other->GetOwner()))
 		{		
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
 			Transform* hittr = _Monster->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
+
+			if(_Monster->GetSound() ==1)
+				as->Play("Hit_Blunt_Large");
+			else
+				as->Play("Hit_Sword_Small");
+
 			if (hitpos.x > pos.x)
 			{
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -1394,11 +1390,17 @@ namespace jk
 
 		if (Monster_Hammer* Hammer = dynamic_cast<Monster_Hammer*>(other->GetOwner()))
 		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+
 			hammer_st = Hammer->GetState();
+			
 			if (hammer_st == Monster_Hammer::Monster_Hammer_State::Tackle)
 			{
 				Transform* hittr = Hammer->GetComponent<Transform>();
 				Vector3 hitpos = hittr->GetPosition();
+				as->Play("Hit_Blunt_Large");
 				if (hitpos.x > pos.x)
 				{
 					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -1418,11 +1420,16 @@ namespace jk
 
 		if (Monster_GoldHammer* GoldHammer = dynamic_cast<Monster_GoldHammer*>(other->GetOwner()))
 		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
 			Goldham_st = GoldHammer->GetState();
+			
 			if (Goldham_st == Monster_GoldHammer::Monster_GoldHammer_State::Tackle)
 			{
 				Transform* hittr = GoldHammer->GetComponent<Transform>();
 				Vector3 hitpos = hittr->GetPosition();
+				as->Play("Hit_Blunt_Large");
 				if (hitpos.x > pos.x)
 				{
 					_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -1445,6 +1452,12 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+
+			if(Bullet->Getsound()==0)
+				as->Play("Hit_Energy_Medium");		
+			else if(Bullet->Getsound() ==1)
+				as->Play("Hit_Ice");
+			
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1468,6 +1481,7 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+			
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1496,6 +1510,7 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+			
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1535,6 +1550,7 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+		
 			Transform* hittr = HitBox->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1558,6 +1574,7 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+			
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)

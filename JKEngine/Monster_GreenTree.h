@@ -8,6 +8,8 @@
 #include "Monster_Hp_Bar.h"
 #include "HP_Frame.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 namespace jk
 {
 	class Monster_GreenTree : public Monster
@@ -73,6 +75,7 @@ namespace jk
 	private:
 		Monster_GreenTree_State _state;
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

@@ -25,6 +25,16 @@ namespace jk
 		_rigidbody->SetGround(false);
 		tr = GetComponent<Transform>();
 
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\IceWizard\\CarleonIceWizard_Atk_Ready.wav", "CarleonIceWizard_Atk_Ready");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\IceWizard\\OldTreeEnt_Attack.wav", "OldTreeEnt_Attack");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Dead\\Enemy_Dead.wav", "Enemy_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Stone_wizard\\Attack_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Stone_wizard\\Attack", this);
@@ -155,6 +165,7 @@ namespace jk
 			scene->AddGameObject(eLayerType::Bullet, Icicle_Bullet);
 			Transform* effect_tr = Icicle_Bullet->GetComponent<Transform>();
 			effect_tr->SetPosition(tr->GetPosition());
+			Icicle_Bullet->Setsound(1);
 			Icicle_Bullet->SetState(eState::Paused);
 		}
 		{
@@ -297,6 +308,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Stone_wizard_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Death_Effect->_effect_animation = true;
 					_Death_Effect->SetState(eState::Active);
 					_CurrenHp = 0;					
@@ -356,6 +368,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Stone_wizard_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
 					_Death_Effect->SetState(eState::Active);
 					_CurrenHp = 0;
@@ -374,6 +387,7 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 
+					as->Play("Hit_Blunt_Small");
 					_state = Stone_wizard_State::Hit;
 					if (mDir == 1)
 					{
@@ -414,6 +428,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Stone_wizard_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						_Death_Effect->SetState(eState::Active);
 						_CurrenHp = 0;
@@ -430,6 +445,7 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 
+					as->Play("Hit_Blunt_Small");
 					_state = Stone_wizard_State::Hit;
 					if (mDir == 1)
 					{
@@ -468,6 +484,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Stone_wizard_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						_Death_Effect->SetState(eState::Active);
 						_CurrenHp = 0;
@@ -650,6 +667,7 @@ namespace jk
 	{
 		if (_attack_ready == true)
 		{
+			as->Play("CarleonIceWizard_Atk_Ready");
 			if (mDir == 1)
 			{
 				Transform* effect_tr = Icicle_Effect->GetComponent<Transform>();

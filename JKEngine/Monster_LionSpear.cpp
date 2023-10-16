@@ -24,6 +24,21 @@ namespace jk
 		_first_place = _pos;
 
 
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready01.wav", "Recruit_Atk_Ready01");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready02.wav", "Recruit_Atk_Ready02");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready03.wav", "Recruit_Atk_Ready03");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready04.wav", "Recruit_Atk_Ready04");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Atk_Sword_wariior.wav", "Atk_Sword_wariior");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Dead\\Enemy_Dead.wav", "Enemy_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+
+		//as->Play("Atk_Sword_wariior");
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_Spear\\AttackA", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_Spear\\AttackA_Ready", this);
@@ -298,6 +313,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_Lion_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
 					if (mDir == 1)
 					{
@@ -364,6 +380,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_Lion_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
 					if (mDir == 1)
 					{
@@ -397,6 +414,7 @@ namespace jk
 						return;
 
 					_state = Monster_Lion_State::Hit;
+					as->Play("Hit_Blunt_Small");
 					if (mDir == 1)
 					{
 						at->PlayAnimation(L"Lion_SpearHit", false);
@@ -449,6 +467,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_Lion_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						if (mDir == 1)
 						{
@@ -474,6 +493,8 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 
+
+					as->Play("Hit_Blunt_Small");
 					if (mDir == 1)
 					{
 						at->PlayAnimation(L"Lion_SpearHit", false);
@@ -524,6 +545,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_Lion_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						if (mDir == 1)
 						{
@@ -709,6 +731,8 @@ namespace jk
 		if (_attacktime >= 1)
 		{
 			_state = Monster_Lion_State::AttackA;
+			as->Play("Recruit_Atk_Ready04");
+			as->Play("Atk_Sword_wariior");
 			if (_attackdir == 1)
 			{
 				at->PlayAnimation(L"Lion_SpearAttackA", true);
@@ -723,7 +747,7 @@ namespace jk
 		}
 	}
 	void Monster_LionSpear::attackB()
-	{
+	{		
 		_attack_ColB = true;
 		_AttackSellect = 0;
 	}
@@ -733,6 +757,8 @@ namespace jk
 		if (_attacktime >= 0.5)
 		{
 			_state = Monster_Lion_State::AttackB;
+			as->Play("Recruit_Atk_Ready04");
+			as->Play("Atk_Sword_wariior");
 			if (_attackdir == 1)
 				at->PlayAnimation(L"Lion_SpearAttackB", true);
 			else
@@ -821,8 +847,6 @@ namespace jk
 			_time = 0; _walkdir *= -1;
 		}
 	}
-
-
 
 
 	void Monster_LionSpear::SetDirection()
@@ -916,6 +940,7 @@ namespace jk
 	{
 		_attack_ColA = false;
 		_attack_ColB = false;
+		as->Stop("Atk_Sword_wariior");
 		_rigidbody->ClearVelocity();
 		_state = Monster_Lion_State::Idle;
 		if (mDir == 1)

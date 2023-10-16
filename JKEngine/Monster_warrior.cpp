@@ -23,7 +23,25 @@ namespace jk
 		_pos = _tr->GetPosition();
 		_first_place = _pos;
 
+	
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready01.wav", "Recruit_Atk_Ready01");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready02.wav", "Recruit_Atk_Ready02");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready03.wav", "Recruit_Atk_Ready03");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Recruit_Atk_Ready04.wav", "Recruit_Atk_Ready04");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Recruit\\Atk_Sword_wariior.wav", "Atk_Sword_wariior");
 
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Dead\\Enemy_Dead.wav", "Enemy_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+		//as->Play("Recruit_Atk_Ready01");
+		//as->Play("Recruit_Atk_Ready02");
+		//as->Play("Recruit_Atk_Ready03");
+		//as->Play("Recruit_Atk_Ready04");
+		//as->Play("Atk_Sword_wariior");
+
+	
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Attack", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Attack_Ready", this);
@@ -31,8 +49,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Hit", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Walk", this);
-		
-		
+
+
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Attack", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Attack_Ready", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Warrior\\Dead", this, 1);
@@ -47,6 +65,8 @@ namespace jk
 		at->CompleteEvent(L"WarriorHitR") = std::bind(&Monster_warrior::complete_attack, this);
 
 		at->PlayAnimation(L"WarriorIdle", true);
+		
+
 
 		//체력관련
 		{
@@ -91,7 +111,7 @@ namespace jk
 		}
 
 
-;
+
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
@@ -277,6 +297,7 @@ namespace jk
 				}		
 				if (_CurrenHp <= 0)
 				{
+					as->Stop("Enemy_Dead");
 					_state = Monster_warrior_State::Dead;
 					_Hit_Effect->_effect_animation = true;
 					if (mDir == 1)
@@ -346,6 +367,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Monster_warrior_State::Dead;
+					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
 					if (mDir == 1)
 					{
@@ -372,6 +394,7 @@ namespace jk
 			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 			if (!(_state == Monster_warrior_State::Attack || _state == Monster_warrior_State::Attack_Ready))
 			{
+				as->Play("Hit_Blunt_Small");
 				if (player->_Head_Attack == false && _bulletcheck == 0)
 				{
 					if (player->_Ground_check == true)
@@ -429,6 +452,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_warrior_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						if (mDir == 1)
 						{
@@ -447,6 +471,7 @@ namespace jk
 
 			if ((_state == Monster_warrior_State::Attack || _state == Monster_warrior_State::Attack_Ready))
 			{
+				as->Play("Hit_Blunt_Small");
 				if (player->_Head_Attack == false && _bulletcheck == 0)
 				{
 					if (player->_Ground_check == true)
@@ -502,6 +527,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_warrior_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 						if (mDir == 1)
 						{
@@ -741,6 +767,7 @@ namespace jk
 	void Monster_warrior::attack()
 	{
 		_attack_Col = true;
+		as->Play("Atk_Sword_wariior");
 		if (_CurrenHp <= 0)
 		{
 			_state = Monster_warrior_State::Dead;
@@ -756,6 +783,7 @@ namespace jk
 		_attacktime += Time::DeltaTime();
 		if (_attacktime >= 1)
 		{
+			as->Play("Recruit_Atk_Ready01");
 			_state = Monster_warrior_State::Attack;
 			if (_attackdir == 1)
 			{
@@ -948,6 +976,7 @@ namespace jk
 	void Monster_warrior::complete_attack()
 	{
 		_attack_Col = false;
+		as->Stop("Atk_Sword_wariior");
 		_rigidbody->ClearVelocity();
 		_state = Monster_warrior_State::Idle;
 		if (mDir == 1)

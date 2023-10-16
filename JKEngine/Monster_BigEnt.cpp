@@ -21,6 +21,20 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 
+
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\GiganticEnt\\GiganticEnt_MeleeAttackReady.wav", "GiganticEnt_MeleeAttackReady");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\GiganticEnt\\Atk_Stomp_Large.wav", "Atk_Stomp_Large");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\GiganticEnt\\GiganticEnt_RangeAttackReady.wav", "GiganticEnt_RangeAttackReady");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\GiganticEnt\\GiganticEnt_RangeAttack.wav", "GiganticEnt_RangeAttack");
+
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Dead\\Enemy_Dead.wav", "Enemy_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GiganticEnt\\Attack_Melee_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GiganticEnt\\Attack_Melee", this);
@@ -91,6 +105,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetSound(1);
 			Hit_Box->SetState(eState::Paused);
 		}
 		{
@@ -283,6 +298,7 @@ namespace jk
 			if (_CurrenHp <= 0)
 			{
 				at->PlayAnimation(L"GiganticEntDead", false);
+				as->Stop("Enemy_Dead");
 				_state = Monster_BigEnt_State::Dead;
 				_Hit_Effect->_effect_animation = true;
 				_Death_Effect->SetState(eState::Active);
@@ -298,65 +314,67 @@ namespace jk
 			_Damage = player->GetDamage();
 
 			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
+			
+			if (player->_Head_Attack == false && _bulletcheck == 0)
 			{
-				if (player->_Head_Attack == false && _bulletcheck == 0)
-				{
-					if (player->_Ground_check == true)
-						return;
+				if (player->_Ground_check == true)
+					return;
 										
-					if (mDir == 1)
-					{
-						Monster_Hp->_HitOn = true;
-						_CurrenHp = _CurrenHp - _Damage;
-						Monster_Hp->SetHitDamage(_Damage);
-						Monster_DamegeHp->_HitOn = true;
-						Monster_DamegeHp->Set_Target(_CurrenHp);
-						_Hp_control = true;
-						Hpbar_Frame->SetState(eState::Active);
-						Monster_DamegeHp->SetState(eState::Active);
-						Monster_Hp->SetState(eState::Active);
+				as->Play("Hit_Blunt_Small");
+				if (mDir == 1)
+				{
+					Monster_Hp->_HitOn = true;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
 
-						_Hit_Effect->_effect_animation = true;
-						_Hit_Effect->SetDirection(1);
-						_Hit_Effect->SetState(eState::Active);
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(1);
+					_Hit_Effect->SetState(eState::Active);
 
-						Hit_Particle->SetState(eState::Active);
-						mr->SetPosition(_pos);
-						mr->Setpos_siwtch(true);
-						mr->SetDirection(1);
-						_hit_particle = true;
-					}
-					if (mDir == -1)
-					{
-						Monster_Hp->_HitOn = true;
-						_CurrenHp = _CurrenHp - _Damage;
-						Monster_Hp->SetHitDamage(_Damage);
-						Monster_DamegeHp->_HitOn = true;
-						Monster_DamegeHp->Set_Target(_CurrenHp);
-						_Hp_control = true;
-						Hpbar_Frame->SetState(eState::Active);
-						Monster_DamegeHp->SetState(eState::Active);
-						Monster_Hp->SetState(eState::Active);
-
-						_Hit_Effect->_effect_animation = true;
-						_Hit_Effect->SetDirection(-1);
-						_Hit_Effect->SetState(eState::Active);
-
-						Hit_Particle->SetState(eState::Active);
-						mr->SetPosition(_pos);
-						mr->Setpos_siwtch(true);
-						mr->SetDirection(-1);
-						_hit_particle = true;
-					}
-					if (_CurrenHp <= 0)
-					{
-						at->PlayAnimation(L"GiganticEntDead", false);
-						_state = Monster_BigEnt_State::Dead;
-						_Hit_Effect->_effect_animation = true;
-					}
-					_bulletcheck++;
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(_pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(1);
+					_hit_particle = true;
 				}
+				if (mDir == -1)
+				{
+					Monster_Hp->_HitOn = true;
+					_CurrenHp = _CurrenHp - _Damage;
+					Monster_Hp->SetHitDamage(_Damage);
+					Monster_DamegeHp->_HitOn = true;
+					Monster_DamegeHp->Set_Target(_CurrenHp);
+					_Hp_control = true;
+					Hpbar_Frame->SetState(eState::Active);
+					Monster_DamegeHp->SetState(eState::Active);
+					Monster_Hp->SetState(eState::Active);
+
+					_Hit_Effect->_effect_animation = true;
+					_Hit_Effect->SetDirection(-1);
+					_Hit_Effect->SetState(eState::Active);
+
+					Hit_Particle->SetState(eState::Active);
+					mr->SetPosition(_pos);
+					mr->Setpos_siwtch(true);
+					mr->SetDirection(-1);
+					_hit_particle = true;
+				}
+				if (_CurrenHp <= 0)
+				{
+					as->Stop("Enemy_Dead");
+					at->PlayAnimation(L"GiganticEntDead", false);
+					_state = Monster_BigEnt_State::Dead;
+					_Hit_Effect->_effect_animation = true;
+				}
+				_bulletcheck++;
 			}
+			
 		}
 	}
 	void Monster_BigEnt::OnCollisionStay(Collider2D* other)
@@ -407,10 +425,7 @@ namespace jk
 		_time += Time::DeltaTime();
 		if (_time > 2.f)
 		{
-			//if ((_distance > 200) || (_distance < -200))
-			//{
 
-			//}
 			if ((_distance <= 200) && (_distance >= -200))
 			{
 				if (_choiceattack == 0)
@@ -421,25 +436,27 @@ namespace jk
 				else if (_choiceattack == 1)
 				{
 					_state = Monster_BigEnt_State::AttackB_Ready;
+					as->Play("GiganticEnt_RangeAttackReady");
 					at->PlayAnimation(L"GiganticEntAttack_Range_Ready", false);
 				}
 			}
 			else
 			{
 				_state = Monster_BigEnt_State::AttackB_Ready;
+				as->Play("GiganticEnt_RangeAttackReady");
 				at->PlayAnimation(L"GiganticEntAttack_Range_Ready", false);
 			}
-		}
-		
+		}		
 	}
 
 
 	void Monster_BigEnt::attackA_ready()
 	{
 		_attack_time += Time::DeltaTime();
-		if (_attack_time > 2.0)
+		if (_attack_time > 1.0)
 		{
 			_state = Monster_BigEnt_State::AttackA;
+			as->Play("GiganticEnt_MeleeAttackReady");
 			at->PlayAnimation(L"GiganticEntAttack_Melee", true);		
 			_attack_time = 0;
 		}
@@ -457,10 +474,16 @@ namespace jk
 
 	void Monster_BigEnt::attackB_ready()
 	{
-		set_energeball_pos();
-		energeball_attack();
-		_state = Monster_BigEnt_State::AttackB;			
-		at->PlayAnimation(L"GiganticEntAttack_Range", false);		
+		_attack_time += Time::DeltaTime();
+		if (_attack_time > 1.0)
+		{
+			set_energeball_pos();
+			energeball_attack();
+			_state = Monster_BigEnt_State::AttackB;
+			as->Play("GiganticEnt_RangeAttack");			
+			at->PlayAnimation(L"GiganticEntAttack_Range", false);
+			_attack_time = 0;
+		}
 	}
 	void Monster_BigEnt::attackB()
 	{
@@ -572,6 +595,7 @@ namespace jk
 	void Monster_BigEnt::attack_idle()
 	{
 		_attack_Col = false;
+		as->Play("Atk_Stomp_Large");
 		_state = Monster_BigEnt_State::Idle;
 		at->PlayAnimation(L"GiganticEntIdle", true);
 		_time = 0;

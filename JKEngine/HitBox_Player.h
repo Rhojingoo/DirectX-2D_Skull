@@ -2,6 +2,7 @@
 #include "Include_Common.h"
 #include "Attack_HitBox.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -38,6 +39,7 @@ namespace jk
 	private:
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
+		AudioSource* as = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		int		_HitType = 0;
 		float	_Damage = 0.f;

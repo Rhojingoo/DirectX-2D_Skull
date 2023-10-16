@@ -65,14 +65,14 @@ namespace jk
 	//	Monster_GreenTree* test2 = object::Instantiate<Monster_GreenTree>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 	//	Monster_BlossomEnt* test3 = object::Instantiate<Monster_BlossomEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 	//	Monster_Hammer* test4 = object::Instantiate<Monster_Hammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		//Monster_BigEnt* test5 = object::Instantiate<Monster_BigEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+	//	Monster_BigEnt* test5 = object::Instantiate<Monster_BigEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 
 
-		//Monster_Goldwarrior* test11 = object::Instantiate<Monster_Goldwarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		//Monster_GoldHammer* test12 = object::Instantiate<Monster_GoldHammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		//Monster_LionWarrior* test13 = object::Instantiate<Monster_LionWarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		//Monster_LionSpear* test14 = object::Instantiate<Monster_LionSpear>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-		//Monster_LionWizard* test15 = object::Instantiate<Monster_LionWizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+	//	Monster_Goldwarrior* test11 = object::Instantiate<Monster_Goldwarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+	//	Monster_GoldHammer* test12 = object::Instantiate<Monster_GoldHammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+	//	Monster_LionWarrior* test13 = object::Instantiate<Monster_LionWarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+	//	Monster_LionSpear* test14 = object::Instantiate<Monster_LionSpear>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
+	//	Monster_LionWizard* test15 = object::Instantiate<Monster_LionWizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
 
 		//Mushroom_Spring* test16 = object::Instantiate<Mushroom_Spring>(Vector3(150.f, -80.f, -249.f), eLayerType::Monster);
 

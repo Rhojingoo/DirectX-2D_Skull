@@ -15,6 +15,7 @@
 #include "Mushroom_Spring.h"
 #include "Sofa_Spring.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -75,6 +76,7 @@ namespace jk
 		Skul_Wolf_State _State;
 		HitBox_Player* Hit_Box;
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

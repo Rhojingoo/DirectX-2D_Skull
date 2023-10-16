@@ -22,6 +22,17 @@ namespace jk
 		_collider = AddComponent<Collider2D>();
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
+
+
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Stage1\\BlossomEnt\\Atk_Smoke_Medium.wav", "Atk_Smoke_Medium");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Dead\\Enemy_Dead.wav", "Enemy_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+
 		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\BlossomEnt\\Attack", this);
@@ -253,7 +264,9 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_Death_Effect->SetState(eState::Active);
+					as->Stop("Enemy_Dead");
 					Hit_Particle->SetState(eState::Paused);
+					_Hit_Effect->SetState(eState::Paused);
 					_state = Monster_BlossomEnt_State::Dead;
 				}
 			}
@@ -310,6 +323,7 @@ namespace jk
 				}
 				if (_CurrenHp <= 0)
 				{
+					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
 					_Death_Effect->SetState(eState::Active);
 					_Hit_Effect->SetState(eState::Paused);
@@ -333,6 +347,7 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 
+					as->Play("Hit_Blunt_Small");
 					_state = Monster_BlossomEnt_State::Hit;
 					if (mDir == 1)
 					{
@@ -385,6 +400,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_BlossomEnt_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 					}
 					_bulletcheck++;
@@ -398,6 +414,7 @@ namespace jk
 					if (player->_Ground_check == true)
 						return;
 					
+					as->Play("Hit_Blunt_Small");
 					if (mDir == 1)
 					{						
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
@@ -447,6 +464,7 @@ namespace jk
 					if (_CurrenHp <= 0)
 					{
 						_state = Monster_BlossomEnt_State::Dead;
+						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
 					}
 					_bulletcheck++;
@@ -767,6 +785,7 @@ namespace jk
 		Blossomeenct_Attack->_bullet_Life = true;
 		Blossomeenct_Attack->SetState(eState::Active);
 		_state = Monster_BlossomEnt_State::Attack;		
+		as->Play("Atk_Smoke_Medium");
 	}
 	void Monster_BlossomEnt::attack_idle()
 	{
