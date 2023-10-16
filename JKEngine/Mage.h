@@ -17,6 +17,8 @@
 #include "MiniBoss_State_UI.h"
 #include "AdventureUI.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 namespace jk
 {
 	class Mage : public Mini_Boss
@@ -148,6 +150,7 @@ namespace jk
 	private:
 		Mage_State _state;
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

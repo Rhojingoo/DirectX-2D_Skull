@@ -76,10 +76,10 @@ namespace jk
 
 		//Mushroom_Spring* test16 = object::Instantiate<Mushroom_Spring>(Vector3(150.f, -80.f, -249.f), eLayerType::Monster);
 
-		//Archer* test5 = object::Instantiate<Archer>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
+	//	Archer* test5 = object::Instantiate<Archer>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 		//Cleric* test5 = object::Instantiate<Cleric>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-		//Knight_male* test5 = object::Instantiate<Knight_male>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-		//Mage* test5 = object::Instantiate<Mage>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
+	//	Knight_male* test5 = object::Instantiate<Knight_male>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
+	//	Mage* test5 = object::Instantiate<Mage>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
 
 			#pragma region Npc	
 
@@ -271,6 +271,6 @@ namespace jk
 		_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
 		//jk::Player_INFO->Set_HP_Bar(_player->Get_HP_Bar());
 		//jk::Player_INFO->Set_DamageHP_Bar(_player->Get_DamageHP_Bar());
-		//as->Stop();
+		as->Stop("DemonCastleSound");
 	}
 }

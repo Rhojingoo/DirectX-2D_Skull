@@ -38,11 +38,18 @@ namespace jk
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Jump.wav", "Default_Jump");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Jump_Air.wav", "Default_Jump_Air");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Common\\Default_Switch.wav", "Default_Switch");
+
+
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Blunt_Large.wav", "Hit_Blunt_Large");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Energy_Medium.wav", "Hit_Energy_Medium");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Ice.wav", "Hit_Ice");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_Attack_Hit.wav", "AdventurerHunter_Attack_Hit");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Hit_Flame_Short.wav", "Hit_Flame_Short");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Arson_Explosion.wav", "Arson_Explosion");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Hit_Sword_Large.wav", "Hit_Sword_Large");
 
 
 		{
@@ -1505,12 +1512,36 @@ namespace jk
 		{
 		}
 
+		if (HitBox_Archer* HitBox = dynamic_cast<HitBox_Archer*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash)
+				return;
+
+			as->Play("Hit_Blunt_Large");
+			Transform* hittr = HitBox->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Knight_Slash->SetDirection(1);
+				_Knight_Slash->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Knight_Slash->_effect_animation = true;
+				_Knight_Slash->SetDirection(-1);
+				_Knight_Slash->SetState(eState::Active);
+			}
+		}
+
 		if (MiniBoss_Bullet_Archer* Bullet = dynamic_cast<MiniBoss_Bullet_Archer*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			
+			as->Play("AdventurerHunter_Attack_Hit"); 
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1612,6 +1643,8 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+			
+			as->Play("Hit_Sword_Large");
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1669,6 +1702,7 @@ namespace jk
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
+			as->Play("Arson_Explosion");
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1680,7 +1714,6 @@ namespace jk
 
 		if (Mage_FireBoom* Bullet = dynamic_cast<Mage_FireBoom*>(other->GetOwner()))
 		{
-
 			if (_State == Skul_Basic_State::Dash)
 				return;
 

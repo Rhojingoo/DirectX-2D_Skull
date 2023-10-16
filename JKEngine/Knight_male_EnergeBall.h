@@ -3,6 +3,8 @@
 #include "MiniBoss_Bullet_Knight.h"
 #include "Kngiht_EnergyBall_Impact.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 namespace jk
 {
 	class Knight_male_EnergeBall : public MiniBoss_Bullet_Knight
@@ -28,6 +30,7 @@ namespace jk
 
 	private:
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

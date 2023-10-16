@@ -23,6 +23,12 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Hit_Flame_Short.wav", "Hit_Flame_Short");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Arson_Explosion.wav", "Arson_Explosion");
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\Fire_Boom", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\Fire_Boom", this, 1);
@@ -59,6 +65,11 @@ namespace jk
 
 	void Mage_FireBoom::OnCollisionEnter(Collider2D* other)
 	{
+		if (Player* mGround = dynamic_cast<Player*>(other->GetOwner()))
+		{
+			as->Play("Hit_Flame_Short");
+		}
+
 	}
 
 	void Mage_FireBoom::OnCollisionStay(Collider2D* other)

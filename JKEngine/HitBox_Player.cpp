@@ -99,6 +99,18 @@ namespace jk
 				as->Play("Hit_Sword_Small");
 			}
 		}
+
+		if (Mini_Boss* mon = dynamic_cast<Mini_Boss*>(other->GetOwner()))
+		{
+			if (Player::GetCurrentPlay_List() == Player::PlayerList::basic_Skul)
+			{
+				as->Play("Hit_Blunt_Small");
+			}
+			if (Player::GetCurrentPlay_List() == Player::PlayerList::wolf_Skul)
+			{
+				as->Play("Hit_Sword_Small");
+			}
+		}
 	}
 	void HitBox_Player::OnCollisionStay(Collider2D* other)
 	{

@@ -35,11 +35,6 @@ namespace jk
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
 
-		//as->Play("Recruit_Atk_Ready01");
-		//as->Play("Recruit_Atk_Ready02");
-		//as->Play("Recruit_Atk_Ready03");
-		//as->Play("Recruit_Atk_Ready04");
-		//as->Play("Atk_Sword_wariior");
 
 	
 		at = AddComponent<Animator>();

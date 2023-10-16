@@ -24,13 +24,42 @@ namespace jk
 		_rigidbody->SetGround(false);
 
 
-		at = AddComponent<Animator>();
 
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Adventure_public\\Adventurer_Charge_Start.wav", "Adventurer_Charge_Start");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Adventure_public\\Adventurer_Charge_End.wav", "Adventurer_Charge_End");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\AdventurerMagician_Voice_Middle.wav", "AdventurerMagician_Voice_Middle");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\AdventurerMagician_Voice_FlameImpact.wav", "AdventurerMagician_Voice_FlameImpact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\AdventurerMagician_Voice_Casting.wav", "AdventurerMagician_Voice_Casting");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\AdventurerMagician_Voice_Dead.wav", "AdventurerMagician_Voice_Dead");
+
+				
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\AdventurerMagician_PhoenixLanding.wav", "Atk_Whoosh_High");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\AdventurerMagician_PhoenixLanding.wav", "AdventurerMagician_PhoenixLanding");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\AdventurerMagician_PhoenixLanding_Ready.wav", "AdventurerMagician_PhoenixLanding_Ready");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\AdventurerMagician_FlameImpact_Summon.wav", "AdventurerMagician_FlameImpact_Summon");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\AdventurerMagician_FlameImpact.wav", "AdventurerMagician_FlameImpact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Atk_Flame_Large_1.wav", "Atk_Flame_Large_1");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Atk_Flame_Large_2.wav", "Atk_Flame_Large_2");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Atk_Flame_Large_3.wav", "Atk_Flame_Large_3");
+		
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+
+
+
+
+
+
+		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_First", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_Second", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_A_End", this);
-
 		
 
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Attack_B", this);
@@ -612,7 +641,7 @@ namespace jk
 			bool attack = player->Geteffect();
 			bool attack_Cri_Mid = player->Geteffect_Mid();
 			bool attack_Cri_High = player->Geteffect_Hight();
-			
+			_Damage = 1500;
 						
 			if (_state == Mage_State::Idle)
 			{
@@ -640,6 +669,7 @@ namespace jk
 
 				if (mDir == 1)
 				{
+					_attackDir = 1;
 					at->PlayAnimation(L"MageHit", true);
 					if (_hit < 2)
 						_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -650,6 +680,7 @@ namespace jk
 				}
 				if (mDir == -1)
 				{
+					_attackDir = -1;
 					at->PlayAnimation(L"MageHitR", true);
 					if (_hit < 2)
 						_rigidbody->SetVelocity(Vector2(50.f, 0.f));
@@ -681,7 +712,7 @@ namespace jk
 				Monster_Hp->SetState(eState::Active);
 
 
-				if (mDir == 1)
+				if (_attackDir == 1)
 				{
 					_Hit_Effect->SetDirection(-1);
 					_Critical_Middle->SetDirection(-1);
@@ -714,7 +745,8 @@ namespace jk
 
 			if (_CurrenHp <= 0)
 			{
-				_state = Mage_State::Die;
+				_state = Mage_State::Die;				
+				as->Play("AdventurerMagician_Voice_Dead");
 				_Hit_Effect->_effect_animation = true;
 				if (mDir == 1)
 				{
@@ -727,6 +759,13 @@ namespace jk
 					_Hit_Effect->SetDirection(1);
 				}
 				_Death_Effect->SetState(eState::Active);
+
+				if (_sky == true)
+				{
+					_rigidbody->SetGround(false);
+					_Ground_check = false;
+					_ground = true;
+				}
 			}
 		}
 
@@ -746,6 +785,7 @@ namespace jk
 				if (player->_Ground_check == true)
 					return;
 
+				as->Play("Hit_Blunt_Small");
 				if (_state == Mage_State::Idle)
 				{
 					_hit++;
@@ -755,6 +795,7 @@ namespace jk
 					_state = Mage_State::Hit;
 					if (mDir == 1)
 					{
+						_attackDir = 1;
 						at->PlayAnimation(L"MageHit", true);
 						if (_hit < 2)
 							_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -779,6 +820,7 @@ namespace jk
 					}
 					if (mDir == -1)
 					{
+						_attackDir = -1;
 						at->PlayAnimation(L"MageHitR", true);
 						if (_hit < 2)
 							_rigidbody->SetVelocity(Vector2(50.f, 0.f));
@@ -880,6 +922,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Mage_State::Die;
+					as->Play("AdventurerMagician_Voice_Dead");
 					_Hit_Effect->_effect_animation = true;
 					if (mDir == 1)
 					{
@@ -908,6 +951,8 @@ namespace jk
 				_Ground_check = true;
 				if (_state == Mage_State::Attack_C)
 				{
+					if(_GroundLanding == false)
+						as->Play("AdventurerMagician_PhoenixLanding");
 					_GroundLanding = true;
 				}
 			}
@@ -921,6 +966,9 @@ namespace jk
 				_Ground_check = true;
 				if (_state == Mage_State::Attack_C)
 				{
+					if (_GroundLanding == false)
+						as->Play("AdventurerMagician_PhoenixLanding");
+
 					_GroundLanding = true;
 				}
 			}
@@ -952,7 +1000,7 @@ namespace jk
 		Fly_or_Landing();
 
 		_swich_checkpoint = randomcount(0, 3);
-		//_swich_checkpoint = 3;
+		_swich_checkpoint = 3;
 	
 
 		if (_Intro == false)
@@ -1007,6 +1055,8 @@ namespace jk
 					if (_sky == false)
 						return;
 
+					as->Play("AdventurerMagician_Voice_Casting");
+					as->Play("Adventurer_Charge_Start");
 					_state = Mage_State::Finishing_Move_Ready;
 					if (mDir == 1)
 						at->PlayAnimation(L"MageUltimate_Set", true);
@@ -1067,6 +1117,14 @@ namespace jk
 			_firstcomplete = false;
 			if (_firstcomplete == false)
 			{
+				int voice_archer = random(0, 1);
+				if (voice_archer == 0)
+					as->Play("AdventurerMagician_Voice_Middle");
+				if (voice_archer == 1)
+					as->Play("AdventurerMagician_Voice_FlameImpact");
+				as->Play("Atk_Whoosh_High");
+
+				
 				_state = Mage_State::Attack_A_Second;
 				if (mDir == 1)
 					at->PlayAnimation(L"MageAttack_A_Second", true);
@@ -1096,6 +1154,13 @@ namespace jk
 
 			if (_scondcomplete == false)
 			{
+				int voice_archer = random(0, 1);
+				if (voice_archer == 0)
+					as->Play("AdventurerMagician_Voice_Middle");
+				if (voice_archer == 1)
+					as->Play("AdventurerMagician_Voice_FlameImpact");
+				as->Play("Atk_Whoosh_High");
+
 				_state = Mage_State::Attack_A_End;
 				if (mDir == 1)
 					at->PlayAnimation(L"MageAttack_A_End", true);
@@ -1136,6 +1201,7 @@ namespace jk
 			{
 				Effect_tr->SetPosition(Vector3(_playerpos.x, _playerpos.y, _playerpos.z - 1));
 				BoomSign[_Number_of_attackB]->SetState(eState::Active);
+				as->Play("AdventurerMagician_FlameImpact");
 				BoomSign[_Number_of_attackB]->_effect_check = false;
 			}
 			if (BoomSign[_Number_of_attackB]->_effect_On == false)
@@ -1143,6 +1209,7 @@ namespace jk
 				Vector3 effectpos = Effect_tr->GetPosition();
 				bullet_tr->SetPosition(effectpos);
 				FireBoom[_Number_of_attackB]->SetState(eState::Active);
+				as->Play("AdventurerMagician_FlameImpact_Summon");
 				_Number_of_attackB++;
 			}
 		}
@@ -1241,6 +1308,14 @@ namespace jk
 				_rigidbody->SetVelocity(Vector2(0.f, -350.f));
 				_rigidbody->SetGround(false);
 				_Ground_check = false;
+
+				int voice_archer = random(0, 1);
+				if (voice_archer == 0)
+					as->Play("AdventurerMagician_Voice_Middle");
+				if (voice_archer == 1)
+					as->Play("AdventurerMagician_Voice_FlameImpact");
+
+				as->Play("AdventurerMagician_PhoenixLanding_Ready");
 
 				_state = Mage_State::Attack_C;
 				if (mDir == 1)
@@ -1365,6 +1440,7 @@ namespace jk
 					UltimateSkill_Effect_Fail->SetDirection(-1);
 				UltimateSkill_Effect_Fail->SetState(eState::Active);
 
+				as->Play("Adventurer_Charge_End");
 				_state = Mage_State::Finishing_Move_Fail;
 				_attack_time = 0.f;
 			}
@@ -1379,20 +1455,6 @@ namespace jk
 					UltimateSkill_Effect_Complete->SetDirection(-1);
 				UltimateSkill_Effect_Complete->SetState(eState::Active);
 
-				//ultimate 미사일 좌표설정
-				//for (int i = 0; i < 3; i++)
-				//{
-				//	int randomposX = random(pos.x - 100, pos.x + 100);
-				//	int randomposY = random(pos.y - 50, pos.y + 50);
-				//	_first_place;
-				// 
-				//	Transform* _OnFire_Ready_tr = _OnFire_Ready[i]->GetComponent<Transform>();
-				//	_OnFire_Ready_tr->SetPosition(Vector3(randomposX, randomposY, pos.z + 1));
-				//
-				//	Transform* _OnFire_tr = _OnFire[i]->GetComponent<Transform>();
-				//	_OnFire[i]->_effect_On = false;
-				//	_OnFire_tr->SetPosition(Vector3(randomposX, randomposY, pos.z + 1));
-				//}
 				{
 					Transform* _OnFire_Ready_tr0 = _OnFire_Ready[0]->GetComponent<Transform>();
 					_OnFire_Ready_tr0->SetPosition(Vector3(_first_place.x, _first_place.y, pos.z + 1));
@@ -1417,7 +1479,7 @@ namespace jk
 					_OnFire_tr2->SetPosition(Vector3(_first_place.x+200, _first_place.y-100, pos.z + 1));
 				}
 
-
+			
 				if (mDir == 1)
 					at->PlayAnimation(L"MageUltimate_Skill_Fire", true);
 				else
@@ -1446,6 +1508,7 @@ namespace jk
 							Transform* _OnFire_tr = _OnFire[i]->GetComponent<Transform>();
 							_OnFire[i]->_effect_On = true;
 							_OnFire[i]->SetState(eState::Active);
+							as->Play("AdventurerMagician_FlameImpact_Summon");					
 						}
 					}
 				}
@@ -1531,7 +1594,14 @@ namespace jk
 						if(OnFire_Fire[i]->_effect_On == false)
 							OnFire_Fire[i]->SetState(eState::Active);
 						On_Fire_Projectile[i]->SetState(eState::Active);
-
+						
+						int voice_archer = random(1, 3);
+						if (voice_archer == 1)
+							as->Play("Atk_Flame_Large_1");
+						if (voice_archer == 2)
+							as->Play("Atk_Flame_Large_2");
+						if (voice_archer == 3)
+							as->Play("Atk_Flame_Large_3");
 						_OnFire_Projectile_rg->SetGravity(true);
 						_OnFire_Projectile_rg->SetFriction(true);
 						Fire_Projectile(i);
@@ -1899,21 +1969,21 @@ namespace jk
 	{
 		{
 			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
-			if (mDir == 1)
+			if (_attackDir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
 		}
 		{
 			Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
-			if (mDir == 1)
+			if (_attackDir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
 		}
 		{
 			Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
-			if (mDir == 1)
+			if (_attackDir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
@@ -1948,6 +2018,7 @@ namespace jk
 		else
 			at->PlayAnimation(L"MageUtimate_Skill_ActionR", true);
 		_state = Mage_State::Finishing_Move_Succes;
+		as->Play("Adventurer_Charge_End");
 	}
 
 
@@ -1985,6 +2056,13 @@ namespace jk
 			at->PlayAnimation(L"MageAttack_A_First", true);
 		if (mDir == -1)
 			at->PlayAnimation(L"MageAttack_A_FirstR", true);
+
+		int voice_archer = random(0, 1);
+		if (voice_archer == 0)
+			as->Play("AdventurerMagician_Voice_Middle");
+		if (voice_archer == 1)
+			as->Play("AdventurerMagician_Voice_FlameImpact");
+		as->Play("Atk_Whoosh_High");
 		_state = Mage_State::Attack_A_First;
 	}
 	void Mage::attack_a_firts_complete()
@@ -2041,6 +2119,12 @@ namespace jk
 	}
 	void Mage::attack_b_ready_complete()
 	{
+		int voice_archer = random(0, 1);
+		if (voice_archer == 0)
+			as->Play("AdventurerMagician_Voice_Middle");
+		if (voice_archer == 1)
+			as->Play("AdventurerMagician_Voice_FlameImpact");
+
 		_state = Mage_State::Attack_B;
 		if (mDir == 1)
 			at->PlayAnimation(L"MageAttack_B", true);

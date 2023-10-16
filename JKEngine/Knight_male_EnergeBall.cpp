@@ -22,6 +22,12 @@ namespace jk
 		tr = this->GetComponent<Transform>();
 
 
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Hit_Energy_Small.wav", "Hit_Energy_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Atk_Explosion_Small.wav", "Atk_Explosion_Small");
+	
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Bullet\\EnergeBall_Projectile", this);
 
@@ -35,7 +41,6 @@ namespace jk
 
 		at->PlayAnimation(L"BulletEnergeBall_Projectile", true);
 		GameObject::Initialize();
-
 	}
 	void Knight_male_EnergeBall::Update()
 	{
@@ -65,6 +70,28 @@ namespace jk
 				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
 				EffectTR->SetPosition(tr->GetPosition());
 				Bullet_Effect->SetState(eState::Active);
+				as->Play("Hit_Energy_Small");
+				_EffectSwitch = false;
+				_BoomSwitch = false;
+				this->SetState(eState::Paused);
+			}
+			else
+			{
+				//_EffectSwitch = true;
+			}
+		}
+
+		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
+		{
+			_rigidbody->SetGround(true);
+			_rigidbody->ClearVelocity();
+
+			if (_EffectSwitch == true)
+			{
+				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
+				EffectTR->SetPosition(tr->GetPosition());
+				Bullet_Effect->SetState(eState::Active);
+				as->Play("Hit_Energy_Small");
 				_EffectSwitch = false;
 				_BoomSwitch = false;
 				this->SetState(eState::Paused);
@@ -85,6 +112,7 @@ namespace jk
 				Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
 				EffectTR->SetPosition(tr->GetPosition());
 				Bullet_Effect->SetState(eState::Active);
+				as->Play("Hit_Energy_Small");
 				_EffectSwitch = false;
 				_BoomSwitch = false;
 				this->SetState(eState::Paused);

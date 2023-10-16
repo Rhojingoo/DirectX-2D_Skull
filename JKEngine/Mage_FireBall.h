@@ -3,6 +3,8 @@
 #include "Bullet.h"
 #include "Fireball_Projectile_Hit.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 namespace jk
 {
 	class Mage_FireBall : public Bullet
@@ -34,6 +36,7 @@ namespace jk
 
 	private:
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

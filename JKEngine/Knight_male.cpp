@@ -25,6 +25,35 @@ namespace jk
 		_rigidbody = AddComponent<RigidBody>();
 		_rigidbody->SetMass(1.f);
 
+
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Adventure_public\\Adventurer_Charge_Start.wav", "Adventurer_Charge_Start");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Adventure_public\\Adventurer_Charge_End.wav", "Adventurer_Charge_End");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\AdventurerHero_Voice_Short.wav", "AdventurerHero_Voice_Short");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\AdventurerHero_Voice_SpecialMove.wav", "AdventurerHero_Voice_SpecialMove");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\AdventurerHero_Voice_Casting.wav", "AdventurerHero_Voice_Casting");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\AdventurerHero_Voice_Dead.wav", "AdventurerHero_Voice_Dead");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Atk_Sword_Large_Up.wav", "Atk_Sword_Large_Up");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Atk_Sword_Large_Down.wav", "Atk_Sword_Large_Down");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Atk_Sword_Large_Down2.wav", "Atk_Sword_Large_Down2");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Atk_Explosion_Large.wav", "Atk_Explosion_Large");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Atk_Sword_Small_4.wav", "Atk_Sword_Small_4");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Hit_Energy_Small.wav", "Hit_Energy_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Atk_Explosion_Small.wav", "Atk_Explosion_Small");
+
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+		//as->Play("Hit_Blunt_Small");
+		//as->Play("Hit_Sword_Small");
+		//as->Play("Atk_Sword_Small_4");
+
 		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Knight_male\\Attack_A", this);
@@ -597,6 +626,7 @@ namespace jk
 			if (_CurrenHp <= 0)
 			{
 				_state = Knight_State::Die;
+				as->Play("AdventurerHero_Voice_Dead");
 				_Hit_Effect->_effect_animation = true;
 				if (mDir == 1)
 				{
@@ -629,6 +659,7 @@ namespace jk
 				if (player->_Ground_check == true)
 					return;
 						
+				as->Play("Hit_Blunt_Small");
 				if (_state == Knight_State::Idle)
 				{
 					_hit_switch = true;	_number_of_hit++;
@@ -763,6 +794,7 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Knight_State::Die;
+					as->Play("AdventurerHero_Voice_Dead");
 					_Hit_Effect->_effect_animation = true;
 					if (mDir == 1)
 					{
@@ -841,7 +873,7 @@ namespace jk
 		_time += Time::DeltaTime();
 		_Attacktime = 0;
 		_choicecombo = random(0, 3);
-		//_choicecombo = 3;
+		_choicecombo = 3;
 	
 		if (_Intro == false)
 		{
@@ -901,7 +933,7 @@ namespace jk
 			{
 				if (_time > 1.f)
 				{
-					if ((_distance >= 150 || _distance <= -150))
+					if ((_distance >= 125 || _distance <= -125))
 					{
 						if (_choicecombo == 1)
 						{
@@ -969,6 +1001,7 @@ namespace jk
 			_Ground_check = false;*/
 	}
 
+
 	void Knight_male::jump()
 	{
 	}
@@ -982,6 +1015,7 @@ namespace jk
 		Ultimate_AuraSmoke->SetState(eState::Paused);
 		_attack_Col = false;
 	}
+
 
 	void Knight_male::attack_a()
 	{		
@@ -1001,6 +1035,7 @@ namespace jk
 	{
 	}
 
+
 	void Knight_male::energeball()
 	{
 		if (Bullet_effect->_effect_switch== false)
@@ -1016,6 +1051,7 @@ namespace jk
 			Bullet->SetState(eState::Active);
 			_attack = false;
 			_state = Knight_State::EnergeBall;
+			as->Play("Atk_Explosion_Large");
 			Bullet_effect->_effect_switch = true;
 		}
 		if (Bullet_effect->_effect_switch == true)
@@ -1061,7 +1097,9 @@ namespace jk
 	{
 		_Attacktime += Time::DeltaTime();
 		if (_Attacktime >= 0.7)
-		{
+		{			
+			as->Play("Atk_Whoosh_High");
+			as->Play("Atk_Explosion_Large");
 			_state = Knight_State::Explosion_Loop;
 			Transform* bullet_tr = Energe_Blast->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y - 10, pos.z - 1));
@@ -1072,7 +1110,7 @@ namespace jk
 	void Knight_male::explosion_loop()
 	{
 		_Attacktime += Time::DeltaTime();
-		if (_Attacktime >= 1.5)
+		if (_Attacktime >= 1.0)
 		{
 			_attackorder = 0;
 			_attack = false;
@@ -1080,6 +1118,7 @@ namespace jk
 			choicecombo();
 		}			
 	}
+
 
 	void Knight_male::Finishing_Move_Ready()
 	{		
@@ -1125,7 +1164,9 @@ namespace jk
 				else
 					UltimateSkill_Effect_Fail->SetDirection(-1);
 				UltimateSkill_Effect_Fail->SetState(eState::Active);
-
+				as->Play("Adventurer_Charge_End");
+				as->Play("AdventurerHero_Voice_SpecialMove");
+				as->Play("Atk_Sword_Large_Down2");
 				_state = Knight_State::Finishing_Move_Fail;
 				_Attacktime = 0.f;				
 			}
@@ -1139,12 +1180,13 @@ namespace jk
 				else
 					UltimateSkill_Effect_Complete->SetDirection(-1);
 				UltimateSkill_Effect_Complete->SetState(eState::Active);	
-				
+				as->Play("Adventurer_Charge_End");
 				if(mDir ==1)
 					at->PlayAnimation(L"Knight_maleUltimateSkill_Motion", false);
 				else
 					at->PlayAnimation(L"Knight_maleUltimateSkill_MotionR", false);
 				_state = Knight_State::Finishing_Move_Succes;	
+
 				_Attacktime = 0.f;
 			}
 		}	
@@ -1155,6 +1197,8 @@ namespace jk
 		{
 			Transform* bullet_tr = UltimateSkill_Projectile->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+			RigidBody* Rjd_Bullet = UltimateSkill_Projectile->GetComponent<RigidBody>();
+			Rjd_Bullet->ClearVelocity();
 			UltimateSkill_Projectile->_effect_animation = true;
 			if (mDir == 1)
 				UltimateSkill_Projectile->SetDirection(1);
@@ -1165,24 +1209,20 @@ namespace jk
 		}
 		else
 		{
-			_Attacktime += Time::DeltaTime();
-			if (_Attacktime <= 3.0)
-			{
-				Transform* bullet_tr = UltimateSkill_Projectile->GetComponent<Transform>();
-				float BulletX = bullet_tr->GetPosition().x;
-				if(mDir ==1)
-					BulletX  += 350 * Time::DeltaTime();
-				else
-					BulletX -= 350 * Time::DeltaTime();
-				bullet_tr->SetPosition(Vector3(BulletX, pos.y - 25, pos.z - 1.1));
-			}
+
+			RigidBody* Rjd_Bullet = UltimateSkill_Projectile->GetComponent<RigidBody>();
+			Rjd_Bullet->SetFriction(true);
+			Rjd_Bullet->SetGravity(true);
+			if (mDir == 1)
+				Rjd_Bullet->SetVelocity(Vector2(450, 0));
 			else
-			{
-				UltimateSkill_Projectile->SetState(eState::Paused);
-				_state = Knight_State::Finishing_Move;
-				_Ultimate_Skill = false;
-				_Attacktime = 0;
-			}
+				Rjd_Bullet->SetVelocity(Vector2(-450, 0));		
+
+
+			_state = Knight_State::Finishing_Move;
+			_Ultimate_Skill = false;
+			_Attacktime = 0;
+			
 		}
 	}
 	void Knight_male::Finishing_Move_Fail()
@@ -1195,15 +1235,15 @@ namespace jk
 	}
 	void Knight_male::Finishing_Move()
 	{		
-		//_state = Knight_State::Idle;
-		//if (mDir == 1)
-		//	at->PlayAnimation(L"Knight_maleIdle", true);
-		//else
-		//	at->PlayAnimation(L"Knight_maleIdleR", true);
-		//_time = 0;
-		_attackorder = 0;
-		_attack = false;
-		choicecombo();
+		_Attacktime += Time::DeltaTime();
+		if (_Attacktime > 1)
+		{
+			UltimateSkill_Projectile->SetState(eState::Paused);
+			_Attacktime = 0;
+			_attackorder = 0;
+			_attack = false;
+			choicecombo();
+		}
 	}
 
 
@@ -1223,6 +1263,7 @@ namespace jk
 
 	}
 
+
 	void Knight_male::intro()
 	{
 		if (_Intro == true)
@@ -1240,7 +1281,6 @@ namespace jk
 	void Knight_male::stinger()
 	{
 	}
-
 	void Knight_male::stinger_Ready()
 	{
 	}
@@ -1422,6 +1462,12 @@ namespace jk
 		_attack_Col = true;
 		if (_attackorder == 1)
 		{
+			int voice_knight = random(0, 1);
+			if (voice_knight == 0)
+				as->Play("AdventurerHero_Voice_Short");
+			if (voice_knight == 1)
+				as->Play("AdventurerHero_Voice_SpecialMove");
+			as->Play("Atk_Sword_Large_Up");
 			_state = Knight_State::Attack_A;			
 			if (mDir == 1)
 			{
@@ -1438,6 +1484,12 @@ namespace jk
 		}
 		if (_attackorder == 2)
 		{ 
+			int voice_knight = random(0, 1);
+			if (voice_knight == 0)
+				as->Play("AdventurerHero_Voice_Short");
+			if (voice_knight == 1)
+				as->Play("AdventurerHero_Voice_SpecialMove");			
+			as->Play("Atk_Sword_Large_Down");
 			_state = Knight_State::Attack_B;		
 			if (mDir == 1)
 			{
@@ -1454,6 +1506,12 @@ namespace jk
 		}
 		if (_attackorder == 3)
 		{
+			int voice_knight = random(0, 1);
+			if (voice_knight == 0)
+				as->Play("AdventurerHero_Voice_Short");
+			if (voice_knight == 1)
+				as->Play("AdventurerHero_Voice_SpecialMove");
+			as->Play("Atk_Sword_Large_Down2");
 			_state = Knight_State::Attack_C;			
 			if (mDir == 1)
 			{
@@ -1492,6 +1550,7 @@ namespace jk
 				Bullet_effect->SetDirection(-1);
 				bullet_tr->SetPosition(Vector3(pos.x - 40, pos.y - 20, -205));
 			}
+			as->Play("Atk_Explosion_Large");
 			Bullet_effect->SetState(eState::Active);
 			_state = Knight_State::EnergeBall;
 		}		
@@ -1499,7 +1558,15 @@ namespace jk
 	void Knight_male::explosionloop()
 	{
 		if (_attackorder == 1)
-		{
+		{	
+			int voice_knight = random(0, 1);
+			if (voice_knight == 0)
+				as->Play("AdventurerHero_Voice_Short");
+			if (voice_knight == 1)
+				as->Play("AdventurerHero_Voice_SpecialMove");
+			as->Play("Atk_Sword_Small_4");
+
+
 			_state = Knight_State::Explosion_Loop_Ready;
 			if(mDir==1)
 				at->PlayAnimation(L"Knight_maleExplosion_Loop", true);
@@ -1511,6 +1578,8 @@ namespace jk
 	{
 		if (_attackorder == 1)
 		{
+			as->Play("Adventurer_Charge_Start");
+			as->Play("AdventurerHero_Voice_Casting");
 			_state = Knight_State::Finishing_Move_Ready;
 			if (mDir == 1)
 				at->PlayAnimation(L"Knight_maleFinish_Move", true);

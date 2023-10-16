@@ -10,6 +10,7 @@
 #include "Public_UltimateSkill_Effect_Complete.h"
 #include "Public_UltimateSkill_Effect_Fail.h"
 #include "Archer_Utimate_Sign.h"
+#include "HitBox_Archer.h"
 
 #include "Player_Hp_Bar.h"
 #include "Monster_Hit_Effect.h"
@@ -20,6 +21,7 @@
 #include "MiniBoss_State_UI.h"
 #include "AdventureUI.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -121,6 +123,7 @@ namespace jk
 	private:
 		Archer_State _state;
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* _tr = nullptr;
@@ -130,7 +133,7 @@ namespace jk
 
 
 	private:
-		HitBox_Monster* Hit_Box = nullptr;
+		HitBox_Archer* Hit_Box = nullptr;
 		Monster_Hit_Effect* _Hit_Effect = nullptr;
 		Hit_Sword* _Hit_Sword = nullptr;
 		Hit_Critical_Middle* _Critical_Middle = nullptr;
@@ -189,6 +192,8 @@ namespace jk
 		bool	_Ultimate_Skill = false;
 		bool	_Intro = false;
 		bool	_hitend = false;
+		bool	_PushAway = false;
+
 
 	private:
 		Skul_Basic::Skul_Basic_State Skul_BasicState;

@@ -19,7 +19,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Effect\\Upward_Sign", this);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Effect\\Upward_Sign", this,0,0.065);
 		at->CompleteEvent(L"EffectUpward_Sign") = std::bind(&Archer_Arrow_Upward_Sign::Compelete, this);
 
 		at->PlayAnimation(L"EffectUpward_Sign", false);

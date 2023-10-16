@@ -40,10 +40,13 @@ namespace jk
 		OBJPOOL = new MiniBoss_ObjCreate(1);
 		CreateMiniboss(1);
 
-		//_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
-		//as = _BGSound->AddComponent<AudioSource>();
-		//as->SetClip(Resources::Load<AudioClip>(L"AdventurerSound", L"..\\Resources\\Sound\\Adventurer\\Adventurer.wav"));
-		//as->SetLoop(true);
+		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+		as = _BGSound->AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Adventurer.wav", "Adventurer");
+		as->SetLoop(true);
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Chapter1\\Chapter1.wav", "Chapter1");
+		as->SetLoop(true);
+
 
 		_player = object::Instantiate<Player>(Vector3(-600.f, -50.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
@@ -141,7 +144,7 @@ namespace jk
 				{
 					for (Mini_Boss* mon : mBossGroup)
 					{
-						//as->Play();
+						as->Play("Adventurer");						
 						mon->SetState(GameObject::eState::Active);
 					}
 					_MiniBoss_Create = true;
@@ -154,7 +157,8 @@ namespace jk
 		{
 			if (_Door_Open == false)
 			{
-				//as->Stop();
+				as->Stop("Adventurer");
+				as->Play("Chapter1Sound");
 				cameraComp->SetCameraXY = true;
 				Door1->Set_Door_Allow(true);
 				Door1->Set_Stage1_Door(1);
@@ -191,7 +195,7 @@ namespace jk
 
 
 	void Stage1_MiniBoss::OnEnter()
-	{		
+	{	
 		Transform* PlayerTR = _player->GetComponent<Transform>();
 		Vector3 player_pos = PlayerTR->GetPosition();
 		_player->SetPlayer_Pos(player_pos);

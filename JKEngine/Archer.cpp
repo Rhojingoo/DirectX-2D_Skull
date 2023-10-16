@@ -27,6 +27,29 @@ namespace jk
 		_rigidbody->SetGround(false);
 		_tr = GetComponent<Transform>();
 
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Adventure_public\\Adventurer_Charge_Start.wav", "Adventurer_Charge_Start");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Adventure_public\\Adventurer_Charge_End.wav", "Adventurer_Charge_End");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_Voice_Middle.wav", "AdventurerHunter_Voice_Middle");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_Voice_Short.wav", "AdventurerHunter_Voice_Short");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_Voice_Casting.wav", "AdventurerHunter_Voice_Casting");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_Voice_Dead.wav", "AdventurerHunter_Voice_Dead");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_Trap.wav", "AdventurerHunter_Trap");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_Attack.wav", "AdventurerHunter_Attack");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_Attack_Ready.wav", "AdventurerHunter_Attack_Ready");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_ArrowRain_1.wav", "AdventurerHunter_ArrowRain_1");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_ArrowRain_2.wav", "AdventurerHunter_ArrowRain_2");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_ArrowRain_3.wav", "AdventurerHunter_ArrowRain_3");
+
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Blunt_Small.wav", "Hit_Blunt_Small");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Monster\\Common_Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
+
+
+
 		
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Archer\\Attack_A", this,0);
@@ -295,7 +318,14 @@ namespace jk
 			}
 		}
 
-
+		{
+			Hit_Box = new HitBox_Archer();
+			Hit_Box->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
+			Hit_Box->SetState(eState::Paused);
+		}
 		
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
@@ -438,6 +468,22 @@ namespace jk
 	}
 	void Archer::LateUpdate()
 	{
+
+		Transform* HitBox_TR = Hit_Box->GetComponent<Transform>();
+		if (_PushAway == true)
+		{
+			Hit_Box->SetSize(Vector2(50.f, 85.f));
+			Hit_Box->SetState(eState::Active);
+			if (_attackDir == 1)
+				HitBox_TR->SetPosition(Vector3(pos.x + 50, pos.y - 30, pos.z));
+			else
+				HitBox_TR->SetPosition(Vector3(pos.x - 50, pos.y - 30, pos.z));
+		}
+		else
+		{
+			Hit_Box->SetState(eState::Paused);
+		}
+
 		_collider->SetSize(Vector2(0.5f, 0.5f));
 		if(mDir ==1)
 			_collider->SetCenter(Vector2(0.0f, -25.f));
@@ -462,8 +508,8 @@ namespace jk
 			_Damage = player->GetDamage();
 			bool attack = player->Geteffect();
 			bool attack_Cri_Mid = player->Geteffect_Mid();
-			bool attack_Cri_High = player->Geteffect_Hight();
-		
+			bool attack_Cri_High = player->Geteffect_Hight();			
+
 			if (_state == Archer_State::Idle)
 			{
 				_state = Archer_State::Hit;
@@ -574,6 +620,8 @@ namespace jk
 			if (_CurrenHp <= 0)
 			{
 				_state = Archer_State::Die;
+				as->Play("AdventurerHunter_Voice_Dead");
+				Hit_Box->SetState(eState::Paused);
 				_Hit_Effect->_effect_animation = true;
 				if (mDir == 1)
 				{
@@ -605,6 +653,7 @@ namespace jk
 				if (player->_Ground_check == true)
 					return;
 
+				as->Play("Hit_Blunt_Small");
 				if (_state == Archer_State::Idle)
 				{
 					_hit_switch = true;	_hit++;
@@ -743,6 +792,8 @@ namespace jk
 				if (_CurrenHp <= 0)
 				{
 					_state = Archer_State::Die;
+					Hit_Box->SetState(eState::Paused);
+					as->Play("AdventurerHunter_Voice_Dead");
 					_Hit_Effect->_effect_animation = true;
 					if (mDir == 1)
 					{
@@ -895,11 +946,14 @@ namespace jk
 				{
 					if ((_distance <= 80 && _distance >= -80))
 					{
-						_choicecombo = 2;
+						_choicecombo = 10;
+						_attack = true;
+						choicecombo();
 					}
 					else
 					{
-						_choicecombo = random(0, 3);						
+						_choicecombo = random(0, 3);		
+						_choicecombo = 0;
 						_attack = true;
 						choicecombo();
 					}
@@ -915,7 +969,7 @@ namespace jk
 			{
 				if (Bullet_Trap[i]->_Bullet_Life == true)
 					continue;
-				else/* if (Bullet_Trap[i]->_Bullet_Life == false)*/
+				else
 				{
 					Transform* EffectTR = Bullet_Trap[i]->GetComponent<Transform>();
 					RigidBody* Effectrb = Bullet_Trap[i]->GetComponent<RigidBody>();
@@ -923,6 +977,7 @@ namespace jk
 					Bullet_Trap[i]->_Bullet_Life = true;
 					Effectrb->SetGround(false);
 					Bullet_Trap[i]->SetState(eState::Active);
+					as->Play("AdventurerHunter_Trap");
 					break;
 				}
 			}
@@ -947,7 +1002,13 @@ namespace jk
 		_attack_time += Time::DeltaTime();
 		if (_attack_time > 0.7)
 		{
+			int voice_archer = random(0, 1);
+			if(voice_archer ==0)
+				as->Play("AdventurerHunter_Voice_Short"); 
+			if (voice_archer == 1)
+				as->Play("AdventurerHunter_Voice_Middle");
 			_state = Archer_State::Attack_A;
+			as->Play("AdventurerHunter_Attack");
 			_attack_time = 0;
 		}
 	}
@@ -1015,7 +1076,7 @@ namespace jk
 	void Archer::attack_b_ready()
 	{		
 		_attack_time += Time::DeltaTime();
-		if (_attack_time > 1)
+		if (_attack_time > 0.5)
 		{
 			Transform* EffectTR = Upward_Sign->GetComponent<Transform>();
 			EffectTR->SetPosition(_playerpos.x, _playerpos.y, _playerpos.z - 1);
@@ -1028,6 +1089,13 @@ namespace jk
 				at->PlayAnimation(L"ArchereIdleR", false);
 
 			_attack_b_sign = true;
+
+			int voice_archer = random(0, 1);
+			if (voice_archer == 0)
+				as->Play("AdventurerHunter_Voice_Short");
+			if (voice_archer == 1)
+				as->Play("AdventurerHunter_Voice_Middle");
+			as->Play("AdventurerHunter_Attack");
 			_state = Archer_State::Attack_B;
 			_attack_time = 0;
 		}		
@@ -1037,7 +1105,7 @@ namespace jk
 		if (_attack_b_sign == true)
 		{
 			_attack_time += Time::DeltaTime();
-			if (_attack_time > 1)
+			if (_attack_time > 0.5)
 			{
 				Transform* EffectTR = Upward_Sign->GetComponent<Transform>();
 				Vector3 effect = EffectTR->GetPosition();
@@ -1132,6 +1200,7 @@ namespace jk
 				UltimateSkill_Effect_Fail->SetState(eState::Active);
 
 				_state = Archer_State::Finishing_Move_Fail;
+				as->Play("Adventurer_Charge_End");
 				_attack_time = 0.f;				
 			}
 			else
@@ -1150,6 +1219,7 @@ namespace jk
 				else
 					at->PlayAnimation(L"ArcherUltimateR", false);
 				_state = Archer_State::Finishing_Move_Succes;
+				as->Play("Adventurer_Charge_End");
 				_attack_time = 0.f;
 			}
 		}
@@ -1195,7 +1265,16 @@ namespace jk
 						if (_attack_time >= (1.0f + 0.2f * i))
 						{
 							if (Ultimate_Upward_ImpactBullet[i]->_bullet_On == true)
+							{
 								Ultimate_Upward_ImpactBullet[i]->SetState(eState::Active);
+								int ultimate_bullet = random(1, 3);
+								if(ultimate_bullet == 1)
+									as->Play("AdventurerHunter_ArrowRain_1");
+								else if (ultimate_bullet == 2)
+									as->Play("AdventurerHunter_ArrowRain_2");
+								else if (ultimate_bullet == 3)
+									as->Play("AdventurerHunter_ArrowRain_3");
+							}
 							if (Ultimate_Upward_ImpactBullet[i]->_bullet_On == false)
 							{
 								Ultimate_Upward_ImpactBullet[i]->SetState(eState::Paused);
@@ -1252,6 +1331,8 @@ namespace jk
 	}
 	void Archer::choicecombo()
 	{
+		_PushAway = false;
+
 		if (_attack == true)
 		{
 			if (_choicecombo == 0)
@@ -1298,6 +1379,8 @@ namespace jk
 
 	void Archer::shootbow_forward()
 	{
+
+		as->Play("AdventurerHunter_Attack_Ready");
 		_state = Archer_State::Attack_A_Ready;
 		if (mDir == 1)
 			at->PlayAnimation(L"ArcherAttack_A", false);
@@ -1306,6 +1389,7 @@ namespace jk
 	}
 	void Archer::shootbow_upward()
 	{
+		as->Play("AdventurerHunter_Attack_Ready");
 		_state = Archer_State::Attack_B_Ready;
 		if (mDir == 1)
 			at->PlayAnimation(L"ArcherAttack_B", false);
@@ -1314,21 +1398,35 @@ namespace jk
 	}
 	void Archer::pushaway()
 	{
+		int voice_archer = random(0, 1);
+		if (voice_archer == 0)
+			as->Play("AdventurerHunter_Voice_Short");
+		if (voice_archer == 1)
+			as->Play("AdventurerHunter_Voice_Middle");
+		_PushAway = true;
 		_state = Archer_State::Attack_C;
 		if (mDir == 1)
+		{
 			at->PlayAnimation(L"ArcherAttack_C", true);
+			_attackDir = 1;
+		}
 		else
+		{
 			at->PlayAnimation(L"ArcherAttack_CR", true);
+			_attackDir = -1;
+		}
 	}
 	void Archer::ultimate()
 	{
 		_state = Archer_State::Finishing_Move_Ready;
+		as->Play("AdventurerHunter_Voice_Casting"); 
+		as->Play("Adventurer_Charge_Start");			
+		
 		if (mDir == 1)
 			at->PlayAnimation(L"ArcherUltimate_Ready", false);
 		else
 			at->PlayAnimation(L"ArcherUltimate_ReadyR", false);
-		_Ultimate = true;	
-		//_hit = 9;
+		_Ultimate = true;		
 	}
 	void Archer::dash_combo()
 	{

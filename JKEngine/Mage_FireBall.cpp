@@ -20,6 +20,11 @@ namespace jk
 		_rigidbody->SetGround(false);
 		tr = this->GetComponent<Transform>();
 
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Hit_Flame_Short.wav", "Hit_Flame_Short");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Arson_Explosion.wav", "Arson_Explosion");
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\Fireball_Projectile", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\Fireball_Projectile", this, 1);
@@ -85,6 +90,7 @@ namespace jk
 				else
 					Bullet_Effect->SetDirection(-1);
 				Bullet_Effect->SetState(eState::Active);	
+				as->Play("Hit_Flame_Short");
 				this->SetState(eState::Paused);
 				_bullet_On = false;
 				_Lifetime = 0;
@@ -103,6 +109,7 @@ namespace jk
 				else
 					Bullet_Effect->SetDirection(-1);
 				Bullet_Effect->SetState(eState::Active);
+				as->Play("Hit_Flame_Short");
 				this->SetState(eState::Paused);
 				_bullet_On = false;
 				_Lifetime = 0; 
@@ -121,6 +128,7 @@ namespace jk
 				else
 					Bullet_Effect->SetDirection(-1);
 				Bullet_Effect->SetState(eState::Active);
+				as->Play("Hit_Flame_Short");
 				this->SetState(eState::Paused);
 				_bullet_On = false;
 				_Lifetime = 0;
@@ -140,6 +148,7 @@ namespace jk
 				else
 					Bullet_Effect->SetDirection(-1);
 				Bullet_Effect->SetState(eState::Active);
+				as->Play("Hit_Flame_Short");
 				this->SetState(eState::Paused);
 				_bullet_On = false;
 				_Lifetime = 0;

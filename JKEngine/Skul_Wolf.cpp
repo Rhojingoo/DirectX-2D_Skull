@@ -43,6 +43,11 @@ namespace jk
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Energy_Medium.wav", "Hit_Energy_Medium");
 
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_Attack_Hit.wav", "AdventurerHunter_Attack_Hit");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Hit_Flame_Short.wav", "Hit_Flame_Short");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Arson_Explosion.wav", "Arson_Explosion");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Hit_Sword_Large.wav", "Hit_Sword_Large");
+
 
 		
 		at = AddComponent<Animator>();
@@ -1040,6 +1045,7 @@ namespace jk
 			if (_State == Skul_Wolf_State::Dash)
 				return;
 
+			as->Play("AdventurerHunter_Attack_Hit");
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1055,6 +1061,30 @@ namespace jk
 				_Hit_Sword->_effect_animation = true;
 				_Hit_Sword->SetDirection(1);
 				_Hit_Sword->SetState(eState::Active);
+			}
+		}
+
+		if (HitBox_Archer* HitBox = dynamic_cast<HitBox_Archer*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash)
+				return;
+
+			as->Play("Hit_Blunt_Large");
+			Transform* hittr = HitBox->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
+				_Hit_Effect->_effect_animation = true;
+				_Knight_Slash->SetDirection(1);
+				_Knight_Slash->SetState(eState::Active);
+			}
+			else
+			{
+				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
+				_Knight_Slash->_effect_animation = true;
+				_Knight_Slash->SetDirection(-1);
+				_Knight_Slash->SetState(eState::Active);
 			}
 		}
 
@@ -1139,6 +1169,7 @@ namespace jk
 			if (_State == Skul_Wolf_State::Dash)
 				return;
 
+			as->Play("Hit_Sword_Large");
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1181,6 +1212,7 @@ namespace jk
 			if (_State == Skul_Wolf_State::Dash)
 				return;
 
+			as->Play("Arson_Explosion");
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1192,7 +1224,6 @@ namespace jk
 
 		if (Mage_FireBoom* Bullet = dynamic_cast<Mage_FireBoom*>(other->GetOwner()))
 		{
-
 			if (_State == Skul_Wolf_State::Dash)
 				return;
 

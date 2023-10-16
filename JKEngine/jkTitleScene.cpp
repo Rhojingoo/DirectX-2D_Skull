@@ -23,11 +23,14 @@ namespace jk
 				sc_logo2->GetComponent<Transform>()->SetScale(Vector3(1632, 257.f, 0.f));
 
 
-				//GameObject* player = new GameObject();
-				//AddGameObject(eLayerType::Player, player);
-				//as = player->AddComponent<AudioSource>();
-				//as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\Title\\MainTitle_Hardmode.wav"));
-				//as->Play();
+				GameObject* player = new GameObject();
+				AddGameObject(eLayerType::Player, player);
+				as = player->AddComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\Title\\MainTitle_Hardmode.wav", "TestSound"));			
+				as->SetLoop(true);
+				as->Play("TestSound");
+
+
 
 				//Main Camera
 				GameObject* camera = new GameObject();
@@ -72,6 +75,6 @@ namespace jk
 	}
 	void jkTitleScene::OnExit()
 	{
-		//as->Stop();
+		as->Stop("TestSound");	
 	}
 }
