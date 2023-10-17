@@ -841,6 +841,17 @@ namespace jk
 
 	void Skul_Wolf::hit()
 	{
+		if (_hit == true)
+		{
+			_Ground_check = false;
+			_rigidbody->SetGround(false);
+			if (HitDir == 1)
+				_rigidbody->SetVelocity(Vector2(-75.f, 175.f));
+
+			if (HitDir == -1)
+				_rigidbody->SetVelocity(Vector2(75.f, 175.f));
+			_hit = false;
+		}
 	}
 
 	void Skul_Wolf::OnCollisionEnter(Collider2D* other)
@@ -1266,16 +1277,27 @@ namespace jk
 		//Boss_YggDrasil
 		if (HitBox_YggDrasil* Hit_Boss = dynamic_cast<HitBox_YggDrasil*>(other->GetOwner()))
 		{
-			if (_State == Skul_Wolf_State::Dash)
+			if (_State == Skul_Wolf_State::Dash|| _State == Skul_Wolf_State::Hit)
 				return;
 
 			Transform* hittr = Hit_Boss->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
-				HitDir = -1;
-			else
+			{
 				HitDir = 1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				HitDir = -1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(-1);
+				_Hit_Effect->SetState(eState::Active);
+			}
 
+			_hit = true;
 			_State = Skul_Wolf_State::Hit;
 		}
 
@@ -1655,6 +1677,7 @@ namespace jk
 			{
 				_Ground_On = true;
 				mGround->_SkullOn = true;
+				_attack_Ccheck = false;
 				
 				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
@@ -1714,6 +1737,7 @@ namespace jk
 			if (_Ground_check == false)
 			{
 				_Ground_On = true;
+				_attack_Ccheck = false;
 				mGround->_SkullOn = true;
 				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
@@ -1784,6 +1808,7 @@ namespace jk
 				if (skul_footpos > Gr_Top_pos)
 				{
 					_Ground_On = true;
+					_attack_Ccheck = false;
 					mGround->_SkullOn = true;
 					_Player_GRpos = pos;
 					_fallcheck = 0;	_jump = 0;

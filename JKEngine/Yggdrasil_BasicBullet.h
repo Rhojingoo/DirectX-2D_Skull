@@ -1,6 +1,10 @@
 #pragma once
 #include "Include_Common.h"
 #include "Bullet.h"
+#include "Yggdrasil_basicBullet_Effect.h"
+
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 
 namespace jk
 {
@@ -22,16 +26,21 @@ namespace jk
 		static void SetPos(Vector3 set) { _pos = set; }
 		static Vector3 GetPos() { return _pos; }
 
+
+		bool _effect_switch = true;
 	private:
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		int	mDir = 1;
 
+		Yggdrasil_basicBullet_Effect* BulletEffect = nullptr;
+
 	private:
 		static Vector3 _pos;
-		static bool _effect_switch;
+		bool _EffectSwitch = true;
 		float _attackatime = 0.f;
 	};
 }

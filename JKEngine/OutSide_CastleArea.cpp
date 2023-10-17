@@ -29,10 +29,10 @@ namespace jk
 			CollisionManager::SetLayer(eLayerType::MiniBoss, eLayerType::Hitbox, true);
 			CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 
-			//_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
-			//as = _BGSound->AddComponent<AudioSource>();
-			//as->SetClip(Resources::Load<AudioClip>(L"Chapter1Sound", L"..\\Resources\\Sound\\Chapter1\\Chapter1.wav"));
-			//as->SetLoop(true);
+			_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+			as = _BGSound->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"Chapter1", L"..\\Resources\\Sound\\Chapter1\\Chapter1.wav", "Chapter1"));
+			as->SetLoop(true);
 
 
 				#pragma region Player		
@@ -203,14 +203,13 @@ namespace jk
 
 	void OutSide_CastleArea::OnEnter()
 	{
-		//as->Play();
+		as->Play("Chapter1");
 		Transform* PlayerTR = _player->GetComponent<Transform>();
 		Vector3 player_pos = PlayerTR->GetPosition();
 		_player->SetPlayer_Pos(player_pos);
 		_player->SetSwitch(true);
 		_changecheck = true;
-		//_player->Set_HP_Bar(Player_INFO->Get_HP_Bar());
-		//_player->Set_DamageHP_Bar(Player_INFO->Get_DamageHP_Bar());
+
 
 
 #pragma region Cam & Mouse& Grid
@@ -262,6 +261,6 @@ namespace jk
 	void OutSide_CastleArea::OnExit()
 	{
 		jk::Player_INFO->SettingPlay_List(_player->GetPlay_List());
-		//as->Stop();
+		as->Stop("Chapter1");
 	}
 }

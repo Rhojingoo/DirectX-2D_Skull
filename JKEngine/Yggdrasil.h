@@ -9,6 +9,9 @@
 #include "HP_Frame.h"
 
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
+
 namespace jk
 {
 	class Yggdrasil : public Boss
@@ -165,7 +168,7 @@ namespace jk
 		int Attack_Sellect = 0;
 		static int    _NumberofAttack;
 
-
+		static bool _Intro_song;
 		static bool _Intro;
 		static bool _Intro_SetR;
 		static bool _Intro_SetL;
@@ -303,6 +306,7 @@ namespace jk
 		GameObject* Particle[3] = {};
 		Yggdrasil_Dead_Impact1* DieImpact_first[2] = {};
 		Yggdrasil_Dead_Impact2* DieImpact_second = nullptr;
+		AudioSource* as = nullptr;
 
 
 	};

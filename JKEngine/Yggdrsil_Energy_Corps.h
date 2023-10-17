@@ -2,6 +2,7 @@
 #include "Include_Common.h"
 #include "Bullet.h"
 #include "Yggdrasil_EnergyBullet_Effect.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -23,6 +24,7 @@ namespace jk
 
 	private:
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

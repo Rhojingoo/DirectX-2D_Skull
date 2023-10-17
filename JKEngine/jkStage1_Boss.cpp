@@ -29,6 +29,13 @@ namespace jk
 
 #pragma endregion 
 
+
+		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+		as = _BGSound->AddComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"Chapter1Sound", L"..\\Resources\\Sound\\Chapter1\\Chapter1_Boss.wav", "Chapter1_Boss"));
+		as->SetLoop(true);
+
+		
 		_player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
 
@@ -62,23 +69,15 @@ namespace jk
 			tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
 
 
-			Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(1343, -10.f, -205.f), eLayerType::BACK_GROUND);
-			MinibossMap->GetComponent<Transform>()->SetScale(Vector3(955, 30.f, 0.f));	MinibossMap->SetName(L"ST1boss_ground00");
+			Ground_Map* bossMap = object::Instantiate<Ground_Map>(Vector3(1343, -10.f, -205.f), eLayerType::BACK_GROUND);
+			bossMap->GetComponent<Transform>()->SetScale(Vector3(955, 30.f, 0.f));	bossMap->SetName(L"ST1boss_ground00");
 
-			Ground_and_Wall* MinibossWall = object::Instantiate<Ground_and_Wall>(Vector3(878.f, -90.f, -205.f), eLayerType::BACK_GROUND);
-			MinibossWall->GetComponent<Transform>()->SetScale(Vector3(30, 175.f, 0.f));	MinibossWall->SetName(L"ST1boss_Wall00");
+			Ground_and_Wall* bossWall = object::Instantiate<Ground_and_Wall>(Vector3(878.f, -90.f, -205.f), eLayerType::BACK_GROUND);
+			bossWall->GetComponent<Transform>()->SetScale(Vector3(30, 175.f, 0.f));	bossWall->SetName(L"ST1boss_Wall00");
 
 
 			Ground_Map* MinibossMapbottom = object::Instantiate<Ground_Map>(Vector3(0, -300.f, -205.f), eLayerType::BACK_GROUND);
 			MinibossMapbottom->GetComponent<Transform>()->SetScale(Vector3(3000, 300.f, 0.f));	MinibossMapbottom->SetName(L"ST1boss_groundbottom");
-
-
-			//Collider2D* cd = Tile_map->AddComponent<Collider2D>();
-			//cd->SetSize(Vector2(1.f, 0.5f));
-			//cd->SetCenter(Vector2(-955.f, -45.f));
-
-
-
 
 			TileMap::TileMap_Setting(Tile_map, L"Stage1_MiniBoss", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Yggdrasil_bossmap.xml");
 		}
@@ -94,9 +93,15 @@ namespace jk
 			if (_first_groundturch == false)
 			{
 				_first_groundturch = true;
-				_Stage1_Boss->SetState(GameObject::eState::Active);
+				_Stage1_Boss->SetState(GameObject::eState::Active);				
 			}
 		}
+
+		if (_Stage1_Boss->_Intro_song == true)
+			as->Play("Chapter1_Boss");
+		else
+			as->Stop("Chapter1_Boss");
+
 
 		if (_Stage1_Boss->_BossDie == true)
 		{
@@ -144,6 +149,8 @@ namespace jk
 	{
 		Scene::Render();
 	}
+
+
 	void Stage1_Boss::OnEnter()
 	{
 		Transform* PlayerTR = _player->GetComponent<Transform>();
@@ -186,11 +193,6 @@ namespace jk
 		cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 		renderer::cameras.push_back(cameraComp_ui);
 
-		//UI_Mouse
-		UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
-		cursor->SetName(L"Catle_Cursor_UI");
-		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
-		cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera); cursor->SetCamera(camera);
 
 		//Grid
 		Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
@@ -201,6 +203,7 @@ namespace jk
 	}
 	void Stage1_Boss::OnExit()
 	{
+		as->Stop("Chapter1_Boss");
 		_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
 	}
 

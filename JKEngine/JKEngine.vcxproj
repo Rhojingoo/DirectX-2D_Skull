@@ -189,6 +189,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Spring_Effect.h" />
     <ClInclude Include="Stage2_Door.h" />
+    <ClInclude Include="Yggdrasil_basicBullet_Effect.h" />
     <ClInclude Include="Yggdrasil_HpFrame.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Castle_Area.h" />
@@ -417,6 +418,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Spring_Effect.cpp" />
     <ClCompile Include="Stage2_Door.cpp" />
+    <ClCompile Include="Yggdrasil_basicBullet_Effect.cpp" />
     <ClCompile Include="Yggdrasil_HpFrame.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Castle_Area.cpp" />

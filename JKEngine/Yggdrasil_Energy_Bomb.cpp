@@ -20,6 +20,10 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Energy_Large.wav", "Hit_Energy_Large");
+
+
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Bullet\\Energy_Bomb", this);
@@ -68,6 +72,7 @@ namespace jk
 				Transform* EffectTR = BulletEffect->GetComponent<Transform>();
 				EffectTR->SetPosition(tr->GetPosition().x, tr->GetPosition().y-20, tr->GetPosition().z);
 				BulletEffect->SetState(eState::Active);
+				as->Play("Hit_Energy_Large");
 				_EffectSwitch = false;
 				_effect_switch = false;
 			}
@@ -83,6 +88,7 @@ namespace jk
 				Transform* EffectTR = BulletEffect->GetComponent<Transform>();
 				EffectTR->SetPosition(tr->GetPosition().x, tr->GetPosition().y - 20, tr->GetPosition().z);
 				BulletEffect->SetState(eState::Active);
+				as->Play("Hit_Energy_Large");
 				_EffectSwitch = false;
 				_effect_switch = false;
 			}

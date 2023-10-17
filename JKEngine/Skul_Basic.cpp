@@ -45,13 +45,16 @@ namespace jk
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Sword_Small.wav", "Hit_Sword_Small");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Energy_Medium.wav", "Hit_Energy_Medium");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Ice.wav", "Hit_Ice");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Energy_Large.wav", "Hit_Energy_Large");
+
+
+
 
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Archer\\AdventurerHunter_Attack_Hit.wav", "AdventurerHunter_Attack_Hit");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Hit_Flame_Short.wav", "Hit_Flame_Short");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Arson_Explosion.wav", "Arson_Explosion");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Hit_Sword_Large.wav", "Hit_Sword_Large");
-
-
+	
 		{
 			Skul_Head = new Skul_head();
 			Skul_Head->Initialize();
@@ -244,6 +247,7 @@ namespace jk
 		
 		if (_switch == true)
 		{
+			_attack_Acheck = true;
 			as->Play("Default_Switch");
 			_State = Skul_Basic::Skul_Basic_State::Switch;
 			if (mDir == 1)		
@@ -1265,7 +1269,17 @@ namespace jk
 
 	void Skul_Basic::hit()
 	{
-		/*_Ground_check = false;*/
+		if (_hit == true)
+		{
+			_Ground_check = false;
+			_rigidbody->SetGround(false);
+			if (HitDir == 1)
+				_rigidbody->SetVelocity(Vector2(-75.f, 175.f));
+
+			if (HitDir == -1)
+				_rigidbody->SetVelocity(Vector2(75.f, 175.f));
+			_hit = false;
+		}
 	}
 
 	void Skul_Basic::OnCollisionEnter(Collider2D* other)
@@ -1756,18 +1770,82 @@ namespace jk
 		//Boss_YggDrasil
 		if (HitBox_YggDrasil* Hit_Boss = dynamic_cast<HitBox_YggDrasil*>(other->GetOwner()))
 		{
-			if (_State == Skul_Basic_State::Dash)
+			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
 				return;
 
 			Transform* hittr = Hit_Boss->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
-				HitDir = -1;
-			else
+			{
 				HitDir = 1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				HitDir = -1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
 
+			_hit = true;
 			_State = Skul_Basic_State::Hit;
 		}
+
+		if (Yggdrasil_Energy_Bomb* Hit_Boss = dynamic_cast<Yggdrasil_Energy_Bomb*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
+				return;
+
+			Transform* hittr = Hit_Boss->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				HitDir = 1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				HitDir = -1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+
+			_hit = true;
+			_State = Skul_Basic_State::Hit;
+		}
+	
+		if (Yggdrsil_Energy_Corps* Hit_Boss = dynamic_cast<Yggdrsil_Energy_Corps*>(other->GetOwner()))
+		{
+			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
+				return;
+
+			Transform* hittr = Hit_Boss->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				HitDir = 1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				HitDir = -1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+
+			_hit = true;
+			_State = Skul_Basic_State::Hit;
+		}
+
 		//Boss_Layana
 		if (HitBox_Layana* Hit_Boss = dynamic_cast<HitBox_Layana*>(other->GetOwner()))
 		{
@@ -2154,6 +2232,7 @@ namespace jk
 		{			
 			if (_Ground_check == false)
 			{
+				_attack_Acheck = false;
 				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
@@ -2248,6 +2327,7 @@ namespace jk
 			_Ground_On = true;
 			if (_Ground_check == false)
 			{
+				_attack_Acheck = false;
 				_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
@@ -2338,6 +2418,7 @@ namespace jk
 
 		if (Sky_Ground* mGround = dynamic_cast<Sky_Ground*>(other->GetOwner()))
 		{
+
 			_Ground_On = true;
 			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
 			Collider2D* Ground_Col = other->GetOwner()->GetComponent<Collider2D>();
@@ -2361,6 +2442,7 @@ namespace jk
 					float CheckPos = fabs(pos.y - GRpos.y);
 					if (Sizecheck > CheckPos)
 					{
+						_attack_Acheck = false;
 						pos.y = GRpos.y + Sizecheck;
 						tr->SetPosition(pos);
 					}
@@ -2615,6 +2697,7 @@ namespace jk
 	{	
 		if(_switch == false)
 		{
+			_attack_Acheck = false;
 			_State = Skul_Basic_State::Idle;
 			if (mDir == 1)
 			{

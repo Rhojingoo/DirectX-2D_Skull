@@ -29,6 +29,18 @@ namespace jk
 		tr = GetComponent<Transform>();		
 		tr->SetPosition(_pos);
 
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Roar.wav", "ElderEnt_Roar");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_EnergyBomb_Fire.wav", "ElderEnt_EnergyBomb_Fire");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_EnergyBomb_Ready.wav", "ElderEnt_EnergyBomb_Ready");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Groggy_Intro.wav", "ElderEnt_Groggy_Intro");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Groggy_Impact.wav", "ElderEnt_Groggy_Impact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Groggy_Recovery.wav", "ElderEnt_Groggy_Recovery");
+
+
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Face\\YggdrasilFace_groggy", this);
@@ -106,6 +118,7 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, Groggy_impact);
 			Transform* bullet_tr = Groggy_impact->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
+			bullet_tr->SetScale(Vector3(170.f * 2.5, 85.f * 2.5, 0.f));
 			Groggy_impact->SetState(eState::Paused);
 		}
 		{
@@ -330,18 +343,20 @@ namespace jk
 			if (_state == Yggdrasil_State::Groggy_Start || _state == Yggdrasil_State::Groggy_End)
 			{
 				Transform* bullet_tr = Groggy_impact->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y - 50, _pos.z - 1));
+				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 5));
 				Groggy_impact->SetState(eState::Active);
+				as->Play("ElderEnt_Groggy_Impact");
 			}
 		}
 
 		if (Ground_Map* mGround = dynamic_cast<Ground_Map*>(other->GetOwner()))
 		{
-			if (_state == Yggdrasil_State::Groggy_Start || _state == Yggdrasil_State::Groggy_End)
+			if (_state == Yggdrasil_State::Groggy_Start || _state == Yggdrasil_State::Groggy_End || _state == Yggdrasil_State::DieReady)
 			{
 				Transform* bullet_tr = Groggy_impact->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y - 50, _pos.z - 1));
+				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 5));
 				Groggy_impact->SetState(eState::Active);
+				as->Play("ElderEnt_Groggy_Impact");
 			}
 		}
 
@@ -638,6 +653,8 @@ namespace jk
 				for (int i = 0; i < 8; i++)
 				{
 					Bullet[i]->SetState(eState::Active);
+					if (Bullet[i]->_effect_switch == false)
+						Bullet[i]->SetState(eState::Paused);
 				}
 				if(_BulletReady == true)
 				Energy_Bomb->SetState(eState::Active);
@@ -653,7 +670,7 @@ namespace jk
 					for (int i = 0; i < 8; i++)
 					{
 						Bullet[i]->SetState(eState::Paused);
-						Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);
+						Bullet[i]->GetComponent<Transform>()->SetPosition(basic_save_pos);						
 					}
 					{
 						Energy_Bomb->SetState(eState::Paused);
@@ -671,7 +688,7 @@ namespace jk
 		{
 			static bool sparkPositionSet[15] = { false };
 			_time += Time::DeltaTime();
-			if (_time <= 15.f)
+			if (_time <= 10.f)
 			{
 				Transform* bullet_tr = EnergyCorps_Spark->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
@@ -680,7 +697,7 @@ namespace jk
 
 				if (_time >= 1.f)
 				{
-					for (int i = 0; i < 5; i++)
+					for (int i = 0; i < 15; i++)
 					{
 						if (_time >= (1.0f + 0.5f * i))
 						{						
@@ -702,64 +719,13 @@ namespace jk
 								Energy_Corps[i]->SetState(eState::Paused);
 						}
 					}
-				}
-				if (_time >= 3.f)
-				{
-					for (int i = 5; i < 10; i++)
-					{
-						if (_time >= (3.0f + 0.5f * i))
-						{							
-							Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
-							Transform* effect_tr = Groggy_Begin_Efeect[i]->GetComponent<Transform>();
-
-							if (!sparkPositionSet[i])
-							{
-								effect_tr->SetPosition(Vector3(bullet_tr->GetPosition().x, bullet_tr->GetPosition().y, bullet_tr->GetPosition().z - 2));
-								sparkPositionSet[i] = true; 
-							}
-
-							Groggy_Begin_Efeect[i]->SetState(eState::Active);
-							if (Groggy_Begin_Efeect[i]->_EffectOn == false)
-								Groggy_Begin_Efeect[i]->SetState(eState::Paused);
-
-							Energy_Corps[i]->SetState(eState::Active);
-							Energy_Corpsattack();
-							if (Energy_Corps[i]->_effect_switch == false)
-								Energy_Corps[i]->SetState(eState::Paused);
-						}
-					}
-				}
-				if (_time >= 10.f)
-				{
-					for (int i = 10; i < 15; i++)
-					{
-						if (_time >= (6.0f + 0.5f * i))
-						{							
-							Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
-							Transform* effect_tr = Groggy_Begin_Efeect[i]->GetComponent<Transform>();
-
-							if (!sparkPositionSet[i]) 
-							{
-								effect_tr->SetPosition(Vector3(bullet_tr->GetPosition().x, bullet_tr->GetPosition().y, bullet_tr->GetPosition().z - 2));
-								sparkPositionSet[i] = true; 
-							}
-
-							Groggy_Begin_Efeect[i]->SetState(eState::Active);
-							if (Groggy_Begin_Efeect[i]->_EffectOn == false)
-								Groggy_Begin_Efeect[i]->SetState(eState::Paused);
-
-							Energy_Corps[i]->SetState(eState::Active);
-							Energy_Corpsattack();
-							if (Energy_Corps[i]->_effect_switch == false)
-								Energy_Corps[i]->SetState(eState::Paused);
-						}
-					}
-				}
+				}		
 			}
 			else
 			{
 				_state = Yggdrasil_State::Attack_C_Down;
 				EnergyCorps_Spark->SetState(eState::Paused);
+				Groggy_Start->_groggystartefeect_switch = true;
 				_EnergyCorps_Spark_off = false;
 			}
 		}
@@ -785,12 +751,15 @@ namespace jk
 					Transform* bullet_tr = Groggy_Start->GetComponent<Transform>();
 					bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
 					Groggy_Start->SetState(eState::Active);
+					as->Play("ElderEnt_Groggy_Intro");
 					at->PlayAnimation(L"FaceYggdrasilFace_groggy", true);
 				}
 				else
 				{
-					//_state = Yggdrasil_State::Attack_C_Finish;
-					//_NumberofAttack = 0;
+					for (int i = 0; i < 8; i++)
+					{			
+						Bullet[i]->_effect_switch = true;
+					}
 					Energy_Bomb->_effect_switch = true;
 					_Groggy_Bulletready = true;
 
@@ -828,6 +797,8 @@ namespace jk
 						Energy_Bomb->GetComponent<Transform>()->SetPosition(basic_save_pos);
 					}
 					{
+						for (int i = 0; i < 8; i++)						
+							Bullet[i]->_effect_switch = true;						
 						_time = 0;
 						_Firstbullet = true;
 						_BulletReady = false;
@@ -855,17 +826,12 @@ namespace jk
 					if (Groggy_Begin_Efeect[i]->_EffectOn == false)
 						Groggy_Begin_Efeect[i]->_EffectOn=true;
 				}
-				//if (_EnergyCorps_Spark_off == false)
-				//{
-				//	_state = Yggdrasil_State::Attack_C_Finish;
-				//	_NumberofAttack = 0;
-				//	_EnergyCorps_Spark_off = true;
-				//}
 				if (Groggy_Start->_groggystartefeect_switch == true)
 				{
 					Transform* bullet_tr = Groggy_Start->GetComponent<Transform>();
 					bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
 					Groggy_Start->SetState(eState::Active);
+					as->Play("ElderEnt_Groggy_Intro");
 				}
 				else
 				{
@@ -890,7 +856,9 @@ namespace jk
 
 
 		if (_AttackC_Finish == true)
-			_state = Yggdrasil_State::Groggy_Start;
+		{
+			_state = Yggdrasil_State::Groggy_Start;			
+		}
 	}
 
 	void Yggdrasil_Face::groggy_start()
@@ -916,8 +884,9 @@ namespace jk
 	{
 		if (_Intro_Ready == false)
 		{			
+			as->Play("ElderEnt_Roar");
 			_introtime += Time::DeltaTime();
-			if (_introtime < 1.5)
+			if (_introtime < 5)
 			{
 				_pos.x = UpdateVibration(_pos.x, 10, 10.f * 3.14, _introtime);
 			}
@@ -931,6 +900,7 @@ namespace jk
 	}
 	void Yggdrasil_Face::intro_end()
 	{
+		_Intro_song = true;
 		_introtime = 0;
 	}
 
@@ -968,8 +938,9 @@ namespace jk
 		{			
 			if (_Change_Face == false)
 			{
+				as->Play("ElderEnt_Roar");
 				_introtime += Time::DeltaTime();
-				if (_introtime < 1.5)
+				if (_introtime < 5)
 				{
 					_pos.x = UpdateVibration(_pos.x, 10, 10.f * 3.14, _introtime);
 				}
@@ -1054,7 +1025,8 @@ namespace jk
 		RigidBody* bullet_Rb = Energy_Bomb->GetComponent<RigidBody>();
 		_playerpos.x;
 		_playerpos.y;		
-		Vector2 attack_pos = Vector2(_playerpos.x- _Bullet_pos.x, _playerpos.y-_Bullet_pos.y);
+		//Vector2 attack_pos = Vector2(_playerpos.x- _Bullet_pos.x, _playerpos.y-_Bullet_pos.y);
+		Vector2 attack_pos = Vector2(_playerpos.x, _playerpos.y);
 		attack_pos.Normalize();
 		bullet_Rb->SetGround(false);
 		bullet_Rb->SetVelocity(Vector2(attack_pos.x * 300.f, attack_pos.y*400));
@@ -1071,7 +1043,7 @@ namespace jk
 			Vector2 attack_pos = Vector2(_playerpos.x , _playerpos.y );
 			attack_pos.Normalize();
 			bullet_Rb->SetGround(false);
-			bullet_Rb->SetVelocity(Vector2(attack_pos.x * 50.f, attack_pos.y * 250));
+			bullet_Rb->SetVelocity(Vector2(attack_pos.x * 50.f, attack_pos.y * 300));
 		}
 	}
 

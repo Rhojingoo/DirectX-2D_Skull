@@ -20,6 +20,11 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
 
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Skul\\Hit\\Hit_Energy_Large.wav", "Hit_Energy_Large");
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Bullet\\Energy_Corps", this);
 		tr = this->GetComponent<Transform>();
@@ -69,6 +74,7 @@ namespace jk
 				Transform* EffectTR = BulletEffect->GetComponent<Transform>();
 				EffectTR->SetPosition(tr->GetPosition());
 				BulletEffect->SetState(eState::Active);
+				as->Play("Hit_Energy_Large");
 				_EffectSwitch = false;	
 				_effect_switch = false;
 			}
@@ -84,10 +90,12 @@ namespace jk
 				Transform* EffectTR = BulletEffect->GetComponent<Transform>();
 				EffectTR->SetPosition(tr->GetPosition());
 				BulletEffect->SetState(eState::Active);
+				as->Play("Hit_Energy_Large");
 				_EffectSwitch = false;
 				_effect_switch = false;
 			}
 		}
+
 	}
 	void Yggdrsil_Energy_Corps::OnCollisionExit(Collider2D* other)
 	{

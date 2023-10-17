@@ -46,7 +46,8 @@ namespace jk
 	Monster_Death_Effect* Yggdrasil::_Death_Effect = nullptr;
 
 
-
+	
+	bool Yggdrasil::_Intro_song = false;
 	bool Yggdrasil::_Intro = false;
 	bool Yggdrasil::_Intro_SetR = false;
 	bool Yggdrasil::_Intro_SetL = false;
@@ -188,6 +189,41 @@ namespace jk
 			scene->AddGameObject(eLayerType::Boss, _Gobjs[i]);
 		}
 
+
+		as = AddComponent<AudioSource>();		
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Appearance.wav", "ElderEnt_Appearance");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Groggy_Recovery.wav", "ElderEnt_Groggy_Recovery");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Impact(Legacy).wav", "ElderEnt_Impact(Legacy)");
+
+		//1번공격
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Roar_Short.wav", "ElderEnt_Roar_Short"); //손올리기사운드
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_FistSlam_Roar_Legacy.wav", "ElderEnt_FistSlam_Roar_Legacy");//손올리고 괴성
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_FistSlam.wav", "ElderEnt_FistSlam");//바닥충돌
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_FistSlam_Recovery.wav", "ElderEnt_FistSlam_Recovery");//바닥충돌후 손올리기
+
+		//2번공격
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Groggy_Recovery.wav", "ElderEnt_Groggy_Recovery"); //손벌리기사운드
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Sweeping.wav", "ElderEnt_Sweeping"); //손공격시 입사운드
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Sweeping_Roar.wav", "ElderEnt_Sweeping_Roar"); //손공격사운드
+		
+		//3번공격
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_EnergyBomb_Fire.wav", "ElderEnt_EnergyBomb_Fire");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_EnergyBomb_Ready.wav", "ElderEnt_EnergyBomb_Ready");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Groggy_Intro.wav", "ElderEnt_Groggy_Intro");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Groggy_Impact.wav", "ElderEnt_Groggy_Impact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Groggy_Recovery.wav", "ElderEnt_Groggy_Recovery");
+
+		//4번공격
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Dead_Impact.wav", "ElderEnt_Dead_Impact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Dead_Roar.wav", "ElderEnt_Dead_Roar");
+	
+
+
+
+		//as->Play("ElderEnt_Dead_Impact");
+		//as->Play("ElderEnt_Dead_Roar");
+
+
 		{
 			_HpFrame = new Yggdrasil_HpFrame;
 			_HpFrame->Initialize();
@@ -304,8 +340,6 @@ namespace jk
 			_Death_Effect->SetState(eState::Paused);
 		}
 
-		//_DieON = true;
-		//_Change = true;
 		GameObject::Initialize();
 	}
 	void Yggdrasil::Update()
@@ -575,15 +609,14 @@ namespace jk
 			Attack_Sellect = random(0, 2);
 		else
 			Attack_Sellect = random(0, 3);		
-		//Attack_Sellect = 1;
+
 
 		if (_Intro == false)
 		{
 			_state = Yggdrasil_State::Intro_Set_Left;
 		}
 		if (_Intro == true)
-		{				
-
+		{			
 			_AttackA_FinishR = false;
 			_AttackA_FinishL = false;
 			_Groggy_Chin_Up = false;
@@ -626,7 +659,7 @@ namespace jk
 				jkFont::setText(L"위그드라실", 763,-32,15,true);
 				jkFont::setText2(L"장로엔트", 770, -103, 15, true);
 			}
-
+			Attack_Sellect = 3;
 
 			if (_time > 3)
 			{
@@ -664,8 +697,12 @@ namespace jk
 
 	void Yggdrasil::attack_a_set()
 	{
+		as->Play("ElderEnt_Roar_Short");
 		if (_SetattackA_r == true && _SetattackA_l == true)
+		{
 			_state = Yggdrasil_State::Attack_A_Ready;
+			as->Play("ElderEnt_Roar_Short");
+		}
 	}
 	void Yggdrasil::attack_a_ready()
 	{
@@ -694,6 +731,7 @@ namespace jk
 			_attackatime += Time::DeltaTime();
 			if (_attackatime > 2.5f)
 			{
+				as->Play("ElderEnt_FistSlam_Recovery");
 				_state = Yggdrasil_State::Attack_A_Loading;
 				_attackatime = 0.f;
 				_AttackA_Boddy = false;
@@ -707,6 +745,7 @@ namespace jk
 			_attackatime += Time::DeltaTime();
 			if (_attackatime > 2.5f)
 			{
+				as->Play("ElderEnt_FistSlam_Recovery");
 				_state = Yggdrasil_State::Attack_A_Loading;
 				_attackatime = 0.f;
 				_AttackA_Boddy = false;
@@ -742,7 +781,10 @@ namespace jk
 	void Yggdrasil::attack_b_set()
 	{
 		if ((_SetattackB_r == true) && (_SetattackB_l == true))
-			_state = Yggdrasil_State::Attack_B_Ready;		
+		{
+			_state = Yggdrasil_State::Attack_B_Ready;
+			as->Play("ElderEnt_Groggy_Recovery");
+		}
 	}
 	void Yggdrasil::attack_b_ready()
 	{
@@ -756,14 +798,14 @@ namespace jk
 				_SetattackB_r = false;
 				_SetattackB_l = false;
 				_AttackB_Readyr = false;
-				_AttackB_Readyl = false;
+				_AttackB_Readyl = false;					
 			}
 		}
 		else
 		{
 			if ((_AttackB_Readyr == true) && (_AttackB_Readyl == true))
 			{
-				if (mDir == 1)
+				if (_playerpos.x >= 0)
 				{
 					_Attack_Dir = 1;
 					if (_AttackB_Ready_Boddy == true)
@@ -783,14 +825,17 @@ namespace jk
 						_AttackB_Ready_Boddy = false;
 					}
 				}
+				as->Play("ElderEnt_Sweeping");
+				as->Play("ElderEnt_Sweeping_Roar");
 			}
 		}
 	}
 	void Yggdrasil::attack_b_left()
-	{
+	{		
 	}
 	void Yggdrasil::attack_b_right()
 	{
+
 	}
 	void Yggdrasil::attack_b_finish()
 	{
@@ -799,14 +844,20 @@ namespace jk
 			_state = Yggdrasil_State::Idle;
 			Yggdrasil::_NumberofAttack = 0;
 			_time = 0;
+			_AttackB_FinishBoddy = false;
+			_AttackB_Finishr = false;
+			_AttackB_Finishl = false;
 		}
 	}
 
 
 	void Yggdrasil::attack_c_set()
 	{
-		if ((_SetattackC_r == true) && (_SetattackC_l == true)&&(_SetattackC_face == true)&&(_SetattackC_chin ==true)&& _SetattackC_boddy == true)
-			_state = Yggdrasil_State::Attack_C_Ready;		
+		if ((_SetattackC_r == true) && (_SetattackC_l == true) && (_SetattackC_face == true) && (_SetattackC_chin == true) && _SetattackC_boddy == true)
+		{
+			_state = Yggdrasil_State::Attack_C_Ready;
+			as->Play("ElderEnt_EnergyBomb_Ready");
+		}
 	}
 	void Yggdrasil::attack_c_ready()
 	{
@@ -816,7 +867,10 @@ namespace jk
 	void Yggdrasil::attack_c_up()
 	{
 		if ((Yggdrasil_Face::_BulletReady == true) && (Yggdrasil_Body::Boddy_BulletReady == true))
+		{
 			_state = Yggdrasil_State::Attack_C;
+			as->Play("ElderEnt_EnergyBomb_Fire");
+		}
 	}
 	void Yggdrasil::attack_c()
 	{
@@ -827,7 +881,7 @@ namespace jk
 		{
 			if (_Groggy_Bulletready == true)
 			{
-				_state = Yggdrasil_State::Attack_C_Finish;
+				_state = Yggdrasil_State::Attack_C_Finish;		
 				_NumberofAttack = 0;
 				_Groggy_Bulletready = false;
 			}
@@ -862,6 +916,7 @@ namespace jk
 	}
 	void Yggdrasil::groggy_end()
 	{
+		as->Play("ElderEnt_Groggy_Recovery");
 		_Groggy_Chin_Down = false; _Groggy_Body_Down = false; _Groggy_Face_Down = false; _time = 0;
 		if ((_Groggy_Chin_Up == true) && (_Groggy_Body_Up == true) && (_Groggy_Face_Up == true) && (_Groggy_RightHand_Up == true) && (_Groggy_LeftHand_Up == true))
 			_state = Yggdrasil_State::Idle;		
@@ -871,7 +926,11 @@ namespace jk
 	void Yggdrasil::attack_d_set()
 	{
 		if (_SetattackD_r == true && _SetattackD_l == true)
-			_state = Yggdrasil_State::Attack_D_Ready;		
+		{
+			_state = Yggdrasil_State::Attack_D_Ready;
+			as->Play("ElderEnt_FistSlam_Roar_Legacy");
+		}
+
 	}
 	void Yggdrasil::attack_d_ready()
 	{
@@ -895,6 +954,7 @@ namespace jk
 		if ((Yggdrasil_Hand_Left::_Attackswitch == true) && (Yggdrasil_Hand_Right::_Attackswitch == true))		
 		{
 			_state = Yggdrasil_State::Attack_D_Loading;
+			as->Play("ElderEnt_FistSlam");
 		}
 	}
 	void Yggdrasil::attack_d_loading()
@@ -926,18 +986,19 @@ namespace jk
 
 	void Yggdrasil::intro_set_right()
 	{
-		if (_Intro_SetR == true)
-			_state = Yggdrasil_State::Intro_Ready;
+		if (_Intro_SetR == true)		
+			_state = Yggdrasil_State::Intro_Ready;			
 	}
 	void Yggdrasil::intro_set_left()
-	{
-		if(_Intro_SetL == true)
-			_state = Yggdrasil_State::Intro_Set_Right;
+	{		
+		if (_Intro_SetL == true)		
+			_state = Yggdrasil_State::Intro_Set_Right;				
 	}
 	void Yggdrasil::intro_ready()
 	{
 		if(_Intro_Ready ==true)
 			_state = Yggdrasil_State::Intro;
+		as->Play("ElderEnt_Appearance");
 	}
 	void Yggdrasil::intro()
 	{
@@ -997,6 +1058,7 @@ namespace jk
 
 	void Yggdrasil::die_set()
 	{
+		_Intro_song = false;
 		if (_Die_SetR == true && _Die_SetL == true && _Die_SetFace == true && _Die_SetChin == true && _Die_SetBoddy == true)
 		{
 			_FadeAssistantTime += Time::DeltaTime();
@@ -1018,6 +1080,7 @@ namespace jk
 						_FadeAssistantTime = 0.f;
 						_DiewaitingFadein = false;
 						_state = Yggdrasil_State::Die_Waiting;
+						as->Play("ElderEnt_Dead_Impact");						
 
 						DieImpact_first[0] = object::Instantiate<Yggdrasil_Dead_Impact1>(Vector3(-150.f, _pos.y-40.f, -248.f), eLayerType::Effect);					
 
@@ -1037,6 +1100,7 @@ namespace jk
 						Particle[2]  = object::Instantiate<GameObject>(Vector3(145.f, -80.f, -249.f), eLayerType::Effect);					
 						ParticleSystem* mr3 = Particle[2]->AddComponent<ParticleSystem>(Vector3(145.f, -80.f, -249.f),1);
 					}
+					
 				}
 			
 			}		
@@ -1050,6 +1114,7 @@ namespace jk
 			if (_Dietime > 3.5f)
 			{
 				_state = Yggdrasil_State::DieReady;
+				as->Play("ElderEnt_Dead_Roar");
 				_Dietime = 0;
 			}
 		}

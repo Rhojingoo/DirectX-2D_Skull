@@ -641,8 +641,7 @@ namespace jk
 			bool attack = player->Geteffect();
 			bool attack_Cri_Mid = player->Geteffect_Mid();
 			bool attack_Cri_High = player->Geteffect_Hight();
-			_Damage = 1500;
-						
+									
 			if (_state == Mage_State::Idle)
 			{
 				_hit++;
@@ -1425,7 +1424,7 @@ namespace jk
 
 		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
 		_attack_time += Time::DeltaTime();
-		if (_attack_time >= 5.5)
+		if (_attack_time >= 4.5)
 		{
 			Ultimate_Aura->SetState(eState::Paused);
 			Ultimate_AuraSmoke->SetState(eState::Paused);
@@ -1457,26 +1456,26 @@ namespace jk
 
 				{
 					Transform* _OnFire_Ready_tr0 = _OnFire_Ready[0]->GetComponent<Transform>();
-					_OnFire_Ready_tr0->SetPosition(Vector3(_first_place.x, _first_place.y, pos.z + 1));
+					_OnFire_Ready_tr0->SetPosition(Vector3(_playerpos.x, _first_place.y, pos.z + 1));
 
 					Transform* _OnFire_Ready_tr1 = _OnFire_Ready[1]->GetComponent<Transform>();
-					_OnFire_Ready_tr1->SetPosition(Vector3(_first_place.x-200, _first_place.y-100, pos.z + 1));
+					_OnFire_Ready_tr1->SetPosition(Vector3(_playerpos.x-200, _first_place.y-100, pos.z + 1));
 
 					Transform* _OnFire_Ready_tr2 = _OnFire_Ready[2]->GetComponent<Transform>();
-					_OnFire_Ready_tr2->SetPosition(Vector3(_first_place.x+200, _first_place.y-100, pos.z + 1));
+					_OnFire_Ready_tr2->SetPosition(Vector3(_playerpos.x+200, _first_place.y-100, pos.z + 1));
 
 
 					Transform* _OnFire_tr0 = _OnFire[0]->GetComponent<Transform>();
 					_OnFire[0]->_effect_On = false;
-					_OnFire_tr0->SetPosition(Vector3(_first_place.x, _first_place.y, pos.z + 1));
+					_OnFire_tr0->SetPosition(Vector3(_playerpos.x, _first_place.y, pos.z + 1));
 
 					Transform* _OnFire_tr1 = _OnFire[1]->GetComponent<Transform>();
 					_OnFire[1]->_effect_On = false;
-					_OnFire_tr1->SetPosition(Vector3(_first_place.x-200, _first_place.y-100, pos.z + 1));
+					_OnFire_tr1->SetPosition(Vector3(_playerpos.x-200, _first_place.y-100, pos.z + 1));
 
 					Transform* _OnFire_tr2 = _OnFire[2]->GetComponent<Transform>();
 					_OnFire[2]->_effect_On = false;
-					_OnFire_tr2->SetPosition(Vector3(_first_place.x+200, _first_place.y-100, pos.z + 1));
+					_OnFire_tr2->SetPosition(Vector3(_playerpos.x+200, _first_place.y-100, pos.z + 1));
 				}
 
 			

@@ -5,6 +5,7 @@
 #include "HitBox_YggDrasil.h"
 #include "Yggdrasil_HandDead_Effect.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -68,6 +69,7 @@ namespace jk
 		static bool			_Attackswitch;
 		static int			mDir;
 
+
 	private:
 		Yggdrasil_FistSlam_Effect* FistSlam_Smoke = nullptr;
 		Yggdrasil_Sweeping* _Sweeping = nullptr;
@@ -76,6 +78,7 @@ namespace jk
 
 	private:
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
@@ -95,7 +98,10 @@ namespace jk
 		bool _attackon = false;
 		bool _attackloading = false;
 		bool _HitBox_Attack_On = false;
+		bool _Change_AttackD_On = false;
+		bool _Change_AttackD_HitgrOn = false;
 
+		float _hitboxtime = 0.f;
 
 		void attackb_setting();
 	};

@@ -5,6 +5,8 @@
 #include "HitBox_YggDrasil.h"
 #include "Yggdrasil_HandDead_Effect.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 
 namespace jk
 {
@@ -77,6 +79,7 @@ namespace jk
 
 	private:
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
@@ -96,6 +99,7 @@ namespace jk
 		bool _attackon = false;
 		bool _attackloading = false;
 		bool _HitBox_Attack_On = false;
+		bool _Change_AttackD_On = false;
 
 		void attackb_setting();
 	};

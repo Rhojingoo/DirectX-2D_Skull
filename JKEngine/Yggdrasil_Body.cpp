@@ -29,6 +29,7 @@ namespace jk
 		_savepos = Vector3(0.f, -20.f, -199.f);
 		tr->SetPosition(_pos);
 
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Body\\YggdrasilBody_Attack_C", this);
@@ -472,7 +473,7 @@ namespace jk
 	void Yggdrasil_Body::intro_ready()
 	{
 		if (introbody_ordernumber == 0)
-		{			
+		{	
 			_pos.y += 150 * Time::DeltaTime();
 			if (_pos.y >= _savepos.y + 40)
 				introbody_ordernumber = 1;
@@ -521,12 +522,15 @@ namespace jk
 		{
 			at->PlayAnimation(L"BodyYggdrasilBody_Change", true);
 			_Change_Body = true;
+			_groggy_body = false;
+			_Groggy_Body_Down = false;
 		}
 	}
 	void Yggdrasil_Body::change_end()
 	{
+	
 	}
-
+	
 
 	void Yggdrasil_Body::die_set()
 	{
@@ -544,6 +548,8 @@ namespace jk
 		Effect_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 		_Dead_Effect->SetState(eState::Active);
 		_Die_SetBoddy = true;
+		_groggy_body = false;
+		_Groggy_Body_Down = false;
 	}
 	void Yggdrasil_Body::die_waiting()
 	{

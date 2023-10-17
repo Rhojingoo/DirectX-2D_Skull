@@ -23,9 +23,24 @@ namespace jk
 
 		_Savepointpos =  Vector3(150.f, -120.f, -203.f);
 		_pos = Vector3(150.f, -300, -199.f);
-
 		tr = GetComponent<Transform>();
 		tr->SetPosition(Vector3(_pos));
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Impact(Legacy).wav", "ElderEnt_Impact(Legacy)");//인트로시
+		//1번공격
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_FistSlam.wav", "ElderEnt_FistSlam");//바닥충돌
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_FistSlam_Recovery.wav", "ElderEnt_FistSlam_Recovery");//바닥충돌후 손올리기
+		//2번공격
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Sweeping.wav", "ElderEnt_Sweeping"); //손공격시 입사운드
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Ygdrasil\\ElderEnt_Sweeping_Roar.wav", "ElderEnt_Sweeping_Roar"); //손공격사운드
+
+
+
+		//as->Play("ElderEnt_Sweeping");
+		//as->Play("ElderEnt_Sweeping_Roar");
+
+
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Hand\\1_HandIdle", this, 1);
@@ -273,6 +288,11 @@ namespace jk
 			HitBox_TR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z));
 			Hit_Box->SetState(eState::Active);
 		}
+		else if (_Change_AttackD_On == true)
+		{
+			_collider->SetSize(Vector2(0.5f, 0.5f));
+			_collider->SetCenter(Vector2(0.0f, -0.05f));
+		}
 		else
 		{
 			Hit_Box->SetState(eState::Paused);
@@ -294,12 +314,12 @@ namespace jk
 			{	
 				_rigidbody->SetGround(true);
 				_rigidbody->ClearVelocity();
-				_Ground_check = true;
-				_Attackswitch = true;
+				_Ground_check = true;		
 				_NumberofAttack++;		
 
 				if (_state == Yggdrasil_State::Attack_A_Right)
 				{
+					_Attackswitch = true;
 					FistSlam_Smoke->SetState(eState::Active);
 					FistSlam_Smoke->_EffectOn = true;
 					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
@@ -308,10 +328,11 @@ namespace jk
 				}
 				if (_state == Yggdrasil_State::Attack_D)
 				{
+					_Attackswitch = true;
 					FistSlam_Smoke->SetState(eState::Active);
 					FistSlam_Smoke->_EffectOn = true;
 					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
-					Effect->SetPosition(Vector3(_pos.x, _pos.y + 100, _pos.z - 1.5));
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 75, _pos.z - 1.5));
 				}
 			}
 			else
@@ -334,6 +355,7 @@ namespace jk
 
 				if (_state == Yggdrasil_State::Attack_A_Right)
 				{
+					as->Play("ElderEnt_FistSlam");
 					FistSlam_Smoke->SetState(eState::Active);
 					FistSlam_Smoke->_EffectOn = true;
 					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
@@ -345,7 +367,7 @@ namespace jk
 					FistSlam_Smoke->SetState(eState::Active);
 					FistSlam_Smoke->_EffectOn = true;
 					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
-					Effect->SetPosition(Vector3(_pos.x, _pos.y + 100, _pos.z - 1.5));
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 75, _pos.z - 1.5));
 				}
 			}
 			else
@@ -521,7 +543,9 @@ namespace jk
 	void Yggdrasil_Hand_Right::attack_b_ready()
 	{
 		if (_SetattackB_r == true)
-			attackb_setting();
+		{
+			attackb_setting();	
+		}
 	}
 	void Yggdrasil_Hand_Right::attack_b_right()
 	{		
@@ -530,7 +554,7 @@ namespace jk
 			if (_attackon == true)
 			{
 				_HitBox_Attack_On = true;
-				_rigidbody->SetVelocity(Vector2(-350.f, 0.f));
+				_rigidbody->SetVelocity(Vector2(-750.f, 0.f));
 				_Sweeping->SetState(eState::Active);
 				_Sweeping->SetDirection(-1);
 				Transform* _SweepingTR = _Sweeping->GetComponent<Transform>();
@@ -546,10 +570,8 @@ namespace jk
 				_AttackB_Boddy = false;
 				_state = Yggdrasil_State::Attack_B_Ready;
 				_HitBox_Attack_On = false;
-
-
 				_NumberofAttack++;
-				_state = Yggdrasil_State::Attack_B_Set;
+	
 				if (_NumberofAttack >= 2)
 				{
 					at->PlayAnimation(L"Hand1_HandIdleR", true);
@@ -581,6 +603,7 @@ namespace jk
 		}
 		if (_attackon == false)
 		{
+			_pos.x = _Savepointpos.x;
 			if (_pos.y < _Savepointpos.y)
 				_pos.y += 150.0f * Time::DeltaTime();
 			
@@ -649,11 +672,13 @@ namespace jk
 	{
 		if (_Attackswitch == true)
 		{
+			_rigidbody->ClearVelocity();
 			_rigidbody->SetVelocity(Vector2(10.f, 0.f));
 			_Attackswitch = false;
 		}
 		else
 		{
+			_Change_AttackD_On = true;
 			_SetattackD_r = true;
 			at->PlayAnimation(L"Hand1_HandRockR", true);
 			if (_Changeon == true)
@@ -667,13 +692,16 @@ namespace jk
 			at->PlayAnimation(L"Hand1_HandRockR", true);
 			if (_Changeon == true)
 				at->PlayAnimation(L"HandHandRock_ChangeR", true);
-			_rigidbody->SetVelocity(Vector2(0.f, 500.f));
+
+			_rigidbody->ClearVelocity();
+			_rigidbody->SetVelocity(Vector2(0.f, 200.f));
 			_rigidbody->SetGround(false);
 			_Attackswitch = false;
 			_Ground_check = false;
 		}
 		if (_Yggdrasildistance.y <= -137.f)
 		{
+			_SetattackD_r = false;
 			_rigidbody->ClearVelocity();
 			_rigidbody->SetGround(true);
 			_AttackA_SavePos = _pos;
@@ -686,7 +714,7 @@ namespace jk
 		{
 			_Ground_check = false;
 			_rigidbody->SetGround(false);
-			_rigidbody->SetVelocity(Vector2(0.F, -250.f));
+			_rigidbody->SetVelocity(Vector2(0.F, -350.f));
 			_AttackD_Readyr = false;
 		}
 	}
@@ -763,6 +791,7 @@ namespace jk
 			
 			if ((_pos.x == _Savepointpos.x) && (_pos.y == _Savepointpos.y))
 			{
+				_Change_AttackD_On = false;
 				_AttackD_Finishr = false;
 				at->PlayAnimation(L"Hand1_HandIdleR", true);
 				if (_Changeon == true)
@@ -899,13 +928,14 @@ namespace jk
 			_pos.z = _Savepointpos.z;
 			_Intro_SetR = true;
 			at->PlayAnimation(L"Hand1_HandAntlionR", false);
+			as->Play("ElderEnt_Impact(Legacy)");
 		}
 	}
 	void Yggdrasil_Hand_Right::attackb_setting()
 	{		
 		if (_attackready == false)
 		{
-			if (_Yggdrasildistance.x <= -500)
+			if (_Yggdrasildistance.x <= -600)
 			{
 				_pos.x = _pos.x;
 				_AttackB_Readyr = true;
@@ -913,7 +943,7 @@ namespace jk
 				_attackon = true;
 			}
 			else			
-				_pos.x += 450.0f * Time::DeltaTime();
+				_pos.x += 550.0f * Time::DeltaTime();
 				
 			tr->SetPosition(Vector3(_pos));			
 		}	

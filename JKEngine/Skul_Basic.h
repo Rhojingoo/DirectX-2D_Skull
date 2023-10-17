@@ -143,6 +143,7 @@ namespace jk
 		bool _HitUP = true;
 		int HitDir = 1;
 		bool _Active = false;
+		bool _hit = false;
 
 	private:
 		void attack_choice();

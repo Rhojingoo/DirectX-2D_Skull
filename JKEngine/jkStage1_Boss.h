@@ -3,6 +3,9 @@
 #include "jkPlayScene.h"
 #include "Stage1_BossDoor.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
+
 namespace jk
 {
 	class Stage1_Boss : public PlayScene
@@ -20,6 +23,10 @@ namespace jk
 		virtual void OnExit();
 
 		void CamareShooting();
+
+	private:
+		AudioSource* as = nullptr;
+		Sound* _BGSound = nullptr;
 
 	private:
 		Back_ground* Kingbg = nullptr;

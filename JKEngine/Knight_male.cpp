@@ -873,7 +873,7 @@ namespace jk
 		_time += Time::DeltaTime();
 		_Attacktime = 0;
 		_choicecombo = random(0, 3);
-		_choicecombo = 3;
+		//_choicecombo = 3;
 	
 		if (_Intro == false)
 		{
@@ -1150,7 +1150,7 @@ namespace jk
 
 		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
 		_Attacktime += Time::DeltaTime();
-		if (_Attacktime >= 7.5)
+		if (_Attacktime >= 4.5)
 		{
 			Ultimate_Aura->SetState(eState::Paused);
 			Ultimate_AuraSmoke->SetState(eState::Paused);
