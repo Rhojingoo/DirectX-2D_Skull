@@ -21,6 +21,9 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
 
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DimensionPierce_Impact.wav", "Homing_Hit");//Å¸°Ý½Ã
+
 
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Homing_pierce", this);
@@ -62,6 +65,7 @@ namespace jk
 	{
 		if (Tile_Ground* Bullet = dynamic_cast<Tile_Ground*>(other->GetOwner()))
 		{
+			as->Play("Homing_Hit");
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (mDir==1)
@@ -88,6 +92,7 @@ namespace jk
 
 		if (Player* player = dynamic_cast<Player*>(other->GetOwner()))
 		{			
+			as->Play("Homing_Hit");
 			if (mDir == 1)
 			{
 				Vector3 pos = _tr->GetPosition();

@@ -25,17 +25,15 @@
 #include "Awaken_End_SmokeB2.h"
 
 
-
 #include "Death_IntroEffect.h"
 #include "Death_Effect_First.h"
 #include "Death_Effect_Second.h"
 #include "Death_Elect_First.h"
 #include "Death_Elect_Second.h"
 
-
-
 #include "Monster_Hp_Bar.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 
 
@@ -245,6 +243,7 @@ namespace jk
 
 	private:
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		HitBox_Layana* Hit_Box = nullptr;

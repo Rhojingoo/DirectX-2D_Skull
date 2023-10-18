@@ -2,6 +2,8 @@
 #include "Include_Common.h"
 #include "Layana_HpFrame.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 namespace jk
 {
 	class Layana_Sisters : public Boss
@@ -128,6 +130,7 @@ namespace jk
 
 	private:
 		GameObject* _Gobjs[3];
+		AudioSource* as = nullptr;
 		float _time = 0.f;
 		float _Attacktime = 0.f;
 

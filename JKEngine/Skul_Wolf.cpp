@@ -47,7 +47,7 @@ namespace jk
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Hit_Flame_Short.wav", "Hit_Flame_Short");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Arson_Explosion.wav", "Arson_Explosion");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Hit_Sword_Large.wav", "Hit_Sword_Large");
-
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DimensionPierce_Impact.wav", "Homing_Hit");//Å¸°Ý½Ã	
 
 		
 		at = AddComponent<Animator>();
@@ -1301,6 +1301,57 @@ namespace jk
 			_State = Skul_Wolf_State::Hit;
 		}
 
+		if (Yggdrasil_Energy_Bomb* Hit_Boss = dynamic_cast<Yggdrasil_Energy_Bomb*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash || _State == Skul_Wolf_State::Hit)
+				return;
+
+			Transform* hittr = Hit_Boss->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				HitDir = 1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				HitDir = -1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+
+			_hit = true;
+			_State = Skul_Wolf_State::Hit;
+		}
+
+		if (Yggdrsil_Energy_Corps* Hit_Boss = dynamic_cast<Yggdrsil_Energy_Corps*>(other->GetOwner()))
+		{
+			if (_State == Skul_Wolf_State::Dash || _State == Skul_Wolf_State::Hit)
+				return;
+
+			Transform* hittr = Hit_Boss->GetComponent<Transform>();
+			Vector3 hitpos = hittr->GetPosition();
+			if (hitpos.x > pos.x)
+			{
+				HitDir = 1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+			else
+			{
+				HitDir = -1;
+				_Hit_Effect->_effect_animation = true;
+				_Hit_Effect->SetDirection(1);
+				_Hit_Effect->SetState(eState::Active);
+			}
+
+			_hit = true;
+			_State = Skul_Wolf_State::Hit;
+		}
 
 		//Boss_Layana
 		if (HitBox_Layana* Hit_Boss = dynamic_cast<HitBox_Layana*>(other->GetOwner()))
@@ -1383,9 +1434,10 @@ namespace jk
 
 		if (Dimension_Pierce_BulletEffect* Bullet = dynamic_cast<Dimension_Pierce_BulletEffect*>(other->GetOwner()))
 		{
-			if (_State == Skul_Wolf_State::Dash)
+			if (_State == Skul_Wolf_State::Dash || _State == Skul_Wolf_State::Hit)
 				return;
 
+			as->Play("Homing_Hit");
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
@@ -1499,7 +1551,7 @@ namespace jk
 
 		if (Layana_Ground_Thunder* Bullet = dynamic_cast<Layana_Ground_Thunder*>(other->GetOwner()))
 		{
-			if (_State == Skul_Wolf_State::Dash)
+			if (_State == Skul_Wolf_State::Dash || _State == Skul_Wolf_State::Hit)
 				return;
 
 			Transform* hittr = Bullet->GetComponent<Transform>();
@@ -1528,7 +1580,7 @@ namespace jk
 
 		if (Layana_Awaken_Meteor_Projectile* Bullet = dynamic_cast<Layana_Awaken_Meteor_Projectile*>(other->GetOwner()))
 		{
-			if (_State == Skul_Wolf_State::Dash)
+			if (_State == Skul_Wolf_State::Dash || _State == Skul_Wolf_State::Hit)
 				return;
 
 			Transform* hittr = Bullet->GetComponent<Transform>();
@@ -1557,7 +1609,7 @@ namespace jk
 
 		if (Layana_Awaken_Homing_Attac* Bullet = dynamic_cast<Layana_Awaken_Homing_Attac*>(other->GetOwner()))
 		{
-			if (_State == Skul_Wolf_State::Dash)
+			if (_State == Skul_Wolf_State::Dash || _State == Skul_Wolf_State::Hit)
 				return;
 
 			Transform* hittr = Bullet->GetComponent<Transform>();
@@ -1586,7 +1638,7 @@ namespace jk
 
 		if (Dark_DimensionPierce_BulletEffect* Bullet = dynamic_cast<Dark_DimensionPierce_BulletEffect*>(other->GetOwner()))
 		{
-			if (_State == Skul_Wolf_State::Dash)
+			if (_State == Skul_Wolf_State::Dash|| _State == Skul_Wolf_State::Hit)
 				return;
 
 			Transform* hittr = Bullet->GetComponent<Transform>();

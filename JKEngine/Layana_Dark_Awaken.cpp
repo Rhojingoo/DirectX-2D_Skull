@@ -44,8 +44,55 @@ namespace jk
 		_pos = Vector3(0.f, 0.f, -200.f);
 		_Createpos = _pos;
 		tr->SetPosition(_pos);
-		
-		
+			
+
+
+
+		as = AddComponent<AudioSource>();
+		//인트로
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Awakening_Outro.wav", "Leiana_Awakening_Outro");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Sign.wav", "Leiana_Sign");
+
+		//텔레포트
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Teleport_In.wav", "Leiana_Teleport_In");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Teleport_Out.wav", "Leiana_Teleport_Out");
+		//러쉬 & 디미전
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush1");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush2");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush3");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush4");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush5");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush6");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush7");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush8");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush9");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Hardmode_Leiana_Rush_Impact.wav", "Hardmode_Leiana_Rush_Impact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "Leiana_DarkDimensionRush_Sign");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Impact.wav", "Leiana_DarkDimensionRush_Impact");
+		//메테오공용(Leiana_DarkMeteor)
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkMeteor.wav", "Leiana_DarkMeteor");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Landing.wav", "Leiana_Landing");
+		//메테오 그라운드
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkMeteorGround_Sign.wav", "Leiana_DarkMeteorGround_Sign");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkMeteorGround_Smoke.wav", "Leiana_DarkMeteorGround_Smoke");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkMeteorGround_Thunder.wav", "Leiana_DarkMeteorGround_Thunder");
+		//메테오 버티칼
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_MeteorGround_Dark.wav", "Leiana_MeteorGround_Dark");
+		//라이징 피서
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkHomingPierce_Ready.wav", "Leiana_DarkHomingPierce_Ready");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkHomingPierce.wav", "Leiana_DarkHomingPierce");
+		//디미전 피서(땅긋기)
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionPierce_Sign.wav", "Leiana_DarkDimensionPierce_Sign");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionPierce_Impact.wav", "Leiana_DarkDimensionPierce_Impact");
+		//죽을때
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Awaken_Dead.wav", "Leiana_Awaken_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Awaken_Dead_Impact.wav", "Leiana_Awaken_Dead_Impact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Awaken_Dead_Outro.wav", "Leiana_Awaken_Dead_Outro");
+
+
+
+
+
 		at = AddComponent<Animator>(); 
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\AwakenEnd", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Awaken_Power\\Backstep", this);
@@ -1018,6 +1065,8 @@ namespace jk
 			bool attack = player->Geteffect();
 			bool attack_Cri_Mid = player->Geteffect_Mid();
 			bool attack_Cri_High = player->Geteffect_Hight();
+			_Damage = 3000;
+
 
 			_Curren_Dark_Awaken_Hp = _Curren_Dark_Awaken_Hp - _Damage;
 			Dark_Awaken_Hp->_HitOn = true;
@@ -1061,6 +1110,8 @@ namespace jk
 				{
 					if (_EnergyChange == true)
 					{
+						_DarkLayana_Die = true;
+						as->Play("Leiana_Awaken_Dead");
 						_DarkMode_state = Layana_Dark_Awaken_State::Look_Before_Dying;
 						if (_Dir == 1)
 						{
@@ -1161,6 +1212,7 @@ namespace jk
 
 				if 	(_DarkMode_state == Layana_Dark_Awaken_State::Meteor_Cross_Landing)
 				{
+					as->Play("Leiana_Landing");
 					_HitBox_Attack_On = false;
 					if (_Dir == 1)
 						at->PlayAnimation(L"Awaken_PowerMeteor_Cross02_Landing", true);
@@ -1170,7 +1222,7 @@ namespace jk
 					_CrossMeteorLanding = true;
 				}
 				if (_DarkMode_state == Layana_Dark_Awaken_State::LandingDash)
-				{
+				{				
 					if (_Dir == 1)
 						at->PlayAnimation(L"Awaken_PowerMeteor_Ground01_Ready", true);
 					else
@@ -1179,6 +1231,7 @@ namespace jk
 				}
 				if (_DarkMode_state == Layana_Dark_Awaken_State::Meteor_Vertical_Landing)
 				{
+					as->Play("Leiana_MeteorGround_Dark");
 					_HitBox_Attack_On = false;
 					if (_Dir == 1)
 						at->PlayAnimation(L"Awaken_PowerMeteor_Vertical03_Landing", true);
@@ -1240,6 +1293,7 @@ namespace jk
 
 	void Layana_Dark_Awaken::Telleport_In()
 	{
+
 		if (_teleport_Rush == true)
 		{
 			_Attacktime += Time::DeltaTime();
@@ -1314,8 +1368,10 @@ namespace jk
 	}
 	void Layana_Dark_Awaken::Telleport_Out()
 	{
+		
 		if (_RushSwitch == true)
-		{			
+		{
+			as->Play("Leiana_Teleport_Out");
 			_DarkMode_state = Layana_Dark_Awaken_State::Rush_Ready;
 				if (_Dir == 1)
 					at->PlayAnimation(L"Awaken_PowerRush_Ready", true);
@@ -1324,6 +1380,7 @@ namespace jk
 		}
 		if (_CrossMeteorSwitch == true)
 		{
+			as->Play("Leiana_Teleport_Out");
 			_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_Jump;
 			if (_Dir == 1)			
 				at->PlayAnimation(L"Awaken_PowerMeteor_Cross00_JumpR", false);			
@@ -1332,6 +1389,7 @@ namespace jk
 		}
 		if(_GroundMeteorSwitch == true)
 		{
+			as->Play("Leiana_Teleport_Out");
 			_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_Ready;
 			if (_pos.x < _Createpos.x)
 				at->PlayAnimation(L"Awaken_PowerMeteor_Ground01_Ready", false);
@@ -1341,6 +1399,7 @@ namespace jk
 		}
 		if (_VerticalMeteorSwitch == true)
 		{
+			as->Play("Leiana_Teleport_Out");
 			_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Vertical_Jump;
 			_Ground_check = false;
 			at->PlayAnimation(L"Awaken_PowerMeteor_Vertical00_Jump", true);		
@@ -1468,6 +1527,7 @@ namespace jk
 	{
 		if (_Rush_C_Number == 2)
 		{
+			as->Play("rush5");
 			if (_BulletDir == 1)
 				at->PlayAnimation(L"Awaken_PowerRushC_3", true);
 			else
@@ -1493,6 +1553,7 @@ namespace jk
 	{
 		if (_Rush_C_Number == 3)
 		{
+			as->Play("rush6");
 			if (_BulletDir == 1)
 				at->PlayAnimation(L"Awaken_PowerRushC_4", true);
 			else
@@ -1518,6 +1579,7 @@ namespace jk
 	{
 		if (_Rush_C_Number == 4)
 		{
+			as->Play("rush7");
 			if (_BulletDir == 1)
 				at->PlayAnimation(L"Awaken_PowerRushC_5", true);
 			else
@@ -1543,6 +1605,7 @@ namespace jk
 	{
 		if (_Rush_C_Number == 5)
 		{
+			as->Play("rush8");
 			if (_BulletDir == 1)
 				at->PlayAnimation(L"Awaken_PowerRushC_6", true);
 			else
@@ -1568,6 +1631,7 @@ namespace jk
 	{
 		if (_Rush_C_Number == 6)
 		{
+			as->Play("rush9");
 			if (_BulletDir == 1)
 				at->PlayAnimation(L"Awaken_PowerRushC_7", false);
 			else
@@ -1589,7 +1653,7 @@ namespace jk
 	void Layana_Dark_Awaken::Rush_C_7()
 	{
 		if (_Rush_C_Number == 6)
-		{
+		{			
 			_Attacktime += Time::DeltaTime();
 			if (_Attacktime > 0.5)
 			{
@@ -1621,6 +1685,7 @@ namespace jk
 				}
 				_DarkMode_state = Layana_Dark_Awaken_State::RushC_8;
 				_Attacktime = 0;
+				as->Play("Leiana_DarkDimensionRush_Impact");
 			}
 		}
 	}
@@ -1683,6 +1748,7 @@ namespace jk
 			_Ground_check = false;
 			_rigidbody->SetVelocity(Vector2(attack_pos.x * 650.f, attack_pos.y * 750));
 			_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Cross_Landing;
+			as->Play("Leiana_DarkMeteor");
 			_HitBox_Attack_On = true;
 		}
 	}
@@ -1721,6 +1787,7 @@ namespace jk
 	{
 		if (_GroundMeteorLanding == true)
 		{
+			as->Play("Leiana_DarkMeteorGround_Sign");
 			Transform* boss_effect = _Ground_Sign->GetComponent<Transform>();			
 			_Ground_Sign->_SwitchOn = true;
 			if (_Dir == 1)
@@ -1735,15 +1802,15 @@ namespace jk
 			}
 			_Ground_Sign->SetState(eState::Active);
 			_GroundMeteorLanding = false;
-
 		}
 		else
-		{
+		{		
 			_Attacktime += Time::DeltaTime();		
 			if (_Attacktime >= 0.5f)
 			{
 			 if(_Ground_Sign->_SwitchOff ==true)
 				{
+					 as->Play("Leiana_DarkMeteor");
 					_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_Attack;
 					if (_Dir == 1)
 					{
@@ -1781,7 +1848,7 @@ namespace jk
 				_GroundMeteorAttack_Right = false;
 				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_Landing;
 				at->PlayAnimation(L"Awaken_PowerMeteor_Ground03_Landing", false);	
-
+				as->Play("Leiana_DarkMeteorGround_Smoke");
 				Transform* boss_effect = _Ground_DashSmoke->GetComponent<Transform>();
 				_Ground_DashSmoke->_SwitchOn = true;
 				_Ground_DashSmoke->SetDirection(-1);
@@ -1797,7 +1864,7 @@ namespace jk
 				_GroundMeteorAttack_Left = false;
 				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Ground_Landing;
 				at->PlayAnimation(L"Awaken_PowerMeteor_Ground03_LandingR", false);
-
+				as->Play("Leiana_DarkMeteorGround_Smoke");
 				Transform* boss_effect = _Ground_DashSmoke->GetComponent<Transform>();
 				_Ground_DashSmoke->_SwitchOn = true;
 				_Ground_DashSmoke->SetDirection(1);
@@ -1815,6 +1882,7 @@ namespace jk
 
 			if (index >= 0)
 			{
+				_Ground_Thunder[index]->_effect_switch = true;
 				_Ground_Thunder[index]->SetState(eState::Active);
 			
 				if (index == 0)
@@ -1832,6 +1900,7 @@ namespace jk
 
 			if (index < 7)
 			{
+				_Ground_Thunder[index]->_effect_switch = true;
 				_Ground_Thunder[index]->SetState(eState::Active);
 			
 				if (index == 6)
@@ -1841,7 +1910,7 @@ namespace jk
 					_Attacktime = 0;
 				}			
 			}
-		}	
+		}			
 	}
 	void Layana_Dark_Awaken::GroundEnd()
 	{
@@ -1863,7 +1932,7 @@ namespace jk
 		if (_VerticalMeteorLanding == true)
 		{
 			if (_Attacktime >= 1.f)
-			{
+			{		
 				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Vertical_End;
 
 				if (_Dir == 1)
@@ -1893,12 +1962,13 @@ namespace jk
 	void Layana_Dark_Awaken::Skill_B_Ready()
 	{
 		_Attacktime += Time::DeltaTime();
-		if (_Attacktime <= 3.5f)
+		if (_Attacktime <= 1.f)
 		{
+			as->Play("Leiana_DarkHomingPierce_Ready");
 			for (int i = 0; i < 5; i++)
 			{
-				if (_Attacktime >= (1.0f + 0.5f * i))
-				{
+				//if (_Attacktime >= (1.0f + 0.5f * i))
+				//{
 					if (_Dark_HomingPierce[i]->_Create_ball == false)
 					{
 						int randomposX = random(_Createpos.x - 150, _Createpos.x + 150);
@@ -1916,7 +1986,7 @@ namespace jk
 						Transform* bullet = _HomingPierce_Attack[i]->GetComponent<Transform>();
 						bullet->SetPosition(Vector3(boss_effect->GetPosition().x, boss_effect->GetPosition().y, _pos.z - 3));
 					}
-				}
+				//}
 			}
 		}
 		else
@@ -1950,6 +2020,7 @@ namespace jk
 				_HomingPierce_Attack[3]->SetState(eState::Active);
 				_HomingPierce_Attack[4]->SetState(eState::Active);
 				_DarkMode_state = Layana_Dark_Awaken_State::Skill_B_RisingPierce;
+				as->Play("Leiana_DarkHomingPierce");
 				_Attacktime = 0;
 				_Picerwaitintime = 0;
 				_SkillBWait = false;
@@ -2033,6 +2104,7 @@ namespace jk
 			}
 			_SkillC_Switch = true;
 			_DarkMode_state = Layana_Dark_Awaken_State::Skill_C_DimensionPierce;
+			as->Play("Leiana_DarkDimensionPierce_Sign");
 		}
 	}
 	void Layana_Dark_Awaken::Skill_C()
@@ -2051,6 +2123,7 @@ namespace jk
 				_DimensionPierce_BulletEffect->_effect_switch = true;
 				_DimensionPierce_BulletEffect->_bulletoff = true;
 				_DimensionPierce_BulletEffect->SetState(eState::Active);		
+				as->Play("Leiana_DarkDimensionPierce_Impact");
 				if (_Dir == 1)
 					_DimensionPierce_BulletEffect->SetDirection(1);
 				else
@@ -2152,7 +2225,7 @@ namespace jk
 		_RushSwitch = true;
 		_Rushnumber = 0;//Awaken_PowerDash
 		if (_Playerdistance.x <= 65 && _Playerdistance.x >= -65)
-		{
+		{		
 			_DarkMode_state = Layana_Dark_Awaken_State::Rush_Ready;
 			if (_Dir == 1)
 				at->PlayAnimation(L"Awaken_PowerRush_Ready", true);
@@ -2161,6 +2234,7 @@ namespace jk
 		}
 		else
 		{
+			as->Play("Leiana_Teleport_In");
 			_teleport_Rush = true;
 			_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
 		}	
@@ -2169,6 +2243,7 @@ namespace jk
 	{
 		if (_Rushnumber == 0)
 		{
+			as->Play("rush1");
 			_DarkMode_state = Layana_Dark_Awaken_State::RushA;
 			if (_Dir == 1)
 			{
@@ -2187,6 +2262,7 @@ namespace jk
 		}
 		if (_Rushnumber == 1)
 		{
+			as->Play("rush2");
 			_DarkMode_state = Layana_Dark_Awaken_State::RushB;
 			if (_Dir == 1)
 			{
@@ -2205,6 +2281,7 @@ namespace jk
 		}
 		if (_Rushnumber == 2)
 		{
+			as->Play("rush3");
 			_DarkMode_state = Layana_Dark_Awaken_State::RushC_1;			
 			if (_BulletDir == 1)
 				at->PlayAnimation(L"Awaken_PowerRushC_1", true);
@@ -2280,6 +2357,7 @@ namespace jk
 
 	void Layana_Dark_Awaken::Complete_Rush_C1()
 	{
+		as->Play("rush4");
 		if (_BulletDir == 1)
 			at->PlayAnimation(L"Awaken_PowerRushC_2", true);
 		else
@@ -2325,6 +2403,7 @@ namespace jk
 		_CrossMeteorSwitch = true;
 		_teleport_Cross = true;
 		_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
+		as->Play("Leiana_Teleport_In");
 	}
 	void Layana_Dark_Awaken::Complete_CrossJump()
 	{
@@ -2356,6 +2435,7 @@ namespace jk
 		_GroundMeteorSwitch = true; // 이동이 되었을때 공격하는 모션 온
 		_teleport_Ground = true;
 		_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
+		as->Play("Leiana_Teleport_In");
 	}
 	void Layana_Dark_Awaken::Complete_GroundLanding()
 	{
@@ -2381,7 +2461,7 @@ namespace jk
 		_VerticalMeteorSwitch = true;
 		_teleport_Vertical = true;
 		_DarkMode_state = Layana_Dark_Awaken_State::Telleport_In;
-
+		as->Play("Leiana_Teleport_In");
 	}
 	void Layana_Dark_Awaken::Complete_VerticalJump()
 	{
@@ -2394,6 +2474,7 @@ namespace jk
 	{
 		_HitBox_Attack_On = true;
 		_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Vertical_Landing;
+		as->Play("Leiana_DarkMeteor");
 		_Ground_check = false;
 		_pos.x = _Playerpos.x;
 		at->PlayAnimation(L"Awaken_PowerMeteor_Vertical02_Attack", false);
@@ -2463,8 +2544,11 @@ namespace jk
 		_SkillC_Switch = false;
 	}
 
+
 	void Layana_Dark_Awaken::Awaken_Combo()
 	{
+		as->Play("Leiana_DarkMeteorGround_Sign");
+		as->Play("Leiana_DarkMeteorGround_Smoke");
 		_DarkMode_state = Layana_Dark_Awaken_State::Awaken_End;
 		if (_Dir == 1)
 		{
@@ -2516,6 +2600,8 @@ namespace jk
 	}
 	void Layana_Dark_Awaken::Complete_AwakenEnd()
 	{
+		as->Play("Leiana_Awakening_Outro");
+		as->Play("Leiana_Sign");
 		if (_Dir == 1)
 			at->PlayAnimation(L"Awaken_PowerIdle", true);
 		else
@@ -2529,6 +2615,7 @@ namespace jk
 
 	void Layana_Dark_Awaken::Complete_Death_00()
 	{
+		as->Play("Leiana_Awaken_Dead_Impact");
 		_DarkMode_state = Layana_Dark_Awaken_State::Death;
 		if (_DieDir == 1)
 		{
@@ -2577,6 +2664,7 @@ namespace jk
 
 	void Layana_Dark_Awaken::Complete_Death_02()
 	{
+		as->Play("Leiana_Awaken_Dead_Outro");
 		_Death_EF_First->SetState(eState::Paused);
 		_DarkMode_state = Layana_Dark_Awaken_State::Layana_End;
 		if (_DieDir == 1)
@@ -2604,7 +2692,7 @@ namespace jk
 			Transform* Elect_Eftr = _Death_Elect2->GetComponent<Transform>();
 			Elect_Eftr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 
-
+			
 			_Death_EF_Second->SetState(eState::Active);
 			_Death_EF_Second->SetSwitch(true);
 			_Death_EF_Second->SetDirection(1);

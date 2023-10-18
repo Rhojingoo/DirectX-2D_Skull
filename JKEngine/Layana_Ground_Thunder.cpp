@@ -23,6 +23,11 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
 
+
+		as = AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkMeteorGround_Thunder.wav", "Leiana_DarkMeteorGround_Thunder");
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_Ground_Thunder", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_Ground_Thunder", this, 1);
@@ -38,10 +43,12 @@ namespace jk
 	{
 		if (_effect_switch == true)
 		{
-			if (mDir == 1)
-				at->PlayAnimation(L"BulletDark_Ground_Thunder", true);
-			else
-				at->PlayAnimation(L"BulletDark_Ground_ThunderR", true);
+			//if (mDir == 1)
+			//	at->PlayAnimation(L"BulletDark_Ground_Thunder", true);
+			//else
+			//	at->PlayAnimation(L"BulletDark_Ground_ThunderR", true);
+
+			as->Play("Leiana_DarkMeteorGround_Thunder");
 			_effect_switch = false;
 		}
 

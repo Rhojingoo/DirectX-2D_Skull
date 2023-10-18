@@ -54,6 +54,7 @@ namespace jk
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Hit_Flame_Short.wav", "Hit_Flame_Short");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Mage\\Arson_Explosion.wav", "Arson_Explosion");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Hit_Sword_Large.wav", "Hit_Sword_Large");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DimensionPierce_Impact.wav", "Homing_Hit");//Å¸°Ý½Ã	
 	
 		{
 			Skul_Head = new Skul_head();
@@ -1927,9 +1928,10 @@ namespace jk
 
 		if (Dimension_Pierce_BulletEffect* Bullet = dynamic_cast<Dimension_Pierce_BulletEffect*>(other->GetOwner()))
 		{
-			if (_State == Skul_Basic_State::Dash)
+			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
 				return;
 
+			as->Play("Homing_Hit");
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)

@@ -25,6 +25,9 @@
 
 #include "Monster_Hp_Bar.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
+
 namespace jk
 {
 	class Layana_LongHair : public Layana_Sisters
@@ -231,6 +234,7 @@ namespace jk
 
 	private:
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

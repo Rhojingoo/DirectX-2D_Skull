@@ -33,6 +33,7 @@ namespace jk
 			as = _BGSound->AddComponent<AudioSource>();
 			as->SetClip(Resources::Load<AudioClip>(L"Chapter1", L"..\\Resources\\Sound\\Chapter1\\Chapter1.wav", "Chapter1"));
 			as->SetLoop(true);
+			//as->SetClip(Resources::Load<AudioClip>(L"Chapter2", L"..\\Resources\\Sound\\Chapter2\\Chapter2.wav", "Chapter2"));
 
 
 				#pragma region Player		

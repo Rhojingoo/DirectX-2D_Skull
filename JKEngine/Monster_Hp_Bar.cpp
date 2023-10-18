@@ -22,7 +22,7 @@ namespace jk
 			if (_Type == 1)
 			{
 				if (_target_point < _CurrentHp)				
-					_CurrentHp -= 50*Time::DeltaTime();
+					_CurrentHp -= 250*Time::DeltaTime();
 				else
 				{
 					_CurrentHp = _target_point;

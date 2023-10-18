@@ -5,6 +5,9 @@
 
 #include "Monster_ObjPool.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
+
 namespace jk
 {
 	class Stage2_1 : public PlayScene
@@ -33,7 +36,6 @@ namespace jk
 		Sound* _BGSound = nullptr;
 		Alpha_Blend* _Alpha = nullptr;
 		Stage2_Door* Door1 = nullptr;
-
 
 	private:
 		float _time = 0.f;

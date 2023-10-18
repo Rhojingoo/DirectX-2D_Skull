@@ -42,7 +42,53 @@ namespace jk
 		_pos = Vector3(0.f, 90.f, -200.f);
 		_ShortHairCreatepos = _pos;
 		tr->SetPosition(_pos);
-		
+
+
+		as = AddComponent<AudioSource>();
+		//인트로
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Enter.wav", "Leiana_Enter");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Intro_Impact.wav", "Leiana_Intro_Impact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Intro_TakeOff.wav", "Leiana_Intro_TakeOff");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Landing.wav", "Leiana_Landing");
+		//그라운드메테오
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_MeteorGround_Ready.wav", "Leiana_MeteorGround_Ready");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Outro_ArmorStep.wav", "Leiana_Outro_ArmorStep");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_MeteorGround.wav", "Leiana_MeteorGround");
+		//골든메테오
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_GoldenMeteor.wav", "Leiana_GoldenMeteor");
+		//러쉬 & 디미전
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush1");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush2");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush3");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush4");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush5");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "rush6");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Hardmode_Leiana_Rush_Impact.wav", "Hardmode_Leiana_Rush_Impact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Sign.wav", "Leiana_DarkDimensionRush_Sign");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DarkDimensionRush_Impact.wav", "Leiana_DarkDimensionRush_Impact");
+		//호밍피서
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_HomingPierce_Ready.wav", "Leiana_HomingPierce_Ready");//생성
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_TwinMeteor.wav", "Homing_Fire1");//발사
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_TwinMeteor.wav", "Homing_Fire2");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_TwinMeteor.wav", "Homing_Fire3");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DimensionPierce_Impact.wav", "Homing_Hit");//타격시		
+		//트윈메테오(크로스)
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_TwinMeteor_Sign.wav", "Leiana_TwinMeteor_Sign");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_TwinMeteor.wav", "Leiana_TwinMeteor");
+		//디미전(타격필요)
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DimensionPierce_Sign.wav", "Leiana_DimensionPierce_Sign");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DimensionPierce_Impact.wav", "Leiana_DimensionPierce_Impact");
+		//죽을때
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Dead.wav", "Leiana_Dead");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Awakening_Sign.wav", "Leiana_Awakening_Sign");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Awakening_Impact.wav", "Leiana_Awakening_Impact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Awakening_Outro.wav", "Leiana_Awakening_Outro");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Awakening.wav", "Leiana_Awakening");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Scream.wav", "Leiana_Scream");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Sign.wav", "Leiana_Sign");
+			
+
+
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\Awaken_S", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Short_hair\\AwakenJump_S", this);
@@ -142,9 +188,6 @@ namespace jk
 		at->CompleteEvent(L"Short_hairRushC_S3") = std::bind(&Layana_ShortHair::Complete_RushReady, this);
 		at->CompleteEvent(L"Short_hairRushC_S4") = std::bind(&Layana_ShortHair::Complete_Rush, this);
 		at->CompleteEvent(L"Short_hairRush_End_S") = std::bind(&Layana_ShortHair::Complete_RushReady, this);
-
-
-
 		
 
 
@@ -371,12 +414,6 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, Golden_Meteor_Ef);
 			Golden_Meteor_Ef->SetState(eState::Paused);
 		}
-
-
-
-
-
-
 	
 
 
@@ -508,24 +545,6 @@ namespace jk
 		Transform* BulletTR = Golden_Meteor_Bl->GetComponent<Transform>();
 		BulletTR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 	
-
-
-		//if (_ShortHair_Die == true)
-		//{
-		//	if (LongHair_Operation == true)
-		//	{
-		//		if (_DieOn == false)
-		//		{
-		//			Background_state = Layana_Short_Background::Die;
-		//			if (_pos.x < _ShortHairCreatepos.x)
-		//				at->PlayAnimation(L"Short_hairDie_S", false);
-		//			else
-		//				at->PlayAnimation(L"Short_hairDie_SR", false);
-		//			_DieOn = true;
-		//		}
-		//	}
-		//}
-
 
 
 		if (Joint_Operation == true)
@@ -952,7 +971,7 @@ namespace jk
 				bool attack = player->Geteffect();
 				bool attack_Cri_Mid = player->Geteffect_Mid();
 				bool attack_Cri_High = player->Geteffect_Hight();
-				//_Damage = 2000;
+				_Damage = 2000;
 				
 				_Curren_ShortHair_Hp = _Curren_ShortHair_Hp - _Damage;
 				ShortHair_Hp->_HitOn = true;
@@ -997,6 +1016,7 @@ namespace jk
 				{
 					if (_First_Die == false)
 					{
+						as->Play("Leiana_Dead");
 						_First_Die = true;
 						_ShortHair_Die = true;
 					}
@@ -1057,6 +1077,7 @@ namespace jk
 					{
 						if (_First_Die == false)
 						{
+							as->Play("Leiana_Dead");
 							_First_Die = true;
 							_ShortHair_Die = true;
 						}
@@ -1087,27 +1108,11 @@ namespace jk
 					_pos.y = GRpos.y + 95;
 					tr->SetPosition(_pos);
 				}
-				//Transform* GRTR = mGround->GetComponent<Transform>();
-				//Vector3 GRpos = GRTR->GetPosition();
-				//{
-				//	Collider2D* GRCol = mGround->GetComponent<Collider2D>();
-				//	float GrColsize = GRCol->GetScale().y / 2;
-				//	float playercolsize = _collider->GetScale().y / 2;
-				//	float Sizecheck = playercolsize + GrColsize;
-
-
-				//	float CheckPos = fabs(_pos.y - GRpos.y);
-				//	if (Sizecheck > CheckPos)
-				//	{
-				//		_pos.y = GRpos.y + Sizecheck;
-				//		tr->SetPosition(_pos);
-				//	}
-				//}
-
 
 
 				if (_ShortHair_state == Layana_ShortHair_State::Meteor_Cross_Landing)
 				{
+					as->Play("Leiana_Landing");
 					_HitBox_Attack_On = false;
 					if (_Dir == 1)
 						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_S", true);
@@ -1118,6 +1123,7 @@ namespace jk
 				}
 				if (_ShortHair_state == Layana_ShortHair_State::LandingDash)
 				{
+					as->Play("Leiana_Landing");
 					if (_Dir == 1)
 						at->PlayAnimation(L"Short_hairMeteor_Ground01_Ready_S", true);
 					else
@@ -1128,6 +1134,7 @@ namespace jk
 				{
 					if (_VerticalMeteorLanding == false)
 					{
+						as->Play("Leiana_Landing");
 						if (_Dir == 1)
 							at->PlayAnimation(L"Short_hairMeteor_Vertical03_Landing_S", true);
 						else
@@ -1171,9 +1178,10 @@ namespace jk
 							Awaken_Rd_ElectricB->SetState(eState::Active);
 						}
 						_Awaken_Ready = true;
+						as->Play("Leiana_Scream");
+						as->Play("Leiana_Awakening_Sign");
 					}
-				}
-		
+				}		
 
 				if (_state == Layana_Sisters_State::Intro_Fall)
 				{		
@@ -1183,8 +1191,11 @@ namespace jk
 					Transform* SMtr = Intro_SM->GetComponent<Transform>();
 					SMtr->SetPosition(_pos.x + 20, _pos.y - 50.f, _pos.z - 1);
 				}
+
+
 				if (_state == Layana_Sisters_State::Sisters_Attack_Fall)
 				{
+					as->Play("Leiana_Landing");
 					if (_Sisters_Attack_A == true)
 					{
 						if (_pos.x < _ShortHairCreatepos.x)
@@ -1205,6 +1216,7 @@ namespace jk
 				}
 				if (_state == Layana_Sisters_State::Sisters_Attack_C)
 				{
+					as->Play("Leiana_Landing");
 					if (_pos.x < _ShortHairCreatepos.x)
 						at->PlayAnimation(L"Short_hairMeteor_Cross02_Landing_S", false);
 					else
@@ -1247,7 +1259,7 @@ namespace jk
 	{
 		_time += Time::DeltaTime();
 		_SelectAttack = random(0, 6);
-		//_SelectAttack = 3;
+		//_SelectAttack = 6;
 
 		if (_Intro_On == true)
 			Intro_Combo();
@@ -1275,6 +1287,7 @@ namespace jk
 					if (_SistersAttack_Number > 5)
 					{
 						_Joint_Attack = true;
+						as->Play("Leiana_Enter");
 						_ShortHair_state = Layana_ShortHair_State::FlyDash;
 						if (_pos.x > _ShortHairCreatepos.x)
 							at->PlayAnimation(L"Short_hairDash_S", true);
@@ -1414,6 +1427,7 @@ namespace jk
 			{
 				if (_SistersAttack_C_Ready_ShortHair == false)
 				{
+					as->Play("Leiana_TwinMeteor_Sign");
 					if (_pos.x >= 0)
 					{
 						Transform* bullte_effect = TwinMeteor_BossEffect->GetComponent<Transform>();
@@ -1440,6 +1454,7 @@ namespace jk
 					_Attacktime += Time::DeltaTime();
 					if (_Attacktime > 1.5)
 					{
+						as->Play("Leiana_TwinMeteor");
 						TwinMeteor_BossEffect->SetState(eState::Paused);
 						if (_pos.x < _ShortHairCreatepos.x)
 						{
@@ -1615,7 +1630,10 @@ namespace jk
 	void Layana_ShortHair::Sisters_Attack_B_BulletCreate()
 	{
 		if (_SkillHomingON == false)
+		{
 			CreateHoming();
+			as->Play("Leiana_HomingPierce_Ready");
+		}
 		else
 		{
 			_Attacktime += Time::DeltaTime();
@@ -1665,6 +1683,7 @@ namespace jk
 			{
 				if (_Bullet_Switch[0] == false)
 				{
+					as->Play("Homing_Fire1");
 					bullet_rb1->SetGround(false);
 					bullet_rb1->SetGravity(true);
 					bullet_rb1->SetFriction(true);
@@ -1677,6 +1696,7 @@ namespace jk
 			{
 				if (_Bullet_Switch[1] == false)
 				{
+					as->Play("Homing_Fire2");
 					bullet_rb2->SetGround(false);
 					bullet_rb2->SetGravity(true);
 					bullet_rb2->SetFriction(true);
@@ -1689,6 +1709,7 @@ namespace jk
 			{
 				if (_Bullet_Switch[2] == false)
 				{
+					as->Play("Homing_Fire3");
 					bullet_rb3->SetGround(false);
 					bullet_rb3->SetGravity(true);
 					bullet_rb3->SetFriction(true);
@@ -1819,6 +1840,7 @@ namespace jk
 				RisingPierce_EF->SetDirection(1);
 				RisingPierce_EF->SetSwitch(true);
 				RisingPierce_EF->SetState(eState::Active);
+				as->Play("Leiana_DimensionPierce_Sign");
 			}
 		}
 		else
@@ -1924,6 +1946,7 @@ namespace jk
 				_BackGround_check = true;
 				ShortHair_First_moving = true;
 				_Joint_Attack = false;
+				_SistersAttack_Number = 0;
 			}
 		}
 	}
@@ -1934,6 +1957,7 @@ namespace jk
 		{
 			if (_Attacktime >= 1.f)
 			{
+				as->Play("Leiana_MeteorGround");
 				_ShortHair_state = Layana_ShortHair_State::Meteor_Ground_Attack;
 
 				if (_Dir == 1)
@@ -2189,7 +2213,10 @@ namespace jk
 	void Layana_ShortHair::Skill_A_Ready()
 	{
 		if (_SkillHomingON == false)
+		{
 			CreateHoming();
+			as->Play("Leiana_HomingPierce_Ready");
+		}
 		else
 		{
 			_Attacktime += Time::DeltaTime();
@@ -2236,6 +2263,7 @@ namespace jk
 			{
 				if (_Bullet_Switch[0] == false)
 				{
+					as->Play("Homing_Fire1");
 					bullet_rb1->SetGround(false);
 					bullet_rb1->SetGravity(true);
 					bullet_rb1->SetFriction(true);
@@ -2248,6 +2276,7 @@ namespace jk
 			{
 				if (_Bullet_Switch[1] == false)
 				{
+					as->Play("Homing_Fire2");
 					bullet_rb2->SetGround(false);
 					bullet_rb2->SetGravity(true);
 					bullet_rb2->SetFriction(true);
@@ -2260,6 +2289,7 @@ namespace jk
 			{
 				if (_Bullet_Switch[2] == false)
 				{
+					as->Play("Homing_Fire3");
 					bullet_rb3->SetGround(false);
 					bullet_rb3->SetGravity(true);
 					bullet_rb3->SetFriction(true);
@@ -2322,6 +2352,7 @@ namespace jk
 			{
 				Risingbullet_tr[0]->SetPosition(Vector3(_pos.x, _pos.y + 35, -250));
 				Rising[0]->SetState(eState::Active);
+				as->Play("Leiana_DimensionPierce_Impact");
 			}
 			if (_Attacktime <= 5)
 			{
@@ -2380,6 +2411,7 @@ namespace jk
 				Transform* boss_bullet = Dimension_Bullet->GetComponent<Transform>();
 				Dimension_Bullet->_effect_switch = true;
 				int Setrotation = random(1, 2);
+				as->Play("Leiana_DimensionPierce_Impact");
 				if (_Dir == 1)
 				{
 					Dimension_Bullet->SetDirection(1);
@@ -2476,7 +2508,8 @@ namespace jk
 	{
 	}
 	void Layana_ShortHair::Awaken()
-	{
+	{		
+
 	}
 
 
@@ -2490,7 +2523,7 @@ namespace jk
 			_rigidbody->SetVelocity(Vector2(0.f, 1050.f));
 			_rigidbody->SetGround(false);
 			_BackGround_check = true;
-			_Ground_check = false;
+			_Ground_check = false;			
 		}
 		else
 		{
@@ -2527,7 +2560,7 @@ namespace jk
 				_pos.z = -200;
 			}
 			ShortHair_First_moving = true;
-			Background_state = Layana_Short_Background::BackGround_Idle;
+			//Background_state = Layana_Short_Background::BackGround_Idle;
 		}
 	}
 
@@ -2582,6 +2615,7 @@ namespace jk
 		if (_Rushnumber == 0)
 		{
 			_HitBox_Attack_On = true;
+			as->Play("rush1");
 			_ShortHair_state = Layana_ShortHair_State::RushA;
 			if (_Dir == 1)
 			{
@@ -2597,6 +2631,7 @@ namespace jk
 		if (_Rushnumber == 1)
 		{
 			_HitBox_Attack_On = true;
+			as->Play("rush2");
 			_ShortHair_state = Layana_ShortHair_State::RushB;
 			if (_Dir == 1)
 			{
@@ -2612,6 +2647,7 @@ namespace jk
 		if (_Rushnumber == 2)
 		{
 			_HitBox_Attack_On = true;
+			as->Play("rush3");
 			_ShortHair_state = Layana_ShortHair_State::RushC1;
 			if (_Dir == 1)
 			{
@@ -2627,6 +2663,7 @@ namespace jk
 		if (_Rushnumber == 3)
 		{
 			_HitBox_Attack_On = true;
+			as->Play("rush4");
 			_ShortHair_state = Layana_ShortHair_State::RushC2;
 			if (_Dir == 1)
 			{
@@ -2642,6 +2679,7 @@ namespace jk
 		if (_Rushnumber == 4)
 		{
 			_HitBox_Attack_On = true;
+			as->Play("rush5");
 			_ShortHair_state = Layana_ShortHair_State::RushC3;
 			if (_Dir == 1)
 			{
@@ -2656,6 +2694,7 @@ namespace jk
 		}
 		if (_Rushnumber == 5)
 		{
+			as->Play("rush6");
 			_ShortHair_state = Layana_ShortHair_State::RushC4;
 			if (_Dir == 1)
 				at->PlayAnimation(L"Short_hairRushC_S4", true);
@@ -2678,6 +2717,7 @@ namespace jk
 	void Layana_ShortHair::Meteor_Cross_Combo()
 	{
 		_CrossMeteorSwitch = true;
+		as->Play("Leiana_Enter");
 		if (_Playerdistance.x <= 30 && _Playerdistance.x >= -30)
 		{
 			_ShortHair_state = Layana_ShortHair_State::Meteor_Cross_Jump;
@@ -2705,6 +2745,7 @@ namespace jk
 	}
 	void Layana_ShortHair::Complete_CrossJump()
 	{
+		as->Play("Leiana_GoldenMeteor");
 		_ShortHair_state = Layana_ShortHair_State::Meteor_Cross_Attack;
 		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairMeteor_Cross04_Attack_SR", false);
@@ -2737,6 +2778,7 @@ namespace jk
 	{
 		_GroundMeteorSwitch = true; // 이동이 되었을때 공격하는 모션 온
 		_ShortHair_state = Layana_ShortHair_State::FlyDash;
+		as->Play("Leiana_Enter");
 		if (_pos.x > _ShortHairCreatepos.x)
 		{
 			at->PlayAnimation(L"Short_hairDash_S", true);
@@ -2783,6 +2825,7 @@ namespace jk
 	{
 		_VerticalMeteorSwitch = true;
 		_ShortHair_state = Layana_ShortHair_State::FlyDash;
+		as->Play("Leiana_Enter");
 		if (_pos.x > _ShortHairCreatepos.x)
 		{
 			at->PlayAnimation(L"Short_hairDash_S", true);
@@ -2816,6 +2859,7 @@ namespace jk
 		_ShortHair_state = Layana_ShortHair_State::Meteor_Vertical_Landing;
 		_Ground_check = false;
 		_pos.x = _Playerpos.x;
+		as->Play("Leiana_GoldenMeteor");
 		at->PlayAnimation(L"Short_hairMeteor_Vertical02_Attack_S", false);
 		_rigidbody->SetGround(false);
 		_rigidbody->SetVelocity(Vector2(0.f, -550.f));
@@ -2884,6 +2928,7 @@ namespace jk
 			RisingPierce_EF->SetDirection(1);
 			RisingPierce_EF->SetSwitch(true);
 			RisingPierce_EF->SetState(eState::Active);
+			as->Play("Leiana_DimensionPierce_Sign");
 		}
 		else
 		{
@@ -2911,6 +2956,7 @@ namespace jk
 
 	void Layana_ShortHair::Skill_C_Combo()
 	{
+		as->Play("Leiana_DimensionPierce_Sign");
 		_ShortHair_state = Layana_ShortHair_State::Skill_C_DimensionPierce;
 		if (_Dir == 1)
 			at->PlayAnimation(L"Short_hairSkill_C_DimensionPierce_S", false);
@@ -2987,6 +3033,7 @@ namespace jk
 	}
 	void Layana_ShortHair::Complete_Awaken_Ready()
 	{
+		as->Play("Leiana_Awakening"); 
 		_ShortHair_state = Layana_ShortHair_State::Awaken;
 		if (_Awaken_Dir == 1)
 		{
@@ -3028,8 +3075,8 @@ namespace jk
 	{
 		_Layana_change = true;
 		_ShortHair_Awaken = true;
-		Awaken_Smoke_EF->SetState(eState::Paused);
-
+		Awaken_Smoke_EF->SetState(eState::Paused);	
+		as->Play("Leiana_Awakening_Impact");
 		if (_ChangeFadein == false)
 		{
 			Alpha_Blend* _Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
@@ -3066,6 +3113,7 @@ namespace jk
 	{
 		_BackGround_Switch = true;
 		Background_state = Layana_Short_Background::FlyDash;
+		as->Play("Leiana_Enter");
 		if (_pos.x > _ShortHairCreatepos.x)
 			at->PlayAnimation(L"Short_hairDash_S", true);
 		else

@@ -26,6 +26,14 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 #pragma endregion 
 
+		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+		as = _BGSound->AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Chapter2\\Chapter2_Boss.wav", "Chapter2_Boss");
+		as->SetLoop(true);
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Chapter2\\Chapter2_Boss_Awaken.wav", "Chapter2_Boss_Awaken");
+		as->SetLoop(true);
+
+
 
 		_player = object::Instantiate<Player>(Vector3(0.f, -100.f, -250.f), eLayerType::Player);
 		_player->SetName(L"player_select");
@@ -84,6 +92,23 @@ namespace jk
 
 		CamareShooting();
 
+		
+		if (_Layana_Boss->_Intro_On == false)
+		{
+			as->Play("Chapter2_Boss");
+		}
+		if (_Layana_Boss->_First_Die == true)
+		{
+			as->Stop("Chapter2_Boss");
+
+			if(_Layana_Boss->_Awaken_Switch ==false)
+				as->Play("Chapter2_Boss_Awaken");
+		}
+		if (_Layana_Boss->_DarkLayana_Die == true)
+		{
+			as->Stop("Chapter2_Boss_Awaken");
+		}
+
 		if (_changecheck == true)
 		{
 			_player->SetPlayer_Pos(player_pos);
@@ -114,8 +139,6 @@ namespace jk
 		_changecheck = true;
 		_player->firstGroundcheck = false;
 
-		//jkFont::setText(L"레이아나 자매", 755, -8, 15, true);
-		//jkFont::setText2(L"황금기사단 부관", 748, -75, 15, true);
 		jkFont::setText(L"레이아나 자매", 755, -8, 15, true);
 		jkFont::setText2(L"황금기사단 부관", 748, -75, 15, true);
 

@@ -129,6 +129,18 @@ namespace jk
 		_Gobjs[2]->Initialize();
 
 
+		as = AddComponent<AudioSource>();		
+		//인트로
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Enter.wav", "Leiana_Enter");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Intro_Impact.wav", "Leiana_Intro_Impact");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Intro_TakeOff.wav", "Leiana_Intro_TakeOff");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Landing.wav", "Leiana_Landing");
+		//그라운드메테오
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_MeteorGround_Ready.wav", "Leiana_MeteorGround_Ready");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_Outro_ArmorStep.wav", "Leiana_Outro_ArmorStep");
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_MeteorGround.wav", "Leiana_MeteorGround");
+
+
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[0]);
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[1]);
@@ -351,7 +363,10 @@ namespace jk
 		if(_Intro_On == true)
 		{
 			if (_Intro_Dash_ShortHair == true && _Intro_Dash_LongHair == true)
+			{
 				_state = Layana_Sisters_State::Intro_Dash;
+				as->Play("Leiana_Enter");				
+			}
 			_SistersAttack_Number = 0;
 		}
 		else
@@ -381,12 +396,18 @@ namespace jk
 	void Layana_Sisters::Intro_Fall()
 	{
 		if (_Intro_Land_ShortHair == true && _Intro_Land_LongHair == true)
+		{
 			_state = Layana_Sisters_State::Intro_Landing;
+			as->Play("Leiana_Landing");
+		}
 	}
 	void Layana_Sisters::Intro_Landing()
-	{
+	{		
 		if (_Intro_LandEnd_LongHair == true && _Intro_LandEnd_ShortHair == true)
+		{
 			_state = Layana_Sisters_State::Intro_Landing_End;
+			as->Play("Leiana_Intro_Impact");			
+		}		
 	}
 	void Layana_Sisters::Intro_Landing_End()
 	{
@@ -403,7 +424,10 @@ namespace jk
 			//_state = Layana_Sisters_State::Idle;
 		}
 		if (_SistersAttack_A_IntroReadyShortHair == true && _SistersAttack_A_IntroReady_LongHair == true)
+		{
 			_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
+			as->Play("Leiana_Enter");
+		}
 	}
 
 
@@ -424,7 +448,10 @@ namespace jk
 				_Sisters_Attack_C_Switch = true;
 			}
 			if (_SistersAttack_Set_LongHair == true && _SistersAttack_Set_ShortHair == true)
-				_state = Layana_Sisters_State::Sisters_Attack_FlyDash;			
+			{
+				_state = Layana_Sisters_State::Sisters_Attack_FlyDash;
+				as->Play("Leiana_Enter");
+			}
 			_SistersAttack_Number++;
 	}	
 	void Layana_Sisters::Sisters_Attack_FlyDash()
@@ -448,14 +475,18 @@ namespace jk
 	}
 
 
+
 	void Layana_Sisters::Sisters_Attack_A_Ready()
 	{
 
 	}
 	void Layana_Sisters::Sisters_Attack_A_LandingDash()
 	{
-		if(_SistersAttack_A_DashOn_ShortHair == true && _SistersAttack_A_DashOn_LongHair == true)
+		if (_SistersAttack_A_DashOn_ShortHair == true && _SistersAttack_A_DashOn_LongHair == true)
+		{			
+			as->Play("Leiana_MeteorGround");
 			_state = Layana_Sisters_State::Sisters_Attack_A;
+		}
 	}
 	void Layana_Sisters::Sisters_Attack_A()
 	{
@@ -595,7 +626,7 @@ namespace jk
 
 	void Layana_Sisters::AttackSwap()
 	{
-		if (_SistersAttack_Number >= 1)
+		if (_SistersAttack_Number >= 3)
 		{
 			_Sisters_Attack_On = false;
 			Joint_Operation = false;
@@ -607,7 +638,7 @@ namespace jk
 			if (select == 1)
 				shorthair_change();
 			_Attacktime = 0;
-			//_SistersAttack_Number = 0;
+			_SistersAttack_Number = 0;
 		}
 		else
 		{

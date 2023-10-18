@@ -1,6 +1,7 @@
 #pragma once
 #include "Include_Common.h"
 #include "Bullet.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -32,6 +33,7 @@ namespace jk
 
 	private:
 		Animator* at = nullptr;
+		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;

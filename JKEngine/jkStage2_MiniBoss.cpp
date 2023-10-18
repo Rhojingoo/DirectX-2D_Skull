@@ -36,6 +36,14 @@ void jk::Stage2_MiniBoss::Initialize()
 		_player->SetName(L"player_select");
 
 
+		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
+		as = _BGSound->AddComponent<AudioSource>();
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Adventurer.wav", "Adventurer");
+		as->SetLoop(true);
+		as->SetClipAndLoad(L"..\\Resources\\Sound\\Chapter2\\Chapter2.wav", "Chapter2");
+		as->SetLoop(true);
+
+
 		#pragma region Door
 				Door1 = object::Instantiate<Stage2_Door>(Vector3(587.f,-6.f, -249.f), eLayerType::BACK_GROUND);
 				Door1->Set_Door_Allow(true); Door1->Set_Stage2_Door(5);	Door1->Set_NextStage(L"Stage2_2");
@@ -162,7 +170,7 @@ void jk::Stage2_MiniBoss::Update()
 			{
 				for (Mini_Boss* mon : mBossGroup)
 				{
-					//as->Play();
+					as->Play("Adventurer");			
 					mon->SetState(GameObject::eState::Active);
 				}
 				_MiniBoss_Create = true;
@@ -175,7 +183,8 @@ void jk::Stage2_MiniBoss::Update()
 	{
 		if (_Door_Open == false)
 		{
-			//as->Stop();
+			as->Stop("Adventurer");
+			as->Play("Chapter2");	
 			cameraComp->SetCameraXY = true;
 			Door1->Set_Door_Allow(true);
 			Door1->Set_Stage2_Door(1);
@@ -270,6 +279,7 @@ void jk::Stage2_MiniBoss::OnEnter()
 
 void jk::Stage2_MiniBoss::OnExit()
 {
+	as->Stop("Chapter2");
 }
 
 void jk::Stage2_MiniBoss::CamareShooting()
