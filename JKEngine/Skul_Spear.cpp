@@ -413,7 +413,7 @@ namespace jk
 
 	void Skul_Spear::fall()
 	{
-		_time += Time::DeltaTime();
+		_time += static_cast<float>(Time::DeltaTime());
 		if (_time > 2.f)
 		{
 			_State = Skul_Spear_State::Falling;
@@ -565,7 +565,7 @@ namespace jk
 			mDir = -1;
 		}
 		{
-			timeSinceLastImage += Time::DeltaTime();
+			timeSinceLastImage += static_cast<float>(Time::DeltaTime());
 			if (timeSinceLastImage >= delayBetweenImages)
 			{
 				for (int i = 0; i < 10; i++)
@@ -939,7 +939,7 @@ namespace jk
 			if (Input::GetKey(eKeyCode::LEFT))
 			{
 				mDir = -1;
-				pos.x -= 150.0f * Time::DeltaTime();
+				pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
 			}
 		}
 		if (_Rightmove_Lock == false)
@@ -947,15 +947,15 @@ namespace jk
 			if (Input::GetKey(eKeyCode::RIGHT))
 			{
 				mDir = 1;
-				pos.x += 150.0f * Time::DeltaTime();
+				pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
 			}
 		}
 
 		if (Input::GetKey(eKeyCode::DOWN))
-			pos.y -= 100.0f * Time::DeltaTime();
+			pos.y -= 100.0f * static_cast<float>(Time::DeltaTime());
 
 		if (Input::GetKey(eKeyCode::UP))
-			pos.y += 100.0f * Time::DeltaTime();
+			pos.y += 100.0f * static_cast<float>(Time::DeltaTime());
 
 		//if (Input::GetKeyDown(eKeyCode::C))
 		//{

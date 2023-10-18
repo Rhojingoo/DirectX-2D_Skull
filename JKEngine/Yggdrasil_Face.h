@@ -96,7 +96,7 @@ namespace jk
 	
 
 	private:
-		Vector2 basic_pos[8];
+		Vector2 basic_pos[8] = {};
 		Vector3 basic_save_pos = Vector3(0.f, 0.f, 0.f);
 
 	private:
@@ -105,18 +105,18 @@ namespace jk
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 	//	int    _NumberofAttack = 0;					// 어택횟수체크
 
-		Yggdrasil_BasicBullet* Bullet[8];
-		Yggdrasil_Energy_Bomb* Energy_Bomb;
-		Yggdrsil_Energy_Corps* Energy_Corps[15];
+		Yggdrasil_BasicBullet* Bullet[8] = {};
+		Yggdrasil_Energy_Bomb* Energy_Bomb = nullptr;
+		Yggdrsil_Energy_Corps* Energy_Corps[15] = {};
 		Yggdrasil_Effect* Yggdrasil_effect = nullptr;
-		Yggdrasil_EnergeBall_CreateEffect* Groggy_Begin_Efeect[15];
+		Yggdrasil_EnergeBall_CreateEffect* Groggy_Begin_Efeect[15] = {};
 		Yggdrasil_Groggy_GroundEffect* Groggy_impact = nullptr;
 		Yggdrasil_EnergyCorps_Charging* EnergyCorps_Charging = nullptr;
 		Yggdrasil_EnergyCorps_Spark* EnergyCorps_Spark = nullptr;
 		Yggdraisl_Groggy_StartImpact* Groggy_Start = nullptr;
 		Yggdrasil_FaceDead_Effect* _Dead_Effect = nullptr;
 
-		GameObject::eState check_state;
+		GameObject::eState check_state = {};
 		float	_activetime = 0.f;
 		float   _introtime =  0.f;
 		bool	_FaceSet_of_Change = false;

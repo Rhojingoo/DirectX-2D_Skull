@@ -40,7 +40,7 @@ namespace jk
 
 		if (_Life == true)
 		{
-			_attackatime += Time::DeltaTime();
+			_attackatime += static_cast<float>(Time::DeltaTime());
 			if (_attackatime > 3.5)
 			{
 				this->SetState(eState::Paused);

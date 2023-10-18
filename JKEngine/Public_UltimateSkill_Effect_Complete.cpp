@@ -20,8 +20,8 @@ namespace jk
 
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Public\\Effect\\UltimateSkill_Effect_Complete", this,0,0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Public\\Effect\\UltimateSkill_Effect_Complete", this, 1, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Public\\Effect\\UltimateSkill_Effect_Complete", this,0,0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Public\\Effect\\UltimateSkill_Effect_Complete", this, 1, 0.05f);
 
 		at->CompleteEvent(L"EffectUltimateSkill_Effect_Complete") = std::bind(&Public_UltimateSkill_Effect_Complete::Compelete, this);
 		at->CompleteEvent(L"EffectUltimateSkill_Effect_CompleteR") = std::bind(&Public_UltimateSkill_Effect_Complete::Compelete, this);

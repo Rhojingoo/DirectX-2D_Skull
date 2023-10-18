@@ -19,8 +19,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Change_Effect\\Awaken_Ready_ElectricA", this, 0, 0.075);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Change_Effect\\Awaken_Ready_ElectricA", this, 1, 0.075);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Change_Effect\\Awaken_Ready_ElectricA", this, 0, 0.075f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Change_Effect\\Awaken_Ready_ElectricA", this, 1, 0.075f);
 		at->CompleteEvent(L"Change_EffectAwaken_Ready_ElectricA") = std::bind(&Awaken_Ready_ElectricA::Compelete_Pierce, this);
 		at->CompleteEvent(L"Change_EffectAwaken_Ready_ElectricAR") = std::bind(&Awaken_Ready_ElectricA::Compelete_Pierce, this);
 

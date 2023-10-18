@@ -127,10 +127,10 @@ namespace jk
 				Vector3 CurrentposBG = Vector3(0.f,0.f, posBG.z);
 
 				if (Input::GetKey(eKeyCode::RIGHT))
-					posBG.x += 65 * Time::DeltaTime();
+					posBG.x += 65.f * static_cast<float>(Time::DeltaTime());
 				if(Input::GetKey(eKeyCode::LEFT))
-					posBG.x -= 65 * Time::DeltaTime();
-				
+					posBG.x -= 65.f * static_cast<float>(Time::DeltaTime());
+
 				BGTR->SetPosition(posBG);
 			}
 		}		
@@ -219,11 +219,11 @@ namespace jk
 			{		
 
 				if (SetYggdrasilCamera == true)
-					OrthorGraphicRatio = mSize / 2.0;
+					OrthorGraphicRatio = mSize / 2.0f;
 				else if (SetLayanaCamera == true)
-					OrthorGraphicRatio = mSize / 2.2;
+					OrthorGraphicRatio = mSize / 2.2f;
 				else
-				OrthorGraphicRatio = mSize / 2.5;
+				OrthorGraphicRatio = mSize / 2.5f;
 			}
 			else
 			 OrthorGraphicRatio = mSize;

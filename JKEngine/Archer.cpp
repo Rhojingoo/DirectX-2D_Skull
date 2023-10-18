@@ -107,7 +107,7 @@ namespace jk
 			_MbossFace->SetName(L"_MbossFace");
 			Transform* face_tr = _MbossFace->GetComponent<Transform>();
 			face_tr->SetPosition(Vector3(762.f, 375.f, pos.z));
-			face_tr->SetScale(26 * 2, 26.f * 2, 0);
+			face_tr->SetScale(26 * 2.f, 26.f * 2.f, 0.f);
 		}
 
 		{
@@ -118,7 +118,7 @@ namespace jk
 			_State_UI->SetName(L"hp_bar_frame");
 			Transform* hp_tr = _State_UI->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(685.f, 375.f, pos.z));
-			hp_tr->SetScale(108.f*2, 30.f*2,0);		
+			hp_tr->SetScale(108.f*2.f, 30.f*2.f, 0.f);		
 		}
 		{
 			Monster_UIHp = new Monster_Hp_Bar(L"EnemyHealthBar");
@@ -127,8 +127,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::UI, Monster_UIHp);
 			Monster_UIHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_UIHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
-			hp_tr->SetScale(137, 12.5, 0);
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50.f, pos.z - 1.f));
+			hp_tr->SetScale(137.f, 12.5f, 0.f);
 			Monster_UIHp->Set_Max_Hp(_MaxHp);
 			Monster_UIHp->Set_Current_Hp(_MaxHp);
 			Monster_UIHp->SetState(eState::Paused);
@@ -140,8 +140,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::UI, Monster_UIDamegeHp);
 			Monster_UIDamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_UIDamegeHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1.5));
-			hp_tr->SetScale(137, 12.5, 0);
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50.f, pos.z - 1.5f));
+			hp_tr->SetScale(137.f, 12.5f, 0.f);
 			Monster_UIDamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_UIDamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_UIDamegeHp->Set_Type(1);
@@ -155,8 +155,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
 			Hpbar_Frame->SetName(L"hp_bar_frame");
 			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y -90, pos.z - 1));
-			hp_tr->SetScale(50, 5, 0);
+			hp_tr->SetPosition(Vector3(pos.x, pos.y -90.f, pos.z - 1.f));
+			hp_tr->SetScale(50.f, 5.f, 0.f);
 			Hpbar_Frame->SetState(eState::Paused);
 		}
 
@@ -167,8 +167,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1.5));
-			hp_tr->SetScale(48, 3, 0);
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50.f, pos.z - 1.5f));
+			hp_tr->SetScale(48.f, 3.f, 0.f);
 			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Type(1);
@@ -182,8 +182,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
-			hp_tr->SetScale(48, 3, 0);
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50.f, pos.z - 1.f));
+			hp_tr->SetScale(48.f, 3.f, 0.f);
 			Monster_Hp->Set_Max_Hp(_MaxHp);
 			Monster_Hp->Set_Current_Hp(_MaxHp);
 			Monster_Hp->SetState(eState::Paused);
@@ -250,7 +250,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Ultimate_Aura);
 			Transform* bullet_tr = Ultimate_Aura->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205.f));
 			Ultimate_Aura->SetState(eState::Paused);
 		}
 
@@ -260,7 +260,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Ultimate_AuraSmoke);
 			Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205.f));
 			Ultimate_AuraSmoke->SetState(eState::Paused);
 		}
 		{
@@ -269,7 +269,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Complete);
 			Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205.f));
 			UltimateSkill_Effect_Complete->SetState(eState::Paused);
 		}
 		{
@@ -278,7 +278,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Fail);
 			Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205.f));
 			UltimateSkill_Effect_Fail->SetState(eState::Paused);
 		}
 
@@ -288,7 +288,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Utimate_Sign);
 			Transform* bullet_tr = Utimate_Sign->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
+			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205.f));
 			Utimate_Sign->SetState(eState::Paused);
 		}
 
@@ -869,7 +869,7 @@ namespace jk
 
 	void Archer::idle()
 	{
-		_time += Time::DeltaTime();
+		_time += static_cast<float>(Time::DeltaTime());
 	
 		_hit_switch = false;
 
@@ -999,7 +999,7 @@ namespace jk
 
 	void Archer::attack_a_ready()
 	{
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time > 0.7)
 		{
 			int voice_archer = random(0, 1);
@@ -1023,14 +1023,14 @@ namespace jk
 				_attackDir = 1;
 				_archer_arrow->_bullet_animation= true;
 				_archer_arrow->SetDirection(1);
-				EffectTR->SetPosition(pos.x + 20, pos.y - 30, pos.z - 1);
+				EffectTR->SetPosition(pos.x + 20.f, pos.y - 30.f, pos.z - 1.f);
 			}
 			if (mDir == -1)
 			{
 				_attackDir = -1;
 				_archer_arrow->_bullet_animation = true;
 				_archer_arrow->SetDirection(-1);
-				EffectTR->SetPosition(pos.x - 20, pos.y - 30, pos.z - 1);
+				EffectTR->SetPosition(pos.x - 20.f, pos.y - 30.f, pos.z - 1.f);
 			}
 			_archer_arrow->SetState(eState::Active);
 			_attack_a = true;
@@ -1038,7 +1038,7 @@ namespace jk
 		if (_attack_a == true)
 		{
 			Vector3 arrowpos = EffectTR->GetPosition();
-			_attack_time += Time::DeltaTime();
+			_attack_time += static_cast<float>(Time::DeltaTime());
 			if (_attack_time < 2)
 			{		
 				if (_attackDir == 1)
@@ -1075,11 +1075,11 @@ namespace jk
 
 	void Archer::attack_b_ready()
 	{		
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time > 0.5)
 		{
 			Transform* EffectTR = Upward_Sign->GetComponent<Transform>();
-			EffectTR->SetPosition(_playerpos.x, _playerpos.y, _playerpos.z - 1);
+			EffectTR->SetPosition(_playerpos.x, _playerpos.y, _playerpos.z - 1.f);
 			Upward_Sign->_effect_On = true;
 			Upward_Sign->SetState(eState::Active);
 
@@ -1104,7 +1104,7 @@ namespace jk
 	{
 		if (_attack_b_sign == true)
 		{
-			_attack_time += Time::DeltaTime();
+			_attack_time += static_cast<float>(Time::DeltaTime());
 			if (_attack_time > 0.5)
 			{
 				Transform* EffectTR = Upward_Sign->GetComponent<Transform>();
@@ -1155,35 +1155,35 @@ namespace jk
 				if (mDir == 1)
 				{
 					Ultimate_Aura->SetDirection(1);
-					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30.f, pos.z - 1.f));
 				}
 				else
 				{
 					Ultimate_Aura->SetDirection(-1);
-					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30.f, pos.z - 1.f));
 				}
 				Ultimate_Aura->SetState(eState::Active);
 			}
 
 			{
 				Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 55, pos.z - 1.1));
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 55.f, pos.z - 1.1f));
 				if (mDir == 1)
 				{
 					Ultimate_AuraSmoke->SetDirection(1);
-					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50.f, pos.z - 1.f));
 				}					
 				else
 				{
 					Ultimate_AuraSmoke->SetDirection(-1);
-					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50.f, pos.z - 1.f));
 				}					
 				Ultimate_AuraSmoke->SetState(eState::Active);
 			}
 			_Ultimate = false;
 		}
 		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time >= 4.5)
 		{
 			Ultimate_Aura->SetState(eState::Paused);
@@ -1192,7 +1192,7 @@ namespace jk
 			{
 				// 이펙트 설정시 9번 hit가 된다면 깨지는 이미지로 넘어간뒤 그로기 상태로넘겨줘야한다.
 				Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25.f, pos.z - 1.1f));
 				if (mDir == 1)
 					UltimateSkill_Effect_Fail->SetDirection(1);
 				else
@@ -1207,7 +1207,7 @@ namespace jk
 			{
 				// 이펙트 설정시 5초가 10번이상의 타격이 없다면 석세스로 넘어간뒤 활공격을 날려야한다.
 				Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25.f, pos.z - 1.1f));
 				if (mDir == 1)
 					UltimateSkill_Effect_Complete->SetDirection(1);
 				else
@@ -1229,7 +1229,7 @@ namespace jk
 		if (_Ultimate_Skill == false)
 		{
 			Transform* bullet_tr = Utimate_Sign->GetComponent<Transform>();
-			Ultimate_Skill_pos = Vector3(_playerpos.x, _playerpos.y-20, _playerpos.z-1);
+			Ultimate_Skill_pos = Vector3(_playerpos.x, _playerpos.y-20.f, _playerpos.z-1.f);
 			bullet_tr->SetPosition(Ultimate_Skill_pos);
 			Utimate_Sign->_effect_On = true;
 			Utimate_Sign->SetState(eState::Active);
@@ -1237,15 +1237,15 @@ namespace jk
 
 			for (int i = 0; i < 40; i++)
 			{
-				int Ultimate_skill = random(_playerpos.x - 75, _playerpos.x +75);
+				float Ultimate_skill = static_cast<float>(random(static_cast<int>(_playerpos.x) - 75, static_cast<int>(_playerpos.x) + 75));
 				Ultimate_Skill_pos.x = Ultimate_skill;
 
 				Transform* BulletTR = Ultimate_Upward_ImpactBullet[i]->GetComponent<Transform>();	
 				Ultimate_Upward_ImpactBullet[i]->_bullet_On = true;
-				BulletTR->SetPosition(Vector3(Ultimate_skill, Ultimate_Skill_pos.y+150, Ultimate_Skill_pos.z));
+				BulletTR->SetPosition(Vector3(Ultimate_Skill_pos.x, Ultimate_Skill_pos.y+150.f, Ultimate_Skill_pos.z));
 
 				Transform* EffectTR = Ultimate_ArrowBye_effect[i]->GetComponent<Transform>();			
-				EffectTR->SetPosition(Vector3(Ultimate_skill, Ultimate_Skill_pos.y+40, Ultimate_Skill_pos.z));
+				EffectTR->SetPosition(Vector3(Ultimate_Skill_pos.x, Ultimate_Skill_pos.y+40.f, Ultimate_Skill_pos.z));
 				
 				if(i == 39)
 					_Ultimate_Skill = true;
@@ -1256,7 +1256,7 @@ namespace jk
 			if (Utimate_Sign->_effect_On == false)
 			{
 
-				_attack_time += Time::DeltaTime();
+				_attack_time += static_cast<float>(Time::DeltaTime());
 				if (_attack_time < 7.f)
 				{
 					for (int i = 0; i < 40; i++)
@@ -1311,7 +1311,7 @@ namespace jk
 
 	void Archer::groggy()
 	{
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time >= 3.5)
 		{
 			_attack_time = 0;	
@@ -1515,20 +1515,20 @@ namespace jk
 
 
 		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 2));
+		hp_tr->SetPosition(Vector3(pos.x, pos.y - 90.f, pos.z - 2.f));
 
 		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
-		hpdamege_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 1.5));
+		hpdamege_tr->SetPosition(Vector3(pos.x, pos.y - 90.f, pos.z - 1.5f));
 
 		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
-		hpfr_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 1));
+		hpfr_tr->SetPosition(Vector3(pos.x, pos.y - 90.f, pos.z - 1.f));
 
 
 		if (_Hp_control == true)
 		{
 			if (Monster_DamegeHp->Get_Switch() == true)
 			{
-				_Hp_time += Time::DeltaTime();
+				_Hp_time += static_cast<float>(Time::DeltaTime());
 				if (_Hp_time > 2)
 				{
 					Hpbar_Frame->SetState(eState::Paused);

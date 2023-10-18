@@ -20,7 +20,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\EnergyCorps_Spark", this, 0,0.02);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\EnergyCorps_Spark", this, 0,0.02f);
 		at->CompleteEvent(L"EffectEnergyCorps_Spark") = std::bind(&Yggdrasil_EnergyCorps_Spark::Compelete, this);
 
 		at->PlayAnimation(L"EffectEnergyCorps_Spark", true);

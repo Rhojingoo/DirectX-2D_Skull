@@ -88,7 +88,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, Energy_Corps[i]);
 			Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -206.f));
+			bullet_tr->SetPosition(Vector3(static_cast<float>(random(-250, 250)), static_cast<float>(random(static_cast<int>(_pos.y), static_cast<int>(_pos.y) + 100)), -206.f));
 			Energy_Corps[i]->SetState(eState::Paused);
 		}
 	
@@ -137,7 +137,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, Groggy_Begin_Efeect[i]);
 			Transform* bullet_tr = Groggy_Begin_Efeect[i]->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -206.f));
+			bullet_tr->SetPosition(Vector3(static_cast<float>(random(-250, 250)), static_cast<float>(random(static_cast<int>(_pos.y), static_cast<int>(_pos.y) + 100)), -206.f));
 			Groggy_Begin_Efeect[i]->SetState(eState::Paused);
 		}
 		{
@@ -146,7 +146,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Groggy_Start);
 			Transform* bullet_tr = Groggy_Start->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30.f, _pos.z - 1.f));
 			Groggy_Start->SetState(eState::Paused);
 		}
 		{
@@ -595,7 +595,7 @@ namespace jk
 		if (_Firstbullet == false)
 		{
 			if (_pos.y >= -50.f)
-				_pos.y -= 150 * Time::DeltaTime();
+				_pos.y -= 150.f * static_cast<float>(Time::DeltaTime());
 			else
 			{
 				_SetattackC_face = true; 
@@ -611,13 +611,13 @@ namespace jk
 			if (_Changeon == false)
 			{
 				Transform* bullet_tr = Yggdrasil_effect->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(_pos.x + 5, _pos.y + 15, _pos.z - 1));
+				bullet_tr->SetPosition(Vector3(_pos.x + 5.f, _pos.y + 15.f, _pos.z - 1.f));
 				Yggdrasil_effect->SetState(eState::Active);
 
 				{
-					_introtime += Time::DeltaTime();
+					_introtime += static_cast<float>(Time::DeltaTime());
 					if (_introtime < 1.5)					
-						_pos.x = UpdateVibration(_pos.x, 7, 10.f * 3.14, _introtime);					
+						_pos.x = UpdateVibration(_pos.x, 7.f, 10.f * 3.14f, _introtime);					
 					else
 					{
 						_pos.x = Yggdrasil_pos.x;
@@ -639,7 +639,7 @@ namespace jk
 	void Yggdrasil_Face::attack_c_up()
 	{
 		if (_pos.y <= 70.f)
-			_pos.y += 250 * Time::DeltaTime();
+			_pos.y += 250.f * static_cast<float>(Time::DeltaTime());
 		else
 			_BulletReady = true;		
 	}
@@ -647,7 +647,7 @@ namespace jk
 	{		
 		if (_Changeon == false)
 		{
-			_time += Time::DeltaTime();
+			_time += static_cast<float>(Time::DeltaTime());
 			if (_time <= 3.f)
 			{
 				for (int i = 0; i < 8; i++)
@@ -687,7 +687,7 @@ namespace jk
 		if (_Changeon == true)
 		{
 			static bool sparkPositionSet[15] = { false };
-			_time += Time::DeltaTime();
+			_time += static_cast<float>(Time::DeltaTime());
 			if (_time <= 10.f)
 			{
 				Transform* bullet_tr = EnergyCorps_Spark->GetComponent<Transform>();
@@ -782,7 +782,7 @@ namespace jk
 
 				if (_pos.y > 50)
 				{
-					_pos.y -= 150 * Time::DeltaTime();
+					_pos.y -= 150.f* static_cast<float>(Time::DeltaTime());
 					_BulletReady = false;
 				}
 				else
@@ -813,7 +813,7 @@ namespace jk
 		{
 			if (_pos.y > 50)
 			{
-				_pos.y -= 150 * Time::DeltaTime();
+				_pos.y -= 150.f * static_cast<float>(Time::DeltaTime());
 				_BulletReady = false;
 			}
 			else
@@ -822,7 +822,7 @@ namespace jk
 				{
 					Energy_Corps[i]->SetState(eState::Paused);
 					Energy_Corps[i]->_effect_switch = true;
-					Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(random(-250, 250), random(_pos.y, _pos.y + 100), -205.f));
+					Energy_Corps[i]->GetComponent<Transform>()->SetPosition(Vector3(static_cast<float>(random(-250, 250)), static_cast<float>(random(static_cast<int>(_pos.y), static_cast<int>(_pos.y) + 100)), -205.f));
 					if (Groggy_Begin_Efeect[i]->_EffectOn == false)
 						Groggy_Begin_Efeect[i]->_EffectOn=true;
 				}
@@ -885,10 +885,10 @@ namespace jk
 		if (_Intro_Ready == false)
 		{			
 			as->Play("ElderEnt_Roar");
-			_introtime += Time::DeltaTime();
+			_introtime += static_cast<float>(Time::DeltaTime());
 			if (_introtime < 5)
 			{
-				_pos.x = UpdateVibration(_pos.x, 10, 10.f * 3.14, _introtime);
+				_pos.x = UpdateVibration(_pos.x, 10.f, 10.f * 3.14f, _introtime);
 			}
 			else
 			{
@@ -939,10 +939,10 @@ namespace jk
 			if (_Change_Face == false)
 			{
 				as->Play("ElderEnt_Roar");
-				_introtime += Time::DeltaTime();
+				_introtime += static_cast<float>(Time::DeltaTime());
 				if (_introtime < 5)
 				{
-					_pos.x = UpdateVibration(_pos.x, 10, 10.f * 3.14, _introtime);
+					_pos.x = UpdateVibration(_pos.x, 10.f, 10.f * 3.14f, _introtime);
 				}
 				else
 				{					
@@ -1002,8 +1002,8 @@ namespace jk
 			Transform* bullet_tr = Bullet[i]->GetComponent<Transform>();
 
 			Vector3 bulletattack = bullet_tr->GetPosition();
-			bulletattack.x += basic_pos[i].x * Time::DeltaTime();
-			bulletattack.y += basic_pos[i].y * Time::DeltaTime();
+			bulletattack.x += basic_pos[i].x * static_cast<float>(Time::DeltaTime());
+			bulletattack.y += basic_pos[i].y * static_cast<float>(Time::DeltaTime());
 			bullet_tr->SetPosition(Vector3(bulletattack.x, bulletattack.y, -205));
 		}
 	}
@@ -1053,9 +1053,9 @@ namespace jk
 		if (_Groggy_Face_Down == false)
 		{
 			if (_pos.y >= -100.f)
-				_pos.y -= 50 * Time::DeltaTime();
+				_pos.y -= 50.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.x >= -40.f)
-				_pos.x -= 35 * Time::DeltaTime();
+				_pos.x -= 35.f * static_cast<float>(Time::DeltaTime());
 			if ((_pos.y < -100.f) && (_pos.x < -40.f))
 				_Groggy_Face_Down = true;
 		}
@@ -1068,9 +1068,9 @@ namespace jk
 			if (_Changeon == true)
 				at->PlayAnimation(L"FaceYggdrasilFace_Change", true);
 			if (_pos.y <= 0.f)
-				_pos.y += 50 * Time::DeltaTime();
+				_pos.y += 50.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.x <= 0.f)
-				_pos.x += 35 * Time::DeltaTime();
+				_pos.x += 35.f * static_cast<float>(Time::DeltaTime());
 			if ((_pos.y >= 0.f) && (_pos.x >= 0.f))
 			{
 				_pos.x = 0;
@@ -1086,9 +1086,9 @@ namespace jk
 		if (_Die_Face_Down == false)
 		{
 			if (_pos.y >= -100.f)
-				_pos.y -= 50 * Time::DeltaTime();
+				_pos.y -= 50.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.x >= -40.f)
-				_pos.x -= 35 * Time::DeltaTime();
+				_pos.x -= 35.f * static_cast<float>(Time::DeltaTime());
 			if ((_pos.y < -100.f) && (_pos.x < -40.f))
 				_Die_Face_Down = true;
 		}

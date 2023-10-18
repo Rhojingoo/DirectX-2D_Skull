@@ -240,8 +240,8 @@ namespace jk
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Monster_DamegeHp);
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
-			hp_tr->SetScale(274, 10, 0);
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.5f));
+			hp_tr->SetScale(274.f, 10.f, 0.f);
 			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Type(1);
@@ -254,8 +254,8 @@ namespace jk
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Monster_DamegeHp_Second);
 			Transform* hp_tr = Monster_DamegeHp_Second->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
-			hp_tr->SetScale(274, 10, 0);
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.5f));
+			hp_tr->SetScale(274.f, 10.f, 0.f);
 			Monster_DamegeHp_Second->Set_Type(1);
 			Monster_DamegeHp_Second->SetState(eState::Paused);
 		}
@@ -367,7 +367,7 @@ namespace jk
 			}
 			if (_Fadecheck == true)
 			{
-				_Fadetime += 2.75 * Time::DeltaTime();
+				_Fadetime += 2.75f * static_cast<float>(Time::DeltaTime());
 				if (_Fadetime > 3)
 				{
 					_Fadecheck = false;
@@ -399,7 +399,7 @@ namespace jk
 			}
 			if (_Fadecheck == true)
 			{
-				_Fadetime += 2.75 * Time::DeltaTime();
+				_Fadetime += 2.75f * static_cast<float>(Time::DeltaTime());
 				if (_Fadetime > 3)
 				{
 					_Fadetime = 0;
@@ -601,7 +601,7 @@ namespace jk
 
 	void Yggdrasil::idle()
 	{
-		_time += Time::DeltaTime();
+		_time += static_cast<float>(Time::DeltaTime());
 		_NumberofAttack = 0;
 		_playerpos = Player::GetPlayer_Pos();
 
@@ -642,7 +642,7 @@ namespace jk
 
 			if (_FrameDown > 190)
 			{
-				_FrameDown -= 100 * Time::DeltaTime();
+				_FrameDown -= 100.f * static_cast<float>(Time::DeltaTime());
 				_HpFrame_tr->SetPosition(Vector3(0, _FrameDown, -205));
 
 				hp_tr->SetPosition(Vector3(_HpFrame_tr->GetPosition().x+1, _HpFrame_tr->GetPosition().y-7, _HpFrame_tr->GetPosition().z - 2));
@@ -728,7 +728,7 @@ namespace jk
 	{
 		if (Yggdrasil_Hand_Right::_Attackswitch == true && _AttackA_Boddy == true)
 		{
-			_attackatime += Time::DeltaTime();
+			_attackatime += static_cast<float>(Time::DeltaTime());
 			if (_attackatime > 2.5f)
 			{
 				as->Play("ElderEnt_FistSlam_Recovery");
@@ -742,7 +742,7 @@ namespace jk
 	{
 		if (Yggdrasil_Hand_Left::_Attackswitch == true && _AttackA_Boddy == true)
 		{			
-			_attackatime += Time::DeltaTime();
+			_attackatime += static_cast<float>(Time::DeltaTime());
 			if (_attackatime > 2.5f)
 			{
 				as->Play("ElderEnt_FistSlam_Recovery");
@@ -906,7 +906,7 @@ namespace jk
 	{
 		if ((_Groggy_Chin_Down == true) && (_Groggy_Body_Down == true) && (_Groggy_Face_Down == true))
 		{
-			_attackatime += Time::DeltaTime();
+			_attackatime += static_cast<float>(Time::DeltaTime());
 			if (_attackatime > 3)
 			{
 				_state = Yggdrasil_State::Groggy_End;
@@ -938,7 +938,7 @@ namespace jk
 		{
 			if (_NumberofAttack == 0)
 			{
-				_attackatime += Time::DeltaTime();
+				_attackatime += static_cast<float>(Time::DeltaTime());
 				if (_attackatime > 1.5f)
 				{
 					_state = Yggdrasil_State::Attack_D;
@@ -1028,7 +1028,7 @@ namespace jk
 	{
 		if (_Change_Readyr == true && _Change_Readyl == true)
 		{
-			_attackatime += Time::DeltaTime();
+			_attackatime += static_cast<float>(Time::DeltaTime());
 			if (_attackatime > 1.5f)
 			{
 				_state = Yggdrasil_State::Change;
@@ -1061,7 +1061,7 @@ namespace jk
 		_Intro_song = false;
 		if (_Die_SetR == true && _Die_SetL == true && _Die_SetFace == true && _Die_SetChin == true && _Die_SetBoddy == true)
 		{
-			_FadeAssistantTime += Time::DeltaTime();
+			_FadeAssistantTime += static_cast<float>(Time::DeltaTime());;
 			if (_FadeAssistantTime > 2)
 			{
 				if (_DiewaitingFadein == false)
@@ -1073,7 +1073,7 @@ namespace jk
 				}
 				if (_DiewaitingFadein == true)
 				{
-					_Fadetime += 2.75 * Time::DeltaTime();
+					_Fadetime += 2.75f * static_cast<float>(Time::DeltaTime());
 					if (_Fadetime > 3)
 					{
 						_Fadetime = 0.f;
@@ -1110,7 +1110,7 @@ namespace jk
 	{
 		if (_Die_Waiting_R == true && _Die_Waiting_L == true && _Die_Waiting_Face == true && _Die_Waiting_Chin == true && _Die_Waiting_Boddy == true)
 		{
-			_Dietime += Time::DeltaTime();
+			_Dietime += static_cast<float>(Time::DeltaTime());
 			if (_Dietime > 3.5f)
 			{
 				_state = Yggdrasil_State::DieReady;

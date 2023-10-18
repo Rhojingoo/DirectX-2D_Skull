@@ -53,7 +53,7 @@ namespace jk
 		}
 		if (_Fadecheck == true)
 		{
-			_time += 2.75 * Time::DeltaTime();
+			_time += 2.75f * static_cast<float>(Time::DeltaTime());
 			if (_time > 3)
 			{
 				SceneManager::LoadScene(L"Start_Scene");

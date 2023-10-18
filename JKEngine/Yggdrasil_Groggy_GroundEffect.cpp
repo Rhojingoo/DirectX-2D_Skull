@@ -20,7 +20,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\Grogy_Impact", this, 0, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\Grogy_Impact", this, 0, 0.05f);
 		at->CompleteEvent(L"EffectGrogy_Impact") = std::bind(&Yggdrasil_Groggy_GroundEffect::Compelete, this);
 
 		at->PlayAnimation(L"EffectGrogy_Impact", true);

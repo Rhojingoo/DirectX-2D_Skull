@@ -35,7 +35,7 @@ namespace jk
 			_DirectionSellect = false;
 		}
 
-		mTime = Time::DeltaTime();
+		mTime = static_cast<float>(Time::DeltaTime());
 		if (mTime > 1)
 		{
 			this->SetState(eState::Paused);

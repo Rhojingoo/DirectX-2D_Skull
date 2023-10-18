@@ -51,32 +51,32 @@ namespace jk
 
 		
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this,0,0.065);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this,0,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this,0,0.065f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this,0,0.065f);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Fall", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\FallRepeat", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Idle", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Jump", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\JumpAttack", this,0,0.065);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillA", this,0,0.07);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillB", this,0,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\JumpAttack", this,0,0.065f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillA", this,0,0.07f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillB", this,0,0.065f);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Switch", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Walk", this);
 
 
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this, 1,0.065);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this, 1,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackA", this, 1,0.065f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\AttackB", this, 1,0.065f);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Dash_End", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Fall", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\FallRepeat", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Idle", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Jump", this, 1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\JumpAttack", this, 1,0.065);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillA", this, 1,0.07);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillB", this, 1,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\JumpAttack", this, 1,0.065f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillA", this, 1,0.07f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\SkillB", this, 1,0.065f);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Switch", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Player\\Wolf\\Walk", this, 1);
 	
@@ -581,7 +581,7 @@ namespace jk
 
 	void Skul_Wolf::fall()
 	{
-		_time += Time::DeltaTime();
+		_time += static_cast<float>(Time::DeltaTime());
 		if (_time > 3.f)
 		{
 			_State = Skul_Wolf_State::Falling;
@@ -732,7 +732,7 @@ namespace jk
 			}
 		}
 		{
-			timeSinceLastImage += Time::DeltaTime();
+			timeSinceLastImage += static_cast<float>(Time::DeltaTime());
 			if (timeSinceLastImage >= delayBetweenImages)
 			{
 				for (int i = 0; i < 10; i++)
@@ -829,7 +829,7 @@ namespace jk
 
 	void Skul_Wolf::stun()
 	{
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time > 1.0)
 		{
 			_State = Skul_Wolf_State::Idle;
@@ -2037,7 +2037,7 @@ namespace jk
 			if (Input::GetKey(eKeyCode::LEFT))
 			{
 				mDir = -1;
-				pos.x -= 150.0f * Time::DeltaTime();
+				pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
 			}
 		}
 		if (_Rightmove_Lock == false)
@@ -2045,20 +2045,16 @@ namespace jk
 			if (Input::GetKey(eKeyCode::RIGHT))
 			{
 				mDir = 1;
-				pos.x += 150.0f * Time::DeltaTime();
+				pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
 			}
 		}
 		if (Input::GetKey(eKeyCode::DOWN))
-			pos.y -= 100.0f * Time::DeltaTime();
+			pos.y -= 100.0f * static_cast<float>(Time::DeltaTime());
 
 		if (Input::GetKey(eKeyCode::UP))
-			pos.y += 100.0f * Time::DeltaTime();
+			pos.y += 100.0f * static_cast<float>(Time::DeltaTime());
 
-		//if (Input::GetKeyDown(eKeyCode::C))
-		//{
-		//	_rigidbody->AddForce(Vector2(0.f, 350.f));
-		//	_rigidbody->SetGround(false);
-		//}
+
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{

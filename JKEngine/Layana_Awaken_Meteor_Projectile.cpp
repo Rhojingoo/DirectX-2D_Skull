@@ -42,7 +42,7 @@ namespace jk
 		}
 		if (_bulletoff == true)
 		{
-			_attackatime += Time::DeltaTime();
+			_attackatime += static_cast<float>(Time::DeltaTime());
 			if (_attackatime >= 5)
 			{
 				this->SetState(eState::Paused);

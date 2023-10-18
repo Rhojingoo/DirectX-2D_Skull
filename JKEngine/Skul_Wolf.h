@@ -73,8 +73,8 @@ namespace jk
 		static void SetDirection(int dir, bool sw) { mDir = dir, _switch = sw; }
 
 	private:
-		Skul_Wolf_State _State;
-		HitBox_Player* Hit_Box;
+		Skul_Wolf_State _State = {};
+		HitBox_Player* Hit_Box = nullptr;
 		Animator* at = nullptr;
 		AudioSource* as = nullptr;
 		RigidBody* _rigidbody = nullptr;

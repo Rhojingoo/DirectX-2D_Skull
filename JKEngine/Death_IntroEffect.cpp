@@ -19,8 +19,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Death_Effect\\Dark_Dead_Intro", this, 0, 0.075);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Death_Effect\\Dark_Dead_Intro", this, 1, 0.075);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Death_Effect\\Dark_Dead_Intro", this, 0, 0.075f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Death_Effect\\Dark_Dead_Intro", this, 1, 0.075f);
 		at->CompleteEvent(L"Death_EffectDark_Dead_Intro") = std::bind(&Death_IntroEffect::Compelete_Pierce, this);
 		at->CompleteEvent(L"Death_EffectDark_Dead_IntroR") = std::bind(&Death_IntroEffect::Compelete_Pierce, this);
 

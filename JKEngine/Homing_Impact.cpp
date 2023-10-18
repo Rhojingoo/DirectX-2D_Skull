@@ -20,8 +20,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\Homing_Impact", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\Homing_Impact", this, 1, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\Homing_Impact", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\Homing_Impact", this, 1, 0.05f);
 
 		at->CompleteEvent(L"EffectHoming_Impact") = std::bind(&Homing_Impact::Compelete_Pierce, this);
 		at->CompleteEvent(L"EffectHoming_ImpactR") = std::bind(&Homing_Impact::Compelete_Pierce, this);

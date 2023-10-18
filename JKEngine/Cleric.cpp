@@ -128,8 +128,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::UI, Monster_UIDamegeHp);
 			Monster_UIDamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_UIDamegeHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1.5));
-			hp_tr->SetScale(137, 12.5, 0);
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50.f, pos.z - 1.5f));
+			hp_tr->SetScale(137.f, 12.5f, 0.f);
 			Monster_UIDamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_UIDamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_UIDamegeHp->Set_Type(1);
@@ -155,8 +155,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1.5));
-			hp_tr->SetScale(48, 3, 0);
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50.f, pos.z - 1.5f));
+			hp_tr->SetScale(48.f, 3.f, 0.f);
 			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Type(1);
@@ -170,8 +170,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1));
-			hp_tr->SetScale(48, 3, 0);
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50.f, pos.z - 1.f));
+			hp_tr->SetScale(48.f, 3.f, 0.f);
 			Monster_Hp->Set_Max_Hp(_MaxHp);
 			Monster_Hp->Set_Current_Hp(_MaxHp);
 			Monster_Hp->SetState(eState::Paused);
@@ -790,18 +790,9 @@ namespace jk
 			}
 			else
 			{
-				_time += Time::DeltaTime();
+				_time += static_cast<float>(Time::DeltaTime());
 				if (_time >= 3.f)
 				{
-					//if ((_distance >= -50) && (_distance <= 50))
-					//{
-					//	_state = Cleric_State::Teleport_In;
-					//	if (mDir == 1)
-					//		at->PlayAnimation(L"ClericTeleport_In", true);
-					//	else
-					//		at->PlayAnimation(L"ClericTeleport_InR", true);
-					//}
-					//else
 					{
 						if (_lotationplay == 0)
 						{
@@ -967,23 +958,23 @@ namespace jk
 				else
 				{
 					Ultimate_Aura->SetDirection(-1);
-					bullet_tr->SetPosition(Vector3(pos.x , pos.y - 30, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x , pos.y - 30.f, pos.z - 1.f));
 				}
 				Ultimate_Aura->SetState(eState::Active);
 			}
 
 			{
 				Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 65, pos.z - 1.1));
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 65.f, pos.z - 1.1f));
 				if (mDir == 1)
 				{
 					Ultimate_AuraSmoke->SetDirection(1);
-					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 60, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 60.f, pos.z - 1.f));
 				}
 				else
 				{
 					Ultimate_AuraSmoke->SetDirection(-1);
-					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 60, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 60.f, pos.z - 1.f));
 				}
 				Ultimate_AuraSmoke->SetState(eState::Active);
 			}
@@ -991,7 +982,7 @@ namespace jk
 		}
 
 		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time >= 7.5)
 		{
 			Ultimate_Aura->SetState(eState::Paused);
@@ -1000,7 +991,7 @@ namespace jk
 			{
 				// 이펙트 설정시 9번 hit가 된다면 깨지는 이미지로 넘어간뒤 그로기 상태로넘겨줘야한다.
 				Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25.f, pos.z - 1.1f));
 				if (mDir == 1)
 					UltimateSkill_Effect_Fail->SetDirection(1);
 				else
@@ -1014,7 +1005,7 @@ namespace jk
 			{
 				// 이펙트 설정시 5초가 10번이상의 타격이 없다면 석세스로 넘어간뒤 Effect 날려야한다.
 				Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 45, pos.z - 1.1));
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 45.f, pos.z - 1.1f));
 				if (mDir == 1)
 					UltimateSkill_Effect_Complete->SetDirection(1);
 				else
@@ -1089,7 +1080,7 @@ namespace jk
 	}
 	void Cleric::groggy()
 	{
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time >= 3.5)
 		{
 			_attack_time = 0;
@@ -1188,20 +1179,20 @@ namespace jk
 
 
 		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 2));
+		hp_tr->SetPosition(Vector3(pos.x, pos.y - 90.f, pos.z - 2.f));
 
 		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
-		hpdamege_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 1.5));
+		hpdamege_tr->SetPosition(Vector3(pos.x, pos.y - 90.f, pos.z - 1.5f));
 
 		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
-		hpfr_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 1));
+		hpfr_tr->SetPosition(Vector3(pos.x, pos.y - 90.f, pos.z - 1.f));
 
 
 		if (_Hp_control == true)
 		{
 			if (Monster_DamegeHp->Get_Switch() == true)
 			{
-				_Hp_time += Time::DeltaTime();
+				_Hp_time += static_cast<float>(Time::DeltaTime());
 				if (_Hp_time > 2)
 				{
 					Hpbar_Frame->SetState(eState::Paused);

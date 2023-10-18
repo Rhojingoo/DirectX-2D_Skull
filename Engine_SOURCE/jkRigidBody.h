@@ -49,6 +49,6 @@ namespace jk
 		bool _SetFriction = false;;
 		// 중력 이용한 점프
 
-		eMoveDir mMoveDir;
+		eMoveDir mMoveDir = {};
 	};
 }

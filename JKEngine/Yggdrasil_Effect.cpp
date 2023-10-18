@@ -21,7 +21,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\EnergyBomb_Charging", this,0, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\EnergyBomb_Charging", this,0, 0.05f);
 		at->CompleteEvent(L"EffectEnergyBomb_Charging") = std::bind(&Yggdrasil_Effect::Compelete, this);
 
 		at->PlayAnimation(L"EffectEnergyBomb_Charging", true);

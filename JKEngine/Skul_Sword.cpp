@@ -434,7 +434,7 @@ namespace jk
 	void Skul_Sword::fall()
 	{
 		_Ground_check = false;
-		_time += Time::DeltaTime();
+		_time += static_cast<float>(Time::DeltaTime());
 		if (_time > 2.f)
 		{
 			_State = Skul_Sword_State::Falling;
@@ -803,18 +803,18 @@ namespace jk
 		if (Input::GetKey(eKeyCode::LEFT))
 		{
 			mDir = -1;
-			pos.x -= 150.0f * Time::DeltaTime();
+			pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
 		}
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
 			mDir = 1;
-			pos.x += 150.0f * Time::DeltaTime();
+			pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
 		}
 		if (Input::GetKey(eKeyCode::DOWN))
-			pos.y -= 100.0f * Time::DeltaTime();
+			pos.y -= 100.0f * static_cast<float>(Time::DeltaTime());
 
 		if (Input::GetKey(eKeyCode::UP))
-			pos.y += 100.0f * Time::DeltaTime();
+			pos.y += 100.0f * static_cast<float>(Time::DeltaTime());
 
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))

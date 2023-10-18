@@ -32,7 +32,7 @@ namespace jk
 	
 		if (_effect_On == true)
 		{
-			_Lifetime += Time::DeltaTime();
+			_Lifetime += static_cast<float>(Time::DeltaTime());
 			if (_Lifetime >= 10)
 			{
 				at->PlayAnimation(L"ByeEND", true);

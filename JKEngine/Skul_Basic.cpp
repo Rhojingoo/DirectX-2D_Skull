@@ -259,7 +259,7 @@ namespace jk
 
 		if (_Skulhead == true)
 		{
-			_skulhead_time += Time::DeltaTime();
+			_skulhead_time += static_cast<float>(Time::DeltaTime());
 			if (_skulhead_time > 3)
 			{
 				_Skulhead = false;
@@ -534,7 +534,7 @@ namespace jk
 
 		if (_fall_check == true)
 		{
-			_fallcheck_time += Time::DeltaTime();
+			_fallcheck_time += static_cast<float>(Time::DeltaTime());
 			if (_fallcheck_time > 0.5)
 			{
 				_State = Skul_Basic_State::Fall;
@@ -899,7 +899,7 @@ namespace jk
 		}
 
 
-		_time += Time::DeltaTime();
+		_time += static_cast<float>(Time::DeltaTime());
 		if (_time > 1.f)
 		{
 			_State = Skul_Basic_State::Falling;
@@ -1170,7 +1170,7 @@ namespace jk
 		}		
 		//else
 		{
-			timeSinceLastImage += Time::DeltaTime();
+			timeSinceLastImage += static_cast<float>(Time::DeltaTime());
 			if (timeSinceLastImage >= delayBetweenImages)
 			{
 				for (int i = 0; i < 10; i++)
@@ -1238,7 +1238,7 @@ namespace jk
 
 	void Skul_Basic::stun()
 	{
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time > 1)
 		{
 			_State = Skul_Basic_State::Idle;
@@ -2045,7 +2045,7 @@ namespace jk
 
 		if (Layana_Ground_Thunder* Bullet = dynamic_cast<Layana_Ground_Thunder*>(other->GetOwner()))
 		{
-			if (_State == Skul_Basic_State::Dash)
+			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
 				return;
 
 			Transform* hittr = Bullet->GetComponent<Transform>();
@@ -2074,7 +2074,7 @@ namespace jk
 
 		if (Layana_Awaken_Meteor_Projectile* Bullet = dynamic_cast<Layana_Awaken_Meteor_Projectile*>(other->GetOwner()))
 		{
-			if (_State == Skul_Basic_State::Dash)
+			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
 				return;
 
 			Transform* hittr = Bullet->GetComponent<Transform>();
@@ -2103,7 +2103,7 @@ namespace jk
 
 		if (Layana_Awaken_Homing_Attac* Bullet = dynamic_cast<Layana_Awaken_Homing_Attac*>(other->GetOwner()))
 		{
-			if (_State == Skul_Basic_State::Dash)
+			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
 				return;
 
 			Transform* hittr = Bullet->GetComponent<Transform>();
@@ -2132,7 +2132,7 @@ namespace jk
 
 		if (Dark_DimensionPierce_BulletEffect* Bullet = dynamic_cast<Dark_DimensionPierce_BulletEffect*>(other->GetOwner()))
 		{
-			if (_State == Skul_Basic_State::Dash)
+			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
 				return;
 
 			Transform* hittr = Bullet->GetComponent<Transform>();
@@ -2656,7 +2656,7 @@ namespace jk
 			if (Input::GetKey(eKeyCode::LEFT))
 			{
 				mDir = -1;
-				pos.x -= 150.0f * Time::DeltaTime();
+				pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
 				//_rigidbody->SetVelocity(Vector2(-150.f, 0.f));
 			}
 		}
@@ -2665,7 +2665,7 @@ namespace jk
 			if (Input::GetKey(eKeyCode::RIGHT))
 			{
 				mDir = 1;
-				pos.x += 150.0f * Time::DeltaTime();
+				pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
 				//_rigidbody->SetVelocity(Vector2(150.f, 0.f));
 			}
 		}
@@ -2673,14 +2673,14 @@ namespace jk
 		{
 			_rigidbody->SetGround(true);
 			_Ground_check = true;
-			pos.y -= 100.0f * Time::DeltaTime();
+			pos.y -= 100.0f * static_cast<float>(Time::DeltaTime());
 		}
 		
 		if (Input::GetKey(eKeyCode::UP))
 		{
 			_rigidbody->SetGround(true);
 			_Ground_check = true;
-			pos.y += 100.0f * Time::DeltaTime();
+			pos.y += 100.0f * static_cast<float>(Time::DeltaTime());
 		}
 		
 

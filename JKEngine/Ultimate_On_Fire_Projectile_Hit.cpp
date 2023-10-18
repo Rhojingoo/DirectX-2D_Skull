@@ -19,8 +19,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\World_On_Fire_Projectile_Hit", this,0,0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\World_On_Fire_Projectile_Hit", this, 1,0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\World_On_Fire_Projectile_Hit", this,0,0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Mage\\Bullet\\World_On_Fire_Projectile_Hit", this, 1,0.05f);
 
 		at->CompleteEvent(L"BulletWorld_On_Fire_Projectile_Hit") = std::bind(&Ultimate_On_Fire_Projectile_Hit::Compelete, this);
 		at->CompleteEvent(L"BulletWorld_On_Fire_Projectile_HitR") = std::bind(&Ultimate_On_Fire_Projectile_Hit::Compelete, this);

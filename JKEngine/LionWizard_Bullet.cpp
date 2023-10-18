@@ -20,8 +20,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_wizard\\Bullet\\LionWizard_Bullet", this, 0,0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_wizard\\Bullet\\LionWizard_Bullet", this, 1,0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_wizard\\Bullet\\LionWizard_Bullet", this, 0,0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_wizard\\Bullet\\LionWizard_Bullet", this, 1,0.05f);
 
 		at->PlayAnimation(L"BulletLionWizard_Bullet", true);
 
@@ -39,7 +39,7 @@ namespace jk
 		}
 		if (_animationswitch == true)
 		{
-			_attackatime += Time::DeltaTime();
+			_attackatime += static_cast<float>(Time::DeltaTime());
 			if (_attackatime > 5)
 			{
 				_animationswitch = false;

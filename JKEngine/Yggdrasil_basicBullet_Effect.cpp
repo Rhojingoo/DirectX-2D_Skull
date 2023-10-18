@@ -19,7 +19,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\Basic_bullet", this, 0, 0.045);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\Basic_bullet", this, 0, 0.045f);
 		at->CompleteEvent(L"EffectBasic_bullet") = std::bind(&Yggdrasil_basicBullet_Effect::Compelete, this);
 
 		at->PlayAnimation(L"EffectBasic_bullet", true);

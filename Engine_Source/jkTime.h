@@ -10,7 +10,7 @@ namespace jk
 		static void Update();
 		static void Render();
 
-		__forceinline static double DeltaTime() { return mDeltaTime; }
+		__forceinline static double DeltaTime() { return mDeltaTime; }	
 		Vector3 ChangeWorldPos(Vector3 pos);
 
 

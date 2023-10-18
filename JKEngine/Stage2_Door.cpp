@@ -17,23 +17,23 @@ namespace jk
 		tr = this->GetComponent<Transform>();
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\Basic_Door", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\Boss_Door", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\GetSkull_Door", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\GetTreasure_Door", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\MiniBoss_Door", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\DarkMarcket", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\Upgrade_Door", this, 0, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\Basic_Door", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\Boss_Door", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\GetSkull_Door", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\GetTreasure_Door", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\MiniBoss_Door", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\DarkMarcket", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Open_Door\\Upgrade_Door", this, 0, 0.05f);
 
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_Basic_Door", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_Boss_Door", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_DarkMarcket", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_GetSkull_Door", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_GetTreasure_Door", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_MiniBoss_Door", this, 0, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_Basic_Door", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_Boss_Door", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_DarkMarcket", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_GetSkull_Door", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_GetTreasure_Door", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Close_Door\\Close_MiniBoss_Door", this, 0, 0.05f);
 
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Deactivate_Door\\First", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Deactivate_Door\\Second", this, 0, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Deactivate_Door\\First", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage2\\Deactivate_Door\\Second", this, 0, 0.05f);
 
 		at->PlayAnimation(L"Open_DoorBasic_Door", true);
 		GameObject::Initialize();
@@ -175,7 +175,7 @@ namespace jk
 			}
 			if (_Fadecheck == true)
 			{
-				_time += 2.75 * Time::DeltaTime();
+				_time += 2.75f * static_cast<float>(Time::DeltaTime());
 				if (_time > 3)
 				{
 					SceneManager::LoadScene(Path);

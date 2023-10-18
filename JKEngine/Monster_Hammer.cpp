@@ -40,7 +40,7 @@ namespace jk
 
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this,0,0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this,0,0.05f);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack_Ready", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Dead", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Idle", this);
@@ -50,7 +50,7 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Walk", this);
 
 		
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this, 1,0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack", this, 1,0.05f);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Attack_Ready", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Dead", this, 1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Hammer\\Idle", this, 1);
@@ -85,8 +85,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
-			hp_tr->SetScale(80, 3, 0);
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.5f));
+			hp_tr->SetScale(80.f, 3.f, 0.f);
 			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Type(1);
@@ -270,7 +270,7 @@ namespace jk
 			Transform* Ground_TR = other->GetOwner()->GetComponent<Transform>();
 			Vector3 wall_pos = Ground_TR->GetPosition();			
 
-			_attacktime += Time::DeltaTime();
+			_attacktime += static_cast<float>(Time::DeltaTime());
 			if (_attacktime > 0.7f)
 			{
 				_state = Monster_Hammer_State::Idle;
@@ -625,9 +625,9 @@ namespace jk
 				Vector3 GRpos = GRTR->GetPosition();
 				{
 					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
-					float GrColsize = GRCol->GetScale().y / 2;
-					float playercolsize = _collider->GetScale().y / 2;
-					float Sizecheck = playercolsize + GrColsize + 7.5;
+					float GrColsize = GRCol->GetScale().y / 2.f;
+					float playercolsize = _collider->GetScale().y / 2.f;
+					float Sizecheck = playercolsize + GrColsize + 7.5f;
 
 
 					float CheckPos = fabs(_pos.y - GRpos.y);
@@ -661,9 +661,9 @@ namespace jk
 				Vector3 GRpos = GRTR->GetPosition();
 				{
 					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
-					float GrColsize = GRCol->GetScale().y / 2;
-					float playercolsize = _collider->GetScale().y / 2;
-					float Sizecheck = playercolsize + GrColsize + 7.5;
+					float GrColsize = GRCol->GetScale().y / 2.f;
+					float playercolsize = _collider->GetScale().y / 2.f;
+					float Sizecheck = playercolsize + GrColsize + 7.5f;
 
 
 					float CheckPos = fabs(_pos.y - GRpos.y);
@@ -696,9 +696,9 @@ namespace jk
 				Vector3 GRpos = GRTR->GetPosition();
 				{
 					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
-					float GrColsize = GRCol->GetScale().y / 2;
-					float playercolsize = _collider->GetScale().y / 2;
-					float Sizecheck = playercolsize + GrColsize + 7.5;
+					float GrColsize = GRCol->GetScale().y / 2.f;
+					float playercolsize = _collider->GetScale().y / 2.f;
+					float Sizecheck = playercolsize + GrColsize + 7.5f;
 
 
 					float CheckPos = fabs(_pos.y - GRpos.y);
@@ -765,7 +765,7 @@ namespace jk
 	{
 		if (_followskul == true)
 		{
-			_time += Time::DeltaTime();
+			_time += static_cast<float>(Time::DeltaTime());
 			if (_time > 1.5f)
 			{
 				if (_AttackCheck == 0)
@@ -823,7 +823,7 @@ namespace jk
 		}
 		else
 		{
-			_time += Time::DeltaTime();
+			_time += static_cast<float>(Time::DeltaTime());
 			if (_time > 3.f)
 			{
 				if (_walkdir == 1)
@@ -841,7 +841,7 @@ namespace jk
 	}
 	void Monster_Hammer::attack_ready()
 	{
-		_attacktime += Time::DeltaTime();
+		_attacktime += static_cast<float>(Time::DeltaTime());
 		if (_attacktime > 1)
 		{
 			_state = Monster_Hammer_State::Attack;
@@ -865,7 +865,7 @@ namespace jk
 	}
 	void Monster_Hammer::tackle_ready()
 	{
-		_attacktime += Time::DeltaTime();
+		_attacktime += static_cast<float>(Time::DeltaTime());
 		if (_attacktime > 2.f)
 		{
 			_state = Monster_Hammer_State::Tackle;
@@ -909,7 +909,7 @@ namespace jk
 	}
 	void Monster_Hammer::tackle_end()
 	{
-		_attacktime += Time::DeltaTime();
+		_attacktime += static_cast<float>(Time::DeltaTime());
 		if (_attacktime > 0.7f)
 		{
 			_state = Monster_Hammer_State::Idle;
@@ -926,9 +926,9 @@ namespace jk
 	void Monster_Hammer::walk()
 	{
 		if (_distance >= 0.f)
-			_pos.x += 150.f * Time::DeltaTime();
+			_pos.x += 150.f * static_cast<float>(Time::DeltaTime());
 		else
-			_pos.x -= 150.f * Time::DeltaTime();
+			_pos.x -= 150.f * static_cast<float>(Time::DeltaTime());
 
 		if (_AttackCheck == 0)
 		{
@@ -969,7 +969,7 @@ namespace jk
 	void Monster_Hammer::walk_R()
 	{
 		if (_walkdistance > -100)
-			_pos.x += 100.f * Time::DeltaTime();
+			_pos.x += 100.f * static_cast<float>(Time::DeltaTime());
 		else
 		{
 			_state = Monster_Hammer_State::Idle;
@@ -980,7 +980,7 @@ namespace jk
 	void Monster_Hammer::walk_L()
 	{
 		if (_walkdistance < 100)
-			_pos.x -= 100.f * Time::DeltaTime();
+			_pos.x -= 100.f * static_cast<float>(Time::DeltaTime());
 		else
 		{
 			_state = Monster_Hammer_State::Idle;
@@ -1037,20 +1037,20 @@ namespace jk
 	void Monster_Hammer::Hpcontrol()
 	{
 		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(_pos.x, _pos.y - 65, _pos.z - 2));
+		hp_tr->SetPosition(Vector3(_pos.x, _pos.y - 65.f, _pos.z - 2.f));
 
 		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
-		hpdamege_tr->SetPosition(Vector3(_pos.x, _pos.y - 65, _pos.z - 1.5));
+		hpdamege_tr->SetPosition(Vector3(_pos.x, _pos.y - 65.f, _pos.z - 1.5f));
 
 		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
-		hpfr_tr->SetPosition(Vector3(_pos.x, _pos.y - 65, _pos.z - 1));
+		hpfr_tr->SetPosition(Vector3(_pos.x, _pos.y - 65.f, _pos.z - 1.f));
 
 
 		if (_Hp_control == true)
 		{
 			if (Monster_DamegeHp->Get_Switch() == true)
 			{
-				_Hp_time += Time::DeltaTime();
+				_Hp_time += static_cast<float>(Time::DeltaTime());
 				if (_Hp_time > 2)
 				{
 					Hpbar_Frame->SetState(eState::Paused);
@@ -1079,7 +1079,7 @@ namespace jk
 	{
 		if (_hit_particle == true)
 		{
-			_particletime += Time::DeltaTime();
+			_particletime += static_cast<float>(Time::DeltaTime());
 			if (_particletime > 0.5)
 			{
 				Hit_Particle->SetState(eState::Paused);

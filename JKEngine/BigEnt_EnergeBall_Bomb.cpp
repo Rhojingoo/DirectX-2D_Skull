@@ -21,7 +21,7 @@ namespace jk
 		tr = this->GetComponent<Transform>();
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GiganticEnt\\Bullet\\Energe_Ball_Bomb", this, 0, 0.075);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GiganticEnt\\Bullet\\Energe_Ball_Bomb", this, 0, 0.075f);
 		at->CompleteEvent(L"BulletEnerge_Ball_Bomb") = std::bind(&BigEnt_EnergeBall_Bomb::Compelete, this);
 
 		at->PlayAnimation(L"BulletEnerge_Ball_Bomb", true);

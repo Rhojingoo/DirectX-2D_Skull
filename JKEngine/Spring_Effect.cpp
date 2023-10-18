@@ -19,7 +19,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Spring\\Spring_EF", this, 0,0.07);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Spring\\Spring_EF", this, 0,0.07f);
 		at->CompleteEvent(L"SpringSpring_EF") = std::bind(&Spring_Effect::Compelete, this);
 
 		at->PlayAnimation(L"SpringSpring_EF", true);

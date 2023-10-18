@@ -296,7 +296,7 @@ namespace jk
 		if (_Chin_Attack_Ready == false)
 		{
 			if (_pos.y < YggdrasilFace_pos.y - 55.f)			
-				_pos.y += 50 * Time::DeltaTime();
+				_pos.y += 50.f * static_cast<float>(Time::DeltaTime());
 			else
 			{
 				if (_pos.y >= YggdrasilFace_pos.y - 55.f)
@@ -309,7 +309,7 @@ namespace jk
 		else
 		{
 			if (_pos.y > YggdrasilFace_pos.y - 80.f)			
-				_pos.y -= 50 * Time::DeltaTime();
+				_pos.y -= 50.f * static_cast<float>(Time::DeltaTime());
 			else
 			{
 				_pos.y = YggdrasilFace_pos.y - 80.f;
@@ -338,33 +338,33 @@ namespace jk
 	void Yggdrasil_Chin::attack_b_ready()
 	{
 		if(_pos.x > (YggdrasilFace_pos.x + 12.5f))
-			_pos.x -=  150.f*Time::DeltaTime();
+			_pos.x -=  150.f* static_cast<float>(Time::DeltaTime());
 		else if(_pos.x < (YggdrasilFace_pos.x + 12.5f))
-			_pos.x += 150.f * Time::DeltaTime();
+			_pos.x += 150.f * static_cast<float>(Time::DeltaTime());
 	
 
 		if (_pos.y < (YggdrasilFace_pos.y - 60.f))
-			_pos.y += 50.f * Time::DeltaTime();
+			_pos.y += 50.f * static_cast<float>(Time::DeltaTime());
 	}
 	void Yggdrasil_Chin::attack_b_left()
 	{
 		if (_pos.x > (YggdrasilFace_pos.x -5.5f))
-			_pos.x -= 150.f * Time::DeltaTime();
+			_pos.x -= 150.f * static_cast<float>(Time::DeltaTime());
 		else if (_pos.x < (YggdrasilFace_pos.x - 5.5f))
-			_pos.x += 150.f * Time::DeltaTime();
+			_pos.x += 150.f * static_cast<float>(Time::DeltaTime());
 
 		if (_pos.y > (YggdrasilFace_pos.y - 80.f))
-			_pos.y -= 150.f * Time::DeltaTime();
+			_pos.y -= 150.f * static_cast<float>(Time::DeltaTime());
 	}
 	void Yggdrasil_Chin::attack_b_right()
 	{
 		if (_pos.x < (YggdrasilFace_pos.x + 35.5f))
-			_pos.x += 150.f * Time::DeltaTime();
+			_pos.x += 150.f * static_cast<float>(Time::DeltaTime());
 		else if (_pos.x > (YggdrasilFace_pos.x + 35.5f))
-			_pos.x -= 150.f * Time::DeltaTime();
+			_pos.x -= 150.f * static_cast<float>(Time::DeltaTime());
 
 		if (_pos.y > (YggdrasilFace_pos.y - 80.f))
-			_pos.y -= 150.f * Time::DeltaTime();
+			_pos.y -= 150.f * static_cast<float>(Time::DeltaTime());
 	}
 	void Yggdrasil_Chin::attack_b_finish()
 	{
@@ -420,7 +420,7 @@ namespace jk
 		if (_Intro_Ready == true)
 		{
 			_introchin = true;
-			_pos.y -= 80 * Time::DeltaTime();
+			_pos.y -= 80.f * static_cast<float>(Time::DeltaTime());
 			if (YggdrasilFace_pos.y - 95 >= _pos.y)
 			{
 				_pos.y = YggdrasilFace_pos.y - 95;
@@ -453,7 +453,7 @@ namespace jk
 		{
 			if (_Change_HandL == true && _Change_HandR == true)
 			{
-				_pos.y -= 80 * Time::DeltaTime();
+				_pos.y -= 80.f * static_cast<float>(Time::DeltaTime());
 				if (YggdrasilFace_pos.y - 95 >= _pos.y)
 				{
 					_pos.y = YggdrasilFace_pos.y - 95;
@@ -545,7 +545,7 @@ namespace jk
 					_pos.z = -203.f;
 					if (_pos.y < YggdrasilFace_pos.y - 65.f)
 					{
-						_pos.y += 80 * Time::DeltaTime();
+						_pos.y += 80.f * static_cast<float>(Time::DeltaTime());
 						if (_pos.y >= YggdrasilFace_pos.y - 65.f)
 						{
 							_pos.y = YggdrasilFace_pos.y - 65.f;
@@ -573,7 +573,7 @@ namespace jk
 					_pos.z = -203.f;
 					if (_pos.y < YggdrasilFace_pos.y - 65.f)
 					{
-						_pos.y += 80 * Time::DeltaTime();
+						_pos.y += 80.f * static_cast<float>(Time::DeltaTime());
 						if (_pos.y >= YggdrasilFace_pos.y - 65.f)
 						{
 							_pos.y = YggdrasilFace_pos.y - 65.f;
@@ -590,7 +590,7 @@ namespace jk
 	{
 		if (_pos.y < YggdrasilFace_pos.y - 65.f)
 		{
-			_pos.y += 80 * Time::DeltaTime();
+			_pos.y += 80.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.y >= YggdrasilFace_pos.y - 65.f)
 			{
 				_pos.y = YggdrasilFace_pos.y - 65.f;
@@ -604,9 +604,9 @@ namespace jk
 		if (_Groggy_Chin_Down == false)
 		{
 			if (_pos.y >= -150.f)
-				_pos.y -= 40 * Time::DeltaTime();
+				_pos.y -= 40.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.x >= 7.f)
-				_pos.x -= 7 * Time::DeltaTime();
+				_pos.x -= 7.f * static_cast<float>(Time::DeltaTime());
 			if ((_pos.y < -150.f) && (_pos.x < 7.f))
 				_Groggy_Chin_Down = true;			
 		}
@@ -616,9 +616,9 @@ namespace jk
 		if (_Groggy_Chin_Up == false)
 		{
 			if (_pos.y <= -65.f)
-				_pos.y += 40 * Time::DeltaTime();
+				_pos.y += 40.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.x <= 12.5f)
-				_pos.x += 7 * Time::DeltaTime();
+				_pos.x += 7.f * static_cast<float>(Time::DeltaTime());
 			if ((_pos.y >= -65.f) && (_pos.x >= 12.5f))
 			{
 				_pos.x = 12.5f;
@@ -634,9 +634,9 @@ namespace jk
 		if (_Die_Chin_Down == false)
 		{
 			if (_pos.y >= -150.f)
-				_pos.y -= 40 * Time::DeltaTime();
+				_pos.y -= 40.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.x >= 7.f)
-				_pos.x -= 7 * Time::DeltaTime();
+				_pos.x -= 7.f * static_cast<float>(Time::DeltaTime());
 			if ((_pos.y < -150.f) && (_pos.x < 7.f))
 				_Die_Chin_Down = true;
 		}

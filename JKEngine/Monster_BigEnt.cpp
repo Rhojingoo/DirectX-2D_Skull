@@ -72,8 +72,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
-			hp_tr->SetScale(80, 3, 0);
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.5f));
+			hp_tr->SetScale(80.f, 3.f, 0.f);
 			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Type(1);
@@ -87,8 +87,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
-			hp_tr->SetScale(80, 3, 0);
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.f));
+			hp_tr->SetScale(80.f, 3.f, 0.f);
 			Monster_Hp->Set_Max_Hp(_MaxHp);
 			Monster_Hp->Set_Current_Hp(_MaxHp);
 			Monster_Hp->SetState(eState::Paused);
@@ -116,7 +116,7 @@ namespace jk
 				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Bullet, Energe_Ball[i]);
 				Transform* bullet_tr = Energe_Ball[i]->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));				
+				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205.f));				
 				Energe_Ball[i]->SetState(eState::Paused);
 				set_energeball_Vellocity();
 			}
@@ -127,7 +127,7 @@ namespace jk
 			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Attack_Stamp);
 			Transform* bullet_tr = Attack_Stamp->GetComponent<Transform>();
-			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));			
+			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205.f));			
 			Attack_Stamp->SetState(eState::Paused);
 		}
 			
@@ -422,7 +422,7 @@ namespace jk
 
 	void Monster_BigEnt::idle()
 	{
-		_time += Time::DeltaTime();
+		_time += static_cast<float>(Time::DeltaTime());;
 		if (_time > 2.f)
 		{
 
@@ -452,7 +452,7 @@ namespace jk
 
 	void Monster_BigEnt::attackA_ready()
 	{
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time > 1.0)
 		{
 			_state = Monster_BigEnt_State::AttackA;
@@ -474,7 +474,7 @@ namespace jk
 
 	void Monster_BigEnt::attackB_ready()
 	{
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time > 1.0)
 		{
 			set_energeball_pos();
@@ -487,7 +487,7 @@ namespace jk
 	}
 	void Monster_BigEnt::attackB()
 	{
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time > 2.0)
 		{
 			_state = Monster_BigEnt_State::Idle;
@@ -525,7 +525,7 @@ namespace jk
 	{
 		if (_hit_particle == true)
 		{
-			_particletime += Time::DeltaTime();
+			_particletime += static_cast<float>(Time::DeltaTime());
 			if (_particletime > 0.5)
 			{
 				Hit_Particle->SetState(eState::Paused);
@@ -537,20 +537,20 @@ namespace jk
 	void Monster_BigEnt::Hpcontrol()
 	{
 		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(_pos.x, _pos.y - 65, _pos.z - 2));
+		hp_tr->SetPosition(Vector3(_pos.x, _pos.y - 65.f, _pos.z - 2.f));
 
 		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
-		hpdamege_tr->SetPosition(Vector3(_pos.x, _pos.y - 65, _pos.z - 1.5));
+		hpdamege_tr->SetPosition(Vector3(_pos.x, _pos.y - 65.f, _pos.z - 1.5f));
 
 		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
-		hpfr_tr->SetPosition(Vector3(_pos.x, _pos.y - 65, _pos.z - 1));
+		hpfr_tr->SetPosition(Vector3(_pos.x, _pos.y - 65.f, _pos.z - 1.f));
 
 
 		if (_Hp_control == true)
 		{
 			if (Monster_DamegeHp->Get_Switch() == true)
 			{
-				_Hp_time += Time::DeltaTime();
+				_Hp_time += static_cast<float>(Time::DeltaTime());
 				if (_Hp_time > 2)
 				{
 					Hpbar_Frame->SetState(eState::Paused);

@@ -67,8 +67,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
 			Hpbar_Frame->SetName(L"hp_bar_frame");
 			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
-			hp_tr->SetScale(50, 5, 0);
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.f));
+			hp_tr->SetScale(50.f, 5.f, 0.f);
 			Hpbar_Frame->SetState(eState::Paused);
 		}
 
@@ -79,8 +79,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
-			hp_tr->SetScale(48, 3, 0);
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.5f));
+			hp_tr->SetScale(48.f, 3.f, 0.f);
 			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Type(1);
@@ -94,8 +94,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
-			hp_tr->SetScale(48, 3, 0);
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.f));
+			hp_tr->SetScale(48.f, 3.f, 0.f);
 			Monster_Hp->Set_Max_Hp(_MaxHp);
 			Monster_Hp->Set_Current_Hp(_MaxHp);
 			Monster_Hp->SetState(eState::Paused);
@@ -591,7 +591,7 @@ namespace jk
 	void Monster_BlossomEnt::idle()
 	{
 
-		_time += Time::DeltaTime();
+		_time += static_cast<float>(Time::DeltaTime());
 		if (_time >2.f)
 		{
 			if (((_distance <= 100) && (_distance >= -100)))
@@ -625,7 +625,7 @@ namespace jk
 	{
 		if (Blossomeenct_Attack->_bullet_Life == false)
 		{
-			_Attackset += Time::DeltaTime();
+			_Attackset += static_cast<float>(Time::DeltaTime());
 			if (_Attackset > 1)
 			{
 				_state = Monster_BlossomEnt_State::Idle;
@@ -643,7 +643,7 @@ namespace jk
 	}
 	void Monster_BlossomEnt::hit()
 	{
-		_Attackset += Time::DeltaTime();
+		_Attackset += static_cast<float>(Time::DeltaTime());
 		if (_Attackset >= 0.5)
 		{
 			_state = Monster_BlossomEnt_State::Idle;
@@ -660,7 +660,7 @@ namespace jk
 	void Monster_BlossomEnt::walk_R()
 	{
 		if (_walkdistance > -100)
-			_pos.x += 80.f * Time::DeltaTime();
+			_pos.x += 80.f * static_cast<float>(Time::DeltaTime());
 		else
 		{
 			_state = Monster_BlossomEnt_State::Idle;
@@ -671,7 +671,7 @@ namespace jk
 	void Monster_BlossomEnt::walk_L()
 	{
 		if (_walkdistance < 100)
-			_pos.x -= 80.f * Time::DeltaTime();
+			_pos.x -= 80.f * static_cast<float>(Time::DeltaTime());
 		else
 		{
 			_state = Monster_BlossomEnt_State::Idle;
@@ -702,7 +702,7 @@ namespace jk
 	{
 		if (_hit_particle == true)
 		{
-			_particletime += Time::DeltaTime();
+			_particletime += static_cast<float>(Time::DeltaTime());
 			if (_particletime > 0.5)
 			{
 				Hit_Particle->SetState(eState::Paused);
@@ -714,20 +714,20 @@ namespace jk
 	void Monster_BlossomEnt::Hpcontrol()
 	{
 		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(_pos.x, _pos.y - 40, _pos.z - 2));
+		hp_tr->SetPosition(Vector3(_pos.x, _pos.y - 40.f, _pos.z - 2.f));
 
 		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
-		hpdamege_tr->SetPosition(Vector3(_pos.x, _pos.y - 40, _pos.z - 1.5));
+		hpdamege_tr->SetPosition(Vector3(_pos.x, _pos.y - 40.f, _pos.z - 1.5f));
 
 		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
-		hpfr_tr->SetPosition(Vector3(_pos.x, _pos.y - 40, _pos.z - 1));
+		hpfr_tr->SetPosition(Vector3(_pos.x, _pos.y - 40.f, _pos.z - 1.f));
 
 
 		if (_Hp_control == true)
 		{
 			if (Monster_DamegeHp->Get_Switch() == true)
 			{
-				_Hp_time += Time::DeltaTime();
+				_Hp_time += static_cast<float>(Time::DeltaTime());
 				if (_Hp_time > 2)
 				{
 					Hpbar_Frame->SetState(eState::Paused);

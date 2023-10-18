@@ -29,8 +29,8 @@ namespace jk
 
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Impact", this, 0, 0.075);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Impact", this, 1, 0.075);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Impact", this, 0, 0.075f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\DimensionPierce_Impact", this, 1, 0.075f);
 		at->CompleteEvent(L"EffectDimensionPierce_Impact") = std::bind(&Dimension_Pierce_BulletEffect::Compelete_Pierce, this);
 		at->CompleteEvent(L"EffectDimensionPierce_ImpactR") = std::bind(&Dimension_Pierce_BulletEffect::Compelete_Pierce, this);
 

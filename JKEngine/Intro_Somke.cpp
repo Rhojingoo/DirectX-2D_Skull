@@ -16,7 +16,7 @@ namespace jk
 		_collider = AddComponent<Collider2D>();
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Smoke\\Intro_land", this, 0, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Smoke\\Intro_land", this, 0, 0.05f);
 		at->CompleteEvent(L"SmokeIntro_land") = std::bind(&Intro_Somke::Compelete_Pierce, this);
 
 		at->PlayAnimation(L"SmokeIntro_land", true);

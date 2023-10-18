@@ -20,8 +20,8 @@ namespace jk
 
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Golden_Meteor_Effect", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Golden_Meteor_Effect", this, 1, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Golden_Meteor_Effect", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Golden_Meteor_Effect", this, 1, 0.05f);
 
 		at->PlayAnimation(L"BulletGolden_Meteor_Effect", true);
 		GameObject::Initialize();

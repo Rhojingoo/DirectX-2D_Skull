@@ -115,7 +115,7 @@ namespace jk
 				else
 				{
 					if (_Fadeout == false)
-						_Fadetime += 2.75 * Time::DeltaTime();
+						_Fadetime += 2.75f * static_cast<float>(Time::DeltaTime());
 					if (_Fadetime > 3)
 					{
 						_Fadetime = 0.f;

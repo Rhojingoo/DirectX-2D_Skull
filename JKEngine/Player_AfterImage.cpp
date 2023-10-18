@@ -115,7 +115,7 @@ namespace jk
 
 	void Player_AfterImage::Skul_Basic()
 	{
-		_Time += Time::DeltaTime();
+		_Time += static_cast<float>(Time::DeltaTime());
 		if (_Time > delayBetweenImages)
 		{
 			_Time = 0.f;
@@ -132,7 +132,7 @@ namespace jk
 
 	void Player_AfterImage::Skul_NoHead()
 	{
-		_Time += Time::DeltaTime();
+		_Time += static_cast<float>(Time::DeltaTime());
 		if (_Time > delayBetweenImages)
 		{
 			_Time = 0.f;
@@ -149,7 +149,7 @@ namespace jk
 
 	void Player_AfterImage::Skul_Wolf()
 	{
-		_Time += Time::DeltaTime();
+		_Time += static_cast<float>(Time::DeltaTime());
 		if (_Time > delayBetweenImages)
 		{
 			_Time = 0.f;
@@ -166,7 +166,7 @@ namespace jk
 
 	void Player_AfterImage::Skul_Spear()
 	{
-		_Time += Time::DeltaTime();
+		_Time += static_cast<float>(Time::DeltaTime());
 		if (_Time > delayBetweenImages)
 		{
 			_Time = 0.f;

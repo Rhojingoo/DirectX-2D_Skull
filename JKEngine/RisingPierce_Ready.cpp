@@ -20,8 +20,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\RisingPierce_Ready", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\RisingPierce_Ready", this, 1, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\RisingPierce_Ready", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\RisingPierce_Ready", this, 1, 0.05f);
 		at->CompleteEvent(L"EffectRisingPierce_Ready") = std::bind(&RisingPierce_Ready::Compelete_Pierce, this);
 		at->CompleteEvent(L"EffectRisingPierce_ReadyR") = std::bind(&RisingPierce_Ready::Compelete_Pierce, this);
 

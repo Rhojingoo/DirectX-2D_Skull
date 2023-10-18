@@ -13,7 +13,7 @@ namespace jk
 		mr->SetMaterial(Resources::Find<Material>(L"AlphaMaterial"));
 
 		_tr = this->GetComponent<Transform>();
-		_tr->SetScale(Vector3(application.GetWidth(), application.GetHeight(), 0.f));
+		_tr->SetScale(Vector3(static_cast<float>(application.GetWidth()), static_cast<float>(application.GetHeight()), 0.f));
 	}
 	Alpha_Blend::~Alpha_Blend()
 	{
@@ -76,7 +76,7 @@ namespace jk
 	void Alpha_Blend::FadeIn_White_Transparent()
 	{
 		//화면이 하얗게 변하는거
-		_Time += 2.75 * (float)Time::DeltaTime();
+		_Time += 2.75f * static_cast<float>(Time::DeltaTime());
 		if (_Time > 3.f)
 		{
 			_Time = 0.f;
@@ -86,7 +86,7 @@ namespace jk
 	void Alpha_Blend::FadeIn_DeepWhite()
 	{
 		//화면이 하얀것에서 점점 투명해지는거
-		_Time -= 2.75 * (float)Time::DeltaTime();
+		_Time -= 2.75f * static_cast<float>(Time::DeltaTime());
 		if (_Time <= 0.f)
 		{
 			_Time = 0.f;
@@ -95,7 +95,7 @@ namespace jk
 	}
 	void Alpha_Blend::FadeIn_Black_Transparent()
 	{
-		_Time += 2.75 * (float)Time::DeltaTime();
+		_Time += 2.75f * static_cast<float>(Time::DeltaTime());
 		if (_Time > 3.f)
 		{
 			_Time = 0.f;
@@ -104,7 +104,7 @@ namespace jk
 	}
 	void Alpha_Blend::FadeIn_DeepBlack()
 	{
-		_Time -= 2.75 * (float)Time::DeltaTime();
+		_Time -= 2.75f * static_cast<float>(Time::DeltaTime());
 		if (_Time <= 0.f)
 		{
 			_Time = 0.f;

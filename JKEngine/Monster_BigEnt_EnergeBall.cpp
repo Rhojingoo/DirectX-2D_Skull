@@ -42,7 +42,7 @@ namespace jk
 	{
 		if (_bullet_Life == true)
 		{
-			_attackatime += Time::DeltaTime();
+			_attackatime += static_cast<float>(Time::DeltaTime());
 			if (_attackatime >= 3)
 			{
 				Transform* bullet_tr = _EnergeBall_Bomb->GetComponent<Transform>();

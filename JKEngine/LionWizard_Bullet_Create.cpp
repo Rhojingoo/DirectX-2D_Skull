@@ -19,8 +19,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_wizard\\Bullet\\LionWizard_BulletReady", this, 0,0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_wizard\\Bullet\\LionWizard_BulletReady", this, 1,0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_wizard\\Bullet\\LionWizard_BulletReady", this, 0,0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\Lion_wizard\\Bullet\\LionWizard_BulletReady", this, 1,0.05f);
 
 		at->CompleteEvent(L"BulletLionWizard_BulletReady") = std::bind(&LionWizard_Bullet_Create::Compelete, this);
 		at->CompleteEvent(L"BulletLionWizard_BulletReadyR") = std::bind(&LionWizard_Bullet_Create::Compelete, this);

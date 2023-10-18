@@ -24,8 +24,8 @@ namespace jk
 
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\TwinMeteor_Impact", this,0, 0.08);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\TwinMeteor_Impact", this, 1, 0.08);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\TwinMeteor_Impact", this,0, 0.08f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\TwinMeteor_Impact", this, 1, 0.08f);
 		at->CompleteEvent(L"EffectTwinMeteor_Impact") = std::bind(&TwinMeteor_Effect::Compelete_Pierce, this);
 		at->CompleteEvent(L"EffectTwinMeteor_ImpactR") = std::bind(&TwinMeteor_Effect::Compelete_Pierce, this);
 

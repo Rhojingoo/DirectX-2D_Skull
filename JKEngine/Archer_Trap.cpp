@@ -30,7 +30,7 @@ namespace jk
 	{
 		if (_Bullet_Life == true)
 		{
-			_attackatime += Time::DeltaTime();
+			_attackatime += static_cast<float>(Time::DeltaTime());
 			if (_attackatime > 7)
 			{
 				this->SetState(eState::Paused);

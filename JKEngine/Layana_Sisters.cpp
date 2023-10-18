@@ -507,7 +507,7 @@ namespace jk
 		_SistersAttack_A_LongHair_END = false;
 		_SistersAttack_A_ShortHair_END = false;		
 
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 		if (_Attacktime > 1.0)
 		{
 			AttackSwap();
@@ -528,7 +528,7 @@ namespace jk
 	{
 		if (_SistersAttack_B_LongHair_END == true && _SistersAttack_B_ShortHair_END == true)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime >= 1.5)
 			{
 				_state = Layana_Sisters_State::Sisters_Attack_B_End;
@@ -550,7 +550,7 @@ namespace jk
 		_SistersAttack_B_ShortHair_END = false;
 
 
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 		if (_Attacktime > 1)
 		{
 			AttackSwap();
@@ -567,7 +567,7 @@ namespace jk
 	{
 		if (_SistersAttack_C_LongHair_LAND == true && _SistersAttack_C_ShortHair_LAND == true)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime > 1)
 			{
 				_state = Layana_Sisters_State::Sisters_Attack_C_Landing;
@@ -591,7 +591,7 @@ namespace jk
 		_SistersAttack_C_LongHair_LAND = false;
 		_SistersAttack_C_ShortHair_LAND = false;
 
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 		if (_Attacktime > 1)
 		{
 			AttackSwap();

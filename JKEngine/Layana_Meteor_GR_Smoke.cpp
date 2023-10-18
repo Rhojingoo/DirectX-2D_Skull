@@ -16,8 +16,8 @@ namespace jk
 		_collider = AddComponent<Collider2D>();
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Smoke\\Meteor_GR_Smoke", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Smoke\\Meteor_GR_Smoke", this, 1, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Smoke\\Meteor_GR_Smoke", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Smoke\\Meteor_GR_Smoke", this, 1, 0.05f);
 		at->CompleteEvent(L"SmokeMeteor_GR_Smoke") = std::bind(&Layana_Meteor_GR_Smoke::Compelete_Pierce, this);
 		at->CompleteEvent(L"SmokeMeteor_GR_SmokeR") = std::bind(&Layana_Meteor_GR_Smoke::Compelete_Pierce, this);
 

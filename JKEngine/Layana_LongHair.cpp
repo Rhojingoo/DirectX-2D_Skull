@@ -118,8 +118,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Ground02_Attack", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Ground03_Landing", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Ground04_End", this);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical00_Jump", this, 0,0.065);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical01_Ready", this,0,0.065);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical00_Jump", this, 0,0.065f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical01_Ready", this,0,0.065f);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical02_Attack", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical03_Landing", this);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical04_End", this);
@@ -162,8 +162,8 @@ namespace jk
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Ground02_Attack", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Ground03_Landing", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Ground04_End", this,1);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical00_Jump", this,1,0.065);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical01_Ready", this,1,0.065);	
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical00_Jump", this,1,0.065f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical01_Ready", this,1,0.065f);	
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical02_Attack", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical03_Landing", this,1);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Long_hair\\Meteor_Vertical04_End", this,1);
@@ -260,7 +260,7 @@ namespace jk
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Longhair_Hp_Damage);
 			Transform* hp_tr = Longhair_Hp_Damage->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(65, _pos.y + 50, _pos.z - 1.5));
+			hp_tr->SetPosition(Vector3(65.f, _pos.y + 50.f, _pos.z - 1.5f));
 			hp_tr->SetScale(127.5, 10, 0);
 			Longhair_Hp_Damage->Set_Max_Hp(_Max_LongHair_Hp);
 			Longhair_Hp_Damage->Set_Current_Hp(_Max_LongHair_Hp);
@@ -547,12 +547,12 @@ namespace jk
 		Transform* hp_tr = Longhair_Hp->GetComponent<Transform>();
 		Transform* hp_trDamege = Longhair_Hp_Damage->GetComponent<Transform>();
 		{
-			hp_tr->SetPosition(Vector3(73.5, _HpFrame_tr->GetPosition().y - 2.5, _HpFrame_tr->GetPosition().z - 2));
-			hp_trDamege->SetPosition(Vector3(73.5, _HpFrame_tr->GetPosition().y - 2.5, _HpFrame_tr->GetPosition().z - 1));
+			hp_tr->SetPosition(Vector3(73.5f, _HpFrame_tr->GetPosition().y - 2.5f, _HpFrame_tr->GetPosition().z - 2.f));
+			hp_trDamege->SetPosition(Vector3(73.5f, _HpFrame_tr->GetPosition().y - 2.5f, _HpFrame_tr->GetPosition().z - 1.f));
 		}
 
 		Transform* BulletTR = Golden_Meteor_Bl->GetComponent<Transform>();
-		BulletTR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
+		BulletTR->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1.f));
 
 
 
@@ -982,7 +982,7 @@ namespace jk
 				bool attack = player->Geteffect();
 				bool attack_Cri_Mid = player->Geteffect_Mid();
 				bool attack_Cri_High = player->Geteffect_Hight();
-				_Damage = 2000;
+				_Damage = 1000;
 
 				_Curren_LongHair_Hp = _Curren_LongHair_Hp - _Damage;
 				Longhair_Hp->_HitOn = true;
@@ -1267,7 +1267,7 @@ namespace jk
 	
 	void Layana_LongHair::idle()
 	{
-		_time += Time::DeltaTime();
+		_time += static_cast<float>(Time::DeltaTime());
 		_SelectAttack = random(0, 6);
 		//_SelectAttack = 6;
 
@@ -1344,7 +1344,7 @@ namespace jk
 
 	void Layana_LongHair::Intro_Dash()
 	{
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 		if (_Attacktime > 1.5 && _Attacktime < 2)
 		{
 			_rigidbody->ClearVelocity();
@@ -1421,16 +1421,16 @@ namespace jk
 			if (_pos.x < _LongHairCreatepos.x )
 			{
 				if (_pos.x > _LongHairCreatepos.x - 600)
-					_pos.x -= 750.f * Time::DeltaTime();
+					_pos.x -= 750.f * static_cast<float>(Time::DeltaTime());
 				if (_pos.y < 100)
-					_pos.y += 150.f * Time::DeltaTime();
+					_pos.y += 150.f * static_cast<float>(Time::DeltaTime());
 			}
 			else
 			{
 				if (_pos.x < _LongHairCreatepos.x + 600)
-					_pos.x += 750.f * Time::DeltaTime();
+					_pos.x += 750.f * static_cast<float>(Time::DeltaTime());
 				if (_pos.y < 100)
-					_pos.y += 150.f * Time::DeltaTime();
+					_pos.y += 150.f * static_cast<float>(Time::DeltaTime());
 			}
 			if (_pos.y >=  100.f)
 				_AttackStageON = false;
@@ -1465,7 +1465,7 @@ namespace jk
 				}
 				else
 				{
-					_Attacktime += Time::DeltaTime();
+					_Attacktime += static_cast<float>(Time::DeltaTime());
 					if (_Attacktime > 1.5)
 					{
 						as->Play("Leiana_TwinMeteor");
@@ -1539,7 +1539,7 @@ namespace jk
 	{
 		if (_Sisters_Attack_A == false)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime > 0.3)
 			{
 				_SistersAttack_A_Ready_LongHair = true;
@@ -1563,7 +1563,7 @@ namespace jk
 	{
 		if (_SistersAttack_A_DashOn == true)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime >= 1.f)
 			{
 				if (_pos.x < _LongHairCreatepos.x)
@@ -1655,7 +1655,7 @@ namespace jk
 		}
 		else
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_SkillHomingFire == false)
 			{
 				if (_Dir == 1)
@@ -1686,7 +1686,7 @@ namespace jk
 	}
 	void Layana_LongHair::Sisters_Attack_B()
 	{
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 
 		if (_Attacktime < 5)
 		{
@@ -1832,9 +1832,9 @@ namespace jk
 			if (!(_Playerdistance.x <= 30 && _Playerdistance.x >= -30))
 			{
 				if (_Dir == 1)
-					_pos.x += 350.f * Time::DeltaTime();
+					_pos.x += 350.f * static_cast<float>(Time::DeltaTime());
 				else
-					_pos.x -= 350.f * Time::DeltaTime();
+					_pos.x -= 350.f * static_cast<float>(Time::DeltaTime());
 			}
 			else
 			{
@@ -1859,9 +1859,9 @@ namespace jk
 			if (!(_Playerdistance.x <= 80 && _Playerdistance.x >= -80))
 			{
 				if (_Dir == 1)
-					_pos.x += 350.f * Time::DeltaTime();
+					_pos.x += 350.f * static_cast<float>(Time::DeltaTime());
 				else
-					_pos.x -= 350.f * Time::DeltaTime();
+					_pos.x -= 350.f * static_cast<float>(Time::DeltaTime());
 			}
 			else
 			{
@@ -1897,16 +1897,16 @@ namespace jk
 		if (_pos.x < _LongHairCreatepos.x)
 		{
 			if (_pos.x > _LongHairCreatepos.x - 600)
-				_pos.x -= 750.f * Time::DeltaTime();
+				_pos.x -= 750.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.y < 100)
-				_pos.y += 150.f * Time::DeltaTime();
+				_pos.y += 150.f * static_cast<float>(Time::DeltaTime());
 		}
 		else
 		{
 			if (_pos.x < _LongHairCreatepos.x + 600)
-				_pos.x += 750.f * Time::DeltaTime();
+				_pos.x += 750.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.y < 100)
-				_pos.y += 150.f * Time::DeltaTime();
+				_pos.y += 150.f * static_cast<float>(Time::DeltaTime());
 		}
 		if (_pos.y >= 100.f)
 		{			
@@ -1960,7 +1960,7 @@ namespace jk
 	}
 	void Layana_LongHair::LandingDash()
 	{
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 		if (_GroundMeteorLanding == true)
 		{
 			if (_Attacktime >= 1.f)
@@ -2167,7 +2167,7 @@ namespace jk
 			_VerticalMeteor_Bullet = true;
 		}
 
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 		if (_VerticalMeteorLandingSM == true)
 		{
 			if (_Dir == 1)
@@ -2220,7 +2220,7 @@ namespace jk
 		}
 		else
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_SkillHomingFire == false)
 			{
 				if (_Dir == 1)
@@ -2252,7 +2252,7 @@ namespace jk
 	}
 	void Layana_LongHair::Skill_A()
 	{		
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 
 		if (_Attacktime < 5)
 		{
@@ -2352,7 +2352,7 @@ namespace jk
 		static int lastActivatedIndex = 0;
 		if (_SkillB_Switch == false)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime >= 0.8 && _Attacktime <= 1)
 			{
 				Risingbullet_tr[0]->SetPosition(Vector3(_pos.x, _pos.y + 35, -250));
@@ -2460,7 +2460,7 @@ namespace jk
 		}
 		else
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 
 			if (_Attacktime >= 0.5 && _Attacktime < 1.0)
 			{
@@ -3070,7 +3070,7 @@ namespace jk
 		}
 		if (_Fadecheck == true)
 		{
-			_Fadetime += 2.75 * Time::DeltaTime();
+			_Fadetime += 2.75f * static_cast<float>(Time::DeltaTime());
 			if (_Fadetime > 3)
 			{
 				_Fadecheck = false;
@@ -3142,7 +3142,7 @@ namespace jk
 	{
 		if (_SkillHomingON == false)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime >= 0.5f)
 			{
 				_Attacktime = 0;

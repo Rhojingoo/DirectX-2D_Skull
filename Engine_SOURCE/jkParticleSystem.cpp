@@ -72,7 +72,7 @@ namespace jk
 	void ParticleSystem::LateUpdate()
 	{
 		float AliveTime = 1.0f / 1.0f;
-		mTime += Time::DeltaTime();
+		mTime += static_cast<float>(Time::DeltaTime());
 
 		if (mTime > AliveTime)
 		{

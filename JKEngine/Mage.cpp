@@ -200,8 +200,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::UI, Monster_UIDamegeHp);
 			Monster_UIDamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_UIDamegeHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1.5));
-			hp_tr->SetScale(137, 12.5, 0);
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50.f, pos.z - 1.5f));
+			hp_tr->SetScale(137.f, 12.5f, 0.f);
 			Monster_UIDamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_UIDamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_UIDamegeHp->Set_Type(1);
@@ -227,8 +227,8 @@ namespace jk
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50, pos.z - 1.5));
-			hp_tr->SetScale(48, 3, 0);
+			hp_tr->SetPosition(Vector3(pos.x, pos.y + 50.f, pos.z - 1.5f));
+			hp_tr->SetScale(48.f, 3.f, 0.f);
 			Monster_DamegeHp->Set_Max_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Current_Hp(_MaxHp);
 			Monster_DamegeHp->Set_Type(1);
@@ -1012,7 +1012,7 @@ namespace jk
 		}
 		else
 		{ 
-			_time += Time::DeltaTime();
+			_time += static_cast<float>(Time::DeltaTime());
 			if (_time >= 2.f)
 			{
 				if (_swich_checkpoint == 0)
@@ -1236,10 +1236,10 @@ namespace jk
 		{
 			if (!((_distance <= 30.f) && (_distance >= -30.f)))
 			{
-				pos.x += 300 * Time::DeltaTime();
+				pos.x += 300.f * static_cast<float>(Time::DeltaTime());
 
 				if (pos.y < 150 + _playerpos.y)
-					pos.y += 200 * Time::DeltaTime();
+					pos.y += 200.f * static_cast<float>(Time::DeltaTime());
 			}	
 			else
 			{
@@ -1256,10 +1256,10 @@ namespace jk
 		{
 			if (!((_distance <= 30.f) && (_distance >= -30.f)))
 			{
-				pos.x -= 300 * Time::DeltaTime();			
+				pos.x -= 300.f * static_cast<float>(Time::DeltaTime());
 
 				if (pos.y < 150 + _playerpos.y)
-					pos.y += 200 * Time::DeltaTime();
+					pos.y += 200.f * static_cast<float>(Time::DeltaTime());
 			}	
 			else
 			{
@@ -1344,7 +1344,7 @@ namespace jk
 			if (Phoenix_Landing_Land->_effect_On == false)
 			{
 				_attack_Col = false;
-				_attack_time += Time::DeltaTime();
+				_attack_time += static_cast<float>(Time::DeltaTime());
 				if (_attack_time > 0.5)
 				{					
 					_state = Mage_State::Idle;
@@ -1370,7 +1370,7 @@ namespace jk
 	void Mage::fly()
 	{
 		if (pos.y < 150 + _playerpos.y)
-			pos.y += 200 * Time::DeltaTime();
+			pos.y += 200.f * static_cast<float>(Time::DeltaTime());
 		else
 		{
 			_state = Mage_State::Idle;
@@ -1394,28 +1394,28 @@ namespace jk
 				if (mDir == 1)
 				{
 					Ultimate_Aura->SetDirection(1);
-					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30.f, pos.z - 1.f));
 				}
 				else
 				{
 					Ultimate_Aura->SetDirection(-1);
-					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30.f, pos.z - 1.f));
 				}
 				Ultimate_Aura->SetState(eState::Active);
 			}
 
 			{
 				Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 55, pos.z - 1.1));
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 55.f, pos.z - 1.1f));
 				if (mDir == 1)
 				{
 					Ultimate_AuraSmoke->SetDirection(1);
-					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50.f, pos.z - 1.f));
 				}
 				else
 				{
 					Ultimate_AuraSmoke->SetDirection(-1);
-					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50, pos.z - 1));
+					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50.f, pos.z - 1.f));
 				}
 				Ultimate_AuraSmoke->SetState(eState::Active);
 			}
@@ -1423,7 +1423,7 @@ namespace jk
 		}
 
 		// 기모으는 이펙트를 넣을것(7초간 지속상태 만들기)
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time >= 4.5)
 		{
 			Ultimate_Aura->SetState(eState::Paused);
@@ -1432,7 +1432,7 @@ namespace jk
 			{
 				// 이펙트 설정시 9번 hit가 된다면 깨지는 이미지로 넘어간뒤 그로기 상태로넘겨줘야한다.
 				Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25.f, pos.z - 1.1f));
 				if (mDir == 1)
 					UltimateSkill_Effect_Fail->SetDirection(1);
 				else
@@ -1447,7 +1447,7 @@ namespace jk
 			{
 				// 이펙트 설정시 5초가 10번이상의 타격이 없다면 석세스로 넘어간뒤 Effect 날려야한다.
 				Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
-				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25, pos.z - 1.1));
+				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25.f, pos.z - 1.1f));
 				if (mDir == 1)
 					UltimateSkill_Effect_Complete->SetDirection(1);
 				else
@@ -1456,26 +1456,26 @@ namespace jk
 
 				{
 					Transform* _OnFire_Ready_tr0 = _OnFire_Ready[0]->GetComponent<Transform>();
-					_OnFire_Ready_tr0->SetPosition(Vector3(_playerpos.x, _first_place.y, pos.z + 1));
+					_OnFire_Ready_tr0->SetPosition(Vector3(_playerpos.x, _first_place.y, pos.z + 1.f));
 
 					Transform* _OnFire_Ready_tr1 = _OnFire_Ready[1]->GetComponent<Transform>();
-					_OnFire_Ready_tr1->SetPosition(Vector3(_playerpos.x-200, _first_place.y-100, pos.z + 1));
+					_OnFire_Ready_tr1->SetPosition(Vector3(_playerpos.x-200.f, _first_place.y-100.f, pos.z + 1.f));
 
 					Transform* _OnFire_Ready_tr2 = _OnFire_Ready[2]->GetComponent<Transform>();
-					_OnFire_Ready_tr2->SetPosition(Vector3(_playerpos.x+200, _first_place.y-100, pos.z + 1));
+					_OnFire_Ready_tr2->SetPosition(Vector3(_playerpos.x+200.f, _first_place.y-100.f, pos.z + 1.f));
 
 
 					Transform* _OnFire_tr0 = _OnFire[0]->GetComponent<Transform>();
 					_OnFire[0]->_effect_On = false;
-					_OnFire_tr0->SetPosition(Vector3(_playerpos.x, _first_place.y, pos.z + 1));
+					_OnFire_tr0->SetPosition(Vector3(_playerpos.x, _first_place.y, pos.z + 1.f));
 
 					Transform* _OnFire_tr1 = _OnFire[1]->GetComponent<Transform>();
 					_OnFire[1]->_effect_On = false;
-					_OnFire_tr1->SetPosition(Vector3(_playerpos.x-200, _first_place.y-100, pos.z + 1));
+					_OnFire_tr1->SetPosition(Vector3(_playerpos.x-200.f, _first_place.y-100.f, pos.z + 1.f));
 
 					Transform* _OnFire_tr2 = _OnFire[2]->GetComponent<Transform>();
 					_OnFire[2]->_effect_On = false;
-					_OnFire_tr2->SetPosition(Vector3(_playerpos.x+200, _first_place.y-100, pos.z + 1));
+					_OnFire_tr2->SetPosition(Vector3(_playerpos.x+200.f, _first_place.y-100.f, pos.z + 1.f));
 				}
 
 			
@@ -1492,7 +1492,7 @@ namespace jk
 	{
 		if (_Ultimate_Skill == false)
 		{
-			_attack_time += Time::DeltaTime();
+			_attack_time += static_cast<float>(Time::DeltaTime());
 			if (_attack_time <= 3.5f)
 			{
 				for (int i = 0; i < 3; i++)
@@ -1525,7 +1525,7 @@ namespace jk
 					bullet_tr->SetRotationZ(0);
 					Transform* firefire_tr = OnFire_Fire[i]->GetComponent<Transform>();
 					OnFire_Fire[i]->_effect_On = false;
-					firefire_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z-1.1));
+					firefire_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z-1.1f));
 				}
 				for (int i = 3; i < 6; i++)
 				{
@@ -1534,11 +1534,11 @@ namespace jk
 					Transform* bullet_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
 					On_Fire_Projectile[i]->_rotationswitch = false;
 					On_Fire_Projectile[i]->_missile = false;
-					bullet_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1));
+					bullet_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1.f));
 					bullet_tr->SetRotationZ(0);
 					Transform* firefire_tr = OnFire_Fire[i]->GetComponent<Transform>();
 					OnFire_Fire[i]->_effect_On = false;
-					firefire_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1.1));
+					firefire_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1.1f));
 				}
 				for (int i = 6; i < 9; i++)
 				{
@@ -1547,11 +1547,11 @@ namespace jk
 					Transform* bullet_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
 					On_Fire_Projectile[i]->_rotationswitch = false;
 					On_Fire_Projectile[i]->_missile = false;
-					bullet_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1));
+					bullet_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1.f));
 					bullet_tr->SetRotationZ(0);
 					Transform* firefire_tr = OnFire_Fire[i]->GetComponent<Transform>();
 					OnFire_Fire[i]->_effect_On = false;
-					firefire_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1.1));
+					firefire_tr->SetPosition(Vector3(BulletPos.x, BulletPos.y, BulletPos.z - 1.1f));
 				}
 				//On_Fire_Projectile[i]->SetState(eState::Paused);
 				_Ultimate_Skill = true;
@@ -1572,7 +1572,7 @@ namespace jk
 	}
 	void Mage::Finishing_Move()
 	{
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 
 		if (_attack_time <= 8.f)
 		{
@@ -1608,9 +1608,9 @@ namespace jk
 						On_Fire_Projectile[i]->_missile = true;
 						if (i == 8)
 						{
-							_OnFire[0]->_effect_On == false;
-							_OnFire[1]->_effect_On == false;
-							_OnFire[2]->_effect_On == false;
+							_OnFire[0]->_effect_On = false;
+							_OnFire[1]->_effect_On = false;
+							_OnFire[2]->_effect_On = false;
 						}
 					}
 				}
@@ -1646,7 +1646,7 @@ namespace jk
 	}
 	void Mage::groggy()
 	{
-		_attack_time += Time::DeltaTime();
+		_attack_time += static_cast<float>(Time::DeltaTime());
 		if (_attack_time >= 3.5)
 		{
 			_attack_time = 0;
@@ -1680,13 +1680,13 @@ namespace jk
 	void Mage::WalkFront_R()
 	{	
 		_mtime = randomcount(2, 4);
-		_movetime += Time::DeltaTime();
+		_movetime += static_cast<float>(Time::DeltaTime());
 
 		if (_maxright > pos.x)
 		{
 			if (_movetime < _mtime)
 			{				
-				pos.x += 100.f * Time::DeltaTime();
+				pos.x += 100.f * static_cast<float>(Time::DeltaTime());
 				if (mDir == -1)
 				{
 					_state = Mage_State::WalkBack_R;
@@ -1719,10 +1719,10 @@ namespace jk
 	}
 	void Mage::walkBack_R()
 	{	
-			_movetime += Time::DeltaTime();
+			_movetime += static_cast<float>(Time::DeltaTime());
 			if (_movetime < _mtime)
 			{
-				pos.x += 100.f * Time::DeltaTime();
+				pos.x += 100.f * static_cast<float>(Time::DeltaTime());
 				if (mDir == 1)
 				{
 					_state = Mage_State::WalkFront_R;
@@ -1744,13 +1744,13 @@ namespace jk
 	void Mage::WalkFront_L()
 	{		
 		_mtime = randomcount(2, 4);
-		_movetime += Time::DeltaTime();
+		_movetime += static_cast<float>(Time::DeltaTime());
 
 		if (_maxleft < pos.x)
 		{
 			if (_movetime < _mtime)
 			{
-				pos.x -= 100.f * Time::DeltaTime();
+				pos.x -= 100.f * static_cast<float>(Time::DeltaTime());
 				if (mDir == 1)
 				{
 					_state = Mage_State::WalkBack_L;
@@ -1782,10 +1782,10 @@ namespace jk
 	}
 	void Mage::walkBack_L()
 	{
-		_movetime += Time::DeltaTime();
+		_movetime += static_cast<float>(Time::DeltaTime());
 		if (_movetime < _mtime)
 		{
-			pos.x -= 100.f * Time::DeltaTime();
+			pos.x -= 100.f * static_cast<float>(Time::DeltaTime());
 			if (mDir == -1)
 			{
 				_state = Mage_State::WalkFront_L;
@@ -1919,29 +1919,29 @@ namespace jk
 		}
 		if (_UIstate == 2)//3번
 		{
-			STATEUI_tr->SetPosition(Vector3(685.f, 175.f, 10));
-			STATEUIhp_tr1->SetPosition(Vector3(650.f, 154.f, 5));
-			STATEUIhp_tr2->SetPosition(Vector3(650.f, 154.f, 6));
-			face_tr->SetPosition(Vector3(762.f, 175.f, 1));
+			STATEUI_tr->SetPosition(Vector3(685.f, 175.f, 10.f));
+			STATEUIhp_tr1->SetPosition(Vector3(650.f, 154.f, 5.f));
+			STATEUIhp_tr2->SetPosition(Vector3(650.f, 154.f, 6.f));
+			face_tr->SetPosition(Vector3(762.f, 175.f, 1.f));
 		}
 
 
 
 		Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
-		hp_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 2));
+		hp_tr->SetPosition(Vector3(pos.x, pos.y - 90.f, pos.z - 2.f));
 
 		Transform* hpdamege_tr = Monster_DamegeHp->GetComponent<Transform>();
-		hpdamege_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 1.5));
+		hpdamege_tr->SetPosition(Vector3(pos.x, pos.y - 90.f, pos.z - 1.5f));
 
 		Transform* hpfr_tr = Hpbar_Frame->GetComponent<Transform>();
-		hpfr_tr->SetPosition(Vector3(pos.x, pos.y - 90, pos.z - 1));
+		hpfr_tr->SetPosition(Vector3(pos.x, pos.y - 90.f, pos.z - 1.f));
 
 
 		if (_Hp_control == true)
 		{
 			if (Monster_DamegeHp->Get_Switch() == true)
 			{
-				_Hp_time += Time::DeltaTime();
+				_Hp_time += static_cast<float>(Time::DeltaTime());
 				if (_Hp_time > 2)
 				{
 					Hpbar_Frame->SetState(eState::Paused);
@@ -2023,8 +2023,8 @@ namespace jk
 
 	void Mage::complete_intro()
 	{
-		int randomposX = random(_playerpos.x - 100, _playerpos.x + 100);
-		Vector3 TeleportPos = Vector3(randomposX, _playerpos.y + 150, pos.z);
+		float randomposX = static_cast<float>(random(static_cast<int>(_playerpos.x) - 100, static_cast<int>(_playerpos.x) + 100));
+		Vector3 TeleportPos = Vector3(randomposX, _playerpos.y + 150.f, pos.z);
 		tr->SetPosition(TeleportPos);	
 		_rigidbody->SetGround(true);
 		_flyswich = 0;

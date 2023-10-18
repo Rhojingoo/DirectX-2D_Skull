@@ -17,7 +17,7 @@ namespace jk
 		tr = this->GetComponent<Transform>();
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Boss_StageDoor", this, 0, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Door\\Stage1\\Boss_StageDoor", this, 0, 0.05f);
 		at->PlayAnimation(L"Stage1Boss_StageDoor", true);
 		GameObject::Initialize();
 	}
@@ -51,7 +51,7 @@ namespace jk
 			}
 			if (_Fadecheck == true)
 			{
-				_time += 2.75 * Time::DeltaTime();
+				_time += 2.75f * static_cast<float>(Time::DeltaTime());
 				if (_time > 3)
 				{
 					SceneManager::LoadScene(L"Stage2_1");

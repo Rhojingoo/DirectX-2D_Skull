@@ -66,7 +66,7 @@ namespace jk
 	}
 	void Layana_AfterImage::MeterorCross()
 	{
-		_Time += Time::DeltaTime();
+		_Time += static_cast<float>(Time::DeltaTime());
 		if (_Time > delayBetweenImages)
 		{
 			_Time = 0.f;

@@ -57,7 +57,7 @@ namespace jk
 
 		if (_bullet_On == true)
 		{
-			_Lifetime += Time::DeltaTime();
+			_Lifetime += static_cast<float>(Time::DeltaTime());
 			if (_Lifetime >= 7)
 			{				
 				this->SetState(eState::Paused);

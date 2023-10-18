@@ -246,7 +246,7 @@ namespace jk
 		int _HitBox_Dir = 1;
 
 	private:
-		Homing_Pierce_ShortHair* Homing[3];
+		Homing_Pierce_ShortHair* Homing[3] = {};
 		Homing_Impact* Homing_EF[3] = {};
 		Transform* bullet_tr1 = nullptr;
 		Transform* bullet_tr2 = nullptr;
@@ -257,9 +257,9 @@ namespace jk
 
 
 	private:
-		Rising_Pierce* Rising[19];
-		Transform* Risingbullet_tr[19];
-		RigidBody* risingbullet_rb[19];
+		Rising_Pierce* Rising[19] = {};
+		Transform* Risingbullet_tr[19] = {};
+		RigidBody* risingbullet_rb[19] = {};
 
 	private:
 		Dimension_Pierce_BossEffect* Dimension_boss_effect = nullptr;

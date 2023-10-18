@@ -332,7 +332,7 @@ namespace jk
 					FistSlam_Smoke->SetState(eState::Active);
 					FistSlam_Smoke->_EffectOn = true;
 					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
-					Effect->SetPosition(Vector3(_pos.x, _pos.y + 75, _pos.z - 1.5));
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 75.f, _pos.z - 1.5f));
 				}
 			}
 			else
@@ -367,7 +367,7 @@ namespace jk
 					FistSlam_Smoke->SetState(eState::Active);
 					FistSlam_Smoke->_EffectOn = true;
 					Transform* Effect = FistSlam_Smoke->GetComponent<Transform>();
-					Effect->SetPosition(Vector3(_pos.x, _pos.y + 75, _pos.z - 1.5));
+					Effect->SetPosition(Vector3(_pos.x, _pos.y + 75.f, _pos.z - 1.5f));
 				}
 			}
 			else
@@ -457,11 +457,11 @@ namespace jk
 				if (_attackloading == false)
 				{
 					if (_pos.x > _AttackA_SavePos.x)
-						_pos.x -= 150.0f * Time::DeltaTime();
+						_pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
 					else if (_pos.x < _AttackA_SavePos.x)
-						_pos.x += 150.0f * Time::DeltaTime();
+						_pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
 					if (_pos.y < _AttackA_SavePos.y)
-						_pos.y += 250.0f * Time::DeltaTime();
+						_pos.y += 250.0f * static_cast<float>(Time::DeltaTime());
 					tr->SetPosition(Vector3(_pos));
 
 					if (_AttackA_SavePos.y <= _pos.y)
@@ -504,9 +504,9 @@ namespace jk
 		{
 			_Savepointpos.x;
 			if (_pos.x < _Savepointpos.x)
-				_pos.x += 150.0f * Time::DeltaTime();
+				_pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
 			if (_pos.y > _Savepointpos.y)
-				_pos.y -= 150.0f * Time::DeltaTime();
+				_pos.y -= 150.0f * static_cast<float>(Time::DeltaTime());
 
 			if (_Savepointpos.x <= _pos.x)
 				_pos.x = _Savepointpos.x;
@@ -605,7 +605,7 @@ namespace jk
 		{
 			_pos.x = _Savepointpos.x;
 			if (_pos.y < _Savepointpos.y)
-				_pos.y += 150.0f * Time::DeltaTime();
+				_pos.y += 150.0f * static_cast<float>(Time::DeltaTime());
 			
 			{
 				if (_Savepointpos.x <= _pos.x)
@@ -725,9 +725,9 @@ namespace jk
 			if (_NumberofAttack < 4)
 			{
 				if (_pos.x < _AttackA_SavePos.x)
-					_pos.x += 150.0f * Time::DeltaTime();
+					_pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
 				if (_pos.y < _AttackA_SavePos.y)
-					_pos.y += 250.0f * Time::DeltaTime();
+					_pos.y += 250.0f * static_cast<float>(Time::DeltaTime());
 				tr->SetPosition(Vector3(_pos));
 
 				if (_AttackA_SavePos.x <= _pos.x)
@@ -749,9 +749,9 @@ namespace jk
 			if (_NumberofAttack < 5)
 			{
 				if (_pos.x > _AttackA_SavePos.x)
-					_pos.x -= 150.0f * Time::DeltaTime();
+					_pos.x -= 150.0f * static_cast<float>(Time::DeltaTime());
 				if (_pos.y < _AttackA_SavePos.y)
-					_pos.y += 180.0f * Time::DeltaTime();
+					_pos.y += 180.0f * static_cast<float>(Time::DeltaTime());
 				tr->SetPosition(Vector3(_pos));
 
 				if (_AttackA_SavePos.x >= _pos.x)
@@ -778,9 +778,9 @@ namespace jk
 		{
 			_Savepointpos.x;
 			if (_pos.x < _Savepointpos.x)
-				_pos.x += 150.0f * Time::DeltaTime();
+				_pos.x += 150.0f * static_cast<float>(Time::DeltaTime());
 			if (_pos.y > _Savepointpos.y)
-				_pos.y -= 150.0f * Time::DeltaTime();
+				_pos.y -= 150.0f * static_cast<float>(Time::DeltaTime());
 			//tr->SetPosition(Vector3(_pos));
 
 			if (_Savepointpos.x <= _pos.x)
@@ -921,7 +921,7 @@ namespace jk
 	void Yggdrasil_Hand_Right::hand_intro_up()
 	{
 		if (_pos.y < _Savepointpos.y)
-			_pos.y += 150 * Time::DeltaTime();
+			_pos.y += 150.f * static_cast<float>(Time::DeltaTime());
 		if (_pos.y >= _Savepointpos.y)
 		{
 			_pos.y = _Savepointpos.y;
@@ -943,7 +943,7 @@ namespace jk
 				_attackon = true;
 			}
 			else			
-				_pos.x += 550.0f * Time::DeltaTime();
+				_pos.x += 550.0f * static_cast<float>(Time::DeltaTime());
 				
 			tr->SetPosition(Vector3(_pos));			
 		}	

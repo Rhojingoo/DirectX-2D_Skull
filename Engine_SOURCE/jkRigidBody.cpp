@@ -33,7 +33,7 @@ namespace jk
 		mAccelation = mForce / mMass;
 
 		// 속도에 가속도를 더해준다.
-		mVelocity += mAccelation * Time::DeltaTime();
+		mVelocity += mAccelation * static_cast<float>(Time::DeltaTime());
 
 		if (_Setgravity == false)
 		{
@@ -48,7 +48,7 @@ namespace jk
 			}
 			else
 			{
-				mVelocity += mGravity * Time::DeltaTime();
+				mVelocity += mGravity * static_cast<float>(Time::DeltaTime());
 			}
 		}
 
@@ -78,7 +78,7 @@ namespace jk
 				//속도에 반대방향으로 마찰력이 적용된다.
 				Vector2 friction = -mVelocity;
 				friction.Normalize();
-				friction = friction * mFriction * mMass * Time::DeltaTime();
+				friction = friction * mFriction * mMass * static_cast<float>(Time::DeltaTime());
 
 				//마찰력으로 인한 속도 감소는 현재 속도보다 큰 경우
 
@@ -96,7 +96,7 @@ namespace jk
 		// 속도에 맞게끔 물체를 이동시킨다.
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPositionXY();
-		pos = pos + mVelocity * Time::DeltaTime();
+		pos = pos + mVelocity * static_cast<float>(Time::DeltaTime());
 		tr->SetPositionXY(pos);
 		mForce = Vector2(Vector2::Zero);
 	}

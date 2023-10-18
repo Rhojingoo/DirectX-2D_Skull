@@ -21,16 +21,16 @@ namespace jk
 
 		at = AddComponent<Animator>();
 		//미사일 생성
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce_Begin", this,0, 0.03);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce_Begin", this,0, 0.03f);
 		at->CompleteEvent(L"BulletDark_HomingPierce_Begin") = std::bind(&Layana_Dark_HomingPierce::Compelete_Begin, this);
 
 		
 		// 생성후 발사까지 진행 애니메이션
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce", this,0, 0.03);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce", this,0, 0.03f);
 
 
 		//발사후 애니메이션
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce_End", this,0,0.03);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Bullet\\Dark_HomingPierce_End", this,0,0.03f);
 		at->CompleteEvent(L"BulletDark_HomingPierce_End") = std::bind(&Layana_Dark_HomingPierce::Compelete_Pierce, this);
 
 		at->PlayAnimation(L"BulletDark_HomingPierce_Begin", true);

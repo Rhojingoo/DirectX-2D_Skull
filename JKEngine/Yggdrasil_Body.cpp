@@ -268,9 +268,9 @@ namespace jk
 	void Yggdrasil_Body::attack_a_ready()
 	{
 		{
-			_readytime += Time::DeltaTime();
+			_readytime += static_cast<float>(Time::DeltaTime());
 			if (_readytime < 1.5)
-				_pos.x = UpdateVibration(_pos.x, 3, 10.f * 3.14, _readytime);
+				_pos.x = UpdateVibration(_pos.x, 3.f, 10.f * 3.14f, _readytime);
 			else
 			{
 				_pos.x = _savepos.x;
@@ -285,7 +285,7 @@ namespace jk
 	{
 		if (_pos.y > -45)
 		{
-			_pos.y -= 250 * Time::DeltaTime();
+			_pos.y -= 250.f * static_cast<float>(Time::DeltaTime());
 		}
 		else
 			_AttackA_Boddy = true;
@@ -294,7 +294,7 @@ namespace jk
 	{
 		if (_pos.y > -45)
 		{
-			_pos.y -= 250 * Time::DeltaTime();
+			_pos.y -= 250.f * static_cast<float>(Time::DeltaTime());
 		}
 		else
 			_AttackA_Boddy = true;
@@ -303,7 +303,7 @@ namespace jk
 	{
 		if (_pos.y < -20)
 		{
-			_pos.y += 250 * Time::DeltaTime();
+			_pos.y += 250.f * static_cast<float>(Time::DeltaTime());
 		}
 		else
 			_AttackA_Boddy = true;
@@ -322,7 +322,7 @@ namespace jk
 		{
 			{
 				if (_BodyRotation.z > 0.f)
-					_BodyRotation.z -= 20 * Time::DeltaTime();
+					_BodyRotation.z -= 20.f * static_cast<float>(Time::DeltaTime());
 				else
 				{
 					_BodyRotation.z = 0.f;
@@ -331,7 +331,7 @@ namespace jk
 			}
 			{
 				if (_BodyRotation.z < 0.f)
-					_BodyRotation.z += 20 * Time::DeltaTime();
+					_BodyRotation.z += 20.f * static_cast<float>(Time::DeltaTime());
 				else
 				{
 					_BodyRotation.z = 0.f;
@@ -346,7 +346,7 @@ namespace jk
 			{
 				{
 					if (_BodyRotation.z > 0.f)
-						_BodyRotation.z -= 20 * Time::DeltaTime();
+						_BodyRotation.z -= 20.f * static_cast<float>(Time::DeltaTime());
 					else
 					{
 						_BodyRotation.z = 0.f;
@@ -355,7 +355,7 @@ namespace jk
 				}
 				{
 					if (_BodyRotation.z < 0.f)
-						_BodyRotation.z += 20 * Time::DeltaTime();
+						_BodyRotation.z += 20.f * static_cast<float>(Time::DeltaTime());
 					else
 					{
 						_BodyRotation.z = 0.f;
@@ -369,14 +369,14 @@ namespace jk
 				if (_Attack_Dir == 1)
 				{
 					if (_pos.x < 50.f)
-						_pos.x += 150 * Time::DeltaTime();
+						_pos.x += 150.f * static_cast<float>(Time::DeltaTime());
 					else
 						_AttackB_Ready_Boddy = true;
 				}
 				else
 				{
 					if (_pos.x > -50.f)
-						_pos.x -= 150 * Time::DeltaTime();
+						_pos.x -= 150.f * static_cast<float>(Time::DeltaTime());
 					else
 						_AttackB_Ready_Boddy = true;
 				}
@@ -387,9 +387,9 @@ namespace jk
 	void Yggdrasil_Body::attack_b_left()
 	{	
 		if (_BodyRotation.z > -20.f)
-			_BodyRotation.z -= 20 * Time::DeltaTime();
+			_BodyRotation.z -= 20.f * static_cast<float>(Time::DeltaTime());
 		if (_pos.x < 0.f)
-			_pos.x += 80 * Time::DeltaTime();
+			_pos.x += 80.f * static_cast<float>(Time::DeltaTime());
 		
 		tr->SetPosition(_pos);
 		tr->SetRotation(_BodyRotation);
@@ -398,9 +398,9 @@ namespace jk
 	void Yggdrasil_Body::attack_b_right()
 	{
 		if (_BodyRotation.z < 20.f)
-			_BodyRotation.z += 20 * Time::DeltaTime();
+			_BodyRotation.z += 20.f * static_cast<float>(Time::DeltaTime());
 		if (_pos.x > 0.f)
-			_pos.x -= 80 * Time::DeltaTime();
+			_pos.x -= 80.f * static_cast<float>(Time::DeltaTime());
 				
 		tr->SetPosition(_pos);
 		tr->SetRotation(_BodyRotation);
@@ -413,9 +413,9 @@ namespace jk
 	void Yggdrasil_Body::attack_c_set()
 	{
 		if (_pos.y > -35)
-			_pos.y -= 250 * Time::DeltaTime();
+			_pos.y -= 250.f * static_cast<float>(Time::DeltaTime());
 		else if (_pos.y < -36)
-			_pos.y += 250 * Time::DeltaTime();
+			_pos.y += 250.f * static_cast<float>(Time::DeltaTime());
 		else if (_pos.y >= -36 && _pos.y <= -35)
 		{
 			_pos.y = -35;
@@ -429,7 +429,7 @@ namespace jk
 	void Yggdrasil_Body::attack_c_up()
 	{
 		if (_pos.y <= 10.f)
-			_pos.y += 250 * Time::DeltaTime();
+			_pos.y += 250.f * static_cast<float>(Time::DeltaTime());
 		else
 			Boddy_BulletReady = true;
 	}
@@ -437,7 +437,7 @@ namespace jk
 	{
 		if (_pos.y > -30)
 		{
-			_pos.y -= 250 * Time::DeltaTime();
+			_pos.y -= 250.f * static_cast<float>(Time::DeltaTime());
 		}
 		else
 			_AttackC_Boddy = true;
@@ -474,14 +474,14 @@ namespace jk
 	{
 		if (introbody_ordernumber == 0)
 		{	
-			_pos.y += 150 * Time::DeltaTime();
+			_pos.y += 150.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.y >= _savepos.y + 40)
 				introbody_ordernumber = 1;
 		}
 		if (introbody_ordernumber == 1)
 		{
 			if (_pos.y > _savepos.y)
-				_pos.y -= 150 * Time::DeltaTime();
+				_pos.y -= 150.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.y <= _savepos.y)
 			{
 				_pos.y = _savepos.y;
@@ -571,9 +571,9 @@ namespace jk
 		if (_Groggy_Body_Down == false)
 		{
 			if (_pos.y >= -100.f)
-				_pos.y -= 25 * Time::DeltaTime();
+				_pos.y -= 25.f * static_cast<float>(Time::DeltaTime());
 			if (_BodyRotation.z < 35.f)
-				_BodyRotation.z += 20.f* Time::DeltaTime();
+				_BodyRotation.z += 20.f* static_cast<float>(Time::DeltaTime());
 			tr->SetRotation(_BodyRotation);
 			if ((_pos.y >= -100.f) && (_BodyRotation.z >= 35.f))
 			{
@@ -592,9 +592,9 @@ namespace jk
 		if (_Groggy_Body_Up == false)
 		{
 			if (_pos.y < -20.f)
-				_pos.y += 25 * Time::DeltaTime();
+				_pos.y += 25.f * static_cast<float>(Time::DeltaTime());
 			if (_BodyRotation.z >= 0.f)
-				_BodyRotation.z -= 20 * Time::DeltaTime();
+				_BodyRotation.z -= 20.f * static_cast<float>(Time::DeltaTime());
 			tr->SetRotation(_BodyRotation);
 			if ((_pos.y >= -50.f) && (_BodyRotation.z <= 0.f))
 			{

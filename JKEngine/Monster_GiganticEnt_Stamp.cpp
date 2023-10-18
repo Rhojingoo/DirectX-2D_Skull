@@ -20,7 +20,7 @@ namespace jk
 		tr = this->GetComponent<Transform>();
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GiganticEnt\\Effect\\GiganticEnt_Stamp", this,0,0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Monster\\GiganticEnt\\Effect\\GiganticEnt_Stamp", this,0,0.05f);
 		at->CompleteEvent(L"EffectGiganticEnt_Stamp") = std::bind(&Monster_GiganticEnt_Stamp::Compelete, this);
 
 		at->PlayAnimation(L"EffectGiganticEnt_Stamp", true);

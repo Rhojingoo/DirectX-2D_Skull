@@ -55,7 +55,7 @@ namespace jk
 		static void SetDirection(int dir, bool sw) { mDir = dir, _switch = sw; }
 
 	private:
-		Skul_Sword_State _State;
+		Skul_Sword_State _State = {};
 		Animator* at = nullptr;
 		RigidBody* _rigidbody = nullptr;
 		Collider2D* _collider = nullptr;

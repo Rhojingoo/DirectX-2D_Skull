@@ -19,8 +19,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Change_Effect\\Awaken_Smoke", this, 0, 0.035);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Change_Effect\\Awaken_Smoke", this, 1, 0.035);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Change_Effect\\Awaken_Smoke", this, 0, 0.035f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Change_Effect\\Awaken_Smoke", this, 1, 0.035f);
 		at->CompleteEvent(L"Change_EffectAwaken_Smoke") = std::bind(&Awaken_SmokeEffect::Compelete_Pierce, this);
 		at->CompleteEvent(L"Change_EffectAwaken_SmokeR") = std::bind(&Awaken_SmokeEffect::Compelete_Pierce, this);
 

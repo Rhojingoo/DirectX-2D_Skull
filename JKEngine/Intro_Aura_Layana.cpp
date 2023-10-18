@@ -19,8 +19,8 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\Intro_Aura", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\Intro_Aura", this, 1, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\Intro_Aura", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\Intro_Aura", this, 1, 0.05f);
 		at->CompleteEvent(L"EffectIntro_Aura") = std::bind(&Intro_Aura_Layana::Compelete_Pierce, this);
 		at->CompleteEvent(L"EffectIntro_AuraR") = std::bind(&Intro_Aura_Layana::Compelete_Pierce, this);
 

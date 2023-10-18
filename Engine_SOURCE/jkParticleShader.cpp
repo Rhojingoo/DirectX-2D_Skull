@@ -39,12 +39,12 @@ namespace jk::graphics
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Particle];
 
 		static float elapsedTime = 0.0f;
-		elapsedTime += Time::DeltaTime();
+		elapsedTime += static_cast<float>(Time::DeltaTime());
 
 		renderer::ParticleCB data = {};
 		data.elementCount = mParticleBuffer->GetStride();
 		data.elpasedTime = elapsedTime;
-		data.deltaTime = Time::DeltaTime();
+		data.deltaTime = static_cast<float>(Time::DeltaTime());
 
 
 		cb->SetData(&data);

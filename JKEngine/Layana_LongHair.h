@@ -254,9 +254,9 @@ namespace jk
 
 
 	private:
-		Rising_Pierce* Rising[19];
-		Transform* Risingbullet_tr[19];
-		RigidBody* risingbullet_rb[19];
+		Rising_Pierce* Rising[19] = {};
+		Transform* Risingbullet_tr[19] = {};
+		RigidBody* risingbullet_rb[19] = {};
 
 
 	private:
@@ -353,8 +353,8 @@ namespace jk
 		bool	_SkillHomingON = false;
 		bool    _SkillHomingFire = false;
 		int		_HomingNumber = 0;
-		float   _HomingAngle[3];
-		Vector2   _HomingVector[3];
+		float   _HomingAngle[3] = {};
+		Vector2   _HomingVector[3] = {};
 
 		bool	_SkillB_Switch = false;
 		bool	_SkillB_Dash = false;

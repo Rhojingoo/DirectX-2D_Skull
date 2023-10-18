@@ -254,7 +254,7 @@ namespace jk
 			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Dark_Awaken_DamegeHP);
 			Transform* hp_tr = Dark_Awaken_DamegeHP->GetComponent<Transform>();
-			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1.5));
+			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.5f));
 			hp_tr->SetScale(274, 10, 0);
 			Dark_Awaken_DamegeHP->Set_Max_Hp(_Max_Dark_Awaken_Hp);
 			Dark_Awaken_DamegeHP->Set_Current_Hp(_Max_Dark_Awaken_Hp);
@@ -1065,7 +1065,7 @@ namespace jk
 			bool attack = player->Geteffect();
 			bool attack_Cri_Mid = player->Geteffect_Mid();
 			bool attack_Cri_High = player->Geteffect_Hight();
-			_Damage = 3000;
+			_Damage = 1000;
 
 
 			_Curren_Dark_Awaken_Hp = _Curren_Dark_Awaken_Hp - _Damage;
@@ -1253,7 +1253,7 @@ namespace jk
 
 	void Layana_Dark_Awaken::idle()
 	{
-		_time += Time::DeltaTime();
+		_time += static_cast<float>(Time::DeltaTime());
 		_SelectAttack = random(0, 5);
 		//_SelectAttack = 5;
 
@@ -1296,7 +1296,7 @@ namespace jk
 
 		if (_teleport_Rush == true)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime > 0.35f)
 			{
 				if (_Dir == 1)
@@ -1315,7 +1315,7 @@ namespace jk
 		}
 		if (_teleport_Cross == true)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime > 0.35f)
 			{
 				if (_Dir == 1)
@@ -1336,7 +1336,7 @@ namespace jk
 		}
 		if (_teleport_Ground == true)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime > 0.35f)
 			{
 				if (_pos.x >= _Createpos.x)
@@ -1355,7 +1355,7 @@ namespace jk
 		}
 		if (_teleport_Vertical == true)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime > 0.35f)
 			{				
 				_pos.x = _Playerpos.x;
@@ -1412,9 +1412,9 @@ namespace jk
 		if (!(_Playerdistance.x <= 80 && _Playerdistance.x >= -80))
 		{
 			if (_Dir == 1)
-				_pos.x += 450.f * Time::DeltaTime();
+				_pos.x += 450.f * static_cast<float>(Time::DeltaTime());
 			else
-				_pos.x -= 450.f * Time::DeltaTime();
+				_pos.x -= 450.f * static_cast<float>(Time::DeltaTime());
 		}
 		else
 		{
@@ -1449,45 +1449,25 @@ namespace jk
 		if (_pos.x < _Createpos.x)
 		{
 			if (_pos.x > _Createpos.x - 700)
-				_pos.x -= 750.f * Time::DeltaTime();
+				_pos.x -= 750.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.y < _Createpos.y + 150)
-				_pos.y += 150.f * Time::DeltaTime();
+				_pos.y += 150.f * static_cast<float>(Time::DeltaTime());
 		}
 		else
 		{
 			if (_pos.x < _Createpos.x + 700)
-				_pos.x += 750.f * Time::DeltaTime();
+				_pos.x += 750.f * static_cast<float>(Time::DeltaTime());
 			if (_pos.y < _Createpos.y + 155)
-				_pos.y += 150.f * Time::DeltaTime();
+				_pos.y += 150.f * static_cast<float>(Time::DeltaTime());
 		}
 		if (_pos.y >= _Createpos.y + 150.f)
 		{
-			//if (_GroundMeteorSwitch == true)
-			//{
-			//	_DarkMode_state = Layana_Dark_Awaken_State::LandingDash;
-			//	_Ground_check = false;
-			//	_rigidbody->SetGround(false);
-			//	if (_pos.x < _Createpos.x)
-			//	{
-			//		_rigidbody->SetVelocity(Vector2(650.f, -150.f));
-			//		at->PlayAnimation(L"Awaken_PowerDash", true);
-			//	}
-			//	else
-			//	{
-			//		_rigidbody->SetVelocity(Vector2(-650.f, -150.f));
-			//		at->PlayAnimation(L"Awaken_PowerDashR", true);
-			//	}
-			//}
 			if (_VerticalMeteorSwitch == true)
 			{
 				_DarkMode_state = Layana_Dark_Awaken_State::Meteor_Vertical_Jump;
 				_Ground_check = false;
 				
 				at->PlayAnimation(L"Awaken_PowerMeteor_Vertical00_Jump", true);
-				//if (_Dir == 1)
-				//	at->PlayAnimation(L"Long_hairMeteor_Vertical00_Jump", true);	
-				//else
-				//	at->PlayAnimation(L"Long_hairMeteor_Vertical00_JumpR", true);
 			}
 		}
 	}
@@ -1508,7 +1488,7 @@ namespace jk
 	}
 	void Layana_Dark_Awaken::Rush_B()
 	{
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 		if (_Attacktime > 0.5)
 		{
 			_DarkMode_state = Layana_Dark_Awaken_State::Rush_End;
@@ -1654,7 +1634,7 @@ namespace jk
 	{
 		if (_Rush_C_Number == 6)
 		{			
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime > 0.5)
 			{
 				//임펙트 터트리기 작업 실시			
@@ -1676,7 +1656,7 @@ namespace jk
 		}
 		else
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime > 2)
 			{
 				for (int i = 0; i < 7; i++)
@@ -1755,7 +1735,7 @@ namespace jk
 	void Layana_Dark_Awaken::CrossLanding()
 	{
 		{
-			timeSinceLastImage += Time::DeltaTime();
+			timeSinceLastImage += static_cast<float>(Time::DeltaTime());
 			if (timeSinceLastImage >= delayBetweenImages)
 			{
 				for (int i = 0; i < 10; i++)
@@ -1805,7 +1785,7 @@ namespace jk
 		}
 		else
 		{		
-			_Attacktime += Time::DeltaTime();		
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 			if (_Attacktime >= 0.5f)
 			{
 			 if(_Ground_Sign->_SwitchOff ==true)
@@ -1877,8 +1857,8 @@ namespace jk
 	{
 		if (_pos.x >= _Createpos.x)
 		{
-			_Attacktime += Time::DeltaTime();
-			int index = 6 - (_Attacktime / 0.5f);
+			_Attacktime += static_cast<float>(Time::DeltaTime());
+			int index = 6 - static_cast<int>(_Attacktime / 0.5f);
 
 			if (index >= 0)
 			{
@@ -1895,8 +1875,8 @@ namespace jk
 		}
 		if (_pos.x < _Createpos.x)
 		{
-			_Attacktime += Time::DeltaTime();		
-			int index = _Attacktime / 0.5f;
+			_Attacktime += static_cast<float>(Time::DeltaTime());
+			int index = static_cast<int>(_Attacktime / 0.5f);
 
 			if (index < 7)
 			{
@@ -1928,7 +1908,7 @@ namespace jk
 	}
 	void Layana_Dark_Awaken::Vertical_Landing()
 	{
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 		if (_VerticalMeteorLanding == true)
 		{
 			if (_Attacktime >= 1.f)
@@ -1961,7 +1941,7 @@ namespace jk
 
 	void Layana_Dark_Awaken::Skill_B_Ready()
 	{
-		_Attacktime += Time::DeltaTime();
+		_Attacktime += static_cast<float>(Time::DeltaTime());
 		if (_Attacktime <= 1.f)
 		{
 			as->Play("Leiana_DarkHomingPierce_Ready");
@@ -1971,8 +1951,8 @@ namespace jk
 				//{
 					if (_Dark_HomingPierce[i]->_Create_ball == false)
 					{
-						int randomposX = random(_Createpos.x - 150, _Createpos.x + 150);
-						int randomposY = random(_Createpos.y - 25, _Createpos.y + 70);
+						float randomposX = static_cast<float>(random(static_cast<int>(_Createpos.x) - 150, static_cast<int>(_Createpos.x) + 150));
+						float randomposY = static_cast<float>(random(static_cast<int>(_Createpos.y) - 25, static_cast<int>(_Createpos.y) + 70));
 						Transform* boss_effect = _Dark_HomingPierce[i]->GetComponent<Transform>();
 						//boss_effect->SetPosition(Vector3(randomposX, randomposY, _pos.z - 1));
 						_Dark_HomingPierce[i]->_effect_switch = true;
@@ -2011,7 +1991,7 @@ namespace jk
 				}
 				_SkillBWait = true;
 			}
-			_Picerwaitintime += Time::DeltaTime();
+			_Picerwaitintime += static_cast<float>(Time::DeltaTime());
 			if (_Picerwaitintime >= 1.f)
 			{
 				_HomingPierce_Attack[0]->SetState(eState::Active);
@@ -2112,7 +2092,7 @@ namespace jk
 		
 		if (_SkillC_Switch == true)
 		{
-			_Attacktime += Time::DeltaTime();
+			_Attacktime += static_cast<float>(Time::DeltaTime());
 
 			if (_Attacktime >= 1.0 && _Attacktime < 1.5)
 			{

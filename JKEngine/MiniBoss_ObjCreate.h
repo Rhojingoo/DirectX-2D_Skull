@@ -155,7 +155,7 @@ namespace jk
         std::vector<Mage*> _Mage_pool;
         std::vector<Cleric*> _Cleric_pool;
 
-        int capacity;
+        int capacity = 0;
         int _Randomcheck = 0;
     };
 }

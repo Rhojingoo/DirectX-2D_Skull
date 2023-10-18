@@ -17,8 +17,8 @@ namespace jk
 		tr = this->GetComponent<Transform>();
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Gate\\Stage1\\Wall", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\Gate\\Stage2\\Wall", this, 0, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Gate\\Stage1\\Wall", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Gate\\Stage2\\Wall", this, 0, 0.05f);
 
 		at->PlayAnimation(L"Stage1Wall", true);
 		GameObject::Initialize();

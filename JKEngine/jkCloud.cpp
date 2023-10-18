@@ -34,7 +34,7 @@ namespace jk
 	}
 	void Cloud::Update()
 	{		
-		_Time +=  0.1* (float)Time::DeltaTime();
+		_Time +=  0.1f* static_cast<float>(Time::DeltaTime());
 		if(_Time>7.f)
 		{
 			_Time = 0.f;

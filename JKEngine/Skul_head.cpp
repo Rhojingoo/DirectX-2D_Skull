@@ -36,19 +36,19 @@ namespace jk
 		_HitType = random(1, 10);
 		if (_HitType >= 1 && _HitType < 6)
 		{
-			_Damage = random(20, 31);
+			_Damage = static_cast<float>(random(20, 31));
 			attack = true;
 		}
 
 		if (_HitType >= 6 && _HitType < 9)
 		{
-			_Damage = random(33, 40);
+			_Damage = static_cast<float>(random(33, 40));
 			attack_Cri_Mid = true;
 		}
 
 		if (_HitType >= 9 && _HitType <= 10)
 		{
-			_Damage = random(40, 55);
+			_Damage = static_cast<float>(random(40, 55));
 			attack_Cri_High = true;
 		}
 

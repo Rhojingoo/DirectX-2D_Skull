@@ -21,8 +21,8 @@ namespace jk
 
 
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Public\\Effect\\UltimateSkill_Effect_Fail", this, 0, 0.05);
-		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Public\\Effect\\UltimateSkill_Effect_Fail", this, 1, 0.05);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Public\\Effect\\UltimateSkill_Effect_Fail", this, 0, 0.05f);
+		at->CreateAnimations(L"..\\Resources\\Texture\\MiniBoss\\Public\\Effect\\UltimateSkill_Effect_Fail", this, 1, 0.05f);
 
 		at->CompleteEvent(L"EffectUltimateSkill_Effect_Fail") = std::bind(&Public_UltimateSkill_Effect_Fail::Compelete, this);
 		at->CompleteEvent(L"EffectUltimateSkill_Effect_FailR") = std::bind(&Public_UltimateSkill_Effect_Fail::Compelete, this);

@@ -20,7 +20,7 @@ namespace jk
 		_rigidbody->SetGround(true);
 		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
-		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\EnergyBallmerge", this, 0, 0.02);
+		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Yggdrasil\\Effect\\EnergyBallmerge", this, 0, 0.02f);
 		at->CompleteEvent(L"EffectEnergyBallmerge") = std::bind(&Yggdrasil_EnergeBall_CreateEffect::Compelete, this);
 
 		at->PlayAnimation(L"EffectEnergyBallmerge", true);
