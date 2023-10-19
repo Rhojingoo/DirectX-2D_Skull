@@ -583,15 +583,15 @@ namespace jk::renderer
 		std::shared_ptr<Shader> hitparticleShader
 			= Resources::Find<Shader>(L"HITParticleShader");
 
+
 		std::shared_ptr<Shader> hp_bar_Shader
 			= Resources::Find<Shader>(L"HP_Bar_Shader");
 		std::shared_ptr<Shader> alpha_Shader
 			= Resources::Find<Shader>(L"Alpha_Shader");
 		std::shared_ptr<Shader> aniAlpha_Shader
 			= Resources::Find<Shader>(L"AlphaANI_Shader");
-
-
 		
+
 		//std::shared_ptr<Shader> dahs_Shader  //연습용 파티클 대쉬
 		//	= Resources::Find<Shader>(L"AfterImageShader");
 		//std::shared_ptr<Shader> particleShader2  //연습용 파티클 애니메이션

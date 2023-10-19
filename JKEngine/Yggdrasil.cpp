@@ -659,7 +659,7 @@ namespace jk
 				jkFont::setText(L"위그드라실", 763,-32,15,true);
 				jkFont::setText2(L"장로엔트", 770, -103, 15, true);
 			}
-			Attack_Sellect = 3;
+			
 
 			if (_time > 3)
 			{
