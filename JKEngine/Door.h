@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "BG.h"
 
 namespace jk
@@ -21,7 +20,7 @@ namespace jk
 
 
 	private:
-		MeshRenderer* meshrenderer;
+		class MeshRenderer* _MeshRenderer;
 		Transform* tr;
 	};
 }

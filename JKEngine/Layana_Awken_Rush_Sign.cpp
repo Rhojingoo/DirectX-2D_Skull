@@ -1,9 +1,10 @@
 #include "Layana_Awken_Rush_Sign.h"
+#include "Include_Common.h"
 
 
 namespace jk
 {
-	int Layana_Awken_Rush_Sign::mDir = 1;
+	int Layana_Awken_Rush_Sign::_Dir = 1;
 
 	Layana_Awken_Rush_Sign::Layana_Awken_Rush_Sign()
 	{
@@ -35,7 +36,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"EffectDark_DimensionRush_Sign", false);
 			else
 				at->PlayAnimation(L"EffectDark_DimensionRush_SignR", false);

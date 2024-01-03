@@ -1,4 +1,6 @@
 #include "Ground_Map.h"
+#include "Include_Common.h"
+#include "Alpha_Blend.h"
 
 
 namespace jk

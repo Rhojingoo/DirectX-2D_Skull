@@ -1,5 +1,5 @@
 #include "jkTile_Ground.h"
-
+#include "Include_Common.h"
 
 namespace jk
 {
@@ -18,7 +18,7 @@ namespace jk
 	void Tile_Ground::Update()
 	{
 		tr = GetComponent<Transform>();
-		pos = tr->GetPosition();
+		_Pos = tr->GetPosition();
 		GameObject::Update();
 	}
 	void Tile_Ground::LateUpdate()

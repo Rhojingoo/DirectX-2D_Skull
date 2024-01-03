@@ -1,9 +1,9 @@
 #include "Dimension_Pierce.h"
-
+#include "Include_Common.h"
 
 namespace jk
 {
-	 int Dimension_Pierce::mDir = 1;
+	 int Dimension_Pierce::_Dir = 1;
 	 bool Dimension_Pierce::_effect_switch = false;;
 	Dimension_Pierce::Dimension_Pierce()
 	{
@@ -33,7 +33,7 @@ namespace jk
 	{
 		if (_effect_switch == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"BulletDimension_Pierce", false);
 			else
 				at->PlayAnimation(L"BulletDimension_PierceR", false);

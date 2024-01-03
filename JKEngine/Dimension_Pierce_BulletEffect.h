@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "Effect.h"
 
 namespace jk
@@ -19,17 +18,17 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
-		static void SetDirection(int set) { mDir = set; }
-		static int	mDir;
+		static void SetDirection(int set) { _Dir = set; }
+		static int	_Dir;
 		static bool	_SwitchOn;
 		static bool	_SwitchOff;
 
 		void Compelete_Pierce();
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 	};
 }

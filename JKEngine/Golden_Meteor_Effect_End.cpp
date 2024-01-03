@@ -1,4 +1,6 @@
 #include "Golden_Meteor_Effect_End.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {
@@ -31,7 +33,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"EffectGolden_Meteor_Effect_End", true);
 			else
 				at->PlayAnimation(L"EffectGolden_Meteor_Effect_EndR", true);

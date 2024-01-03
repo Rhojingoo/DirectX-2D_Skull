@@ -819,7 +819,7 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
+			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, _Dir);
 			SetPlay_List(PlayerList::basic_Skul, PlayerList::sowrd_Skul, true, mDir);
 			SetPlayer_Pos(pos);
 		}
@@ -848,15 +848,15 @@ namespace jk
 	//	if (_attack == true)
 	//	{
 	//		_State = Skul_Basic_State::Attack_B;
-	//		if (mDir == 1)
+	//		if (_Dir == 1)
 	//		{
 	//			at->PlayAnimation(L"Skul_BasicAttackB", true);
-	//			mDir = 1;
+	//			_Dir = 1;
 	//		}
-	//		else if (mDir == -1)
+	//		else if (_Dir == -1)
 	//		{
 	//			at->PlayAnimation(L"Skul_BasicAttackBR", true);
-	//			mDir = -1;
+	//			_Dir = -1;
 	//		}
 	//	}
 	//	if (_attack == false)
@@ -864,25 +864,25 @@ namespace jk
 	//		if (Input::GetKeyDown(eKeyCode::Z))
 	//		{
 	//			_State = Skul_Basic_State::Dash;
-	//			if (mDir == 1)
+	//			if (_Dir == 1)
 	//			{
 	//				at->PlayAnimation(L"Skul_BasicDash", false);
-	//				mDir = 1;
+	//				_Dir = 1;
 	//			}
-	//			else if (mDir == -1)
+	//			else if (_Dir == -1)
 	//			{
 	//				at->PlayAnimation(L"Skul_BasicDashR", false);
-	//				mDir = -1;
+	//				_Dir = -1;
 	//			}
 	//		}
 	//		if (_fallcheck == 1)
 	//		{
 	//			_State = Skul_Basic_State::Fall;
-	//			if (mDir == 1)
+	//			if (_Dir == 1)
 	//			{
 	//				at->PlayAnimation(L"Skul_BasicFall", false);
 	//			}
-	//			else if (mDir == -1)
+	//			else if (_Dir == -1)
 	//			{
 	//				at->PlayAnimation(L"Skul_BasicFallR", false);
 	//			}
@@ -890,15 +890,15 @@ namespace jk
 	//		if (_fallcheck == 2)
 	//		{
 	//			_State = Skul_Basic_State::Falling;
-	//			if (mDir == 1)
+	//			if (_Dir == 1)
 	//			{
 	//				at->PlayAnimation(L"Skul_BasicFallRepeat", true);
-	//				mDir = 1;
+	//				_Dir = 1;
 	//			}
-	//			else if (mDir == -1)
+	//			else if (_Dir == -1)
 	//			{
 	//				at->PlayAnimation(L"Skul_BasicFallRepeatR", true);
-	//				mDir = -1;
+	//				_Dir = -1;
 	//			}
 	//		}
 	//		if (Input::GetKey(eKeyCode::RIGHT)
@@ -908,30 +908,30 @@ namespace jk
 	//			if (Input::GetKey(eKeyCode::RIGHT))
 	//			{
 	//				at->PlayAnimation(L"Skul_BasicWalk", true);
-	//				mDir = 1;
+	//				_Dir = 1;
 	//			}
 	//			else if (Input::GetKey(eKeyCode::LEFT))
 	//			{
 	//				at->PlayAnimation(L"Skul_BasicWalkR", true);
-	//				mDir = -1;
+	//				_Dir = -1;
 	//			}
 	//		}
 	//		else
 	//		{
 	//			_State = Skul_Basic_State::Idle;
-	//			if (mDir == 1)
+	//			if (_Dir == 1)
 	//			{
 	//				at->PlayAnimation(L"Skul_BasicIdle", true);
 	//				if (_Skulhead == true)
 	//					at->PlayAnimation(L"NoHeadIdle", true);
-	//				mDir = 1;
+	//				_Dir = 1;
 	//			}
-	//			else if (mDir == -1)
+	//			else if (_Dir == -1)
 	//			{
 	//				at->PlayAnimation(L"Skul_BasicIdleR", true);
 	//				if (_Skulhead == true)
 	//					at->PlayAnimation(L"NoHeadIdleR", true);
-	//				mDir = -1;
+	//				_Dir = -1;
 	//			}
 	//		}
 	//	}

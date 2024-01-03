@@ -1,5 +1,5 @@
 #include "Latana_Awake_Rush_Bullet.h"
-
+#include "Include_Common.h"
 
 namespace jk
 {

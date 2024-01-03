@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "Bullet.h"
 
 namespace jk
@@ -27,9 +26,9 @@ namespace jk
 		void CompeleteRising_Pierce();
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 
 	private:

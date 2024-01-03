@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "BG.h"
 
 namespace jk
@@ -8,7 +7,7 @@ namespace jk
 	{
 	public:
 		Cloud(const std::wstring& path);
-		Cloud(Vector3 mPos);
+		Cloud(Vector3 _Pos);
 		virtual ~Cloud();
 
 		virtual void Initialize() override;
@@ -19,10 +18,10 @@ namespace jk
 		void BindConstantBuffer();
 
 	private:		
-		MeshRenderer* meshrenderer;
+		class MeshRenderer* _MeshRenderer;
 		Transform* tr;
-		float mTime;
 		float _Time;
+		float _Time2;
 		Vector3 _Pos;
 	};
 }

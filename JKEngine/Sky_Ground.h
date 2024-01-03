@@ -1,6 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-
+#include "BG.h"
 
 namespace jk
 {
@@ -20,7 +19,7 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
-		Collider2D* _collider = nullptr;
+		class Collider2D* _collider = nullptr;
 		bool _SkullOn = false;
 	};
 

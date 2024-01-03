@@ -1,4 +1,6 @@
 #include "Dark_DimensionPierce_Attack.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

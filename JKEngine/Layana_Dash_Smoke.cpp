@@ -1,4 +1,6 @@
 #include "Layana_Dash_Smoke.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {
@@ -28,7 +30,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"SmokeDash_Somke", true);
 			else
 				at->PlayAnimation(L"SmokeDash_SomkeR", true);

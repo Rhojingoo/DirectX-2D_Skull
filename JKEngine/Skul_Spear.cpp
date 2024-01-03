@@ -199,14 +199,14 @@ namespace jk
 			//if (Input::GetKey(eKeyCode::S))
 			//{
 			//	_State = Skul_Wolf_State::Skill_B;
-			//	if (mDir == 1)
+			//	if (_Dir == 1)
 			//	{
-			//		at->PlayAnimation(L"WolfSkillB", true); mDir = 1;
+			//		at->PlayAnimation(L"WolfSkillB", true); _Dir = 1;
 			//		_rigidbody->SetVelocity(Vector2(100.f, 0.f));
 			//	}
-			//	else if (mDir == -1)
+			//	else if (_Dir == -1)
 			//	{
-			//		at->PlayAnimation(L"WolfSkillBR", true); mDir = -1;
+			//		at->PlayAnimation(L"WolfSkillBR", true); _Dir = -1;
 			//		_rigidbody->SetVelocity(Vector2(-100.f, 0.f));
 			//	}
 			//}

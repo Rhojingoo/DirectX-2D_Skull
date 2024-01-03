@@ -1,4 +1,6 @@
 #include "Intro_Aura_Layana.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {
@@ -31,7 +33,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"EffectIntro_Aura", true);
 			else
 				at->PlayAnimation(L"EffectIntro_AuraR", true);

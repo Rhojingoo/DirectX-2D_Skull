@@ -33,11 +33,11 @@ namespace jk
 		//result = sound1->set3DMinMaxDistance(0.5f * DISTANCEFACTOR, 5000.0f * DISTANCEFACTOR);
 		//result = sound1->setMode(FMOD_LOOP_NORMAL);
 
-		//FMOD_VECTOR pos = { 0.0f * DISTANCEFACTOR, 0.0f, 1.0f };
+		//FMOD_VECTOR _Pos = { 0.0f * DISTANCEFACTOR, 0.0f, 1.0f };
 		//FMOD_VECTOR vel = { 0.0f, 0.0f, 0.0f };
 
 		//result = mCoreSystem->playSound(sound1, 0, false, &channel1);
-		//result = channel1->set3DAttributes(&pos, &vel);
+		//result = channel1->set3DAttributes(&_Pos, &vel);
 		////result = channel1->setPaused(false);
 		//
 		//static float t = 0;

@@ -1,4 +1,5 @@
 #include "Layana_Awaken_Homing_Attac.h"
+#include "Include_Common.h"
 
 namespace jk
 {

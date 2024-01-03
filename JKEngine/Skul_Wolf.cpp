@@ -805,7 +805,7 @@ namespace jk
 	{
 		if (_switch == true)
 		{
-			//if (mDir == 1)
+			//if (_Dir == 1)
 			//{
 			//	_rigidbody->SetVelocity(Vector2(350.f, 250.f));
 			//	_rigidbody->SetGround(false);

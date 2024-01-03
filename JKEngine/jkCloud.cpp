@@ -1,27 +1,27 @@
 #include "jkCloud.h"
-
+#include "Include_Common.h"
 
 
 namespace jk
 {
 	Cloud::Cloud(const std::wstring& path)
-		: meshrenderer()
+		: _MeshRenderer()
 		, tr()		
 		, _Pos(1000)
+		, _Time2(0.f)
 		, _Time(0.f)
-		, mTime(0.f)
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(path));
 		tr = GetComponent<Transform>();
 	}
-	Cloud::Cloud(Vector3 mPos)
-		: meshrenderer()
+	Cloud::Cloud(Vector3 _Pos)
+		: _MeshRenderer()
 		, tr()
 		, _Pos(1000)
+		, _Time2(0.f)
 		, _Time(0.f)
-		, mTime(0.f)
 	{
 
 	}
@@ -34,10 +34,10 @@ namespace jk
 	}
 	void Cloud::Update()
 	{		
-		_Time +=  0.1f* static_cast<float>(Time::DeltaTime());
-		if(_Time>7.f)
+		_Time2 +=  0.1f* static_cast<float>(Time::DeltaTime());
+		if(_Time2>7.f)
 		{
-			_Time = 0.f;
+			_Time2 = 0.f;
 		}
 
 		GameObject::Update();
@@ -54,8 +54,8 @@ namespace jk
 	void Cloud::BindConstantBuffer()
 	{
 		renderer::MoveCB trCB = {};
-		trCB.mTime.x = mTime;
-		trCB.mTime.y = _Time;
+		trCB.mTime.x = _Time;
+		trCB.mTime.y = _Time2;
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Move];
 		cb->SetData(&trCB);

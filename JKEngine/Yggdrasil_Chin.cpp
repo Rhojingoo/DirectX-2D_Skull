@@ -3,7 +3,7 @@
 
 namespace jk
 {
-	//int Yggdrasil_Chin:: mDir = 1;		
+	//int Yggdrasil_Chin:: _Dir = 1;		
 	bool Yggdrasil_Chin::_introchin = false;
 	bool Yggdrasil_Chin::_introchinup = false;
 

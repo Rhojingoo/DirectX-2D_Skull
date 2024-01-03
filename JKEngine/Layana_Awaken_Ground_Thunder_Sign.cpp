@@ -1,8 +1,10 @@
 #include "Layana_Awaken_Ground_Thunder_Sign.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {
-	int Layana_Awaken_Ground_Thunder_Sign::mDir = 1;
+	int Layana_Awaken_Ground_Thunder_Sign::_Dir = 1;
 
 	Layana_Awaken_Ground_Thunder_Sign::Layana_Awaken_Ground_Thunder_Sign()
 	{
@@ -34,7 +36,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"EffectDark_Ground_Thunder_Sign", true);
 			else
 				at->PlayAnimation(L"EffectDark_Ground_Thunder_SignR", true);

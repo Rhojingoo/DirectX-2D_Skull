@@ -4,7 +4,7 @@
 ////namespace jk
 ////{
 ////	Skul_Nohead::Skul_Nohead()
-////		: mDir(1)
+////		: _Dir(1)
 ////		, _attack(0)
 ////		, _time(0.f)
 ////		, _State(Skul_Nohead_State::Idle)
@@ -116,57 +116,57 @@
 //			if (Input::GetKey(eKeyCode::RIGHT))
 //			{
 //				at->PlayAnimation(L"Skul_NoheadWalk", true);
-//				mDir = 1;
+//				_Dir = 1;
 //			}
 //			else if (Input::GetKey(eKeyCode::LEFT))
 //			{
 //				at->PlayAnimation(L"Skul_NoheadWalkR", true);
-//				mDir = -1;
+//				_Dir = -1;
 //			}
 //		}
 //
 //		if (Input::GetKey(eKeyCode::X))
 //		{
 //			_State = Skul_Nohead_State::Attack_A;
-//			if (mDir == 1)
+//			if (_Dir == 1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadAttackA", true);
-//				mDir = 1;
+//				_Dir = 1;
 //			}
-//			else if (mDir == -1)
+//			else if (_Dir == -1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadAttackAR", true);
-//				mDir = -1;
+//				_Dir = -1;
 //			}
 //		}
 //
 //		//if (Input::GetKeyDown(eKeyCode::C))
 //		//{
 //		//	_State = Skul_Basic_State::Jump;
-//		//	//if (mDir == 1)
+//		//	//if (_Dir == 1)
 //		//	//{
 //		//	//	mAnimator->Play(L"", true);
-//		//	//	mDir = 1;
+//		//	//	_Dir = 1;
 //		//	//}
-//		//	//else if (mDir == -1)
+//		//	//else if (_Dir == -1)
 //		//	//{
 //		//	//	mAnimator->Play(L"", true);
-//		//	//	mDir = -1;
+//		//	//	_Dir = -1;
 //		//	//}
 //		//}
 //
 //		if (Input::GetKeyDown(eKeyCode::Z))
 //		{
 //			_State = Skul_Nohead_State::Dash;
-//			if (mDir == 1)
+//			if (_Dir == 1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadDash", false);
-//				mDir = 1;
+//				_Dir = 1;
 //			}
-//			else if (mDir == -1)
+//			else if (_Dir == -1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadDashR", false);
-//				mDir = -1;
+//				_Dir = -1;
 //			}
 //		}
 //	}
@@ -179,42 +179,42 @@
 //			if (Input::GetKeyUp(eKeyCode::RIGHT))
 //			{
 //				at->PlayAnimation(L"Skul_NoheadIdle", true);
-//				mDir = 1;
+//				_Dir = 1;
 //			}
 //			else if (Input::GetKeyUp(eKeyCode::LEFT))
 //			{
 //				at->PlayAnimation(L"Skul_NoheadIdleR", true);
-//				mDir = -1;
+//				_Dir = -1;
 //			}
 //		}
 //
 //		if (Input::GetKey(eKeyCode::X))
 //		{
 //			_State = Skul_Nohead_State::Attack_A;
-//			if (mDir == 1)
+//			if (_Dir == 1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadAttackA", true);
-//				mDir = 1;
+//				_Dir = 1;
 //			}
-//			else if (mDir == -1)
+//			else if (_Dir == -1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadAttackAR", true);
-//				mDir = -1;
+//				_Dir = -1;
 //			}
 //		}
 //
 //		if (Input::GetKeyDown(eKeyCode::Z))
 //		{
 //			_State = Skul_Nohead_State::Dash;
-//			if (mDir == 1)
+//			if (_Dir == 1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadDash", false);
-//				mDir = 1;
+//				_Dir = 1;
 //			}
-//			else if (mDir == -1)
+//			else if (_Dir == -1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadDashR", false);
-//				mDir = -1;
+//				_Dir = -1;
 //			}
 //		}
 //	}
@@ -230,15 +230,15 @@
 //		if (_time > 0.7f)
 //		{
 //			_State = Skul_Nohead_State::Idle;
-//			if (mDir == 1)
+//			if (_Dir == 1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadIdle", true);
-//				mDir = 1;
+//				_Dir = 1;
 //			}
-//			else if (mDir == -1)
+//			else if (_Dir == -1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadIdleR", true);
-//				mDir = -1;
+//				_Dir = -1;
 //			}
 //			_time = 0;
 //		}
@@ -251,11 +251,11 @@
 //		}
 //		if (Input::GetKeyDown(eKeyCode::RIGHT))
 //		{
-//			mDir = 1;
+//			_Dir = 1;
 //		}
 //		else if (Input::GetKeyDown(eKeyCode::LEFT))
 //		{
-//			mDir = -1;
+//			_Dir = -1;
 //		}
 //	}
 //	void Skul_Nohead::attack_b()
@@ -263,11 +263,11 @@
 //		_attack = false;
 //		if (Input::GetKeyDown(eKeyCode::RIGHT))
 //		{
-//			mDir = 1;
+//			_Dir = 1;
 //		}
 //		else if (Input::GetKeyDown(eKeyCode::LEFT))
 //		{
-//			mDir = -1;
+//			_Dir = -1;
 //		}
 //	}
 //	void Skul_Nohead::jumpattack()
@@ -296,15 +296,15 @@
 //		if (_attack == true)
 //		{
 //			_State = Skul_Nohead_State::Attack_B;
-//			if (mDir == 1)
+//			if (_Dir == 1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadAttackB", true);
-//				mDir = 1;
+//				_Dir = 1;
 //			}
-//			else if (mDir == -1)
+//			else if (_Dir == -1)
 //			{
 //				at->PlayAnimation(L"Skul_NoheadAttackBR", true);
-//				mDir = -1;
+//				_Dir = -1;
 //			}
 //		}
 //		if (_attack == false)
@@ -312,15 +312,15 @@
 //			if (Input::GetKeyDown(eKeyCode::Z))
 //			{
 //				_State = Skul_Nohead_State::Dash;
-//				if (mDir == 1)
+//				if (_Dir == 1)
 //				{
 //					at->PlayAnimation(L"Skul_NoheadDash", false);
-//					mDir = 1;
+//					_Dir = 1;
 //				}
-//				else if (mDir == -1)
+//				else if (_Dir == -1)
 //				{
 //					at->PlayAnimation(L"Skul_NoheadDashR", false);
-//					mDir = -1;
+//					_Dir = -1;
 //				}
 //			}
 //
@@ -331,26 +331,26 @@
 //				if (Input::GetKey(eKeyCode::RIGHT))
 //				{
 //					at->PlayAnimation(L"Skul_NoheadWalk", true);
-//					mDir = 1;
+//					_Dir = 1;
 //				}
 //				else if (Input::GetKey(eKeyCode::LEFT))
 //				{
 //					at->PlayAnimation(L"Skul_NoheadWalkR", true);
-//					mDir = -1;
+//					_Dir = -1;
 //				}
 //			}
 //			else
 //			{
 //				_State = Skul_Nohead_State::Idle;
-//				if (mDir == 1)
+//				if (_Dir == 1)
 //				{
 //					at->PlayAnimation(L"Skul_NoheadIdle", true);
-//					mDir = 1;
+//					_Dir = 1;
 //				}
-//				else if (mDir == -1)
+//				else if (_Dir == -1)
 //				{
 //					at->PlayAnimation(L"Skul_NoheadIdleR", true);
-//					mDir = -1;
+//					_Dir = -1;
 //				}
 //			}
 //		}

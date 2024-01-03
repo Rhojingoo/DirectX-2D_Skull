@@ -1682,14 +1682,14 @@ namespace jk
 			}
 			_State = Skul_Basic_State::Hit;
 
-			//if (mDir == 1)
+			//if (_Dir == 1)
 			//{
 			//	_rigidbody->SetVelocity(Vector2(-50.f, 50.f));
 			//	_DarkKnight->_effect_animation = true;
 			//	_DarkKnight->SetDirection(-1);
 			//	_DarkKnight->SetState(eState::Active);
 			//}
-			//if (mDir == -1)
+			//if (_Dir == -1)
 			//{
 			//	_rigidbody->SetVelocity(Vector2(50.f, 50.f));
 			//	_DarkKnight->_effect_animation = true;
@@ -2688,9 +2688,9 @@ namespace jk
 		{
 			Hit_Box->SetState(eState::Paused);
 			SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
-			//SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, mDir);
-			//SetPlay_List(PlayerList::sowrd_Skul, PlayerList::basic_Skul, true, mDir);
-			//SetPlay_List(PlayerList::thief_Skul, PlayerList::basic_Skul, true, mDir);
+			//SetPlay_List(PlayerList::spere_Skul, PlayerList::basic_Skul, true, _Dir);
+			//SetPlay_List(PlayerList::sowrd_Skul, PlayerList::basic_Skul, true, _Dir);
+			//SetPlay_List(PlayerList::thief_Skul, PlayerList::basic_Skul, true, _Dir);
 			pos.y = pos.y + 5;
 			SetPlayer_Pos(pos);	
 		}

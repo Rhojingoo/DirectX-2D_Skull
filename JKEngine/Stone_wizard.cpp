@@ -929,7 +929,7 @@ namespace jk
 	void Stone_wizard::complete_attack()
 	{
 		//_state = Stone_wizard_State::Idle;
-		//if (mDir == 1)
+		//if (_Dir == 1)
 		//	at->PlayAnimation(L"WarriorIdle", true);
 		//else
 		//	at->PlayAnimation(L"WarriorIdleR", true);

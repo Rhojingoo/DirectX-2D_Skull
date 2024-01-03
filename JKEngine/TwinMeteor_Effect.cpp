@@ -1,8 +1,10 @@
 #include "TwinMeteor_Effect.h"
+#include "Include_Common.h"
+#include "Hit_Critical_Middle.h"
 
 namespace jk
 {
-	int TwinMeteor_Effect::mDir = 1;
+	int TwinMeteor_Effect::_Dir = 1;
 	bool TwinMeteor_Effect::_SwitchOn = false;
 	bool TwinMeteor_Effect::_SwitchOff = false;
 	TwinMeteor_Effect::TwinMeteor_Effect()
@@ -22,7 +24,6 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
 
-		tr = this->GetComponent<Transform>();
 		at = AddComponent<Animator>();
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\TwinMeteor_Impact", this,0, 0.08f);
 		at->CreateAnimations(L"..\\Resources\\Texture\\Boss\\Layana_Sisters\\Effect\\TwinMeteor_Impact", this, 1, 0.08f);
@@ -45,7 +46,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"EffectTwinMeteor_Impact", true);
 			else
 				at->PlayAnimation(L"EffectTwinMeteor_ImpactR", true);

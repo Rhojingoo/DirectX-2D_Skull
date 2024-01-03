@@ -1607,7 +1607,7 @@ namespace jk
 	void Knight_male::complete_gloggy()
 	{
 		//_state = Knight_State::Idle;
-		//if (mDir == 1)
+		//if (_Dir == 1)
 		//	at->PlayAnimation(L"Knight_maleIdle", true);
 		//else
 		//	at->PlayAnimation(L"Knight_maleIdleR", true);

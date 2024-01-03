@@ -183,14 +183,14 @@ namespace jk
 		/*if (Input::GetKey(eKeyCode::A))
 		{
 			Skul_Thief_State::Skill_A;
-			if (mDir == 1)
+			if (_Dir == 1)
 			{
-				at->PlayAnimation(L"ThiefSkillA", true); mDir = 1;
+				at->PlayAnimation(L"ThiefSkillA", true); _Dir = 1;
 				_rigidbody->SetVelocity(Vector2(300.f, 0.f));
 			}
-			else if (mDir == -1)
+			else if (_Dir == -1)
 			{
-				at->PlayAnimation(L"ThiefSkillAR", true); mDir = -1;
+				at->PlayAnimation(L"ThiefSkillAR", true); _Dir = -1;
 				_rigidbody->SetVelocity(Vector2(-300.f, 0.f));
 			}
 		}
@@ -198,15 +198,15 @@ namespace jk
 		if (Input::GetKey(eKeyCode::S))
 		{
 			_State = Skul_Thief_State::Skill_B;
-			if (mDir == 1)
+			if (_Dir == 1)
 			{
 				at->PlayAnimation(L"ThiefAttackA", true);
-				mDir = 1;
+				_Dir = 1;
 			}
-			else if (mDir == -1)
+			else if (_Dir == -1)
 			{
 				at->PlayAnimation(L"ThiefAttackAR", true);
-				mDir = -1;
+				_Dir = -1;
 			}
 		}*/
 
@@ -283,29 +283,29 @@ namespace jk
 		//if (Input::GetKey(eKeyCode::A))
 		//{
 		//	Skul_Thief_State::Skill_A;
-		//	if (mDir == 1)
+		//	if (_Dir == 1)
 		//	{
-		//		at->PlayAnimation(L"ThiefSkill", true); mDir = 1;
+		//		at->PlayAnimation(L"ThiefSkill", true); _Dir = 1;
 		//		_rigidbody->SetVelocity(Vector2(300.f, 0.f));
 		//	}
-		//	else if (mDir == -1)
+		//	else if (_Dir == -1)
 		//	{
-		//		at->PlayAnimation(L"ThiefSkillR", true); mDir = -1;
+		//		at->PlayAnimation(L"ThiefSkillR", true); _Dir = -1;
 		//		_rigidbody->SetVelocity(Vector2(-300.f, 0.f));
 		//	}
 		//}
 		//if (Input::GetKey(eKeyCode::S))
 		//{
 		//	_State = Skul_Thief_State::Skill_B;
-		//	if (mDir == 1)
+		//	if (_Dir == 1)
 		//	{
 		//		at->PlayAnimation(L"ThiefAttackA", true);
-		//		mDir = 1;
+		//		_Dir = 1;
 		//	}
-		//	else if (mDir == -1)
+		//	else if (_Dir == -1)
 		//	{
 		//		at->PlayAnimation(L"ThiefAttackAR", true);
-		//		mDir = -1;
+		//		_Dir = -1;
 		//	}
 		//}
 
@@ -734,8 +734,8 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, mDir);
-			//SetPlay_List(PlayerList::basic_Skul, PlayerList::sowrd_Skul, true, mDir);
+			//SetPlay_List(PlayerList::wolf_Skul,PlayerList::basic_Skul, true, _Dir);
+			//SetPlay_List(PlayerList::basic_Skul, PlayerList::sowrd_Skul, true, _Dir);
 			SetPlay_List(PlayerList::basic_Skul, PlayerList::thief_Skul, true, mDir);
 			SetPlayer_Pos(pos);
 		}

@@ -1,9 +1,10 @@
 #include "Dimension_Pierce_BulletEffect.h"
+#include "Include_Common.h"
 
 
 namespace jk
 {
-	int Dimension_Pierce_BulletEffect::mDir = 1;
+	int Dimension_Pierce_BulletEffect::_Dir = 1;
 	bool Dimension_Pierce_BulletEffect::_SwitchOn = false;
 	bool Dimension_Pierce_BulletEffect::_SwitchOff = false;
 
@@ -43,7 +44,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"EffectDimensionPierce_Boss", true);
 			else
 				at->PlayAnimation(L"EffectDimensionPierce_BossR", true);

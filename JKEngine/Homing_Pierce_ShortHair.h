@@ -1,9 +1,5 @@
 #pragma once
-#include "Include_Common.h"
 #include "Bullet.h"
-#include "Hit_Critical_Middle.h"
-#include "..\Engine_SOURCE\jkAudioSource.h"
-
 
 namespace jk
 {
@@ -31,12 +27,11 @@ namespace jk
 
 	private:
 		Transform* _tr = nullptr;
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
-		Transform* tr = nullptr;
-		Hit_Critical_Middle* _Critical_Middle = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
+		class Hit_Critical_Middle* _Critical_Middle = nullptr;
 
 	private:
 		static Vector3 _pos;

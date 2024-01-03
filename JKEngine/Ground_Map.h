@@ -1,6 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-#include "Alpha_Blend.h"
+#include "BG.h"
 
 namespace jk
 {
@@ -23,8 +22,8 @@ namespace jk
 		void Set_StageTurn(bool set) { _StageTurn = set; }
 		bool Get_Turnon() { return _turnon; }
 
-		Collider2D* _collider = nullptr;
-		Alpha_Blend* _Alpha = nullptr;
+		class Collider2D* _collider = nullptr;
+		class Alpha_Blend* _Alpha = nullptr;
 		bool _SkullOn = false;
 		bool _StageTurn = false;
 		bool _turnon = false;	

@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "Bullet.h"
 
 namespace jk
@@ -21,16 +20,16 @@ namespace jk
 
 		static void SetPos(Vector3 set) { _pos = set; }
 		static Vector3 GetPos() { return _pos; }
-		static void SetDirection(int set) { mDir = set; }
-		static int	mDir;
+		static void SetDirection(int set) { _Dir = set; }
+		static int	_Dir;
 		static bool _effect_switch;
 
 
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 
 	private:

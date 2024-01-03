@@ -1,4 +1,5 @@
 #include "Golden_Meteor_Bullet.h"
+#include "Include_Common.h"
 
 namespace jk
 {

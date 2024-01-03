@@ -37,28 +37,28 @@ namespace jk
 		}
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
-			//pos.x += 100.0f * static_cast<float>(Time::DeltaTime());
+			//_Pos.x += 100.0f * static_cast<float>(Time::DeltaTime());
 			tr->SetPosition(pos);
 		}
 		if (Input::GetKey(eKeyCode::DOWN))
 		{
 			pos.y -= 100.0f * static_cast<float>(Time::DeltaTime());
-			//tr->SetPosition(pos);
+			//tr->SetPosition(_Pos);
 		}
 		if (Input::GetKey(eKeyCode::UP))
 		{
 			pos.y += 100.0f * static_cast<float>(Time::DeltaTime());
-			//tr->SetPosition(pos);
+			//tr->SetPosition(_Pos);
 		}
 
 		//if (Input::GetKey(eKeyCode::Z))
 		//{
-		//	pos.x += 1000.0f * static_cast<float>(Time::DeltaTime());
-		//	//tr->SetPosition(pos);
+		//	_Pos.x += 1000.0f * static_cast<float>(Time::DeltaTime());
+		//	//tr->SetPosition(_Pos);
 		//}
 
 
-		//tr->SetPosition(pos);
+		//tr->SetPosition(_Pos);
 	}
 	void PlayerScript::Complete()
 	{

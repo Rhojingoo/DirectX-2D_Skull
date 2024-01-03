@@ -1,9 +1,10 @@
 #include "Layana_Awaken_Meteor_Electric.h"
+#include "Include_Common.h"
 
 
 namespace jk
 {
-	int Layana_Awaken_Meteor_Electric::mDir = 1;
+	int Layana_Awaken_Meteor_Electric::_Dir = 1;
 
 	Layana_Awaken_Meteor_Electric::Layana_Awaken_Meteor_Electric()
 	{
@@ -36,7 +37,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"EffectDark_GoldenMeteor_Effect", true);
 			else
 				at->PlayAnimation(L"EffectDark_GoldenMeteor_EffectR", true);

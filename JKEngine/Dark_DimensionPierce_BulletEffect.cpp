@@ -1,5 +1,5 @@
 #include "Dark_DimensionPierce_BulletEffect.h"
-
+#include "Include_Common.h"
 
 namespace jk
 {

@@ -1,4 +1,5 @@
 #include "Alpha_Blend.h"
+#include "Include_Common.h"
 #include "jkApplication.h"
 
 
@@ -64,8 +65,8 @@ namespace jk
 	void Alpha_Blend::BindConstantBuffer()
 	{
 		renderer::_AlphaBlendCB _Alphacb = {};
-		_Alphacb._Alpha.x = mTime;
-		_Alphacb._Alpha.y = _Time;
+		_Alphacb._Alpha.x = _Time;
+		_Alphacb._Alpha.y = _Time2;
 		_Alphacb._Alpha.z = _Colorcheck;
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::AlphaBlend];
@@ -76,38 +77,38 @@ namespace jk
 	void Alpha_Blend::FadeIn_White_Transparent()
 	{
 		//화면이 하얗게 변하는거
-		_Time += 2.75f * static_cast<float>(Time::DeltaTime());
-		if (_Time > 3.f)
+		_Time2 += 2.75f * static_cast<float>(Time::DeltaTime());
+		if (_Time2 > 3.f)
 		{
-			_Time = 0.f;
+			_Time2 = 0.f;
 			_State = Alpha_Blend_State::FadeOut;
 		}
 	}
 	void Alpha_Blend::FadeIn_DeepWhite()
 	{
 		//화면이 하얀것에서 점점 투명해지는거
-		_Time -= 2.75f * static_cast<float>(Time::DeltaTime());
-		if (_Time <= 0.f)
+		_Time2 -= 2.75f * static_cast<float>(Time::DeltaTime());
+		if (_Time2 <= 0.f)
 		{
-			_Time = 0.f;
+			_Time2 = 0.f;
 			_State = Alpha_Blend_State::FadeOut;
 		}
 	}
 	void Alpha_Blend::FadeIn_Black_Transparent()
 	{
-		_Time += 2.75f * static_cast<float>(Time::DeltaTime());
-		if (_Time > 3.f)
+		_Time2 += 2.75f * static_cast<float>(Time::DeltaTime());
+		if (_Time2 > 3.f)
 		{
-			_Time = 0.f;
+			_Time2 = 0.f;
 			_State = Alpha_Blend_State::FadeOut;
 		}
 	}
 	void Alpha_Blend::FadeIn_DeepBlack()
 	{
-		_Time -= 2.75f * static_cast<float>(Time::DeltaTime());
-		if (_Time <= 0.f)
+		_Time2 -= 2.75f * static_cast<float>(Time::DeltaTime());
+		if (_Time2 <= 0.f)
 		{
-			_Time = 0.f;
+			_Time2 = 0.f;
 			_State = Alpha_Blend_State::FadeOut;
 		}
 	}

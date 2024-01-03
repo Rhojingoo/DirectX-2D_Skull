@@ -1,7 +1,5 @@
-
 #pragma once
-#include "Include_Common.h"
-
+#include "BG.h"
 
 namespace jk
 {
@@ -30,12 +28,8 @@ namespace jk
 		bool _turnon = false;
 
 	private:
-		Collider2D* _collider = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
-		Vector3 pos = Vector3(0.f, 0.f, 0.f);
-
-	
-
+		Vector3 _Pos = Vector3(0.f, 0.f, 0.f);
 	};
-
 }

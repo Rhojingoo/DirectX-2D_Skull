@@ -1,4 +1,5 @@
 #include "Awaken_End_SmokeB2.h"
+#include "Include_Common.h"
 
 namespace jk
 {
@@ -31,7 +32,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Change_EffectAwaken_End_SmokeB2", true);
 			else
 				at->PlayAnimation(L"Change_EffectAwaken_End_SmokeB2R", true);

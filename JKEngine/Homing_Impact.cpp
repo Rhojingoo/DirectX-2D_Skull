@@ -1,4 +1,5 @@
 #include "Homing_Impact.h"
+#include "Include_Common.h"
 
 
 namespace jk
@@ -33,7 +34,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"EffectHoming_Impact", true);
 			else
 				at->PlayAnimation(L"EffectHoming_ImpactR", true);

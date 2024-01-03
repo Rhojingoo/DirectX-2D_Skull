@@ -17,33 +17,33 @@ namespace jk
 		//원래 있던것
 		//if (Input::GetKey(eKeyCode::W))
 		//{
-		//	pos.z += 100.0f * (float)Time::DeltaTime();
-		//	tr->SetPosition(pos);
+		//	_Pos.z += 100.0f * (float)Time::DeltaTime();
+		//	tr->SetPosition(_Pos);
 		//}
 		//else if (Input::GetKey(eKeyCode::S))
 		//{
-		//	pos.z -= 100.0f * (float)Time::DeltaTime();
-		//	tr->SetPosition(pos);
+		//	_Pos.z -= 100.0f * (float)Time::DeltaTime();
+		//	tr->SetPosition(_Pos);
 		//}
 		//if (Input::GetKey(eKeyCode::E))
 		//{
-		//	pos.x += 100.0f * (float)Time::DeltaTime();
-		//	tr->SetPosition(pos);
+		//	_Pos.x += 100.0f * (float)Time::DeltaTime();
+		//	tr->SetPosition(_Pos);
 		//}
 		//else if (Input::GetKey(eKeyCode::Q))
 		//{
-		//	pos.x -= 100.0f * (float)Time::DeltaTime();
-		//	tr->SetPosition(pos);
+		//	_Pos.x -= 100.0f * (float)Time::DeltaTime();
+		//	tr->SetPosition(_Pos);
 		//}
 		//if (Input::GetKey(eKeyCode::UP))
 		//{
-		//	pos.y -= 100.0f * (float)Time::DeltaTime();
-		//	tr->SetPosition(pos);
+		//	_Pos.y -= 100.0f * (float)Time::DeltaTime();
+		//	tr->SetPosition(_Pos);
 		//}
 		//else if (Input::GetKey(eKeyCode::DOWN))
 		//{
-		//	pos.y += 100.0f * (float)Time::DeltaTime();
-		//	tr->SetPosition(pos);
+		//	_Pos.y += 100.0f * (float)Time::DeltaTime();
+		//	tr->SetPosition(_Pos);
 		//}
 	}
 

@@ -1,4 +1,7 @@
 #include "Homing_Pierce_ShortHair.h"
+#include "Include_Common.h"
+#include "Hit_Critical_Middle.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

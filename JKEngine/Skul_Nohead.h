@@ -51,7 +51,7 @@
 //	private:
 //		Skul_Nohead_State _State;
 //		Animator* at;
-//		int mDir;
+//		int _Dir;
 //		float _time;
 //		bool _attack;
 //		void attack_choice();

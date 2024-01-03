@@ -607,9 +607,9 @@ namespace jk
 
 			Hit_Box->SetState(eState::Active);
 			//if (_attackDir == 1)
-			//	HitBox_TR->SetPosition(Vector3(pos.x + 50, pos.y - 30, pos.z));
+			//	HitBox_TR->SetPosition(Vector3(_Pos.x + 50, _Pos.y - 30, _Pos.z));
 			//else
-			//	HitBox_TR->SetPosition(Vector3(pos.x - 50, pos.y - 30, pos.z));
+			//	HitBox_TR->SetPosition(Vector3(_Pos.x - 50, _Pos.y - 30, _Pos.z));
 		}
 		else if(_state == Mage_State::Die)
 		{

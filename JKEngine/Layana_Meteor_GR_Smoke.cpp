@@ -1,4 +1,6 @@
 #include "Layana_Meteor_GR_Smoke.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {
@@ -28,7 +30,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"SmokeMeteor_GR_Smoke", true);
 			else
 				at->PlayAnimation(L"SmokeMeteor_GR_SmokeR", true);

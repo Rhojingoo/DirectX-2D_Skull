@@ -1,8 +1,9 @@
 #include "TwinMeteor_Boss.h"
+#include "Include_Common.h"
 
 namespace jk
 {
-	int TwinMeteor_Boss::mDir = 1;
+	int TwinMeteor_Boss::_Dir = 1;
 	bool TwinMeteor_Boss::_SwitchOn = false;
 	bool TwinMeteor_Boss::_SwitchOff = false;
 	TwinMeteor_Boss::TwinMeteor_Boss()
@@ -35,7 +36,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			//if (mDir == 1)
+			//if (_Dir == 1)
 			//	at->PlayAnimation(L"EffectTwinMeteor_Boss", true);
 			//else
 			//	at->PlayAnimation(L"EffectTwinMeteor_BossR", true);

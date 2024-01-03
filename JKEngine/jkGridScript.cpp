@@ -82,7 +82,7 @@ namespace jk
 		//GameObject* gameObj = mCamera->GetOwner();
 
 		//Transform* tr = gameObj->GetComponent<Transform>();
-		//Vector3 pos = tr->GetPosition();
+		//Vector3 _Pos = tr->GetPosition();
 
 		//float scale = mCamera->GetSize();
 
@@ -99,7 +99,7 @@ namespace jk
 		//	= renderer::constantBuffer[(int)eCBType::Grid];
 
 		//renderer::GridCB data;
-		//data.CameraPosition = Vector4(pos.x, pos.y, pos.z, 1.0f);
+		//data.CameraPosition = Vector4(_Pos.x, _Pos.y, _Pos.z, 1.0f);
 		//data.Resolution = resolution;
 		//data.CameraScale = Vector2(scale, scale);
 

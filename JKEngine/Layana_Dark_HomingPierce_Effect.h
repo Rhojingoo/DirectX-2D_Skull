@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "Effect.h"
 
 namespace jk
@@ -20,16 +19,16 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 
-		void SetDirection(int set) { mDir = set; }
-		int	mDir = 1;
+		void SetDirection(int set) { _Dir = set; }
+		int	_Dir = 1;
 		bool _effect_switch = false;
 		bool _bulletoff = false;
 
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 
 	private:

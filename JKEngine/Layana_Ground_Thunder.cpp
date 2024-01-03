@@ -1,9 +1,10 @@
 #include "Layana_Ground_Thunder.h"
-
+#include "Include_Common.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
-	int	Layana_Ground_Thunder::mDir = 1;
+	int	Layana_Ground_Thunder::_Dir = 1;
 	bool Layana_Ground_Thunder::_effect_switch = false;
 	bool Layana_Ground_Thunder::_bulletoff = false;
 
@@ -43,7 +44,7 @@ namespace jk
 	{
 		if (_effect_switch == true)
 		{
-			//if (mDir == 1)
+			//if (_Dir == 1)
 			//	at->PlayAnimation(L"BulletDark_Ground_Thunder", true);
 			//else
 			//	at->PlayAnimation(L"BulletDark_Ground_ThunderR", true);

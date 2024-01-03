@@ -1,5 +1,5 @@
 #include "Layana_Awaken_Meteor_Projectile.h"
-
+#include "Include_Common.h"
 
 namespace jk
 {
@@ -34,7 +34,7 @@ namespace jk
 	{
 		if (_effect_switch == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"BulletDark_GoldenMeteor_Projectile", true);
 			else
 				at->PlayAnimation(L"BulletDark_GoldenMeteor_ProjectileR", true);

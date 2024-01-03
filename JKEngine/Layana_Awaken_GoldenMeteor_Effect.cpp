@@ -1,4 +1,5 @@
 #include "Layana_Awaken_GoldenMeteor_Effect.h"
+#include "Include_Common.h"
 
 namespace jk
 {

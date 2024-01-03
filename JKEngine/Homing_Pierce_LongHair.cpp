@@ -1,8 +1,11 @@
 #include "Homing_Pierce_LongHair.h"
+#include "Include_Common.h"
+#include "Hit_Critical_Middle.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
-	int Homing_Pierce_LongHair::mDir = 1;
+	int Homing_Pierce_LongHair::_Dir = 1;
 
 	Homing_Pierce_LongHair::Homing_Pierce_LongHair()
 	{
@@ -44,7 +47,7 @@ namespace jk
 	}
 	void Homing_Pierce_LongHair::Update()
 	{
-		if(mDir ==1)
+		if(_Dir ==1)
 			at->PlayAnimation(L"BulletHoming_pierce", true);
 		else 
 			at->PlayAnimation(L"BulletHoming_pierceR", true);
@@ -68,7 +71,7 @@ namespace jk
 			as->Play("Homing_Hit");
 			Transform* hittr = Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
-			if (mDir==1)
+			if (_Dir==1)
 			{				
 				Vector3 pos = _tr->GetPosition();
 				_Critical_Middle->_effect_animation = true;
@@ -93,7 +96,7 @@ namespace jk
 		if (Player* player = dynamic_cast<Player*>(other->GetOwner()))
 		{			
 			as->Play("Homing_Hit");
-			if (mDir == 1)
+			if (_Dir == 1)
 			{
 				Vector3 pos = _tr->GetPosition();
 				_Critical_Middle->_effect_animation = true;

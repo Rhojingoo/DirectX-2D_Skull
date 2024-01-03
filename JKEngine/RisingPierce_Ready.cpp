@@ -1,4 +1,5 @@
 #include "RisingPierce_Ready.h"
+#include "Include_Common.h"
 
 
 namespace jk
@@ -32,7 +33,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"EffectRisingPierce_Ready", true);
 			else
 				at->PlayAnimation(L"EffectRisingPierce_ReadyR", true);

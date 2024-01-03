@@ -1,4 +1,5 @@
 #include "Death_Effect_Second.h"
+#include "Include_Common.h"
 
 namespace jk
 {
@@ -31,7 +32,7 @@ namespace jk
 	{
 		if (_SwitchOn == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Death_EffectDark_Dead_Outro", true);
 			else
 				at->PlayAnimation(L"Death_EffectDark_Dead_OutroR", true);
