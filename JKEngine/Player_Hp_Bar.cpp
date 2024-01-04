@@ -1,4 +1,6 @@
 #include "Player_Hp_Bar.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

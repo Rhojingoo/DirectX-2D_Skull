@@ -1,25 +1,10 @@
 #pragma once
-#include "Include_Common.h"
-#include "HitBox_Player.h"
-
-
-#include "Player_AfterImage.h"
-#include "Monster_Hammer.h"
+#include "Player.h"
 #include "Monster_GoldHammer.h"
-
-#include "Hit_Sword.h"
-#include "Hit_Critical_Middle.h"
-#include "Hit_Critical_High.h"
-#include "Hit_DarkPaladin.h"
-#include "Slash_Effect.h"
-#include "Mushroom_Spring.h"
-#include "Sofa_Spring.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Monster_Hammer.h"
 
 namespace jk
 {
-	class Animator;
 	class Skul_Wolf : public Player
 	{
 	public:
@@ -74,22 +59,22 @@ namespace jk
 
 	private:
 		Skul_Wolf_State _State = {};
-		HitBox_Player* Hit_Box = nullptr;
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class HitBox_Player* Hit_Box = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:
-		Player_Hit_Effect* _Hit_Effect = nullptr;
-		Hit_Sword* _Hit_Sword = nullptr;
-		Hit_Critical_Middle* _Critical_Middle = nullptr;
-		Hit_Critical_High* _Critical_High = nullptr;
-		Slash_Effect* _Knight_Slash = nullptr;
-		Hit_DarkPaladin* _DarkKnight = nullptr;
+		class Player_Hit_Effect* _Hit_Effect = nullptr;
+		class Hit_Sword* _Hit_Sword = nullptr;
+		class Hit_Critical_Middle* _Critical_Middle = nullptr;
+		class Hit_Critical_High* _Critical_High = nullptr;
+		class Slash_Effect* _Knight_Slash = nullptr;
+		class Hit_DarkPaladin* _DarkKnight = nullptr;
 		GameObject* Hit_Particle = nullptr;
 
 		Monster_Hammer::Monster_Hammer_State hammer_st = {};

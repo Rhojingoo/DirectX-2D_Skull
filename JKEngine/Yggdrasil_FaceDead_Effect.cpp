@@ -1,4 +1,6 @@
 #include "Yggdrasil_FaceDead_Effect.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {
@@ -25,8 +27,8 @@ namespace jk
 	}
 	void Yggdrasil_FaceDead_Effect::Update()
 	{
-		mTime = static_cast<float>(Time::DeltaTime());
-		if (mTime > 1)
+		_Time = static_cast<float>(Time::DeltaTime());
+		if (_Time > 1)
 		{
 			this->SetState(eState::Paused);
 		}		

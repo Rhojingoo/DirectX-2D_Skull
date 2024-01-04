@@ -1,4 +1,5 @@
 #include "Public_UltimateSkill_Effect_Fail.h"
+#include "Include_Common.h"
 
 
 namespace jk

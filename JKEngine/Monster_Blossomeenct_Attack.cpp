@@ -1,4 +1,5 @@
 #include "Monster_Blossomeenct_Attack.h"
+#include "Include_Common.h"
 
 namespace jk
 {

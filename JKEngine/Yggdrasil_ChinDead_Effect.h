@@ -1,5 +1,5 @@
 #pragma once
-#include "Include_Common.h"
+#include "Effect.h"
 
 namespace jk
 {
@@ -19,11 +19,11 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 	private:
-		Animator* at = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 
 	private:
-		float mTime = 0.f;
+		float _Time = 0.f;
 	};
 }

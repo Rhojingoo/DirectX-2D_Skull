@@ -1,27 +1,6 @@
 #pragma once
-#include "Include_Common.h"
-#include "Archer_Arrow.h"
-#include "Archer_Arrow_Upward_Sign.h"
-#include "Archer_Upward_Impact_Bullet.h"
-#include "Archer_Arrow_Bye.h"
-#include "Archer_Trap.h"
-#include "Public_Ultimate_Aura.h"
-#include "Public_Ultimate_AuraSmoke.h"
-#include "Public_UltimateSkill_Effect_Complete.h"
-#include "Public_UltimateSkill_Effect_Fail.h"
-#include "Archer_Utimate_Sign.h"
-#include "HitBox_Archer.h"
+#include "Mini_Boss.h"
 
-#include "Player_Hp_Bar.h"
-#include "Monster_Hit_Effect.h"
-#include "Monster_Death_Effect.h"
-
-#include "Monster_Hp_Bar.h"
-#include "HP_Frame.h"
-#include "MiniBoss_State_UI.h"
-#include "AdventureUI.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -102,13 +81,13 @@ namespace jk
 		
 
 	private:
-		AdventureUI* _MbossFace = nullptr;
-		MiniBoss_State_UI* _State_UI = nullptr;
-		Monster_Hp_Bar* Monster_UIHp = nullptr;
-		Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
-		HP_Frame* Hpbar_Frame = nullptr;
-		Monster_Hp_Bar* Monster_Hp = nullptr;
-		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		class AdventureUI* _MbossFace = nullptr;
+		class MiniBoss_State_UI* _State_UI = nullptr;
+		class Monster_Hp_Bar* Monster_UIHp = nullptr;
+		class Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
+		class HP_Frame* Hpbar_Frame = nullptr;
+		class Monster_Hp_Bar* Monster_Hp = nullptr;
+		class Monster_Hp_Bar* Monster_DamegeHp = nullptr;
 		float _Damage = 0.f;
 		bool _Hp_control = false;
 		float _Hp_time = 0.f;
@@ -122,10 +101,10 @@ namespace jk
 
 	private:
 		Archer_State _state;
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* _tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);	
 		Vector2 _velocity = Vector2(0.f, 0.f);
@@ -133,36 +112,36 @@ namespace jk
 
 
 	private:
-		HitBox_Archer* Hit_Box = nullptr;
-		Monster_Hit_Effect* _Hit_Effect = nullptr;
-		Hit_Sword* _Hit_Sword = nullptr;
-		Hit_Critical_Middle* _Critical_Middle = nullptr;
-		Hit_Critical_High* _Critical_High = nullptr;
-		Monster_Death_Effect* _Death_Effect = nullptr;
+		class HitBox_Archer* Hit_Box = nullptr;
+		class Monster_Hit_Effect* _Hit_Effect = nullptr;
+		class Hit_Sword* _Hit_Sword = nullptr;
+		class Hit_Critical_Middle* _Critical_Middle = nullptr;
+		class Hit_Critical_High* _Critical_High = nullptr;
+		class Monster_Death_Effect* _Death_Effect = nullptr;
 		bool _followskul = false;
 
 
 	private:
-		Archer_Arrow* _archer_arrow = nullptr;
-		Archer_Arrow_Upward_Sign* Upward_Sign = nullptr;
-		Archer_Upward_Impact_Bullet* Upward_Impact_Bullet = nullptr;
-		Archer_Arrow_Bye* Arrow_Bye_effect = nullptr;
-		Archer_Trap* Bullet_Trap[6];
+		class Archer_Arrow* _archer_arrow = nullptr;
+		class Archer_Arrow_Upward_Sign* Upward_Sign = nullptr;
+		class Archer_Upward_Impact_Bullet* Upward_Impact_Bullet = nullptr;
+		class Archer_Arrow_Bye* Arrow_Bye_effect = nullptr;
+		class Archer_Trap* Bullet_Trap[6];
 
 
 	private:
-		Public_Ultimate_Aura* Ultimate_Aura = nullptr;
-		Public_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
-		Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
-		Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
-		Archer_Utimate_Sign* Utimate_Sign = nullptr;
-		Archer_Upward_Impact_Bullet* Ultimate_Upward_ImpactBullet[40];
-		Archer_Arrow_Bye* Ultimate_ArrowBye_effect[40];
+		class Public_Ultimate_Aura* Ultimate_Aura = nullptr;
+		class Public_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
+		class Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
+		class Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
+		class Archer_Utimate_Sign* Utimate_Sign = nullptr;
+		class Archer_Upward_Impact_Bullet* Ultimate_Upward_ImpactBullet[40];
+		class Archer_Arrow_Bye* Ultimate_ArrowBye_effect[40];
 
 
 
 	private:
-		static int			mDir;
+		static int			_Dir;
 		int _attackDir = 1;
 		static bool			_switch;
 

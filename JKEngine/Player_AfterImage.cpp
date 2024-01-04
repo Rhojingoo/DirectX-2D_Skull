@@ -3,6 +3,9 @@
 #include "jkResources.h"
 #include "jkAnimator.h"
 #include "Player.h"
+#include "Include_Common.h"
+#include "..\Engine_SOURCE\jkGameObject.h"
+
 
 namespace jk
 {

@@ -1,4 +1,8 @@
 #include "Castle_Area.h"
+#include "Include_Common.h"
+#include "Alpha_Blend.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
 #include "jkAnimator.h"
 #include "jkParticleSystem.h"
 #include "jkPaintShader.h"

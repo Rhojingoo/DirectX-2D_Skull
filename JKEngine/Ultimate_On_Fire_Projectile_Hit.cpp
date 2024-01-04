@@ -1,4 +1,5 @@
 #include "Ultimate_On_Fire_Projectile_Hit.h"
+#include "Include_Common.h"
 
 namespace jk
 {

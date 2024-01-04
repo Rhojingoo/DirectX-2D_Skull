@@ -1,4 +1,5 @@
 #include "Skul_head.h"
+#include "Include_Common.h"
 
 namespace jk
 {
@@ -55,7 +56,7 @@ namespace jk
 
 		if (SetHead == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"PlayerSkul_head", true);	
 			else			
 				at->PlayAnimation(L"PlayerSkul_headR", true);			
@@ -69,7 +70,7 @@ namespace jk
 		{	
 			if (_Head_Rotation == true)
 			{
-				if (mDir == 1)
+				if (_Dir == 1)
 					tr->AddRotationZ(15);
 				else
 					tr->AddRotationZ(-15);
@@ -113,7 +114,7 @@ namespace jk
 			{
 				if (_Head_Boom == true)
 				{
-					if (mDir == 1)
+					if (_Dir == 1)
 						tr->AddRotationZ(5);
 					else
 						tr->AddRotationZ(-5);
@@ -125,7 +126,7 @@ namespace jk
 				{
 					if(_Ground_check == false)
 					{
-						if (mDir == 1)
+						if (_Dir == 1)
 							tr->AddRotationZ(5);
 						else
 							tr->AddRotationZ(-5);

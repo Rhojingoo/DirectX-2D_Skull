@@ -1,4 +1,5 @@
 #include "Hit_Critical_Middle.h"
+#include "Include_Common.h"
 
 namespace jk
 {

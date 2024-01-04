@@ -1,6 +1,8 @@
 #include "HitBox_Player.h"
 #include <iostream>
 #include <random>
+#include "Include_Common.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 
 namespace jk
@@ -35,19 +37,19 @@ namespace jk
 			if (_HitType >= 1 && _HitType < 6)
 			{
 				_Damage = static_cast<float>(random(10, 15));
-				attack = true;
+				_attack = true;
 			}
 
 			if (_HitType >= 6 && _HitType < 9)
 			{
 				_Damage = static_cast<float>(random(22, 28));
-				attack_Cri_Mid = true;
+				_attack_Cri_Mid = true;
 			}
 
 			if (_HitType >= 9 && _HitType <= 10)
 			{
 				_Damage = static_cast<float>(random(30, 45));
-				attack_Cri_High = true;
+				_attack_Cri_High = true;
 			}
 		}
 		if (Player::GetCurrentPlay_List() == Player::PlayerList::wolf_Skul)
@@ -56,19 +58,19 @@ namespace jk
 			if (_HitType >= 1 && _HitType < 6)
 			{
 				_Damage = static_cast<float>(random(30, 35));
-				attack = true;
+				_attack = true;
 			}
 
 			if (_HitType >= 6 && _HitType < 9)
 			{
 				_Damage = static_cast<float>(random(40, 55));
-				attack_Cri_Mid = true;
+				_attack_Cri_Mid = true;
 			}
 
 			if (_HitType >= 9 && _HitType <= 10)
 			{
 				_Damage = static_cast<float>(random(55, 79));
-				attack_Cri_High = true;
+				_attack_Cri_High = true;
 			}
 		}
 

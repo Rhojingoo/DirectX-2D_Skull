@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "MiniBoss_Bullet_Archer.h"
 
 namespace jk
@@ -24,13 +23,10 @@ namespace jk
 		bool _Bullet_Life = false;
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		float _attackatime = 0.f;
-
-	private:
-
 	};
 }

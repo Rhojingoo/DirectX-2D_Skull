@@ -1,13 +1,6 @@
 #pragma once
-#include "Include_Common.h"
 #include "jkPlayScene.h"
-#include "Stage2_Door.h"
 
-#include "Monster_ObjPool.h"
-#include "MiniBoss_ObjCreate.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
-#include "Sound.h"
 
 namespace jk
 {
@@ -32,14 +25,14 @@ namespace jk
 		bool AreAllMiniBossDead(const std::vector<Mini_Boss*>& monsterGroup);
 
 	private:
-		Player* _player = nullptr;
-		Mini_Boss* Mboss = nullptr;
-		Camera* cameraComp = nullptr;
-		AudioSource* as = nullptr;
-		Sound* _BGSound = nullptr;
-		Alpha_Blend* _Alpha = nullptr;
-		Stage2_Door* Door1 = nullptr;
-
+		class Player* _player = nullptr;
+		class Mini_Boss* Mboss = nullptr;
+		class Camera* cameraComp = nullptr;
+		class AudioSource* as = nullptr;
+		class Sound* _BGSound = nullptr;
+		class Alpha_Blend* _Alpha = nullptr;
+		class Stage2_Door* Door1 = nullptr;
+		class MiniBoss_ObjCreate* OBJPOOL = nullptr;
 
 
 	private:
@@ -47,11 +40,7 @@ namespace jk
 		bool _Fadecheck = false;
 		bool _changecheck = false;
 		bool _mbosscreate = false;
-
-	private:
-		MiniBoss_ObjCreate* OBJPOOL = nullptr;
 		std::vector<Mini_Boss*> mBossGroup;
-
 		bool _first_groundtouch = false;;
 		bool _MiniBoss_groundtouch = false;
 		bool _MiniBoss_Create = false;;

@@ -9,6 +9,7 @@
 #include "..\Engine_SOURCE\jkFontWrapper.h"
 #include "..\Engine_SOURCE\jkApplication.h"
 #include "..\Engine_SOURCE\jkRenderer.h"
+#include"..\Engine_SOURCE\jkSceneManager.h"
 #include "..\Engine_SOURCE\jkResources.h"
 #include "LoadScenes.h"
 #include "guiEditor.h"
@@ -86,7 +87,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             application.Present();
         }
     }
-    jk::renderer::Release();
+    jk::renderer::Release();    
     jk::SceneManager::Release();
     jk::Fmod::Release();
     jk::FontWrapper::Release();

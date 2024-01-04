@@ -1,6 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-
+#include "jkGameObject.h"
 
 namespace jk
 {
@@ -22,7 +21,7 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 		int random(int a, int b);
-		void SetDirection(int dir) { mDir = dir; }
+		void SetDirection(int dir) { _Dir = dir; }
 		void Setattack(bool check) { _attack = check; }
 		RigidBody* Getrigidbody() {return _rigidbody;}
 		void Setgroundcheck(bool check) { _Ground_check = check; }
@@ -46,16 +45,16 @@ namespace jk
 
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 _Before_Attack_Pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:
-		int mDir = 1;
+		int _Dir = 1;
 		float _time = 0.f;
 		bool _attack = false;
 		int		_HitType = 0;

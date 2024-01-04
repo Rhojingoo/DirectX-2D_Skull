@@ -1,5 +1,13 @@
 #include "Monster_LionSpear.h"
 #include "Particle_DamageEffect.h"
+#include "Include_Common.h"
+#include "Player_Hp_Bar.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 
 namespace jk
 {
@@ -262,7 +270,7 @@ namespace jk
 			if (!(_state == Monster_Lion_State::AttackA || _state == Monster_Lion_State::AttackA_Ready || _state == Monster_Lion_State::AttackB || _state == Monster_Lion_State::AttackB_Ready))
 			{
 				_state = Monster_Lion_State::Hit;
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"Lion_SpearHit", false);
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
@@ -286,7 +294,7 @@ namespace jk
 					mr->SetDirection(1);
 					_hit_particle = true;
 				}
-				if (mDir == -1)
+				if (_Dir == -1)
 				{
 					at->PlayAnimation(L"Lion_SpearHitR", false);
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
@@ -315,7 +323,7 @@ namespace jk
 					_state = Monster_Lion_State::Dead;
 					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						at->PlayAnimation(L"Lion_SpearDead", false);
 						_Hit_Effect->SetDirection(1);
@@ -331,7 +339,7 @@ namespace jk
 
 			if ((_state == Monster_Lion_State::AttackA || _state == Monster_Lion_State::AttackA_Ready || _state == Monster_Lion_State::AttackB || _state == Monster_Lion_State::AttackB_Ready))
 			{
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 					Monster_Hp->_HitOn = true;
@@ -354,7 +362,7 @@ namespace jk
 					mr->SetDirection(1);
 					_hit_particle = true;
 				}
-				if (mDir == -1)
+				if (_Dir == -1)
 				{
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					Monster_Hp->_HitOn = true;
@@ -382,7 +390,7 @@ namespace jk
 					_state = Monster_Lion_State::Dead;
 					as->Stop("Enemy_Dead");
 					_Hit_Effect->_effect_animation = true;
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						at->PlayAnimation(L"Lion_SpearDead", false);
 						_Hit_Effect->SetDirection(1);
@@ -415,7 +423,7 @@ namespace jk
 
 					_state = Monster_Lion_State::Hit;
 					as->Play("Hit_Blunt_Small");
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						at->PlayAnimation(L"Lion_SpearHit", false);
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
@@ -439,7 +447,7 @@ namespace jk
 						mr->SetDirection(1);
 						_hit_particle = true;
 					}
-					if (mDir == -1)
+					if (_Dir == -1)
 					{
 						at->PlayAnimation(L"Lion_SpearHitR", false);
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
@@ -469,7 +477,7 @@ namespace jk
 						_state = Monster_Lion_State::Dead;
 						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
-						if (mDir == 1)
+						if (_Dir == 1)
 						{
 							at->PlayAnimation(L"Lion_SpearDead", false);
 							_Hit_Effect->SetDirection(1);
@@ -495,7 +503,7 @@ namespace jk
 
 
 					as->Play("Hit_Blunt_Small");
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						at->PlayAnimation(L"Lion_SpearHit", false);
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
@@ -519,7 +527,7 @@ namespace jk
 						mr->SetDirection(1);
 						_hit_particle = true;
 					}
-					if (mDir == -1)
+					if (_Dir == -1)
 					{
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 						Monster_Hp->_HitOn = true;
@@ -547,7 +555,7 @@ namespace jk
 						_state = Monster_Lion_State::Dead;
 						as->Stop("Enemy_Dead");
 						_Hit_Effect->_effect_animation = true;
-						if (mDir == 1)
+						if (_Dir == 1)
 						{
 							at->PlayAnimation(L"Lion_SpearDead", false);
 							_Hit_Effect->SetDirection(1);
@@ -659,7 +667,7 @@ namespace jk
 				if ((_distance >= 90 || _distance <= -90))
 				{
 					_state = Monster_Lion_State::Walk;
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						at->PlayAnimation(L"Lion_SpearWalk", true);
 					}
@@ -673,7 +681,7 @@ namespace jk
 					if (_AttackSellect == 0)
 					{
 						_state = Monster_Lion_State::AttackA_Ready;
-						if (mDir == 1)
+						if (_Dir == 1)
 						{
 							at->PlayAnimation(L"Lion_SpearAttackA_Ready", false);
 							_attackdir = 1;
@@ -687,7 +695,7 @@ namespace jk
 					else if(_AttackSellect == 1)
 					{
 						_state = Monster_Lion_State::AttackB_Ready;
-						if (mDir == 1)
+						if (_Dir == 1)
 						{
 							at->PlayAnimation(L"Lion_SpearAttackB_Ready", false);
 							_attackdir = 1;
@@ -776,7 +784,7 @@ namespace jk
 		if (_attacktime >= 0.5)
 		{
 			_state = Monster_Lion_State::Idle;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Lion_SpearIdle", true);
 			else
 				at->PlayAnimation(L"Lion_SpearIdleR", true);
@@ -790,7 +798,7 @@ namespace jk
 			if (_AttackSellect == 0)
 			{
 				_state = Monster_Lion_State::AttackA_Ready;
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"Lion_SpearAttackA_Ready", false);
 					_attackdir = 1;
@@ -804,7 +812,7 @@ namespace jk
 			else if (_AttackSellect == 1)
 			{
 				_state = Monster_Lion_State::AttackB_Ready;
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"Lion_SpearAttackB_Ready", false);
 					_attackdir = 1;
@@ -856,9 +864,9 @@ namespace jk
 		_velocity = _rigidbody->GetVelocity();
 		_distance = _playerpos.x - _pos.x;
 		if (_distance >= 0.f)
-			mDir = 1;
+			_Dir = 1;
 		else
-			mDir = -1;
+			_Dir = -1;
 
 		_walkdistance = _first_place.x - _pos.x;
 		if (_walkdistance >= 0.f)
@@ -923,7 +931,7 @@ namespace jk
 	{
 		{
 			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
-			if (mDir == 1)
+			if (_Dir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 15, _pos.y, _pos.z - 1));
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 15, _pos.y, _pos.z - 1));
@@ -943,7 +951,7 @@ namespace jk
 		as->Stop("Atk_Sword_wariior");
 		_rigidbody->ClearVelocity();
 		_state = Monster_Lion_State::Idle;
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Lion_SpearIdle", true);
 		else
 			at->PlayAnimation(L"Lion_SpearIdleR", true);
@@ -953,7 +961,7 @@ namespace jk
 	void Monster_LionSpear::complete_hit()
 	{
 		_state = Monster_Lion_State::Idle;
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"Lion_SpearIdle", true);
 		else
 			at->PlayAnimation(L"Lion_SpearIdleR", true);

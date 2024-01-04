@@ -2,6 +2,15 @@
 #include <iostream>
 #include <random>
 #include "Particle_DamageEffect.h"
+#include "Include_Common.h"
+#include "Monster_StoneWizard_Teleport.h"
+#include "Monster_StoneWizard_Icicle_Effect.h"
+#include "Monster_Stone_wizard_IcicleBullet.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

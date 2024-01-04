@@ -1,4 +1,6 @@
 #include "Yggdrasil_EnergeBall_CreateEffect.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

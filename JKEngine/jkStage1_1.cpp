@@ -2,7 +2,12 @@
 #include "jkParticleSystem.h"
 #include "jkPaintShader.h"
 #include "LoadScenes.h"
-
+#include "Include_Common.h"
+#include "jkPlayScene.h"
+#include "Monster_ObjPool.h"
+#include "Stge_Manager.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
 #include "Mushroom_Spring.h"
 
 namespace jk

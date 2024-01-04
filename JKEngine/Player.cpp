@@ -1,4 +1,7 @@
 #include "Player.h"
+#include "Include_Common.h"
+#include "Face_UI.h"
+#include "Player_Hp_Bar.h"
 
 namespace jk
 {

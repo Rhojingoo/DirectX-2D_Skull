@@ -1,9 +1,6 @@
 #pragma once
-#include "Include_Common.h"
 #include "..\Engine_SOURCE\jkScene.h"
-#include "Alpha_Blend.h"
-#include "..\Engine_SOURCE\jkAudioSource.h"
-#include "Sound.h"
+
 
 namespace jk
 {
@@ -23,13 +20,13 @@ namespace jk
 		virtual void OnExit();
 
 	private:
-		Player* _player = nullptr;
-		Sound* _BGSound = nullptr;
-		Alpha_Blend* _Alpha = nullptr;
-		Back_ground* Castle_wall_Back = nullptr;
-		Ground_Map* out_GroundMap = nullptr;
-		Camera* cameraComp = nullptr;
-		AudioSource* as = nullptr;
+		class Player* _player = nullptr;
+		class Sound* _BGSound = nullptr;
+		class Alpha_Blend* _Alpha = nullptr;
+		class Back_ground* Castle_wall_Back = nullptr;
+		class Ground_Map* out_GroundMap = nullptr;
+		class Camera* cameraComp = nullptr;
+		class AudioSource* as = nullptr;
 		float _time = 0.f;
 		bool _Fadecheck = false;
 		bool _BGsOUND = false;

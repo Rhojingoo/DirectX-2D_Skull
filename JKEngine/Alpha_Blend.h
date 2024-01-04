@@ -48,10 +48,10 @@ namespace jk
 		float _Colorcheck = 0.f;
 		static bool _FadeCheck;
 
-		class Vector4 _FadeInStartColor = Vector4();
-		class Vector4 _FadeInEndColor = Vector4();
-		class Vector4 _FadeOutStartColor = Vector4();
-		class Vector4 _FadeOutEndColor = Vector4();
-		class Vector4 _CurrentColor = Vector4();
+		Vector4 _FadeInStartColor = Vector4();
+		Vector4 _FadeInEndColor = Vector4();
+		Vector4 _FadeOutStartColor = Vector4();
+		Vector4 _FadeOutEndColor = Vector4();
+		Vector4 _CurrentColor = Vector4();
 	};
 }

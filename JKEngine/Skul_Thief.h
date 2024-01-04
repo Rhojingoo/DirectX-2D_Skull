@@ -1,9 +1,8 @@
 #pragma once
-#include "Include_Common.h"
+#include "Player.h"
 
 namespace jk
 {
-	class Animator;
 	class Skul_Thief : public Player
 	{
 	public:
@@ -54,9 +53,9 @@ namespace jk
 
 	private:
 		Skul_Thief_State _State = {};
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);

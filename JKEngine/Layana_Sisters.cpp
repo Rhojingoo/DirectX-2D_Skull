@@ -2,7 +2,9 @@
 #include <iostream>
 #include <random>
 #include "jkFont.h"
+#include "Include_Common.h"
 
+#include "..\Engine_SOURCE\jkAudioSource.h"
 namespace jk
 {
 	Layana_Sisters::Layana_Sisters_State Layana_Sisters::_state = Layana_Sisters_State();

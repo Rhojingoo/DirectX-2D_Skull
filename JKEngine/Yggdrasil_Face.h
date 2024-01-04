@@ -1,18 +1,6 @@
 #pragma once
-#include "Include_Common.h"
-#include "Yggdrasil_BasicBullet.h"
-#include "Yggdrasil_Energy_Bomb.h"
-#include "Yggdrsil_Energy_Corps.h"
-#include "Yggdrasil_Effect.h"
-#include "Yggdrasil_EnergeBall_CreateEffect.h"
-#include "Yggdrasil_Groggy_GroundEffect.h"
-#include "Yggdrasil_EnergyCorps_Charging.h"
-#include "Yggdrasil_EnergyCorps_Spark.h"
-#include "Yggdraisl_Groggy_StartImpact.h"
-#include "Yggdrasil_FaceDead_Effect.h"
+#include "Yggdrasil.h"
 
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -83,10 +71,10 @@ namespace jk
 
 
 	private:
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		static Vector3 _pos;
 		Vector2 _velocity = Vector2(0.f, 0.f);
@@ -105,16 +93,16 @@ namespace jk
 		bool	_Ground_check = false;				// 땅체크시에 쓰이고 있는 변수
 	//	int    _NumberofAttack = 0;					// 어택횟수체크
 
-		Yggdrasil_BasicBullet* Bullet[8] = {};
-		Yggdrasil_Energy_Bomb* Energy_Bomb = nullptr;
-		Yggdrsil_Energy_Corps* Energy_Corps[15] = {};
-		Yggdrasil_Effect* Yggdrasil_effect = nullptr;
-		Yggdrasil_EnergeBall_CreateEffect* Groggy_Begin_Efeect[15] = {};
-		Yggdrasil_Groggy_GroundEffect* Groggy_impact = nullptr;
-		Yggdrasil_EnergyCorps_Charging* EnergyCorps_Charging = nullptr;
-		Yggdrasil_EnergyCorps_Spark* EnergyCorps_Spark = nullptr;
-		Yggdraisl_Groggy_StartImpact* Groggy_Start = nullptr;
-		Yggdrasil_FaceDead_Effect* _Dead_Effect = nullptr;
+		class Yggdrasil_BasicBullet* Bullet[8] = {};
+		class Yggdrasil_Energy_Bomb* Energy_Bomb = nullptr;
+		class Yggdrsil_Energy_Corps* Energy_Corps[15] = {};
+		class Yggdrasil_Effect* Yggdrasil_effect = nullptr;
+		class Yggdrasil_EnergeBall_CreateEffect* Groggy_Begin_Efeect[15] = {};
+		class Yggdrasil_Groggy_GroundEffect* Groggy_impact = nullptr;
+		class Yggdrasil_EnergyCorps_Charging* EnergyCorps_Charging = nullptr;
+		class Yggdrasil_EnergyCorps_Spark* EnergyCorps_Spark = nullptr;
+		class Yggdraisl_Groggy_StartImpact* Groggy_Start = nullptr;
+		class Yggdrasil_FaceDead_Effect* _Dead_Effect = nullptr;
 
 		GameObject::eState check_state = {};
 		float	_activetime = 0.f;

@@ -1,5 +1,7 @@
 #include "Mage_FireBall.h"
-
+#include "Include_Common.h"
+#include "Fireball_Projectile_Hit.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

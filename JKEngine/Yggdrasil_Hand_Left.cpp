@@ -1,4 +1,10 @@
 #include "Yggdrasil_Hand_Left.h"
+#include "Include_Common.h"
+#include "Yggdrasil_FistSlam_Effect.h"
+#include "Yggdrasil_Sweeping.h"
+#include "HitBox_YggDrasil.h"
+#include "Yggdrasil_HandDead_Effect.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

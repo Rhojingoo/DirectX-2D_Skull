@@ -1,12 +1,5 @@
 #pragma once
-#include "Include_Common.h"
 #include "..\Engine_SOURCE\jkScene.h"
-#include "jkPlayScene.h"
-#include "Monster_ObjPool.h"
-#include "Stge_Manager.h"
-#include "..\Engine_SOURCE\jkAudioSource.h"
-#include "Sound.h"
-
 
 namespace jk
 {
@@ -33,22 +26,19 @@ namespace jk
 		float time = 0.f;
 
 	private:
-		AudioSource* as = nullptr;
-		Sound* _BGSound = nullptr;
+		class AudioSource* as = nullptr;
+		class Sound* _BGSound = nullptr;
+		class Camera* cameraComp = nullptr;
+		class Player* _player = nullptr;		
+		class Stage1_Door* Door1 = nullptr;
+		class Monster_ObjPool* OBJPOOL = nullptr;
+		class Stage_Manager* StageMn = nullptr;
+
 
 	private:
-		Camera* cameraComp = nullptr;
-		Player* _player = nullptr;		
 		bool _changecheck = false;
-
-
-		Stage1_Door* Door1 = nullptr;
-		bool first_groundturch = false;;
-		bool first_MonsterCreate = false;;
-
-	private:
-		Monster_ObjPool* OBJPOOL = nullptr;
-		Stage_Manager* StageMn = nullptr;
+		bool first_groundturch = false;
+		bool first_MonsterCreate = false;
 		bool firstMonsters = false;
 		bool secondMonsters = false;
 		bool thirdMonsters = false;

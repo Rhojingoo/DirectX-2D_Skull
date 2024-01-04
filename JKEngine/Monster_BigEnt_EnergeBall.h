@@ -1,7 +1,5 @@
 #pragma once
-#include "Include_Common.h"
 #include "Monster_Bullet.h"
-#include "BigEnt_EnergeBall_Bomb.h"
 
 
 namespace jk
@@ -25,15 +23,15 @@ namespace jk
 		bool _bullet_Life = false;
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		float _attackatime = 0.f;
 		int _dir = 1;
 
 	private:
-		BigEnt_EnergeBall_Bomb* _EnergeBall_Bomb = nullptr;
+		class BigEnt_EnergeBall_Bomb* _EnergeBall_Bomb = nullptr;
 
 	};
 }

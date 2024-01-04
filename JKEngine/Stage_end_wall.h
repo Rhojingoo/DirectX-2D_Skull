@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "Door.h"
 
 namespace jk
@@ -35,8 +34,8 @@ namespace jk
 
 	private:
 		End_Wall_State _State = {};
-		Animator* at = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		int _Stage_Wall = 0;
 		bool _Set_Wall_Allow = false;

@@ -1,5 +1,5 @@
 #pragma once
-#include "Include_Common.h"
+#include "jkGameObject.h"
 
 namespace jk
 {
@@ -30,8 +30,7 @@ namespace jk
 		GameObject* Getplayer() { return _player; }
 		static void SetPlayerPos(Vector3 set) { _playerpos = set; }
 		static Vector3 GetPlayerPos() { return _playerpos; }
-		static Vector3 _playerpos; //= Vector3(0.f, 0.f, 0.f);
-
+		static Vector3 _playerpos; 
 		int random(int a, int b);
 
 		static Vector3 Left_Ground;
@@ -42,7 +41,6 @@ namespace jk
 	private : 
 		static GameObject* _player;	
 		static MinibossList miniboss_select;
-		//static PlayerList player_check;
 		MinibossList _mboss;
 		int _minibosschoice = 0;
 		static Vector3 _Pos;

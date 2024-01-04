@@ -1,9 +1,6 @@
 #pragma once
-#include "Include_Common.h"
 #include "MiniBoss_Bullet_Knight.h"
-#include "Kngiht_EnergyBall_Impact.h"
 
-#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -29,17 +26,16 @@ namespace jk
 		bool _BoomSwitch = false;
 
 	private:
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 
 	private:
-		Kngiht_EnergyBall_Impact* Bullet_Effect;
+		class Kngiht_EnergyBall_Impact* Bullet_Effect;
 
 	private:
 		float _attackatime = 0.f;
-
 	};
 }

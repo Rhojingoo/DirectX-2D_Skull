@@ -1,9 +1,5 @@
 #pragma once
-#include "Include_Common.h"
 #include "..\Engine_SOURCE\jkScene.h"
-#include "Alpha_Blend.h"
-#include "..\Engine_SOURCE\jkAudioSource.h"
-
 
 
 namespace jk
@@ -24,9 +20,9 @@ namespace jk
 
 
 	private:
-		Alpha_Blend* _Alpha = nullptr;
+		class Alpha_Blend* _Alpha = nullptr;
+		class AudioSource* as = nullptr;
 		bool _Fadecheck = false;
 		float _time = 0.f;
-		AudioSource* as = nullptr;
 	};
 }

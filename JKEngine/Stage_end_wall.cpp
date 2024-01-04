@@ -1,4 +1,6 @@
 #include "Stage_end_wall.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

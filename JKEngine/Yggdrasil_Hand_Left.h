@@ -1,11 +1,6 @@
 #pragma once
-#include "Include_Common.h"
-#include "Yggdrasil_FistSlam_Effect.h"
-#include "Yggdrasil_Sweeping.h"
-#include "HitBox_YggDrasil.h"
-#include "Yggdrasil_HandDead_Effect.h"
+#include "Yggdrasil.h"
 
-#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -71,16 +66,16 @@ namespace jk
 
 
 	private:
-		Yggdrasil_FistSlam_Effect* FistSlam_Smoke = nullptr;
-		Yggdrasil_Sweeping* _Sweeping = nullptr;
-		HitBox_YggDrasil* Hit_Box = nullptr;
-		Yggdrasil_HandDead_Effect* _Dead_Effect = nullptr;
+		class Yggdrasil_FistSlam_Effect* FistSlam_Smoke = nullptr;
+		class Yggdrasil_Sweeping* _Sweeping = nullptr;
+		class HitBox_YggDrasil* Hit_Box = nullptr;
+		class Yggdrasil_HandDead_Effect* _Dead_Effect = nullptr;
 
 	private:
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 _pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 _Savepointpos = Vector3(0.f, 0.f, 0.f);			// º»Ã¼ÁÂÇ¥

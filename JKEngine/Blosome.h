@@ -1,6 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-
+#include "jkGameObject.h"
 
 namespace jk
 {
@@ -20,10 +19,10 @@ namespace jk
 		virtual void OnCollisionExit(Collider2D* other) override;
 
 	private:
-		Animator* at = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
-		int	mDir = 1;
+		int	_Dir = 1;
 
 	};
 }

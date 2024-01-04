@@ -1,4 +1,6 @@
 #include "MiniBoss_Bullet_Archer.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

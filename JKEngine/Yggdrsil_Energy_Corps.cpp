@@ -1,5 +1,7 @@
 #include "Yggdrsil_Energy_Corps.h"
-
+#include "Include_Common.h"
+#include "Yggdrasil_EnergyBullet_Effect.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

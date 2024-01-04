@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "Door.h"
 
 namespace jk
@@ -48,13 +47,13 @@ namespace jk
 
 	private:
 		Stage2Door_State _State = {};
-		Animator* at = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class Collider2D* _collider = nullptr;
+		class Alpha_Blend* _Alpha = nullptr;
 		Transform* tr = nullptr;
 		int _Stage2_Door = 0;
 		bool _Set_Door_Allow = false;
 
-		Alpha_Blend* _Alpha = nullptr;
 		float _time = 0.f;
 		bool _Fadecheck = false;
 		std::wstring Path = {};

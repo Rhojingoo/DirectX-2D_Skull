@@ -3,7 +3,9 @@
 #include "jkAudioClip.h"
 #include "jkAudioSource.h"
 #include "jkFontWrapper.h"
-
+#include "Include_Common.h"
+#include "Alpha_Blend.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

@@ -1,8 +1,12 @@
 #pragma once
-#include "Include_Common.h"
-#include "Mini_Boss.h"
+#include "Knight_male.h"
+#include "Archer.h"
+#include "Mage.h"
+#include "Cleric.h"
 #include <iostream>
 #include <random>
+//#include "Include_Common.h"
+//#include "Mini_Boss.h"
 
 namespace jk
 {
@@ -159,3 +163,4 @@ namespace jk
         int _Randomcheck = 0;
     };
 }
+

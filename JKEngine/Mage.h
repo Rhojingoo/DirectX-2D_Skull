@@ -1,23 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-#include "Ultimate_OnFire_Ready.h"
-#include "Ultimate_OnFire.h"
-#include "Ultimate_On_Fire_Projectile.h"
-#include "Ultimate_OnFire_Fire.h"
-#include "Mage_FireBall.h"
-#include "Mage_BoomSign.h"
-#include "Mage_FireBoom.h"
-#include "Mage_Landing_Ready.h"
-#include "Mage_Phoenix_Landing.h"
-#include "Mage_Phoenix_Landing_Land.h"
-#include "HitBox_Mage.h"
-
-#include "Monster_Hp_Bar.h"
-#include "HP_Frame.h"
-#include "MiniBoss_State_UI.h"
-#include "AdventureUI.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Mini_Boss.h"
 
 namespace jk
 {
@@ -118,13 +100,13 @@ namespace jk
 		int	_bulletcheck = 0;
 
 	private:
-		AdventureUI* _MbossFace = nullptr;
-		MiniBoss_State_UI* _State_UI = nullptr;
-		Monster_Hp_Bar* Monster_UIHp = nullptr;
-		Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
-		HP_Frame* Hpbar_Frame = nullptr;
-		Monster_Hp_Bar* Monster_Hp = nullptr;
-		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		class AdventureUI* _MbossFace = nullptr;
+		class MiniBoss_State_UI* _State_UI = nullptr;
+		class Monster_Hp_Bar* Monster_UIHp = nullptr;
+		class Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
+		class HP_Frame* Hpbar_Frame = nullptr;
+		class Monster_Hp_Bar* Monster_Hp = nullptr;
+		class Monster_Hp_Bar* Monster_DamegeHp = nullptr;
 		float _Damage = 0.f;
 		bool _Hp_control = false;
 		float _Hp_time = 0.f;
@@ -137,22 +119,21 @@ namespace jk
 
 
 	private:
-		HitBox_Mage* Hit_Box = nullptr;
-
-		Monster_Hit_Effect* _Hit_Effect = nullptr;
-		Hit_Sword* _Hit_Sword = nullptr;
-		Hit_Critical_Middle* _Critical_Middle = nullptr;
-		Hit_Critical_High* _Critical_High = nullptr;
-		Monster_Death_Effect* _Death_Effect = nullptr;
+		class HitBox_Mage* Hit_Box = nullptr;
+		class Monster_Hit_Effect* _Hit_Effect = nullptr;
+		class Hit_Sword* _Hit_Sword = nullptr;
+		class Hit_Critical_Middle* _Critical_Middle = nullptr;
+		class Hit_Critical_High* _Critical_High = nullptr;
+		class Monster_Death_Effect* _Death_Effect = nullptr;
 		bool _followskul = false;
 		bool	_attack_Col = false;
 		
 	private:
 		Mage_State _state;
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
@@ -160,23 +141,23 @@ namespace jk
 
 
 	private:
-		Public_Ultimate_Aura* Ultimate_Aura = nullptr;
-		Public_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
-		Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
-		Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
+		class Public_Ultimate_Aura* Ultimate_Aura = nullptr;
+		class Public_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
+		class Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
+		class Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
 
 	private:
-		Ultimate_OnFire_Ready* _OnFire_Ready[3] = {};
-		Ultimate_OnFire* _OnFire[3] = {};
-		Ultimate_On_Fire_Projectile* On_Fire_Projectile[9] = {};
-		Ultimate_OnFire_Fire* OnFire_Fire[9] = {};
-		Mage_FireBall* FireBall[6] = {};
-		Mage_BoomSign* BoomSign[3] = {};
-		Mage_FireBoom* FireBoom[3] = {};
-		Mage_Landing_Ready* Landing_Ready = nullptr;
-		Mage_Phoenix_Landing* Phoenix_Landing = nullptr;
-		Mage_Phoenix_Landing_Land* Phoenix_Landing_Land = nullptr;
-
+		class Ultimate_OnFire_Ready* _OnFire_Ready[3] = {};
+		class Ultimate_OnFire* _OnFire[3] = {};
+		class Ultimate_On_Fire_Projectile* On_Fire_Projectile[9] = {};
+		class Ultimate_OnFire_Fire* OnFire_Fire[9] = {};
+		class Mage_FireBall* FireBall[6] = {};
+		class Mage_BoomSign* BoomSign[3] = {};
+		class Mage_FireBoom* FireBoom[3] = {};
+		class Mage_Landing_Ready* Landing_Ready = nullptr;
+		class Mage_Phoenix_Landing* Phoenix_Landing = nullptr;
+		class Mage_Phoenix_Landing_Land* Phoenix_Landing_Land = nullptr;
+		
 
 	private:
 		int		mDir = 1;
@@ -272,8 +253,6 @@ namespace jk
 
 		void Fly_or_Landing();
 		int randomcount(int a, int b);
-
-
 
 	};
 }

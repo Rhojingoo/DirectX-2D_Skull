@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "Attack_HitBox.h"
 
 
@@ -26,7 +25,7 @@ namespace jk
 		int GetSound() { return hitsound; }
 
 	private:
-		Collider2D* _collider = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 
 		Vector2 _Size = Vector2(150.f, 150.f);

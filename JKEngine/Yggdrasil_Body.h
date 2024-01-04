@@ -1,6 +1,6 @@
 #pragma once
-#include "Include_Common.h"
-#include "Yggdrasil_BoddyDead_Effect.h"
+#include "Yggdrasil.h"
+
 
 namespace jk
 {
@@ -68,9 +68,9 @@ namespace jk
 
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 _pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 _BodyRotation = Vector3(0.f, 0.f, 0.f);
@@ -78,7 +78,7 @@ namespace jk
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:
-		Yggdrasil_BoddyDead_Effect* _Dead_Effect = nullptr;
+		class Yggdrasil_BoddyDead_Effect* _Dead_Effect = nullptr;
 
 	private:
 		Vector3 mCenterpos = Vector3(0.f, 0.f, 0.f);

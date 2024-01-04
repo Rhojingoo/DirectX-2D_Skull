@@ -1,5 +1,5 @@
 #pragma once
-#include "Include_Common.h"
+#include "jkGameObject.h"
 
 
 namespace jk
@@ -22,7 +22,7 @@ namespace jk
 
 
 	private:
-		Collider2D* _collider = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);	
 		

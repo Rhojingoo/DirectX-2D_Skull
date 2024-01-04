@@ -1,4 +1,6 @@
 #include "HP_Frame.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

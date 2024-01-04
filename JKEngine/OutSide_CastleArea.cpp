@@ -1,5 +1,10 @@
 #include "OutSide_CastleArea.h"
 #include "LoadScenes.h"
+#include "Include_Common.h"
+#include "jkPlayScene.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
+
 
 namespace jk
 {

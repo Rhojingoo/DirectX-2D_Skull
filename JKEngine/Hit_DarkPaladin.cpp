@@ -1,4 +1,5 @@
 #include "Hit_DarkPaladin.h"
+#include "Include_Common.h"
 
 namespace jk
 {

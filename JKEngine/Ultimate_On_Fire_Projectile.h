@@ -1,8 +1,6 @@
 #pragma once
-#include "Include_Common.h"
 #include "Bullet.h"
-#include "Ultimate_On_Fire_Projectile_Hit.h"
-#include "..\Engine_SOURCE\jkAudioSource.h"
+
 
 namespace jk
 {
@@ -30,14 +28,14 @@ namespace jk
 		bool _missile = false;
 
 	private:
-		Ultimate_On_Fire_Projectile_Hit* Bullet_Effect;
+		class Ultimate_On_Fire_Projectile_Hit* Bullet_Effect;
 
 
 	private:
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		float _Lifetime = 0.f;
 		int _dir = 1;

@@ -1,4 +1,6 @@
 #include "Mushroom_Spring.h"
+#include "Include_Common.h"
+#include "Spring_Effect.h"
 
 namespace jk
 {

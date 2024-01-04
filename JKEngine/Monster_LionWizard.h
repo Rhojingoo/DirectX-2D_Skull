@@ -1,19 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-#include "Monster_StoneWizard_Teleport.h"
-#include "Monster_StoneWizard_Icicle_Effect.h"
-#include "Monster_Stone_wizard_IcicleBullet.h"
-
-#include "LionWizard_Bullet_Create.h"
-#include "LionWizard_Bullet.h"
-
-#include "Monster_Hp_Bar.h"
-#include "HP_Frame.h"
-
-#include "Monster_Hit_Effect.h"
-#include "Monster_Death_Effect.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Monster.h"
 
 
 namespace jk
@@ -64,41 +50,40 @@ namespace jk
 
 	private:
 		LionWizard_State _state;
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Transform* Effect_tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 	private:
-		HitBox_Monster* Hit_Box = nullptr;
-		Monster_Hit_Effect* _Hit_Effect = nullptr;
-		Monster_Death_Effect* _Death_Effect = nullptr;
+		class HitBox_Monster* Hit_Box = nullptr;
+		class Monster_Hit_Effect* _Hit_Effect = nullptr;
+		class Monster_Death_Effect* _Death_Effect = nullptr;
 		GameObject* Hit_Particle = nullptr;
 
 	private:
 
-		HP_Frame* Hpbar_Frame = nullptr;
-		Monster_Hp_Bar* Monster_Hp = nullptr;
-		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		class HP_Frame* Hpbar_Frame = nullptr;
+		class Monster_Hp_Bar* Monster_Hp = nullptr;
+		class Monster_Hp_Bar* Monster_DamegeHp = nullptr;
 		float _Damage = 0.f;
 		bool _Hp_control = false;
 		float _Hp_time = 0.f;
 
 
 	private:
-		Monster_StoneWizard_Teleport* Wizard_Teleport = nullptr;
-		Monster_StoneWizard_Icicle_Effect* Icicle_Effect = nullptr;
-		Monster_Stone_wizard_IcicleBullet* Icicle_Bullet = nullptr;
-
-		LionWizard_Bullet_Create* BulletCreate = nullptr;
-		LionWizard_Bullet* LionBullet[3] = {};
+		class Monster_StoneWizard_Teleport* Wizard_Teleport = nullptr;
+		class Monster_StoneWizard_Icicle_Effect* Icicle_Effect = nullptr;
+		class Monster_Stone_wizard_IcicleBullet* Icicle_Bullet = nullptr;
+		class LionWizard_Bullet_Create* BulletCreate = nullptr;
+		class LionWizard_Bullet* LionBullet[3] = {};
 
 	private:
-		int		mDir = 1;
+		int		_Dir = 1;
 		int		_AttackDir = 1;
 
 		float	_distance = 0.f;			// 플레이어와의 거리 체크

@@ -1,8 +1,6 @@
 #pragma once
-#include "Include_Common.h"
 #include "Attack_HitBox.h"
 
-#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -28,26 +26,26 @@ namespace jk
 		void SetSize(Vector2 set) { _Size = set; }
 		void SetCenter(Vector3 set) { _Center = set; }
 
-		bool Geteffect() { return attack; }
-		bool Geteffect_Mid() { return attack_Cri_Mid; }
-		bool Geteffect_Hight() { return attack_Cri_High; }
+		bool Geteffect() { return _attack; }
+		bool Geteffect_Mid() { return _attack_Cri_Mid; }
+		bool Geteffect_Hight() { return _attack_Cri_High; }
 
-		void Seteffect(bool set) { attack = set; }
-		void Seteffect_Mid(bool set) {  attack_Cri_Mid = set; }
-		void Seteffect_Hight(bool set) {  attack_Cri_High = set; }
+		void Seteffect(bool set) { _attack = set; }
+		void Seteffect_Mid(bool set) {  _attack_Cri_Mid = set; }
+		void Seteffect_Hight(bool set) {  _attack_Cri_High = set; }
 
 	private:
-		Collider2D* _collider = nullptr;
+		class Collider2D* _collider = nullptr;
+		class AudioSource* as = nullptr;
 		Transform* tr = nullptr;
-		AudioSource* as = nullptr;
-		Vector3 pos = Vector3(0.f, 0.f, 0.f);
+		Vector3 _Pos = Vector3(0.f, 0.f, 0.f);
 		int		_HitType = 0;
 		float	_Damage = 0.f;
 		Vector2 _Size = Vector2(150.f, 150.f);
 		Vector3 _Center = Vector3(0.f, 0.f, -250.f);
 
-		bool attack = false;
-		bool attack_Cri_Mid = false;
-		bool attack_Cri_High = false;
+		bool _attack = false;
+		bool _attack_Cri_Mid = false;
+		bool _attack_Cri_High = false;
 	};
 }

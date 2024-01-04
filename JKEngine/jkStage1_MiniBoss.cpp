@@ -5,6 +5,14 @@
 #include "jkPaintShader.h"
 #include <iostream>
 #include <random>
+#include "Include_Common.h"
+#include "jkPlayScene.h"
+#include "Monster_ObjPool.h"
+#include "MiniBoss_ObjCreate.h"
+#include "Stge_Manager.h"
+#include "Mini_Boss.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
 
 namespace jk
 {

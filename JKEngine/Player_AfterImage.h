@@ -1,12 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-#include "..\Engine_SOURCE\jkGameObject.h"
-//#include "jkGameObject.h"
-//#include "..\Engine_SOURCE\jkMeshRenderer.h"
-//#include "..\Engine_SOURCE\jkMaterial.h"
-//#include "..\Engine_SOURCE\jkStructuredBuffer.h"
-//#include "..\Engine_SOURCE\jkParticleShader.h"
-
+#include "jkGameObject.h"
 
 
 namespace jk
@@ -51,7 +44,7 @@ namespace jk
 		bool _AfterImage = false;
 
 	private:
-		Player* mOwner = nullptr;
+		class Player* mOwner = nullptr;
 		Transform* PlayerTr = nullptr;
 		AfterImage_State _State = {};
 		int _Dir = 1;
@@ -71,8 +64,8 @@ namespace jk
 	private://첨에 오브젝트로 진행하려할때의 변수들
 		std::shared_ptr<Material> mMaterial;
 		class Animator* mAnimator;
-		Animator* at = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		static bool _FadeCheck;
 	};

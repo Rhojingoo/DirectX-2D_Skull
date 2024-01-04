@@ -1,6 +1,5 @@
-
 #pragma once
-#include "Include_Common.h"
+#include "jkGameObject.h"
 
 namespace jk
 {
@@ -27,8 +26,8 @@ namespace jk
 		void ChoicetHp_bar(int set) { _SellectHp_bar = set; }
 	private:
 		Yggdrasil_HP_State _State = {};
-		Animator* at = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		bool _SetAnimation = false;
 		int _SellectHp_bar = 0;

@@ -1,4 +1,5 @@
 #include "Ultimate_OnFire_Fire.h"
+#include "Include_Common.h"
 
 namespace jk
 {

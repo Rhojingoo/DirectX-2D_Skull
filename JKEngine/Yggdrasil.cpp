@@ -3,6 +3,14 @@
 #include <random>
 #include "jkParticleSystem.h"
 #include "jkFont.h"
+#include "Include_Common.h"
+#include "Player_Hp_Bar.h"
+#include "Yggdrasil_Dead_Impact1.h"
+#include "Yggdrasil_Dead_Impact2.h"
+#include "Yggdrasil_HpFrame.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

@@ -1,9 +1,5 @@
 #pragma once
-#include "Include_Common.h"
 #include "Bullet.h"
-#include "Yggdrasil_basicBullet_Effect.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
 
 
 namespace jk
@@ -29,14 +25,14 @@ namespace jk
 
 		bool _effect_switch = true;
 	private:
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
-		int	mDir = 1;
+		int	_Dir = 1;
 
-		Yggdrasil_basicBullet_Effect* BulletEffect = nullptr;
+		class Yggdrasil_basicBullet_Effect* BulletEffect = nullptr;
 
 	private:
 		static Vector3 _pos;

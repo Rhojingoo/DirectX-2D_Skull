@@ -1,5 +1,5 @@
 #pragma once
-#include "Include_Common.h"
+#include "Effect.h"
 
 namespace jk
 {

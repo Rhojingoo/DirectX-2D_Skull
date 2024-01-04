@@ -1,25 +1,10 @@
 #pragma once
-#include "Include_Common.h"
-#include "Skul_head.h"
-#include "Player_Hit_Effect.h"
-#include "HitBox_Monster.h"
-#include "Monster_Hammer.h"
+#include "Player.h"
 #include "Monster_GoldHammer.h"
-#include "Hit_Sword.h"
-#include "Hit_Critical_Middle.h"
-#include "Hit_Critical_High.h"
-#include "Hit_DarkPaladin.h"
-#include "Slash_Effect.h"
-#include "Player_AfterImage.h"
-#include "HitBox_Player.h"
-#include "Mushroom_Spring.h"
-#include "Sofa_Spring.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Monster_Hammer.h"
 
 namespace jk
 {
-	class Animator;
 	class Skul_Basic : public Player
 	{
 	public:
@@ -84,12 +69,12 @@ namespace jk
 
 
 	private:
-		Player_Hit_Effect* _Hit_Effect = nullptr;
-		Hit_Sword* _Hit_Sword = nullptr;
-		Hit_Critical_Middle* _Critical_Middle = nullptr;
-		Hit_Critical_High* _Critical_High = nullptr;
-		Slash_Effect* _Knight_Slash = nullptr;
-		Hit_DarkPaladin* _DarkKnight = nullptr;
+		class Player_Hit_Effect* _Hit_Effect = nullptr;
+		class Hit_Sword* _Hit_Sword = nullptr;
+		class Hit_Critical_Middle* _Critical_Middle = nullptr;
+		class Hit_Critical_High* _Critical_High = nullptr;
+		class Slash_Effect* _Knight_Slash = nullptr;
+		class Hit_DarkPaladin* _DarkKnight = nullptr;
 		GameObject* Hit_Particle = nullptr;
 
 
@@ -100,20 +85,20 @@ namespace jk
 	private:
 
 		Skul_Basic_State _State;
-		Skul_head* Skul_Head;
 		GameObject* Attack_Skul;
-		HitBox_Player* Hit_Box;
-		AudioSource* as = nullptr;
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Skul_head* Skul_Head;
+		class HitBox_Player* Hit_Box;
+		class AudioSource* as = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;	
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector3 _skulheadtemp = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);
 	
 
-		Player_AfterImage* AfterImage_TEST[10] = {};
+		class Player_AfterImage* AfterImage_TEST[10] = {};
 		float timeSinceLastImage = 0.0f;  // 마지막 잔상 생성 후 경과 시간
 		const float delayBetweenImages = 0.03f;
 		

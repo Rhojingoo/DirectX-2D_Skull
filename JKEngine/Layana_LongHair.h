@@ -1,32 +1,5 @@
 #pragma once
-#include "Include_Common.h"
 #include "Layana_Sisters.h"
-#include "Homing_Pierce_LongHair.h"
-#include "Homing_Impact.h"
-#include "Rising_Pierce.h"
-#include "Dimension_Pierce.h"
-#include "Dimension_Pierce_BossEffect.h"
-#include "Dimension_Pierce_BulletEffect.h"
-#include "TwinMeteor_Boss.h"
-#include "TwinMeteor_Effect.h"
-#include "HitBox_Layana.h"
-#include "Intro_Somke.h"
-#include "Intro_Aura_Layana.h"
-#include "Layana_Dash_Smoke.h"
-#include "Layana_Meteor_GR_Smoke.h"
-#include "RisingPierce_Ready.h"
-#include "Golden_Meteor_Bullet.h"
-#include "Golden_Meteor_Effect_End.h"
-#include "Awaken_Ready_ElectricA.h"
-#include "Awaken_Ready_ElectricB.h"
-#include "Awaken_SmokeEffect.h"
-#include "Awaken_Electric.h"
-
-
-#include "Monster_Hp_Bar.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
-
 
 namespace jk
 {
@@ -233,52 +206,52 @@ namespace jk
 		static Layana_LongHair_State _LongHair_state;
 
 	private:
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
-		HitBox_Layana* Hit_Box = nullptr;
+		class HitBox_Layana* Hit_Box = nullptr;
 		bool _HitBox_Attack_On = false;
 		int _HitBox_Dir = 1;
 		
 	private:
-		Homing_Pierce_LongHair* Homing[3];
-		Homing_Impact* Homing_EF[3] = {};
+		class Homing_Pierce_LongHair* Homing[3];
+		class Homing_Impact* Homing_EF[3] = {};
 		Transform* bullet_tr1 = nullptr;
 		Transform* bullet_tr2 = nullptr;
 		Transform* bullet_tr3 = nullptr;
-		RigidBody* bullet_rb1 = nullptr;
-		RigidBody* bullet_rb2 = nullptr;
-		RigidBody* bullet_rb3 = nullptr;
+		class RigidBody* bullet_rb1 = nullptr;
+		class RigidBody* bullet_rb2 = nullptr;
+		class RigidBody* bullet_rb3 = nullptr;
 
 
 	private:
-		Rising_Pierce* Rising[19] = {};
+		class Rising_Pierce* Rising[19] = {};
 		Transform* Risingbullet_tr[19] = {};
-		RigidBody* risingbullet_rb[19] = {};
+		class RigidBody* risingbullet_rb[19] = {};
 
 
 	private:
-		Dimension_Pierce_BossEffect* Dimension_boss_effect = nullptr;
-		Dimension_Pierce* Dimension_Bullet = nullptr;
-		Dimension_Pierce_BulletEffect* Dimension_BulletEffect = nullptr;
-		TwinMeteor_Effect* TwinMeteor_Impact = nullptr;
-		TwinMeteor_Boss* TwinMeteor_BossEffect = nullptr;
-		Intro_Somke* Intro_SM = nullptr;
-		Intro_Aura_Layana* Intro_Ar = nullptr;
-		Layana_Dash_Smoke* Dash_SM = nullptr;
-		Layana_Meteor_GR_Smoke* MeteorGR_SM = nullptr;
-		RisingPierce_Ready* RisingPierce_EF = nullptr;
-		Golden_Meteor_Bullet* Golden_Meteor_Bl = nullptr;
-		Golden_Meteor_Effect_End* Golden_Meteor_Ef = nullptr;
+		class Dimension_Pierce_BossEffect* Dimension_boss_effect = nullptr;
+		class Dimension_Pierce* Dimension_Bullet = nullptr;
+		class Dimension_Pierce_BulletEffect* Dimension_BulletEffect = nullptr;
+		class TwinMeteor_Effect* TwinMeteor_Impact = nullptr;
+		class TwinMeteor_Boss* TwinMeteor_BossEffect = nullptr;
+		class Intro_Somke* Intro_SM = nullptr;
+		class Intro_Aura_Layana* Intro_Ar = nullptr;
+		class Layana_Dash_Smoke* Dash_SM = nullptr;
+		class Layana_Meteor_GR_Smoke* MeteorGR_SM = nullptr;
+		class RisingPierce_Ready* RisingPierce_EF = nullptr;
+		class Golden_Meteor_Bullet* Golden_Meteor_Bl = nullptr;
+		class Golden_Meteor_Effect_End* Golden_Meteor_Ef = nullptr;
 
 
 	private://체인지용 이펙트모음
-		Awaken_Ready_ElectricA* Awaken_Rd_ElectricA = nullptr;
-		Awaken_Ready_ElectricB* Awaken_Rd_ElectricB = nullptr;
-		Awaken_SmokeEffect* Awaken_Smoke_EF = nullptr;
-		Awaken_Electric* Awaken_Elec_EF = nullptr;
+		class Awaken_Ready_ElectricA* Awaken_Rd_ElectricA = nullptr;
+		class Awaken_Ready_ElectricB* Awaken_Rd_ElectricB = nullptr;
+		class Awaken_SmokeEffect* Awaken_Smoke_EF = nullptr;
+		class Awaken_Electric* Awaken_Elec_EF = nullptr;
 		bool _ChangeFadein = false;
 		bool _Fadecheck = false;
 		float _Fadetime = 0.f;
@@ -315,12 +288,12 @@ namespace jk
 		static	Monster_Hp_Bar* Longhair_Hp_Damage;
 
 	public:
-		static Monster_Hit_Effect* _Hit_Effect;
-		static Player_Hit_Effect* _Hit_Effect_player;
-		static Hit_Sword* _Hit_Sword;
-		static Hit_Critical_Middle* _Critical_Middle;
-		static Hit_Critical_High* _Critical_High;
-		static Monster_Death_Effect* _Death_Effect;
+		static class Monster_Hit_Effect* _Hit_Effect;
+		static class Player_Hit_Effect* _Hit_Effect_player;
+		static class Hit_Sword* _Hit_Sword;
+		static class Hit_Critical_Middle* _Critical_Middle;
+		static class Hit_Critical_High* _Critical_High;
+		static class Monster_Death_Effect* _Death_Effect;
 
 
 

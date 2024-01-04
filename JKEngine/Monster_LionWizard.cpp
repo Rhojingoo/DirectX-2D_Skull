@@ -2,6 +2,17 @@
 #include <iostream>
 #include <random>
 #include "Particle_DamageEffect.h"
+#include "Include_Common.h"
+#include "Monster_StoneWizard_Teleport.h"
+#include "Monster_StoneWizard_Icicle_Effect.h"
+#include "Monster_Stone_wizard_IcicleBullet.h"
+#include "LionWizard_Bullet_Create.h"
+#include "LionWizard_Bullet.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -270,7 +281,7 @@ namespace jk
 			if (!(_state == LionWizard_State::Attack || _state == LionWizard_State::Attack_Ready))
 			{
 				_state = LionWizard_State::Hit;
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"Lion_wizardHit", false);
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
@@ -295,7 +306,7 @@ namespace jk
 					mr->SetDirection(1);
 					_hit_particle = true;
 				}
-				if (mDir == -1)
+				if (_Dir == -1)
 				{
 					at->PlayAnimation(L"Lion_wizardHitR", false);
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
@@ -332,7 +343,7 @@ namespace jk
 
 			if ((_state == LionWizard_State::Attack || _state == LionWizard_State::Attack_Ready))
 			{
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 					tr->SetPosition(pos);
@@ -356,7 +367,7 @@ namespace jk
 					mr->SetDirection(1);
 					_hit_particle = true;
 				}
-				if (mDir == -1)
+				if (_Dir == -1)
 				{	
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					tr->SetPosition(pos);
@@ -404,7 +415,7 @@ namespace jk
 
 					as->Play("Hit_Blunt_Small");
 					_state = LionWizard_State::Hit;
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						at->PlayAnimation(L"Lion_wizardHit", false);
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
@@ -422,7 +433,7 @@ namespace jk
 						_Hit_Effect->SetDirection(1);
 						_Hit_Effect->SetState(eState::Active);
 					}
-					if (mDir == -1)
+					if (_Dir == -1)
 					{
 						at->PlayAnimation(L"Lion_wizardHitR", false);
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
@@ -462,7 +473,7 @@ namespace jk
 
 					as->Play("Hit_Blunt_Small");
 					_state = LionWizard_State::Hit;
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 						Monster_Hp->_HitOn = true;
@@ -479,7 +490,7 @@ namespace jk
 						_Hit_Effect->SetDirection(1);
 						_Hit_Effect->SetState(eState::Active);
 					}
-					if (mDir == -1)
+					if (_Dir == -1)
 					{
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 						Monster_Hp->_HitOn = true;
@@ -619,7 +630,7 @@ namespace jk
 			if ((_distance < 300 && _distance > -300))
 			{
 				_state = LionWizard_State::Attack_Ready;
-				if (mDir == 1)
+				if (_Dir == 1)
 					at->PlayAnimation(L"Lion_wizardAttack_Ready", true);
 				else
 					at->PlayAnimation(L"Lion_wizardAttack_ReadyR", true);
@@ -631,7 +642,7 @@ namespace jk
 				if (_teleportCheck == false)
 				{
 					_state = LionWizard_State::Teleport_In;
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						_teleportCheck = true;
 						at->PlayAnimation(L"Lion_wizardTeleport_In", true);
@@ -651,7 +662,7 @@ namespace jk
 	{
 		if (_attack_ready == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 			{
 				at->PlayAnimation(L"Lion_wizardAttack_Waiting", false);
 				_AttackDir = 1;
@@ -708,7 +719,7 @@ namespace jk
 		if (_attacktime >= 1)
 		{
 			_state = LionWizard_State::Idle;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"Lion_wizardIdle", true);
 			else
 				at->PlayAnimation(L"Lion_wizardIdleR", true);
@@ -734,7 +745,7 @@ namespace jk
 			_attacktime += static_cast<float>(Time::DeltaTime());
 			if (_attacktime > 0.15f)
 			{
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					tr->SetPositionXY(Vector2(_playerpos.x - 100, _playerpos.y + 15));
 					_state = LionWizard_State::Teleport_Out;
@@ -758,7 +769,7 @@ namespace jk
 	{
 		if (_teleportCheck == false)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 			{
 				Wizard_Teleport->_effect_On = true;
 				Wizard_Teleport->Telleport_choive = Monster_StoneWizard_Teleport::Stone_wizard_Telleport::Teleport_Out_Right;
@@ -833,7 +844,7 @@ namespace jk
 	{
 		{
 			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
-			if (mDir == 1)
+			if (_Dir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 15, pos.y, pos.z - 1));
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 15, pos.y, pos.z - 1));
@@ -847,9 +858,9 @@ namespace jk
 	{
 		_distance = _playerpos.x - pos.x;
 		if (_distance >= 0.f)
-			mDir = 1;
+			_Dir = 1;
 		else
-			mDir = -1;
+			_Dir = -1;
 	}
 
 
@@ -857,7 +868,7 @@ namespace jk
 	{
 		if (_teleportCheck == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 			{
 				Wizard_Teleport->_effect_On = true;
 				Wizard_Teleport->Telleport_choive = Monster_StoneWizard_Teleport::Stone_wizard_Telleport::Teleport_In_Right;
@@ -877,7 +888,7 @@ namespace jk
 	{
 		if (_teleportCheck == true)
 		{
-			if (mDir == 1)
+			if (_Dir == 1)
 			{
 				_state = LionWizard_State::Idle;
 				at->PlayAnimation(L"Lion_wizardIdle", true);
@@ -940,7 +951,7 @@ namespace jk
 			}
 		}
 
-		if (mDir == 1)
+		if (_Dir == 1)
 		{
 			_state = LionWizard_State::Idle;
 			at->PlayAnimation(L"Lion_wizardIdle", true);		

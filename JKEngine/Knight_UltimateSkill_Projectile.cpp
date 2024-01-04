@@ -1,4 +1,6 @@
 #include "Knight_UltimateSkill_Projectile.h"
+#include "Include_Common.h"
+#include "MiniBoss_Bullet_Knight.h"
 
 namespace jk
 {

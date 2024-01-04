@@ -1,4 +1,41 @@
 #include "Layana_Dark_Awaken.h"
+#include "Include_Common.h"
+#include "Layana_Awken_Rush_Sign.h"
+#include "Latana_Awake_Rush_Bullet.h"
+#include "Layana_Awaken_Meteoreffect.h"
+#include "Layana_Awaken_Ground_Sign.h"
+#include "Layana_Awaken_Ground_Thunder_Sign.h"
+#include "Layana_Awake_Ground_DashSmoke.h"
+#include "Layana_Ground_Thunder.h"
+#include "Layana_Awaken_GoldenMeteor_Effect.h"
+#include "Layana_Awaken_Meteor_Electric.h"
+#include "Layana_Awaken_Meteor_Projectile.h"
+#include "Layana_Dark_HomingPierce.h"
+#include "Layana_Dark_HomingPierce_Effect.h"
+#include "Layana_Awaken_Homing_Attac.h"
+#include "Dark_DimensionPierce_Attack.h"
+#include "Dark_DimensionPierce_Sign.h"
+#include "Dark_DimensionPierce_BulletEffect.h"
+#include "HitBox_Layana.h"
+#include "Layana_AfterImage.h"
+#include "Awaken_End_Electric.h"
+#include "Awaken_End_SmokeA.h"
+#include "Awaken_End_SmokeB2.h"
+#include "Death_IntroEffect.h"
+#include "Death_Effect_First.h"
+#include "Death_Effect_Second.h"
+#include "Death_Elect_First.h"
+#include "Death_Elect_Second.h"
+#include "Monster_Hp_Bar.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
+#include "Monster_Hit_Effect.h"
+#include "Player_Hit_Effect.h"
+#include "Hit_Sword.h"
+#include "Hit_Critical_Middle.h"
+#include "Hit_Critical_High.h"
+#include "Monster_Death_Effect.h"
+
 
 
 namespace jk
@@ -581,6 +618,7 @@ namespace jk
 			_Hit_Effect->SetState(eState::Paused);
 		}
 
+
 		{
 			_Hit_Effect_player = new Player_Hit_Effect;
 			_Hit_Effect_player->Initialize();
@@ -598,6 +636,7 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
 			_Hit_Sword->SetState(eState::Paused);
 		}
+
 
 		{
 			_Critical_Middle = new Hit_Critical_Middle;

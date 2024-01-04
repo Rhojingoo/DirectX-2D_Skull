@@ -1,5 +1,6 @@
 #pragma once
-#include "Include_Common.h"
+#include "jkGameObject.h"
+
 
 namespace jk
 {
@@ -17,9 +18,9 @@ namespace jk
 		void SetSwitch(bool set) { _SwitchOn = set; }	
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 
 		int	mDir = 1;

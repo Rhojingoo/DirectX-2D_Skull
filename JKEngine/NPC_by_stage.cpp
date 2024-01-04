@@ -1,4 +1,5 @@
 #include "NPC_by_stage.h"
+#include "Include_Common.h"
 
 namespace jk
 {

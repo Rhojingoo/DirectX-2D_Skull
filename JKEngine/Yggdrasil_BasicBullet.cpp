@@ -1,4 +1,9 @@
 #include "Yggdrasil_BasicBullet.h"
+#include "Include_Common.h"
+#include "Yggdrasil_basicBullet_Effect.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
+
 
 namespace jk
 {

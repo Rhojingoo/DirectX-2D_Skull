@@ -1,5 +1,9 @@
 #include "jkStage2_Boss.h"
 #include "jkFont.h"
+#include "Include_Common.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
+
 
 namespace jk
 {

@@ -1,4 +1,5 @@
 #include "MiniBoss_State_UI.h"
+#include "Include_Common.h"
 
 namespace jk
 {

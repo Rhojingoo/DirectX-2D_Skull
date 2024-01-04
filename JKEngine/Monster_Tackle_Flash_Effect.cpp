@@ -1,4 +1,5 @@
 #include "Monster_Tackle_Flash_Effect.h"
+#include "Include_Common.h"
 
 
 namespace jk

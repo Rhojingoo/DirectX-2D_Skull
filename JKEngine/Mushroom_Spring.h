@@ -1,7 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-#include "Spring_Effect.h"
-
+#include "jkGameObject.h"
 
 namespace jk
 {
@@ -26,10 +24,10 @@ namespace jk
 
 
 	private:
-		Spring_Effect* smokeef = nullptr;
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Spring_Effect* smokeef = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 _pos = Vector3();
 		float _attackatime = 0.f;

@@ -48,37 +48,9 @@ namespace jk
             }       
         }
 
-        //enum class StageState 
-        //{
-        //    SpawningMonsters,
-        //    InCombat,
-        //    WaitingForNextGroup,
-        //    StageFinished
-        //};
-        //void update() 
-        //{
-        //    switch (currentState) 
-        //    {
-        //        case StageState::SpawningMonsters:
-        //            spawnNextGroup();
-        //            currentState = StageState::InCombat;
-        //            break;
-        //        case StageState::InCombat:
-        //            // 몬스터와의 전투 로직...
-        //            break;
-        //        case StageState::WaitingForNextGroup:
-        //            currentState = StageState::SpawningMonsters;
-        //            break;
-        //        case StageState::StageFinished:
-        //            // 스테이지 완료 로직...
-        //            break;
-        //    }
-        //}
-
-
+    
     private:
         std::queue<std::vector<Monster*>> monsterGroups;
         Monster_ObjPool* _OBJ_POOL = nullptr;
-       // StageState currentState = StageState::SpawningMonsters;
     };
 }

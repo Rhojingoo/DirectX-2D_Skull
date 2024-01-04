@@ -1,4 +1,5 @@
 #include "Monster_GroundAttack_Sign.h"
+#include "Include_Common.h"
 
 namespace jk
 {

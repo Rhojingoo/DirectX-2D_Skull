@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 
 namespace jk
 {
@@ -42,10 +41,6 @@ namespace jk
 		}
 
 		static void textoff() { _Texton = false, _Texton2= false; }
-
-
-	public:
-
 
 
 	private:

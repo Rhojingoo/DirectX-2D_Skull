@@ -1,6 +1,7 @@
 #include "Mini_Boss.h"
 #include <iostream>
 #include <random>
+#include "Include_Common.h"
 
 namespace jk
 {

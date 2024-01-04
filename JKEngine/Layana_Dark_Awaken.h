@@ -1,40 +1,5 @@
 #pragma once
-#include "Include_Common.h"
 #include "Layana_Sisters.h"
-#include "Layana_Awken_Rush_Sign.h"
-#include "Latana_Awake_Rush_Bullet.h"
-#include "Layana_Awaken_Meteoreffect.h"
-#include "Layana_Awaken_Ground_Sign.h"
-#include "Layana_Awaken_Ground_Thunder_Sign.h"
-#include "Layana_Awake_Ground_DashSmoke.h"
-#include "Layana_Ground_Thunder.h"
-#include "Layana_Awaken_GoldenMeteor_Effect.h"
-#include "Layana_Awaken_Meteor_Electric.h"
-#include "Layana_Awaken_Meteor_Projectile.h"
-#include "Layana_Dark_HomingPierce.h"
-#include "Layana_Dark_HomingPierce_Effect.h"
-#include "Layana_Awaken_Homing_Attac.h"
-#include "Dark_DimensionPierce_Attack.h"
-#include "Dark_DimensionPierce_Sign.h"
-#include "Dark_DimensionPierce_BulletEffect.h"
-#include "HitBox_Layana.h"
-#include "Layana_AfterImage.h"
-
-#include "Awaken_End_Electric.h"
-#include "Awaken_End_SmokeA.h"
-#include "Awaken_End_SmokeB2.h"
-
-
-#include "Death_IntroEffect.h"
-#include "Death_Effect_First.h"
-#include "Death_Effect_Second.h"
-#include "Death_Elect_First.h"
-#include "Death_Elect_Second.h"
-
-#include "Monster_Hp_Bar.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
-
 
 
 namespace jk
@@ -242,11 +207,11 @@ namespace jk
 		static int		_Dir;
 
 	private:
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
-		HitBox_Layana* Hit_Box = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
+		class HitBox_Layana* Hit_Box = nullptr;
 		bool _HitBox_Attack_On = false;
 		int _HitBox_Dir = 1;
 		Transform* tr = nullptr;
@@ -260,60 +225,54 @@ namespace jk
 		static	Monster_Hp_Bar* Dark_Awaken_DamegeHP;
 
 	public:
-		static Monster_Hit_Effect* _Hit_Effect;
-		static Player_Hit_Effect* _Hit_Effect_player;
-		static Hit_Sword* _Hit_Sword;
-		static Hit_Critical_Middle* _Critical_Middle;
-		static Hit_Critical_High* _Critical_High;
-		static Monster_Death_Effect* _Death_Effect;
+		static class Monster_Hit_Effect* _Hit_Effect;
+		static class Player_Hit_Effect* _Hit_Effect_player;
+		static class Hit_Sword* _Hit_Sword;
+		static class Hit_Critical_Middle* _Critical_Middle;
+		static class Hit_Critical_High* _Critical_High;
+		static class Monster_Death_Effect* _Death_Effect;
 
 	private:
-		Layana_Awken_Rush_Sign* Rush_Sign[7] = {};
-		Latana_Awake_Rush_Bullet* Rush_Bullet[7] = {};
-		Layana_Awaken_Meteoreffect* _Meteoreffect = nullptr;
-		Layana_Awaken_Ground_Sign* _Ground_Sign = nullptr;
-		Latana_Awake_Rush_Bullet* _Ground_Attack = nullptr;	
-		Layana_Awaken_Ground_Thunder_Sign* _Ground_Thunder_Sign[7] = {};
-		Layana_Awake_Ground_DashSmoke* _Ground_DashSmoke = nullptr;
-		Layana_Ground_Thunder* _Ground_Thunder[7] = {};
-		Layana_Awaken_GoldenMeteor_Effect* _GoldenMeteor_Effect = nullptr;
-		Layana_Awaken_Meteor_Electric* _Meteor_Electric = nullptr;
-		Layana_Awaken_Meteor_Projectile* _Meteor_Projectile[2] = {};
-		Layana_Dark_HomingPierce* _Dark_HomingPierce[5] = {};
-		Layana_Dark_HomingPierce_Effect* _HomingPierce_Effect[5] = {};
-		Layana_Awaken_Homing_Attac* _HomingPierce_Attack[5] = {};
-		Dark_DimensionPierce_Attack* _DimensionPierce_Bosseffect = nullptr;
-		Dark_DimensionPierce_Sign* _DimensionPierce_Sign = nullptr;
-		Dark_DimensionPierce_BulletEffect* _DimensionPierce_BulletEffect = nullptr;
+		class Layana_Awken_Rush_Sign* Rush_Sign[7] = {};
+		class Latana_Awake_Rush_Bullet* Rush_Bullet[7] = {};
+		class Layana_Awaken_Meteoreffect* _Meteoreffect = nullptr;
+		class Layana_Awaken_Ground_Sign* _Ground_Sign = nullptr;
+		class Latana_Awake_Rush_Bullet* _Ground_Attack = nullptr;
+		class Layana_Awaken_Ground_Thunder_Sign* _Ground_Thunder_Sign[7] = {};
+		class Layana_Awake_Ground_DashSmoke* _Ground_DashSmoke = nullptr;
+		class Layana_Ground_Thunder* _Ground_Thunder[7] = {};
+		class Layana_Awaken_GoldenMeteor_Effect* _GoldenMeteor_Effect = nullptr;
+		class Layana_Awaken_Meteor_Electric* _Meteor_Electric = nullptr;
+		class Layana_Awaken_Meteor_Projectile* _Meteor_Projectile[2] = {};
+		class Layana_Dark_HomingPierce* _Dark_HomingPierce[5] = {};
+		class Layana_Dark_HomingPierce_Effect* _HomingPierce_Effect[5] = {};
+		class Layana_Awaken_Homing_Attac* _HomingPierce_Attack[5] = {};
+		class Dark_DimensionPierce_Attack* _DimensionPierce_Bosseffect = nullptr;
+		class Dark_DimensionPierce_Sign* _DimensionPierce_Sign = nullptr;
+		class Dark_DimensionPierce_BulletEffect* _DimensionPierce_BulletEffect = nullptr;
 
 
 	private:
-		Death_IntroEffect*	_Death_Intro = nullptr;
-		Death_Effect_First* _Death_EF_First = nullptr;
-		Death_Effect_Second* _Death_EF_Second = nullptr;
-		Death_Elect_First* _Death_Elect1 = nullptr;
-		Death_Elect_Second* _Death_Elect2 = nullptr;
+		class Death_IntroEffect*	_Death_Intro = nullptr;
+		class Death_Effect_First* _Death_EF_First = nullptr;
+		class Death_Effect_Second* _Death_EF_Second = nullptr;
+		class Death_Elect_First* _Death_Elect1 = nullptr;
+		class Death_Elect_Second* _Death_Elect2 = nullptr;
 		bool Death_effect_connection = false;
 
 	
 
 	private://AfterImage
-			Layana_AfterImage* AfterImage[10] = {};
-			float timeSinceLastImage = 0.0f;  // 마지막 잔상 생성 후 경과 시간
-			const float delayBetweenImages = 0.03f;
-			float  afterimageangle = 0.f;
+		class Layana_AfterImage* AfterImage[10] = {};
+		float timeSinceLastImage = 0.0f;  // 마지막 잔상 생성 후 경과 시간
+		const float delayBetweenImages = 0.03f;
+		float  afterimageangle = 0.f;
 
 	private:
-		Awaken_End_Electric* Awaken_End_ElecEF = nullptr;
-		Awaken_End_SmokeA* Awaken_End_SmA_EF = nullptr;
-		Awaken_End_SmokeB2* Awaken_End_SmB_EF = nullptr;
+		class Awaken_End_Electric* Awaken_End_ElecEF = nullptr;
+		class Awaken_End_SmokeA* Awaken_End_SmA_EF = nullptr;
+		class Awaken_End_SmokeB2* Awaken_End_SmB_EF = nullptr;
 
-private:
-		//Dimension_Pierce_BossEffect* Dimension_boss_effect = nullptr;
-		//Dimension_Pierce* Dimension_Bullet = nullptr;
-		//Dimension_Pierce_BulletEffect* Dimension_BulletEffect = nullptr;
-		//TwinMeteor_Effect* TwinMeteor_Impact = nullptr;
-		//TwinMeteor_Boss* TwinMeteor_BossEffect = nullptr;
 
 	private:
 		Vector3	_Playerdistance = Vector3(0.f, 0.f, 0.f);

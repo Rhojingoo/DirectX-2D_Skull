@@ -1,4 +1,5 @@
 #include "Yggdrasil_EnergyBullet_Effect.h"
+#include "Include_Common.h"
 
 namespace jk
 {

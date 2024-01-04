@@ -1,5 +1,5 @@
 #pragma once
-#include "Include_Common.h"
+#include "Effect.h"
 
 namespace jk
 {
@@ -20,8 +20,8 @@ namespace jk
 		void complete();
 
 	private:
-		Animator* at = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 	};
 }

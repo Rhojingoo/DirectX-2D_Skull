@@ -1,5 +1,6 @@
 #include "Knight_Energe_Blast.h"
-
+#include "Include_Common.h"
+#include "MiniBoss_Bullet_Knight.h"
 
 namespace jk
 {

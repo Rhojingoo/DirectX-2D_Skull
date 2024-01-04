@@ -1,5 +1,7 @@
 #include "Ultimate_On_Fire_Projectile.h"
-
+#include "Include_Common.h"
+#include "Ultimate_On_Fire_Projectile_Hit.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

@@ -1,4 +1,5 @@
 #include "Monster_Ent_GroundAttack.h"
+#include "Include_Common.h"
 
 namespace jk
 {

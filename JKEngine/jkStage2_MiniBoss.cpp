@@ -1,4 +1,11 @@
 #include "jkStage2_MiniBoss.h"
+#include "Include_Common.h"
+#include "Stage2_Door.h"
+#include "Monster_ObjPool.h"
+#include "MiniBoss_ObjCreate.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
+
 
 jk::Stage2_MiniBoss::Stage2_MiniBoss()
 {

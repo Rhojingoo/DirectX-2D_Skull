@@ -1,10 +1,34 @@
 #include "Archer.h"
-
+#include "Include_Common.h"
+#include "Archer_Arrow.h"
+#include "Archer_Arrow_Upward_Sign.h"
+#include "Archer_Upward_Impact_Bullet.h"
+#include "Archer_Arrow_Bye.h"
+#include "Archer_Trap.h"
+#include "Public_Ultimate_Aura.h"
+#include "Public_Ultimate_AuraSmoke.h"
+#include "Public_UltimateSkill_Effect_Complete.h"
+#include "Public_UltimateSkill_Effect_Fail.h"
+#include "Archer_Utimate_Sign.h"
+#include "HitBox_Archer.h"
+#include "Player_Hp_Bar.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "MiniBoss_State_UI.h"
+#include "AdventureUI.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Monster_Hit_Effect.h"
+#include "Player_Hit_Effect.h"
+#include "Hit_Sword.h"
+#include "Hit_Critical_Middle.h"
+#include "Hit_Critical_High.h"
 
 
 namespace jk
 {
-	int Archer::mDir = 1;
+	int Archer::_Dir = 1;
 	bool Archer::_switch = false;
 	
 	Archer::Archer()
@@ -485,7 +509,7 @@ namespace jk
 		}
 
 		_collider->SetSize(Vector2(0.5f, 0.5f));
-		if(mDir ==1)
+		if(_Dir ==1)
 			_collider->SetCenter(Vector2(0.0f, -25.f));
 		else
 			_collider->SetCenter(Vector2(0.0f, -25.f));
@@ -533,7 +557,7 @@ namespace jk
 				Monster_Hp->SetState(eState::Active);
 
 
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"ArcherHit", true);
 					if (_hit < 2)
@@ -545,7 +569,7 @@ namespace jk
 					_Critical_High->SetDirection(-1);
 
 				}
-				if (mDir == -1)
+				if (_Dir == -1)
 				{
 					at->PlayAnimation(L"ArcherHitR", true);
 					if (_hit < 2)
@@ -581,7 +605,7 @@ namespace jk
 				Monster_Hp->SetState(eState::Active);
 
 
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					_Hit_Effect->SetDirection(-1);
 					_Critical_Middle->SetDirection(-1);
@@ -623,7 +647,7 @@ namespace jk
 				as->Play("AdventurerHunter_Voice_Dead");
 				Hit_Box->SetState(eState::Paused);
 				_Hit_Effect->_effect_animation = true;
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"ArcherDie", false);
 					_Hit_Effect->SetDirection(-1);
@@ -661,7 +685,7 @@ namespace jk
 					_Critical_Middle->_effect_animation = true;
 					_Critical_High->_effect_animation = true;
 					_state = Archer_State::Hit;
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						at->PlayAnimation(L"ArcherHit", true);
 						if (_hit < 2)
@@ -686,7 +710,7 @@ namespace jk
 						_Critical_High->SetDirection(-1);
 
 					}
-					if (mDir == -1)
+					if (_Dir == -1)
 					{
 						at->PlayAnimation(L"ArcherHitR", true);
 						if (_hit < 2)
@@ -733,7 +757,7 @@ namespace jk
 					_Critical_Middle->_effect_animation = true;
 					_Critical_High->_effect_animation = true;
 
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						_rigidbody->SetVelocity(Vector2(-20.f, 0.f));						
 						Monster_Hp->_HitOn = true;
@@ -795,7 +819,7 @@ namespace jk
 					Hit_Box->SetState(eState::Paused);
 					as->Play("AdventurerHunter_Voice_Dead");
 					_Hit_Effect->_effect_animation = true;
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						at->PlayAnimation(L"ArcherDie", false);
 						_Hit_Effect->SetDirection(-1);
@@ -884,7 +908,7 @@ namespace jk
 			{
 				if (_Numberof_BackDash <= 2)
 				{
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						if (ground_distance_L < -100)
 						{
@@ -953,7 +977,7 @@ namespace jk
 					else
 					{
 						_choicecombo = random(0, 3);		
-						_choicecombo = 0;
+						//_choicecombo = 0;
 						_attack = true;
 						choicecombo();
 					}
@@ -983,7 +1007,7 @@ namespace jk
 			}
 
 			_state = Archer_State::Idle;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"ArcherIdle", true);
 			else
 				at->PlayAnimation(L"ArcherIdleR", true);
@@ -1018,14 +1042,14 @@ namespace jk
 		RigidBody* EffectRG = _archer_arrow->GetComponent<RigidBody>();
 		if (_attack_a == false)
 		{			
-			if (mDir == 1)
+			if (_Dir == 1)
 			{
 				_attackDir = 1;
 				_archer_arrow->_bullet_animation= true;
 				_archer_arrow->SetDirection(1);
 				EffectTR->SetPosition(pos.x + 20.f, pos.y - 30.f, pos.z - 1.f);
 			}
-			if (mDir == -1)
+			if (_Dir == -1)
 			{
 				_attackDir = -1;
 				_archer_arrow->_bullet_animation = true;
@@ -1083,9 +1107,9 @@ namespace jk
 			Upward_Sign->_effect_On = true;
 			Upward_Sign->SetState(eState::Active);
 
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"ArcherIdle", true);
-			if(mDir ==-1)
+			if(_Dir ==-1)
 				at->PlayAnimation(L"ArchereIdleR", false);
 
 			_attack_b_sign = true;
@@ -1152,7 +1176,7 @@ namespace jk
 			{
 				Transform* bullet_tr = Ultimate_Aura->GetComponent<Transform>();				
 				Ultimate_Aura->_effect_animation = true;
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					Ultimate_Aura->SetDirection(1);
 					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 30.f, pos.z - 1.f));
@@ -1168,7 +1192,7 @@ namespace jk
 			{
 				Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 55.f, pos.z - 1.1f));
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					Ultimate_AuraSmoke->SetDirection(1);
 					bullet_tr->SetPosition(Vector3(pos.x, pos.y - 50.f, pos.z - 1.f));
@@ -1193,7 +1217,7 @@ namespace jk
 				// 이펙트 설정시 9번 hit가 된다면 깨지는 이미지로 넘어간뒤 그로기 상태로넘겨줘야한다.
 				Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25.f, pos.z - 1.1f));
-				if (mDir == 1)
+				if (_Dir == 1)
 					UltimateSkill_Effect_Fail->SetDirection(1);
 				else
 					UltimateSkill_Effect_Fail->SetDirection(-1);
@@ -1208,13 +1232,13 @@ namespace jk
 				// 이펙트 설정시 5초가 10번이상의 타격이 없다면 석세스로 넘어간뒤 활공격을 날려야한다.
 				Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y - 25.f, pos.z - 1.1f));
-				if (mDir == 1)
+				if (_Dir == 1)
 					UltimateSkill_Effect_Complete->SetDirection(1);
 				else
 					UltimateSkill_Effect_Complete->SetDirection(-1);
 				UltimateSkill_Effect_Complete->SetState(eState::Active);
 
-				if (mDir == 1)
+				if (_Dir == 1)
 					at->PlayAnimation(L"ArcherUltimate", false);
 				else
 					at->PlayAnimation(L"ArcherUltimateR", false);
@@ -1296,7 +1320,7 @@ namespace jk
 	void Archer::Finishing_Move_Fail()
 	{
 		_state = Archer_State::Groggy;
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"ArcherGroggy", true);
 		else
 			at->PlayAnimation(L"ArcherGroggyR", true);
@@ -1369,7 +1393,7 @@ namespace jk
 				_time = 0.f;
 			}
 			_state = Archer_State::Idle;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"ArcherIdle", true);
 			else
 				at->PlayAnimation(L"ArcherIdleR", true);
@@ -1382,7 +1406,7 @@ namespace jk
 
 		as->Play("AdventurerHunter_Attack_Ready");
 		_state = Archer_State::Attack_A_Ready;
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"ArcherAttack_A", false);
 		else
 			at->PlayAnimation(L"ArcherAttack_AR", false);
@@ -1391,9 +1415,9 @@ namespace jk
 	{
 		as->Play("AdventurerHunter_Attack_Ready");
 		_state = Archer_State::Attack_B_Ready;
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"ArcherAttack_B", false);
-		if (mDir == -1)
+		if (_Dir == -1)
 			at->PlayAnimation(L"ArcherAttack_BR", false);
 	}
 	void Archer::pushaway()
@@ -1405,7 +1429,7 @@ namespace jk
 			as->Play("AdventurerHunter_Voice_Middle");
 		_PushAway = true;
 		_state = Archer_State::Attack_C;
-		if (mDir == 1)
+		if (_Dir == 1)
 		{
 			at->PlayAnimation(L"ArcherAttack_C", true);
 			_attackDir = 1;
@@ -1422,7 +1446,7 @@ namespace jk
 		as->Play("AdventurerHunter_Voice_Casting"); 
 		as->Play("Adventurer_Charge_Start");			
 		
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"ArcherUltimate_Ready", false);
 		else
 			at->PlayAnimation(L"ArcherUltimate_ReadyR", false);
@@ -1430,7 +1454,7 @@ namespace jk
 	}
 	void Archer::dash_combo()
 	{
-		if (mDir == 1)
+		if (_Dir == 1)
 		{
 			at->PlayAnimation(L"ArcherBackStep", false);
 			_rigidbody->SetVelocity(Vector2(-200.f, 200.f));
@@ -1458,7 +1482,7 @@ namespace jk
 	void Archer::CompleteArcherIntro()
 	{
 		_state = Archer_State::Idle;
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"ArcherIdle", true);
 		else
 			at->PlayAnimation(L"ArcherIdleR", true);
@@ -1473,9 +1497,9 @@ namespace jk
 		_playerpos = Player::GetPlayer_Pos();
 		_distance = _playerpos.x - pos.x;
 		if (_distance >= 0.f)
-			mDir = 1;
+			_Dir = 1;
 		else
-			mDir = -1;
+			_Dir = -1;
 	}
 	void Archer::Particle_Control()
 	{
@@ -1554,21 +1578,21 @@ namespace jk
 	{ 
 		{
 			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
-			if (mDir == 1)
+			if (_Dir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
 		}
 		{
 			Transform* _Hit_Effect_TR = _Critical_Middle->GetComponent<Transform>();
-			if (mDir == 1)
+			if (_Dir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
 		}
 		{
 			Transform* _Hit_Effect_TR = _Critical_High->GetComponent<Transform>();
-			if (mDir == 1)
+			if (_Dir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x + 20, pos.y - 30, pos.z - 1));
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(pos.x - 20, pos.y - 30, pos.z - 1));
@@ -1584,7 +1608,7 @@ namespace jk
 
 	void Archer::complete_hit()
 	{
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"ArcherIdle", true);
 		else
 			at->PlayAnimation(L"ArcherIdleR", true);

@@ -1,27 +1,7 @@
 #pragma once
-#include "Include_Common.h"
-#include "Knight_male_EnergeBall.h"
-#include "Knight_EnergyBall_StartEffect.h"
-#include "Knight_Energe_Blast.h"
-#include "Kngiht_EnergyBall_Impact.h"
-#include "Public_Ultimate_Aura.h"
-#include "Public_Ultimate_AuraSmoke.h"
-#include "Public_UltimateSkill_Effect_Complete.h"
-#include "Public_UltimateSkill_Effect_Fail.h"
-#include "Knight_UltimateSkill_Projectile.h"
-
-
-#include "Monster_Hp_Bar.h"
-#include "HP_Frame.h"
-#include "MiniBoss_State_UI.h"
-#include "AdventureUI.h"
-
-
-#include "HitBox_Knight.h"
-#include "Monster_Hit_Effect.h"
-#include "Monster_Death_Effect.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Mini_Boss.h"
+#include "Monster_GoldHammer.h"
+#include "Monster_Hammer.h"
 
 namespace jk
 {
@@ -40,8 +20,6 @@ namespace jk
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
-
-		//static GameObject SetoWner(GameObject* ac) { oWner = ac; }
 
 		enum class Knight_State
 		{
@@ -107,13 +85,13 @@ namespace jk
 		int	_bulletcheck = 0;
 
 	private:
-		AdventureUI* _MbossFace = nullptr;
-		MiniBoss_State_UI* _State_UI = nullptr;
-		Monster_Hp_Bar* Monster_UIHp = nullptr;
-		Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
-		HP_Frame* Hpbar_Frame = nullptr;
-		Monster_Hp_Bar* Monster_Hp = nullptr;
-		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		class AdventureUI* _MbossFace = nullptr;
+		class MiniBoss_State_UI* _State_UI = nullptr;
+		class Monster_Hp_Bar* Monster_UIHp = nullptr;
+		class Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
+		class HP_Frame* Hpbar_Frame = nullptr;
+		class Monster_Hp_Bar* Monster_Hp = nullptr;
+		class Monster_Hp_Bar* Monster_DamegeHp = nullptr;
 		float _Damage = 0.f;
 		bool _Hp_control = false;
 		float _Hp_time = 0.f;
@@ -128,23 +106,23 @@ namespace jk
 
 	private:
 		Knight_State _state;
-		Animator* at = nullptr;
-		AudioSource* as = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class AudioSource* as = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);	
 		Vector2 _velocity = Vector2(0.f, 0.f);
 
 
 	private:
-		HitBox_Knight* Hit_Box = nullptr;
-		Monster_Hit_Effect* _Hit_Effect = nullptr;
-		Player_Hit_Effect* _Hit_Effect_player = nullptr;
-		Hit_Sword* _Hit_Sword = nullptr;
-		Hit_Critical_Middle* _Critical_Middle = nullptr;
-		Hit_Critical_High* _Critical_High = nullptr;
-		Monster_Death_Effect* _Death_Effect = nullptr;
+		class HitBox_Knight* Hit_Box = nullptr;
+		class Monster_Hit_Effect* _Hit_Effect = nullptr;
+		class Player_Hit_Effect* _Hit_Effect_player = nullptr;
+		class Hit_Sword* _Hit_Sword = nullptr;
+		class Hit_Critical_Middle* _Critical_Middle = nullptr;
+		class Hit_Critical_High* _Critical_High = nullptr;
+		class Monster_Death_Effect* _Death_Effect = nullptr;
 		Monster_Hammer::Monster_Hammer_State hammer_st = {};
 		Monster_GoldHammer::Monster_GoldHammer_State Goldham_st = {};
 
@@ -178,14 +156,14 @@ namespace jk
 		//int _fallcheck = 0;
 
 	private:
-		Knight_male_EnergeBall* Bullet = nullptr;
-		Knight_EnergyBall_StartEffect* Bullet_effect = nullptr;
-		Knight_Energe_Blast* Energe_Blast = nullptr;
-		Public_Ultimate_Aura* Ultimate_Aura = nullptr;
-		Public_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
-		Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
-		Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
-		Knight_UltimateSkill_Projectile* UltimateSkill_Projectile = nullptr;
+		class Knight_male_EnergeBall* Bullet = nullptr;
+		class Knight_EnergyBall_StartEffect* Bullet_effect = nullptr;
+		class Knight_Energe_Blast* Energe_Blast = nullptr;
+		class Public_Ultimate_Aura* Ultimate_Aura = nullptr;
+		class Public_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
+		class Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
+		class Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
+		class Knight_UltimateSkill_Projectile* UltimateSkill_Projectile = nullptr;
 
 	private:
 		void SetDirection();

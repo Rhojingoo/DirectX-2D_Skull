@@ -1,5 +1,5 @@
 #pragma once
-#include "Include_Common.h"
+#include "jkGameObject.h"
 
 namespace jk
 {
@@ -27,7 +27,7 @@ namespace jk
 		bool _HitOn = false;
 
 	private:
-		MeshRenderer* meshrenderer;
+		class MeshRenderer* meshrenderer;
 		Transform* tr;
 		float	_MaxHp = 0.f;
 		float	_CurrentHp = 0.f;

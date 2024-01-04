@@ -1,4 +1,6 @@
 #include "Yggdrasil_FistSlam_Effect.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

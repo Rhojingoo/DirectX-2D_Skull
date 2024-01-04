@@ -1,5 +1,6 @@
 #include "Yggdrasil_Chin.h"
-
+#include "Include_Common.h"
+#include "Yggdrasil_ChinDead_Effect.h"
 
 namespace jk
 {

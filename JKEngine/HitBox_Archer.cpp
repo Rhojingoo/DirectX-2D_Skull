@@ -1,4 +1,6 @@
 #include "HitBox_Archer.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

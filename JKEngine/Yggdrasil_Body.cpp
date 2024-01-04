@@ -1,5 +1,6 @@
 #include "Yggdrasil_Body.h"
-
+#include "Include_Common.h"
+#include "Yggdrasil_BoddyDead_Effect.h"
 
 namespace jk
 {

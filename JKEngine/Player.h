@@ -1,7 +1,8 @@
 #pragma once
-#include "Include_Common.h"
+#include "..\\Engine_SOURCE\\jkGameObject.h"
 #include "Face_UI.h"
 #include "Player_Hp_Bar.h"
+
 
 namespace jk
 {	
@@ -79,13 +80,13 @@ namespace jk
 
 
 	private:
-		Face_UI* Basic_Face = nullptr;
-		Face_UI* Wolf_Face = nullptr;
-		Face_UI* Spear_Face = nullptr;
+		class Face_UI* Basic_Face = nullptr;
+		class Face_UI* Wolf_Face = nullptr;
+		class Face_UI* Spear_Face = nullptr;
 
 	public:
-		static	Player_Hp_Bar* Player_Hp;
-		static	Player_Hp_Bar* Player_Hp_Damage;
+		static Player_Hp_Bar* Player_Hp;
+		static Player_Hp_Bar* Player_Hp_Damage;
 		static float _Max_Player_Hp;
 		static float _Curren_Player_Hp;
 	};

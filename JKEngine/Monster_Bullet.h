@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "Bullet.h"
 
 namespace jk
@@ -19,10 +18,10 @@ namespace jk
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 		
-		void Setsound(int set) { bulletsound = set; }
-		int Getsound() {return bulletsound;}
+		void Setsound(int set) { _bulletsound = set; }
+		int Getsound() {return _bulletsound;}
 
-		int bulletsound = 0;
+		int _bulletsound = 0;
 
 	};
 }

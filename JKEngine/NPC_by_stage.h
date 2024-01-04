@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "Item_OBJ.h"
 
 namespace jk
@@ -34,10 +33,10 @@ namespace jk
 		void Stage2_Npc();
 
 	private:
-		NPC_State _state;
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		NPC_State _state = {};
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* _tr = nullptr;
 		int _Stage_Npc = 0;
 		bool _Set_Npc_Allow = false;

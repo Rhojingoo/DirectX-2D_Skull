@@ -1,5 +1,20 @@
 #include "Cleric.h"
-
+#include "Include_Common.h"
+#include "Cleric_Attack_Sign.h"
+#include "Cleric_HolyThunder.h"
+#include "Cleric_Veteran_Sanctuary.h"
+#include "Cleric_Ultimate_SkillEffect.h"
+#include "Public_Heal_Effect.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "MiniBoss_State_UI.h"
+#include "AdventureUI.h"
+#include "Monster_Hit_Effect.h"
+#include "Player_Hit_Effect.h"
+#include "Hit_Sword.h"
+#include "Hit_Critical_Middle.h"
+#include "Hit_Critical_High.h"
+#include "Monster_Death_Effect.h"
 
 namespace jk
 {

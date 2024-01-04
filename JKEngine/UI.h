@@ -1,6 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-
+#include "jkGameObject.h"
 
 namespace jk
 {

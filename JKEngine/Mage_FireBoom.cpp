@@ -1,5 +1,6 @@
 #include "Mage_FireBoom.h"
-
+#include "Include_Common.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

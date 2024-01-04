@@ -1,15 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-#include "Cleric_Attack_Sign.h"
-#include "Cleric_HolyThunder.h"
-#include "Cleric_Veteran_Sanctuary.h"
-#include "Cleric_Ultimate_SkillEffect.h"
-#include "Public_Heal_Effect.h"
-
-#include "Monster_Hp_Bar.h"
-#include "HP_Frame.h"
-#include "MiniBoss_State_UI.h"
-#include "AdventureUI.h"
+#include "Mini_Boss.h"
 
 namespace jk
 {
@@ -89,13 +79,13 @@ namespace jk
 
 
 	private:
-		AdventureUI* _MbossFace = nullptr;
-		MiniBoss_State_UI* _State_UI = nullptr;
-		Monster_Hp_Bar* Monster_UIHp = nullptr;
-		Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
-		HP_Frame* Hpbar_Frame = nullptr;
-		Monster_Hp_Bar* Monster_Hp = nullptr;
-		Monster_Hp_Bar* Monster_DamegeHp = nullptr;
+		class AdventureUI* _MbossFace = nullptr;
+		class MiniBoss_State_UI* _State_UI = nullptr;
+		class Monster_Hp_Bar* Monster_UIHp = nullptr;
+		class Monster_Hp_Bar* Monster_UIDamegeHp = nullptr;
+		class HP_Frame* Hpbar_Frame = nullptr;
+		class Monster_Hp_Bar* Monster_Hp = nullptr;
+		class Monster_Hp_Bar* Monster_DamegeHp = nullptr;
 		float _Damage = 0.f;
 		bool _Hp_control = false;
 		float _Hp_time = 0.f;
@@ -108,34 +98,34 @@ namespace jk
 
 
 	private:
-		HitBox_Monster* Hit_Box = nullptr;
-		Monster_Hit_Effect* _Hit_Effect = nullptr;
-		Hit_Sword* _Hit_Sword = nullptr;
-		Hit_Critical_Middle* _Critical_Middle = nullptr;
-		Hit_Critical_High* _Critical_High = nullptr;
-		Monster_Death_Effect* _Death_Effect = nullptr;
+		class HitBox_Monster* Hit_Box = nullptr;
+		class Monster_Hit_Effect* _Hit_Effect = nullptr;
+		class Hit_Sword* _Hit_Sword = nullptr;
+		class Hit_Critical_Middle* _Critical_Middle = nullptr;
+		class Hit_Critical_High* _Critical_High = nullptr;
+		class Monster_Death_Effect* _Death_Effect = nullptr;
 		bool _followskul = false;
 
 
 	private:
-		Cleric_Attack_Sign* _Attack_Sign = nullptr;
-		Cleric_HolyThunder* _GraceOfLeonia_Attack_A = nullptr;//  공격이미지 변경해야함
-		Cleric_Veteran_Sanctuary* _Veteran_Sanctuary_AtaackB = nullptr; 
+		class Cleric_Attack_Sign* _Attack_Sign = nullptr;
+		class Cleric_HolyThunder* _GraceOfLeonia_Attack_A = nullptr;//  공격이미지 변경해야함
+		class Cleric_Veteran_Sanctuary* _Veteran_Sanctuary_AtaackB = nullptr; 
 
 	private:
-		Public_Ultimate_Aura* Ultimate_Aura = nullptr;
-		Public_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
-		Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
-		Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
-		Cleric_Ultimate_SkillEffect* Ultimate_SkillEffect = nullptr;			//필살기 사람모형 이펙트
-		Public_Heal_Effect* Ultimate_Heal_Effect = nullptr;						//필살기 힐 이펙트
+		class Public_Ultimate_Aura* Ultimate_Aura = nullptr;
+		class Public_Ultimate_AuraSmoke* Ultimate_AuraSmoke = nullptr;
+		class Public_UltimateSkill_Effect_Complete* UltimateSkill_Effect_Complete = nullptr;
+		class Public_UltimateSkill_Effect_Fail* UltimateSkill_Effect_Fail = nullptr;
+		class Cleric_Ultimate_SkillEffect* Ultimate_SkillEffect = nullptr;			//필살기 사람모형 이펙트
+		class Public_Heal_Effect* Ultimate_Heal_Effect = nullptr;						//필살기 힐 이펙트
 
 
 	private:
 		Cleric_State _state;
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		Vector3 pos = Vector3(0.f, 0.f, 0.f);
 		Vector2 _velocity = Vector2(0.f, 0.f);

@@ -1,5 +1,14 @@
 #include "Monster_GoldHammer.h"
 #include "Particle_DamageEffect.h"
+#include "Include_Common.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
+#include "Monster_Tackle_Flash_Effect.h"
+#include "Monster_Hammer_Effect.h"
+#include "Player_Hp_Bar.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -287,7 +296,7 @@ namespace jk
 			if (_attacktime > 0.7f)
 			{
 				_state = Monster_GoldHammer_State::Idle;
-				if (mDir == 1)
+				if (_Dir == 1)
 					at->PlayAnimation(L"GoldHammerIdle", true);
 				else
 					at->PlayAnimation(L"GoldHammerIdleR", true);
@@ -308,7 +317,7 @@ namespace jk
 			Particle_DamageEffect* mr = Hit_Particle->GetComponent<Particle_DamageEffect>();
 			if (!(_state == Monster_GoldHammer_State::Attack || _state == Monster_GoldHammer_State::Tackle))
 			{
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 					Monster_Hp->_HitOn = true;
@@ -331,7 +340,7 @@ namespace jk
 					mr->SetDirection(1);
 					_hit_particle = true;
 				}
-				if (mDir == -1)
+				if (_Dir == -1)
 				{
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					Monster_Hp->_HitOn = true;
@@ -375,7 +384,7 @@ namespace jk
 
 			if ((_state == Monster_GoldHammer_State::Attack || _state == Monster_GoldHammer_State::Tackle))
 			{
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 					Monster_Hp->_HitOn = true;
@@ -398,7 +407,7 @@ namespace jk
 					mr->SetDirection(1);
 					_hit_particle = true;
 				}
-				if (mDir == -1)
+				if (_Dir == -1)
 				{
 					_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 					Monster_Hp->_HitOn = true;
@@ -459,7 +468,7 @@ namespace jk
 						return;
 
 					as->Play("Hit_Blunt_Small");
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 						Monster_Hp->_HitOn = true;
@@ -482,7 +491,7 @@ namespace jk
 						mr->SetDirection(1);
 						_hit_particle = true;
 					}
-					if (mDir == -1)
+					if (_Dir == -1)
 					{
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 						Monster_Hp->_HitOn = true;
@@ -535,7 +544,7 @@ namespace jk
 						return;
 
 					as->Play("Hit_Blunt_Small");
-					if (mDir == 1)
+					if (_Dir == 1)
 					{
 						_rigidbody->SetVelocity(Vector2(-70.f, 0.f));
 						Monster_Hp->_HitOn = true;
@@ -558,7 +567,7 @@ namespace jk
 						mr->SetDirection(1);
 						_hit_particle = true;
 					}
-					if (mDir == -1)
+					if (_Dir == -1)
 					{
 						_rigidbody->SetVelocity(Vector2(70.f, 0.f));
 						Monster_Hp->_HitOn = true;
@@ -716,7 +725,7 @@ namespace jk
 					if ((_distance >= 90 || _distance <= -90))
 					{
 						_state = Monster_GoldHammer_State::Walk;
-						if (mDir == 1)
+						if (_Dir == 1)
 							at->PlayAnimation(L"GoldHammerWalk", true);
 						else
 							at->PlayAnimation(L"GoldHammerWalkR", true);
@@ -724,7 +733,7 @@ namespace jk
 					if (_distance > -80 && _distance < 80)
 					{
 						_state = Monster_GoldHammer_State::Attack_Ready;
-						if (mDir == 1)
+						if (_Dir == 1)
 						{
 							at->PlayAnimation(L"GoldHammerAttack_Ready", false);
 							_attackdir = 1;
@@ -742,7 +751,7 @@ namespace jk
 					if ((_distance >= 125 || _distance <= -125))
 					{
 						_state = Monster_GoldHammer_State::Walk;
-						if (mDir == 1)
+						if (_Dir == 1)
 							at->PlayAnimation(L"GoldHammerWalk", true);
 						else
 							at->PlayAnimation(L"GoldHammerWalkR", true);
@@ -750,7 +759,7 @@ namespace jk
 					else
 					{
 						_state = Monster_GoldHammer_State::Tackle_Ready;
-						if (mDir == 1)
+						if (_Dir == 1)
 						{
 							at->PlayAnimation(L"GoldHammerTackle_Ready", true);
 							_attackdir = 1;
@@ -863,7 +872,7 @@ namespace jk
 		if (_attacktime > 0.7f)
 		{
 			_state = Monster_GoldHammer_State::Idle;
-			if (mDir == 1)
+			if (_Dir == 1)
 				at->PlayAnimation(L"GoldHammerIdle", true);
 			else
 				at->PlayAnimation(L"GoldHammerIdleR", true);
@@ -886,7 +895,7 @@ namespace jk
 			if (_distance > -80 && _distance < 80)
 			{
 				_state = Monster_GoldHammer_State::Attack_Ready;
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"GoldHammerAttack_Ready", false);
 					_attackdir = 1;
@@ -903,7 +912,7 @@ namespace jk
 			if ((_distance >= 125 || _distance <= -125))
 			{
 				_state = Monster_GoldHammer_State::Tackle_Ready;
-				if (mDir == 1)
+				if (_Dir == 1)
 				{
 					at->PlayAnimation(L"GoldHammerTackle_Ready", true);
 					_attackdir = 1;
@@ -954,7 +963,7 @@ namespace jk
 
 		if (_attack_Col == false)
 			_state = Monster_GoldHammer_State::Idle;
-		if (mDir == 1)
+		if (_Dir == 1)
 			at->PlayAnimation(L"GoldHammerIdle", true);
 		else
 			at->PlayAnimation(L"GoldHammerIdleR", true);
@@ -971,9 +980,9 @@ namespace jk
 
 		_distance = _playerpos.x - _pos.x;
 		if (_distance >= 0.f)
-			mDir = 1;
+			_Dir = 1;
 		else
-			mDir = -1;
+			_Dir = -1;
 
 		_walkdistance = _first_place.x - _pos.x;
 		if (_walkdistance >= 0.f)
@@ -1039,7 +1048,7 @@ namespace jk
 	{
 		{
 			Transform* _Hit_Effect_TR = _Hit_Effect->GetComponent<Transform>();
-			if (mDir == 1)
+			if (_Dir == 1)
 				_Hit_Effect_TR->SetPosition(Vector3(_pos.x + 25, _pos.y, _pos.z - 1));
 			else
 				_Hit_Effect_TR->SetPosition(Vector3(_pos.x - 25, _pos.y, _pos.z - 1));

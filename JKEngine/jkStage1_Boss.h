@@ -1,10 +1,6 @@
 #pragma once
-#include "Include_Common.h"
 #include "jkPlayScene.h"
-#include "Stage1_BossDoor.h"
 
-#include "..\Engine_SOURCE\jkAudioSource.h"
-#include "Sound.h"
 
 namespace jk
 {
@@ -25,21 +21,20 @@ namespace jk
 		void CamareShooting();
 
 	private:
-		AudioSource* as = nullptr;
-		Sound* _BGSound = nullptr;
+		class AudioSource* as = nullptr;
+		class Sound* _BGSound = nullptr;
+		class Back_ground* Kingbg = nullptr;
+		class Camera* cameraComp = nullptr;
+		class Player* _player = nullptr;
+		class Yggdrasil* _Stage1_Boss = nullptr;
+		class Stage1_BossDoor* _Door = nullptr;
+
 
 	private:
-		Back_ground* Kingbg = nullptr;
-		Camera* cameraComp = nullptr;
-		Player* _player = nullptr;
-		Yggdrasil* _Stage1_Boss = nullptr;
-		Stage1_BossDoor* _Door = nullptr;
 		bool _first_groundturch = false;;
 		bool _Boss_Create = false;;
 		bool _Boss_Dead = false;;
 		bool _changecheck = false;
-
-
 		float _time = 0.f;
 		bool _Fadein = false;
 		bool _Fadeout = false;

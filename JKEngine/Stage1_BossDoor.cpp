@@ -1,4 +1,6 @@
 #include "Stage1_BossDoor.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

@@ -1,4 +1,6 @@
 #include "Cleric_HolyThunder.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

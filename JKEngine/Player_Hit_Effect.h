@@ -1,5 +1,4 @@
 #pragma once
-#include "Include_Common.h"
 #include "Effect.h"
 
 namespace jk
@@ -27,9 +26,9 @@ namespace jk
 		bool _endeffect = true;
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 		float _attackatime = 0.f;
 		int _dir = 1;

@@ -1,6 +1,13 @@
 #include "Monster_Hammer.h"
 #include "Particle_DamageEffect.h"
-
+#include "Include_Common.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
+#include "Monster_Tackle_Flash_Effect.h"
+#include "Monster_Hammer_Effect.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

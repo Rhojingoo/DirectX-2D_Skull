@@ -1,9 +1,6 @@
 #pragma once
-#include "Include_Common.h"
 #include "jkPlayScene.h"
 
-#include "..\Engine_SOURCE\jkAudioSource.h"
-#include "Sound.h"
 
 namespace jk
 {
@@ -24,11 +21,11 @@ namespace jk
 		void CamareShooting();
 
 	private:
-		Camera* cameraComp = nullptr;
-		Player* _player = nullptr;
-		Layana_Sisters* _Layana_Boss = nullptr;
-		AudioSource* as = nullptr;
-		Sound* _BGSound = nullptr;
+		class Camera* cameraComp = nullptr;
+		class Player* _player = nullptr;
+		class Layana_Sisters* _Layana_Boss = nullptr;
+		class AudioSource* as = nullptr;
+		class Sound* _BGSound = nullptr;
 
 	private:
 		float _time = 0.f;

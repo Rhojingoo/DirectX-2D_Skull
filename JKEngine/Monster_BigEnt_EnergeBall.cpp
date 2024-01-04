@@ -1,5 +1,6 @@
 #include "Monster_BigEnt_EnergeBall.h"
-
+#include "Include_Common.h"
+#include "BigEnt_EnergeBall_Bomb.h"
 
 namespace jk
 {

@@ -1,5 +1,6 @@
 #include "jkGridScript.h"
-
+#include "..\\Engine_SOURCE\\jkCamera.h"
+#include "Include_Common.h"
 #include "jkCamera.h"
 #include "jkTransform.h"
 #include "jkApplication.h"

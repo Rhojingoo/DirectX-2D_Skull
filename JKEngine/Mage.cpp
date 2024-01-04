@@ -2,6 +2,37 @@
 #include <iostream>
 #include <random>
 #include "HitBox_Mage.h"
+#include "Include_Common.h"
+#include "Ultimate_OnFire_Ready.h"
+#include "Ultimate_OnFire.h"
+#include "Ultimate_On_Fire_Projectile.h"
+#include "Ultimate_OnFire_Fire.h"
+#include "Mage_FireBall.h"
+#include "Mage_BoomSign.h"
+#include "Mage_FireBoom.h"
+#include "Mage_Landing_Ready.h"
+#include "Mage_Phoenix_Landing.h"
+#include "Mage_Phoenix_Landing_Land.h"
+#include "HitBox_Mage.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "MiniBoss_State_UI.h"
+#include "AdventureUI.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
+#include "Public_Ultimate_Aura.h"
+#include "Public_Ultimate_AuraSmoke.h"
+#include "Public_UltimateSkill_Effect_Complete.h"
+#include "Public_UltimateSkill_Effect_Complete.h"
+#include "Public_UltimateSkill_Effect_Complete.h"
+#include "Public_UltimateSkill_Effect_Fail.h"
+#include "AdventureUI.h"
+#include "Monster_Hit_Effect.h"
+#include "Player_Hit_Effect.h"
+#include "Hit_Sword.h"
+#include "Hit_Critical_Middle.h"
+#include "Hit_Critical_High.h"
+#include "Monster_Death_Effect.h"
 
 namespace jk
 {
@@ -249,9 +280,7 @@ namespace jk
 			Monster_Hp->SetState(eState::Paused);
 		}
 
-
-
-
+	
 
 		{
 			Ultimate_Aura = new Public_Ultimate_Aura;
@@ -289,6 +318,8 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
 			UltimateSkill_Effect_Fail->SetState(eState::Paused);
 		}
+
+
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -999,7 +1030,7 @@ namespace jk
 		Fly_or_Landing();
 
 		_swich_checkpoint = randomcount(0, 3);
-		_swich_checkpoint = 3;
+		//_swich_checkpoint = 3;
 	
 
 		if (_Intro == false)

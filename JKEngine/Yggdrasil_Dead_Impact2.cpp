@@ -1,4 +1,6 @@
 #include "Yggdrasil_Dead_Impact2.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

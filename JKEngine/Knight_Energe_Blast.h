@@ -1,7 +1,5 @@
 #pragma once
-#include "Include_Common.h"
 #include "Bullet.h"
-#include "MiniBoss_Bullet_Knight.h"
 
 namespace jk
 {
@@ -26,9 +24,9 @@ namespace jk
 		bool _EffectEnd = false;
 
 	private:
-		Animator* at = nullptr;
-		RigidBody* _rigidbody = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class RigidBody* _rigidbody = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 
 	private:

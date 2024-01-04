@@ -1,4 +1,16 @@
 #include "Yggdrasil_Face.h"
+#include "Include_Common.h"
+#include "Yggdrasil_BasicBullet.h"
+#include "Yggdrasil_Energy_Bomb.h"
+#include "Yggdrsil_Energy_Corps.h"
+#include "Yggdrasil_Effect.h"
+#include "Yggdrasil_EnergeBall_CreateEffect.h"
+#include "Yggdrasil_Groggy_GroundEffect.h"
+#include "Yggdrasil_EnergyCorps_Charging.h"
+#include "Yggdrasil_EnergyCorps_Spark.h"
+#include "Yggdraisl_Groggy_StartImpact.h"
+#include "Yggdrasil_FaceDead_Effect.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {
@@ -408,7 +420,7 @@ namespace jk
 				_Critical_Middle->SetDirection(1);
 				_Critical_High->SetDirection(1);
 			}
-			//if (attack == true)
+			//if (_attack == true)
 			//{
 			//	_Hit_Effect->_effect_animation = true;
 			//	_Hit_Effect->SetState(eState::Active);

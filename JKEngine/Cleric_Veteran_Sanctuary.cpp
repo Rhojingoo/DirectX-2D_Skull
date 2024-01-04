@@ -1,4 +1,5 @@
 #include "Cleric_Veteran_Sanctuary.h"
+#include "Include_Common.h"
 
 namespace jk
 {

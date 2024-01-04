@@ -2,6 +2,9 @@
 #include "jkTime.h"
 #include "jkResources.h"
 #include "jkAnimator.h"
+#include "Include_Common.h"
+#include "Layana_Sisters.h"
+
 
 namespace jk
 {

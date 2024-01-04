@@ -1,6 +1,13 @@
 #include "Monster_BigEnt.h"
 #include "Particle_DamageEffect.h"
-
+#include "Include_Common.h"
+#include "Monster_BigEnt_EnergeBall.h"
+#include "Monster_GiganticEnt_Stamp.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Death_Effect.h"
+#include "Monster_Hp_Bar.h"
+#include "HP_Frame.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

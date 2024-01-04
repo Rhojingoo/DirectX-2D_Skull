@@ -1,4 +1,5 @@
 #include "Kngiht_EnergyBall_Impact.h"
+#include "Include_Common.h"
 
 namespace jk
 {

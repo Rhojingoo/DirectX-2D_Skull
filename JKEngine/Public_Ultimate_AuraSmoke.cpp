@@ -1,4 +1,5 @@
 #include "Public_Ultimate_AuraSmoke.h"
+#include "Include_Common.h"
 
 
 namespace jk

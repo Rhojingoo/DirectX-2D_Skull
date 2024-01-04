@@ -1,4 +1,6 @@
 #include "Yggdrasil_EnergyCorps_Spark.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

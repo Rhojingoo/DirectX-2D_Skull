@@ -1,4 +1,5 @@
 #include "Mage_BoomSign.h"
+#include "Include_Common.h"
 
 namespace jk
 {

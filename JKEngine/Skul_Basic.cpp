@@ -1,6 +1,23 @@
 #include "Skul_Basic.h"
 #include "jktime.h"
 #include "Particle_DamageEffect.h"
+#include "Include_Common.h"
+#include "Skul_head.h"
+#include "Player_Hit_Effect.h"
+#include "HitBox_Monster.h"
+#include "Monster_Hammer.h"
+#include "Monster_GoldHammer.h"
+#include "Hit_Sword.h"
+#include "Hit_Critical_Middle.h"
+#include "Hit_Critical_High.h"
+#include "Hit_DarkPaladin.h"
+#include "Slash_Effect.h"
+#include "Player_AfterImage.h"
+#include "HitBox_Player.h"
+#include "Mushroom_Spring.h"
+#include "Sofa_Spring.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+
 
 namespace jk
 {

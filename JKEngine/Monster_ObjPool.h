@@ -1,6 +1,18 @@
 #pragma once
-#include "Include_Common.h"
+//#include "Include_Common.h"
 #include "Monster.h"
+#include "Monster.h"
+#include "Monster_warrior.h"
+#include "Stone_wizard.h"
+#include "Monster_GreenTree.h"
+#include "Monster_BlossomEnt.h"
+#include "Monster_BigEnt.h"
+#include "Monster_Hammer.h"
+#include "Monster_Goldwarrior.h"
+#include "Monster_GoldHammer.h"
+#include "Monster_LionSpear.h"
+#include "Monster_LionWarrior.h"
+#include "Monster_LionWizard.h"
 
 namespace jk
 {
@@ -379,6 +391,7 @@ namespace jk
         std::vector<Monster_BlossomEnt*> Blossom_pool;
         std::vector<Monster_BigEnt*> BigEnt_pool;
         std::vector<Monster_Hammer*> Hammer_pool;
+
 
     private:
         std::vector<Monster_Goldwarrior*> Goldwarrior_pool;

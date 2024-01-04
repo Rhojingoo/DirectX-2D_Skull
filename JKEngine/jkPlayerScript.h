@@ -1,7 +1,6 @@
 #pragma once
 #include "..\\Engine_SOURCE\\jkScript.h"
-#include "..\\Engine_SOURCE\\jkCamera.h"
-#include "Include_Common.h"
+
 
 namespace jk
 {

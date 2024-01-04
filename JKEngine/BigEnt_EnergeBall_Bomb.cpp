@@ -1,4 +1,5 @@
 #include "BigEnt_EnergeBall_Bomb.h"
+#include "Include_Common.h"
 
 
 namespace jk

@@ -1,4 +1,6 @@
 #include "Archer_Upward_Impact_Bullet.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

@@ -1,16 +1,5 @@
 #pragma once
-#include "Include_Common.h"
-#include "Player_Hp_Bar.h"
-#include "Yggdrasil_Dead_Impact1.h"
-#include "Yggdrasil_Dead_Impact2.h"
-
-#include "Yggdrasil_HpFrame.h"
-#include "Monster_Hp_Bar.h"
-#include "HP_Frame.h"
-
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
-
+#include "Boss.h"
 
 namespace jk
 {
@@ -136,20 +125,20 @@ namespace jk
 		static void SetChange_Yggdrasil(bool check) { _Change = check; }
 
 
-		static Monster_Hit_Effect* _Hit_Effect; 
-		static Player_Hit_Effect* _Hit_Effect_player;
-		static Hit_Sword* _Hit_Sword; 
-		static Hit_Critical_Middle* _Critical_Middle; 
-		static Hit_Critical_High* _Critical_High; 
-		static Monster_Death_Effect* _Death_Effect; 
+		static class Monster_Hit_Effect* _Hit_Effect; 
+		static class Player_Hit_Effect* _Hit_Effect_player;
+		static class Hit_Sword* _Hit_Sword; 
+		static class Hit_Critical_Middle* _Critical_Middle; 
+		static class Hit_Critical_High* _Critical_High; 
+		static class Monster_Death_Effect* _Death_Effect; 
 
 
 			
-		static	Yggdrasil_HpFrame* _HpFrame; 
-		static	Monster_Hp_Bar* Monster_Hp;
-		static	Monster_Hp_Bar* Monster_Hp_Second;
-		static	Monster_Hp_Bar* Monster_DamegeHp;
-		static	Monster_Hp_Bar* Monster_DamegeHp_Second;
+		static	class Yggdrasil_HpFrame* _HpFrame; 
+		static	class Monster_Hp_Bar* Monster_Hp;
+		static	class Monster_Hp_Bar* Monster_Hp_Second;
+		static	class Monster_Hp_Bar* Monster_DamegeHp;
+		static	class Monster_Hp_Bar* Monster_DamegeHp_Second;
 		static float _Damage;
 		static bool _Hp_control;
 		static float _Hp_time;
@@ -304,9 +293,9 @@ namespace jk
 		bool _DieFadein = false;
 		bool _DiewaitingFadein = false;
 		GameObject* Particle[3] = {};
-		Yggdrasil_Dead_Impact1* DieImpact_first[2] = {};
-		Yggdrasil_Dead_Impact2* DieImpact_second = nullptr;
-		AudioSource* as = nullptr;
+		class Yggdrasil_Dead_Impact1* DieImpact_first[2] = {};
+		class Yggdrasil_Dead_Impact2* DieImpact_second = nullptr;
+		class AudioSource* as = nullptr;
 
 
 	};

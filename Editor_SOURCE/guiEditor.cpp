@@ -79,7 +79,7 @@ namespace gui
 		{
 			DebugRender(mesh);
 		}
-		renderer::debugMeshs.clear();
+		jk::renderer::debugMeshs.clear();
 	}
 	void Editor::Release()
 	{
@@ -117,7 +117,7 @@ namespace gui
 		tr->SetRotation(mesh.rotation);
 		tr->LateUpdate();
 
-		jk::Camera* mainCamara = renderer::mainCamera;
+		jk::Camera* mainCamara = jk::renderer::mainCamera;
 		jk::Camera::SetGpuViewMatrix(mainCamara->GetViewMatrix());
 		jk::Camera::SetGpuProjectionMatrix(mainCamara->GetProjectionMatrix());
 

@@ -1,6 +1,18 @@
 #include "Skul_Wolf.h"
 #include "Particle_DamageEffect.h"
-
+#include "Include_Common.h"
+#include "HitBox_Player.h"
+#include "Player_AfterImage.h"
+#include "Monster_Hammer.h"
+#include "Monster_GoldHammer.h"
+#include "Hit_Sword.h"
+#include "Hit_Critical_Middle.h"
+#include "Hit_Critical_High.h"
+#include "Hit_DarkPaladin.h"
+#include "Slash_Effect.h"
+#include "Mushroom_Spring.h"
+#include "Sofa_Spring.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

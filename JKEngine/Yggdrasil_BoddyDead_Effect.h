@@ -1,5 +1,5 @@
 #pragma once
-#include "Include_Common.h"
+#include "Effect.h"
 
 namespace jk
 {
@@ -33,8 +33,8 @@ namespace jk
 
 	private:
 		Alpha_Effect_State _State = Alpha_Effect_State::AlphaEffect_End;
-		Animator* at = nullptr;
-		Collider2D* _collider = nullptr;
+		class Animator* at = nullptr;
+		class Collider2D* _collider = nullptr;
 		Transform* tr = nullptr;
 
 	private:

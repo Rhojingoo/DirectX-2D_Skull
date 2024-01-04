@@ -1,12 +1,6 @@
 #pragma once
-#include "Include_Common.h"
 #include "jkPlayScene.h"
-#include "Stage2_Door.h"
 
-#include "Monster_ObjPool.h"
-
-#include "..\Engine_SOURCE\jkAudioSource.h"
-#include "Sound.h"
 
 namespace jk
 {
@@ -30,12 +24,14 @@ namespace jk
 		bool AreAllMonstersDead(const std::vector<Monster*>& monsterGroup, bool check);
 
 	private:
-		Player* _player = nullptr;
-		Camera* cameraComp = nullptr;
-		AudioSource* as = nullptr;
-		Sound* _BGSound = nullptr;
-		Alpha_Blend* _Alpha = nullptr;
-		Stage2_Door* Door1 = nullptr;
+		class Player* _player = nullptr;
+		class Camera* cameraComp = nullptr;
+		class AudioSource* as = nullptr;
+		class Sound* _BGSound = nullptr;
+		class Alpha_Blend* _Alpha = nullptr;
+		class Stage2_Door* Door1 = nullptr;
+		class Monster_ObjPool* OBJPOOL = nullptr;
+		class Stage_Manager* StageMn = nullptr;
 
 	private:
 		float _time = 0.f;
@@ -43,10 +39,6 @@ namespace jk
 		bool _changecheck = false;
 		bool _CamFirstSet = false;
 		bool _Monster_Start = false;
-
-	private:
-		Monster_ObjPool* OBJPOOL = nullptr;
-		Stage_Manager* StageMn = nullptr;
 		bool firstMonsters = false;
 		bool secondMonsters = false;
 		bool thirdMonsters = false;
@@ -56,12 +48,7 @@ namespace jk
 		bool change_monster1 = false;
 		bool change_monster2 = false;
 		bool change_monster3 = false;
-
-
-	private:
 		bool first_groundtouch = false;
 		bool first_MonsterCreate = false;
-
-
 	};
 }

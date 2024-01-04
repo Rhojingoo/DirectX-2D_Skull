@@ -5,6 +5,8 @@
 #include "jkTime.h"
 #include "jkInput.h"
 #include "jkAnimator.h"
+#include "..\\Engine_SOURCE\\jkCamera.h"
+#include "Include_Common.h"
 
 namespace jk
 {

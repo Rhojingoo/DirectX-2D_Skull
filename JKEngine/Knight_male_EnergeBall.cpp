@@ -1,5 +1,7 @@
 #include "Knight_male_EnergeBall.h"
-
+#include "Include_Common.h"
+#include "Kngiht_EnergyBall_Impact.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
 {

@@ -1,4 +1,5 @@
 #include "Monster_StoneWizard_Teleport.h"
+#include "Include_Common.h"
 
 namespace jk
 {

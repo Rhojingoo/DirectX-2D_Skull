@@ -1,5 +1,5 @@
 #pragma once
-#include "Include_Common.h"
+#include "jkScript.h"
 
 namespace jk
 {
@@ -8,9 +8,6 @@ namespace jk
 	public:
 		virtual void Update() override;
 
-		//virtual void OnCollisionEnter(Collider2D* other) override;
-		//virtual void OnCollisionStay(Collider2D* other) override;
-		//virtual void OnCollisionExit(Collider2D* other) override;
 		static void SetTarget(GameObject* target) { mTarget = target; }
 		static void Clear();
 		bool SetCamera = false;

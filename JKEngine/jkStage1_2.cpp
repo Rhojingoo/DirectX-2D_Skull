@@ -1,6 +1,10 @@
 #include "jkStage1_2.h"
 #include "LoadScenes.h"
-
+#include "Include_Common.h"
+#include "Monster_ObjPool.h"
+#include "Stge_Manager.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
 
 namespace jk
 {

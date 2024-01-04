@@ -1,4 +1,6 @@
 #include "Archer_Trap.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

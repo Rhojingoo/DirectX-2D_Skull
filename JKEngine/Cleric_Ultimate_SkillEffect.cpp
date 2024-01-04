@@ -1,4 +1,6 @@
 #include "Cleric_Ultimate_SkillEffect.h"
+#include "Include_Common.h"
+
 
 namespace jk
 {

@@ -1,6 +1,6 @@
 #pragma once
 //#include "..\Engine_SOURCE\jkSceneManager.h"
-#include "Include_Common.h"
+//#include "Include_Common.h"
 #include "Monster_ObjPool.h"
 #include "Stge_Manager.h"
 #include "Player.h"

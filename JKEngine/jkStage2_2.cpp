@@ -1,5 +1,10 @@
 #include "jkStage2_2.h"
 #include "Sofa_Spring.h"
+#include "Include_Common.h"
+#include "Stage2_Door.h"
+#include "Monster_ObjPool.h"
+#include "..\Engine_SOURCE\jkAudioSource.h"
+#include "Sound.h"
 
 namespace jk
 {

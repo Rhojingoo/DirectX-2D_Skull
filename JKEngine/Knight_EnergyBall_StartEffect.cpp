@@ -1,4 +1,5 @@
 #include "Knight_EnergyBall_StartEffect.h"
+#include "Include_Common.h"
 
 namespace jk
 {
