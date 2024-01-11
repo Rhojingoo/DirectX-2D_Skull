@@ -70,7 +70,7 @@ namespace jk
 	}
 	void Particle_DamageEffect::LateUpdate()
 	{	
-		float AliveTime = 1.f / 1.0f;
+		float AliveTime = 1.f /1.f;
 		mTime += static_cast<float>(Time::DeltaTime());
 
 		if (mTime > AliveTime)

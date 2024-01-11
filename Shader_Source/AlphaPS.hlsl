@@ -29,6 +29,5 @@ float4 main(VSOut In) : SV_TARGET
         color.rgb = lerp(float3(1, 1, 1), color.rgb, moveX);
     color.a = moveY;
 
-    return color;
-   
+    return color;   
 }

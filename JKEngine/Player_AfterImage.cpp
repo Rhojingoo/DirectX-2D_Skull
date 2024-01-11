@@ -109,7 +109,7 @@ namespace jk
 	void Player_AfterImage::BindConstantBuffer()
 	{
 		renderer::_AlphaBlendCB _Alphacb = {};
-		_Alphacb._Alpha.x = mTime;	
+		_Alphacb._Alpha.x = mBlack;	
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::AlphaBlend];
 		cb->SetData(&_Alphacb);
@@ -118,10 +118,10 @@ namespace jk
 
 	void Player_AfterImage::Skul_Basic()
 	{
-		_Time += static_cast<float>(Time::DeltaTime());
-		if (_Time > delayBetweenImages)
+		mWhite += static_cast<float>(Time::DeltaTime());
+		if (mWhite > delayBetweenImages)
 		{
-			_Time = 0.f;
+			mWhite = 0.f;
 			_State = AfterImage_State::Finish_Image;
 		}
 		else
@@ -135,10 +135,10 @@ namespace jk
 
 	void Player_AfterImage::Skul_NoHead()
 	{
-		_Time += static_cast<float>(Time::DeltaTime());
-		if (_Time > delayBetweenImages)
+		mWhite += static_cast<float>(Time::DeltaTime());
+		if (mWhite > delayBetweenImages)
 		{
-			_Time = 0.f;
+			mWhite = 0.f;
 			_State = AfterImage_State::Finish_Image;
 		}
 		else
@@ -152,10 +152,10 @@ namespace jk
 
 	void Player_AfterImage::Skul_Wolf()
 	{
-		_Time += static_cast<float>(Time::DeltaTime());
-		if (_Time > delayBetweenImages)
+		mWhite += static_cast<float>(Time::DeltaTime());
+		if (mWhite > delayBetweenImages)
 		{
-			_Time = 0.f;
+			mWhite = 0.f;
 			_State = AfterImage_State::Finish_Image;
 		}
 		else
@@ -169,10 +169,10 @@ namespace jk
 
 	void Player_AfterImage::Skul_Spear()
 	{
-		_Time += static_cast<float>(Time::DeltaTime());
-		if (_Time > delayBetweenImages)
+		mWhite += static_cast<float>(Time::DeltaTime());
+		if (mWhite > delayBetweenImages)
 		{
-			_Time = 0.f;
+			mWhite = 0.f;
 			_State = AfterImage_State::Finish_Image;
 		}
 		else

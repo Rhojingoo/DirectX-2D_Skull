@@ -28,7 +28,6 @@ void main(uint3 DTid : SV_DispatchThreadID)
         }
         if (ParticleBuffer[DTid.x].active == 1)
         {
-
             //1번랜덤방법
             float2 vUV = float2((float)DTid.x / elementCount, 0.5f);
             vUV.x += elapsedTime;
@@ -39,9 +38,7 @@ void main(uint3 DTid : SV_DispatchThreadID)
                     GaussianBlur(vUV + float2(0.1f, 0.f)).x,
                     GaussianBlur(vUV + float2(0.2f, 0.f)).x,
                     GaussianBlur(vUV + float2(0.3f, 0.f)).x
-                 );
-
-            
+                 );            
             //2번 랜덤방법
             float x = ((float)DTid.x / (float)elementCount) + elapsedTime;
             float r1 = Rand(float2(x, elapsedTime));
@@ -74,17 +71,7 @@ void main(uint3 DTid : SV_DispatchThreadID)
 
             ParticleBuffer[DTid.x].direction.xyz = normalize(randomDirection);  // 방향설정(2번랜덤)
 
-            ParticleBuffer[DTid.x].speed = vRandom.w * 100.0f; // 랜덤 속도 설정
-          
-            
-            //if (ParticleBuffer[DTid.x].direction.z == 0.0f)
-            //{
-            //    ParticleBuffer[DTid.x].endTime = lerp(7.0f, 15.0f, vRandom.w);  //  endTime을 랜덤하게 설정 (예: 7.0초에서 15.0초 사이)
-            //}
-            //if (ParticleBuffer[DTid.x].direction.z == 1.0f)
-            //{
-            //    ParticleBuffer[DTid.x].endTime = 5.0f;  //  endTime을 랜덤하게 설정 (예: 7.0초에서 15.0초 사이)
-            //}
+            ParticleBuffer[DTid.x].speed = vRandom.w * 100.0f; // 랜덤 속도 설정            
         }
     }
     else
@@ -99,9 +86,6 @@ void main(uint3 DTid : SV_DispatchThreadID)
             ParticleBuffer[DTid.x].active = 0;
 
             // 시간을 다시 0으로 초기화
-            // ParticleBuffer[DTid.x].time = 0.0f;
-
-
             if (ParticleBuffer[DTid.x].direction.z == 0.0f)
             {
                ParticleBuffer[DTid.x].time = 0.0f;

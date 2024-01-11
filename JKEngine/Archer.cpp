@@ -212,11 +212,6 @@ namespace jk
 			Monster_Hp->Set_Current_Hp(_MaxHp);
 			Monster_Hp->SetState(eState::Paused);
 		}
-
-
-
-
-
 		
 		
 		{

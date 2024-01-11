@@ -144,12 +144,12 @@ namespace jk
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				AfterImage_TEST[i] = new Player_AfterImage();
-				AfterImage_TEST[i]-> Initialize();
+				mAfterImage[i] = new Player_AfterImage();
+				mAfterImage[i]-> Initialize();
 				Scene* scene = SceneManager::GetActiveScene();
-				scene->AddGameObject(eLayerType::Effect, AfterImage_TEST[i]);
-				AfterImage_TEST[i]->Set_Owner(this); 
-				AfterImage_TEST[i]->SetState(eState::Paused);
+				scene->AddGameObject(eLayerType::Effect, mAfterImage[i]);
+				mAfterImage[i]->Set_Owner(this); 
+				mAfterImage[i]->SetState(eState::Paused);
 			}			
 		}
 		{
@@ -1185,19 +1185,19 @@ namespace jk
 			_rigidbody->ClearVelocityX();
 			mDir = -1;
 		}		
-		//else
+		
 		{
 			timeSinceLastImage += static_cast<float>(Time::DeltaTime());
 			if (timeSinceLastImage >= delayBetweenImages)
 			{
 				for (int i = 0; i < 10; i++)
 				{
-					if (AfterImage_TEST[i]->_AfterImage == false)
+					if (mAfterImage[i]->_AfterImage == false)
 					{
-						int direction = (mDir == 1) ? 1 : -1;
-						AfterImage_TEST[i]->Set_Basic_Dash(direction, Vector3(pos.x, pos.y, pos.z+1));
-						AfterImage_TEST[i]->SetState(eState::Active);
-						AfterImage_TEST[i]->_AfterImage = true;
+						int direction = (mDir == Right) ? Right : Left;
+						mAfterImage[i]->Set_Basic_Dash(direction, Vector3(pos.x, pos.y, pos.z+1));
+						mAfterImage[i]->SetState(eState::Active);
+						mAfterImage[i]->_AfterImage = true;
 						timeSinceLastImage = 0.0f;  // 시간 초기화
 						break;  // 하나의 잔상만 생성한 후 for문 종료					
 					}

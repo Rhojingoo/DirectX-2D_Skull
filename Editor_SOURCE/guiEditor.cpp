@@ -121,6 +121,15 @@ namespace gui
 		jk::Camera::SetGpuViewMatrix(mainCamara->GetViewMatrix());
 		jk::Camera::SetGpuProjectionMatrix(mainCamara->GetProjectionMatrix());
 
+	
+		//jk::renderer::MoveCB trCB = {};
+		//trCB.mTime.x = mesh.time;
+	
+
+		//ConstantBuffer* cb = jk::renderer::constantBuffer[(UINT)eCBType::Move];
+	
+		//cb->SetData(&trCB);
+		//cb->Bind(eShaderStage::PS);
 		debugObj->Render();
 	}
 }

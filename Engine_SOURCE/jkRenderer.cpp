@@ -497,29 +497,6 @@ namespace jk::renderer
 		jk::Resources::Insert(L"HITParticleShader", hitparitcleShader);
 
 
-		//파티클 애니메이션화
-		//std::shared_ptr<Shader> paritcleShader2 = std::make_shared<Shader>();
-		//paritcleShader2->Create(eShaderStage::VS, L"ParticleVS.hlsl", "main");
-		//paritcleShader2->Create(eShaderStage::GS, L"ParticleGS.hlsl", "main");
-		//paritcleShader2->Create(eShaderStage::PS, L"AnimationPS.hlsl", "main");
-		//paritcleShader2->SetRSState(eRSType::SolidNone);
-		//paritcleShader2->SetBSState(eBSType::AlphaBlend);
-		//paritcleShader2->SetDSState(eDSType::NoWrite);
-		//paritcleShader2->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
-		//jk::Resources::Insert(L"ParticleShader2", paritcleShader2);
-
-
-		// 파티클 잔상화
-		//std::shared_ptr<Shader> afterimageShader = std::make_shared<Shader>();
-		//afterimageShader->Create(eShaderStage::VS, L"AfterImageVS.hlsl", "main");
-		//afterimageShader->Create(eShaderStage::GS, L"AfterImageGS.hlsl", "main");
-		//afterimageShader->Create(eShaderStage::PS, L"AfterImagePS.hlsl", "main");
-		//afterimageShader->SetRSState(eRSType::SolidNone);
-		//afterimageShader->SetBSState(eBSType::AlphaBlend);
-		//afterimageShader->SetDSState(eDSType::NoWrite);
-		//afterimageShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
-		//jk::Resources::Insert(L"AfterImageShader", afterimageShader);
-
 
 		//구름
 		std::shared_ptr<Shader> moveShader = std::make_shared<Shader>();
@@ -592,10 +569,6 @@ namespace jk::renderer
 			= Resources::Find<Shader>(L"AlphaANI_Shader");
 		
 
-		//std::shared_ptr<Shader> dahs_Shader  //연습용 파티클 대쉬
-		//	= Resources::Find<Shader>(L"AfterImageShader");
-		//std::shared_ptr<Shader> particleShader2  //연습용 파티클 애니메이션
-		//	= Resources::Find<Shader>(L"ParticleShader2");
 		
 		#pragma region Public
 		#pragma region Mouse

@@ -71,10 +71,6 @@ namespace jk::renderer
 		Vector2 resolution;
 		float	meshScale;
 		Vector3 padding;
-
-		//Vector4 CameraPosition;
-		//Vector2 CameraScale;
-		//Vector2 Resolution;
 	};
 
 	CBUFFER(AnimatorCB, CBSLOT_ANIMATION2D)

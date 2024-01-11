@@ -26,6 +26,7 @@ namespace jk
 		UINT GetColliderID() { return mColliderID; }
 		Vector3 GetPosition() {	return mPosition; }
 		void SetPosition(Vector3 Set) {  mPosition = Set; }
+		void SetColorcheck(int Set) {_Colcheck = Set;}
 		Vector2 GetSize() { return mSize; }
 		Vector2 GetCenter() { return mCenter; }
 		Vector3 GetScale() { return _Scale; }
@@ -41,6 +42,8 @@ namespace jk
 		Vector3 _Scale;
 		Vector2 mSize;
 		Vector2 mCenter;
+		static int _ColSwitch;
+		int _Colcheck;
 		bool _Collider_attack = false;
 	};
 }

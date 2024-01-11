@@ -71,7 +71,7 @@ namespace jk
 	}
 	void ParticleSystem::LateUpdate()
 	{
-		float AliveTime = 3.0f;
+		float AliveTime = 7.0f;
 		mTime += static_cast<float>(Time::DeltaTime());
 
 		if (mTime > AliveTime)
@@ -81,7 +81,7 @@ namespace jk
 			mTime = f - floor(f);
 
 			ParticleShared shareData = {};
-			shareData.sharedActiveCount = 25;
+			shareData.sharedActiveCount = 50;
 			mSharedBuffer->SetData_Buffer(&shareData, 1);
 		}
 		else

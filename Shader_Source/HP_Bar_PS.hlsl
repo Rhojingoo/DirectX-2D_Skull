@@ -24,8 +24,6 @@ float4 main(VSOut In) : SV_TARGET
 
     // HP 백분율 계산
     float hpPercentage = Damage.y / Damage.x;
-
-    // uv.x가 hpPercentage보다 크면 픽셀을 투명하게 만듭니다.
     if (uv.x > hpPercentage)
     {
         color.a = 0;

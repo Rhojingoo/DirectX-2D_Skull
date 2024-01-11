@@ -20,8 +20,6 @@ VSOut main(VSIn In)
 {
     VSOut Out = (VSOut) 0.0f;
     
-    //In.Pos.x = In.Pos.x * 20.f;
-    //In.Pos.y = In.Pos.y * 5.f;
 
     float4 world = mul(float4(In.Pos, 1.0f), WorldMatrix);
     float4 view = mul(world, ViewMatrix);
@@ -30,7 +28,6 @@ VSOut main(VSIn In)
     Out.Pos = proj;
     Out.Color = In.Color;
     Out.UV = In.UV;
-    //Out.UV.y = In.UV.y*;
 
     return Out;
 }

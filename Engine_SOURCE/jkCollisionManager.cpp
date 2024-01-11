@@ -117,6 +117,8 @@ namespace jk
                 // 충돌 중
                 left->OnCollisionStay(right);
                 right->OnCollisionStay(left);
+                left->SetColorcheck(-1);
+                right->SetColorcheck(-1);
 
                 if (iter->second == true)
                     return;
@@ -132,6 +134,8 @@ namespace jk
                 // 충돌하고 있다가 나갈떄
                 left->OnCollisionExit(right);
                 right->OnCollisionExit(left);
+                left->SetColorcheck(1);
+                right->SetColorcheck(1);
 
                 iter->second = false;
             }
@@ -224,8 +228,6 @@ namespace jk
 
         Vector3 vc = left->GetPosition() - right->GetPosition();
         vc.z = 0.0f;
-        //Vector3 vc = leftTr->GetPosition() - rightTr->GetPosition();
-        //vc.z = 0.0f;
 
         Vector3 centerDir = vc;
         for (size_t i = 0; i < 4; i++)

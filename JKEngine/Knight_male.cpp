@@ -20,6 +20,7 @@
 #include "..\Engine_SOURCE\jkAudioSource.h"
 
 #include "Public_Ultimate_Aura.h"
+#include "Player_Hit_Effect.h"
 #include "Public_Ultimate_AuraSmoke.h"
 #include "Public_UltimateSkill_Effect_Complete.h"
 #include "Public_UltimateSkill_Effect_Complete.h"

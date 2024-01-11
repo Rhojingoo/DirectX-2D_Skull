@@ -1,9 +1,11 @@
 #include "jkCollider2D.h"
 #include "jkGameObject.h"
 #include "jkRenderer.h"
+#include "jkInput.h"
 
 namespace jk
-{
+{	
+	int Collider2D::_ColSwitch = 1;
 	UINT Collider2D::mColliderNumber = 0;
 	Collider2D::Collider2D()
 		: Component(eComponentType::Collider2D)
@@ -11,6 +13,7 @@ namespace jk
 		, mSize(Vector2::One)
 		, _Scale(Vector2::One)
 		, mCenter(Vector2::Zero)
+		, _Colcheck(1)
 	{
 		mColliderNumber++;
 		mColliderID = mColliderNumber;
@@ -27,6 +30,14 @@ namespace jk
 
 	void Collider2D::Update()
 	{
+		if (Input::GetKeyDown(eKeyCode::P))
+		{
+			_ColSwitch = -1;
+		}
+		if (Input::GetKeyDown(eKeyCode::O))
+		{
+			_ColSwitch = 1;
+		}
 	}
 
 	void Collider2D::LateUpdate()
@@ -47,26 +58,35 @@ namespace jk
 		mPosition = pos;
 
 
-
-
 		graphics::DebugMesh mesh = {};
 		mesh.position = pos;
 		mesh.scale = _Scale;
 		mesh.rotation = rotation; 
 		mesh.type = mType;
-		//mesh.type = eColliderType::Rect;
 
-		renderer::PushDebugMeshAttribute(mesh);
+	
+
+
+		if (_ColSwitch == 1)
+		{
+			renderer::PushDebugMeshAttribute(mesh);
+		}
 	}
 
 	void Collider2D::Render()
 	{
+		renderer::MoveCB trCB = {};
+		trCB.mTime.x = _Colcheck;
+		
+		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Move];
+		cb->SetData(&trCB);
+		cb->Bind(eShaderStage::PS);
 	}
 
 	void Collider2D::OnCollisionEnter(Collider2D* other)
 	{
 		GetOwner()->OnCollisionEnter(other);
-
+	
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetComponents<Script>();
 		for (Script* script : scripts)
@@ -82,7 +102,7 @@ namespace jk
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetComponents<Script>();
 		for (Script* script : scripts)
-		{
+		{			
 			script->OnCollisionStay(other);
 		}
 	}
@@ -90,11 +110,11 @@ namespace jk
 	void Collider2D::OnCollisionExit(Collider2D* other)
 	{
 		GetOwner()->OnCollisionExit(other);
-
+		
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetComponents<Script>();
 		for (Script* script : scripts)
-		{
+		{		
 			script->OnCollisionExit(other);
 		}
 	}

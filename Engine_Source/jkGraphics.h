@@ -161,7 +161,7 @@ namespace jk::graphics
 
 		float radius;
 		float duration;
-		float time;
+		float time;	
 	};
 
 	struct Particle

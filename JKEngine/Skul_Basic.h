@@ -66,6 +66,8 @@ namespace jk
 		int _Attack_CriticalNomal = 15;
 		int _Attack_CriticalHigh = 20;
 		bool _Firsrt_Ground;
+		int Right = 1;
+		int Left = -1;
 
 
 	private:
@@ -98,7 +100,7 @@ namespace jk
 		Vector2 _velocity = Vector2(0.f, 0.f);
 	
 
-		class Player_AfterImage* AfterImage_TEST[10] = {};
+		class Player_AfterImage* mAfterImage[10] = {};
 		float timeSinceLastImage = 0.0f;  // 마지막 잔상 생성 후 경과 시간
 		const float delayBetweenImages = 0.03f;
 		

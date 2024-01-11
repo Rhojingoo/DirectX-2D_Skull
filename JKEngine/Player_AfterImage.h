@@ -53,8 +53,8 @@ namespace jk
 
 		bool _AfterImage_Late = false;
 		bool _AfterImage_Render = false;
-		float mTime = 1.f;
-		float _Time = 0.f;
+		float mBlack = 1.f;
+		float mWhite = 0.f;
 
 		float timeSinceLastImage = 0.0f;  // 마지막 잔상 생성 후 경과 시간
 		const float delayBetweenImages = 0.3f;

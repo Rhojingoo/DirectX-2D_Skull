@@ -148,7 +148,8 @@ namespace jk
 		}
 	}
 
-	void TileMap::TileMap_Setting(GameObject* SetGob, const std::wstring& Material_path, Vector2 Tilesize, int tile_colum, int tile_row, const std::wstring& Tile_path)
+	void TileMap::TileMap_Setting(GameObject* SetGob, const std::wstring& Material_path, 
+		Vector2 Tilesize, int tile_colum, int tile_row, const std::wstring& Tile_path)
 	{
 		TileMap* tilemap = SetGob->AddComponent<TileMap>();
 		std::shared_ptr<Material> material = Resources::Find<Material>(Material_path);
