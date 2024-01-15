@@ -358,33 +358,24 @@ namespace jk
 		//monsterGroup1
 		for (int i = 0; i < 7; i++)
 		{
-			Monster* _warrior = OBJPOOL->Get_Goldwarrior();
-			_warrior->Initialize();
-			Transform* ttr = _warrior->GetComponent<Transform>();
+			Monster* newMonster = OBJPOOL->Get_Goldwarrior();
+			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-460.f + i * 120.f, -190.f, -249.f));
-			AddMonster(_warrior);
-			_warrior->SetState(GameObject::eState::Paused);
-			monsterGroup1.push_back(_warrior);
+			monsterGroup1.push_back(newMonster);
 		}
 		for (int i = 0; i < 3; i++)
 		{
-			Monster* _warrior = OBJPOOL->Get_GoldHammer();
-			_warrior->Initialize();
-			Transform* ttr = _warrior->GetComponent<Transform>();
+			Monster* newMonster = OBJPOOL->Get_GoldHammer();
+			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-350.f + i * 300.f, -190.f, -249.f));
-			AddMonster(_warrior);
-			_warrior->SetState(GameObject::eState::Paused);
-			monsterGroup1.push_back(_warrior);
+			monsterGroup1.push_back(newMonster);
 		}
 		for (int i = 0; i < 3; i++)
 		{
-			Monster* _warrior = OBJPOOL->Get_wizard();
-			_warrior->Initialize();
-			Transform* ttr = _warrior->GetComponent<Transform>();
+			Monster* newMonster = OBJPOOL->Get_wizard();
+			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3( -100.f + i * 200.f, -190.f, -249.f));
-			AddMonster(_warrior);
-			_warrior->SetState(GameObject::eState::Paused);
-			monsterGroup1.push_back(_warrior);
+			monsterGroup1.push_back(newMonster);
 		}
 
 
@@ -392,41 +383,29 @@ namespace jk
 		for (int i = 0; i < 3; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_Goldwarrior();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-400.f + i * 100.f, -190.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup2.push_back(newMonster);
 		}
 		for (int i = 0; i < 4; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_wizard();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-100.f + i * 150.f, -190.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup2.push_back(newMonster);
 		}
 		for (int i = 0; i < 2; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_GoldHammer();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(0.f + i * 150.f, -190.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup2.push_back(newMonster);
 		}
 		for (int i = 0; i < 2; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_LionSpear();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(0.f + i * 150.f, -190.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup2.push_back(newMonster);
 		}
 
@@ -434,31 +413,22 @@ namespace jk
 		for (int i = 0; i < 10; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_Goldwarrior();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-400.f + i * 75.f, -190.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);
 		}
 		for (int i = 0; i < 3; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_LionSpear();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-300.f + i * 300.f, -190.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);
 		}
 		for (int i = 0; i < 3; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_LionWarrior();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-150.f + i * 150.f, -190.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);
 		}
 

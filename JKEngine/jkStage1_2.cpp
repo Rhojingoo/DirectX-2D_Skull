@@ -331,131 +331,91 @@ namespace jk
 	void Stage1_2::SetMonOBJ()
 	{
 		//monsterGroup1
-		for (int i = 0; i < 1; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_BigEnt();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(25, -110, -249));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup1.push_back(newMonster);
 		}		
 		{
 			Monster* newMonster = OBJPOOL->Get_BigEnt();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-255, -55, -249));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup1.push_back(newMonster);
 		}
 		{
 			Monster* newMonster = OBJPOOL->Get_BigEnt();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(320, -55, -249));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup1.push_back(newMonster);
 		}	
-
-
 
 
 		//monsterGroup2
 		for (int i = 0; i < 7; i++)
 		{
-			Monster_warrior* _warrior = OBJPOOL->Get_Monster_warrior();
-			//_warrior->Initialize();
-			Transform* ttr = _warrior->GetComponent<Transform>();
+			Monster* newMonster = OBJPOOL->Get_Monster_warrior();
+			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-150.f + i * 50.f, 70.f, -249.f));
-			//AddMonster(_warrior);
-			//_warrior->SetState(GameObject::eState::Paused);
-			monsterGroup2.push_back(_warrior);
+			monsterGroup2.push_back(newMonster);
 		}
 		for (int i = 0; i < 3; i++)
 		{
-			Stone_wizard* _warrior = OBJPOOL->Get_wizard();
-			_warrior->Initialize();
-			Transform* ttr = _warrior->GetComponent<Transform>();
+			Monster* newMonster = OBJPOOL->Get_wizard();
+			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-200.f + i * 100.f, 70.f, -249.f));
-			AddMonster(_warrior);
-			_warrior->SetState(GameObject::eState::Paused);
-			monsterGroup2.push_back(_warrior);
+			monsterGroup2.push_back(newMonster);
 		}
 		for (int i = 0; i < 2; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_Blossom();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(120.f + i * 75.f,70.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup2.push_back(newMonster);
 		}
 		for (int i = 0; i < 2; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_GreenTree();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(80.f + i * 50.f, 70.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup2.push_back(newMonster);
 		}
-
 
 
 		//monsterGroup3
 		for (int i = 0; i < 5; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_Monster_warrior();
-			//newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(0.f + i * 50.f, 70.f, -249.f));
-			//AddMonster(newMonster);
-			//newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);
 		}
 		for (int i = 0; i < 3; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_wizard();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-200.f + i * 150.f, 70.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);
 		}
 		for (int i = 0; i < 1; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_Hammer();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-100.f + i * 150.f, 70.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);
 		}
 		for (int i = 0; i < 2; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_Blossom();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-100.f + i * 75.f, 70.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);
 		}
 		for (int i = 0; i < 2; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_GreenTree();
-			newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-200.f + i * 80.f, 70.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);
 		}
 	}

@@ -13,7 +13,6 @@ namespace jk
 			if (gameObj == nullptr)
 				continue;
 
-
 			delete gameObj;
 			gameObj = nullptr;
 		}		

@@ -36,25 +36,45 @@ namespace jk
                 //작은 몬스터
                 for (int i = 0; i < NumberofMonsters; ++i)
                 {
-                    wizard_pool.push_back(new Stone_wizard());
+                    Stone_wizard* newMonster = new Stone_wizard();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    wizard_pool.push_back(newMonster);
                 }
                 for (int i = 0; i < NumberofMonsters; ++i)
                 {
-                    GreenTree_pool.push_back(new Monster_GreenTree());
+                    Monster_GreenTree* newMonster = new Monster_GreenTree();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    GreenTree_pool.push_back(newMonster);
                 }
                 for (int i = 0; i < NumberofMonsters; ++i)
                 {
-                    Blossom_pool.push_back(new Monster_BlossomEnt());
+                    Monster_BlossomEnt* newMonster = new Monster_BlossomEnt();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    Blossom_pool.push_back(newMonster);
                 }
 
                 //큰몬스터들
                 for (int i = 0; i < Number_of_Big_Monsters; ++i)
                 {
-                    BigEnt_pool.push_back(new Monster_BigEnt());
+                    Monster_BigEnt* newMonster = new Monster_BigEnt();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    BigEnt_pool.push_back(newMonster);
                 }
                 for (int i = 0; i < Number_of_Big_Monsters; ++i)
                 {
-                    Hammer_pool.push_back(new Monster_Hammer());
+                    Monster_Hammer* newMonster = new Monster_Hammer();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    Hammer_pool.push_back(newMonster);
                 }
       
             }
@@ -64,33 +84,57 @@ namespace jk
 
                 for (int i = 0; i < Lots_of_monsters; ++i)
                 {
-                    Goldwarrior_pool.push_back(new Monster_Goldwarrior());
+                    Monster_Goldwarrior* newMonster = new Monster_Goldwarrior();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    Goldwarrior_pool.push_back(newMonster);
                 }
 
                 //작은 몬스터
                 for (int i = 0; i < NumberofMonsters; ++i)
                 {
-                    wizard_pool.push_back(new Stone_wizard());
+                    Stone_wizard* newMonster = new Stone_wizard();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    wizard_pool.push_back(newMonster);
                 }
 
                 //덩어리몬스터
                 for (int i = 0; i < Number_of_Big_Monsters; ++i)
                 {
-                    GoldHammer_pool.push_back(new Monster_GoldHammer());
+                    Monster_GoldHammer* newMonster = new Monster_GoldHammer();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    GoldHammer_pool.push_back(newMonster);
                 }
 
                 for (int i = 0; i < Number_of_Big_Monsters; ++i)
                 {
-                    LionSpear_pool.push_back(new Monster_LionSpear());
+                    Monster_LionSpear* newMonster = new Monster_LionSpear();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    LionSpear_pool.push_back(newMonster);
                 }
 
                 for (int i = 0; i < Number_of_Big_Monsters; ++i)
                 {
-                    LionWarrior_pool.push_back(new Monster_LionWarrior());
+                    Monster_LionWarrior* newMonster = new Monster_LionWarrior();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    LionWarrior_pool.push_back(newMonster);
                 }
                 for (int i = 0; i < Number_of_Big_Monsters; ++i)
                 {
-                    LionWizard_pool.push_back(new Monster_LionWizard());
+                    Monster_LionWizard* newMonster = new Monster_LionWizard();
+                    newMonster->Initialize();
+                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    newMonster->SetState(GameObject::eState::Paused);
+                    LionWizard_pool.push_back(newMonster);
                 }
 
             }
@@ -103,10 +147,10 @@ namespace jk
                 if (monster == nullptr)
                     continue;
 
-                warrior_pool.clear();
 
                 //delete monster;
                 //monster = nullptr;
+                warrior_pool.clear();
             }
 
             for (Stone_wizard* monster : wizard_pool)
@@ -114,9 +158,8 @@ namespace jk
                 if (monster == nullptr)
                     continue;
 
-                //wizard_pool.clear();
-
-                delete monster;
+                //delete monster;
+                wizard_pool.clear();
             }
 
             for (Monster_GreenTree* monster : GreenTree_pool)
@@ -124,10 +167,9 @@ namespace jk
                 if (monster == nullptr)
                     continue;
 
-                //GreenTree_pool.clear();
+                GreenTree_pool.clear();
 
-
-                delete monster;
+                //delete monster;
             }
 
             for (Monster_BlossomEnt* monster : Blossom_pool)
@@ -135,9 +177,9 @@ namespace jk
                 if (monster == nullptr)
                     continue;
 
-               // Blossom_pool.clear();
+               Blossom_pool.clear();
 
-                delete monster;
+               //delete monster;
             }
 
             for (Monster_BigEnt* monster : BigEnt_pool)
@@ -145,9 +187,9 @@ namespace jk
                 if (monster == nullptr)
                     continue;
 
-               // BigEnt_pool.clear();
+               BigEnt_pool.clear();
 
-                delete monster;
+                //delete monster;
             }
 
             for (Monster_Hammer* monster : Hammer_pool)
@@ -155,9 +197,9 @@ namespace jk
                 if (monster == nullptr)
                     continue;
 
-               // Hammer_pool.clear();
+               Hammer_pool.clear();
 
-                delete monster;
+                //delete monster;
             }
 
             for (Monster_Goldwarrior* monster : Goldwarrior_pool)
@@ -165,9 +207,9 @@ namespace jk
                 if (monster == nullptr)
                     continue;
 
-                //Goldwarrior_pool.clear();
+                Goldwarrior_pool.clear();
 
-                delete monster;
+               //delete monster;
             }
 
             for (Monster_GoldHammer* monster : GoldHammer_pool)
@@ -175,9 +217,9 @@ namespace jk
                 if (monster == nullptr)
                     continue;
 
-               // GoldHammer_pool.clear();
+               GoldHammer_pool.clear();
 
-                delete monster;
+                //delete monster;
             }
             //
             for (Monster_LionSpear* monster : LionSpear_pool)
@@ -186,9 +228,9 @@ namespace jk
                     continue;
 
 
-                //LionSpear_pool.clear();
+                LionSpear_pool.clear();
 
-                delete monster;
+               //delete monster;
             }
 
             for (Monster_LionWarrior* monster : LionWarrior_pool)
@@ -196,9 +238,9 @@ namespace jk
                 if (monster == nullptr)
                     continue;
 
-               // LionWarrior_pool.clear();
+              LionWarrior_pool.clear();
 
-                delete monster;
+              // delete monster;
             }
 
             for (Monster_LionWizard* monster : LionWizard_pool)
@@ -206,9 +248,9 @@ namespace jk
                 if (monster == nullptr)
                     continue;
 
-               // LionWizard_pool.clear();
+              LionWizard_pool.clear();
 
-                delete monster;
+              // delete monster;
             }
         }
 

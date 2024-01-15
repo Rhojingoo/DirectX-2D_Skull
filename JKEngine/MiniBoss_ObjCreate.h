@@ -33,7 +33,7 @@ namespace jk
             }
         }
         virtual ~MiniBoss_ObjCreate()
-        {      
+        {
             for (Knight_male* mBoss : _Knight_male_pool)
             {
                 if (mBoss == nullptr)
@@ -128,7 +128,7 @@ namespace jk
                 _Knight_male_pool.push_back(mBoss);
             else
                 delete mBoss;
-        }       
+        }
         void Return_Archer(Archer* mBoss)
         {
             if (_Archer_pool.size() < capacity)
@@ -163,4 +163,3 @@ namespace jk
         int _Randomcheck = 0;
     };
 }
-
