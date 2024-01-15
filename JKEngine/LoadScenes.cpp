@@ -35,7 +35,7 @@ namespace jk
 	}
 	void Release()
 	{
-		//Obj->~Monster_ObjPool();
+		//Obj->~Monster_ObjManager();
 		//Stage_MN->~Stage_Manager();
 
 		delete Player_INFO;

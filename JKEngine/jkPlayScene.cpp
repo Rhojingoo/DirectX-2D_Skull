@@ -1,5 +1,5 @@
 #include "jkPlayScene.h"
-//#include "Monster_ObjPool.h"
+//#include "Monster_ObjManager.h"
 
 namespace jk
 {
@@ -13,7 +13,7 @@ namespace jk
 
 	void PlayScene::Initialize()
 	{
-		//Monster_ObjPool* Obj = new Monster_ObjPool(105,15,10);
+		//Monster_ObjManager* Obj = new Monster_ObjManager(105,15,10);
 
 		Scene::Initialize();
 	}

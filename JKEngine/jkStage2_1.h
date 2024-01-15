@@ -30,7 +30,7 @@ namespace jk
 		class Sound* _BGSound = nullptr;
 		class Alpha_Blend* _Alpha = nullptr;
 		class Stage2_Door* Door1 = nullptr;
-		class Monster_ObjPool* OBJPOOL = nullptr;
+		class Monster_ObjManager* OBJPOOL = nullptr;
 		class Stage_Manager* StageMn = nullptr;
 
 	private:

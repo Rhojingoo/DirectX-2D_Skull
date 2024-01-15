@@ -457,7 +457,7 @@
     <ClInclude Include="Player_AfterImage.h">
       <Filter>Game_ob\PLAYER</Filter>
     </ClInclude>
-    <ClInclude Include="Monster_ObjPool.h">
+    <ClInclude Include="Monster_Objmanagerl.h">
       <Filter>OBJ_Create\MonsterOBJ</Filter>
     </ClInclude>
     <ClInclude Include="Stge_Manager.h">
@@ -1126,7 +1126,7 @@
     <ClCompile Include="Player_AfterImage.cpp">
       <Filter>Game_ob\PLAYER</Filter>
     </ClCompile>
-    <ClCompile Include="Monster_ObjPool.cpp">
+    <ClCompile Include="Monster_Objmanagerl.cpp">
       <Filter>OBJ_Create\MonsterOBJ</Filter>
     </ClCompile>
     <ClCompile Include="Stge_Manager.cpp">

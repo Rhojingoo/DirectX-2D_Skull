@@ -2,14 +2,14 @@
 #include <queue>
 #include <vector>
 #include "Monster.h"
-#include "Monster_ObjPool.h"
+#include "Monster_Objmanagerl.h"
 
 namespace jk
 {
     class Stage_Manager 
     {
     public:
-        Stage_Manager(Monster_ObjPool* set) { _OBJ_POOL = set; }
+        Stage_Manager(Monster_ObjManager* set) { _OBJ_POOL = set; }
         ~Stage_Manager() 
         {
             while (!monsterGroups.empty()) 
@@ -47,10 +47,9 @@ namespace jk
                 //currentState = StageState::StageFinished;  
             }       
         }
-
     
     private:
         std::queue<std::vector<Monster*>> monsterGroups;
-        Monster_ObjPool* _OBJ_POOL = nullptr;
+        Monster_ObjManager* _OBJ_POOL = nullptr;
     };
 }

@@ -281,7 +281,7 @@
     <ClInclude Include="MiniBoss_ObjCreate.h" />
     <ClInclude Include="Monster_Hp_Bar.h" />
     <ClInclude Include="HP_Frame.h" />
-    <ClInclude Include="Monster_ObjPool.h" />
+    <ClInclude Include="Monster_Objmanagerl.h" />
     <ClInclude Include="Monster_StoneWizard_Icicle_Effect.h" />
     <ClInclude Include="Monster_StoneWizard_Teleport.h" />
     <ClInclude Include="Monster_Tackle_Flash_Effect.h" />
@@ -510,7 +510,7 @@
     <ClCompile Include="MiniBoss_ObjCreate.cpp" />
     <ClCompile Include="Monster_Hp_Bar.cpp" />
     <ClCompile Include="HP_Frame.cpp" />
-    <ClCompile Include="Monster_ObjPool.cpp" />
+    <ClCompile Include="Monster_Objmanagerl.cpp" />
     <ClCompile Include="Monster_StoneWizard_Icicle_Effect.cpp" />
     <ClCompile Include="Monster_StoneWizard_Teleport.cpp" />
     <ClCompile Include="Monster_Tackle_Flash_Effect.cpp" />

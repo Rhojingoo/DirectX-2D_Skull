@@ -31,7 +31,7 @@ namespace jk
 		class Camera* cameraComp = nullptr;
 		class Player* _player = nullptr;		
 		class Stage1_Door* Door1 = nullptr;
-		class Monster_ObjPool* OBJPOOL = nullptr;
+		class Monster_ObjManager* OBJPOOL = nullptr;
 		class Stage_Manager* StageMn = nullptr;
 
 

@@ -6,8 +6,7 @@
 namespace jk
 {
 	Player:: PlayerList Player::player_select = PlayerList::basic_Skul;
-	Player:: PlayerList Player::player_check = PlayerList::basic_Skul;
-	Player::PlayerList Player::Current_player = PlayerList::basic_Skul;
+	Player::PlayerList Player::player_check = PlayerList::basic_Skul;
 
 	float Player::_Max_Player_Hp = 200.f;
 	float Player::_Curren_Player_Hp = 200.f;
@@ -90,12 +89,9 @@ namespace jk
 		_Gobjs[1]->Initialize();
 		_Gobjs[2] = new Skul_Spear;
 		_Gobjs[2]->Initialize();
-		_Gobjs[3] = new Skul_Sword;
-		_Gobjs[3]->Initialize();
-		_Gobjs[4] = new Skul_Thief;
-		_Gobjs[4]->Initialize();
 
-		for (int i = 0; i < 5; i++)
+
+		for (int i = 0; i < 3; i++)
 		{
 			Scene* scene = SceneManager::GetActiveScene();			
 			scene->AddGameObject(eLayerType::Player, _Gobjs[i]);
@@ -110,7 +106,6 @@ namespace jk
 	void Player::Update()
 	{
 		player_select;
-		player_check;
 		_Pos;		
 
 		Monster::SetPlayerPos(_Pos);
@@ -138,24 +133,13 @@ namespace jk
 					tr->SetPosition(_Pos), Skul_Basic::SetDirection(mDir, true);
 				else
 					tr->SetPosition(_Pos), Skul_Basic::SetDirection(mDir, false);
-				Current_player = PlayerList::basic_Skul;
+			
 				Basic_Face->SetState(eState::Active);
 				Spear_Face->SetState(eState::Paused);
 				Wolf_Face->SetState(eState::Paused);
-
-				if (player_check == PlayerList::wolf_Skul)
-					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::spere_Skul)
-					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::sowrd_Skul)
-					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::thief_Skul)
-					_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
-
 				_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
 				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
+
 				_Switch = false;
 			}
 
@@ -168,25 +152,13 @@ namespace jk
 					tr->SetPosition(_Pos), Skul_Wolf::SetDirection(mDir, true);
 				else
 					tr->SetPosition(_Pos), Skul_Wolf::SetDirection(mDir, false);
-				Current_player = PlayerList::wolf_Skul;
+			
 				Wolf_Face->SetState(eState::Active);
 				Spear_Face->SetState(eState::Paused);
 				Basic_Face->SetState(eState::Paused);
-
-
-				if (player_check == PlayerList::basic_Skul)
-					_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::spere_Skul)
-					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::sowrd_Skul)
-					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::thief_Skul)
-					_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
-
 				_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
 				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
+
 				_Switch = false;
 			}
 
@@ -199,60 +171,15 @@ namespace jk
 					tr->SetPosition(_Pos), Skul_Spear::SetDirection(mDir, true);
 				else				
 					tr->SetPosition(_Pos), Skul_Spear::SetDirection(mDir, false);
-				
-				Current_player = PlayerList::spere_Skul;
+							
 				Spear_Face->SetState(eState::Active);
 				Wolf_Face->SetState(eState::Paused);
 				Basic_Face->SetState(eState::Paused);
-
-
-				if (player_check == PlayerList::wolf_Skul)
-					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::basic_Skul)
-					_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::sowrd_Skul)
-					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::thief_Skul)
-					_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
-
 				_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
 				_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
-				_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
+
 				_Switch = false;
-			}
-
-			if (player_select == PlayerList::sowrd_Skul)
-			{
-				_Gobjs[(UINT)PlayerList::sowrd_Skul]->SetState(eState::Active);
-				Transform* tr = _Gobjs[(UINT)PlayerList::sowrd_Skul]->GetComponent<Transform>();
-				tr->SetPosition(_Pos);  Skul_Sword::SetDirection(mDir, true);
-
-				if (player_check == PlayerList::wolf_Skul)
-					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::basic_Skul)
-					_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::spere_Skul)
-					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::thief_Skul)
-					_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Paused);
-			}
-
-			if (player_select == PlayerList::thief_Skul)
-			{
-				_Gobjs[(UINT)PlayerList::thief_Skul]->SetState(eState::Active);
-				Transform* tr = _Gobjs[(UINT)PlayerList::thief_Skul]->GetComponent<Transform>();
-				tr->SetPosition(_Pos);  Skul_Thief::SetDirection(mDir, true);
-
-				if (player_check == PlayerList::wolf_Skul)
-					_Gobjs[(UINT)PlayerList::wolf_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::basic_Skul)
-					_Gobjs[(UINT)PlayerList::basic_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::spere_Skul)
-					_Gobjs[(UINT)PlayerList::spere_Skul]->SetState(eState::Paused);
-				else if (player_check == PlayerList::sowrd_Skul)
-					_Gobjs[(UINT)PlayerList::sowrd_Skul]->SetState(eState::Paused);
-			}
+			}		
 
 			_check_change = false;
 		}

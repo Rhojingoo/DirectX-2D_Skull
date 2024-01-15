@@ -1,7 +1,7 @@
 #include "jkStage1_2.h"
 #include "LoadScenes.h"
 #include "Include_Common.h"
-#include "Monster_ObjPool.h"
+#include "Monster_Objmanagerl.h"
 #include "Stge_Manager.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
 #include "Sound.h"
@@ -37,7 +37,7 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 #pragma endregion 
 
-		OBJPOOL = new Monster_ObjPool(1, 15, 20, 10);
+		OBJPOOL = new Monster_ObjManager(1, 15, 20, 10);
 
 		SetMonOBJ();
 
@@ -208,7 +208,9 @@ namespace jk
 		if (_changecheck == true)
 		{
 			_player->SetPlayer_Pos(player_pos);
+			//_player->SetPlay_List(_player->GetCurrentPlay_List(), true, _player->GetDirection());
 			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
+
 			_changecheck = false;
 		}
 
@@ -233,7 +235,6 @@ namespace jk
 		_player->SetPlayer_Pos(player_pos);
 		_player->SetSwitch(true);
 		_changecheck = true;
-
 
 		#pragma region Cam & Mouse& Grid
 		//Main Camera			
@@ -366,11 +367,11 @@ namespace jk
 		for (int i = 0; i < 7; i++)
 		{
 			Monster_warrior* _warrior = OBJPOOL->Get_Monster_warrior();
-			_warrior->Initialize();
+			//_warrior->Initialize();
 			Transform* ttr = _warrior->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(-150.f + i * 50.f, 70.f, -249.f));
-			AddMonster(_warrior);
-			_warrior->SetState(GameObject::eState::Paused);
+			//AddMonster(_warrior);
+			//_warrior->SetState(GameObject::eState::Paused);
 			monsterGroup2.push_back(_warrior);
 		}
 		for (int i = 0; i < 3; i++)
@@ -410,11 +411,11 @@ namespace jk
 		for (int i = 0; i < 5; i++)
 		{
 			Monster* newMonster = OBJPOOL->Get_Monster_warrior();
-			newMonster->Initialize();
+			//newMonster->Initialize();
 			Transform* ttr = newMonster->GetComponent<Transform>();
 			ttr->SetPosition(Vector3(0.f + i * 50.f, 70.f, -249.f));
-			AddMonster(newMonster);
-			newMonster->SetState(GameObject::eState::Paused);
+			//AddMonster(newMonster);
+			//newMonster->SetState(GameObject::eState::Paused);
 			monsterGroup3.push_back(newMonster);
 		}
 		for (int i = 0; i < 3; i++)

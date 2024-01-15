@@ -116,6 +116,7 @@ namespace jk
 		if (_changecheck == true)
 		{
 			_player->SetPlayer_Pos(player_pos);
+			//_player->SetPlay_List(_player->GetCurrentPlay_List(), true, _player->GetDirection());
 			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
 			_changecheck = false;
 		}

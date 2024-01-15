@@ -1,7 +1,7 @@
 #include "jkStage2_1.h"
 #include "Include_Common.h"
 #include "Stage2_Door.h"
-#include "Monster_ObjPool.h"
+#include "Monster_Objmanagerl.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
 #include "Sound.h"
 
@@ -24,7 +24,7 @@ namespace jk
 	void Stage2_1::Initialize()
 	{
 
-		OBJPOOL = new Monster_ObjPool(2, 10, 20, 10);
+		OBJPOOL = new Monster_ObjManager(2, 10, 20, 10);
 
 		SetMonOBJ();
 
@@ -242,6 +242,7 @@ namespace jk
 		if (_changecheck == true)
 		{
 			_player->SetPlayer_Pos(player_pos);
+			//_player->SetPlay_List(_player->GetCurrentPlay_List(), true, _player->GetDirection());
 			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
 			_changecheck = false;
 		}

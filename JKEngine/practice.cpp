@@ -4,10 +4,10 @@
 //
 //namespace jk
 //{
-//    class Monster_ObjPool
+//    class Monster_ObjManager
 //    {
 //    public:
-//        Monster_ObjPool(int totalSize, int NumberofMonsters, int Number_of_Big_Monsters)
+//        Monster_ObjManager(int totalSize, int NumberofMonsters, int Number_of_Big_Monsters)
 //            : capacity(totalSize)
 //        {
 //            for (int i = 0; i < NumberofMonsters; ++i)
@@ -47,7 +47,7 @@
 //            }
 //        }
 //
-//        virtual ~Monster_ObjPool()
+//        virtual ~Monster_ObjManager()
 //        {
 //            for (Monster* monster : pool)
 //            {

@@ -13,10 +13,7 @@ namespace jk
 			if (gameObj == nullptr)
 				continue;
 
-			//std::wstring acv = L"Monster";
-			//if(acv == gameObj->GetName())
-			//	continue;
-		
+
 			delete gameObj;
 			gameObj = nullptr;
 		}		

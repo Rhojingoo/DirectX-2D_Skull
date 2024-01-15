@@ -7,7 +7,7 @@
 #include <random>
 #include "Include_Common.h"
 #include "jkPlayScene.h"
-#include "Monster_ObjPool.h"
+#include "Monster_Objmanagerl.h"
 #include "MiniBoss_ObjCreate.h"
 #include "Stge_Manager.h"
 #include "Mini_Boss.h"
@@ -186,6 +186,7 @@ namespace jk
 		if (_changecheck == true)
 		{
 			_player->SetPlayer_Pos(player_pos);
+			//_player->SetPlay_List(_player->GetCurrentPlay_List(), true, _player->GetDirection());
 			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
 			_changecheck = false;
 		}
