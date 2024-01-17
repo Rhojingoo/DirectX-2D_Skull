@@ -394,6 +394,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Image Resource files
-*.bmp
-*.wav
 /JKEngine/jkTile.h
