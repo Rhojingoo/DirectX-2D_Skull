@@ -845,21 +845,7 @@ namespace jk
 	{
 		if (_switch == true)
 		{
-			//if (_Dir == 1)
-			//{
-			//	_rigidbody->SetVelocity(Vector2(350.f, 250.f));
-			//	_rigidbody->SetGround(false);
-			//	_switch = false;
-			//	_Ground_check = false;
 
-			//}
-			//else
-			//{
-			//	_rigidbody->SetVelocity(Vector2(-350.f, 250.f));
-			//	_rigidbody->SetGround(false);
-			//	_switch = false;
-			//	_Ground_check = false;
-			//}
 		}
 	}
 
@@ -1767,11 +1753,7 @@ namespace jk
 		{
 			if (_Ground_check == false)
 			{
-				//_Ground_On = true;
-				//mGround->_SkullOn = true;
 				_attack_Ccheck = false;
-				
-				//_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
 				_Ground_check = true;
@@ -1830,10 +1812,7 @@ namespace jk
 		{
 			if (_Ground_check == false)
 			{
-				//_Ground_On = true;
 				_attack_Ccheck = false;
-				//mGround->_SkullOn = true;
-				//_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
 				_Ground_check = true;
@@ -1904,14 +1883,11 @@ namespace jk
 			{
 				if (skul_footpos > Gr_Top_pos)
 				{
-					//_Ground_On = true;
 					_attack_Ccheck = false;			
-					//_Player_GRpos = pos;
 					_fallcheck = 0;	_jump = 0;
 					_rigidbody->ClearVelocity();
 					_Ground_check = true;
 					_rigidbody->SetGround(true);				
-					//mGround->_SkullOn = true;
 				}
 			}
 			else
