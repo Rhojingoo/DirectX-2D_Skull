@@ -278,7 +278,6 @@
     <ClInclude Include="Monster_GroundAttack_Sign.h" />
     <ClInclude Include="Monster_Hammer_Effect.h" />
     <ClInclude Include="Monster_Hit_Effect.h" />
-    <ClInclude Include="MiniBoss_ObjCreate.h" />
     <ClInclude Include="Monster_Hp_Bar.h" />
     <ClInclude Include="HP_Frame.h" />
     <ClInclude Include="Monster_Objmanagerl.h" />
@@ -507,7 +506,6 @@
     <ClCompile Include="Monster_GroundAttack_Sign.cpp" />
     <ClCompile Include="Monster_Hammer_Effect.cpp" />
     <ClCompile Include="Monster_Hit_Effect.cpp" />
-    <ClCompile Include="MiniBoss_ObjCreate.cpp" />
     <ClCompile Include="Monster_Hp_Bar.cpp" />
     <ClCompile Include="HP_Frame.cpp" />
     <ClCompile Include="Monster_Objmanagerl.cpp" />

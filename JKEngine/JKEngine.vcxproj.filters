@@ -464,9 +464,6 @@
       <Filter>OBJ_Create</Filter>
     </ClInclude>
     <ClInclude Include="practice.h" />
-    <ClInclude Include="MiniBoss_ObjCreate.h">
-      <Filter>OBJ_Create\Mini_BossOBJ</Filter>
-    </ClInclude>
     <ClInclude Include="Yggdraisl_Groggy_StartImpact.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
     </ClInclude>
@@ -1136,9 +1133,6 @@
       <Filter>Scene\Load</Filter>
     </ClCompile>
     <ClCompile Include="practice.cpp" />
-    <ClCompile Include="MiniBoss_ObjCreate.cpp">
-      <Filter>OBJ_Create\Mini_BossOBJ</Filter>
-    </ClCompile>
     <ClCompile Include="Yggdraisl_Groggy_StartImpact.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
     </ClCompile>
@@ -1545,9 +1539,6 @@
     </Filter>
     <Filter Include="OBJ_Create\MonsterOBJ">
       <UniqueIdentifier>{b6283ed8-5b67-40fd-9e66-274af1520444}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="OBJ_Create\Mini_BossOBJ">
-      <UniqueIdentifier>{3e2c0fe7-c428-4bf7-969e-4962768f564c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game_ob\Boss\Yggdrasil\Effect\Dead_Effect">
       <UniqueIdentifier>{5a91596d-2a17-4c77-aac0-5bd5cc76821d}</UniqueIdentifier>

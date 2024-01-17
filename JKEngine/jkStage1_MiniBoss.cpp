@@ -8,7 +8,10 @@
 #include "Include_Common.h"
 #include "jkPlayScene.h"
 #include "Monster_Objmanagerl.h"
-#include "MiniBoss_ObjCreate.h"
+#include "Knight_male.h"
+#include "Archer.h"
+#include "Mage.h"
+#include "Cleric.h"
 #include "Stge_Manager.h"
 #include "Mini_Boss.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
@@ -21,9 +24,6 @@ namespace jk
 	}
 	Stage1_MiniBoss::~Stage1_MiniBoss()
 	{
-		delete OBJPOOL;
-		OBJPOOL = nullptr;
-
 		mBossGroup.clear();
 	}
 
@@ -45,8 +45,8 @@ namespace jk
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Hitbox, true);
 #pragma endregion 
 
-		OBJPOOL = new MiniBoss_ObjCreate(1);
-		CreateMiniboss(1);
+		
+		CreateMiniboss();
 
 		_BGSound = object::Instantiate<Sound>(Vector3(0.f, -150.f, -250.f), eLayerType::Player);
 		as = _BGSound->AddComponent<AudioSource>();
@@ -288,147 +288,55 @@ namespace jk
 			}
 		}
 	}
-	void Stage1_MiniBoss::CreateMiniboss(int stage)
+	void Stage1_MiniBoss::CreateMiniboss()
 	{
-		if (stage == 1)
+		_Randomcheck = Mboss->random(0, 2);
+		if (_Randomcheck == 0)
 		{
-			_Randomcheck = Mboss->random(0, 2);
-			if (_Randomcheck == 0)
-			{
-				Mini_Boss* _Gobjs = OBJPOOL->Get_Knight_male();
-				_Gobjs->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
-				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
-				_Gobjs->SetState(GameObject::eState::Paused);
-				Transform* tr = _Gobjs->GetComponent<Transform>();
-				tr->SetPosition(Vector3(200.f, -200.f, -250.f));
-				mBossGroup.push_back(_Gobjs);
-			}
-			if (_Randomcheck == 1)
-			{
-				Mini_Boss* _Gobjs = OBJPOOL->Get_Archer();
-				_Gobjs->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
-				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
-				_Gobjs->SetState(GameObject::eState::Paused);
-				Transform* tr = _Gobjs->GetComponent<Transform>();
-				tr->SetPosition(Vector3(200.f, -200.f, -250.f));
-				mBossGroup.push_back(_Gobjs);
-			}
-			if (_Randomcheck == 2)
-			{
-				Mini_Boss* _Gobjs = OBJPOOL->Get_Mage();
-				_Gobjs->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
-				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
-				_Gobjs->SetState(GameObject::eState::Paused);
-				Transform* tr = _Gobjs->GetComponent<Transform>();
-				tr->SetPosition(Vector3(200.f, -200.f, -250.f));
-				mBossGroup.push_back(_Gobjs);
-			}
-			if (_Randomcheck == 3)
-			{
-				Mini_Boss* _Gobjs = OBJPOOL->Get_Cleric();
-				_Gobjs->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
-				scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
-				_Gobjs->SetState(GameObject::eState::Paused);
-				Transform* tr = _Gobjs->GetComponent<Transform>();
-				tr->SetPosition(Vector3(200.f, -200.f, -250.f));
-				mBossGroup.push_back(_Gobjs);
-			}
+			Mini_Boss* _Gobjs = new Knight_male();
+			_Gobjs->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+			_Gobjs->SetState(GameObject::eState::Paused);
+			Transform* tr = _Gobjs->GetComponent<Transform>();
+			tr->SetPosition(Vector3(200.f, -200.f, -250.f));
+			mBossGroup.push_back(_Gobjs);
 		}
-		if (stage == 2)
+		if (_Randomcheck == 1)
 		{
-			std::vector<int> selectedMonsters;
-			for (int a = 0; a < 3; a++)
-			{
-				do
-				{
-					_Randomcheck = Mboss->random(0, 3);
-				} while (std::find(selectedMonsters.begin(), selectedMonsters.end(), _Randomcheck) != selectedMonsters.end()); // 이미 선택된 몬스터 번호가 아닐 때까지 반복
-				selectedMonsters.push_back(_Randomcheck); // 선택된 몬스터 번호 저장				
-			}
-			for (int a = 0; a < 3; a++)
-			{
-				int currentMonster = selectedMonsters[a]; // 백터에서 몬스터 번호 꺼내기
-
-				if (currentMonster == 0)
-				{
-					Knight_male* _Gobjs = OBJPOOL->Get_Knight_male();
-					_Gobjs->Initialize();
-					Scene* scene = SceneManager::GetActiveScene();
-					scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
-					_Gobjs->SetState(GameObject::eState::Paused);
-					Transform* tr = _Gobjs->GetComponent<Transform>();
-					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
-					mBossGroup.push_back(_Gobjs);
-
-
-					if (a == 0)
-						_Gobjs->SetUIstate(0);
-					else if (a == 1)
-						_Gobjs->SetUIstate(1);
-					else if (a == 2)
-						_Gobjs->SetUIstate(2);
-				}
-				else if (currentMonster == 1)
-				{
-					Archer* _Gobjs = OBJPOOL->Get_Archer();
-					_Gobjs->Initialize();
-					Scene* scene = SceneManager::GetActiveScene();
-					scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
-					_Gobjs->SetState(GameObject::eState::Paused);
-					Transform* tr = _Gobjs->GetComponent<Transform>();
-					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
-					mBossGroup.push_back(_Gobjs);
-
-					if (a == 0)
-						_Gobjs->SetUIstate(0);
-					else if (a == 1)
-						_Gobjs->SetUIstate(1);
-					else if (a == 2)
-						_Gobjs->SetUIstate(2);
-				}
-				else if (currentMonster == 2)
-				{
-					Mage* _Gobjs = OBJPOOL->Get_Mage();
-					_Gobjs->Initialize();
-					Scene* scene = SceneManager::GetActiveScene();
-					scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
-					_Gobjs->SetState(GameObject::eState::Paused);
-					Transform* tr = _Gobjs->GetComponent<Transform>();
-					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
-					mBossGroup.push_back(_Gobjs);
-
-					if (a == 0)
-						_Gobjs->SetUIstate(0);
-					else if (a == 1)
-						_Gobjs->SetUIstate(1);
-					else if (a == 2)
-						_Gobjs->SetUIstate(2);
-				}
-				else if (currentMonster == 3)
-				{
-					Cleric* _Gobjs = OBJPOOL->Get_Cleric();
-					_Gobjs->Initialize();
-					Scene* scene = SceneManager::GetActiveScene();
-					scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
-					_Gobjs->SetState(GameObject::eState::Paused);
-					Transform* tr = _Gobjs->GetComponent<Transform>();
-					tr->SetPosition(Vector3(200.f, 0.f, -250.f));
-					mBossGroup.push_back(_Gobjs);
-
-					if (a == 0)
-						_Gobjs->SetUIstate(0);
-					else if (a == 1)
-						_Gobjs->SetUIstate(1);
-					else if (a == 2)
-						_Gobjs->SetUIstate(2);
-				}
-			}
+			Mini_Boss* _Gobjs = new Archer();
+			_Gobjs->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+			_Gobjs->SetState(GameObject::eState::Paused);
+			Transform* tr = _Gobjs->GetComponent<Transform>();
+			tr->SetPosition(Vector3(200.f, -200.f, -250.f));
+			mBossGroup.push_back(_Gobjs);
 		}
+		if (_Randomcheck == 2)
+		{
+			Mini_Boss* _Gobjs = new Mage();
+			_Gobjs->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+			_Gobjs->SetState(GameObject::eState::Paused);
+			Transform* tr = _Gobjs->GetComponent<Transform>();
+			tr->SetPosition(Vector3(200.f, -200.f, -250.f));
+			mBossGroup.push_back(_Gobjs);
+		}
+		if (_Randomcheck == 3)
+		{
+			Mini_Boss* _Gobjs = new Cleric();
+			_Gobjs->Initialize();
+			Scene* scene = SceneManager::GetActiveScene();
+			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
+			_Gobjs->SetState(GameObject::eState::Paused);
+			Transform* tr = _Gobjs->GetComponent<Transform>();
+			tr->SetPosition(Vector3(200.f, -200.f, -250.f));
+			mBossGroup.push_back(_Gobjs);
+		}		
 	}
+
 	int Stage1_MiniBoss::random(int a, int b)
 	{
 		std::random_device rd;

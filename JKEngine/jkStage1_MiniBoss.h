@@ -19,7 +19,7 @@ namespace jk
 
 		void CamareShooting();
 
-		void CreateMiniboss(int stage);
+		void CreateMiniboss();
 		int random(int a, int b);
 		bool AreAllMiniBossDead(const std::vector<Mini_Boss*>& monsterGroup);
 
@@ -30,7 +30,7 @@ namespace jk
 		class Player* _player = nullptr;
 		class Mini_Boss* Mboss = nullptr;
 		class Stage1_Door* Door1 = nullptr;
-		class MiniBoss_ObjCreate* OBJPOOL = nullptr;
+
 
 	private:
 		bool _changecheck = false;

@@ -20,7 +20,7 @@ namespace jk
 
 		void CamareShooting();
 
-		void CreateMiniboss(int stage);
+		void CreateMiniboss();
 		int random(int a, int b);
 		bool AreAllMiniBossDead(const std::vector<Mini_Boss*>& monsterGroup);
 
@@ -32,7 +32,7 @@ namespace jk
 		class Sound* _BGSound = nullptr;
 		class Alpha_Blend* _Alpha = nullptr;
 		class Stage2_Door* Door1 = nullptr;
-		class MiniBoss_ObjCreate* OBJPOOL = nullptr;
+	
 
 
 	private:

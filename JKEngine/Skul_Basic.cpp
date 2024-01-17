@@ -16,7 +16,36 @@
 #include "HitBox_Player.h"
 #include "Mushroom_Spring.h"
 #include "Sofa_Spring.h"
+#include "Cleric_Veteran_Sanctuary.h"
+#include "Dark_DimensionPierce_BulletEffect.h"
+#include "Layana_Awaken_Homing_Attac.h"
+#include "Layana_Awaken_Meteor_Projectile.h"
+#include "Layana_Ground_Thunder.h"
+#include "Latana_Awake_Rush_Bullet.h"
+#include "Golden_Meteor_Bullet.h"
+#include "HitBox_Layana.h"
+#include "HitBox_YggDrasil.h"
+#include "Ultimate_On_Fire_Projectile.h"
+#include "Mage_FireBall.h"
+#include "HitBox_Mage.h"
+#include "Mage_FireBoom.h"
+#include "Cleric_HolyThunder.h"
+#include "Knight_UltimateSkill_Projectile.h"
+#include "Knight_Energe_Blast.h"
+#include "MiniBoss_Bullet_Knight.h"
+#include "HitBox_Knight.h"
+#include "Archer_Trap.h"
+#include "HitBox_Archer.h"
+#include "Monster_Ent_GroundAttack.h"
+#include "Monster_Bullet.h"
+
+
 #include "..\Engine_SOURCE\jkAudioSource.h"
+
+
+
+
+
 
 
 namespace jk
@@ -1486,18 +1515,18 @@ namespace jk
 			}
 		}
 
-		if (Monster_Bullet* Bullet = dynamic_cast<Monster_Bullet*>(other->GetOwner()))
+		if (Monster_Bullet* _Bullet = dynamic_cast<Monster_Bullet*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
 
-			if(Bullet->Getsound()==0)
+			if(_Bullet->Getsound()==0)
 				as->Play("Hit_Energy_Medium");		
-			else if(Bullet->Getsound() ==1)
+			else if(_Bullet->Getsound() ==1)
 				as->Play("Hit_Ice");
 			
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 			{
@@ -1515,13 +1544,13 @@ namespace jk
 			}		
 		}
 
-		if (Monster_Ent_GroundAttack* Bullet = dynamic_cast<Monster_Ent_GroundAttack*>(other->GetOwner()))
+		if (Monster_Ent_GroundAttack* _Bullet = dynamic_cast<Monster_Ent_GroundAttack*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
 			
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 			{
@@ -1632,13 +1661,13 @@ namespace jk
 			}
 		}
 
-		if (MiniBoss_Bullet_Knight* Bullet = dynamic_cast<MiniBoss_Bullet_Knight*>(other->GetOwner()))
+		if (MiniBoss_Bullet_Knight* _Bullet = dynamic_cast<MiniBoss_Bullet_Knight*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
 			
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 			{
@@ -1656,12 +1685,12 @@ namespace jk
 			}
 		}
 
-		if (Knight_Energe_Blast* Bullet = dynamic_cast<Knight_Energe_Blast*>(other->GetOwner()))
+		if (Knight_Energe_Blast* _Bullet = dynamic_cast<Knight_Energe_Blast*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 				HitDir = -1;
@@ -1670,14 +1699,14 @@ namespace jk
 			_State = Skul_Basic_State::Hit;
 		}
 
-		if (Knight_UltimateSkill_Projectile* Bullet = dynamic_cast<Knight_UltimateSkill_Projectile*>(other->GetOwner()))
+		if (Knight_UltimateSkill_Projectile* _Bullet = dynamic_cast<Knight_UltimateSkill_Projectile*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
 			
 			as->Play("Hit_Sword_Large");
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 			{
@@ -1715,12 +1744,12 @@ namespace jk
 			//}
 		}
 
-		if (Cleric_HolyThunder* Bullet = dynamic_cast<Cleric_HolyThunder*>(other->GetOwner()))
+		if (Cleric_HolyThunder* _Bullet = dynamic_cast<Cleric_HolyThunder*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 				HitDir = -1;
@@ -1729,13 +1758,13 @@ namespace jk
 			_State = Skul_Basic_State::Hit;
 		}
 
-		if (HitBox_Mage* Bullet = dynamic_cast<HitBox_Mage*>(other->GetOwner()))
+		if (HitBox_Mage* _Bullet = dynamic_cast<HitBox_Mage*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
 			as->Play("Arson_Explosion");
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 				HitDir = -1;
@@ -1744,12 +1773,12 @@ namespace jk
 			_State = Skul_Basic_State::Hit;
 		}
 
-		if (Mage_FireBoom* Bullet = dynamic_cast<Mage_FireBoom*>(other->GetOwner()))
+		if (Mage_FireBoom* _Bullet = dynamic_cast<Mage_FireBoom*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 				HitDir = -1;
@@ -1758,12 +1787,12 @@ namespace jk
 			_State = Skul_Basic_State::Hit;
 		}
 
-		if (Mage_FireBall* Bullet = dynamic_cast<Mage_FireBall*>(other->GetOwner()))
+		if (Mage_FireBall* _Bullet = dynamic_cast<Mage_FireBall*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -1771,12 +1800,12 @@ namespace jk
 				_rigidbody->SetVelocity(Vector2(50.f, 0.f));
 		}
 
-		if (Ultimate_On_Fire_Projectile* Bullet = dynamic_cast<Ultimate_On_Fire_Projectile*>(other->GetOwner()))
+		if (Ultimate_On_Fire_Projectile* _Bullet = dynamic_cast<Ultimate_On_Fire_Projectile*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 				_rigidbody->SetVelocity(Vector2(-50.f, 0.f));
@@ -2002,12 +2031,12 @@ namespace jk
 			}
 		}
 
-		if (Golden_Meteor_Bullet* Bullet = dynamic_cast<Golden_Meteor_Bullet*>(other->GetOwner()))
+		if (Golden_Meteor_Bullet* _Bullet = dynamic_cast<Golden_Meteor_Bullet*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 			{
@@ -2031,12 +2060,12 @@ namespace jk
 			}
 		}
 		
-		if (Latana_Awake_Rush_Bullet* Bullet = dynamic_cast<Latana_Awake_Rush_Bullet*>(other->GetOwner()))
+		if (Latana_Awake_Rush_Bullet* _Bullet = dynamic_cast<Latana_Awake_Rush_Bullet*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 			{
@@ -2060,12 +2089,12 @@ namespace jk
 			}
 		}
 
-		if (Layana_Ground_Thunder* Bullet = dynamic_cast<Layana_Ground_Thunder*>(other->GetOwner()))
+		if (Layana_Ground_Thunder* _Bullet = dynamic_cast<Layana_Ground_Thunder*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 			{
@@ -2089,12 +2118,12 @@ namespace jk
 			}
 		}
 
-		if (Layana_Awaken_Meteor_Projectile* Bullet = dynamic_cast<Layana_Awaken_Meteor_Projectile*>(other->GetOwner()))
+		if (Layana_Awaken_Meteor_Projectile* _Bullet = dynamic_cast<Layana_Awaken_Meteor_Projectile*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 			{
@@ -2118,12 +2147,12 @@ namespace jk
 			}
 		}
 
-		if (Layana_Awaken_Homing_Attac* Bullet = dynamic_cast<Layana_Awaken_Homing_Attac*>(other->GetOwner()))
+		if (Layana_Awaken_Homing_Attac* _Bullet = dynamic_cast<Layana_Awaken_Homing_Attac*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 			{
@@ -2147,12 +2176,12 @@ namespace jk
 			}
 		}
 
-		if (Dark_DimensionPierce_BulletEffect* Bullet = dynamic_cast<Dark_DimensionPierce_BulletEffect*>(other->GetOwner()))
+		if (Dark_DimensionPierce_BulletEffect* _Bullet = dynamic_cast<Dark_DimensionPierce_BulletEffect*>(other->GetOwner()))
 		{
 			if (_State == Skul_Basic_State::Dash || _State == Skul_Basic_State::Hit)
 				return;
 
-			Transform* hittr = Bullet->GetComponent<Transform>();
+			Transform* hittr = _Bullet->GetComponent<Transform>();
 			Vector3 hitpos = hittr->GetPosition();
 			if (hitpos.x > pos.x)
 			{
@@ -2447,6 +2476,7 @@ namespace jk
 			float Skul_halfsize = _collider->GetScale().y / 2;
 			float skul_footpos = pos.y - Skul_halfsize;
 
+
 			if (_SkyGround_check == true)
 			{
 				Transform* GRTR = mGround->GetComponent<Transform>();
@@ -2493,7 +2523,7 @@ namespace jk
 			}			
 		}
 
-		if (Cleric_Veteran_Sanctuary* Bullet = dynamic_cast<Cleric_Veteran_Sanctuary*>(other->GetOwner()))
+		if (Cleric_Veteran_Sanctuary* _Bullet = dynamic_cast<Cleric_Veteran_Sanctuary*>(other->GetOwner()))
 		{
 			if (_Hit_Effect->_endeffect == true)
 			{

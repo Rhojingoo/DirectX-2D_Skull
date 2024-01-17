@@ -1,17 +1,45 @@
 #include "Skul_Wolf.h"
 #include "Particle_DamageEffect.h"
 #include "Include_Common.h"
-#include "HitBox_Player.h"
-#include "Player_AfterImage.h"
+#include "Skul_head.h"
+#include "Player_Hit_Effect.h"
+#include "HitBox_Monster.h"
 #include "Monster_Hammer.h"
 #include "Monster_GoldHammer.h"
+#include "Monster_Bullet.h"
+#include "Monster_Ent_GroundAttack.h"
 #include "Hit_Sword.h"
 #include "Hit_Critical_Middle.h"
 #include "Hit_Critical_High.h"
 #include "Hit_DarkPaladin.h"
 #include "Slash_Effect.h"
+#include "Player_AfterImage.h"
+#include "HitBox_Player.h"
 #include "Mushroom_Spring.h"
 #include "Sofa_Spring.h"
+#include "Cleric_Veteran_Sanctuary.h"
+#include "Dark_DimensionPierce_BulletEffect.h"
+#include "Layana_Awaken_Homing_Attac.h"
+#include "Layana_Awaken_Meteor_Projectile.h"
+#include "Layana_Ground_Thunder.h"
+#include "Latana_Awake_Rush_Bullet.h"
+#include "Golden_Meteor_Bullet.h"
+#include "HitBox_Layana.h"
+#include "HitBox_YggDrasil.h"
+#include "Ultimate_On_Fire_Projectile.h"
+#include "Mage_FireBall.h"
+#include "HitBox_Mage.h"
+#include "Mage_FireBoom.h"
+#include "Cleric_HolyThunder.h"
+#include "Knight_UltimateSkill_Projectile.h"
+#include "Knight_Energe_Blast.h"
+#include "MiniBoss_Bullet_Knight.h"
+#include "HitBox_Knight.h"
+#include "Archer_Trap.h"
+#include "HitBox_Archer.h"
+#include "Monster_Ent_GroundAttack.h"
+#include "Monster_Bullet.h"
+
 #include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk
@@ -1739,11 +1767,11 @@ namespace jk
 		{
 			if (_Ground_check == false)
 			{
-				_Ground_On = true;
-				mGround->_SkullOn = true;
+				//_Ground_On = true;
+				//mGround->_SkullOn = true;
 				_attack_Ccheck = false;
 				
-				_Player_GRpos = pos;
+				//_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
 				_Ground_check = true;
@@ -1765,7 +1793,9 @@ namespace jk
 			}
 			else
 			{		
-				
+				_Ground_On = true;
+				mGround->_SkullOn = true;
+				_Player_GRpos = pos;
 				Transform* GRTR = mGround->GetComponent<Transform>();
 				Vector3 GRpos = GRTR->GetPosition();
 				{
@@ -1800,10 +1830,10 @@ namespace jk
 		{
 			if (_Ground_check == false)
 			{
-				_Ground_On = true;
+				//_Ground_On = true;
 				_attack_Ccheck = false;
-				mGround->_SkullOn = true;
-				_Player_GRpos = pos;
+				//mGround->_SkullOn = true;
+				//_Player_GRpos = pos;
 				_fallcheck = 0;	_jump = 0;
 				_rigidbody->SetGround(true);
 				_Ground_check = true;
@@ -1825,6 +1855,9 @@ namespace jk
 			else
 			{
 				Transform* GRTR = mGround->GetComponent<Transform>();
+				_Ground_On = true;
+				mGround->_SkullOn = true;
+				_Player_GRpos = pos;
 				Vector3 GRpos = GRTR->GetPosition();
 				{
 					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
@@ -1871,21 +1904,22 @@ namespace jk
 			{
 				if (skul_footpos > Gr_Top_pos)
 				{
-					_Ground_On = true;
-					_attack_Ccheck = false;
-					mGround->_SkullOn = true;
-					_Player_GRpos = pos;
+					//_Ground_On = true;
+					_attack_Ccheck = false;			
+					//_Player_GRpos = pos;
 					_fallcheck = 0;	_jump = 0;
 					_rigidbody->ClearVelocity();
 					_Ground_check = true;
-					_rigidbody->SetGround(true);
-					mGround->_SkullOn = true;
-					_Ground_check = true;
+					_rigidbody->SetGround(true);				
+					//mGround->_SkullOn = true;
 				}
 			}
 			else
 			{
 				Transform* GRTR = mGround->GetComponent<Transform>();
+				mGround->_SkullOn = true;
+				_Ground_On = true;
+				_Player_GRpos = pos;
 				Vector3 GRpos = GRTR->GetPosition();
 				{
 					Collider2D* GRCol = mGround->GetComponent<Collider2D>();
@@ -1893,7 +1927,7 @@ namespace jk
 					float playercolsize = _collider->GetScale().y / 2;
 					float Sizecheck = playercolsize + GrColsize;
 
-
+				
 					float CheckPos = fabs(pos.y - GRpos.y);
 					if (Sizecheck > CheckPos)
 					{
