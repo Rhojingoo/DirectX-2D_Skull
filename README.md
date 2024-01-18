@@ -51,7 +51,7 @@
   <img src="https://github.com/Rhojingoo/DirectX-2D_Skull/assets/125935035/d2782e32-b2ab-4483-b02e-1689b2326f64" height="300px" width="500px"/>
 </div>
 <br>
-<br>https://github.com/Rhojingoo/DirectX-2D_Skull/tree/master
+<br>
 <br>
 <div align="center">
   <img src="https://github.com/Rhojingoo/DirectX-2D_Skull/assets/125935035/05922e1e-235c-46cc-a996-5bb9d2ec4764" height="300px" width="500px"/>
