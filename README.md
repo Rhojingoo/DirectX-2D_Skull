@@ -70,17 +70,17 @@
 
 
 ## KEY Manual
-→방향키 : 오른쪽이동
-←방향키 : 왼쪽이동
-Z : Dash
-X : Attack
-C : Jump
-A : Skill-1번
-S : Skill-2번
-Space : Charactor Change
-N : Next Scene
-P : Collider render Off
-O : Collider render On
+→방향키 : 오른쪽이동<br>
+←방향키 : 왼쪽이동<br>
+Z : Dash<br>
+X : Attack<br>
+C : Jump<br>
+A : Skill-1번<br>
+S : Skill-2번<br>
+Space : Charactor Change<br>
+N : Next Scene<br>
+P : Collider render Off<br>
+O : Collider render On<br>
 <br>
 <br>
 <br>
