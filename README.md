@@ -16,6 +16,8 @@
 <br>
 <br>
 <br>
+
+
 ## 게임 개발시 주요내용
 <div align="center">
   <img src="https://github.com/Rhojingoo/Sonic3_jk/assets/125935035/f9adf5ab-a20e-48ca-8aac-fed8e11d5b4d" height="300px" width="500px"/>
@@ -65,6 +67,8 @@
 <br>
 <br>
 <br>
+
+
 ## KEY Manual
 →방향키 : 오른쪽이동
 ←방향키 : 왼쪽이동
