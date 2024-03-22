@@ -52,7 +52,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    wcscpy_s(szTitle, L"Dx11_SKUL");
+    wcscpy_s(szTitle, L"SKUL");
     LoadStringW(hInstance, IDC_EDITORWINDOW, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance, szWindowClass, WndProc);
     // tiletool window
