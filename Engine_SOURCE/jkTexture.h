@@ -2,8 +2,8 @@
 #include "jkResource.h"
 #include "jkGraphics.h"
 
-#include "../External/DirectXTex/Include/DirectXTex.h"
-#include "../External/DirectXTex/Include/DirectXTex.inl"
+#include "..\\External/DirectXTex/Include/DirectXTex.h"
+#include "..\\External/DirectXTex/Include/DirectXTex.inl"
 
 
 
@@ -42,8 +42,6 @@ namespace jk::graphics
 
 		size_t GetWidth() { return mImage.GetMetadata().width; }
 		size_t GetHeight() { return mImage.GetMetadata().height; }
-		//size_t GetWidth() { return mWidth; }
-		//size_t GetHeight() { return mHeight; }
 
 		size_t GetHeight_Desc() { return mDesc.Height; }
 		size_t GetWidth_Desc() { return mDesc.Width; }

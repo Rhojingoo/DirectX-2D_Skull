@@ -130,10 +130,6 @@ namespace jk
 		// 몬스터를 게임 오브젝트 리스트에서 제거
 		mGameObjects.erase(std::remove(mGameObjects.begin(), mGameObjects.end(), monster), mGameObjects.end());
 
-		//// 반환된 몬스터를 오브젝트 풀로 반납
-		//if (OBJ_POOL != nullptr)
-		//{
-		//	OBJ_POOL->Return_Monster_warrior(monster);
-		//}
+
 	}
 }
