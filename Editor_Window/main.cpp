@@ -3,7 +3,8 @@
 
 #include "framework.h"
 #include "Editor_Window.h"
-
+#include <filesystem> 
+#include <windows.h>
 
 #include "..\Engine_SOURCE\jkFmod.h"
 #include "..\Engine_SOURCE\jkFontWrapper.h"
@@ -51,6 +52,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+    wcscpy_s(szTitle, L"Dx11_SKUL");
     LoadStringW(hInstance, IDC_EDITORWINDOW, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance, szWindowClass, WndProc);
     // tiletool window
@@ -106,6 +108,28 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 ATOM MyRegisterClass(HINSTANCE hInstance, LPCWSTR name, WNDPROC proc)
 {
+    HICON mhIcon = nullptr;
+
+    std::filesystem::path  Path =  std::filesystem::current_path();
+    std::filesystem::path CurePath = Path.parent_path();
+    CurePath /= "Resources";
+    CurePath /= "Skul.ico";
+    std::wstring IconPath = CurePath.wstring();
+
+    mhIcon = (HICON)LoadImage( // returns a HANDLE so we have to cast to HICON
+        NULL,             // hInstance must be NULL when loading from a file
+        IconPath.data(),   // the icon file name
+        IMAGE_ICON,       // specifies that the file is an icon
+        0,                // width of the image (we'll specify default later on)
+        0,                // height of the image
+        LR_LOADFROMFILE |  // we want to load a file (as opposed to a resource)
+        LR_DEFAULTSIZE |   // default metrics based on the type (IMAGE_ICON, 32x32)
+        LR_SHARED         // let the system release the handle when it's no longer used
+    );
+   
+
+
+
     WNDCLASSEXW wcex = {};
 
     wcex.cbSize = sizeof(WNDCLASSEX);
@@ -115,13 +139,12 @@ ATOM MyRegisterClass(HINSTANCE hInstance, LPCWSTR name, WNDPROC proc)
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
     wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_EDITORWINDOW));
+    wcex.hIcon          = mhIcon;
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_STATIC);
-    wcex.lpszClassName  = name;
-    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
-
+    wcex.lpszMenuName   = nullptr;
+    wcex.lpszClassName = name;
+    wcex.hIconSm = nullptr;
     return RegisterClassExW(&wcex);
 }
 
@@ -165,35 +188,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
      gui::Editor::Initialize();
 
      return TRUE;
-    
-    //{//멀티스레드 시도
-    //{
-    //    hInst = hInstance;
-    //    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-    //        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-    //    if (!hWnd)
-    //    {
-    //        return FALSE;
-    //    }
-    //    application.SetWindow(hWnd, 1600, 900);
-    //    ShowWindow(hWnd, nCmdShow);
-    //    UpdateWindow(hWnd);
-    //    // 병렬 초기화를 위한 스레드 생성
-    //    std::thread initAppThread([&]() {
-    //        application.Initialize();
-    //        });
-    //    std::thread initSceneThread([&]() {
-    //        jk::InitializeScenes();
-    //        });
-    //    std::thread initEditorThread([&]() {
-    //        gui::Editor::Initialize();
-    //        });
-    //    // 모든 스레드가 종료될 때까지 대기
-    //    initAppThread.join();
-    //    initSceneThread.join();
-    //    initEditorThread.join();
-    //    return TRUE;
-    //}
 }
 
 //
