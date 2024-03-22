@@ -76,7 +76,7 @@ namespace jk
 	void Collider2D::Render()
 	{
 		renderer::MoveCB trCB = {};
-		trCB.mTime.x = _Colcheck;
+		trCB.mTime.x = static_cast<float>(_Colcheck);
 		
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Move];
 		cb->SetData(&trCB);

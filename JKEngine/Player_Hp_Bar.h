@@ -16,8 +16,8 @@ namespace jk
 
 		void BindConstantBuffer();
 		void SetHitDamage(float set) { _Hit_Damage = set;}
-		void Set_Max_Hp(float set) { _MaxHp = set; }
-		void Set_Current_Hp(float set) { _CurrentHp = set; }
+		static void Set_Max_Hp(float set) { _MaxHp = set; }
+		static void Set_Current_Hp(float set) { _CurrentHp = set; }
 
 		//타입이다른 hp바
 		void Set_Type(int set) { _Type = set; }
@@ -30,8 +30,9 @@ namespace jk
 	private:
 		class MeshRenderer* meshrenderer;
 		Transform* tr;
-		float	_MaxHp = 0.f;
-		float	_CurrentHp = 0.f;
+		static float _MaxHp;
+		static float _CurrentHp;
+		static float _DamageHp;
 		float	_Hit_Damage = 0.f;
 		float	_target_point = 0.f;
 		int		_Type = 0;

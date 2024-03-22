@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Portfolio\JK_Direct_X_Skull\JK_Engine\x64\Debug\Editor_Window.exe</FullPath>
+      <FullPath>C:\Portfolio\DirectX-2D_Skull\x64\Debug\Editor_Window.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

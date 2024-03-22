@@ -64,31 +64,6 @@ namespace jk
 
 
 
-	//	Monster_warrior* test = object::Instantiate<Monster_warrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-	//	Stone_wizard* test1 = object::Instantiate<Stone_wizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-	//	Monster_GreenTree* test2 = object::Instantiate<Monster_GreenTree>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-	//	Monster_BlossomEnt* test3 = object::Instantiate<Monster_BlossomEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-	//	Monster_Hammer* test4 = object::Instantiate<Monster_Hammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-	//	Monster_BigEnt* test5 = object::Instantiate<Monster_BigEnt>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-
-
-	//	Monster_Goldwarrior* test11 = object::Instantiate<Monster_Goldwarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-	//	Monster_GoldHammer* test12 = object::Instantiate<Monster_GoldHammer>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-	//	Monster_LionWarrior* test13 = object::Instantiate<Monster_LionWarrior>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-	//	Monster_LionSpear* test14 = object::Instantiate<Monster_LionSpear>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-	//	Monster_LionWizard* test15 = object::Instantiate<Monster_LionWizard>(Vector3(0.f, -50.f, -249.f), eLayerType::Monster);
-
-		//Mushroom_Spring* test16 = object::Instantiate<Mushroom_Spring>(Vector3(150.f, -80.f, -249.f), eLayerType::Monster);
-
-	//	Archer* test5 = object::Instantiate<Archer>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-		//Cleric* test5 = object::Instantiate<Cleric>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-	//	Knight_male* test5 = object::Instantiate<Knight_male>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-	//	Mage* test5 = object::Instantiate<Mage>(Vector3(0.f, -50.f, -249.f), eLayerType::MiniBoss);
-
-			#pragma region Npc	
-
-			#pragma endregion
-
 			#pragma region CASTLE
 					Back_ground* in_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground, L"In_Fore_GR");
 					in_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1280.f, 720.f, 0.f));	in_Catle_Back->SetName(L"in_Catle_Back");
@@ -273,8 +248,6 @@ namespace jk
 	void Castle_Area::OnExit()
 	{
 		_player->SettingPlay_List(jk::Player_INFO->GetCurrentPlay_List());
-		//jk::Player_INFO->Set_HP_Bar(_player->Get_HP_Bar());
-		//jk::Player_INFO->Set_DamageHP_Bar(_player->Get_DamageHP_Bar());
 		as->Stop("DemonCastleSound");
 	}
 }

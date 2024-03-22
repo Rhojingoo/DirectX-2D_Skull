@@ -10,6 +10,14 @@
 #include "Yggdrasil_HpFrame.h"
 #include "Monster_Hp_Bar.h"
 #include "HP_Frame.h"
+#include "Hit_Sword.h"
+#include "Player_Hit_Effect.h"
+#include "Hit_Critical_Middle.h"
+#include "Hit_Critical_High.h"
+#include "Monster_Death_Effect.h"
+#include "Monster_Hit_Effect.h"
+#include "Monster_Hp_Bar.h"
+#include "Alpha_Blend.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
 
 namespace jk

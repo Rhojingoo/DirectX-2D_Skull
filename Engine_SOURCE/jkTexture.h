@@ -73,8 +73,8 @@ namespace jk::graphics
 		ScratchImage mImage;
 		HBITMAP mBitmap;
 		HDC mHdc;
-		UINT mWidth;
-		UINT mHeight;
+		size_t mWidth;
+		size_t mHeight;
 		Vector2 mTextureSize;
 		int reversecheck;
 

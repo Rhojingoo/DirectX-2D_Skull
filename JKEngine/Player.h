@@ -39,7 +39,12 @@ namespace jk
 
 
 		static void SetPlay_List(PlayerList change, PlayerList current, bool ckeck, int direction)
-		{player_select = change, player_check = current, _check_change = ckeck, mDir = direction;}
+		{
+			player_select = change, 
+			player_check = current, 
+			_check_change = ckeck, 
+			mDir = direction;
+		}
 		virtual PlayerList GetPlay_List() { return player_select;}
 
 		static void SettingPlay_List(PlayerList set) { player_select = set; }
@@ -49,8 +54,8 @@ namespace jk
 		void SetSwitch(bool set = false) { _Switch = set; }
 
 
-		static Player_Hp_Bar* Get_HP_Bar() {	return Player_Hp;}
-		static Player_Hp_Bar* Get_DamageHP_Bar() { return Player_Hp_Damage; }
+		 Player_Hp_Bar* Get_HP_Bar() {	return Player_Hp;}
+		 Player_Hp_Bar* Get_DamageHP_Bar() { return Player_Hp_Damage; }
 		void Set_HP_Bar(Player_Hp_Bar* SET) { Player_Hp = SET; }
 		void Set_DamageHP_Bar(Player_Hp_Bar* SET) { Player_Hp_Damage = SET; }
 
@@ -86,8 +91,9 @@ namespace jk
 		class Face_UI* Spear_Face = nullptr;
 
 	public:
-		static Player_Hp_Bar* Player_Hp;
-		static Player_Hp_Bar* Player_Hp_Damage;
+		Player_Hp_Bar* Player_Hp = nullptr;
+		Player_Hp_Bar* Player_Hp_Damage = nullptr;
+	
 		static float _Max_Player_Hp;
 		static float _Curren_Player_Hp;
 	};

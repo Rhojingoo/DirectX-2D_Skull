@@ -10,8 +10,7 @@ namespace jk
 
 	float Player::_Max_Player_Hp = 200.f;
 	float Player::_Curren_Player_Hp = 200.f;
-	Player_Hp_Bar* Player::Player_Hp = nullptr;
-	Player_Hp_Bar* Player::Player_Hp_Damage = nullptr;
+
 	
 	Vector3 Player::_Pos = Vector3(0.f, 0.f, 0.f);
 	Vector3 Player::_Player_GRpos = Vector3(0.f, 0.f, 0.f);
@@ -65,7 +64,7 @@ namespace jk
 			hp_tr->SetPosition(Vector3(-584.5f, -333.f, -3));
 			hp_tr->SetScale(235, 20, 0);
 			Player_Hp->Set_Max_Hp(_Max_Player_Hp);
-			Player_Hp->Set_Current_Hp(_Max_Player_Hp);
+			Player_Hp->Set_Current_Hp(_Curren_Player_Hp);
 			Player_Hp->SetState(eState::Active);
 		}
 		{
@@ -77,7 +76,7 @@ namespace jk
 			hp_tr->SetPosition(Vector3(-584.5f, -333.f, -2));
 			hp_tr->SetScale(235, 20, 0);
 			Player_Hp_Damage->Set_Max_Hp(_Max_Player_Hp);
-			Player_Hp_Damage->Set_Current_Hp(_Max_Player_Hp);
+			Player_Hp_Damage->Set_Current_Hp(_Curren_Player_Hp);
 			Player_Hp_Damage->Set_Type(1);
 			Player_Hp_Damage->SetState(eState::Active);
 		}
@@ -112,11 +111,11 @@ namespace jk
 
 		if (Input::GetKeyDown(eKeyCode::K))
 		{
-			_Curren_Player_Hp = _Curren_Player_Hp - 10;
+			_Curren_Player_Hp = _Curren_Player_Hp - 50;
 			Player_Hp->_HitOn = true;
-			Player_Hp->SetHitDamage(10);
+			Player_Hp->SetHitDamage(50);
 			Player_Hp_Damage->_HitOn = true;
-			Player_Hp_Damage->Set_Target(_Curren_Player_Hp);	
+			Player_Hp_Damage->Set_Target(_Curren_Player_Hp);
 		}
 
 

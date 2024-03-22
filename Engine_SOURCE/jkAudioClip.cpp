@@ -1,5 +1,7 @@
 #include "jkAudioClip.h"
 #include "jkTransform.h"
+#include <codecvt>
+#include <locale>
 
 namespace jk
 {
@@ -19,7 +21,10 @@ namespace jk
 
 	HRESULT AudioClip::Load(const std::wstring& path, const std::string& soundID)
 	{
-		std::string cPath(path.begin(), path.end());
+		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		std::string cPath = converter.to_bytes(path);
+
+		//std::string cPath(path.begin(), path.end());
 		FMOD::Sound* newSound;
 		if (!Fmod::CreateSound(cPath, &newSound))
 			return S_FALSE;

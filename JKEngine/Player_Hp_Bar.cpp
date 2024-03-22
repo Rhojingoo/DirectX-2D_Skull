@@ -4,6 +4,10 @@
 
 namespace jk
 {
+	float Player_Hp_Bar::_MaxHp = 200.f;
+	float Player_Hp_Bar::_CurrentHp = _MaxHp;
+	float Player_Hp_Bar::_DamageHp = _MaxHp;
+
 	Player_Hp_Bar::Player_Hp_Bar(const std::wstring& path)
 	{
 		MeshRenderer* mr = AddComponent<MeshRenderer>();
@@ -23,11 +27,11 @@ namespace jk
 		{
 			if (_Type == 1)
 			{
-				if (_target_point < _CurrentHp)
-					_CurrentHp -= 50.f * static_cast<float>(Time::DeltaTime());
+				if (_target_point < _DamageHp)
+					_DamageHp -= 10.f * static_cast<float>(Time::DeltaTime());
 				else
 				{
-					_CurrentHp = _target_point;
+					_DamageHp = _target_point;
 					_HitOn = false;
 					_DageSwitch = true;
 				}
@@ -52,8 +56,17 @@ namespace jk
 	void Player_Hp_Bar::BindConstantBuffer()
 	{
 		renderer::HP_BarCB trCB = {};
-		trCB._Damage.x = _MaxHp;
-		trCB._Damage.y = _CurrentHp;
+		if (_Type == 1)
+		{
+			trCB._Damage.x = _MaxHp;
+			trCB._Damage.y = _DamageHp;
+		}
+		else
+		{
+			trCB._Damage.x = _MaxHp;
+			trCB._Damage.y = _CurrentHp;
+		}
+
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::HP_Bar];
 		cb->SetData(&trCB);

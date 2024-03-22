@@ -113,13 +113,16 @@ namespace jk
 
 			std::shared_ptr<Texture> tex = Resources::Load<Texture>(fileName, fullName);
 
-			if (width < tex->GetWidth())
+			UINT GWidth = static_cast<UINT>(tex->GetWidth());
+			UINT GHeight = static_cast<UINT>(tex->GetHeight());
+
+			if (width < GWidth)
 			{
-				width = tex->GetWidth();
+				width = GWidth;
 			}
-			if (height < tex->GetHeight())
+			if (height < GHeight)
 			{
-				height = tex->GetHeight();
+				height = GHeight;
 			}
 
 			textures.push_back(tex);
@@ -139,15 +142,18 @@ namespace jk
 		}
 
 		GameObject* ScaleSet = OBJ;
-		ScaleSet->GetComponent<Transform>()->SetScale(Vector3(width , height, 1.0f));
+		float FWidth = static_cast<float>(width);
+		float FHeigth = static_cast<float>(height);
+
+		ScaleSet->GetComponent<Transform>()->SetScale(Vector3(FWidth, FHeigth, 1.0f));
 		Collider2D* ColSET = OBJ->GetComponent<Collider2D>();
-		ColSET->SetSize(Vector2(width/ fileCount, height/ fileCount));
+		ColSET->SetSize(Vector2(static_cast<float>(width/ fileCount), static_cast<float>(height/ fileCount)));
 		//ScaleSet->GetComponent<Transform>()->SetScale(Vector3(width* fileCount, height* fileCount, 1.0f));
 
 		mImageAtlas = std::make_shared<graphics::Texture>();
 		mImageAtlas->CreateTex(path, width, height, fileCount, reverse);
 
-		Create(key, mImageAtlas, Vector2(0.0), Vector2(width, height), fileCount, offset, duration);
+		Create(key, mImageAtlas, Vector2(0.0), Vector2(FWidth, FHeigth), fileCount, offset, duration);
 
 		return nullptr;
 	}

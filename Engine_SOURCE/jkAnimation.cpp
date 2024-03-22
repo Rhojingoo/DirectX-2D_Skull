@@ -38,7 +38,7 @@ namespace jk
 
 			if (mSprites.size() <= mIndex)
 			{
-				mIndex = mSprites.size() - 1;
+				mIndex = static_cast<int>(mSprites.size()) - 1;
 				mbComplete = true;
 			}
 		}

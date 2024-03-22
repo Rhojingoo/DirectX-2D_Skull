@@ -2,6 +2,7 @@
 #include "LoadScenes.h"
 #include "Include_Common.h"
 #include "jkPlayScene.h"
+#include "Alpha_Blend.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
 #include "Sound.h"
 
@@ -41,28 +42,14 @@ namespace jk
 			//as->SetClip(Resources::Load<AudioClip>(L"Chapter2", L"..\\Resources\\Sound\\Chapter2\\Chapter2.wav", "Chapter2"));
 
 
-				#pragma region Player		
+			#pragma region Player		
 			_player = object::Instantiate<Player>(Vector3(0.f, 750.f, -250.f), eLayerType::Player);
 			_player->SetName(L"player_select");
-#pragma endregion	
+			#pragma endregion	
 
-				#pragma region UI	
-				//Player_State_UI* Player_State = object::Instantiate<Player_State_UI>(Vector3(-700.f, -300.f, 1.f), eLayerType::UI);
-				//Player_State->GetComponent<Transform>()->SetScale(Vector3(168.f, 66.f, 0.f));
-				//Player_State->SetName(L"playyer_state_inventory");
 
-				//Player_Hp_Bar* Player_Hit_Effect = object::Instantiate<Player_Hp_Bar>(Vector3(0.085f, -0.25f, -2.f), eLayerType::UI);
-				//Player_Hit_Effect->GetComponent<Transform>()->SetScale(Vector3(0.68f, 0.185f, 0.f));
-				//Player_Hit_Effect->SetName(L"player_hp_bar");
-				//Player_Hit_Effect->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
 
-				//Face_UI* Player_Face = object::Instantiate<Face_UI>(Vector3(-0.33f, 0.23f, -2.1f), eLayerType::UI);
-				//Player_Face->GetComponent<Transform>()->SetScale(Vector3(0.324f, 0.824f, 0.f));
-				//Player_Face->SetName(L"player_head");
-				//Player_Face->GetComponent<Transform>()->SetParent(Player_State->GetComponent<Transform>());
-		#pragma endregion	
-
-				#pragma region Door
+			#pragma region Door
 							Door1 = object::Instantiate<Stage1_Door>(Vector3(170.f, -80.f, -249.f), eLayerType::BACK_GROUND);
 							Door1->Set_Door_Allow(true); Door1->Set_Stage1_Door(0);	Door1->Set_NextStage(L"Stage1_1");
 
@@ -82,7 +69,7 @@ namespace jk
 							_npc_by_stage->Set_Table_Allow(true);  _npc_by_stage->Set_End_Table(1);
 				#pragma endregion	
 
-				#pragma region CASTLE
+			#pragma region CASTLE
 							Back_ground* out_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Out_Fore_GR");
 							out_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1200.f, 5500.f, 0.f));	out_Catle_Back->SetName(L"out_Catle_Back");
 
@@ -138,7 +125,7 @@ namespace jk
 
 				#pragma endregion				
 
-				#pragma region tile_map		
+			#pragma region tile_map		
 							{
 								static Vector2 TileSize = Vector2(32.f, 32.f);
 								static int Tile_Colum = 60;
@@ -190,6 +177,7 @@ namespace jk
 
 		if (_changecheck == true)
 		{
+			_player->SetSwitch(true);
 			_player->SetPlayer_Pos(player_pos);
 			_player->SetPlay_List(_player->GetCurrentPlay_List(), _player->GetPlay_List(), true, _player->GetDirection());
 			_changecheck = false;		
@@ -212,8 +200,7 @@ namespace jk
 		as->Play("Chapter1");
 		Transform* PlayerTR = _player->GetComponent<Transform>();
 		Vector3 player_pos = PlayerTR->GetPosition();
-		_player->SetPlayer_Pos(player_pos);
-		_player->SetSwitch(true);
+		_player->SetPlayer_Pos(player_pos);	
 		_changecheck = true;
 
 

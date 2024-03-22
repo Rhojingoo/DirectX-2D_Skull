@@ -257,8 +257,8 @@ namespace jk::renderer
 		vertexes.push_back(v);
 		indexes.push_back(0);
 		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-		mesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
-		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
+		mesh->CreateVertexBuffer(vertexes.data(), static_cast<UINT>(vertexes.size()));
+		mesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 		Resources::Insert(L"PointMesh", mesh);
 
 		vertexes.clear();
@@ -1469,8 +1469,8 @@ namespace jk::renderer
 
 		ConstantBuffer* cb = constantBuffer[(UINT)eCBType::Noise];
 		NoiseCB data = {};
-		data.size.x = texture->GetWidth();
-		data.size.y = texture->GetHeight();
+		data.size.x = static_cast<float>(texture->GetWidth());
+		data.size.y = static_cast<float>(texture->GetHeight());
 
 		cb->SetData(&data);
 		cb->Bind(eShaderStage::VS);
