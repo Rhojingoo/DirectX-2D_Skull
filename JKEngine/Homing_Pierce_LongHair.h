@@ -3,6 +3,12 @@
 
 namespace jk
 {
+	class Transform;
+	class Collider2D;
+	class RigidBody;
+	class Animator;
+	class AudioSource;
+	class Hit_Critical_Middle;
 	class Homing_Pierce_LongHair : public Bullet
 	{
 	public:

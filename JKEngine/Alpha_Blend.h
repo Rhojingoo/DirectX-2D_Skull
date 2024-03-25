@@ -1,10 +1,22 @@
 #pragma once
+#include "jkGameObject.h"
 
 namespace jk
 {
 	class Alpha_Blend : public GameObject
 	{
 	public:
+		enum class Alpha_Blend_State
+		{
+			FadeIn_White_Transparent = 0,
+			FadeIn_DeepWhite,
+			FadeIn_Black_Transparent,
+			FadeIn_DeepBlack,
+			FadeOut,
+			End,
+		};
+
+
 		Alpha_Blend();
 		virtual ~Alpha_Blend();
 
@@ -14,16 +26,6 @@ namespace jk
 		virtual void Render()		override;
 
 		void BindConstantBuffer();
-
-		enum class Alpha_Blend_State
-		{
-			FadeIn_White_Transparent = 0,
-			FadeIn_DeepWhite,
-			FadeIn_Black_Transparent,
-			FadeIn_DeepBlack,	
-			FadeOut,
-			End,
-		};	
 
 		void FadeIn_White_Transparent();
 		void FadeIn_DeepWhite();

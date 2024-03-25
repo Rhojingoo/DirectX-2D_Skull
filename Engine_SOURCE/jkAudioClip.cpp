@@ -19,18 +19,38 @@ namespace jk
 	{
 	}
 
+	//HRESULT AudioClip::Load(const std::wstring& path, const std::string& soundID)
+	//{
+	//	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	//	std::string cPath = converter.to_bytes(path);
+
+	//	//std::string cPath(path.begin(), path.end());
+	//	FMOD::Sound* newSound;
+	//	if (!Fmod::CreateSound(cPath, &newSound))
+	//		return S_FALSE;
+
+	//	if (mSounds.find(soundID) != mSounds.end()) {
+	//		
+	//		return S_FALSE;
+	//	}
+
+	//	mSounds[soundID] = newSound;
+	//	return S_OK;
+	//}
+
 	HRESULT AudioClip::Load(const std::wstring& path, const std::string& soundID)
 	{
-		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		std::string cPath = converter.to_bytes(path);
+		// UTF-16 to UTF-8 conversion.
+		int requiredSize = WideCharToMultiByte(CP_UTF8, 0, path.c_str(), -1, NULL, 0, NULL, NULL);
+		std::string cPath(requiredSize, 0);
+		WideCharToMultiByte(CP_UTF8, 0, path.c_str(), -1, &cPath[0], requiredSize, NULL, NULL);
 
-		//std::string cPath(path.begin(), path.end());
+		// The rest of your function...
 		FMOD::Sound* newSound;
 		if (!Fmod::CreateSound(cPath, &newSound))
 			return S_FALSE;
 
 		if (mSounds.find(soundID) != mSounds.end()) {
-			
 			return S_FALSE;
 		}
 

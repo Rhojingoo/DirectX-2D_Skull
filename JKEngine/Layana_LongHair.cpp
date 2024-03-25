@@ -22,11 +22,15 @@
 #include "Awaken_Electric.h"
 #include "Monster_Hp_Bar.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
-
+#include "Alpha_Blend.h"
 #include "Hit_Sword.h"
 #include "Hit_Critical_Middle.h"
 #include "Hit_Critical_High.h"
 #include "Monster_Death_Effect.h"
+			
+#include "Monster_Hit_Effect.h"
+#include "Player_Hit_Effect.h"
+
 
 namespace jk
 {
@@ -449,8 +453,6 @@ namespace jk
 			scene->AddGameObject(eLayerType::Effect, Golden_Meteor_Ef);
 			Golden_Meteor_Ef->SetState(eState::Paused);
 		}
-
-
 
 
 

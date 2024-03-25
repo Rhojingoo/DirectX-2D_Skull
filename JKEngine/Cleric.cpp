@@ -15,6 +15,11 @@
 #include "Hit_Critical_Middle.h"
 #include "Hit_Critical_High.h"
 #include "Monster_Death_Effect.h"
+#include "Public_Ultimate_Aura.h"
+#include "Public_Ultimate_AuraSmoke.h"
+#include "Public_UltimateSkill_Effect_Complete.h"
+#include "Public_UltimateSkill_Effect_Fail.h"
+
 
 namespace jk
 {
@@ -229,6 +234,7 @@ namespace jk
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
 			_Veteran_Sanctuary_AtaackB->SetState(eState::Paused);
 		}
+
 		{
 			Ultimate_Aura = new Public_Ultimate_Aura;
 			Ultimate_Aura->Initialize();

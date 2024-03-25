@@ -1,4 +1,5 @@
 #pragma once
+#include <wchar.h>
 
 namespace jk
 {

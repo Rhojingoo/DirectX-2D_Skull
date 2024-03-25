@@ -4,6 +4,7 @@
 #include "Stage1_BossDoor.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
 #include "Sound.h"
+#include "Alpha_Blend.h"
 
 namespace jk
 {

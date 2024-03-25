@@ -1,6 +1,8 @@
 #include "Skul_Wolf.h"
 #include "Particle_DamageEffect.h"
 #include "Include_Common.h"
+#include "Monster_GoldHammer.h"
+#include "Monster_Hammer.h"
 #include "Skul_head.h"
 #include "Player_Hit_Effect.h"
 #include "HitBox_Monster.h"

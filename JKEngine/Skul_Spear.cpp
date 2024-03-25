@@ -2,7 +2,7 @@
 #include "jkInput.h"
 #include "jkTime.h"
 #include "Include_Common.h"
-
+#include "Player_AfterImage.h"
 
 namespace jk
 {

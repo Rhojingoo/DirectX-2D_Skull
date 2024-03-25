@@ -4,6 +4,7 @@
 
 namespace jk
 {
+	class Monster;
 	class Stage2_2 : public PlayScene
 	{
 	public:

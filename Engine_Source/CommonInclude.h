@@ -1,7 +1,9 @@
 #pragma once
+#include <windows.h>
 #include <cstdlib>
 #include <cstring>
 #include <cstdint>
+#include <string>
 #include <type_traits>
 
 #define arraysize(a) (sizeof(a)/sizeof(a[0]))

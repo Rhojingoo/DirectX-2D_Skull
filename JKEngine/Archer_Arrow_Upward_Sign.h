@@ -3,6 +3,10 @@
 
 namespace jk
 {
+	class Transform;
+	class Collider2D;
+	class RigidBody;
+	class Animator;
 	class Archer_Arrow_Upward_Sign : public Effect
 	{
 	public:

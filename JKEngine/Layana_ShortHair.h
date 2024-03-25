@@ -286,8 +286,8 @@ namespace jk
 	public:
 		static int	_HitType;
 		static float _Damage;
-		static	Monster_Hp_Bar* ShortHair_Hp;
-		static	Monster_Hp_Bar* ShortHair_Hp_Damage;
+		static	class Monster_Hp_Bar* ShortHair_Hp;
+		static	class Monster_Hp_Bar* ShortHair_Hp_Damage;
 
 	public:
 		static class Monster_Hit_Effect* _Hit_Effect;

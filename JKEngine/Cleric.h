@@ -1,5 +1,6 @@
 #pragma once
 #include "Mini_Boss.h"
+#include "Skul_Basic.h"
 
 namespace jk
 {

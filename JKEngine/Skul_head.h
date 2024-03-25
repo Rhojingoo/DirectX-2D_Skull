@@ -23,7 +23,7 @@ namespace jk
 		int random(int a, int b);
 		void SetDirection(int dir) { _Dir = dir; }
 		void Setattack(bool check) { _attack = check; }
-		RigidBody* Getrigidbody() {return _rigidbody;}
+		class RigidBody* Getrigidbody() {return _rigidbody;}
 		void Setgroundcheck(bool check) { _Ground_check = check; }
 		void SetBeforeAttackPos(Vector3 set) { _Before_Attack_Pos = set; }
 

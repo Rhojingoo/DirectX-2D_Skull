@@ -1,6 +1,6 @@
 #include "Stage1_Door.h"
 #include "Include_Common.h"
-
+#include "Alpha_Blend.h"
 
 namespace jk
 {

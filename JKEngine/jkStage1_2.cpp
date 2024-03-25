@@ -5,6 +5,8 @@
 #include "Stge_Manager.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
 #include "Sound.h"
+#include "Monster.h"
+
 
 namespace jk
 {

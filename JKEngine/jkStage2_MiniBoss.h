@@ -22,7 +22,7 @@ namespace jk
 
 		void CreateMiniboss();
 		int random(int a, int b);
-		bool AreAllMiniBossDead(const std::vector<Mini_Boss*>& monsterGroup);
+		bool AreAllMiniBossDead(const std::vector<class Mini_Boss*>& monsterGroup);
 
 	private:
 		class Player* _player = nullptr;
@@ -40,7 +40,7 @@ namespace jk
 		bool _Fadecheck = false;
 		bool _changecheck = false;
 		bool _mbosscreate = false;
-		std::vector<Mini_Boss*> mBossGroup;
+		std::vector<class Mini_Boss*> mBossGroup = {};
 		bool _first_groundtouch = false;;
 		bool _MiniBoss_groundtouch = false;
 		bool _MiniBoss_Create = false;;

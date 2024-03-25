@@ -24,12 +24,13 @@
 #include "..\Engine_SOURCE\jkAudioSource.h"
 
 
-
+#include "Player_Hit_Effect.h"
 #include "Hit_Sword.h"
 #include "Hit_Critical_Middle.h"
 #include "Hit_Critical_High.h"
 #include "Monster_Death_Effect.h"
-
+#include "Monster_Hit_Effect.h"
+#include "Alpha_Blend.h"
 
 namespace jk
 {

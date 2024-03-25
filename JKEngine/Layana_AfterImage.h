@@ -5,7 +5,7 @@
 
 namespace jk
 {
-
+	class Layana_Sisters;
 	class Layana_AfterImage : public GameObject
 	{
 	public:
@@ -36,7 +36,7 @@ namespace jk
 		void Finish_Image();
 
 	private:
-		class Layana_Sisters* mOwner = nullptr;
+		Layana_Sisters* mOwner = nullptr;
 		Transform* PlayerTr = nullptr;
 		LayanaAfterImage_State _State = {};
 		int _Dir = 1;
@@ -54,7 +54,7 @@ namespace jk
 
 
 	private://첨에 오브젝트로 진행하려할때의 변수들
-		std::shared_ptr<Material> mMaterial;
+		//std::shared_ptr<Material> mMaterial;
 		class Animator* mAnimator;
 		class Animator* at = nullptr;
 		class Collider2D* _collider = nullptr;

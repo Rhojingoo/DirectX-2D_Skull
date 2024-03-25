@@ -291,6 +291,7 @@ namespace jk
 	void Stage1_MiniBoss::CreateMiniboss()
 	{
 		_Randomcheck = Mboss->random(0, 2);
+		_Randomcheck = 1;
 		if (_Randomcheck == 0)
 		{
 			Mini_Boss* _Gobjs = new Knight_male();

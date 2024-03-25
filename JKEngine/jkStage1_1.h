@@ -3,6 +3,7 @@
 
 namespace jk
 {
+	class Monster;
 	class Stage1_1 : public Scene
 	{
 	public:
@@ -19,7 +20,7 @@ namespace jk
 
 		void CamareShooting();
 		void SetMonOBJ();
-		bool AreAllMonstersDead(const std::vector<Monster*>& monsterGroup, bool check);
+		bool AreAllMonstersDead(const std::vector< Monster*>& monsterGroup, bool check);
 
 
 		bool Monsters_check = false;

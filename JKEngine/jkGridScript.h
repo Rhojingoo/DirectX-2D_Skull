@@ -4,6 +4,7 @@
 
 namespace jk
 {
+	class Camera;
 	class GridScript : public Script
 	{
 	public:

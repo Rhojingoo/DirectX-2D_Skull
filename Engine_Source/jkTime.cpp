@@ -60,4 +60,5 @@ namespace jk
 		//HWND hWnd = application.GetHwnd();
 		//wchar_t szFloat[100] = {};
 	}
+
 }

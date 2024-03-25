@@ -3,6 +3,9 @@
 
 namespace jk
 {
+	class Transform;
+	class Collider2D;
+	class Animator;
 	class Layana_HpFrame : public GameObject
 	{
 	public:

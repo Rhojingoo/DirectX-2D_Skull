@@ -4,6 +4,7 @@
 #include "Monster_Objmanagerl.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
 #include "Sound.h"
+#include "Monster.h"
 
 namespace jk
 {

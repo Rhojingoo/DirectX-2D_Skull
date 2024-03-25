@@ -1,5 +1,5 @@
 #include "jkPlayScene.h"
-//#include "Monster_ObjManager.h"
+#include "Include_Common.h"
 
 namespace jk
 {

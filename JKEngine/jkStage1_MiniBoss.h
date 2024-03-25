@@ -3,6 +3,7 @@
 
 namespace jk
 {
+	class Mini_Boss;
 	class Stage1_MiniBoss : public Scene
 	{
 	public:
@@ -34,7 +35,7 @@ namespace jk
 
 	private:
 		bool _changecheck = false;
-		std::vector<Mini_Boss*> mBossGroup;
+		std::vector<Mini_Boss*> mBossGroup = {};
 		bool _first_groundtouch = false;;
 		bool _MiniBoss_groundtouch = false;
 		bool _MiniBoss_Create = false;;

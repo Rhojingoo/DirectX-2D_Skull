@@ -1,6 +1,8 @@
 #pragma once
 #include "JKEngine.h"
 
+#include "jkGameObject.h"
+
 namespace jk
 {
 	class Time
@@ -11,7 +13,7 @@ namespace jk
 		static void Render();
 
 		__forceinline static double DeltaTime() { return mDeltaTime; }	
-		Vector3 ChangeWorldPos(Vector3 pos);
+
 
 
 		//std::wstring stringToWstring(const std::string& s)

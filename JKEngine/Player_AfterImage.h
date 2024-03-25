@@ -4,6 +4,7 @@
 
 namespace jk
 {
+	class Player;
 	class Player_AfterImage :  public GameObject
 	{
 	public:
@@ -44,7 +45,7 @@ namespace jk
 		bool _AfterImage = false;
 
 	private:
-		class Player* mOwner = nullptr;
+		Player* mOwner = nullptr;
 		Transform* PlayerTr = nullptr;
 		AfterImage_State _State = {};
 		int _Dir = 1;
@@ -62,7 +63,7 @@ namespace jk
 
 	
 	private://첨에 오브젝트로 진행하려할때의 변수들
-		std::shared_ptr<Material> mMaterial;
+		//std::shared_ptr<Material> mMaterial;
 		class Animator* mAnimator;
 		class Animator* at = nullptr;
 		class Collider2D* _collider = nullptr;

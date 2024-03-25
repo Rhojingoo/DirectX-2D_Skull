@@ -221,8 +221,8 @@ namespace jk
 		bool _EnergyChange = false;
 		static int	_HitType;
 		static float _Damage;
-		static	Monster_Hp_Bar* Dark_Awaken_Hp;
-		static	Monster_Hp_Bar* Dark_Awaken_DamegeHP;
+		static	class Monster_Hp_Bar* Dark_Awaken_Hp;
+		static	class Monster_Hp_Bar* Dark_Awaken_DamegeHP;
 
 	public:
 		static class Monster_Hit_Effect* _Hit_Effect;

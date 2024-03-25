@@ -8,6 +8,7 @@
 #include "Cleric.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
 #include "Sound.h"
+#include <random>
 
 
 jk::Stage2_MiniBoss::Stage2_MiniBoss()

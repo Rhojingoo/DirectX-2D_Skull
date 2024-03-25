@@ -1,10 +1,12 @@
 #pragma once
 #include "Player.h"
-#include "Monster_GoldHammer.h"
 #include "Monster_Hammer.h"
+#include "Monster_GoldHammer.h"
+
 
 namespace jk
 {
+	class Player_AfterImage;
 	class Skul_Wolf : public Player
 	{
 	public:
