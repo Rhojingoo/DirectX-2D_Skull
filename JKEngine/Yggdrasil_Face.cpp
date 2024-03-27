@@ -82,12 +82,11 @@ namespace jk
 		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
 				
 
-
+		Scene* scene = SceneManager::GetInitializeScene();
 
 		{
 			Energy_Bomb = new Yggdrasil_Energy_Bomb;
-			Energy_Bomb->Initialize();			
-			Scene* scene = SceneManager::GetInitializeScene();
+			Energy_Bomb->Initialize();				
 			scene->AddGameObject(eLayerType::Bullet, Energy_Bomb);
 			Transform* bullet_tr = Energy_Bomb->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
@@ -99,7 +98,6 @@ namespace jk
 		{
 			Bullet[i] = new Yggdrasil_BasicBullet;
 			Bullet[i]->Initialize();		
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, Bullet[i]);
 			Transform* bullet_tr = Bullet[i]->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
@@ -111,7 +109,6 @@ namespace jk
 		{
 			Energy_Corps[i] = new Yggdrsil_Energy_Corps;
 			Energy_Corps[i]->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, Energy_Corps[i]);
 			Transform* bullet_tr = Energy_Corps[i]->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(static_cast<float>(random(-250, 250)), static_cast<float>(random(static_cast<int>(_pos.y), static_cast<int>(_pos.y) + 100)), -206.f));
@@ -121,7 +118,6 @@ namespace jk
 		{
 			Yggdrasil_effect = new Yggdrasil_Effect;
 			Yggdrasil_effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Yggdrasil_effect);
 			Transform* bullet_tr = Yggdrasil_effect->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
@@ -131,7 +127,6 @@ namespace jk
 			
 			EnergyCorps_Spark = new Yggdrasil_EnergyCorps_Spark;
 			EnergyCorps_Spark->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, EnergyCorps_Spark);
 			Transform* bullet_tr = EnergyCorps_Spark->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
@@ -140,7 +135,6 @@ namespace jk
 		{
 			Groggy_impact = new Yggdrasil_Groggy_GroundEffect;
 			Groggy_impact->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Groggy_impact);
 			Transform* bullet_tr = Groggy_impact->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
@@ -150,7 +144,6 @@ namespace jk
 		{
 			EnergyCorps_Charging = new Yggdrasil_EnergyCorps_Charging;
 			EnergyCorps_Charging->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, EnergyCorps_Charging);
 			Transform* bullet_tr = EnergyCorps_Charging->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30, _pos.z - 1));
@@ -160,7 +153,6 @@ namespace jk
 		{
 			Groggy_Begin_Efeect[i] = new Yggdrasil_EnergeBall_CreateEffect;
 			Groggy_Begin_Efeect[i]->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, Groggy_Begin_Efeect[i]);
 			Transform* bullet_tr = Groggy_Begin_Efeect[i]->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(static_cast<float>(random(-250, 250)), static_cast<float>(random(static_cast<int>(_pos.y), static_cast<int>(_pos.y) + 100)), -206.f));
@@ -169,7 +161,6 @@ namespace jk
 		{
 			Groggy_Start = new Yggdraisl_Groggy_StartImpact;
 			Groggy_Start->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Groggy_Start);
 			Transform* bullet_tr = Groggy_Start->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y + 30.f, _pos.z - 1.f));
@@ -178,15 +169,11 @@ namespace jk
 		{
 			_Dead_Effect = new Yggdrasil_FaceDead_Effect;
 			_Dead_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Dead_Effect);
 			Transform* bullet_tr = _Dead_Effect->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
 			_Dead_Effect->SetState(eState::Paused);
 		}
-
-
-
 
 		at->PlayAnimation(L"FaceYggdrasilFace_Idle", true);
 		if (_Changeon == true)
