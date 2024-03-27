@@ -158,7 +158,7 @@ namespace jk
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
-			_Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+			_Alpha = object::InstantiateActive<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
 			_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
 			_Alpha->Set_Black_Transparent();
 			_Fadecheck = true;

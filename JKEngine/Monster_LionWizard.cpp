@@ -84,7 +84,7 @@ namespace jk
 		at->PlayAnimation(L"Lion_wizardIdle", true);
 
 
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 		//체력관련
 		{
 			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_Frame");

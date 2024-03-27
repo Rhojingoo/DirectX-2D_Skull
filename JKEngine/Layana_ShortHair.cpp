@@ -3063,7 +3063,7 @@ namespace jk
 		as->Play("Leiana_Awakening_Impact");
 		if (_ChangeFadein == false)
 		{
-			Alpha_Blend* _Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+			Alpha_Blend* _Alpha = object::InstantiateActive<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
 			_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
 			_Alpha->FadeIn_White_Transparent();
 			_Fadecheck = true;

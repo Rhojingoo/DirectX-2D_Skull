@@ -353,7 +353,7 @@ namespace jk
 		{
 			if (_ChangeFadein == false)
 			{
-				Alpha_Blend* _Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+				Alpha_Blend* _Alpha = object::InstantiateActive<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
 				_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
 				_Alpha->Set_White_Transparent();
 				_Fadecheck = true;
@@ -385,7 +385,7 @@ namespace jk
 		{
 			if (_DieFadein == false)
 			{
-				Alpha_Blend* _Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+				Alpha_Blend* _Alpha = object::InstantiateActive<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
 				_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
 				_Alpha->Set_White_Transparent();
 				_Fadecheck = true;
@@ -1060,7 +1060,7 @@ namespace jk
 			{
 				if (_DiewaitingFadein == false)
 				{
-					Alpha_Blend* _Alpha = object::Instantiate<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
+					Alpha_Blend* _Alpha = object::InstantiateActive<Alpha_Blend>(Vector3(0.f, 0.f, -251.f), eLayerType::Map_Effect);
 					_Alpha->GetComponent<Transform>()->SetScale(Vector3(10000.f, 10000.f, 0.f));
 					_Alpha->Set_White_Transparent();	
 					_DiewaitingFadein = true;
@@ -1076,22 +1076,22 @@ namespace jk
 						_state = Yggdrasil_State::Die_Waiting;
 						as->Play("ElderEnt_Dead_Impact");						
 
-						DieImpact_first[0] = object::Instantiate<Yggdrasil_Dead_Impact1>(Vector3(-150.f, _pos.y-40.f, -248.f), eLayerType::Effect);					
+						DieImpact_first[0] = object::InstantiateActive<Yggdrasil_Dead_Impact1>(Vector3(-150.f, _pos.y-40.f, -248.f), eLayerType::Effect);
 
-						DieImpact_first[1] = object::Instantiate<Yggdrasil_Dead_Impact1>(Vector3(150.f, _pos.y - 40.f, -248.f), eLayerType::Effect);
+						DieImpact_first[1] = object::InstantiateActive<Yggdrasil_Dead_Impact1>(Vector3(150.f, _pos.y - 40.f, -248.f), eLayerType::Effect);
 
-						DieImpact_second = object::Instantiate<Yggdrasil_Dead_Impact2>(Vector3(15.f, 90, -248.f), eLayerType::Effect);
+						DieImpact_second = object::InstantiateActive<Yggdrasil_Dead_Impact2>(Vector3(15.f, 90, -248.f), eLayerType::Effect);
 						Transform* impacttr = DieImpact_second->GetComponent<Transform>();
 						impacttr->SetScale(Vector3(412.f, 220.f, 0.f));
 				
 
-						Particle[0] = object::Instantiate<GameObject>(Vector3(12.f, 60.f, -249.f), eLayerType::Effect);					
+						Particle[0] = object::InstantiateActive<GameObject>(Vector3(12.f, 60.f, -249.f), eLayerType::Effect);
 						ParticleSystem* mr = Particle[0]->AddComponent<ParticleSystem>(Vector3(2.f, 60.f, -249.f),1);
 
-						Particle[1]  = object::Instantiate<GameObject>(Vector3(-135.f, -80.f, -249.f), eLayerType::Effect);						
+						Particle[1]  = object::InstantiateActive<GameObject>(Vector3(-135.f, -80.f, -249.f), eLayerType::Effect);
 						ParticleSystem* mr2 = Particle[1]->AddComponent<ParticleSystem>(Vector3(-135.f, -80.f, -249.f),1);
 
-						Particle[2]  = object::Instantiate<GameObject>(Vector3(145.f, -80.f, -249.f), eLayerType::Effect);					
+						Particle[2]  = object::InstantiateActive<GameObject>(Vector3(145.f, -80.f, -249.f), eLayerType::Effect);
 						ParticleSystem* mr3 = Particle[2]->AddComponent<ParticleSystem>(Vector3(145.f, -80.f, -249.f),1);
 					}
 					
