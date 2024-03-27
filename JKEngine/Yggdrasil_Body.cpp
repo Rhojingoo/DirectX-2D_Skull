@@ -49,7 +49,7 @@ namespace jk
 		{
 			_Dead_Effect = new Yggdrasil_BoddyDead_Effect();
 			_Dead_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Dead_Effect);
 			Transform* bullet_tr = _Dead_Effect->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));

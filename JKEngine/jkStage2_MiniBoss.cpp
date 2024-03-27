@@ -243,7 +243,7 @@ void jk::Stage2_MiniBoss::OnEnter()
 #pragma region Camera & Grid
 
 	//Main Camera
-	Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+	Main_Camera* camera = object::InstantiateActive<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 	cameraComp = camera->AddComponent<Camera>();
 	cameraComp->TurnLayerMask(eLayerType::UI, false);
 	camera->AddComponent<CameraScript>();
@@ -260,7 +260,7 @@ void jk::Stage2_MiniBoss::OnEnter()
 
 
 	//UI Camera		
-	UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+	UI_Camera* UI_camera = object::InstantiateActive<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 	Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
 	cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
 	cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
@@ -278,7 +278,7 @@ void jk::Stage2_MiniBoss::OnEnter()
 	cameraComp_ui->TurnLayerMask(eLayerType::Camera, false);
 	//renderer::cameras.push_back(cameraComp_ui);
 
-	Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+	Grid* grid = object::InstantiateActive<Grid>(Vector3(Vector3::One), eLayerType::Grid);
 	grid->SetName(L"Catle_Grid");
 	GridScript* gridSc = grid->AddComponent<GridScript>();
 	gridSc->SetCamera(cameraComp);
@@ -335,12 +335,11 @@ void jk::Stage2_MiniBoss::CreateMiniboss()
 	for (int a = 0; a < 3; a++)
 	{
 		int currentMonster = selectedMonsters[a]; // 백터에서 몬스터 번호 꺼내기
-
+		Scene* scene = SceneManager::GetInitializeScene();
 		if (currentMonster == 0)
 		{
 			Knight_male* _Gobjs = new Knight_male();
-			_Gobjs->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			_Gobjs->Initialize();			
 			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
 			_Gobjs->SetState(GameObject::eState::Paused);
 			Transform* tr = _Gobjs->GetComponent<Transform>();
@@ -367,7 +366,6 @@ void jk::Stage2_MiniBoss::CreateMiniboss()
 		{
 			Archer* _Gobjs = new Archer();
 			_Gobjs->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
 			_Gobjs->SetState(GameObject::eState::Paused);
 			Transform* tr = _Gobjs->GetComponent<Transform>();
@@ -394,7 +392,6 @@ void jk::Stage2_MiniBoss::CreateMiniboss()
 		{
 			Mage* _Gobjs = new Mage();
 			_Gobjs->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
 			_Gobjs->SetState(GameObject::eState::Paused);
 			Transform* tr = _Gobjs->GetComponent<Transform>();
@@ -421,7 +418,6 @@ void jk::Stage2_MiniBoss::CreateMiniboss()
 		{
 			Cleric* _Gobjs = new Cleric();
 			_Gobjs->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::MiniBoss, _Gobjs);
 			_Gobjs->SetState(GameObject::eState::Paused);
 			Transform* tr = _Gobjs->GetComponent<Transform>();

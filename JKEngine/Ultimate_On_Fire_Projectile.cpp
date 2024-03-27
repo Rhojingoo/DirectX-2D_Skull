@@ -36,7 +36,7 @@ namespace jk
 
 		Bullet_Effect = new Ultimate_On_Fire_Projectile_Hit;
 		Bullet_Effect->Initialize();
-		Scene* scene = SceneManager::GetActiveScene();
+		Scene* scene = SceneManager::GetInitializeScene();
 		scene->AddGameObject(eLayerType::Effect, Bullet_Effect);
 		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
 		EffectTR->SetPosition(tr->GetPosition());

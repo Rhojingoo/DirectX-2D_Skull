@@ -185,15 +185,13 @@ namespace jk
 		at->CompleteEvent(L"MageIntroR") = std::bind(&Mage::complete_intro, this);
 		at->CompleteEvent(L"MageIntro2") = std::bind(&Mage::complete_intro_end, this);
 		at->CompleteEvent(L"MageIntro2R") = std::bind(&Mage::complete_intro_end, this);
-
+		Scene* scene = SceneManager::GetInitializeScene();
 		//UI 및 체력관련		
 		{
 			_MbossFace = new AdventureUI();
 			_MbossFace->Initialize();
 			_MbossFace->Set_animation(true);
 			_MbossFace->Set_UISelect(6);
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::UI, _MbossFace);
 			_MbossFace->SetName(L"_MbossFace");
 			Transform* face_tr = _MbossFace->GetComponent<Transform>();
@@ -203,8 +201,6 @@ namespace jk
 
 		{
 			_State_UI = new MiniBoss_State_UI();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::UI, _State_UI);
 			_State_UI->SetName(L"hp_bar_frame");
 			Transform* hp_tr = _State_UI->GetComponent<Transform>();
@@ -213,8 +209,6 @@ namespace jk
 		}
 		{
 			Monster_UIHp = new Monster_Hp_Bar(L"EnemyHealthBar");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::UI, Monster_UIHp);
 			Monster_UIHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_UIHp->GetComponent<Transform>();
@@ -226,8 +220,6 @@ namespace jk
 		}
 		{
 			Monster_UIDamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::UI, Monster_UIDamegeHp);
 			Monster_UIDamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_UIDamegeHp->GetComponent<Transform>();
@@ -241,8 +233,6 @@ namespace jk
 
 		{
 			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_Frame");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
 			Hpbar_Frame->SetName(L"hp_bar_frame");
 			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
@@ -253,8 +243,6 @@ namespace jk
 
 		{
 			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
@@ -268,8 +256,6 @@ namespace jk
 
 		{
 			Monster_Hp = new Monster_Hp_Bar(L"EnemyHealthBar");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
@@ -285,7 +271,6 @@ namespace jk
 		{
 			Ultimate_Aura = new Public_Ultimate_Aura;
 			Ultimate_Aura->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Ultimate_Aura);
 			Transform* bullet_tr = Ultimate_Aura->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -294,7 +279,6 @@ namespace jk
 		{
 			Ultimate_AuraSmoke = new Public_Ultimate_AuraSmoke;
 			Ultimate_AuraSmoke->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Ultimate_AuraSmoke);
 			Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -303,7 +287,6 @@ namespace jk
 		{
 			UltimateSkill_Effect_Complete = new Public_UltimateSkill_Effect_Complete;
 			UltimateSkill_Effect_Complete->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Complete);
 			Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -312,7 +295,6 @@ namespace jk
 		{
 			UltimateSkill_Effect_Fail = new Public_UltimateSkill_Effect_Fail;
 			UltimateSkill_Effect_Fail->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Fail);
 			Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -325,7 +307,6 @@ namespace jk
 			{
 				_OnFire_Ready[i] = new Ultimate_OnFire_Ready;
 				_OnFire_Ready[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Effect, _OnFire_Ready[i]);
 				Transform* bullet_tr = _OnFire_Ready[i]->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -337,7 +318,6 @@ namespace jk
 			{
 				_OnFire[i] = new Ultimate_OnFire;
 				_OnFire[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Effect, _OnFire[i]);
 				Transform* bullet_tr = _OnFire[i]->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -349,7 +329,6 @@ namespace jk
 			{
 				On_Fire_Projectile[i] = new Ultimate_On_Fire_Projectile;
 				On_Fire_Projectile[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Bullet, On_Fire_Projectile[i]);
 				Transform* bullet_tr = On_Fire_Projectile[i]->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -361,7 +340,6 @@ namespace jk
 			{
 				OnFire_Fire[i] = new Ultimate_OnFire_Fire;
 				OnFire_Fire[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Effect, OnFire_Fire[i]);
 				Transform* bullet_tr = OnFire_Fire[i]->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -373,7 +351,6 @@ namespace jk
 			{
 				FireBall[i] = new Mage_FireBall;
 				FireBall[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Bullet, FireBall[i]);
 				Transform* bullet_tr = FireBall[i]->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -385,7 +362,6 @@ namespace jk
 			{
 				BoomSign[i] = new Mage_BoomSign;
 				BoomSign[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Effect, BoomSign[i]);
 				Transform* bullet_tr = BoomSign[i]->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -398,7 +374,6 @@ namespace jk
 			{
 				FireBoom[i] = new Mage_FireBoom;
 				FireBoom[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Bullet, FireBoom[i]);
 				Transform* bullet_tr = FireBoom[i]->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -408,7 +383,6 @@ namespace jk
 		{
 			Landing_Ready = new Mage_Landing_Ready;
 			Landing_Ready->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Landing_Ready);
 			Transform* bullet_tr = Landing_Ready->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -417,7 +391,6 @@ namespace jk
 		{
 			Phoenix_Landing = new Mage_Phoenix_Landing;
 			Phoenix_Landing->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Phoenix_Landing);
 			Transform* bullet_tr = Phoenix_Landing->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -426,7 +399,6 @@ namespace jk
 		{
 			Phoenix_Landing_Land = new Mage_Phoenix_Landing_Land;
 			Phoenix_Landing_Land->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Phoenix_Landing_Land);
 			Transform* bullet_tr = Phoenix_Landing_Land->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -436,8 +408,6 @@ namespace jk
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
@@ -445,8 +415,6 @@ namespace jk
 		{
 			_Hit_Sword = new Hit_Sword;
 			_Hit_Sword->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
 			_Hit_Sword->SetState(eState::Paused);
 		}
@@ -454,16 +422,12 @@ namespace jk
 		{
 			_Critical_Middle = new Hit_Critical_Middle;
 			_Critical_Middle->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
 			_Critical_Middle->SetState(eState::Paused);
 		}
 		{
 			_Critical_High = new Hit_Critical_High;
 			_Critical_High->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_High);
 			_Critical_High->SetState(eState::Paused);
 		}
@@ -471,8 +435,6 @@ namespace jk
 		{
 			_Death_Effect = new Monster_Death_Effect;
 			_Death_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
 			_Death_Effect->SetState(eState::Paused);
 		}
@@ -480,8 +442,6 @@ namespace jk
 		{
 			Hit_Box = new HitBox_Mage();
 			Hit_Box->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetState(eState::Paused);
 		}

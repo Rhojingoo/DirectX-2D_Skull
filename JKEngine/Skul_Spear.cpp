@@ -72,12 +72,12 @@ namespace jk
 
 
 
+				Scene* scene = SceneManager::GetInitializeScene();
 		{
 			for (int i = 0; i < 10; i++)
 			{
 				AfterImage_TEST[i] = new Player_AfterImage();
 				AfterImage_TEST[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Effect, AfterImage_TEST[i]);
 				AfterImage_TEST[i]->Set_Owner(this);
 				AfterImage_TEST[i]->SetState(eState::Paused);

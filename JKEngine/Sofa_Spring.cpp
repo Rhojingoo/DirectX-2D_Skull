@@ -23,11 +23,10 @@ namespace jk
 		_rigidbody->SetMass(1.f);
 		_rigidbody->SetGround(true);
 
+			Scene* scene = SceneManager::GetInitializeScene();
 		{
 			smokeef = new Spring_Effect();
 			smokeef->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, smokeef);
 			Transform* smoke_tr = smokeef->GetComponent<Transform>();
 			smokeef->SetState(eState::Paused);

@@ -90,11 +90,10 @@ namespace jk
 
 		at->PlayAnimation(L"GoldHammerIdle", true);
 
+			Scene* scene = SceneManager::GetInitializeScene();
 		//체력관련
 		{
 			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_BigFrame");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
 			Hpbar_Frame->SetName(L"hp_bar_frame");
 			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
@@ -105,8 +104,6 @@ namespace jk
 
 		{
 			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
@@ -120,8 +117,6 @@ namespace jk
 
 		{
 			Monster_Hp = new Monster_Hp_Bar(L"EnemyHealthBar");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
@@ -139,8 +134,6 @@ namespace jk
 		{
 			Hit_Box = new HitBox_Monster();
 			Hit_Box->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetSound(1);
 			Hit_Box->SetState(eState::Paused);
@@ -149,8 +142,6 @@ namespace jk
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
@@ -158,8 +149,6 @@ namespace jk
 		{
 			_Death_Effect = new Monster_Death_Effect;
 			_Death_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
 			_Death_Effect->SetState(eState::Paused);
 		}
@@ -167,8 +156,6 @@ namespace jk
 		{
 			Tackle_Flash = new Monster_Tackle_Flash_Effect();
 			Tackle_Flash->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Tackle_Flash);
 			Effect_tr = Tackle_Flash->GetComponent<Transform>();
 			Effect_tr->SetPosition(tr->GetPosition());
@@ -178,8 +165,6 @@ namespace jk
 		{
 			_Hammer_Effect = new Monster_Hammer_Effect();
 			_Hammer_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hammer_Effect);
 			Transform* Attack_Effect_Tr = _Hammer_Effect->GetComponent<Transform>();
 			Attack_Effect_Tr->SetPosition(tr->GetPosition());
@@ -189,7 +174,6 @@ namespace jk
 		{
 			Hit_Particle = new GameObject();
 			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
 			Hit_Particle->SetState(eState::Paused);
 		}

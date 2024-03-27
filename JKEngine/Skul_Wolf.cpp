@@ -139,12 +139,12 @@ namespace jk
 		at->CompleteEvent(L"WolfDashR") = std::bind(&Skul_Wolf::dash_check, this);
 
 
+				Scene* scene = SceneManager::GetInitializeScene();
 		{
 			for (int i = 0; i < 10; i++)
 			{
 				AfterImage_TEST[i] = new Player_AfterImage();
 				AfterImage_TEST[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Effect, AfterImage_TEST[i]);
 				AfterImage_TEST[i]->Set_Owner(this);
 				AfterImage_TEST[i]->SetState(eState::Paused);
@@ -153,8 +153,6 @@ namespace jk
 		{
 			Hit_Box = new HitBox_Player();
 			Hit_Box->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetState(eState::Paused);
 		}
@@ -165,53 +163,42 @@ namespace jk
 		{
 			_Hit_Effect = new Player_Hit_Effect;
 			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
 		{
 			_Hit_Sword = new Hit_Sword;
 			_Hit_Sword->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
 			_Hit_Sword->SetState(eState::Paused);
 		}
 		{
 			_Critical_Middle = new Hit_Critical_Middle;
 			_Critical_Middle->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
 			_Critical_Middle->SetState(eState::Paused);
 		}
 		{
 			_Critical_High = new Hit_Critical_High;
 			_Critical_High->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_High);
 			_Critical_High->SetState(eState::Paused);
 		}
 		{
 			_Knight_Slash = new Slash_Effect;
 			_Knight_Slash->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Knight_Slash);
 			_Knight_Slash->SetState(eState::Paused);
 		}
 		{
 			_DarkKnight = new Hit_DarkPaladin;
 			_DarkKnight->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _DarkKnight);
 			_DarkKnight->SetState(eState::Paused);
 		}
 		{
 			Hit_Particle = new GameObject();
 			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
 			Hit_Particle->SetState(eState::Paused);
 		}

@@ -58,12 +58,10 @@ namespace jk
 		at->CompleteEvent(L"GiganticEntAttack_Range") = std::bind(&Monster_BigEnt::attack_idle, this);
 
 		at->PlayAnimation(L"GiganticEntIdle", true);
-		
+		Scene* scene = SceneManager::GetInitializeScene();
 		//체력관련
 		{
 			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_BigFrame");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
 			Hpbar_Frame->SetName(L"hp_bar_frame");
 			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
@@ -74,8 +72,6 @@ namespace jk
 
 		{
 			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
@@ -89,8 +85,6 @@ namespace jk
 
 		{
 			Monster_Hp = new Monster_Hp_Bar(L"EnemyHealthBar");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
@@ -109,8 +103,6 @@ namespace jk
 		{
 			Hit_Box = new HitBox_Monster();
 			Hit_Box->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetSound(1);
 			Hit_Box->SetState(eState::Paused);
@@ -120,7 +112,6 @@ namespace jk
 			{
 				Energe_Ball[i] = new Monster_BigEnt_EnergeBall;
 				Energe_Ball[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Bullet, Energe_Ball[i]);
 				Transform* bullet_tr = Energe_Ball[i]->GetComponent<Transform>();
 				bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205.f));				
@@ -131,7 +122,6 @@ namespace jk
 		{
 			Attack_Stamp =  new Monster_GiganticEnt_Stamp;
 			Attack_Stamp->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Attack_Stamp);
 			Transform* bullet_tr = Attack_Stamp->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205.f));			
@@ -141,8 +131,6 @@ namespace jk
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
@@ -150,15 +138,12 @@ namespace jk
 		{
 			_Death_Effect = new Monster_Death_Effect;
 			_Death_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
 			_Death_Effect->SetState(eState::Paused);
 		}
 		{
 			Hit_Particle = new GameObject();
 			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
 			Hit_Particle->SetState(eState::Paused);
 		}

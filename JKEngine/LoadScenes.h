@@ -10,6 +10,7 @@ namespace jk
 
 	void SettingOBJ();
 	void InitializeScenes();
+	void InitializeScenes_Second();
 	void Release();
 
 }

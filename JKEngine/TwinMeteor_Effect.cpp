@@ -33,8 +33,8 @@ namespace jk
 		{
 			_Critical_Middle = new Hit_Critical_Middle;
 			_Critical_Middle->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
+			scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
 			_Critical_Middle->SetState(eState::Paused);
 		}

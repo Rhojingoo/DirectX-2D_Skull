@@ -102,10 +102,10 @@ namespace jk
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Adventurer\\Knight\\Hit_Sword_Large.wav", "Hit_Sword_Large");
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_DimensionPierce_Impact.wav", "Homing_Hit");//Å¸°Ý½Ã	
 	
+			Scene* scene = SceneManager::GetInitializeScene();
 		{
 			Skul_Head = new Skul_head();
 			Skul_Head->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Player, Skul_Head);
 			Transform* tr_head = Skul_Head->GetComponent<Transform>();
 			tr_head->SetPosition(Vector3(pos.x, pos.y, -250.f));
@@ -115,8 +115,6 @@ namespace jk
 		{
 			Hit_Box = new HitBox_Player();
 			Hit_Box->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetState(eState::Paused);
 		}
@@ -125,46 +123,36 @@ namespace jk
 		{
 			_Hit_Effect = new Player_Hit_Effect;
 			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
 		{
 			_Hit_Sword = new Hit_Sword;
 			_Hit_Sword->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
 			_Hit_Sword->SetState(eState::Paused);
 		}		 
 		{
 			_Critical_Middle = new Hit_Critical_Middle;
 			_Critical_Middle->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
 			_Critical_Middle->SetState(eState::Paused);
 		}
 		{
 			_Critical_High = new Hit_Critical_High;
 			_Critical_High->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_High);
 			_Critical_High->SetState(eState::Paused);
 		}
 		{
 			_Knight_Slash = new Slash_Effect;
 			_Knight_Slash->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Knight_Slash);
 			_Knight_Slash->SetState(eState::Paused);
 		}
 		{
 			_DarkKnight = new Hit_DarkPaladin;
 			_DarkKnight->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _DarkKnight);
 			_DarkKnight->SetState(eState::Paused);
 		}
@@ -175,7 +163,6 @@ namespace jk
 			{
 				mAfterImage[i] = new Player_AfterImage();
 				mAfterImage[i]-> Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
 				scene->AddGameObject(eLayerType::Effect, mAfterImage[i]);
 				mAfterImage[i]->Set_Owner(this); 
 				mAfterImage[i]->SetState(eState::Paused);
@@ -184,7 +171,6 @@ namespace jk
 		{
 			Hit_Particle = new GameObject();
 			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
 			Hit_Particle->SetState(eState::Paused);
 		}	

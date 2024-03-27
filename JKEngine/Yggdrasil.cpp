@@ -198,10 +198,9 @@ namespace jk
 		_Gobjs[3]->Initialize();
 		_Gobjs[4] = new Yggdrasil_Hand_Left;
 		_Gobjs[4]->Initialize();
-
+		Scene* scene = SceneManager::GetInitializeScene();
 		for (int i = 0; i < 5; i++)
-		{
-			Scene* scene = SceneManager::GetActiveScene();
+		{		
 			scene->AddGameObject(eLayerType::Boss, _Gobjs[i]);
 		}
 
@@ -243,7 +242,6 @@ namespace jk
 		{
 			_HpFrame = new Yggdrasil_HpFrame;
 			_HpFrame->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _HpFrame);
 			Transform* bullet_tr = _HpFrame->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, 230, -205));
@@ -252,8 +250,6 @@ namespace jk
 
 		{
 			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Monster_DamegeHp);
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.5f));
@@ -266,8 +262,6 @@ namespace jk
 
 		{
 			Monster_DamegeHp_Second = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Monster_DamegeHp_Second);
 			Transform* hp_tr = Monster_DamegeHp_Second->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.5f));
@@ -279,8 +273,6 @@ namespace jk
 		
 		{
 			Monster_Hp = new Monster_Hp_Bar(L"BossHealthBar_FirstPhase");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Monster_Hp);
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
@@ -293,8 +285,6 @@ namespace jk
 		
 		{
 			Monster_Hp_Second = new Monster_Hp_Bar(L"BossHealthBar_SecondPhase");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Monster_Hp_Second);
 			Transform* hp_tr = Monster_Hp_Second->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
@@ -305,8 +295,6 @@ namespace jk
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
@@ -315,8 +303,6 @@ namespace jk
 		{
 			_Hit_Effect_player = new Player_Hit_Effect;
 			_Hit_Effect_player->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect_player);
 			_Hit_Effect_player->SetState(eState::Paused);
 		}
@@ -324,8 +310,6 @@ namespace jk
 		{
 			_Hit_Sword = new Hit_Sword;
 			_Hit_Sword->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
 			_Hit_Sword->SetState(eState::Paused);
 		}
@@ -333,16 +317,12 @@ namespace jk
 		{
 			_Critical_Middle = new Hit_Critical_Middle;
 			_Critical_Middle->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
 			_Critical_Middle->SetState(eState::Paused);
 		}
 		{
 			_Critical_High = new Hit_Critical_High;
 			_Critical_High->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_High);
 			_Critical_High->SetState(eState::Paused);
 		}
@@ -350,8 +330,6 @@ namespace jk
 		{
 			_Death_Effect = new Monster_Death_Effect;
 			_Death_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
 			_Death_Effect->SetState(eState::Paused);
 		}

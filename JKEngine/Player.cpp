@@ -54,11 +54,10 @@ namespace jk
 		Spear_Face->SetName(L"player_head");
 		Spear_Face->SetState(eState::Paused);
 
+			Scene* scene = SceneManager::GetInitializeScene();
 		//hp°ü·Ã
 		{
 			Player_Hp = new Player_Hp_Bar(L"HealthUar_Ui");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::UI, Player_Hp);
 			Transform* hp_tr = Player_Hp->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(-584.5f, -333.f, -3));
@@ -69,8 +68,6 @@ namespace jk
 		}
 		{
 			Player_Hp_Damage = new Player_Hp_Bar(L"DamageBar_Ui");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::UI, Player_Hp_Damage);
 			Transform* hp_tr = Player_Hp_Damage->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(-584.5f, -333.f, -2));
@@ -92,7 +89,6 @@ namespace jk
 
 		for (int i = 0; i < 3; i++)
 		{
-			Scene* scene = SceneManager::GetActiveScene();			
 			scene->AddGameObject(eLayerType::Player, _Gobjs[i]);
 			Transform* tr = _Gobjs[i]->GetComponent<Transform>();
 			tr->SetPosition(Vector3(_Pos.x, _Pos.y, _Pos.z));

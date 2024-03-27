@@ -63,62 +63,61 @@ namespace jk
 		#pragma endregion
 
 
+		#pragma region CASTLE
+				Back_ground* in_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground, L"In_Fore_GR");
+				in_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1280.f, 720.f, 0.f));	in_Catle_Back->SetName(L"in_Catle_Back");
 
-			#pragma region CASTLE
-					Back_ground* in_Catle_Back = object::Instantiate<Back_ground>(Vector3(0.f, 0.f, 100.f), eLayerType::Fore_Ground, L"In_Fore_GR");
-					in_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1280.f, 720.f, 0.f));	in_Catle_Back->SetName(L"in_Catle_Back");
+				Castle_wall_Back = object::Instantiate<Back_ground>(Vector3(0.f, -30.f, -149.f), eLayerType::BACK_GROUND, L"Catle_wall_Back");
+				Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(960, 350.f, 0.f)); Castle_wall_Back->SetName(L"Catle_Back");
 
-					Castle_wall_Back = object::Instantiate<Back_ground>(Vector3(0.f, -30.f, -149.f), eLayerType::BACK_GROUND, L"Catle_wall_Back");
-					Castle_wall_Back->GetComponent<Transform>()->SetScale(Vector3(960, 350.f, 0.f)); Castle_wall_Back->SetName(L"Catle_Back");
+				Back_ground* Castle_wall = object::Instantiate<Back_ground>(Vector3(0.0f, -880.f, -150.f), eLayerType::BACK_GROUND, L"Catle_wall_Front_01");
+				Castle_wall->GetComponent<Transform>()->SetScale(Vector3(1966.f, 2306.f, 0.f));	Castle_wall->SetName(L"Catle_front");
 
-					Back_ground* Castle_wall = object::Instantiate<Back_ground>(Vector3(0.0f, -880.f, -150.f), eLayerType::BACK_GROUND, L"Catle_wall_Front_01");
-					Castle_wall->GetComponent<Transform>()->SetScale(Vector3(1966.f, 2306.f, 0.f));	Castle_wall->SetName(L"Catle_front");
+				Back_ground* _chair = object::Instantiate<Back_ground>(Vector3(-695.f, 0.1f, -200.f), eLayerType::BACK_GROUND, L"Devil_Chair");
+				_chair->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f)); _chair->SetName(L"Devil_chair");
 
-					Back_ground* _chair = object::Instantiate<Back_ground>(Vector3(-695.f, 0.1f, -200.f), eLayerType::BACK_GROUND, L"Devil_Chair");
-					_chair->GetComponent<Transform>()->SetScale(Vector3(447.f, 322.f, 0.f)); _chair->SetName(L"Devil_chair");
+				Back_ground* front_obj = object::Instantiate<Back_ground>(Vector3(-300.f, 0.f, -220.f), eLayerType::BACK_GROUND, L"Front_obj");
+				front_obj->GetComponent<Transform>()->SetScale(Vector3(1266.f, 548.f, 0.f)); front_obj->SetName(L"front_obj");
 
-					Back_ground* front_obj = object::Instantiate<Back_ground>(Vector3(-300.f, 0.f, -220.f), eLayerType::BACK_GROUND, L"Front_obj");
-					front_obj->GetComponent<Transform>()->SetScale(Vector3(1266.f, 548.f, 0.f)); front_obj->SetName(L"front_obj");
+				Back_ground* out_Catle_Back = object::Instantiate<Back_ground>(Vector3(1200.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Out_Fore_GR");
+				out_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1200.f, 5500.f, 0.f));	out_Catle_Back->SetName(L"out_Catle_Back");
 
-					Back_ground* out_Catle_Back = object::Instantiate<Back_ground>(Vector3(1200.f, 0.f, 101.f), eLayerType::Fore_Ground, L"Out_Fore_GR");
-					out_Catle_Back->GetComponent<Transform>()->SetScale(Vector3(1200.f, 5500.f, 0.f));	out_Catle_Back->SetName(L"out_Catle_Back");
+				Back_ground* _Out_Catle = object::Instantiate<Back_ground>(Vector3(1200.f, -1500.f, -99.f), eLayerType::BACK_GROUND, L"Out_Catle");
+				_Out_Catle->GetComponent<Transform>()->SetScale(Vector3(1056.f, 1269.f, 0.f));	_Out_Catle->SetName(L"Out_catle");
 
-					Back_ground* _Out_Catle = object::Instantiate<Back_ground>(Vector3(1200.f, -1500.f, -99.f), eLayerType::BACK_GROUND, L"Out_Catle");
-					_Out_Catle->GetComponent<Transform>()->SetScale(Vector3(1056.f, 1269.f, 0.f));	_Out_Catle->SetName(L"Out_catle");
+				Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 90.f), eLayerType::Map_Effect, L"Cloud_Devil");
+				cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f)); cloud->SetName(L"Castle_cloud");
 
-					Cloud* cloud = object::Instantiate<Cloud>(Vector3(500.f, -750.f, 90.f), eLayerType::Map_Effect, L"Cloud_Devil");
-					cloud->GetComponent<Transform>()->SetScale(Vector3(1120.f * 5, 2204.f, 0.f)); cloud->SetName(L"Castle_cloud");
+		#pragma endregion				
 
-			#pragma endregion				
+		#pragma region tile_map		
+				{
+					Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(780.f, -252.f, -201.f), eLayerType::BACK_GROUND);
+					MinibossMap->GetComponent<Transform>()->SetScale(Vector3(400, 200.f, 0.f));	MinibossMap->SetName(L"CatleArea_GR");
+				}
+				{
+					out_GroundMap = object::Instantiate<Ground_Map>(Vector3(1060.f, /*-1995.f*/-2200.f, -202.f), eLayerType::BACK_GROUND);
+					out_GroundMap->GetComponent<Transform>()->SetScale(Vector3(1000, 200.f, 0.f));	out_GroundMap->SetName(L"CatleArea_OUTGR");
+					out_GroundMap->Set_StageTurn(true);
+				}
+				{
+					static Vector2 TileSize = Vector2(32.f, 32.f);
+					static int Tile_Colum = 60;
+					static int Tile_Row = 8;
 
-			#pragma region tile_map		
-					{
-						Ground_Map* MinibossMap = object::Instantiate<Ground_Map>(Vector3(780.f, -252.f, -201.f), eLayerType::BACK_GROUND);
-						MinibossMap->GetComponent<Transform>()->SetScale(Vector3(400, 200.f, 0.f));	MinibossMap->SetName(L"CatleArea_GR");
-					}
-					{
-						out_GroundMap = object::Instantiate<Ground_Map>(Vector3(1060.f, /*-1995.f*/-2200.f, -202.f), eLayerType::BACK_GROUND);
-						out_GroundMap->GetComponent<Transform>()->SetScale(Vector3(1000, 200.f, 0.f));	out_GroundMap->SetName(L"CatleArea_OUTGR");
-						out_GroundMap->Set_StageTurn(true);
-					}
-					{
-						static Vector2 TileSize = Vector2(32.f, 32.f);
-						static int Tile_Colum = 60;
-						static int Tile_Row = 8;
-
-						static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
-						Tile_map->SetName(L"Tile_Map");
-						Transform* tr = Tile_map->GetComponent<Transform>();
-						Collider2D* cd = Tile_map->AddComponent<Collider2D>();				
+					static Tile_Ground* Tile_map = object::Instantiate<Tile_Ground>(eLayerType::BACK_GROUND);
+					Tile_map->SetName(L"Tile_Map");
+					Transform* tr = Tile_map->GetComponent<Transform>();
+					Collider2D* cd = Tile_map->AddComponent<Collider2D>();				
 			
-						tr->SetPositionZ(-200.f);
-						tr->AddPositionY(-280.f);
-						tr->SetPositionX(-300.f);
-						tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
+					tr->SetPositionZ(-200.f);
+					tr->AddPositionY(-280.f);
+					tr->SetPositionX(-300.f);
+					tr->SetScale(Vector3(Tile_Colum * TileSize.x, Tile_Row * TileSize.y, 0.f));
 
-						TileMap::TileMap_Setting(Tile_map, L"Devil_castle_tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Devil_castle_Tile.xml");
-					}
-			#pragma endregion						
+					TileMap::TileMap_Setting(Tile_map, L"Devil_castle_tile", TileSize, Tile_Colum, Tile_Row, L"\\Resources\\Metadata\\TileMap\\Devil_castle_Tile.xml");
+				}
+		#pragma endregion						
 	}
 	void Castle_Area::Update()
 	{
@@ -192,10 +191,14 @@ namespace jk
 	}
 	void Castle_Area::OnEnter()
 	{
+		Transform* PlayerTR = _player->GetComponent<Transform>();
+		Vector3 player_pos = PlayerTR->GetPosition();
+		_player->SetPlayer_Pos(player_pos);
+
 		as->Play("DemonCastleSound");
 		#pragma region Cam & Mouse& Grid
 		//Main Camera			
-		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+		Main_Camera* camera = object::InstantiateActive<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		cameraComp = camera->AddComponent<Camera>();
 		camera->AddComponent<AudioListener>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
@@ -214,7 +217,7 @@ namespace jk
 		cameraComp->BgCamera = true;
 
 		//UI Camera		
-		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+		UI_Camera* UI_camera = object::InstantiateActive<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
 		cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
@@ -233,13 +236,13 @@ namespace jk
 		renderer::cameras.push_back(cameraComp_ui);			
 
 		//UI_Mouse
-		UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
+		UI_Mouse* cursor = object::InstantiateActive<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
 		cursor->SetName(L"Catle_Cursor_UI");
 		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
 		cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
 
 		//Grid
-		Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+		Grid* grid = object::InstantiateActive<Grid>(Vector3(Vector3::One), eLayerType::Grid);
 		grid->SetName(L"Catle_Grid");
 		GridScript* gridSc = grid->AddComponent<GridScript>();
 		gridSc->SetCamera(cameraComp);

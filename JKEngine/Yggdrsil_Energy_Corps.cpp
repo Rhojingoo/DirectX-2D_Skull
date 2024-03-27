@@ -34,7 +34,7 @@ namespace jk
 
 		BulletEffect = new Yggdrasil_EnergyBullet_Effect;
 		BulletEffect->Initialize();
-		Scene* scene = SceneManager::GetActiveScene();
+		Scene* scene = SceneManager::GetInitializeScene();
 		scene->AddGameObject(eLayerType::Bullet, BulletEffect);
 		Transform* EffectTR = BulletEffect->GetComponent<Transform>();
 		EffectTR->SetPosition(tr->GetPosition());

@@ -35,7 +35,7 @@ namespace jk
 
 		Bullet_Effect = new Kngiht_EnergyBall_Impact;
 		Bullet_Effect->Initialize();
-		Scene* scene = SceneManager::GetActiveScene();
+		Scene* scene = SceneManager::GetInitializeScene();
 		scene->AddGameObject(eLayerType::Bullet, Bullet_Effect);
 		Transform* EffectTR = Bullet_Effect->GetComponent<Transform>();
 		EffectTR->SetPosition(tr->GetPosition());

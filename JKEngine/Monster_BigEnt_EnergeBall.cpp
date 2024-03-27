@@ -26,7 +26,7 @@ namespace jk
 		{
 			_EnergeBall_Bomb = new BigEnt_EnergeBall_Bomb;
 			_EnergeBall_Bomb->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _EnergeBall_Bomb);
 			Transform* bullet_tr = _EnergeBall_Bomb->GetComponent<Transform>();
 			bullet_tr->SetPosition(tr->GetPosition());

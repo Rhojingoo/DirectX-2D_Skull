@@ -786,6 +786,12 @@ namespace jk::renderer
 			Resources::Insert(L"HITParticleMaterial", material);
 	#pragma endregion	
 
+
+#pragma region Loading
+			texture = Resources::Load<Texture>(L"loading_Image", L"..\\Resources\\Texture\\Title\\Loading.png");
+			material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);
+			Resources::Insert(L"Loading_Image", material);
+#pragma endregion		
 		
 		#pragma region Title
 				texture	= Resources::Load<Texture>(L"title_image", L"..\\Resources\\Texture\\Title\\Title_Art2.png");
@@ -800,6 +806,8 @@ namespace jk::renderer
 				material = std::make_shared<Material>(); material->SetShader(spriteShader);	material->SetTexture(texture);	
 				material->SetRenderingMode(eRenderingMode::Transparent); Resources::Insert(L"Title_Mini_Logo", material);
 		#pragma endregion		
+
+
 
 
 		#pragma region StartScene

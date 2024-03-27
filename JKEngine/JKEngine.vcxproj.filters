@@ -671,6 +671,9 @@
     <ClInclude Include="Yggdrasil_basicBullet_Effect.h">
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
     </ClInclude>
+    <ClInclude Include="jkLoadingScene.h">
+      <Filter>Scene\Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="jkCameraScript.cpp">
@@ -1340,6 +1343,9 @@
     <ClCompile Include="Yggdrasil_basicBullet_Effect.cpp">
       <Filter>Game_ob\Boss\Yggdrasil\Effect\Attack_Effect</Filter>
     </ClCompile>
+    <ClCompile Include="jkLoadingScene.cpp">
+      <Filter>Scene\Loading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scene">
@@ -1659,6 +1665,9 @@
     </Filter>
     <Filter Include="Game_ob\Font">
       <UniqueIdentifier>{385a64ec-fd7c-479e-b12b-a396b55088ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Loading">
+      <UniqueIdentifier>{3229e2eb-d541-4095-8c05-c5b0ee529321}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

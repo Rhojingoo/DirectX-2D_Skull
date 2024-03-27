@@ -63,13 +63,11 @@ namespace jk
 
 		_first_place = _pos;
 		at->PlayAnimation(L"BlossomEntIdle", true);
-
+		Scene* scene = SceneManager::GetInitializeScene();
 
 		//체력관련
 		{
 			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_Frame");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
 			Hpbar_Frame->SetName(L"hp_bar_frame");
 			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
@@ -80,8 +78,6 @@ namespace jk
 
 		{
 			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
@@ -95,8 +91,6 @@ namespace jk
 
 		{
 			Monster_Hp = new Monster_Hp_Bar(L"EnemyHealthBar");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
@@ -113,7 +107,6 @@ namespace jk
 		{
 			Blossomeenct_Attack = new Monster_Blossomeenct_Attack;
 			Blossomeenct_Attack->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, Blossomeenct_Attack);
 			Transform* bullet_tr = Blossomeenct_Attack->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
@@ -123,8 +116,6 @@ namespace jk
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
@@ -132,15 +123,12 @@ namespace jk
 		{
 			_Death_Effect = new Monster_Death_Effect;
 			_Death_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
 			_Death_Effect->SetState(eState::Paused);
 		}
 		{
 			Hit_Particle = new GameObject();
 			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
 			Hit_Particle->SetState(eState::Paused);
 		}

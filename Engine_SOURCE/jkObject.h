@@ -12,7 +12,8 @@ namespace jk::object
 	static __forceinline T* Instantiate(enums::eLayerType layer)
 	{
 		T* gameObj = new T();
-		Scene* scene = SceneManager::GetActiveScene();
+		Scene* scene = SceneManager::GetInitializeScene();
+		//Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
 
 		return gameObj;
@@ -24,7 +25,21 @@ namespace jk::object
 		T* gameObj = new T();
 		Transform* tr = gameObj->GetComponent<Transform>();
 		tr->SetPosition(pos);
+		Scene* scene = SceneManager::GetInitializeScene();
+		//Scene* scene = SceneManager::GetActiveScene();
+		scene->AddGameObject(layer, gameObj);
+		gameObj->Initialize();
 
+		return gameObj;
+	}
+
+	template <typename T>
+	static __forceinline T* InstantiateActive(Vector3 pos, enums::eLayerType layer)
+	{
+		T* gameObj = new T();
+		Transform* tr = gameObj->GetComponent<Transform>();
+		tr->SetPosition(pos);
+		//Scene* scene = SceneManager::GetInitializeScene();
 		Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
 		gameObj->Initialize();
@@ -39,7 +54,8 @@ namespace jk::object
 		Transform* tr = gameObj->GetComponent<Transform>();
 		tr->SetPosition(pos);
 
-		Scene* scene = SceneManager::GetActiveScene();
+		Scene* scene = SceneManager::GetInitializeScene();
+		//Scene* scene = SceneManager::GetActiveScene();
 		scene->AddGameObject(layer, gameObj);
 		gameObj->Initialize();
 

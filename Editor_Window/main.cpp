@@ -87,6 +87,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             application.Run();
             gui::Editor::Run();
             application.Present();
+            if (jk::SceneManager::Getlnit_SC() == false)
+            {
+                jk::InitializeScenes_Second();
+                jk::SceneManager::LoadScene(L"TitleScene");
+                jk::SceneManager::Setlnit_SC();
+            }
         }
     }
     jk::renderer::Release();    

@@ -101,15 +101,13 @@ namespace jk
 
 		at->CompleteEvent(L"ClericHit") = std::bind(&Cleric::complete_hit, this);
 		at->CompleteEvent(L"ClericHitR") = std::bind(&Cleric::complete_hit, this);
-
+		Scene* scene = SceneManager::GetInitializeScene();
 		//UI 및 체력관련		
 		{
 			_MbossFace = new AdventureUI();
 			_MbossFace->Initialize();
 			_MbossFace->Set_animation(true);
-			_MbossFace->Set_UISelect(2);
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			_MbossFace->Set_UISelect(2);			
 			scene->AddGameObject(eLayerType::UI, _MbossFace);
 			_MbossFace->SetName(L"_MbossFace");
 			Transform* face_tr = _MbossFace->GetComponent<Transform>();
@@ -119,8 +117,6 @@ namespace jk
 
 		{
 			_State_UI = new MiniBoss_State_UI();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::UI, _State_UI);
 			_State_UI->SetName(L"hp_bar_frame");
 			Transform* hp_tr = _State_UI->GetComponent<Transform>();
@@ -129,8 +125,6 @@ namespace jk
 		}
 		{
 			Monster_UIHp = new Monster_Hp_Bar(L"EnemyHealthBar");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::UI, Monster_UIHp);
 			Monster_UIHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_UIHp->GetComponent<Transform>();
@@ -143,8 +137,6 @@ namespace jk
 		}
 		{
 			Monster_UIDamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::UI, Monster_UIDamegeHp);
 			Monster_UIDamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_UIDamegeHp->GetComponent<Transform>();
@@ -158,8 +150,6 @@ namespace jk
 
 		{
 			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_Frame");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
 			Hpbar_Frame->SetName(L"hp_bar_frame");
 			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
@@ -170,8 +160,6 @@ namespace jk
 
 		{
 			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
@@ -185,8 +173,6 @@ namespace jk
 
 		{
 			Monster_Hp = new Monster_Hp_Bar(L"EnemyHealthBar");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
@@ -210,7 +196,6 @@ namespace jk
 		{
 			_Attack_Sign = new Cleric_Attack_Sign;
 			_Attack_Sign->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Attack_Sign);
 			Transform* bullet_tr = _Attack_Sign->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -219,7 +204,6 @@ namespace jk
 		{
 			_GraceOfLeonia_Attack_A = new Cleric_HolyThunder;
 			_GraceOfLeonia_Attack_A->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, _GraceOfLeonia_Attack_A);
 			Transform* bullet_tr = _GraceOfLeonia_Attack_A->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -228,7 +212,6 @@ namespace jk
 		{
 			_Veteran_Sanctuary_AtaackB = new Cleric_Veteran_Sanctuary;
 			_Veteran_Sanctuary_AtaackB->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, _Veteran_Sanctuary_AtaackB);
 			Transform* bullet_tr = _Veteran_Sanctuary_AtaackB->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -238,7 +221,6 @@ namespace jk
 		{
 			Ultimate_Aura = new Public_Ultimate_Aura;
 			Ultimate_Aura->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Ultimate_Aura);
 			Transform* bullet_tr = Ultimate_Aura->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -248,7 +230,6 @@ namespace jk
 		{
 			Ultimate_AuraSmoke = new Public_Ultimate_AuraSmoke;
 			Ultimate_AuraSmoke->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Ultimate_AuraSmoke);
 			Transform* bullet_tr = Ultimate_AuraSmoke->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -257,7 +238,6 @@ namespace jk
 		{
 			UltimateSkill_Effect_Complete = new Public_UltimateSkill_Effect_Complete;
 			UltimateSkill_Effect_Complete->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Complete);
 			Transform* bullet_tr = UltimateSkill_Effect_Complete->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -266,7 +246,6 @@ namespace jk
 		{
 			UltimateSkill_Effect_Fail = new Public_UltimateSkill_Effect_Fail;
 			UltimateSkill_Effect_Fail->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, UltimateSkill_Effect_Fail);
 			Transform* bullet_tr = UltimateSkill_Effect_Fail->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -275,7 +254,6 @@ namespace jk
 		{
 			Ultimate_SkillEffect = new Cleric_Ultimate_SkillEffect;
 			Ultimate_SkillEffect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Ultimate_SkillEffect);
 			Transform* bullet_tr = Ultimate_SkillEffect->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(0.f, 0.f, -205));
@@ -284,7 +262,6 @@ namespace jk
 		{
 			Ultimate_Heal_Effect = new Public_Heal_Effect;
 			Ultimate_Heal_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Ultimate_Heal_Effect);
 			Transform* bullet_tr = Ultimate_Heal_Effect->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(pos.x, pos.y, -205));
@@ -294,8 +271,6 @@ namespace jk
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
@@ -303,8 +278,6 @@ namespace jk
 		{
 			_Hit_Sword = new Hit_Sword;
 			_Hit_Sword->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
 			_Hit_Sword->SetState(eState::Paused);
 		}
@@ -312,16 +285,12 @@ namespace jk
 		{
 			_Critical_Middle = new Hit_Critical_Middle;
 			_Critical_Middle->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
 			_Critical_Middle->SetState(eState::Paused);
 		}
 		{
 			_Critical_High = new Hit_Critical_High;
 			_Critical_High->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_High);
 			_Critical_High->SetState(eState::Paused);
 		}
@@ -329,8 +298,6 @@ namespace jk
 		{
 			_Death_Effect = new Monster_Death_Effect;
 			_Death_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
 			_Death_Effect->SetState(eState::Paused);
 		}

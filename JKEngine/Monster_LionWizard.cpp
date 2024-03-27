@@ -84,11 +84,10 @@ namespace jk
 		at->PlayAnimation(L"Lion_wizardIdle", true);
 
 
+			Scene* scene = SceneManager::GetActiveScene();
 		//체력관련
 		{
 			Hpbar_Frame = new HP_Frame(L"EnemyHealthBar_Frame");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Hpbar_Frame);
 			Hpbar_Frame->SetName(L"hp_bar_frame");
 			Transform* hp_tr = Hpbar_Frame->GetComponent<Transform>();
@@ -99,8 +98,6 @@ namespace jk
 
 		{
 			Monster_DamegeHp = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_DamegeHp);
 			Monster_DamegeHp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_DamegeHp->GetComponent<Transform>();
@@ -114,8 +111,6 @@ namespace jk
 
 		{
 			Monster_Hp = new Monster_Hp_Bar(L"EnemyHealthBar");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Monster, Monster_Hp);
 			Monster_Hp->SetName(L"warrior_hp_bar");
 			Transform* hp_tr = Monster_Hp->GetComponent<Transform>();
@@ -131,8 +126,6 @@ namespace jk
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
@@ -140,8 +133,6 @@ namespace jk
 		{
 			_Death_Effect = new Monster_Death_Effect;
 			_Death_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
 			_Death_Effect->SetState(eState::Paused);
 		}
@@ -149,8 +140,6 @@ namespace jk
 		{
 			Hit_Box = new HitBox_Monster();
 			Hit_Box->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetState(eState::Paused);
 		}
@@ -158,8 +147,6 @@ namespace jk
 		{
 			Wizard_Teleport = new Monster_StoneWizard_Teleport();
 			Wizard_Teleport->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Wizard_Teleport);
 			Effect_tr = Wizard_Teleport->GetComponent<Transform>();
 			Effect_tr->SetPosition(tr->GetPosition());
@@ -169,8 +156,6 @@ namespace jk
 		{
 			BulletCreate = new LionWizard_Bullet_Create();
 			BulletCreate->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, BulletCreate);
 			Transform* effect_tr = BulletCreate->GetComponent<Transform>();
 			effect_tr->SetPosition(tr->GetPosition());
@@ -181,8 +166,6 @@ namespace jk
 		{
 			LionBullet[i] = new LionWizard_Bullet();
 			LionBullet[i]->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, LionBullet[i]);
 			Transform* effect_tr = LionBullet[i]->GetComponent<Transform>();
 			effect_tr->SetPosition(tr->GetPosition());
@@ -193,7 +176,6 @@ namespace jk
 		{
 			Hit_Particle = new GameObject();
 			Particle_DamageEffect* mr = Hit_Particle->AddComponent<Particle_DamageEffect>(Vector3());
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, Hit_Particle);
 			Hit_Particle->SetState(eState::Paused);
 		}

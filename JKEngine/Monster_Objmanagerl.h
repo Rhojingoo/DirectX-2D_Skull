@@ -28,7 +28,7 @@ namespace jk
                 {
                     Monster_warrior* newMonster = new Monster_warrior();   
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     warrior_pool.push_back(newMonster);
                 }
@@ -38,7 +38,7 @@ namespace jk
                 {
                     Stone_wizard* newMonster = new Stone_wizard();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     wizard_pool.push_back(newMonster);
                 }
@@ -46,7 +46,7 @@ namespace jk
                 {
                     Monster_GreenTree* newMonster = new Monster_GreenTree();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     GreenTree_pool.push_back(newMonster);
                 }
@@ -54,7 +54,7 @@ namespace jk
                 {
                     Monster_BlossomEnt* newMonster = new Monster_BlossomEnt();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     Blossom_pool.push_back(newMonster);
                 }
@@ -64,7 +64,7 @@ namespace jk
                 {
                     Monster_BigEnt* newMonster = new Monster_BigEnt();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     BigEnt_pool.push_back(newMonster);
                 }
@@ -72,7 +72,7 @@ namespace jk
                 {
                     Monster_Hammer* newMonster = new Monster_Hammer();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     Hammer_pool.push_back(newMonster);
                 }
@@ -86,7 +86,7 @@ namespace jk
                 {
                     Monster_Goldwarrior* newMonster = new Monster_Goldwarrior();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     Goldwarrior_pool.push_back(newMonster);
                 }
@@ -96,7 +96,7 @@ namespace jk
                 {
                     Stone_wizard* newMonster = new Stone_wizard();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     wizard_pool.push_back(newMonster);
                 }
@@ -106,7 +106,7 @@ namespace jk
                 {
                     Monster_GoldHammer* newMonster = new Monster_GoldHammer();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     GoldHammer_pool.push_back(newMonster);
                 }
@@ -115,7 +115,7 @@ namespace jk
                 {
                     Monster_LionSpear* newMonster = new Monster_LionSpear();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     LionSpear_pool.push_back(newMonster);
                 }
@@ -124,7 +124,7 @@ namespace jk
                 {
                     Monster_LionWarrior* newMonster = new Monster_LionWarrior();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     LionWarrior_pool.push_back(newMonster);
                 }
@@ -132,7 +132,7 @@ namespace jk
                 {
                     Monster_LionWizard* newMonster = new Monster_LionWizard();
                     newMonster->Initialize();
-                    SceneManager::GetActiveScene()->AddMonster(newMonster);
+                    SceneManager::GetInitializeScene()->AddMonster(newMonster);
                     newMonster->SetState(GameObject::eState::Paused);
                     LionWizard_pool.push_back(newMonster);
                 }

@@ -275,8 +275,7 @@ namespace jk
 		//hp°ü·Ã
 		{
 			Dark_Awaken_Hp = new Monster_Hp_Bar(L"BossHealthBar_SecondPhase");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, Dark_Awaken_Hp);
 			Transform* hp_tr = Dark_Awaken_Hp->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50, _pos.z - 1));
@@ -287,8 +286,7 @@ namespace jk
 		}
 		{
 			Dark_Awaken_DamegeHP = new Monster_Hp_Bar(L"EnemyHealthBar_Damage");
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, Dark_Awaken_DamegeHP);
 			Transform* hp_tr = Dark_Awaken_DamegeHP->GetComponent<Transform>();
 			hp_tr->SetPosition(Vector3(_pos.x, _pos.y + 50.f, _pos.z - 1.5f));
@@ -307,8 +305,7 @@ namespace jk
 		{
 			Hit_Box = new HitBox_Layana();
 			Hit_Box->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetState(eState::Paused);
 		}
@@ -317,7 +314,7 @@ namespace jk
 		{
 			AfterImage[i] = new Layana_AfterImage();
 			AfterImage[i]->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, AfterImage[i]);
 			AfterImage[i]->Set_Owner(this);
 			AfterImage[i]->SetState(eState::Paused);
@@ -327,7 +324,7 @@ namespace jk
 		{
 			Rush_Sign[i] = new Layana_Awken_Rush_Sign;
 			Rush_Sign[i]->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, Rush_Sign[i]);
 			Transform* bullet_tr = Rush_Sign[i]->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
@@ -338,7 +335,7 @@ namespace jk
 		{
 			Rush_Bullet[i] = new Latana_Awake_Rush_Bullet;
 			Rush_Bullet[i]->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Bullet, Rush_Bullet[i]);
 			Transform* bullet_tr = Rush_Bullet[i]->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
@@ -348,7 +345,7 @@ namespace jk
 		{
 			_Meteoreffect = new Layana_Awaken_Meteoreffect;
 			_Meteoreffect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Meteoreffect);
 			Transform* boss_effect = _Meteoreffect->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z-1));
@@ -358,7 +355,7 @@ namespace jk
 		{
 			_Ground_Sign = new Layana_Awaken_Ground_Sign;
 			_Ground_Sign->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Ground_Sign);
 			Transform* boss_effect = _Ground_Sign->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -368,7 +365,7 @@ namespace jk
 		{
 			_Ground_Attack = new Latana_Awake_Rush_Bullet;
 			_Ground_Attack->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Bullet, _Ground_Attack);
 			Transform* boss_effect = _Ground_Attack->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -380,7 +377,7 @@ namespace jk
 			{
 				_Ground_Thunder_Sign[i] = new Layana_Awaken_Ground_Thunder_Sign;
 				_Ground_Thunder_Sign[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
+				Scene* scene = SceneManager::GetInitializeScene();
 				scene->AddGameObject(eLayerType::Effect, _Ground_Thunder_Sign[i]);
 				_Ground_Thunder_Sign[i]->SetState(eState::Paused);
 			}
@@ -408,7 +405,7 @@ namespace jk
 			{
 				_Ground_Thunder[i] = new Layana_Ground_Thunder;
 				_Ground_Thunder[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
+				Scene* scene = SceneManager::GetInitializeScene();
 				scene->AddGameObject(eLayerType::Bullet, _Ground_Thunder[i]);
 				_Ground_Thunder[i]->SetState(eState::Paused);
 			}
@@ -434,7 +431,7 @@ namespace jk
 		{
 			_Ground_DashSmoke= new  Layana_Awake_Ground_DashSmoke;
 			_Ground_DashSmoke->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Ground_DashSmoke);
 			Transform* boss_effect = _Ground_DashSmoke->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -445,7 +442,7 @@ namespace jk
 		{
 			_GoldenMeteor_Effect = new  Layana_Awaken_GoldenMeteor_Effect;
 			_GoldenMeteor_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _GoldenMeteor_Effect);
 			Transform* boss_effect = _GoldenMeteor_Effect->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -456,7 +453,7 @@ namespace jk
 		{
 			_Meteor_Electric = new  Layana_Awaken_Meteor_Electric;
 			_Meteor_Electric->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Meteor_Electric);
 			Transform* boss_effect = _Meteor_Electric->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -468,7 +465,7 @@ namespace jk
 			{
 				_Meteor_Projectile[i] = new  Layana_Awaken_Meteor_Projectile;
 				_Meteor_Projectile[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
+				Scene* scene = SceneManager::GetInitializeScene();
 				scene->AddGameObject(eLayerType::Bullet, _Meteor_Projectile[i]);
 				Transform* boss_effect = _Meteor_Projectile[i]->GetComponent<Transform>();
 				boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -482,7 +479,7 @@ namespace jk
 			{
 				_Dark_HomingPierce[i] = new  Layana_Dark_HomingPierce;
 				_Dark_HomingPierce[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
+				Scene* scene = SceneManager::GetInitializeScene();
 				scene->AddGameObject(eLayerType::Effect, _Dark_HomingPierce[i]);
 				_Dark_HomingPierce[i]->SetState(eState::Paused);
 			}
@@ -505,7 +502,7 @@ namespace jk
 			{
 				_HomingPierce_Effect[i] = new  Layana_Dark_HomingPierce_Effect;
 				_HomingPierce_Effect[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
+				Scene* scene = SceneManager::GetInitializeScene();
 				scene->AddGameObject(eLayerType::Effect, _HomingPierce_Effect[i]);
 				_HomingPierce_Effect[i]->SetState(eState::Paused);
 			}
@@ -528,7 +525,7 @@ namespace jk
 			{
 				_HomingPierce_Attack[i] = new  Layana_Awaken_Homing_Attac;
 				_HomingPierce_Attack[i]->Initialize();
-				Scene* scene = SceneManager::GetActiveScene();
+				Scene* scene = SceneManager::GetInitializeScene();
 				scene->AddGameObject(eLayerType::Bullet, _HomingPierce_Attack[i]);
 				_HomingPierce_Attack[i]->SetState(eState::Paused);
 			}
@@ -550,7 +547,7 @@ namespace jk
 		{
 			_DimensionPierce_Bosseffect = new  Dark_DimensionPierce_Attack;
 			_DimensionPierce_Bosseffect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _DimensionPierce_Bosseffect);
 			Transform* boss_effect = _DimensionPierce_Bosseffect->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -560,7 +557,7 @@ namespace jk
 		{
 			_DimensionPierce_Sign = new  Dark_DimensionPierce_Sign;
 			_DimensionPierce_Sign->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _DimensionPierce_Sign);
 			Transform* boss_effect = _DimensionPierce_Sign->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -570,7 +567,7 @@ namespace jk
 		{
 			_DimensionPierce_BulletEffect = new  Dark_DimensionPierce_BulletEffect;
 			_DimensionPierce_BulletEffect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Bullet, _DimensionPierce_BulletEffect);
 			Transform* boss_effect = _DimensionPierce_BulletEffect->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -581,7 +578,7 @@ namespace jk
 		{
 			Awaken_End_ElecEF = new  Awaken_End_Electric;
 			Awaken_End_ElecEF->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, Awaken_End_ElecEF);
 			Transform* boss_effect = Awaken_End_ElecEF->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -590,7 +587,7 @@ namespace jk
 		{
 			Awaken_End_SmA_EF = new  Awaken_End_SmokeA;
 			Awaken_End_SmA_EF->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, Awaken_End_SmA_EF);
 			Transform* boss_effect = Awaken_End_SmA_EF->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -599,7 +596,7 @@ namespace jk
 		{
 			Awaken_End_SmB_EF = new  Awaken_End_SmokeB2;
 			Awaken_End_SmB_EF->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, Awaken_End_SmB_EF);
 			Transform* boss_effect = Awaken_End_SmB_EF->GetComponent<Transform>();
 			boss_effect->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
@@ -612,8 +609,7 @@ namespace jk
 		{
 			_Hit_Effect = new Monster_Hit_Effect;
 			_Hit_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect);
 			_Hit_Effect->SetState(eState::Paused);
 		}
@@ -622,8 +618,7 @@ namespace jk
 		{
 			_Hit_Effect_player = new Player_Hit_Effect;
 			_Hit_Effect_player->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Effect_player);
 			_Hit_Effect_player->SetState(eState::Paused);
 		}
@@ -631,8 +626,7 @@ namespace jk
 		{
 			_Hit_Sword = new Hit_Sword;
 			_Hit_Sword->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Hit_Sword);
 			_Hit_Sword->SetState(eState::Paused);
 		}
@@ -641,16 +635,14 @@ namespace jk
 		{
 			_Critical_Middle = new Hit_Critical_Middle;
 			_Critical_Middle->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_Middle);
 			_Critical_Middle->SetState(eState::Paused);
 		}
 		{
 			_Critical_High = new Hit_Critical_High;
 			_Critical_High->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Critical_High);
 			_Critical_High->SetState(eState::Paused);
 		}
@@ -658,8 +650,7 @@ namespace jk
 		{
 			_Death_Effect = new Monster_Death_Effect;
 			_Death_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Effect);
 			_Death_Effect->SetState(eState::Paused);
 		}
@@ -669,40 +660,35 @@ namespace jk
 		{
 			_Death_Intro = new Death_IntroEffect;
 			_Death_Intro->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Intro);
 			_Death_Intro->SetState(eState::Paused);
 		}
 		{
 			_Death_EF_First = new Death_Effect_First;
 			_Death_EF_First->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_EF_First);
 			_Death_EF_First->SetState(eState::Paused);
 		}
 		{
 			_Death_EF_Second = new Death_Effect_Second;
 			_Death_EF_Second->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_EF_Second);
 			_Death_EF_Second->SetState(eState::Paused);
 		}
 		{
 			_Death_Elect1 = new Death_Elect_First;
 			_Death_Elect1->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Elect1);
 			_Death_Elect1->SetState(eState::Paused);
 		}
 		{
 			_Death_Elect2 = new Death_Elect_Second;
 			_Death_Elect2->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Effect, _Death_Elect2);
 			_Death_Elect2->SetState(eState::Paused);
 		}

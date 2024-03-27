@@ -87,7 +87,7 @@ namespace jk
 		{
 			Energy_Bomb = new Yggdrasil_Energy_Bomb;
 			Energy_Bomb->Initialize();			
-			Scene* scene = SceneManager::GetActiveScene();
+			Scene* scene = SceneManager::GetInitializeScene();
 			scene->AddGameObject(eLayerType::Bullet, Energy_Bomb);
 			Transform* bullet_tr = Energy_Bomb->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));

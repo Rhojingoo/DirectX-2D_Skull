@@ -30,7 +30,7 @@ namespace jk
 				as = player->AddComponent<AudioSource>();
 				as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\Title\\MainTitle_Hardmode.wav", "TestSound"));			
 				as->SetLoop(true);
-				as->Play("TestSound");
+	
 
 
 
@@ -74,6 +74,7 @@ namespace jk
 	}
 	void jkTitleScene::OnEnter()
 	{
+		as->Play("TestSound");
 	}
 	void jkTitleScene::OnExit()
 	{

@@ -4,8 +4,9 @@
 namespace jk
 {
 	Scene* SceneManager::mActiveScene = nullptr;
-	Scene* SceneManager::mActiveScene2 = nullptr;
+	Scene* SceneManager::mInitializeScene = nullptr;
 	Scene* SceneManager::mActiveScene3 = nullptr;
+	bool SceneManager::Scenebegin = false;
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	
 	void SceneManager::Initialize()
@@ -52,6 +53,19 @@ namespace jk
 		mActiveScene->OnExit();
 		mActiveScene = iter->second;
 		mActiveScene->OnEnter();
+
+		return iter->second;
+	}
+
+	Scene* SceneManager::FindScene(std::wstring name)
+	{
+		std::map<std::wstring, Scene*>::iterator iter
+			= mScenes.find(name);
+
+		if (iter == mScenes.end())
+			return nullptr;
+
+		mActiveScene = iter->second;
 
 		return iter->second;
 	}

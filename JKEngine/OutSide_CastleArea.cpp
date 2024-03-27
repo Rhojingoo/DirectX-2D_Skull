@@ -207,7 +207,7 @@ namespace jk
 
 #pragma region Cam & Mouse& Grid
 		//Main Camera			
-		Main_Camera* camera = object::Instantiate<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+		Main_Camera* camera = object::InstantiateActive<Main_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		cameraComp = camera->AddComponent<Camera>();
 		cameraComp->TurnLayerMask(eLayerType::UI, false);
 		renderer::cameras.push_back(cameraComp);
@@ -219,7 +219,7 @@ namespace jk
 
 
 		//UI Camera		
-		UI_Camera* UI_camera = object::Instantiate<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
+		UI_Camera* UI_camera = object::InstantiateActive<UI_Camera>(Vector3(0.f, 0.f, -10.f), eLayerType::Camera);
 		Camera* cameraComp_ui = UI_camera->AddComponent<Camera>();
 		cameraComp_ui->TurnLayerMask(eLayerType::Player, false);
 		cameraComp_ui->TurnLayerMask(eLayerType::Monster, false);
@@ -239,13 +239,13 @@ namespace jk
 
 
 		//UI_Mouse
-		UI_Mouse* cursor = object::Instantiate<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
+		UI_Mouse* cursor = object::InstantiateActive<UI_Mouse>(Vector3(Vector3::One), eLayerType::Camera);
 		cursor->SetName(L"Catle_Cursor_UI");
 		cursor->GetComponent<Transform>()->SetScale(Vector3(42.f, 42.f, -250.f));
 		cursor->SetName(L"Mouse_UI"); cursor->SetCamera(UI_camera);
 
 		//Grid
-		Grid* grid = object::Instantiate<Grid>(Vector3(Vector3::One), eLayerType::Grid);
+		Grid* grid = object::InstantiateActive<Grid>(Vector3(Vector3::One), eLayerType::Grid);
 		grid->SetName(L"Catle_Grid");
 		GridScript* gridSc = grid->AddComponent<GridScript>();
 		gridSc->SetCamera(cameraComp);

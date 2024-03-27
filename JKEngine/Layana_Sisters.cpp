@@ -143,7 +143,7 @@ namespace jk
 		as->SetClipAndLoad(L"..\\Resources\\Sound\\Boss\\Leiana\\Leiana_MeteorGround.wav", "Leiana_MeteorGround");
 
 
-		Scene* scene = SceneManager::GetActiveScene();
+		Scene* scene = SceneManager::GetInitializeScene();
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[0]);
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[1]);
 		scene->AddGameObject(eLayerType::Boss, _Gobjs[2]);
@@ -154,8 +154,6 @@ namespace jk
 		{
 			_HpBarFrame = new Layana_HpFrame();
 			_HpBarFrame->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _HpBarFrame);
 			Transform* bullet_tr = _HpBarFrame->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(0.f, 170.f, -205.f));

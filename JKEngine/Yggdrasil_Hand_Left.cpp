@@ -6,6 +6,8 @@
 #include "Yggdrasil_HandDead_Effect.h"
 #include "..\Engine_SOURCE\jkAudioSource.h"
 
+
+
 namespace jk
 {
 	bool Yggdrasil_Hand_Left::_Attackswitch = false;
@@ -68,11 +70,11 @@ namespace jk
 		//at->CompleteEvent(L"ArcherAttack_B") = std::bind(&Archer::choicecombo, this);
 		//at->CompleteEvent(L"ArcherAttack_C") = std::bind(&Archer::choicecombo, this);
 
+		Scene* scene = SceneManager::GetInitializeScene();
 
 		{
 			FistSlam_Smoke = new Yggdrasil_FistSlam_Effect;
-			FistSlam_Smoke->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
+			FistSlam_Smoke->Initialize();	
 			scene->AddGameObject(eLayerType::Bullet, FistSlam_Smoke);
 			Transform* effect_tr = FistSlam_Smoke->GetComponent<Transform>();
 			effect_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));	
@@ -81,7 +83,6 @@ namespace jk
 		{
 			_Sweeping = new Yggdrasil_Sweeping;
 			_Sweeping->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Bullet, _Sweeping);
 			Transform* effect_tr = _Sweeping->GetComponent<Transform>();
 			effect_tr->SetPosition(Vector3(_pos.x, _pos.y, -205));
@@ -91,15 +92,12 @@ namespace jk
 		{
 			Hit_Box = new HitBox_YggDrasil();
 			Hit_Box->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
-			scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Hitbox, Hit_Box);
 			Hit_Box->SetState(eState::Paused);
 		}
 		{
 			_Dead_Effect = new Yggdrasil_HandDead_Effect;
 			_Dead_Effect->Initialize();
-			Scene* scene = SceneManager::GetActiveScene();
 			scene->AddGameObject(eLayerType::Effect, _Dead_Effect);
 			Transform* bullet_tr = _Dead_Effect->GetComponent<Transform>();
 			bullet_tr->SetPosition(Vector3(_pos.x, _pos.y, _pos.z - 1));
